@@ -35,12 +35,12 @@ class HomePage extends Component {
                 />
               </div>
             ) : (
-                <div>
-                  <Button type="primary" onClick={this.openModalLogin}>
-                    Profill
+              <div>
+                <Button type="primary" onClick={this.openModalLogin}>
+                  Profil
                 </Button>
-                </div>
-              )}
+              </div>
+            )}
           </Col>
         </Row>
       </div>

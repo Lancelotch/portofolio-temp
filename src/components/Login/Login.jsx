@@ -17,10 +17,10 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        authentication.login(values).then(response=>{
+        authentication.login(values).then(response => {
           this.props.isAuthenticated();
           this.props.onCancel();
-        }).catch(error=>{
+        }).catch(error => {
           console.log(error);
         })
       }
@@ -42,7 +42,7 @@ class Login extends Component {
             <FormItem>
               {getFieldDecorator("email", {
                 rules: [
-                  { type:"email", required: true, message: "Please input your email!" }
+                  { type: "email", required: true, message: "Please input your email!" }
                 ]
               })(
                 <Input
@@ -94,15 +94,15 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated : state.authReducer.isAuthenticated 
+    isAuthenticated: state.authReducer.isAuthenticated
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    isAuthenticated : ()=>dispatch({type : LOGIN})
+    isAuthenticated: () => dispatch({ type: LOGIN })
   }
 }
 
 const LoginForm = Form.create({})(Login);
-export default connect(mapStateToProps,mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
