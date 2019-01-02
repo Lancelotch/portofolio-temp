@@ -8,10 +8,9 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        {/* <Switch>
+        <Switch>
           <Route exact path="/" component={HomePage} />
-        </Switch> */}
-        <SliderPrimary />
+        </Switch>
 
       </BrowserRouter>
     );
