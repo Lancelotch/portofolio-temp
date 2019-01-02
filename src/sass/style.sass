@@ -1,16 +1,22 @@
-.container-fluid 
+html 
+  font-size: 10px
+  font-family: Roboto
+
+  body 
+    padding: 1rem
+
+  .container
   width: 100%
+  margin-left: auto
+  padding-left: 1.5rem
+  margin-right: auto
+  padding-right: 1.5rem
 
-@media screen and (max-width: 400px)
-  .container 
-    width: 123px
-  
+@media (min-width: 120rem)
+  .container
+      max-width: 114rem
 
-@media screen and (min-width: 401px) and (max-width: 800px)
-  .container 
-    width: 456px
-  
-@media screen and (min-width: 801px)
-  .container 
-    width: 789px
-  
+
+
+
+
