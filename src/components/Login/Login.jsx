@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Input, Form, Button, Icon, Checkbox } from "antd";
 import { connect } from 'react-redux';
-import "./style.css";
+import "./style.sass";
 import authentication from "../../api/services/authentication";
 import { LOGIN } from "../../store/actions/actions";
 
