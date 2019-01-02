@@ -4,13 +4,20 @@ import { connect } from "react-redux";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
 import { LOGIN } from "../../store/actions/actions";
+import strings from "../../config/localization";
 
 const FormItem = Form.Item;
 
 class Login extends Component {
-  // onChangeValue = e => {
-  //   this.setState({ [e.target.name]: e.target.value });
-  // };
+  // state ={
+  //   isAuthenticated : false
+  // }
+  constructor(props){
+    super(props);
+    this.state = {
+      isAuthenticated : this.props.isAuthenticated
+    }
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -20,7 +27,9 @@ class Login extends Component {
         authentication
           .login(values)
           .then(response => {
-            this.props.isAuthenticated();
+            console.log(response);
+            const token = response.data;
+            this.props.isAuthenticateds(token);
             this.props.onCancel();
           })
           .catch(error => {
@@ -31,6 +40,8 @@ class Login extends Component {
   };
 
   render() {
+    console.log(this.props.token);
+    
     const { visible, onCancel, form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -42,77 +53,72 @@ class Login extends Component {
           onCancel={onCancel}
           width={380}
         >
-            <div className="modal-content">
-              <div className="modal-content__header">
-                <h3 className="modal-content__header__typography-title">Login</h3>
-                <Button icon="facebook" className="modal-content__header__button-soc">facebook</Button>
-                <Button icon="google" className="modal-content__header__button-soc">google</Button>
-              </div>
-              <div className="modal-content__body">
-                <Form onSubmit={this.handleSubmit} className="login-form">
-                  <FormItem>
-                    {getFieldDecorator("email", {
-                      rules: [
-                        {
-                          type: "email",
-                          required: true,
-                          message: "Please input your email!"
-                        }
-                      ]
-                    })(
-                      <Input
-                        prefix={
-                          <Icon
-                            type={"user"}
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        }
-                        placeholder={"Email"}
-                      />
-                    )}
-                  </FormItem>
-                  <FormItem>
-                    {getFieldDecorator("password", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "Please input your password!"
-                        }
-                      ]
-                    })(
-                      <Input
-                        prefix={
-                          <Icon
-                            type={"lock"}
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        }
-                        placeholder={"Password"}
-                        type="password"
-                      />
-                    )}
-                  </FormItem>
-                  <FormItem>
-                    {getFieldDecorator("remember", {
-                      valuePropName: "checked",
-                      initialValue: true
-                    })(<Checkbox>Remember me</Checkbox>)}
-                    <a className="login-form__forgot" href="">
-                      Forgot password
-                    </a>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      className="login-form__button"
-                    >
-                      Log in
-                    </Button>
-                    Or <a href="">register now!</a>
-                  </FormItem>
-                </Form>
-              </div>
-              <div className="modal-content__footer" />
+          <Form onSubmit={this.handleSubmit} className="login-form">
+            <h1 className="login-form__typography">{strings.login_enter}</h1>
+            <Button size={"large"} className="login-form__button"><Icon type="google" style={{float : "left"}}></Icon>{strings.google}</Button>
+            <Button size={"large"} className="login-form__button"><Icon type="facebook" style={{float : "left"}}></Icon>{strings.facebook}</Button>
+            <div className="login-form__separator">
+              <span className="login-form__separator__hline"></span>
+              <span className="login-form__separator__text">{strings.login_option}</span>
+              <span className="login-form__separator__hline"></span>
             </div>
+            <FormItem className="login-form__input-text">
+              {getFieldDecorator("email", {
+                rules: [
+                  {
+                    type: "email",
+                    required: true,
+                    message: "Please input your email!"
+                  }
+                ]
+              })(
+                <Input
+                  size={"large"}
+                  prefix={
+                    <Icon type={"user"} style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  placeholder={"Email"}
+                />
+              )}
+            </FormItem>
+            <FormItem className="login-form__input-text">
+              {getFieldDecorator("password", {
+                rules: [
+                  {
+                    required: true,
+                    message: "Please input your password!"
+                  }
+                ]
+              })(
+                <Input
+                size={"large"}
+                  prefix={
+                    <Icon type={"lock"} style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  placeholder={"Password"}
+                  type="password"
+                />
+              )}
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator("remember", {
+                valuePropName: "checked",
+                initialValue: true
+              })(<Checkbox>{strings.login_remember_me}</Checkbox>)}
+              <a className="login-form__forgot" href="">
+                {strings.login_forgot_password}
+              </a>
+              <Button
+                size={"large"}
+                htmlType="submit"
+                className="login-form__button__submit"
+              >
+                {strings.login_enter}
+              </Button>
+              {strings.formatString(strings.login_quote,<a href="">{strings.login_register} </a>)}
+              
+            </FormItem>
+          </Form>
         </Modal>
       </React.Fragment>
     );
@@ -121,13 +127,14 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authReducer.isAuthenticated
+    isAuthenticated: state.authReducer.isAuthenticated,
+    token: state.authReducer.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    isAuthenticated: () => dispatch({ type: LOGIN })
+    isAuthenticateds: (token) => dispatch({ type: LOGIN, payLoad: token })
   };
 };
 
