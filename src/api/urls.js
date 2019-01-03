@@ -7,11 +7,13 @@ const urlGetCategoryFeature = "api/v1/category/feature";
 
 //Authentication Page
 const login = "api/v1/public/user/login";
+const loginSocialMedia = "api/v1/public/user/login-sosmed";
 
 const urls = {
     mainServices : mainServices,
     login : login,
-    urlGetCategoryFeature : urlGetCategoryFeature,
+    loginSocialMedia : loginSocialMedia,
+    urlGetCategoryFeature : urlGetCategoryFeature
 }
 
 export default urls
