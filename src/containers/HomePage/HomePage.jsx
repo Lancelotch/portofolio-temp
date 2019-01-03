@@ -22,6 +22,7 @@ class HomePage extends Component {
     return (
       <div>
         <Row>
+          <Col span={12} />
           <Col span={24}>
             <Header />
           </Col>
