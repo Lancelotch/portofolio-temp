@@ -5,18 +5,38 @@ html
   body 
     padding: 1rem
 
-  .container
+.container-fluid 
+    width: 100%
+    padding-right: 1.5rem
+    padding-left: 1.5rem
+    margin-right: auto
+    margin-left: auto
+
+.container
   width: 100%
   margin-left: auto
   padding-left: 1.5rem
   margin-right: auto
   padding-right: 1.5rem
 
-@media (min-width: 120rem)
+@media  (min-width: 1200px)
   .container
-      max-width: 114rem
+    max-width: 1140px
 
+@media (min-width: 992px) and (max-width: 1199px)
+  .container
+    max-width: 960px  
 
+@media (min-width: 768px) and (max-width: 991px)
+  .container
+    max-width: 720px      
+
+@media (min-width: 576px) and (max-width: 767px)
+  .container
+    max-width: 540px    
+ 
+
+  
 
 
 
