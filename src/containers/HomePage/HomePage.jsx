@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import Header from "../../components/Header/Header.jsx";
+import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 
 class HomePage extends Component {
   constructor() {
@@ -25,6 +26,7 @@ class HomePage extends Component {
           <Col span={12} />
           <Col span={24}>
             <Header />
+            <SliderPrimary />
           </Col>
         </Row>
       </div>

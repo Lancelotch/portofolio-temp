@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 import { List } from 'antd';
 import "./style.sass";
 import "sass/style.sass";
-import serviceCategory from "../../api/services/ServiceCategory";
+import serviceCategory from "api/services/ServiceCategory";
 
 class Header extends Component {
     constructor() {
