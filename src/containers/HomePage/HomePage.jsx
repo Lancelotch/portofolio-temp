@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Button, Row, Col } from "antd";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import Header from "components/Header/Header.jsx";
+import Header from "../../components/Header/Header.jsx";
 
 class HomePage extends Component {
 

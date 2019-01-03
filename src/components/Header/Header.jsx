@@ -31,6 +31,7 @@ class Header extends Component {
     };
 
 
+
     getCategoryFeature = () => {
         serviceCategory
             .CategoryFeature()
@@ -81,23 +82,22 @@ class Header extends Component {
                                     }}
                                 />
                                 {this.props.isAuthenticated !== true ? (
-                                    <React.Fragment>
+                                    <div>
                                         <Button type="primary" onClick={this.openModalLogin}>
                                             Login
-                                        </Button>
+                </Button>
                                         <Login
                                             visible={this.state.openModalLogin}
                                             onCancel={this.openModalLogin}
                                         />
-                                    </React.Fragment>
+                                    </div>
                                 ) : (
-                                        <React.Fragment>
+                                        <div>
                                             <Button type="primary" onClick={this.openModalLogin}>
                                                 Profil
-                                    </Button>
-                                        </React.Fragment>
-                                    )
-                                }
+                </Button>
+                                        </div>
+                                    )}
                             </div>
                         </Col>
                     </Row>
