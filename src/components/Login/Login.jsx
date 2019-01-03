@@ -12,10 +12,10 @@ class Login extends Component {
   // state ={
   //   isAuthenticated : false
   // }
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated : this.props.isAuthenticated
+      isAuthenticated: this.props.isAuthenticated
     }
   }
 
@@ -41,7 +41,7 @@ class Login extends Component {
 
   render() {
     console.log(this.props.token);
-    
+
     const { visible, onCancel, form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -55,8 +55,8 @@ class Login extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="login-form__typography">{strings.login_enter}</h1>
-            <Button size={"large"} className="login-form__button"><Icon type="google" style={{float : "left"}}></Icon>{strings.google}</Button>
-            <Button size={"large"} className="login-form__button"><Icon type="facebook" style={{float : "left"}}></Icon>{strings.facebook}</Button>
+            <Button size={"large"} className="login-form__button"><Icon type="google" style={{ float: "left" }}></Icon>{strings.google}</Button>
+            <Button size={"large"} className="login-form__button"><Icon type="facebook" style={{ float: "left" }}></Icon>{strings.facebook}</Button>
             <div className="login-form__separator">
               <span className="login-form__separator__hline"></span>
               <span className="login-form__separator__text">{strings.login_option}</span>
@@ -91,7 +91,7 @@ class Login extends Component {
                 ]
               })(
                 <Input
-                size={"large"}
+                  size={"large"}
                   prefix={
                     <Icon type={"lock"} style={{ color: "rgba(0,0,0,.25)" }} />
                   }
@@ -115,8 +115,8 @@ class Login extends Component {
               >
                 {strings.login_enter}
               </Button>
-              {strings.formatString(strings.login_quote,<a href="">{strings.login_register} </a>)}
-              
+              {strings.formatString(strings.login_quote, <a href="">{strings.login_register} </a>)}
+
             </FormItem>
           </Form>
         </Modal>
