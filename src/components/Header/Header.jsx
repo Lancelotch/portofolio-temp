@@ -102,26 +102,34 @@ class Header extends Component {
                         </Col>
                     </Row>
                 </div>
+
                 <div className="container-fluid">
+                    <hr className="line-navigation" />
                     <Row>
-                        <hr className="line-navigation" />
-                        <Col md={12}>
-                            <div className="container">
-                                {this.state.isDataCategoryFeatureLoaded !== false &&
-                                    this.state.categoryFeature[0].subCategory[1].childSubCategory.map(
-                                        (category, index) => {
-                                            if (index <= 5) {
-                                                var link = "/category-product/" + category.id;
-                                                return (
-                                                    <NavLink key={category.id} to={link}>
-                                                        <p> {category.name}</p>
-                                                    </NavLink>
-                                                );
+                        <Col md={24}>
+                            <div className="container" >
+                                <div style={{
+                                    justifyContent: "flex-start",
+                                    flexDirection: "row",
+                                    display: "flex",
+                                    alignItems: "center"
+                                }}>
+                                    {this.state.isDataCategoryFeatureLoaded !== false &&
+                                        this.state.categoryFeature[0].subCategory[1].childSubCategory.map(
+                                            (category, index) => {
+                                                if (index <= 5) {
+                                                    var link = "/category-product/" + category.id;
+                                                    return (
+
+                                                        <NavLink key={category.id} to={link} className="nav-link">
+                                                            {category.name}
+                                                        </NavLink>
+
+                                                    );
+                                                }
                                             }
-                                        }
-                                    )}
-
-
+                                        )}
+                                </div>
                             </div>
                         </Col>
                     </Row>
