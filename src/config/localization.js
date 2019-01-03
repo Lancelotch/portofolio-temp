@@ -3,8 +3,8 @@ import LocalizedStrings from "react-localization";
 const strings = new LocalizedStrings({
   id: {
     //Social Media
-    google : "Google",
-    facebook : "Facebook",
+    google : "Masuk Dengan Google",
+    facebook : "Masuk Dengan Facebook",
     //Login
     login_enter : "Masuk",
     login_option : "atau masuk dengan",
