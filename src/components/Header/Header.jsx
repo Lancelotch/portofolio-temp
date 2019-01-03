@@ -57,7 +57,7 @@ class Header extends Component {
                             <NavLink tag={Link} to="/">
                                 <img
                                     src={require("assets/img/monggopesen_logo.png")}
-                                    className="img-navbar"
+                                    className="img-navigation"
                                 />
                             </NavLink>
                         </Col>
@@ -69,23 +69,14 @@ class Header extends Component {
                             />
                         </Col>
                         <Col md={10}>
-                            <div style=
-                                {{
-                                    display: "flex",
-                                    justifyContent: "flex-end"
-                                }}>
-                                <Icon type="shopping-cart" style=
-                                    {{
-                                        marginRight: "22px",
-                                        fontSize: "35px",
-                                        color: "#ffa122"
-                                    }}
+                            <div className="item-navigation">
+                                <Icon type="shopping-cart" className="icon-cart-navigation"
                                 />
                                 {this.props.isAuthenticated !== true ? (
                                     <div>
                                         <Button type="primary" onClick={this.openModalLogin}>
                                             Login
-                </Button>
+                                        </Button>
                                         <Login
                                             visible={this.state.openModalLogin}
                                             onCancel={this.openModalLogin}
@@ -95,7 +86,7 @@ class Header extends Component {
                                         <div>
                                             <Button type="primary" onClick={this.openModalLogin}>
                                                 Profil
-                </Button>
+                                            </Button>
                                         </div>
                                     )}
                             </div>
@@ -108,12 +99,7 @@ class Header extends Component {
                     <Row>
                         <Col md={24}>
                             <div className="container" >
-                                <div style={{
-                                    justifyContent: "flex-start",
-                                    flexDirection: "row",
-                                    display: "flex",
-                                    alignItems: "center"
-                                }}>
+                                <div className="categories-navigation">
                                     {this.state.isDataCategoryFeatureLoaded !== false &&
                                         this.state.categoryFeature[0].subCategory[1].childSubCategory.map(
                                             (category, index) => {
@@ -121,10 +107,9 @@ class Header extends Component {
                                                     var link = "/category-product/" + category.id;
                                                     return (
 
-                                                        <NavLink key={category.id} to={link} className="nav-link">
+                                                        <NavLink key={category.id} to={link} className="link-navigation">
                                                             {category.name}
                                                         </NavLink>
-
                                                     );
                                                 }
                                             }
