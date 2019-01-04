@@ -51,8 +51,8 @@ const SliderHome = () => {
 
 const serviceCategory = {
   CategoryFeature : CategoryFeature,
-    PromoFeature : PromoFeature,
-    SliderHome : SliderHome
+  PromoFeature : PromoFeature,
+  SliderHome : SliderHome
 }
 
 export default serviceCategory;
