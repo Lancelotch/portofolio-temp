@@ -35,7 +35,7 @@ const PromoFeature = ()=> {
 
 const SliderHome = () => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientMainService
+    httpClient.mainService
       .request({
         method: "GET",
         url: urls.urlGetSliderHome
