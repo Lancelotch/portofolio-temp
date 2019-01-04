@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Benefit from "./Benefit";
 
-import assetIconRocket from "assets/img/IconRocket.png";
-import assetIconSecurity from "assets/img/IconSecurity.png";
-import assetIconWallet from "assets/img/IconWallet.png";
+import assetIconRocket from "../../assets/img/IconRocket.png"
+import assetIconSecurity from "../../assets/img/IconSecurity.png";
+import assetIconWallet from "../../assets/img/IconWallet.png";
 import { Row, Col } from "antd";
 
 class Benefits extends Component {

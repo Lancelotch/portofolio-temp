@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Button, Row, Col } from "antd";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
+import Benefits from "../../components/Benefits/Benefits"
 
 class HomePage extends Component {
   constructor() {
     super();
     this.state = {
-      openModalLogin: false
+      openModalLogin: false,
+      categoryFeature: []
     };
   }
 
@@ -43,6 +45,8 @@ class HomePage extends Component {
             )}
           </Col>
         </Row>
+        <Benefits />
+
       </div>
     );
   }
