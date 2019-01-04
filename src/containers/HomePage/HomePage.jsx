@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { Button, Row, Col } from "antd";
-import Login from "../../components/Login/Login";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
+<<<<<<< HEAD
 import Benefits from "../../components/Benefits/Benefits"
+=======
+import Header from "../../components/Header/Header.jsx";
+import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
+>>>>>>> f538d30d067732f90fa808e75bb9ba537427cf8e
 
 class HomePage extends Component {
   constructor() {
@@ -25,24 +29,9 @@ class HomePage extends Component {
       <div>
         <Row>
           <Col span={12} />
-          <Col span={12}>
-            {this.props.isAuthenticated !== true ? (
-              <div>
-                <Button type="primary" onClick={this.openModalLogin}>
-                  Login
-                </Button>
-                <Login
-                  visible={this.state.openModalLogin}
-                  onCancel={this.openModalLogin}
-                />
-              </div>
-            ) : (
-              <div>
-                <Button type="primary" onClick={this.openModalLogin}>
-                  Profil
-                </Button>
-              </div>
-            )}
+          <Col span={24}>
+            <Header />
+            <SliderPrimary />
           </Col>
         </Row>
         <Benefits />
