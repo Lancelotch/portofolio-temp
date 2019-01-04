@@ -162,8 +162,7 @@ class Login extends Component {
               >
                 {strings.login_enter}
               </Button>
-              {strings.formatString(strings.login_quote,<a href="">{strings.login_register} </a>)}
-              
+              {strings.formatString(strings.login_quote,<a href="/register">{strings.login_register} </a>)}
             </FormItem>
           </Form>
         </Modal>
