@@ -13,8 +13,9 @@ const mainService = axios.create({
   }
 });
 
+
 const httpClient = {
-    mainService : mainService
+    mainService : mainService,
 }
   
   export default httpClient;

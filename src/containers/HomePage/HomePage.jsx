@@ -3,6 +3,7 @@ import { Button, Row, Col } from "antd";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
 import Benefits from "../../components/Benefits/Benefits"
+import Categories from '../../components/Catagories/Categories'
 
 class HomePage extends Component {
   constructor() {
@@ -46,6 +47,7 @@ class HomePage extends Component {
           </Col>
         </Row>
         <Benefits />
+        <Categories />
 
       </div>
     );
