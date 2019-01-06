@@ -81,23 +81,10 @@ class Login extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="login-form__typography">{strings.login_enter}</h1>
-            <ButtonFacebook
-              className="login-form__button"
-              provider='facebook'
-              appId='315428089178708'
-              onLoginSuccess={this.handleFacebookLoginSuccess}
-              onLoginFailure={this.handleFacebookLoginFailure}
-            >
+            <ButtonFacebook className="login-form__button">
               {strings.facebook}
             </ButtonFacebook>
-            <ButtonGoogle
-              className="login-form__button"
-              provider='google'
-              appId='615585105258-0bokifsov91evfhuhjst3qnlc3ab1gvl.apps.googleusercontent.com'
-
-              onLoginSuccess={this.handleGoogleLoginSuccess}
-              onLoginFailure={this.handleGoogleLoginFailure}
-            >
+            <ButtonGoogle className="login-form__button">
               {strings.google}
             </ButtonGoogle>
             {/* <Button size={"large"} className="login-form__button"><Icon type="google" style={{float : "left"}}></Icon>{strings.google}</Button> */}
