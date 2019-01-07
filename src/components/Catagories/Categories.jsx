@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import serviceCategory from "../../api/services/ServiceCategory";
 import Category from "./Category";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 
 class Categories extends Component {
   constructor(props) {

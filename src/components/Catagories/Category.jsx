@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.sass";
-import { Row, Col } from "antd";
+import { Col } from "antd";
 import { Card } from "antd";
 const { Meta } = Card;
 
@@ -16,7 +16,7 @@ const Category = props => {
       >
         {props.imageUrl ? (
           <a href={link}>
-            <img src={props.imageUrl} />
+            <img src={props.imageUrl} alt=''/>
           </a>
         ) : (
           <Meta />

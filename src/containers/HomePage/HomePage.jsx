@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { Button, Row, Col } from "antd";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
+import {DummyInspirationBottom} from '../../dummy/DummyInspirationBottom'
+import {DummyInspiration} from '../../dummy/DummyInspiration'
 import Benefits from "../../components/Benefits/Benefits"
 import Categories from '../../components/Catagories/Categories'
+import Inspirations from "../../components/Inspirations/Inspirations"
+
 
 class HomePage extends Component {
   constructor() {
@@ -48,6 +52,8 @@ class HomePage extends Component {
         </Row>
         <Benefits />
         <Categories />
+        <Inspirations inspirations={DummyInspiration}/>
+        <Inspirations inspirations={DummyInspirationBottom}/>
 
       </div>
     );
