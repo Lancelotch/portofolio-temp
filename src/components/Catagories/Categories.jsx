@@ -18,7 +18,7 @@ class Categories extends Component {
 
   getCategoryFeature = () => {
     serviceCategory
-      .apiCategoryFeature()
+      .CategoryFeature()
       .then(response => {
         const categoryFeature = response.data;
         this.setState({

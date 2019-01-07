@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { Button, Row, Col } from "antd";
-import Login from "../../components/Login/Login";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import {DummyInspirationBottom} from '../../dummy/DummyInspirationBottom'
-import {DummyInspiration} from '../../dummy/DummyInspiration'
-import Benefits from "../../components/Benefits/Benefits"
-import Categories from '../../components/Catagories/Categories'
-import Inspirations from "../../components/Inspirations/Inspirations"
+import { DummyInspirationBottom } from "../../dummy/DummyInspirationBottom";
+import { DummyInspiration } from "../../dummy/DummyInspiration";
+import Benefits from "../../components/Benefits/Benefits";
+import Categories from "../../components/Catagories/Categories";
+import Inspirations from "../../components/Inspirations/Inspirations";
 
+import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import Header from "../../components/Header/Header.jsx";
 
 class HomePage extends Component {
   constructor() {
@@ -27,35 +29,19 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
-          <Col span={12} />
-          <Col span={12}>
-            {this.props.isAuthenticated !== true ? (
-              <div>
-                <Button type="primary" onClick={this.openModalLogin}>
-                  Login
-                </Button>
-                <Login
-                  visible={this.state.openModalLogin}
-                  onCancel={this.openModalLogin}
-                />
-              </div>
-            ) : (
-              <div>
-                <Button type="primary" onClick={this.openModalLogin}>
-                  Profil
-                </Button>
-              </div>
-            )}
+          <Col span={24}>
+            <Header />
+            <SliderPrimary />
+            <Benefits />
+            <Categories />
+            <Inspirations inspirations={DummyInspiration} />
+            <Inspirations inspirations={DummyInspirationBottom} />
+            <Footer />
           </Col>
         </Row>
-        <Benefits />
-        <Categories />
-        <Inspirations inspirations={DummyInspiration}/>
-        <Inspirations inspirations={DummyInspirationBottom}/>
-
-      </div>
+      </React.Fragment>
     );
   }
 }

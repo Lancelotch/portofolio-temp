@@ -18,8 +18,44 @@ const login = request => {
   });
 };
 
+const loginSosialMedia = request => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "POST",
+        url: urls.loginSocialMedia,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
+const registerSosialMedia = request => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "POST",
+        url: urls.registerSocialMedia,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 const authentication = {
-    login : login
+    login : login,
+    loginSosialMedia : loginSosialMedia,
+    registerSosialMedia : registerSosialMedia
 }
 
 export default authentication;

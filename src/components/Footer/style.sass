@@ -1,0 +1,94 @@
+@import "../../sass/variable.sass"
+
+.footer 
+   background-color: #333333
+   color: #ffffff
+   position: fixed
+   left: 0
+   bottom: 0
+   width: 100%
+   padding: 2rem
+   &__typography ul li 
+       color: #ffffff
+       display: block
+       font-size: 1.2rem
+   &__typography a 
+       color: #ffffff
+       padding-top: 16px    
+   &__typography
+       list-style: none 
+       display: flex
+       flex-direction: column
+       align-items: flex-start
+   &__typography li 
+    padding-top: 16px
+    &__typography-right ul li 
+       color: #ffffff
+       display: block
+       font-size: 1.2rem
+   &__typography-right a 
+       color: #ffffff
+       padding-top: 16px    
+   &__typography-right
+       list-style: none 
+       display: flex
+       flex-direction: column
+   &__typography-right li 
+    padding-top: 16px    
+   &__line-left    
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+    height: 228px
+    width: 1px
+    border: 1px solid #979797
+    position: absolute
+    right: 15px
+    top: -6px
+   &__line-right    
+     -webkit-box-sizing: border-box
+     box-sizing: border-box
+     height: 228px
+     width: 1px
+     border: 1px solid #979797
+     position: absolute
+     left: 15px
+     top: -6px
+   &__benefits
+    list-style-type: none
+    margin-right: 20px
+   &__benefits-wrapper
+    justify-content: center  
+    display: flex
+    flex-direction: row
+
+.footer .ant-btn-primary
+    background-color: $primary-color  
+    border-color: unset
+    border: unset  
+    
+.footer__icon-text
+   justify-content: center
+   display: flex
+
+.footer__icon-text a 
+    color: #ffffff        
+
+.footer 
+    img 
+        display: block
+        margin: auto
+        padding-top: 16px
+
+.footer-icon-social
+    display: flex
+    font-size: 20px
+    justify-content: center
+    padding-top: 15px    
+
+.footer-icon-social .anticon
+    margin-left: 20px   
+
+.footer-company 
+    display: block
+    text-align: center
+    padding-top: 10px   

@@ -1,7 +1,7 @@
 import urls from "../urls";
-import httpClient from "../../config/httpClient";
+import httpClient  from "config/httpClient";
 
-const apiCategoryFeature = () => {    
+const CategoryFeature = () => {    
     return new Promise((resolve, reject) => {
       httpClient.mainService
         .request({
@@ -17,9 +17,42 @@ const apiCategoryFeature = () => {
     });
   };
 
+const PromoFeature = ()=> {
+  return new Promise((resolve, reject) => {
+    httpClient.httpClientMainService
+      .request({
+        method: "GET",
+        url: urls.urlGetPromoFeature
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+}
+
+const SliderHome = () => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "GET",
+        url: urls.urlGetSliderHome
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+}
 
 const serviceCategory = {
-    apiCategoryFeature : apiCategoryFeature,
+  CategoryFeature : CategoryFeature,
+  PromoFeature : PromoFeature,
+  SliderHome : SliderHome
 }
 
 export default serviceCategory;

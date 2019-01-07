@@ -4,7 +4,6 @@ import urls from "../api/urls";
 const token = localStorage.getItem("token");
 console.log(token);
 
-
 const mainService = axios.create({
   baseURL: urls.mainServices,
   timeout: 60 * 4 * 1000,
