@@ -87,16 +87,16 @@ class SliderPrimary extends Component {
       //   </div>
       // )
     };
-    const { productsSlider } = this.state;
-    var items = [];
-    const slides = productsSlider.map((productSlider, index) => {
+    // const { productsSlider } = this.state;
+    const items = [];
+    const slides = this.state.productsSlider.map((productSlider,Index) => {
       items.push({
         src: productSlider.imageUrl
       });
       return (
-        <React.Fragment>
+        <React.Fragment  key={productSlider.id}>
           {/* <a href={productSlider.url}> */}
-          <img src={productSlider.imageUrl} alt={productSlider.type} />
+          <img src={productSlider.imageUrl} alt={productSlider.type}  />
         </React.Fragment>
       );
     });

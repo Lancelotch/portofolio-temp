@@ -4,8 +4,7 @@ import Inspiration from "./Inspiration";
 
 const Inspirations = props => {
   return (
-    <Row >
-
+    <Row>
         {props.inspirations.map(inspiration => {
           return (
             <Inspiration
