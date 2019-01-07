@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./containers/HomePage/HomePage";
-
-import Benefits from './components/Benefits/Benefits'
 import RegisterPage from "./containers/RegisterPage/RegisterPage";
 
 

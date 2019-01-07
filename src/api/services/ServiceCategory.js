@@ -6,7 +6,7 @@ const CategoryFeature = () => {
       httpClient.mainService
         .request({
           method: "GET",
-          url: urls.urlGetCategoryFeature
+          url: urls.GetCategoryFeature
         })
         .then(response => {
           resolve(response.data);

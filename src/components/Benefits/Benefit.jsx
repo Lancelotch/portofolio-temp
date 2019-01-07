@@ -15,7 +15,7 @@ class Benefit extends Component {
     return (
         <div className='benefit-box'>
             <p>
-                <img src={this.state.imageUrl} />
+                <img src={this.state.imageUrl} alt=''/>
                 <span>{this.state.title}</span>
             </p>
         </div>

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import Benefits from "../../components/Benefits/Benefits"
+import { DummyInspirationBottom } from "../../dummy/DummyInspirationBottom";
+import { DummyInspiration } from "../../dummy/DummyInspiration";
+import Benefits from "../../components/Benefits/Benefits";
+import Categories from "../../components/Catagories/Categories";
+import Inspirations from "../../components/Inspirations/Inspirations";
+
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
@@ -30,7 +35,10 @@ class HomePage extends Component {
             <Header />
             <SliderPrimary />
             <Benefits />
-            <Footer/>
+            <Categories />
+            <Inspirations inspirations={DummyInspiration} />
+            <Inspirations inspirations={DummyInspirationBottom} />
+            <Footer />
           </Col>
         </Row>
       </React.Fragment>
