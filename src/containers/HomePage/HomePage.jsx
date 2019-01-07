@@ -3,6 +3,7 @@ import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import Benefits from "../../components/Benefits/Benefits"
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
 
 class HomePage extends Component {
@@ -23,17 +24,16 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
-          <Col span={12} />
           <Col span={24}>
             <Header />
             <SliderPrimary />
+            <Benefits />
+            <Footer/>
           </Col>
         </Row>
-        <Benefits />
-
-      </div>
+      </React.Fragment>
     );
   }
 }
