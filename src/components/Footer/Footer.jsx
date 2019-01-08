@@ -44,14 +44,11 @@ class Footer extends Component {
                         <a to="#">Monggo Pesen</a>
                       </li>
                       <ul className="footer__benefits-wrapper">
-                        <li className="footer__benefits">
-                        Privacy Policy
-                        </li>
+                        <li className="footer__benefits">Privacy Policy</li>
                         <li className="footer__benefits">
                           Term and Conditions
                         </li>
-                        <li className="footer__benefits">
-                        How to Deals</li>
+                        <li className="footer__benefits">How to Deals</li>
                       </ul>
                       <Search
                         placeholder="input search text"
