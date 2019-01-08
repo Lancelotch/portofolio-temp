@@ -1,5 +1,5 @@
 import axios from "axios";
-import urls from "../api/urls";
+import urls from "../urls";
 
 const token = localStorage.getItem("token");
 console.log(token);
@@ -12,17 +12,8 @@ const mainService = axios.create({
   }
 });
 
-const cartServices = axios.create({
-  baseURL: urls.cartServices,
-  timeout: 60 * 4 * 1000,
-  headers: {
-    Authorization: "Bearer " + token
-  }
-});
-
 const httpClient = {
-    mainService : mainService,
-    cartServices : cartServices
+    mainService : mainService
 }
   
 export default httpClient;

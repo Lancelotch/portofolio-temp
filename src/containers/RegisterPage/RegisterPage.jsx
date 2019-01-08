@@ -6,10 +6,13 @@ import { connect } from "react-redux";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
 import strings from "../../config/localization";
+import { Redirect } from "react-router-dom";
 //import "../../sass/style.sass";
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    
+  };
 }
 
 const FormItem = Form.Item;
@@ -20,6 +23,18 @@ class RegisterPage extends Component {
     this.state = {
       isAuthenticated: this.props.isAuthenticated
     };
+  }
+
+  handleSocialRegister = (request) => {
+    console.log({req : request});
+    
+    authentication.registerSosialMedia(request).then(response=>{
+      console.log(response);
+      
+    }).catch(error=>{
+      console.log(error);
+      
+    })
   }
 
   handleSubmit = e => {
@@ -44,10 +59,18 @@ class RegisterPage extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {isAuthenticated} = this.state; 
+
+    if(isAuthenticated === true){
+      return (
+        <Redirect to='/' />
+      )
+    }
+
     return (
       <React.Fragment>
         <div className="register-header">
-          <a href="#">
+          <a href="/">
             <img
               src="/static/media/monggopesen_logo.9eae6d5c.png"
               className="register-header__image"
@@ -73,10 +96,10 @@ class RegisterPage extends Component {
                         <a href="/">{strings.register_enter}</a>
                       )}
                     </p>
-                    <ButtonFacebook className="register-form__button">
+                    <ButtonFacebook className="register-form__button" onSubmit={this.handleSocialRegister}>
                       {strings.facebook}
                     </ButtonFacebook>
-                    <ButtonGoogle className="register-form__button">
+                    <ButtonGoogle className="register-form__button" onSubmit={this.handleSocialRegister}>
                       {strings.google}
                     </ButtonGoogle>
                     <div className="register-form__separator">
