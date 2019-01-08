@@ -5,21 +5,18 @@ export const isTokenExpired = token => dispatch => {
     cartService
     .getCart()
     .then(response => {
-      console.log(response);
-      
       dispatch({
         type: LOGIN,
-        payload: token
+        payLoad: token
       });
     })
     .catch(error => {
       console.log(error);
-      
-    //   if (error.status === 401) {
-    //     dispatch({
-    //       type: LOGOUT
-    //     });
-    //   }
+      if (error.status === 401) {
+        dispatch({
+          type: LOGOUT
+        });
+      }
     });
 };
 
