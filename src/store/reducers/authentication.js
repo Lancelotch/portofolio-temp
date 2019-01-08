@@ -1,7 +1,8 @@
-import * as actionTypes from "../actions/actions.js";
+import * as actionTypes from "../actions/types.js";
 
 const initialState = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  token: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -9,7 +10,14 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.LOGIN:
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: true,
+        token: action.payLoad
+      };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        token: null
       };
     default :
       return state;

@@ -5,7 +5,7 @@ import ButtonGoogle from "../Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
-import { LOGIN } from "../../store/actions/actions";
+import { LOGIN } from "../../store/actions/types";
 import strings from "../../config/localization";
 
 const FormItem = Form.Item;
@@ -21,28 +21,31 @@ class Login extends Component {
     }
   }
 
-  handleFacebookLoginSuccess = (user) => {
-    const request = {
-      platformId : user._token.accessToken
-    }
+  handleSocialLogin = (request) => {
     authentication.loginSosialMedia(request).then(response=>{
-      console.log(response);
-    })
-    .catch(error=>{
+      console.log({login : response});
+      const token = response.data;
+      localStorage.setItem("token", token);
+      this.props.dispatchAuthenticated(token);
+      this.props.onCancel();
+      
+    }).catch(error=>{
       console.log(error);
+      if(error.status === 404){
+        authentication.registerSosialMedia(request).then(response=>{
+          authentication.loginSosialMedia(request).then(response=>{
+            localStorage.setItem("token", token);
+            const token = response.data;
+            this.props.dispatchAuthenticated(token);
+            this.props.onCancel();
+          }).catch(error=>{
+            console.log(error);
+          })
+        }).catch(error=>{
+          console.log(error);
+        })
+      }
     })
-  }
-   
-  handleFacebookLoginFailure = (err) => {
-    console.error(err)
-  }
-
-  handleGoogleLoginSuccess = (user) => {
-    console.log(user)
-  }
-   
-  handleGoogleLoginFailure = (err) => {
-    console.error(err)
   }
 
   handleSubmit = e => {
@@ -55,7 +58,8 @@ class Login extends Component {
           .then(response => {
             console.log(response);
             const token = response.data;
-            this.props.isAuthenticateds(token);
+            localStorage.setItem("token", token);
+            this.props.dispatchAuthenticated(token);
             this.props.onCancel();
           })
           .catch(error => {
@@ -81,16 +85,12 @@ class Login extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="login-form__typography">{strings.login_enter}</h1>
-            <ButtonFacebook className="login-form__button">
+            <ButtonFacebook className="login-form__button" onSubmit={this.handleSocialLogin}>
               {strings.facebook}
             </ButtonFacebook>
-            <ButtonGoogle className="login-form__button">
+            <ButtonGoogle className="login-form__button" onSubmit={this.handleSocialLogin}>
               {strings.google}
             </ButtonGoogle>
-            {/* <Button size={"large"} className="login-form__button"><Icon type="google" style={{float : "left"}}></Icon>{strings.google}</Button> */}
-            {/* <GoogleLoginButton align={"center"} className="login-form__button" onClick={() => alert("Hello")} ><span>{strings.google}</span></GoogleLoginButton>
-            <FacebookLoginButton align={"center"} className="login-form__button" onClick={() => alert("Hello")} ><span>{strings.facebook}</span></FacebookLoginButton> */}
-            {/* <Button size={"large"} className="login-form__button"><Icon type="facebook" style={{float : "left"}}></Icon>{strings.facebook}</Button> */}
             <div className="login-form__separator">
               <span className="login-form__separator__hline"></span>
               <span className="login-form__separator__text">{strings.login_option}</span>
@@ -167,7 +167,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    isAuthenticateds: (token) => dispatch({ type: LOGIN, payLoad: token })
+    dispatchAuthenticated: (token) => dispatch({ type: LOGIN, payLoad: token })
   };
 };
 
