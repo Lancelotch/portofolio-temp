@@ -3,10 +3,11 @@
 const mainServices = "https://api.monggopesen.com/main-services/";
 const cartServices = "https://api.monggopesen.com/cart-services/";
 
-const cart = "cart-services/v1/cart/user";
+const cart = "v1/cart/user";
 
 //Authentication Page
 const login = "api/v1/public/user/login";
+const register = "api/v1/public/user/register";
 const loginSocialMedia = "api/v1/public/user/login-sosmed";
 const registerSocialMedia = "api/v1/public/user/register-sosmed";
 
@@ -24,8 +25,7 @@ const urls = {
     cartServices: cartServices,
     cart : cart,
     login : login,
-    GetProductById: GetProductById,
-    GetProductByCategory: GetProductByCategory,
+    register : register,
     GetCategoryFeature : GetCategoryFeature,
     urlGetSliderHome : urlGetSliderHome,
     loginSocialMedia : loginSocialMedia,
