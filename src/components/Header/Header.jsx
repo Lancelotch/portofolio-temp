@@ -49,12 +49,12 @@ class Header extends Component {
         <div className="container">
           <Row gutter={40}>
             <Col md={6}>
-              <NavLink tag={Link} to="/">
+              <a href="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="img-navigation"
                 />
-              </NavLink>
+              </a>
             </Col>
             <Col md={8}>
               <Search
