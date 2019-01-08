@@ -1,6 +1,9 @@
 
 //Root Service
 const mainServices = "https://api.monggopesen.com/main-services/";
+const cartServices = "https://api.monggopesen.com/cart-services/";
+
+const cart = "cart-services/v1/cart/user";
 
 //Authentication Page
 const login = "api/v1/public/user/login";
@@ -18,13 +21,16 @@ const urlGetSliderHome = "api/v1/home/slider/";
 
 const urls = {
     mainServices : mainServices,
+    cartServices: cartServices,
+    cart : cart,
     login : login,
     GetProductById: GetProductById,
     GetProductByCategory: GetProductByCategory,
     GetCategoryFeature : GetCategoryFeature,
     urlGetSliderHome : urlGetSliderHome,
     loginSocialMedia : loginSocialMedia,
-    registerSocialMedia : registerSocialMedia
+    registerSocialMedia : registerSocialMedia,
+
 
 }
 

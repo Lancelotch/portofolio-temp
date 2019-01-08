@@ -63,9 +63,7 @@ class Footer extends Component {
                         <Icon type="twitter" />
                       </div>
                       <Col md={24}>
-                        <p
-                          className="footer-company"
-                        >
+                        <p className="footer-company">
                           &copy; PT. Giyarto Manunggal Sejati
                         </p>
                       </Col>

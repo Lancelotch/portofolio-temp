@@ -12,11 +12,15 @@ const Category = props => {
       <Col
         xs={{ span: 24 }}
         md={{ span: 3 }}
-        style={{ paddingLeft: "8px", paddingRight: "8px" }}
+        style={{
+          paddingLeft: "8px",
+          paddingRight: "8px",
+          marginBottom: "1rem"
+        }}
       >
         {props.imageUrl ? (
           <a href={link}>
-            <img src={props.imageUrl} alt=''/>
+            <img src={props.imageUrl} alt="" />
           </a>
         ) : (
           <Meta />

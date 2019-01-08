@@ -11,7 +11,7 @@ import { apiGetProductByCategory } from "../../api/services/ServiceHomePage";
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
-import Products from "../../components/Product/Products"
+import Products from "../../components/Product/Products";
 
 class HomePage extends Component {
   constructor() {
@@ -83,9 +83,8 @@ class HomePage extends Component {
             <Categories />
             <Inspirations inspirations={DummyInspiration} />
             <Inspirations inspirations={DummyInspirationBottom} />
-           
-            <Col md={{ span: 24 }} style={{ marginBottom: "2em" }}>
 
+            <Col md={{ span: 24 }} style={{ marginBottom: "2em" }}>
               <font className="contentHomeProductText">
                 <h2>Tops Trending</h2>
               </font>
