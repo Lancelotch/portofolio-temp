@@ -1,6 +1,9 @@
 
 //Root Service
 const mainServices = "https://api.monggopesen.com/main-services/";
+const cartServices = "https://api.monggopesen.com/cart-services/";
+
+const cart = "cart-services/v1/cart/user";
 
 //Product Category
 const urlGetCategoryFeature = "api/v1/category/feature";
@@ -13,11 +16,14 @@ const registerSocialMedia = "api/v1/public/user/register-sosmed";
 
 const urls = {
     mainServices : mainServices,
+    cartServices: cartServices,
+    cart : cart,
     login : login,
     urlGetCategoryFeature : urlGetCategoryFeature,
     urlGetSliderHome : urlGetSliderHome,
     loginSocialMedia : loginSocialMedia,
-    registerSocialMedia : registerSocialMedia
+    registerSocialMedia : registerSocialMedia,
+
 
 }
 

@@ -1,28 +1,11 @@
 import axios from "axios";
-import { api } from "api/api.js";
+import urls from "../urls";
 
 const token = localStorage.getItem("token");
 console.log(token);
 
-
-const httpClientMainService = axios.create({
-  baseURL: api.API_URL_MAIN_SERVICE,
-  timeout: 60 * 4 * 1000,
-  headers: {
-    Authorization: "Bearer " + token
-  }
-});
-
-const httpClientCart = axios.create({
-  baseURL: api.API_URL_CART,
-  timeout: 60 * 4 * 1000,
-  headers: {
-    Authorization: "Bearer " + token
-  }
-});
-
-const httpClientNgrok = axios.create({
-  baseURL: api.API_URL_NGROK,
+const mainService = axios.create({
+  baseURL: urls.mainServices,
   timeout: 60 * 4 * 1000,
   headers: {
     Authorization: "Bearer " + token
@@ -30,9 +13,7 @@ const httpClientNgrok = axios.create({
 });
 
 const httpClient = {
-  httpClientMainService : httpClientMainService,
-  httpClientCart : httpClientCart,
-  httpClientNgrok : httpClientNgrok
+    mainService : mainService
 }
-
-export { httpClient };
+  
+export default httpClient;

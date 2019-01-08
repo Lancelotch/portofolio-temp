@@ -12,8 +12,17 @@ const mainService = axios.create({
   }
 });
 
+const cartServices = axios.create({
+  baseURL: urls.cartServices,
+  timeout: 60 * 4 * 1000,
+  headers: {
+    Authorization: "Bearer " + token
+  }
+});
+
 const httpClient = {
-    mainService : mainService
+    mainService : mainService,
+    cartServices : cartServices
 }
   
-  export default httpClient;
+export default httpClient;
