@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import Header from "../../components/Header/Header.jsx";
+import Benefits from "../../components/Benefits/Benefits"
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
+import Header from "../../components/Header/Header.jsx";
 
 class HomePage extends Component {
   constructor() {
     super();
     this.state = {
-      openModalLogin: false
+      openModalLogin: false,
+      categoryFeature: []
     };
   }
 
@@ -22,16 +24,16 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Row>
-          <Col span={12} />
           <Col span={24}>
             <Header />
             <SliderPrimary />
+            <Benefits />
             <Footer/>
           </Col>
         </Row>
-      </div>
+      </React.Fragment>
     );
   }
 }
