@@ -21,6 +21,8 @@ const GetCategoryFeature = "api/v1/category/feature";
 const urlGetSliderHome = "api/v1/home/slider/";
 
 const urls = {
+    GetProductById : GetProductById,
+    GetProductByCategory : GetProductByCategory,
     mainServices : mainServices,
     cartServices: cartServices,
     cart : cart,
