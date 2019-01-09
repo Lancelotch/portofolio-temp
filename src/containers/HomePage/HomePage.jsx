@@ -6,32 +6,17 @@ import { DummyInspiration } from "../../dummy/DummyInspiration";
 import Benefits from "../../components/Benefits/Benefits";
 import Categories from "../../components/Catagories/Categories";
 import Inspirations from "../../components/Inspirations/Inspirations";
-
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
 
+
 class HomePage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      openModalLogin: false,
-      categoryFeature: []
-    };
-  }
-
-  openModalLogin = () => {
-    const openModalLogin = this.state.openModalLogin;
-    this.setState({
-      openModalLogin: !openModalLogin
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
         <Row>
-          <Col span={24}>
+          <Col xs={24} md={24}>
             <Header />
             <SliderPrimary />
             <Benefits />

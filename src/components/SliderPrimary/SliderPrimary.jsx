@@ -103,7 +103,7 @@ class SliderPrimary extends Component {
 
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="container" style={{marginTop:"111px"}}>
           <Row justify='center'>
             <Col md={24}>
               <Carousel autoplay {...settings}>

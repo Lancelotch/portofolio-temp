@@ -4,7 +4,8 @@ import Inspiration from "./Inspiration";
 
 const Inspirations = props => {
   return (
-    <Row>
+    <div className="container-fluid">
+    <Row type="flex" justify="center">
         {props.inspirations.map(inspiration => {
           return (
             <Inspiration
@@ -16,6 +17,7 @@ const Inspirations = props => {
           );
         })}
     </Row>
+    </div>
   );
 };
 
