@@ -1,27 +1,20 @@
-import { LOGIN, LOGOUT } from "./types";
 import cartService from "../../api/services/cart";
+import dispatchTypes from "./dispatchTypes";
 
 export const isTokenExpired = token => dispatch => {
     cartService
     .getCart()
     .then(response => {
-      dispatch({
-        type: LOGIN,
-        payLoad: token
-      });
+      dispatch(dispatchTypes.login(token));
     })
     .catch(error => {
       console.log(error);
       if (error.status === 401) {
-        dispatch({
-          type: LOGOUT
-        });
+        dispatch(dispatchTypes.logout());
       }
     });
 };
 
 export const logout = () => dispatch => {
-    dispatch({
-        type: LOGOUT
-    })
+    dispatch(dispatchTypes.logout())
 }
