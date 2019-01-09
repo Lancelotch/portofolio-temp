@@ -43,12 +43,10 @@ class RegisterPage extends Component {
       if (!err) {
         console.log("Received values of form: ", values);
         authentication
-          .login(values)
+          .register(values)
           .then(response => {
             console.log(response);
-            const token = response.data;
-            this.props.isAuthenticateds(token);
-            this.props.onCancel();
+            
           })
           .catch(error => {
             console.log(error);
@@ -113,7 +111,6 @@ class RegisterPage extends Component {
                       {getFieldDecorator("name", {
                         rules: [
                           {
-                            type: "text",
                             required: true,
                             message: "Please input your name!"
                           }

@@ -18,6 +18,23 @@ const login = request => {
   });
 };
 
+const register = request => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "POST",
+        url: urls.register,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 const loginSosialMedia = request => {
   return new Promise((resolve, reject) => {
     httpClient.mainService
@@ -54,6 +71,7 @@ const registerSosialMedia = request => {
 
 const authentication = {
     login : login,
+    register : register,
     loginSosialMedia : loginSosialMedia,
     registerSosialMedia : registerSosialMedia
 }

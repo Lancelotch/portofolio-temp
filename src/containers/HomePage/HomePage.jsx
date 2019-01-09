@@ -7,7 +7,6 @@ import Benefits from "../../components/Benefits/Benefits";
 import Categories from "../../components/Catagories/Categories";
 import Inspirations from "../../components/Inspirations/Inspirations";
 import { apiGetProductByCategory } from "../../api/services/ServiceHomePage";
-
 import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
@@ -30,13 +29,6 @@ class HomePage extends Component {
     this.productTrend("5b725c5c97ac1c1984473661", "celana");
     this.productTrend("computer backpack", "tas");
   }
-
-  openModalLogin = () => {
-    const openModalLogin = this.state.openModalLogin;
-    this.setState({
-      openModalLogin: !openModalLogin
-    });
-  };
 
   productTrend = (id, name) => {
     var products = [];
@@ -81,8 +73,6 @@ class HomePage extends Component {
             <SliderPrimary />
             <Benefits />
             <Categories />
-            <Inspirations inspirations={DummyInspiration} />
-            <Inspirations inspirations={DummyInspirationBottom} />
             <Col md={{ span: 24 }} style={{ marginBottom: "2em" }}>
               <font className="contentHomeProductText">
                 <h2>Tops Trending</h2>
@@ -91,11 +81,10 @@ class HomePage extends Component {
                 products={this.state.productsPants}
                 maxProductCount={6}
               />
-
+              <Inspirations inspirations={DummyInspiration} />
               <font>
                 <h2>Pakaian Trend</h2>
               </font>
-
               <Products
                 products={this.state.productsTshirt}
                 maxProductCount={6}
@@ -104,6 +93,7 @@ class HomePage extends Component {
                 <h2>Tas Trend</h2>
               </font>
               <Products products={this.state.productsTas} maxProductCount={6} />
+              <Inspirations inspirations={DummyInspirationBottom} />
             </Col>
             <Footer />
           </Col>

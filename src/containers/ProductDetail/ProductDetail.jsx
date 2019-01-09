@@ -8,10 +8,29 @@ class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productImages: []
+      quantity: 1,
+      variants: [],
+      details: {},
+      productDisplayState: 'SKELETON',
+      productId: "",
+      options: [],
+      productAttributes: [],
+      productImages: [],
+      productSalePrice: 0,
+      productTitle: "",
+      note: "",
+      productDescriptions: [],
+      open: false,
+      productNotificationOpen: false,
+      variantNotificationOpen: false,
+      category: "",
+      lockAddToCartButton: false,
+      propPath : {},
+      skuBase : [],
+      skuCore : [],
+      infoRate : {}
     };
   }
-
   render() {
     return (
       <React.Fragment>
