@@ -15,12 +15,19 @@ const registerSocialMedia = "api/v1/public/user/register-sosmed";
 const GetProductById = "api/v1/product/";
 const GetProductByCategory = "api/v1/product/category/";
 
+//Cart
+const addToCart = "v1/cart/user/";
+const getProductsFromCart = "v1/cart/user/";
+const updateProductFromCart = "v1/cart/user/";
+const deleteProductFromCart = "v1/cart/user/";
+
 
 //Product Category
 const GetCategoryFeature = "api/v1/category/feature";
 const urlGetSliderHome = "api/v1/home/slider/";
 
 const urls = {
+    addToCart : addToCart,
     GetProductById : GetProductById,
     GetProductByCategory : GetProductByCategory,
     mainServices : mainServices,

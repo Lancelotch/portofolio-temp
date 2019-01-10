@@ -51,7 +51,7 @@ class Header extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="navigation">
         <div className="container">
           <Row gutter={40}>
             <Col md={6}>
@@ -99,7 +99,6 @@ class Header extends Component {
             </Col>
           </Row>
         </div>
-
         <div className="container-fluid">
           <hr className="line-navigation" />
           <Row>
@@ -129,7 +128,7 @@ class Header extends Component {
           </Row>
           <hr className="line-navigation" />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

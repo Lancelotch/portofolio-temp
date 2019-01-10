@@ -95,15 +95,16 @@ class SliderPrimary extends Component {
       });
       return (
         <React.Fragment  key={productSlider.id}>
-          {/* <a href={productSlider.url}> */}
+          <a href={productSlider.url}>
           <img src={productSlider.imageUrl} alt={productSlider.type}  />
+          </a>
         </React.Fragment>
       );
     });
 
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="container" style={{marginTop:"111px"}}>
           <Row justify='center'>
             <Col md={24}>
               <Carousel autoplay {...settings}>

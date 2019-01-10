@@ -70,25 +70,23 @@ class Footer extends Component {
                     </Col>
                     <Col md={7}>
                       <hr className="footer__line-right" />
-                      <Col md={24} offset={12}>
-                        <ul className="footer__typography-right">
-                          <li>
-                            <Link to="#">Help</Link>
-                          </li>
-                          <li>
-                            <Link to="#">Contact Us</Link>
-                          </li>
-                          <li>
-                            <Link to="#">Track Orders</Link>
-                          </li>
-                          <li>
-                            <Link to="#">Faq</Link>
-                          </li>
-                          <li>
-                            <Link to="#">Shipping Terms</Link>
-                          </li>
-                        </ul>
-                      </Col>
+                          <ul className="footer__typography-right">
+                            <li>
+                              <Link to="#">Help</Link>
+                            </li>
+                            <li>
+                              <Link to="#">Contact Us</Link>
+                            </li>
+                            <li>
+                              <Link to="#">Track Orders</Link>
+                            </li>
+                            <li>
+                              <Link to="#">Faq</Link>
+                            </li>
+                            <li>
+                              <Link to="#">Shipping Terms</Link>
+                            </li>
+                          </ul>
                     </Col>
                   </Row>
                 </div>

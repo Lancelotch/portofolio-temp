@@ -10,6 +10,8 @@
     "react": "^16.7.0",
     "react-currency-format": "^1.0.0",
     "react-dom": "^16.7.0",
+    "react-image-gallery": "^0.8.12",
+    "react-image-magnify": "^2.7.4",
     "react-js-skeleton": "^0.4.1",
     "react-lazyload": "^2.3.0",
     "react-loading-skeleton": "^1.0.0",
@@ -19,6 +21,7 @@
     "react-scripts": "2.1.1",
     "react-social-login": "^3.4.3",
     "react-social-login-buttons": "^2.3.0",
+    "react-viewer": "^2.8.0",
     "reactstrap": "^7.0.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"

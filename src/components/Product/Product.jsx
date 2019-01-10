@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Card, Row, Col } from "antd";
+import { Card} from "antd";
 import CurrencyRp from "../Typography/CurrencyRp";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import LazyLoad from "react-lazyload";
 import Skeleton from "../Skeleton/Skeleton";
 import SkeletonImg from "../Skeleton/SkeletonImg";
+import { pageUrlProductDetail } from "../../routers/paths";
 
 const { Meta } = Card;
 
@@ -16,7 +17,7 @@ function Product(props) {
     <div>
       <Card
         cover={
-          <Link to={props.productId || "#"}>
+          <Link to={(pageUrlProductDetail + props.productId )|| "#"}>
             {props.productPic ? (
               <LazyLoad height={180}>
                 <img
@@ -34,22 +35,6 @@ function Product(props) {
           </Link>
         }
       >
-        {/* <Link to={props.productId || "#"}>
-          {props.productPic ? (
-            <LazyLoad height={180}>
-             <img
-                src={props.productPic}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  display: "block"
-                }}
-              />
-            </LazyLoad>
-          ) : (
-            <SkeletonImg heightSkeleton="180px" widthSkeleton="100%" />
-          )} */}
-
         <p>
           {props.productName !== undefined && props.productName.length > 30
             ? props.productName.trim().substring(0, 30) + "..."
@@ -72,7 +57,6 @@ function Product(props) {
             )}
           </span>
         </div>
-        {/* </Link> */}
       </Card>
     </div>
   );
