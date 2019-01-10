@@ -11,7 +11,7 @@ import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
 import Header from "../../components/Header/Header.jsx";
 import Products from "../../components/Product/Products";
-
+import "sass/style.sass";
 class HomePage extends Component {
   constructor() {
     super();
@@ -73,7 +73,7 @@ class HomePage extends Component {
             <SliderPrimary />
             <Benefits />
             <Categories />
-            <Col md={{ span: 24 }} style={{ marginBottom: "2em" }}>
+            <div className="container">
               <font className="contentHomeProductText">
                 <h2>Tops Trending</h2>
               </font>
@@ -94,7 +94,7 @@ class HomePage extends Component {
               </font>
               <Products products={this.state.productsTas} maxProductCount={6} />
               <Inspirations inspirations={DummyInspirationBottom} />
-            </Col>
+            </div>
             <Footer />
           </Col>
         </Row>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Row, Col, Button, Icon, Menu } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "../../components/Login/Login";
+import { connect } from "react-redux";
+import {logout} from "../../store/actions/authentication";
 import { Link, NavLink } from "react-router-dom";
 import "./style.sass";
 import "sass/style.sass";
@@ -43,6 +45,10 @@ class Header extends Component {
       });
   };
 
+  handleLogout = ()=> {
+    this.props.logout();
+  }
+
   render() {
     return (
       <div className="navigation">
@@ -83,9 +89,9 @@ class Header extends Component {
                   <div>
                     <button
                       className="button-navigation"
-                      onClick={this.openModalLogin}
+                      onClick={this.handleLogout}
                     >
-                      Profil
+                      logout
                     </button>
                   </div>
                 )}
@@ -127,4 +133,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authReducer.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps,{logout})(Header);

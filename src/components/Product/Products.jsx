@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "./Product";
 import {Row, Col} from 'antd'
+import "./style.sass"
 
 const products = props => {
   let counter = 0;
@@ -24,10 +25,10 @@ const products = props => {
           return (
             <Col
               key={index}
-              md={{ span: 3 }}
+              md={4}
               style={{
-                paddingLeft: "10px",
-                paddingRight: "10px",
+                paddingLeft: "5px",
+                paddingRight: "5px",
                 marginTop: "10px"
               }}
             >
@@ -46,10 +47,10 @@ const products = props => {
           return (
             <Col
               key={index}
-              md={{ span: 3 }}
+              md={4}
               style={{
-                paddingLeft: "10px",
-                paddingRight: "10px",
+                paddingLeft: "5px",
+                paddingRight: "5px",
                 marginTop: "10px"
               }}
             >

@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import HomePage from "./containers/HomePage/HomePage";
-import RegisterPage from "./containers/RegisterPage/RegisterPage";
-import ProductDetail from "./containers/ProductDetail/ProductDetail";
 import { isTokenExpired,logout } from "./store/actions/authentication";
+import routes from "./routers/routes";
 
 class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     console.log({api : token});
-    
     if (token) {
       this.props.isTokenExpired(token);
     }else{
@@ -20,12 +17,17 @@ class App extends Component {
   }
 
   render() {
+    const routeComponents = 
+    routes.map(({path,component},key)=> 
+    <Route 
+    exact path={path} 
+    component={component} 
+    key={key}/>
+    );
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route  path="/register" component={RegisterPage} />
-          <Route path = "/product-detail" component={ProductDetail}/>
+          {routeComponents}
         </Switch>
       </BrowserRouter>
     );
