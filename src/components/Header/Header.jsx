@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Icon, Menu } from "antd";
+import { Row, Col} from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
@@ -7,6 +7,7 @@ import { logout } from "../../store/actions/authentication";
 import { Link, NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./style.sass";
 import "sass/style.sass";
 import serviceCategory from "api/services/ServiceCategory";
@@ -124,30 +125,26 @@ class Header extends Component {
             </Col>
             <Col md={10}>
               <div className="item-navigation">
-                {this.state.sumProduct === 0 ? (
-                  <Icon
-                    type="shopping-cart"
-                    className="icon-cart-navigation"
-                    style={{ fontSize: "35px" }}
-                    onClick={this.toPageCart.bind(this)}
-                  />
-                ) : (
-                  <Badge badgeContent={this.state.sumProduct} color="secondary">
-                    <Icon
-                      type="shopping-cart"
-                      className="icon-cart-navigation"
-                      style={{ fontSize: "35px" }}
-                      onClick={this.toPageCart.bind(this)}
-                    />
-                  </Badge>
-                )}
-                {/* {this.state.sumProduct === 0 ? (
-                  <Icon type="shopping-cart" className="icon-cart-navigation" />
-                ) : (
-                  <Icon type="shopping-cart" className="icon-cart-navigation">
-                    <Badge count={this.state.sumProduct} />
-                  </Icon>
-                )} */}
+              {this.props.cartContentQty === 0 ? (
+                      <IconButton aria-label="Cart">
+                        <ShoppingCartIcon
+                          style={{ fontSize: "30px" }}
+                          onClick={this.toPageCart.bind(this)}
+                        />
+                      </IconButton>
+                    ) : (
+                        <IconButton aria-label="Cart">
+                          <Badge
+                            badgeContent={this.props.cartContentQty}
+                            color="secondary"
+                          >
+                            <ShoppingCartIcon
+                              style={{ fontSize: "30px" }}
+                              onClick={this.toPageCart.bind(this)}
+                            />
+                          </Badge>
+                        </IconButton>
+                      )}
 
                 {this.props.isAuthenticated !== true ? (
                   <div>
@@ -213,7 +210,8 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.authReducer.isAuthenticated,
-    cartContentQty: state.cartContentQty
+    cartContentQty: state.authRedycer.cartContentQty
+   
   };
 };
 
@@ -223,7 +221,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapDispatchToProps,
-  mapStateToProps,
-  { logout }
-)(Header);
+export default connect(mapStateToProps,mapDispatchToProps,{logout})(Header);

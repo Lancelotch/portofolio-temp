@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import SliderProductDetail from "components/SliderSecondary/SliderSecondary";
@@ -235,6 +236,9 @@ class ProductDetail extends Component {
         .then(res => {
           console.log(res);
           this.setState({ productNotificationOpen: true });
+
+          const newQty = this.props.cartContentQty + state.quantity;
+          this.props.updateCartContentQty(newQty);
         })
         .catch(error => {
           console.log(error);
@@ -324,4 +328,18 @@ class ProductDetail extends Component {
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = state => ({
+  cartContentQty: state.cartContentQty
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateCartContentQty: qty =>
+      dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductDetail);
