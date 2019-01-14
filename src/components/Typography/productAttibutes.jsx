@@ -12,8 +12,7 @@ const productAttibutes = props => {
               fontSize: "14px",
               fontWeight: "400",
               lineHeight: "1.4em"
-            }}
-          >
+            }}>
             {productAttribute}
           </p>
         </Col>

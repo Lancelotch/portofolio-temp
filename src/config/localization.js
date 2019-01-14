@@ -2,8 +2,9 @@ import LocalizedStrings from "react-localization";
 
 const strings = new LocalizedStrings({
   id: {
-     //general
-     monggoPesen : "MonggoPesen",
+    //general
+    monggoPesen: "MonggoPesen",
+    add_to_cart : "Tambah Ke Keranjang",
     //Social Media
     google: "Google",
     facebook: "Facebook",

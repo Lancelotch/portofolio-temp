@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Col, Row, Input } from "antd";
+import { Col, Row, Input, Icon } from "antd";
 import { Button } from "antd/lib/radio";
 
 
@@ -53,16 +53,18 @@ class ButtonQuantity extends React.Component {
       <div className="buttonKategoryProduct">
         <div className="container-fluid">
           <Row>
-            <Col md={12}>
+            <Col md={24}>
               <b>{this.props.title}</b>
             </Col>
-            <Col md={12} style={{ marginLeft: "8px" }}>
+            <Col md={24} style={{ marginLeft: "8px" }}>
               <Button
                 style={{ marginRight: "8px" }}
                 size="sm"
                 round
                 onClick={this.decreaseItem}
-              />
+              >
+               <Icon type="minus" style={{fontSize:"14px"}} />
+              </Button>
               <Input
                 type="number"
                 defaultValue={1}
@@ -83,7 +85,9 @@ class ButtonQuantity extends React.Component {
                 size="sm"
                 round
                 onClick={this.incrementItem}
-              />
+              >
+              <Icon type="plus" style={{fontSize:"14px"}} />
+              </Button>
             </Col>
           </Row>
         </div>
