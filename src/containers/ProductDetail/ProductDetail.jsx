@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import SliderProductDetail from "components/SliderSecondary/SliderSecondary";
-import { Col, Row, Card, Breadcrumb } from "antd";
+import { Col, Row, Card, Breadcrumb, Button } from "antd";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 import Variants from "../../components/Variant/Variants";
 import strings from "../../config/localization";
@@ -224,7 +225,6 @@ class ProductDetail extends Component {
       if (this.state.variants.length < this.state.options.length) {
         return this.setState({ variantNotificationOpen: true });
       }
-
       const state = { ...this.state };
       const requestAddtoCart = {
         productId: state.productId,
@@ -236,6 +236,9 @@ class ProductDetail extends Component {
         .then(res => {
           console.log(res);
           this.setState({ productNotificationOpen: true });
+
+          const newQty = this.props.cart.contentQty + state.quantity;
+          this.props.updateCartContentQty(newQty);
         })
         .catch(error => {
           console.log(error);
@@ -255,11 +258,14 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={15}>
                   <Breadcrumb>
-                    <Breadcrumb.Item><a href="/">{strings.monggoPesen}</a></Breadcrumb.Item>
                     <Breadcrumb.Item>
-                    <a href={this.state.linkProductDetail}>{this.state.category}</a>
+                      <a href="/">{strings.monggoPesen}</a>
                     </Breadcrumb.Item>
-               
+                    <Breadcrumb.Item>
+                      <a href="{this.state.linkProductDetail}">
+                        {this.state.category}
+                      </a>
+                    </Breadcrumb.Item>
                   </Breadcrumb>
                   <SliderProductDetail
                     productImages={this.state.productImages}
@@ -274,6 +280,11 @@ class ProductDetail extends Component {
                       quantity={1}
                       onChange={this.onChangeQuantity}
                     />
+                    {this.state.productTitle.length > 0 && (
+                      <Button onClick={this.addToCart}>
+                        {strings.add_to_cart}
+                      </Button>
+                    )}
                     {this.state.options !== undefined &&
                       this.state.options.map((option, index) => {
                         return (
@@ -317,4 +328,18 @@ class ProductDetail extends Component {
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateCartContentQty: qty =>
+      dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductDetail);

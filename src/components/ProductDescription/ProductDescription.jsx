@@ -46,22 +46,17 @@ class ProductDescription extends Component {
 
   render() {
     const imageproduct = this.state.productDescriptions.map((item, index) => {
-      const imageUrl = item.replace("_.webp", "");
-      return (
-        <div key={index} className="image-product-details">
-          <img
-            src={imageUrl}
-            alt=""
-            style={this.isVisible(index)}
-            className="img-responsive"
-          />
-        </div>
-      );
-    }),
+        const imageUrl = item.replace("_.webp", "");
+        return (
+          <div key={index} className="image-product-details">
+            <img src={imageUrl} style={this.isVisible(index)} />
+          </div>
+        );
+      }),
       toggleCollapseLabelText = this.toggleCollapseLabelText();
 
     return (
-      <div>
+      <React.Fragment>
         {imageproduct}
         <button
           onClick={this.moveActiveImageIndexPointerStartToLast}
@@ -70,7 +65,7 @@ class ProductDescription extends Component {
         >
           {toggleCollapseLabelText}
         </button>
-      </div>
+      </React.Fragment>
     );
   }
 }

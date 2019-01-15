@@ -1,6 +1,7 @@
 import HomePage from "../containers/HomePage/HomePage";
 import RegisterPage from "../containers/RegisterPage/RegisterPage";
 import ProductDetail from "../containers/ProductDetail/ProductDetail";
+import Cart from "../containers/Cart/Cart";
 
 const routes = [{
         path: "/",
@@ -15,6 +16,10 @@ const routes = [{
     {
         path: "/product-detail/:productId",
         component: ProductDetail
+    },
+    {
+        path: "/cart",
+        component: Cart
     }
 ]
 

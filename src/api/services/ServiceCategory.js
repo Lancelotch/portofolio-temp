@@ -1,7 +1,7 @@
 import urls from "../urls";
-import httpClient  from "config/httpClient";
+import httpClient  from "../config/httpClient";
 
-const CategoryFeature = () => {    
+const CategoryFeature = () => {
     return new Promise((resolve, reject) => {
       httpClient.mainService
         .request({
