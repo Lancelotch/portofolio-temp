@@ -20,7 +20,6 @@ class CartVariant extends Component {
 
   productImage = () => {
     //jika image source kosong maka tampilkan title
-    const { classes } = this.props;
     if (this.state.optionValImage === "") {
       return this.product(<div>{this.state.optionValText}</div>);
     } else {
@@ -44,10 +43,10 @@ class CartVariant extends Component {
   tooltip = () => {
     return (
       <Row style={{ marginTop: "1.4em" }}>
-        <Col xs={12} lg={6}>
+        <Col xs={12} md={12}>
           <p>{this.state.optionValName}</p>
         </Col>
-        <Col xs={12} lg={6}>
+        <Col xs={12} md={12}>
           {this.productImage()}
         </Col>
       </Row>

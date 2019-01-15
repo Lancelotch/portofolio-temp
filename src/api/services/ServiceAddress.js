@@ -1,5 +1,6 @@
-import httpClient from "../config/httpClient";
+import httpClient from "../../config/httpClient";
 import urls from "../urls";
+
 
 
 export const apiGetAddressDefault = () => {
@@ -104,7 +105,7 @@ export const apiGetCity = (request) => {
 
 export const apiDeleteAddress = (request) => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientMainService
+    httpClient.cartServices
       .request({
         method: "DELETE",
         url: urls.urlDeleteAddress + request

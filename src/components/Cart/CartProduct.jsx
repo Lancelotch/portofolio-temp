@@ -59,7 +59,7 @@ export default class CartProduct extends Component {
                   <p onClick={this.props.onDelete}>{strings.action_delete}</p>
                 )}
               </Col>
-              <Col md md={2} xs={2} style={{ marginLeft: "10px" }}>
+              <Col md={6} xs={2} style={{ marginLeft: "10px" }}>
                 {!this.state.productPic ? (
                   <SkeletonImg heightSkeleton="95px" />
                 ) : (
@@ -70,9 +70,7 @@ export default class CartProduct extends Component {
                   />
                 )}
               </Col>
-              <Col md
-                md={8}
-                xs={7}
+              <Col md={16} xs={7}
                 className="button-cart cart-product-price"
               >
                 <p className="label-cart-product">

@@ -177,7 +177,6 @@ class Cart extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <Loader active={this.state.isLoaderActive}>
         {this.renderRedirectToCheckout()}
@@ -224,7 +223,7 @@ class Cart extends Component {
                     price={this.countTotal(this.state.cartProducts)}
                     title={strings.orderDetail}
                   />
-                  <Col xs={12} className="price-label-button">
+                  <Col xs={24} className="price-label-button">
                     <Button
                       style={{ marginTop: "3rem" }}
                       buttonProductDetail

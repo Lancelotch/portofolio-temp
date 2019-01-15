@@ -6,6 +6,7 @@ const strings = new LocalizedStrings({
     monggoPesen: "MonggoPesen",
     add_to_cart : "Tambah Ke Keranjang",
     action_delete : "Hapus",
+    checkout : "Checkout",
     //Social Media
     google: "Google",
     facebook: "Facebook",
