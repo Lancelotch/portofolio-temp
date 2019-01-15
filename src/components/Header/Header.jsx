@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-import { Row, Col} from "antd";
+import { Row, Col, Icon, Badge } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
 import { logout } from "../../store/actions/authentication";
 import { Link, NavLink } from "react-router-dom";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./style.sass";
 import "sass/style.sass";
 import serviceCategory from "api/services/ServiceCategory";
 import { apiGetProductsFromCart } from "../../api/services/ServiceCart";
-import authentication from "../../api/services/authentication";
 
 class Header extends Component {
   constructor() {
@@ -28,22 +24,7 @@ class Header extends Component {
   componentWillMount() {
     this.getCategoryFeature();
     this.getListCart();
-    this.getUserDetail();
   }
-
-  getUserDetail = () => {
-    authentication
-      .apiGetDetailUser()
-      .then(response => {
-        const detailUser = response.data;
-        this.setState({
-          name: detailUser.name,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
 
   openModalLogin = () => {
     const openModalLogin = this.state.openModalLogin;
@@ -88,9 +69,9 @@ class Header extends Component {
           const sumProduct = response.data.length;
           if (response.code === "200") {
             // If the qty in Redux is different than that of server, overwrite it
-            console.log(11, this.props.cartContentQty, sumProduct)
+            console.log(11, this.props.cartContentQty, sumProduct);
             if (this.props.cartContentQty !== sumProduct) {
-                this.props.updateCartContentQty(sumProduct);
+              this.props.updateCartContentQty(sumProduct);
             }
             // this.setState({
             //   sumProduct: sumProduct
@@ -125,26 +106,24 @@ class Header extends Component {
             </Col>
             <Col md={10}>
               <div className="item-navigation">
-              {this.props.cartContentQty === 0 ? (
-                      <IconButton aria-label="Cart">
-                        <ShoppingCartIcon
-                          style={{ fontSize: "30px" }}
-                          onClick={this.toPageCart.bind(this)}
-                        />
-                      </IconButton>
-                    ) : (
-                        <IconButton aria-label="Cart">
-                          <Badge
-                            badgeContent={this.props.cartContentQty}
-                            color="secondary"
-                          >
-                            <ShoppingCartIcon
-                              style={{ fontSize: "30px" }}
-                              onClick={this.toPageCart.bind(this)}
-                            />
-                          </Badge>
-                        </IconButton>
-                      )}
+                {this.props.cartContentQty === 0 ? (
+                  <Icon
+                    type="shopping-cart"
+                    onClick={this.toPageCart.bind(this)}
+                    className="icon-cart-navigation"
+                  />
+                ) : (
+                  <Icon
+                    type="shopping-cart"
+                    onClick={this.toPageCart.bind(this)}
+                    className="icon-cart-navigation"
+                  >
+                    <Badge
+                      count={this.props.cartContentQty}
+                      color="secondary"
+                    />
+                  </Icon>
+                )}
 
                 {this.props.isAuthenticated !== true ? (
                   <div>
@@ -209,16 +188,17 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authReducer.isAuthenticated,
-    cartContentQty: state.authRedycer.cartContentQty
-   
+    isAuthenticated: state.authReducer.isAuthenticated
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-      updateCartContentQty: (qty) => dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty }),
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//       updateCartContentQty: (qty) => dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty }),
+//   }
+// }
 
-export default connect(mapStateToProps,mapDispatchToProps,{logout})(Header);
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Header);
