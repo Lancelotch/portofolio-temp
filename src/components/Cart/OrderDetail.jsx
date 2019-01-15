@@ -25,17 +25,17 @@ export default class OrderDetail extends Component {
 
     return (
       <Row className="label-cart" >
-        <Col xs={12}>
+        <Col md={24}>
           <p>{this.state.title}</p>
         </Col>
-        <Col xs={12}
+        <Col md={24}
           style={{
             paddingLeft: "0px",
             paddingRight: "0px"
           }}>
           {/* <PriceLabelCourier /> */}
         </Col>
-        <Col lg={12} className="price-label-cart" style={priceLabelCart}>
+        <Col md={24} className="price-label-cart" style={priceLabelCart}>
           <p>{this.state.label}</p>
           <CurrencyRp price={this.props.price} />
         </Col>

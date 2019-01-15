@@ -64,6 +64,7 @@ const urls = {
     urlDeleteAddress : urlDeleteAddress,
     urlGetCity : urlGetCity,
     urlAddUserAddress : urlAddUserAddress,
+    deleteProductFromCart : deleteProductFromCart,
     ngrokUrlGetProvince : ngrokUrlGetProvince,
     ngrokUrlGetCity : ngrokUrlGetCity
 }
