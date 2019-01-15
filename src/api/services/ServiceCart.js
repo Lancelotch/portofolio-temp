@@ -1,8 +1,8 @@
-    
-import httpClient  from "config/httpClient";
+
+import httpClient  from "../config/httpClient";
 import urls from "../urls";
 
-export const apiAddToCart = productSelected => {  
+export const apiAddToCart = productSelected => {
   return new Promise((resolve, reject) => {
     httpClient.httpClientCart
       .request({
@@ -26,7 +26,7 @@ export const apiGetProductsFromCart = () => {
         method: "GET",
         url: urls.getProductsFromCart
       })
-      .then(response => {          
+      .then(response => {
         resolve(response.data);
       })
       .catch(error => {
@@ -52,7 +52,7 @@ export const apiUpdateProductFromCart = updateProducts => {
   });
 };
 
-export const apiDeleteProductFromCart = cartId => {    
+export const apiDeleteProductFromCart = cartId => {
   return new Promise((resolve, reject) => {
     httpClient.httpClientCart
       .request({

@@ -34,10 +34,13 @@ class ProductDetail extends Component {
       productNotificationOpen: false,
       variantNotificationOpen: false,
       category: "",
-      lockAddToCartButton: false
+      lockAddToCartButton: false,
+      propPath: {},
+      skuBase: [],
+      skuCore: [],
+      infoRate: {}
     };
   }
-  
   componentWillMount() {
     const productId = this.props.match.params.productId;
     const response = apiGetProductById(productId)
@@ -62,9 +65,9 @@ class ProductDetail extends Component {
           productImages: details.productImages,
           productSalePrice: productSalePrice,
           productDescriptions: details.productDescription,
-          // skuBase: details.skuBase,
-          // skuCore: details.skuCore,
-          // infoRate: details.infoRate,
+          skuBase: details.skuBase,
+          skuCore: details.skuCore,
+          infoRate: details.infoRate,
           category: category
         };
         return productDetail;
@@ -79,9 +82,9 @@ class ProductDetail extends Component {
           productImages: productDetail.productImages,
           productDescriptions: productDetail.productDescriptions,
           productSalePrice: productDetail.productSalePrice,
-          // skuBase: productDetail.skuBase,
-          // skuCore: productDetail.skuCore,
-          // infoRate: productDetail.infoRate,
+          skuBase: productDetail.skuBase,
+          skuCore: productDetail.skuCore,
+          infoRate: productDetail.infoRate,
           productDisplayState: !productDetail.productSalePrice
             ? "NOT_FOUND"
             : "DISPLAYING"
@@ -92,33 +95,6 @@ class ProductDetail extends Component {
       });
   }
 
-  toggleModal() {
-    this.setState({
-      open: true
-    });
-  }
-
-  handleClose() {
-    this.setState({
-      lockAddToCartButton: false,
-      open: !this.state.open
-    });
-  }
-
-  handleProductNotificationClose() {
-    this.setState({
-      lockAddToCartButton: false,
-      productNotificationOpen: !this.state.productNotificationOpen
-    });
-  }
-
-  handleVariantNotificationClose() {
-    this.setState({
-      lockAddToCartButton: false,
-      variantNotificationOpen: !this.state.variantNotificationOpen
-    });
-  }
-
   updateVariants = responseVariant => {
     const variants = [...this.state.variants];
     var updatedvariant = variants;
@@ -127,27 +103,33 @@ class ProductDetail extends Component {
     );
     if (variants < 1) {
       updatedvariant.push({
+        index: responseVariant.index,
+        optionId: responseVariant.optionId,
         name: responseVariant.name,
-        value: responseVariant.value.optionValText,
-        imageUrl: responseVariant.value.optionValImage
+        valText: responseVariant.value.optionValText,
+        valImage: responseVariant.value.optionValImage,
+        valueId: responseVariant.value.optionValId
       });
     } else {
       if (result === undefined) {
         updatedvariant.push({
+          index: responseVariant.index,
+          optionId: responseVariant.optionId,
           name: responseVariant.name,
-          value: responseVariant.value.optionValText,
-          imageUrl: responseVariant.value.optionValImage
+          valText: responseVariant.value.optionValText,
+          valImage: responseVariant.value.optionValImage,
+          valueId: responseVariant.value.optionValId
         });
       } else {
-        updatedvariant = variants.map(
-          variant =>
-            variant.name !== responseVariant.name
-              ? variant
-              : {
-                  ...variant,
-                  value: responseVariant.value.optionValText,
-                  imageUrl: responseVariant.value.optionValImage
-                }
+        updatedvariant = variants.map(variant =>
+          variant.name !== responseVariant.name
+            ? variant
+            : {
+                ...variant,
+                valText: responseVariant.value.optionValText,
+                valImage: responseVariant.value.optionValImage,
+                valueId: responseVariant.value.optionValId
+              }
         );
       }
     }
@@ -172,6 +154,63 @@ class ProductDetail extends Component {
     }
   };
 
+  // onChangeVariant = async selected => {
+  //   const productImages = [...this.state.productImages];
+  //   await this.updateVariants(selected);
+  //   const propPath = await this.propPath(this.state.variants);
+  //   const skuBase = await this.state.skuBase.find(skuBase =>
+  //     skuBase.propPath = propPath
+  //   )
+  //   const skuCore = this.state.skuCore[skuBase.skuId];
+  //   console.log(skuCore.quantity);
+
+  //   if(skuCore.quantity == 0){
+  //     alert("product Kosong");
+  //   }
+  //   const cnyToIdr = this.state.infoRate.cnytoidr;
+  //   const priceIdr = parseInt(skuCore.price.priceText) * cnyToIdr;
+  //   const productSalePrice = Math.ceil(priceIdr/100)*100;
+  //   this.setState({
+  //     productSalePrice : productSalePrice
+  //   })
+
+  //   if (selected.value.optionValImage.length > 0) {
+  //     productImages.shift();
+  //     productImages.unshift({
+  //       small: selected.value.optionValImage,
+  //       medium: selected.value.optionValImage.replace("100x100", "300x300"),
+  //       big: selected.value.optionValImage.replace("100x100", "800x800")
+  //     });
+  //     this.setState({
+  //       productImages: productImages
+  //     });
+  //   }
+  // };
+
+  compare = (a, b) => {
+    const indexA = a.index;
+    const indexB = b.index;
+    let comparison = 0;
+    if (indexA > indexB) {
+      comparison = 1;
+    } else if (indexA < indexB) {
+      comparison = -1;
+    }
+    return comparison;
+  };
+
+  propPath = variants => {
+    const sortVariants = variants.sort(this.compare);
+    var propPath = "";
+    sortVariants.map((variant, index) => {
+      index === 0
+        ? (propPath = propPath + variant.optionId + ":" + variant.valueId)
+        : (propPath =
+            propPath + ";" + variant.optionId + ":" + variant.valueId);
+    });
+    return propPath;
+  };
+
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
     quantity = qyt;
@@ -186,7 +225,6 @@ class ProductDetail extends Component {
       if (this.state.variants.length < this.state.options.length) {
         return this.setState({ variantNotificationOpen: true });
       }
-
       const state = { ...this.state };
       const requestAddtoCart = {
         productId: state.productId,
@@ -199,7 +237,7 @@ class ProductDetail extends Component {
           console.log(res);
           this.setState({ productNotificationOpen: true });
 
-          const newQty = this.props.cartContentQty + state.quantity;
+          const newQty = this.props.cart.contentQty + state.quantity;
           this.props.updateCartContentQty(newQty);
         })
         .catch(error => {
@@ -242,11 +280,11 @@ class ProductDetail extends Component {
                       quantity={1}
                       onChange={this.onChangeQuantity}
                     />
-                   
+                    {this.state.productTitle.length > 0 && (
                       <Button onClick={this.addToCart}>
                         {strings.add_to_cart}
                       </Button>
-                  
+                    )}
                     {this.state.options !== undefined &&
                       this.state.options.map((option, index) => {
                         return (
@@ -291,7 +329,7 @@ class ProductDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  cartContentQty: state.cartContentQty
+  cart: state.cart,
 });
 
 const mapDispatchToProps = dispatch => {

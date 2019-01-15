@@ -1,6 +1,7 @@
 //Root Service
 const mainServices = "https://api.monggopesen.com/main-services/";
 const cartServices = "https://api.monggopesen.com/cart-services/";
+const API_URL_CART = "https://api.monggopesen.com/cart-services/";
 const cart = "v1/cart/user";
 
 //Authentication Page
@@ -55,6 +56,7 @@ const urls = {
     loginSocialMedia: loginSocialMedia,
     registerSocialMedia: registerSocialMedia,
     getProductsFromCart: getProductsFromCart,
+    API_URL_CART : API_URL_CART,
     urlCustomerAddressDefault : urlCustomerAddressDefault,
     urlCustomerAddress : urlCustomerAddress,
     urlChangeAddressDefault : urlChangeAddressDefault,

@@ -3,8 +3,8 @@ import authReducer from "./authentication"
 import cart from "./cart"
 
 const rootReducer = combineReducers({
-    authReducer : authReducer,
-    cart : cart
+    authReducer,
+    cart,
 })
 
 export default rootReducer;

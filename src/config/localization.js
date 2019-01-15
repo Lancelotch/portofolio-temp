@@ -5,6 +5,7 @@ const strings = new LocalizedStrings({
     //general
     monggoPesen: "MonggoPesen",
     add_to_cart : "Tambah Ke Keranjang",
+    action_delete : "Hapus",
     //Social Media
     google: "Google",
     facebook: "Facebook",
@@ -15,6 +16,11 @@ const strings = new LocalizedStrings({
     login_forgot_password: "Lupa Password",
     login_quote: "Belum punya Akun MonggoPesen ? {0} Sekarang",
     login_register: "Daftar",
+    //Button
+    button_empty_cart : "Ayo Mulai Belanja",
+     //Warning
+     warning_empty_cart : "Belum ada barang di keranjang belanja kamu",
+     warning_unavailable_product : "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
     //Register
     register_now: "Daftar Sekarang",
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",

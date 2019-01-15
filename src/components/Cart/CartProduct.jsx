@@ -50,9 +50,9 @@ export default class CartProduct extends Component {
       <Card>
         <div className="container-fluid">
         <Row>
-          <Col md={12} xs={12}>
+          <Col md={24} xs={24}>
             <Row>
-              <Col md xs={12} className="close-button-cart">
+              <Col md xs={24} className="close-button-cart">
                 {!this.state.productName ? (
                   ""
                 ) : (

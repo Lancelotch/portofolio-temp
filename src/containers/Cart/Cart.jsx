@@ -184,12 +184,12 @@ class Cart extends Component {
         <div className="cart-product">
           <div
             className={
-              this.state.cartProducts.length < 1 ? "" : classes.container
+              this.state.cartProducts.length < 1 ? "" : '' // classes.container
             }
           >
             <Header />
             <Row>
-              <Col md={this.state.cartProducts.length < 1 ? 12 : 8} xs={6}>
+              <Col md={this.state.cartProducts.length < 1 ? 24 : 16} xs={24} style={{marginTop: "111px"}}>
                 {this.state.cartProducts.length > 0 && (
                   <Breadcrumb style={{ paddingLeft: "0px" }}>
                     <BreadcrumbItem>

@@ -29,7 +29,7 @@ class CartVariant extends Component {
           id="tooltip-top"
           title={this.state.optionValText}
           placement="top"
-          classes={{ tooltip: classes.tooltip }}
+          // classes={{ tooltip: classes.tooltip }}
         >
           <img
             src={this.state.optionValImage}

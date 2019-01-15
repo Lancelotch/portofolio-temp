@@ -68,8 +68,8 @@ class ButtonQuantity extends React.Component {
               <Input
                 type="number"
                 defaultValue={1}
-                maxLength="3"
-        
+                maxLength={3}
+
                   style= {
                     {textAlign: "center",
                     fontSize: 14,
@@ -78,7 +78,7 @@ class ButtonQuantity extends React.Component {
                   }
                   value={this.state.quantity}
                   onChange={this.onChangeQuantity}
-              
+
               />
               <Button
                 style={{ marginLeft: "8px" }}
