@@ -52,14 +52,14 @@ export default class CartProduct extends Component {
         <Row>
           <Col md={24} xs={24}>
             <Row>
-              <Col md xs={24} className="close-button-cart">
+              <Col md={24} xs={24} className="close-button-cart">
                 {!this.state.productName ? (
                   ""
                 ) : (
                   <p onClick={this.props.onDelete}>{strings.action_delete}</p>
                 )}
               </Col>
-              <Col md={6} xs={2} style={{ marginLeft: "10px" }}>
+              <Col md={8} xs={8}>
                 {!this.state.productPic ? (
                   <SkeletonImg heightSkeleton="95px" />
                 ) : (
@@ -70,7 +70,7 @@ export default class CartProduct extends Component {
                   />
                 )}
               </Col>
-              <Col md={16} xs={7}
+              <Col md={16} xs={16}
                 className="button-cart cart-product-price"
               >
                 <p className="label-cart-product">
@@ -106,7 +106,7 @@ export default class CartProduct extends Component {
                   </p>
                 ) : (
                   <Input
-                    labelText={strings.cart_placeHolder_Note}
+                    placeholder={strings.cart_placeHolder_Note}
                     id="note"
                     onChange={this.onChangeNote}
                     value={this.state.note}
