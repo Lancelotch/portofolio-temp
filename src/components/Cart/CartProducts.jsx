@@ -45,7 +45,6 @@ class CartProducts extends Component {
     apiDeleteProductFromCart({ cartId: cartId })
       .then(result => {
         console.log(result);
-        // window.location.reload();
       })
       .then(() => {
         const cartProducts = [...this.state.cartProducts];

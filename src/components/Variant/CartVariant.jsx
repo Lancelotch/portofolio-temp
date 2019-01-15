@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Tooltip } from "@material-ui/core";
-import { Row, Col } from "antd";
+import { Row, Col, Tooltip } from "antd";
 
 class CartVariant extends Component {
   constructor(props) {
@@ -21,14 +20,13 @@ class CartVariant extends Component {
   productImage = () => {
     //jika image source kosong maka tampilkan title
     if (this.state.optionValImage === "") {
-      return this.product(<div>{this.state.optionValText}</div>);
+      return this.product(<React.Fragment>{this.state.optionValText}</React.Fragment>);
     } else {
       return this.product(
         <Tooltip
           id="tooltip-top"
           title={this.state.optionValText}
           placement="top"
-          // classes={{ tooltip: classes.tooltip }}
         >
           <img
             src={this.state.optionValImage}

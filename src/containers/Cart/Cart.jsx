@@ -3,6 +3,7 @@ import Footer from "components/Footer/Footer.jsx";
 import CartProducts from "../../components/Cart/CartProducts";
 import OrderDetail from "../../components/Cart/OrderDetail";
 import { Redirect } from "react-router-dom";
+import "./style.sass"
 import { pageCheckout } from "url/url"
 import Loader from "../../components/Loader/Loader";
 import Header from "../../components/Header/Header";
@@ -185,16 +186,16 @@ class Cart extends Component {
             className={
               this.state.cartProducts.length < 1 ? "" : '' // classes.container
             }
-          >
+          > 
             <Header />
             <Row>
               <Col md={this.state.cartProducts.length < 1 ? 24 : 16} xs={24} style={{marginTop: "111px"}}>
-                {this.state.cartProducts.length > 0 && (
+                {this.state.cartProducts.length > 0 && ( 
                   <Breadcrumb style={{ paddingLeft: "0px" }}>
                     <BreadcrumbItem>
                       <a href="/">{strings.monggoPesen}</a>
                     </BreadcrumbItem>
-                    <BreadcrumbItem active>
+                    <BreadcrumbItem>
                       <a href="/cart">{strings.cart_tittle}</a>
                     </BreadcrumbItem>
                   </Breadcrumb>
@@ -226,7 +227,6 @@ class Cart extends Component {
                   <Col xs={24} className="price-label-button">
                     <Button
                       style={{ marginTop: "3rem" }}
-                      buttonProductDetail
                       onClick={this.checkout}
                     >
                       {strings.checkout}
