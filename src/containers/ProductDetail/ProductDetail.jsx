@@ -13,6 +13,7 @@ import CurrencyRp from "components/Typography/CurrencyRp";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity/ButtonQuantity";
 import { apiAddToCart } from "../../api/services/ServiceCart";
+import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -335,7 +336,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     updateCartContentQty: qty =>
-      dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty })
+      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty })
   };
 };
 

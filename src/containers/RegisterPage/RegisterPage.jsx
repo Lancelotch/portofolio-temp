@@ -201,4 +201,5 @@ class RegisterPage extends Component {
   }
 }
 const RegisterForm = Form.create({})(RegisterPage);
+
 export default connect(mapStateToProps)(RegisterForm);

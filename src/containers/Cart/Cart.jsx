@@ -3,12 +3,15 @@ import Footer from "components/Footer/Footer.jsx";
 import CartProducts from "../../components/Cart/CartProducts";
 import OrderDetail from "../../components/Cart/OrderDetail";
 import { Redirect } from "react-router-dom";
-import "./style.sass"
-import { pageCheckout } from "url/url"
+import "./style.sass";
+import { pageCheckout } from "url/url";
 import Loader from "../../components/Loader/Loader";
 import Header from "../../components/Header/Header";
 import strings from "../../config/localization";
-import { apiGetProductsFromCart, apiUpdateProductFromCart } from "../../api/services/ServiceCart";
+import {
+  apiGetProductsFromCart,
+  apiUpdateProductFromCart
+} from "../../api/services/ServiceCart";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 import { Breadcrumb, Button, Row, Col } from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
@@ -39,10 +42,10 @@ class Cart extends Component {
   }
 
   componentWillMount() {
-    this.getCart();
+    this.productCart();
   }
 
-  getCart = () => {
+  productCart = () => {
     apiGetProductsFromCart()
       .then(response => {
         if (response.code == 200) {
@@ -182,69 +185,71 @@ class Cart extends Component {
       <Loader active={this.state.isLoaderActive}>
         {this.renderRedirectToCheckout()}
         <div className="cart-product">
-          <div
-            className={
-              this.state.cartProducts.length < 1 ? "" : '' // classes.container
-            }
-          > 
+          <div className={this.state.cartProducts.length < 1 ? "" : ""}>
             <Header />
-            <Row>
-              <Col md={this.state.cartProducts.length < 1 ? 24 : 16} xs={24} style={{marginTop: "111px"}}>
-                {this.state.cartProducts.length > 0 && ( 
-                  <Breadcrumb style={{ paddingLeft: "0px" }}>
-                    <BreadcrumbItem>
-                      <a href="/">{strings.monggoPesen}</a>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                      <a href="/cart">{strings.cart_tittle}</a>
-                    </BreadcrumbItem>
-                  </Breadcrumb>
-                )}
-                {this.state.cartProducts.length > 0 && (
-                  <h4>{strings.cart_tittle}</h4>
-                )}
-                <CartProducts
-                  cartProducts={this.state.cartProducts}
-                  onChange={this.onChange}
-                  isLoaded={this.state.isLoaded}
-                />
-                {this.state.cartProducts.length > 0 && (
-                  <a href="#">
-                    <Button style={buttonCartPesan}>
-                      {strings.repeat_order}
-                    </Button>
-                  </a>
-                )}
-              </Col>
-              {this.state.cartProducts.length > 0 && (
-                <Col md={4} xs={6}>
-                  {/* {this.state.cartProducts.map(price)} */}
-                  <OrderDetail
-                    label={strings.total_price_product}
-                    price={this.countTotal(this.state.cartProducts)}
-                    title={strings.orderDetail}
+            <div className="container">
+              <Row>
+                <Col
+                  md={this.state.cartProducts.length < 1 ? 24 : 16}
+                  xs={24}
+                  style={{ marginTop: "111px" }}
+                >
+                  {this.state.cartProducts.length > 0 && (
+                    <Breadcrumb style={{ paddingLeft: "0px" }}>
+                      <BreadcrumbItem>
+                        <a href="/">{strings.monggoPesen}</a>
+                      </BreadcrumbItem>
+                      <BreadcrumbItem>
+                        <a href="/cart">{strings.cart_tittle}</a>
+                      </BreadcrumbItem>
+                    </Breadcrumb>
+                  )}
+                  {this.state.cartProducts.length > 0 && (
+                    <h4>{strings.cart_tittle}</h4>
+                  )}
+                  <CartProducts
+                    cartProducts={this.state.cartProducts}
+                    onChange={this.onChange}
+                    isLoaded={this.state.isLoaded}
                   />
-                  <Col xs={24} className="price-label-button">
-                    <Button
-                      style={{ marginTop: "3rem" }}
-                      onClick={this.checkout}
-                    >
-                      {strings.checkout}
-                    </Button>
-                    <br />
-                    <br />
-                    <p>{strings.cart_easy_and_safe}</p>
-                    {/* {this.state.open === true && (
+                  {this.state.cartProducts.length > 0 && (
+                    <a href="#">
+                      <Button style={buttonCartPesan}>
+                        {strings.repeat_order}
+                      </Button>
+                    </a>
+                  )}
+                </Col>
+                {this.state.cartProducts.length > 0 && (
+                  <Col md={8} xs={6}>
+                    {/* {this.state.cartProducts.map(price)} */}
+                    <OrderDetail
+                      label={strings.total_price_product}
+                      price={this.countTotal(this.state.cartProducts)}
+                      title={strings.orderDetail}
+                    />
+                    <Col xs={24} className="price-label-button">
+                      <Button
+                        style={{ marginTop: "3rem" }}
+                        onClick={this.checkout}
+                      >
+                        {strings.checkout}
+                      </Button>
+                      <br />
+                      <br />
+                      <p>{strings.cart_easy_and_safe}</p>
+                      {/* {this.state.open === true && (
                       <AddAddressCustomer
                         open={this.state.open}
                         handleClose={this.handleClose.bind(this)}
                         changeAddress={this.checkout}
                       />
                     )} */}
+                    </Col>
                   </Col>
-                </Col>
-              )}
-            </Row>
+                )}
+              </Row>
+            </div>
           </div>
           {this.state.cartProducts.length > 0 && <Footer />}
         </div>

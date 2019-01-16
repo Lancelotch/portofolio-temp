@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Icon, Menu } from "antd";
+import { Row, Col, Button, Icon, Menu, Badge } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "../../components/Login/Login";
 import { connect } from "react-redux";
 import { logout } from "../../store/actions/authentication";
 import { Link, NavLink } from "react-router-dom";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import "./style.sass";
 import "sass/style.sass";
 import serviceCategory from "api/services/ServiceCategory";
 import { apiGetProductsFromCart } from "../../api/services/ServiceCart";
 import authentication from "../../api/services/authentication";
+import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
 
 class Header extends Component {
   constructor() {
@@ -131,7 +130,7 @@ class Header extends Component {
                     onClick={this.toPageCart.bind(this)}
                   />
                 ) : (
-                  <Badge badgeContent={this.props.cart.contentQty} color="secondary">
+                  <Badge count={this.props.cart.contentQty} color="secondary">
                     <Icon
                       type="shopping-cart"
                       className="icon-cart-navigation"
@@ -218,7 +217,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      updateCartContentQty: (qty) => dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty }),
+      updateCartContentQty: (qty) => dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty }),
       logout,
   }
 }

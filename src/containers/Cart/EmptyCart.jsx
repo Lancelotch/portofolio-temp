@@ -35,7 +35,9 @@ class EmptyCart extends Component {
             <Button style={buttonCartPesan}>{strings.button_empty_cart}</Button>
           </Link>
         </Col>
-        <Footer />
+        <div style={{ width: "100%" }}>
+          <Footer />
+        </div>
       </div>
     );
   }
