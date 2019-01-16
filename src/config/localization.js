@@ -7,6 +7,7 @@ const strings = new LocalizedStrings({
     add_to_cart : "Tambah Ke Keranjang",
     action_delete : "Hapus",
     checkout : "Checkout",
+    total_price_product : "Total Harga Barang",
     //Social Media
     google: "Google",
     facebook: "Facebook",

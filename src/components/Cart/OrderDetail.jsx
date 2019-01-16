@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import CurrencyRp from "../Typography/CurrencyRp";
 import { Row, Col } from "antd";
-
-
+import PriceLabelCourier from "../LabelCourier/PriceLabelCourier";
 
 export default class OrderDetail extends Component {
   constructor(props) {
@@ -16,27 +15,30 @@ export default class OrderDetail extends Component {
     };
   }
   render() {
-
     const priceLabelCart = {
       borderRadius: "6px",
       backgroundColor: "#F6F6F6",
-      padding: "20px",
-    }
+      padding: "20px"
+    };
 
     return (
-      <Row className="label-cart" >
+      <Row style={{ marginTop: "111px" }}>
         <Col md={24}>
           <p>{this.state.title}</p>
         </Col>
-        <Col md={24}
+        <Col
+          md={24}
           style={{
             paddingLeft: "0px",
             paddingRight: "0px"
-          }}>
-          {/* <PriceLabelCourier /> */}
+          }}
+        >
+          <PriceLabelCourier />
         </Col>
         <Col md={24} className="price-label-cart" style={priceLabelCart}>
-          <p>{this.state.label}</p>
+          <p style={{ display: "unset", paddingRight: "10rem" }}>
+            {this.state.label}
+          </p>
           <CurrencyRp price={this.props.price} />
         </Col>
       </Row>
