@@ -4,6 +4,7 @@ import CartProducts from "../../components/Cart/CartProducts";
 import OrderDetail from "../../components/Cart/OrderDetail";
 import { Redirect } from "react-router-dom";
 import "./style.sass";
+import "sass/style.sass";
 import { pageCheckout } from "url/url";
 import Loader from "../../components/Loader/Loader";
 import Header from "../../components/Header/Header";
@@ -53,8 +54,8 @@ class Cart extends Component {
             if (response.data.length < 1) {
               resolve();
             }
-
             response.data.map(cartProduct => {
+              console.log(cartProduct);
               apiGetProductById(cartProduct.productId)
                 .then(res => {
                   const detail = JSON.parse(
@@ -184,75 +185,69 @@ class Cart extends Component {
     return (
       <Loader active={this.state.isLoaderActive}>
         {this.renderRedirectToCheckout()}
-        <div className="cart-product">
-          <div className={this.state.cartProducts.length < 1 ? "" : ""}>
-            <Header />
-            <div className="container">
-              <Row>
-                <Col
-                  md={this.state.cartProducts.length < 1 ? 24 : 16}
-                  xs={24}
-                  style={{ marginTop: "111px" }}
-                >
-                  {this.state.cartProducts.length > 0 && (
-                    <Breadcrumb style={{ paddingLeft: "0px" }}>
-                      <BreadcrumbItem>
-                        <a href="/">{strings.monggoPesen}</a>
-                      </BreadcrumbItem>
-                      <BreadcrumbItem>
-                        <a href="/cart">{strings.cart_tittle}</a>
-                      </BreadcrumbItem>
-                    </Breadcrumb>
-                  )}
-                  {this.state.cartProducts.length > 0 && (
-                    <h4>{strings.cart_tittle}</h4>
-                  )}
-                  <CartProducts
-                    cartProducts={this.state.cartProducts}
-                    onChange={this.onChange}
-                    isLoaded={this.state.isLoaded}
-                  />
-                  {this.state.cartProducts.length > 0 && (
-                    <a href="#">
-                      <Button style={buttonCartPesan}>
-                        {strings.repeat_order}
-                      </Button>
-                    </a>
-                  )}
-                </Col>
-                {this.state.cartProducts.length > 0 && (
-                  <Col md={8} xs={6}>
-                    {/* {this.state.cartProducts.map(price)} */}
-                    <OrderDetail
-                      label={strings.total_price_product}
-                      price={this.countTotal(this.state.cartProducts)}
-                      title={strings.orderDetail}
-                    />
-                    <Col xs={24} className="price-label-button">
-                      <Button
-                        style={{ marginTop: "3rem" }}
-                        onClick={this.checkout}
-                      >
-                        {strings.checkout}
-                      </Button>
-                      <br />
-                      <br />
-                      <p>{strings.cart_easy_and_safe}</p>
-                      {/* {this.state.open === true && (
+        <Header />
+        <div
+          className={
+            this.state.cartProducts.length < 1 ? "container-fluid" : "container"
+          }
+          style={{ marginTop: "111px" }}
+        >
+          <Row>
+            <Col md={this.state.cartProducts.length < 1 ? 24 : 16} xs={24}>
+              {this.state.cartProducts.length > 0 && (
+                <Breadcrumb style={{ paddingLeft: "0px" }}>
+                  <BreadcrumbItem>
+                    <a href="/">{strings.monggoPesen}</a>
+                  </BreadcrumbItem>
+                  <BreadcrumbItem>
+                    <a href="/cart">{strings.cart_tittle}</a>
+                  </BreadcrumbItem>
+                </Breadcrumb>
+              )}
+              {this.state.cartProducts.length > 0 && (
+                <h4>{strings.cart_tittle}</h4>
+              )}
+              <CartProducts
+                cartProducts={this.state.cartProducts}
+                onChange={this.onChange}
+                isLoaded={this.state.isLoaded}
+              />
+              {this.state.cartProducts.length > 0 && (
+                <a href="#">
+                  <Button style={buttonCartPesan}>
+                    {strings.repeat_order}
+                  </Button>
+                </a>
+              )}
+            </Col>
+            {this.state.cartProducts.length > 0 && (
+              <Col md={8} xs={6}>
+                <OrderDetail
+                  label={strings.total_price_product}
+                  price={this.countTotal(this.state.cartProducts)}
+                  title={strings.orderDetail}
+                />
+                <Col xs={24} className="price-label-button">
+                  <Button style={{ marginTop: "3rem" }} onClick={this.checkout}>
+                    {strings.checkout}
+                  </Button>
+                  <br />
+                  <br />
+                  <p>{strings.cart_easy_and_safe}</p>
+                  {/* {this.state.open === true && (
                       <AddAddressCustomer
                         open={this.state.open}
                         handleClose={this.handleClose.bind(this)}
                         changeAddress={this.checkout}
                       />
                     )} */}
-                    </Col>
-                  </Col>
-                )}
-              </Row>
-            </div>
-          </div>
-          {this.state.cartProducts.length > 0 && <Footer />}
+                </Col>
+              </Col>
+            )}
+          </Row>
         </div>
+        {/* {this.state.cartProducts.length > 0 && <Footer />} */}
+        <Footer />
       </Loader>
     );
   }

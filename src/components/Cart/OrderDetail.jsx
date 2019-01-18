@@ -22,7 +22,7 @@ export default class OrderDetail extends Component {
     };
 
     return (
-      <Row style={{ marginTop: "111px" }}>
+      <Row style={{marginLeft:"10px"}}>
         <Col md={24}>
           <p>{this.state.title}</p>
         </Col>

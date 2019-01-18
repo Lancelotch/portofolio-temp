@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Col, Row, Input, Icon } from "antd";
+import { Col, Row, Input, Icon, InputNumber } from "antd";
 import { Button } from "antd/lib/radio";
-
 
 class ButtonQuantity extends React.Component {
   constructor(props) {
@@ -48,7 +47,6 @@ class ButtonQuantity extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <div className="buttonKategoryProduct">
         <div className="container-fluid">
@@ -63,22 +61,18 @@ class ButtonQuantity extends React.Component {
                 round
                 onClick={this.decreaseItem}
               >
-               <Icon type="minus" style={{fontSize:"14px"}} />
+                <Icon type="minus" style={{ fontSize: "14px" }} />
               </Button>
               <Input
-                type="number"
                 defaultValue={1}
-                maxLength={3}
-
-                  style= {
-                    {textAlign: "center",
-                    fontSize: 14,
-                    width: "100px",
-                    borderBottom: "1px solid #FFA122"}
-                  }
-                  value={this.state.quantity}
-                  onChange={this.onChangeQuantity}
-
+                style={{
+                  textAlign: "center",
+                  fontSize: 14,
+                  width: "100px",
+                  borderBottom: "1px solid #FFA122"
+                }}
+                value={this.state.quantity}
+                onChange={this.onChangeQuantity}
               />
               <Button
                 style={{ marginLeft: "8px" }}
@@ -86,7 +80,7 @@ class ButtonQuantity extends React.Component {
                 round
                 onClick={this.incrementItem}
               >
-              <Icon type="plus" style={{fontSize:"14px"}} />
+                <Icon type="plus" style={{ fontSize: "14px" }} />
               </Button>
             </Col>
           </Row>

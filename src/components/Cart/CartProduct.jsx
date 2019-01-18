@@ -66,7 +66,6 @@ export default class CartProduct extends Component {
                   <img
                     src={this.state.productPic}
                     alt=""
-                    className="img-responsive"
                   />
                 )}
               </Col>

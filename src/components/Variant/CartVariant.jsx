@@ -13,7 +13,6 @@ class CartVariant extends Component {
   }
 
   product = img => {
-    // let classname = this.state.selected ? 'active' : ''
     return <div style={{ fontSize: "13px" }}>{img}</div>;
   };
 

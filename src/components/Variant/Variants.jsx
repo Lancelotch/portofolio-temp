@@ -50,7 +50,6 @@ class Variants extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <div className="container">
         <Row style={{ marginTop: "16px" }}>

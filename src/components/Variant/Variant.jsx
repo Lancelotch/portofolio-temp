@@ -14,7 +14,6 @@ class Variant extends Component {
   }
 
   product = img => {
-    // let classname = this.state.selected ? 'active' : ''
     return (
       <div className="box-parent">
         <div
@@ -31,7 +30,6 @@ class Variant extends Component {
 
   productImage = () => {
     //jika image source kosong maka tampilkan title
-    const { classes } = this.props;
     if (this.state.optionValImage === "") {
       return this.product(<p style={{ cursor: "context-menu" }}>{this.state.optionValText}</p>);
     } else {
