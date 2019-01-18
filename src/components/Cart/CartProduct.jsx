@@ -47,76 +47,71 @@ export default class CartProduct extends Component {
 
   render() {
     return (
-      <Card>
-        <div className="container-fluid">
+      <div className="container-fluid">
         <Row>
           <Col md={24} xs={24}>
-            <Row>
-              <Col md={24} xs={24} className="close-button-cart">
-                {!this.state.productName ? (
-                  ""
-                ) : (
-                  <p onClick={this.props.onDelete}>{strings.action_delete}</p>
-                )}
-              </Col>
-              <Col md={8} xs={8}>
-                {!this.state.productPic ? (
-                  <SkeletonImg heightSkeleton="95px" />
-                ) : (
-                  <img
-                    src={this.state.productPic}
-                    alt=""
-                  />
-                )}
-              </Col>
-              <Col md={16} xs={16}
-                className="button-cart cart-product-price"
-              >
-                <p className="label-cart-product">
-                  {this.state.productName.trim() || <Skeleton />}
-                </p>
-                <span className="priceCheckoutItem">
-                  {!this.state.price ? (
+            <Card>
+              <Row>
+                <Col md={24} xs={24} className="close-button-cart">
+                  {!this.state.productName ? (
+                    ""
+                  ) : (
+                    <p onClick={this.props.onDelete}>{strings.action_delete}</p>
+                  )}
+                </Col>
+                <Col md={8} xs={8}>
+                  {!this.state.productPic ? (
+                    <SkeletonImg heightSkeleton="95px" />
+                  ) : (
+                    <img src={this.state.productPic} alt="" />
+                  )}
+                </Col>
+                <Col md={16} xs={16}>
+                  <p>
+                    {this.state.productName.trim() || <Skeleton />}
+                  </p>
+                  <span>
+                    {!this.state.price ? (
+                      <p>
+                        <Skeleton />
+                      </p>
+                    ) : (
+                      <CurrencyRp price={this.state.price} />
+                    )}
+                  </span>
+                  {this.state.variants.length < 1 && !this.state.price ? (
+                    <Skeleton />
+                  ) : (
+                    <CartVariants variants={this.state.variants} />
+                  )}
+                  {!this.state.quantity ? (
                     <p>
                       <Skeleton />
                     </p>
                   ) : (
-                    <CurrencyRp price={this.state.price} />
+                    <ButtonQuantity
+                      quantity={this.state.quantity}
+                      onChange={this.onChangeQuantity}
+                    />
                   )}
-                </span>
-                {this.state.variants.length < 1 && !this.state.price ? (
-                  <Skeleton />
-                ) : (
-                  <CartVariants variants={this.state.variants} />
-                )}
-                {!this.state.quantity ? (
-                  <p>
-                    <Skeleton />
-                  </p>
-                ) : (
-                  <ButtonQuantity
-                    quantity={this.state.quantity}
-                    onChange={this.onChangeQuantity}
-                  />
-                )}
-                {!this.state.productName ? (
-                  <p>
-                    <Skeleton />
-                  </p>
-                ) : (
-                  <Input
-                    placeholder={strings.cart_placeHolder_Note}
-                    id="note"
-                    onChange={this.onChangeNote}
-                    value={this.state.note}
-                  />
-                )}
-              </Col>
-            </Row>
+                  {!this.state.productName ? (
+                    <p>
+                      <Skeleton />
+                    </p>
+                  ) : (
+                    <Input
+                      placeholder={strings.cart_placeHolder_Note}
+                      id="note"
+                      onChange={this.onChangeNote}
+                      value={this.state.note}
+                    />
+                  )}
+                </Col>
+              </Row>
+            </Card>
           </Col>
         </Row>
-        </div>
-      </Card>
+      </div>
     );
   }
 }

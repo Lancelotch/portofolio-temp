@@ -18,7 +18,7 @@ import { Breadcrumb, Button, Row, Col } from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
 import { apiGetAddressDefault } from "../../api/services/ServiceAddress";
 
-var buttonCartPesan = {
+const buttonCartPesan = {
   width: "99px",
   border: "1px solid #ACACBA",
   borderRadius: "3px",
@@ -55,7 +55,6 @@ class Cart extends Component {
               resolve();
             }
             response.data.map(cartProduct => {
-              console.log(cartProduct);
               apiGetProductById(cartProduct.productId)
                 .then(res => {
                   const detail = JSON.parse(
@@ -140,7 +139,6 @@ class Cart extends Component {
                 products: this.state.cartProducts
               })
             );
-            // window.location.assign(pageCheckout);
             this.setState({
               isLoaderActive: false,
               redirectToCheckout: true
