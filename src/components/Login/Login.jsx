@@ -14,39 +14,47 @@ class Login extends Component {
   // state ={
   //   isAuthenticated : false
   // }
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated : this.props.isAuthenticated
-    }
+      isAuthenticated: this.props.isAuthenticated
+    };
   }
 
-  handleSocialLogin = (request) => {
-    authentication.loginSosialMedia(request).then(response=>{
-      console.log({login : response});
-      const token = response.data;
-      localStorage.setItem("token", token);
-      this.props.dispatchAuthenticated(token);
-      this.props.onCancel();
-      
-    }).catch(error=>{
-      console.log(error);
-      if(error.status === 404){
-        authentication.registerSosialMedia(request).then(response=>{
-          authentication.loginSosialMedia(request).then(response=>{
-            localStorage.setItem("token", token);
-            const token = response.data;
-            this.props.dispatchAuthenticated(token);
-            this.props.onCancel();
-          }).catch(error=>{
-            console.log(error);
-          })
-        }).catch(error=>{
-          console.log(error);
-        })
-      }
-    })
-  }
+  handleSocialLogin = request => {
+    authentication
+      .loginSosialMedia(request)
+      .then(response => {
+        console.log({ login: response });
+        const token = response.data;
+        localStorage.setItem("token", token);
+        this.props.dispatchAuthenticated(token);
+        this.props.onCancel();
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.status === 404) {
+          authentication
+            .registerSosialMedia(request)
+            .then(response => {
+              authentication
+                .loginSosialMedia(request)
+                .then(response => {
+                  localStorage.setItem("token", token);
+                  const token = response.data;
+                  this.props.dispatchAuthenticated(token);
+                  this.props.onCancel();
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -71,7 +79,6 @@ class Login extends Component {
 
   render() {
     console.log(this.props.token);
-    
     const { visible, onCancel, form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -85,16 +92,24 @@ class Login extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="login-form__typography">{strings.login_enter}</h1>
-            <ButtonFacebook className="login-form__button" onSubmit={this.handleSocialLogin}>
+            <ButtonFacebook
+              className="login-form__button"
+              onSubmit={this.handleSocialLogin}
+            >
               {strings.facebook}
             </ButtonFacebook>
-            <ButtonGoogle className="login-form__button" onSubmit={this.handleSocialLogin}>
+            <ButtonGoogle
+              className="login-form__button"
+              onSubmit={this.handleSocialLogin}
+            >
               {strings.google}
             </ButtonGoogle>
             <div className="login-form__separator">
-              <span className="login-form__separator__hline"></span>
-              <span className="login-form__separator__text">{strings.login_option}</span>
-              <span className="login-form__separator__hline"></span>
+              <span className="login-form__separator__hline" />
+              <span className="login-form__separator__text">
+                {strings.login_option}
+              </span>
+              <span className="login-form__separator__hline" />
             </div>
             <FormItem className="login-form__input-text">
               {getFieldDecorator("email", {
@@ -125,7 +140,7 @@ class Login extends Component {
                 ]
               })(
                 <Input
-                size={"large"}
+                  size={"large"}
                   prefix={
                     <Icon type={"lock"} style={{ color: "rgba(0,0,0,.25)" }} />
                   }
@@ -149,7 +164,10 @@ class Login extends Component {
               >
                 {strings.login_enter}
               </Button>
-              {strings.formatString(strings.login_quote,<a href="/register">{strings.login_register} </a>)}
+              {strings.formatString(
+                strings.login_quote,
+                <a href="/register">{strings.login_register} </a>
+              )}
             </FormItem>
           </Form>
         </Modal>
@@ -167,7 +185,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchAuthenticated: (token) => dispatch({ type: LOGIN, payLoad: token })
+    dispatchAuthenticated: token => dispatch({ type: LOGIN, payLoad: token })
   };
 };
 

@@ -6,6 +6,7 @@ import EmptyCart from "containers/Cart/EmptyCart";
 import strings from "../../config/localization";
 import { Row, Col } from "antd";
 import { apiDeleteProductFromCart } from "../../api/services/ServiceCart";
+import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
 
 class CartProducts extends Component {
   constructor(props) {
@@ -136,7 +137,7 @@ CartProducts.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     updateCartContentQty: qty =>
-      dispatch({ type: `UPDATE_CART_CONTENT_QTY`, payload: qty })
+      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty })
   };
 };
 

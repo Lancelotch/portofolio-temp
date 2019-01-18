@@ -235,9 +235,8 @@ class ProductDetail extends Component {
       };
       apiAddToCart(requestAddtoCart)
         .then(res => {
-          console.log(res);
+          console.log(requestAddtoCart);
           this.setState({ productNotificationOpen: true });
-
           const newQty = this.props.cart.contentQty + state.quantity;
           this.props.updateCartContentQty(newQty);
         })
@@ -301,8 +300,6 @@ class ProductDetail extends Component {
                       })}
                   </Card>
                 </Col>
-              </Row>
-              <Row>
                 <Col md={24}>
                   <h4 className="deskripsi-produk-text">
                     {strings.product_detail_description}
@@ -330,7 +327,7 @@ class ProductDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart
 });
 
 const mapDispatchToProps = dispatch => {

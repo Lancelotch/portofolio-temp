@@ -9,10 +9,7 @@ import Skeleton from "../Skeleton/Skeleton";
 import SkeletonImg from "../Skeleton/SkeletonImg";
 import { pageUrlProductDetail } from "../../routers/paths";
 
-const { Meta } = Card;
-
 function Product(props) {
-  const { classes } = props;
   return (
     <div>
       <Card
