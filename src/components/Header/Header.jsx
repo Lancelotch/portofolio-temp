@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Row, Col, Button, Icon, Menu, Badge } from "antd";
-import Search from "antd/lib/input/Search";
-import Login from "../../components/Login/Login";
-import { connect } from "react-redux";
-import { logout } from "../../store/actions/authentication";
-import { Link, NavLink } from "react-router-dom";
-import "./style.sass";
-import "sass/style.sass";
-import serviceCategory from "api/services/ServiceCategory";
-import { apiGetProductsFromCart } from "../../api/services/ServiceCart";
-import authentication from "../../api/services/authentication";
-import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
+import React, { Component } from "react"
+import { Row, Col, Icon, Badge } from "antd"
+import Search from "antd/lib/input/Search"
+import Login from "../../components/Login/Login"
+import { connect } from "react-redux"
+import { logout } from "../../store/actions/authentication"
+import { NavLink } from "react-router-dom"
+import "./style.sass"
+import "sass/style.sass"
+import serviceCategory from "api/services/ServiceCategory"
+import { apiGetProductsFromCart } from "../../api/services/ServiceCart"
+import authentication from "../../api/services/authentication"
+import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types"
 
 class Header extends Component {
   constructor() {
@@ -35,7 +35,7 @@ class Header extends Component {
       .then(response => {
         const detailUser = response.data;
         this.setState({
-          name: detailUser.name,
+          name: detailUser.name
         });
       })
       .catch(error => {
@@ -85,13 +85,9 @@ class Header extends Component {
         .then(response => {
           const sumProduct = response.data.length;
           if (response.code === "200") {
-            // If the qty in Redux is different than that of server, overwrite it
             if (this.props.cart.contentQty !== sumProduct) {
-                this.props.updateCartContentQty(sumProduct);
+              this.props.updateCartContentQty(sumProduct);
             }
-            // this.setState({
-            //   sumProduct: sumProduct
-            // });
           }
         })
         .catch(error => {
@@ -114,15 +110,17 @@ class Header extends Component {
               </a>
             </Col>
             <Col md={8}>
-              <Search
-                size="large"
-                placeholder="input search text"
-                onSearch={value => console.log(value)}
-              />
+              <form action="/search">
+                <Search
+                  size="large"
+                  placeholder="input search text"
+                  onSearch={value => console.log(value)}
+                />
+              </form>
             </Col>
             <Col md={10}>
               <div className="item-navigation">
-              {this.props.cart.contentQty === 0 ? (
+                {this.props.cart.contentQty === 0 ? (
                   <Icon
                     type="shopping-cart"
                     className="icon-cart-navigation"
@@ -139,14 +137,6 @@ class Header extends Component {
                     />
                   </Badge>
                 )}
-                {/* {this.state.sumProduct === 0 ? (
-                  <Icon type="shopping-cart" className="icon-cart-navigation" />
-                ) : (
-                  <Icon type="shopping-cart" className="icon-cart-navigation">
-                    <Badge count={this.state.sumProduct} />
-                  </Icon>
-                )} */}
-
                 {this.props.isAuthenticated !== true ? (
                   <div>
                     <button
@@ -211,15 +201,19 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.authReducer.isAuthenticated,
-    cart: state.cart,
+    cart: state.cart
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-      updateCartContentQty: (qty) => dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty }),
-      logout,
-  }
-}
+    updateCartContentQty: qty =>
+      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty }),
+    logout
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

@@ -22,6 +22,11 @@ const getProductsFromCart = "v1/cart/user/";
 const updateProductFromCart = "v1/cart/user/";
 const deleteProductFromCart = "v1/cart/user/";
 
+//Courier
+const urlGetCourier = "api/v1/courier/cost";
+
+//Generate Order Id
+const urlGenerateOrderId = "api/v1/order/generate/";
 
 //Address
 const urlCustomerAddressDefault = "api/v1/customer/address/default/";
@@ -34,6 +39,11 @@ const ngrokUrlGetCity = "api/v1/customer/address/city";
 const urlAddUserAddress = "api/v1/customer/address";
 const urlDeleteAddress = "/api/v1/customer/address/";
 
+//Order
+const urlAddOrder = "api/v1/order";
+
+//Payment
+const urlCreatePayment = "api/v1/payment";
 
 //Product Category
 const GetCategoryFeature = "api/v1/category/feature";
@@ -61,7 +71,11 @@ const urls = {
     urlGetProvince : urlGetProvince,
     urlDeleteAddress : urlDeleteAddress,
     urlGetCity : urlGetCity,
+    urlGetCourier : urlGetCourier,
+    urlGenerateOrderId : urlGenerateOrderId,
     urlAddUserAddress : urlAddUserAddress,
+    urlAddOrder : urlAddOrder,
+    urlCreatePayment : urlCreatePayment,
     deleteProductFromCart : deleteProductFromCart,
     ngrokUrlGetProvince : ngrokUrlGetProvince,
     ngrokUrlGetCity : ngrokUrlGetCity

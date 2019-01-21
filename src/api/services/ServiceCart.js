@@ -1,6 +1,6 @@
 
-import httpClient  from "../config/httpClient";
-import urls from "../urls";
+import httpClient  from "../config/httpClient"
+import urls from "../urls"
 
 export const apiAddToCart = productSelected => {
   return new Promise((resolve, reject) => {
@@ -61,6 +61,22 @@ export const apiDeleteProductFromCart = cartId => {
         data: cartId
       })
       .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const apiGetOrderId = () => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "GET",
+        url: urls.urlGenerateOrderId
+      })
+      .then(response => {          
         resolve(response.data);
       })
       .catch(error => {

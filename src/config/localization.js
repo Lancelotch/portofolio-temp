@@ -8,6 +8,11 @@ const strings = new LocalizedStrings({
     action_delete : "Hapus",
     checkout : "Checkout",
     total_price_product : "Total Harga Barang",
+    failed : "Gagal",
+    pay : "Bayar",
+    //Checkout 
+    checkout_shopping_summary : "Ringkasan Belanja",
+    checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     //Social Media
     google: "Google",
     facebook: "Facebook",
