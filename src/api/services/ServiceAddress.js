@@ -1,11 +1,10 @@
-import httpClient from "../../config/httpClient";
-import urls from "../urls";
-
+import httpClient from "../../config/httpClient"
+import urls from "../urls"
 
 
 export const apiGetAddressDefault = () => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientMainService
+    httpClient.mainService
       .request({
         method: "GET",
         url: urls.urlCustomerAddressDefault

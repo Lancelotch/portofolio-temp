@@ -1,7 +1,8 @@
-import HomePage from "../containers/HomePage/HomePage";
-import RegisterPage from "../containers/RegisterPage/RegisterPage";
-import ProductDetail from "../containers/ProductDetail/ProductDetail";
-import Cart from "../containers/Cart/Cart";
+import HomePage from "../containers/HomePage/HomePage"
+import RegisterPage from "../containers/RegisterPage/RegisterPage"
+import ProductDetail from "../containers/ProductDetail/ProductDetail"
+import Checkout from "../containers/Checkout/Checkout"
+import Cart from "../containers/Cart/Cart"
 
 const routes = [{
         path: "/",
@@ -20,6 +21,10 @@ const routes = [{
     {
         path: "/cart",
         component: Cart
+    },
+    {
+        path:"/checkout",
+        component: Checkout
     }
 ]
 
