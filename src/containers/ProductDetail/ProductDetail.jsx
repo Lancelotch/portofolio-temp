@@ -12,6 +12,7 @@ import ProductDescription from "components/ProductDescription/ProductDescription
 import CurrencyRp from "components/Typography/CurrencyRp";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity/ButtonQuantity";
+import { actionAddCart, updateCartContentQty } from "../../redux/actions/cart";
 import { apiAddToCart } from "../../api/services/ServiceCart";
 import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
 
@@ -221,7 +222,7 @@ class ProductDetail extends Component {
   };
 
   addToCart = () => {
-    const token = localStorage.getItem("token");
+    const token = this.props.auth.token;
     if (token !== null) {
       if (this.state.variants.length < this.state.options.length) {
         return this.setState({ variantNotificationOpen: true });
@@ -233,12 +234,13 @@ class ProductDetail extends Component {
         quantity: state.quantity,
         note: state.note
       };
-      apiAddToCart(requestAddtoCart)
+      this.props
+        .addCart(requestAddtoCart, token)
         .then(res => {
-          console.log(requestAddtoCart);
           this.setState({ productNotificationOpen: true });
-          const newQty = this.props.cart.contentQty + state.quantity;
-          this.props.updateCartContentQty(newQty);
+          const newQty =
+            this.props.contentQty == null ? 1 : this.props.contentQty + 1;
+          this.props.updateCartQty(newQty);
         })
         .catch(error => {
           console.log(error);
@@ -327,15 +329,14 @@ class ProductDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  contentQty : state.cart.contentQty,
+  auth : state.auth
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateCartContentQty: qty =>
-      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty })
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  addCart : (data,token) => dispatch(actionAddCart(data,token)),
+  updateCartQty: (qty) => dispatch(updateCartContentQty(qty))
+})
 
 export default connect(
   mapStateToProps,

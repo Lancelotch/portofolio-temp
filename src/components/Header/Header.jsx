@@ -1,16 +1,17 @@
-import React, { Component } from "react"
-import { Row, Col, Icon, Badge } from "antd"
-import Search from "antd/lib/input/Search"
-import Login from "../../components/Login/Login"
-import { connect } from "react-redux"
-import { logout } from "../../store/actions/authentication"
-import { NavLink } from "react-router-dom"
-import "./style.sass"
-import "sass/style.sass"
-import serviceCategory from "api/services/ServiceCategory"
-import { apiGetProductsFromCart } from "../../api/services/ServiceCart"
-import authentication from "../../api/services/authentication"
-import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types"
+import React, { Component } from "react";
+import { Row, Col, Icon, Badge } from "antd";
+import Search from "antd/lib/input/Search";
+import Login from "../../components/Login/Login";
+import { connect } from "react-redux";
+import { NavLink, Redirect } from "react-router-dom";
+import "./style.sass";
+import "sass/style.sass";
+import serviceCategory from "api/services/ServiceCategory";
+import { apiGetProductsFromCart } from "../../api/services/ServiceCart";
+import authentication from "../../api/services/authentication";
+import { pageCart } from "../../routers/paths";
+import { logout } from "../../redux/actions/auth";
+import { updateCartContentQty } from "../../redux/actions/cart";
 
 class Header extends Component {
   constructor() {
@@ -19,7 +20,8 @@ class Header extends Component {
       openModalLogin: false,
       categoryFeature: [],
       isDataCategoryFeatureLoaded: false,
-      sumProduct: 0
+      sumProduct: 0,
+      redirectToCart: false
     };
   }
 
@@ -41,6 +43,27 @@ class Header extends Component {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  getListCart = () => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      apiGetProductsFromCart()
+        .then(response => {
+          const sumProduct = response.data.length;
+          if (response.code === "200") {
+            if (this.props.contentQty !== sumProduct) {
+              this.props.updateCartContentQty(sumProduct);
+            }
+            this.setState({
+              sumProduct: sumProduct
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
   openModalLogin = () => {
@@ -68,7 +91,7 @@ class Header extends Component {
   toPageCart() {
     const token = localStorage.getItem("token");
     if (token !== null) {
-      window.location.assign("/cart");
+      this.setState = { redirectToCart: true };
     } else {
       this.toggleModal();
     }
@@ -78,27 +101,16 @@ class Header extends Component {
     this.props.logout();
   };
 
-  getListCart = () => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      apiGetProductsFromCart()
-        .then(response => {
-          const sumProduct = response.data.length;
-          if (response.code === "200") {
-            if (this.props.cart.contentQty !== sumProduct) {
-              this.props.updateCartContentQty(sumProduct);
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+  renderRedirectToCart() {
+    if (this.state.redirectToCart) {
+      return <Redirect to={pageCart} />;
     }
-  };
+  }
 
   render() {
     return (
       <div className="navigation">
+        {this.renderRedirectToCart}
         <div className="container">
           <Row gutter={40}>
             <Col md={6}>
@@ -120,7 +132,7 @@ class Header extends Component {
             </Col>
             <Col md={10}>
               <div className="item-navigation">
-                {this.props.cart.contentQty === 0 ? (
+                {this.props.contentQty === 0 ? (
                   <Icon
                     type="shopping-cart"
                     className="icon-cart-navigation"
@@ -128,7 +140,11 @@ class Header extends Component {
                     onClick={this.toPageCart.bind(this)}
                   />
                 ) : (
-                  <Badge count={this.props.cart.contentQty} color="secondary">
+                  <Badge
+                    count={this.props.contentQty}
+                    badgeContent={this.state.contentQty}
+                    color="secondary"
+                  >
                     <Icon
                       type="shopping-cart"
                       className="icon-cart-navigation"
@@ -200,18 +216,15 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authReducer.isAuthenticated,
-    cart: state.cart
+    isAuthenticated: state.auth.isAuthenticated,
+    contentQty: state.cart.contentQty
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateCartContentQty: qty =>
-      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty }),
-    logout
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateCartQty: qty => dispatch(updateCartContentQty(qty)),
+  logout: () => dispatch(logout())
+});
 
 export default connect(
   mapStateToProps,
