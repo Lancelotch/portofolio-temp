@@ -1,22 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-// import store, {registerReducer} from "./store";
-// import reduxStore from "./reduxStore";
-
 import { store, persistor } from './store/index';
 import { PersistGate } from 'redux-persist/integration/react';
-
-
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 import "antd/dist/antd.css";
 import "react-image-gallery/styles/css/image-gallery.css";
-
-// reduxStore.forEach(item => {
-//   registerReducer(store, item.name, item.reducer, item.middleware)
-// });
 
 const app = (
   <Provider store={store}>
