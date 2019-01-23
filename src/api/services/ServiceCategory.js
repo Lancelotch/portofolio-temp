@@ -22,7 +22,7 @@ const PromoFeature = ()=> {
     httpClient.httpClientMainService
       .request({
         method: "GET",
-        url: urls.urlGetPromoFeature
+        url: urls.GetPromoFeature
       })
       .then(response => {
         resolve(response.data);
@@ -38,7 +38,7 @@ const SliderHome = () => {
     httpClient.mainService
       .request({
         method: "GET",
-        url: urls.urlGetSliderHome
+        url: urls.GetSliderHome
       })
       .then(response => {
         resolve(response.data);

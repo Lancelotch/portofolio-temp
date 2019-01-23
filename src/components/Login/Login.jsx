@@ -1,25 +1,17 @@
 import React, { Component } from "react";
-import { createStructuredSelector } from 'reselect';
-
 import { Modal, Input, Form, Button, Icon, Checkbox } from "antd";
 import ButtonFacebook from "../Button/SocialMedia/Facebook";
 import ButtonGoogle from "../Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import authentication from "api/services/authentication";
-// import { LOGIN } from "store/actions/types";
 import strings from "config/localization";
-
-// import { login } from 'reduxStore/Auth/actions';
 import {login} from "../../store/actions/auth"
-// import { authSelector } from 'reduxStore/Auth/selectors';
+
 
 const FormItem = Form.Item;
 
 class Login extends Component {
-  // state ={
-  //   isAuthenticated : false
-  // }
   constructor(props) {
     super(props);
     this.state = {
@@ -173,15 +165,6 @@ class Login extends Component {
     );
   }
 }
-
-// const mapStateToProps = createStructuredSelector({
-//   isAuthenticated: authSelector('isAuthenticated'),
-//   token: authSelector('token')
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   dispatchAuthenticated: () => dispatch(login()),
-// });
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

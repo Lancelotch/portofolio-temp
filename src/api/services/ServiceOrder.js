@@ -6,7 +6,7 @@ const apiAddOrder = (request) => {
       httpClient.mainService
         .request({
           method: "POST",
-          url: urls.urlAddOrder,
+          url: urls.AddOrder,
           data: request
         })
         .then(response => {

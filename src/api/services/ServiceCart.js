@@ -74,7 +74,7 @@ export const apiGetOrderId = () => {
     httpClient.mainService
       .request({
         method: "GET",
-        url: urls.urlGenerateOrderId
+        url: urls.GenerateOrderId
       })
       .then(response => {          
         resolve(response.data);
