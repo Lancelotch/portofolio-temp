@@ -231,7 +231,7 @@ class Checkout extends Component {
                 changeAddress={this.changeAddress}
               />
             </Col>  */}
-            <Col lg={4}>
+            <Col lg={6}>
               <CheckoutDetail
                 title={strings.checkout_shopping_summary}
                 totalProduct={this.state.qytCartProduct}
@@ -255,7 +255,7 @@ class Checkout extends Component {
                 </Button>
               </div>
             </Col>
-            <Col xs={12} sm={6} md={12} lg={8} style={{ marginTop: "-56px" }}>
+            <Col xs={12} sm={6} md={12} lg={18} style={{ marginTop: "-56px" }}>
               <CheckoutProducts
                 cartProducts={this.state.cartProducts}
                 onChange={this.onChange}

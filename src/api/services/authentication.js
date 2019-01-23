@@ -58,7 +58,7 @@ const apiGetDetailUser = () => {
     httpClient.mainService
       .request({
         method: "GET",
-        url: urls.urlDetailUser
+        url: urls.DetailUser
       })
       .then(response => {
         resolve(response.data);
