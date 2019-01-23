@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "./containers/HomePage/HomePage";
 import RegisterPage from "./containers/RegisterPage/RegisterPage";
 import { isTokenExpired,logout } from "./store/actions/authentication";
+import DashboardCustomer from "./containers/Dashboard/Dashboard"
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/register" component={RegisterPage} />
+          <Route path="/dashboard-customer/:tab" component={DashboardCustomer} />
         </Switch>
       </BrowserRouter>
     );
