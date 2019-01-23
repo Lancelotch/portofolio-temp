@@ -1,25 +1,17 @@
-import React, { Component } from "react";
-import { Row, Col, Button, Icon, Menu, Badge } from "antd";
-import Search from "antd/lib/input/Search";
-import Login from "components/Login/Login";
-import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
-
-// import { logout } from "store/actions/authentication";
-import { Link, NavLink } from "react-router-dom";
-import "./style.sass";
-import "sass/style.sass";
-import serviceCategory from "api/services/ServiceCategory";
-import { apiGetProductsFromCart } from "api/services/ServiceCart";
-import authentication from "api/services/authentication";
-
-// import { logout } from 'reduxStore/Auth/actions';
+import React, { Component } from "react"
+import { Row, Col, Icon, Badge } from "antd"
+import Search from "antd/lib/input/Search"
+import Login from "components/Login/Login"
+import { connect } from "react-redux"
+import { NavLink } from "react-router-dom"
+import "./style.sass"
+import "sass/style.sass"
+import serviceCategory from "api/services/ServiceCategory"
+import { apiGetProductsFromCart } from "api/services/ServiceCart"
+import authentication from "api/services/authentication"
 import {logout} from "../../store/actions/auth"
-import { authSelector } from 'reduxStore/Auth/selectors';
-
-// import { updateCartContentQty } from 'reduxStore/Cart/actions';
 import {updateCartContentQty} from "store/actions/cart"
-// import { cartSelector } from 'reduxStore/Cart/selectors';
+
 
 class Header extends Component {
   constructor() {
