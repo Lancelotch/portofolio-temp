@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import { createStructuredSelector } from 'reselect';
+
 import { Modal, Input, Form, Button, Icon, Checkbox } from "antd";
 import ButtonFacebook from "../Button/SocialMedia/Facebook";
 import ButtonGoogle from "../Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
-import authentication from "../../api/services/authentication";
-import { LOGIN } from "../../store/actions/types";
-import strings from "../../config/localization";
+import authentication from "api/services/authentication";
+// import { LOGIN } from "store/actions/types";
+import strings from "config/localization";
+
+// import { login } from 'reduxStore/Auth/actions';
+import {login} from "../../store/actions/auth"
+// import { authSelector } from 'reduxStore/Auth/selectors';
 
 const FormItem = Form.Item;
 
@@ -14,11 +20,11 @@ class Login extends Component {
   // state ={
   //   isAuthenticated : false
   // }
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated : this.props.isAuthenticated
-    }
+      isAuthenticated: this.props.isAuthenticated
+    };
   }
 
   handleSocialLogin = (request) => {
@@ -34,8 +40,8 @@ class Login extends Component {
       if(error.status === 404){
         authentication.registerSosialMedia(request).then(response=>{
           authentication.loginSosialMedia(request).then(response=>{
-            localStorage.setItem("token", token);
             const token = response.data;
+            localStorage.setItem("token", token);
             this.props.dispatchAuthenticated(token);
             this.props.onCancel();
           }).catch(error=>{
@@ -60,7 +66,7 @@ class Login extends Component {
             const token = response.data;
             localStorage.setItem("token", token);
             this.props.dispatchAuthenticated(token);
-            this.props.onCancel();
+            // this.props.onCancel();
           })
           .catch(error => {
             console.log(error);
@@ -71,7 +77,6 @@ class Login extends Component {
 
   render() {
     console.log(this.props.token);
-    
     const { visible, onCancel, form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -85,16 +90,24 @@ class Login extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="login-form__typography">{strings.login_enter}</h1>
-            <ButtonFacebook className="login-form__button" onSubmit={this.handleSocialLogin}>
+            <ButtonFacebook
+              className="login-form__button"
+              onSubmit={this.handleSocialLogin}
+            >
               {strings.facebook}
             </ButtonFacebook>
-            <ButtonGoogle className="login-form__button" onSubmit={this.handleSocialLogin}>
+            <ButtonGoogle
+              className="login-form__button"
+              onSubmit={this.handleSocialLogin}
+            >
               {strings.google}
             </ButtonGoogle>
             <div className="login-form__separator">
-              <span className="login-form__separator__hline"></span>
-              <span className="login-form__separator__text">{strings.login_option}</span>
-              <span className="login-form__separator__hline"></span>
+              <span className="login-form__separator__hline" />
+              <span className="login-form__separator__text">
+                {strings.login_option}
+              </span>
+              <span className="login-form__separator__hline" />
             </div>
             <FormItem className="login-form__input-text">
               {getFieldDecorator("email", {
@@ -125,7 +138,7 @@ class Login extends Component {
                 ]
               })(
                 <Input
-                size={"large"}
+                  size={"large"}
                   prefix={
                     <Icon type={"lock"} style={{ color: "rgba(0,0,0,.25)" }} />
                   }
@@ -149,7 +162,10 @@ class Login extends Component {
               >
                 {strings.login_enter}
               </Button>
-              {strings.formatString(strings.login_quote,<a href="/register">{strings.login_register} </a>)}
+              {strings.formatString(
+                strings.login_quote,
+                <a href="/register">{strings.login_register} </a>
+              )}
             </FormItem>
           </Form>
         </Modal>
@@ -158,18 +174,23 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.authReducer.isAuthenticated,
-    token: state.authReducer.token
-  };
-};
+// const mapStateToProps = createStructuredSelector({
+//   isAuthenticated: authSelector('isAuthenticated'),
+//   token: authSelector('token')
+// });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatchAuthenticated: (token) => dispatch({ type: LOGIN, payLoad: token })
-  };
-};
+// const mapDispatchToProps = (dispatch) => ({
+//   dispatchAuthenticated: () => dispatch(login()),
+// });
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  token: state.auth.token
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchAuthenticated: (token) => dispatch(login(token)),
+});
 
 const LoginForm = Form.create({})(Login);
 export default connect(

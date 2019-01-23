@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Row } from "antd";
+import { Col } from "antd";
 import { Skeleton } from "antd";
 
 const Inspiration = props => {
   return (
-    <Row type="flex" justify="center">
+    <Col md={{span: 24}}>
         {props.imageUrl ? (
-          <img src={props.imageUrl} alt="" id={props.id} onClick={props.url} />
+          <img src={props.imageUrl} style={{maxWidth: "100%",display:"block",margin: "auto"}} alt="" id={props.id} onClick={props.url} />
         ) : (
           <Skeleton />
         )}
-    </Row>
+    </Col>
   );
 };
 

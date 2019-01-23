@@ -18,6 +18,23 @@ const login = request => {
   });
 };
 
+const register = request => {
+  return new Promise((resolve, reject) => {
+    httpClient.mainService
+      .request({
+        method: "POST",
+        url: urls.register,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 const loginSosialMedia = request => {
   return new Promise((resolve, reject) => {
     httpClient.mainService
@@ -34,6 +51,24 @@ const loginSosialMedia = request => {
       });
   });
 };
+
+const apiGetDetailUser = () => {
+  return new Promise((resolve, reject) => {
+    // httpClient.httpClientMainService
+    httpClient.mainService
+      .request({
+        method: "GET",
+        url: urls.urlDetailUser
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 
 const registerSosialMedia = request => {
   return new Promise((resolve, reject) => {
@@ -53,9 +88,11 @@ const registerSosialMedia = request => {
 };
 
 const authentication = {
-    login : login,
-    loginSosialMedia : loginSosialMedia,
-    registerSosialMedia : registerSosialMedia
+  apiGetDetailUser: apiGetDetailUser,
+  login: login,
+  register: register,
+  loginSosialMedia: loginSosialMedia,
+  registerSosialMedia: registerSosialMedia
 }
 
 export default authentication;
