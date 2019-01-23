@@ -6,7 +6,7 @@ const apiCreatePayment = (request) => {
       httpClient.mainService
         .request({
           method: "POST",
-          url: urls.urlCreatePayment,
+          url: urls.CreatePayment,
           data: request
         })
         .then(response => {

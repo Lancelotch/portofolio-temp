@@ -10,7 +10,7 @@ const loginSocialMedia = "api/v1/public/user/login-sosmed";
 const registerSocialMedia = "api/v1/public/user/register-sosmed";
 
 //User
-const urlDetailUser = "api/v1/customer/";
+const DetailUser = "api/v1/customer/";
 
 //Product
 const GetProductById = "api/v1/product/";
@@ -23,34 +23,34 @@ const updateProductFromCart = "v1/cart/user/";
 const deleteProductFromCart = "v1/cart/user/";
 
 //Courier
-const urlGetCourier = "api/v1/courier/cost";
+const GetCourier = "api/v1/courier/cost";
 
 //Generate Order Id
-const urlGenerateOrderId = "api/v1/order/generate/";
+const GenerateOrderId = "api/v1/order/generate/";
 
 //Address
-const urlCustomerAddressDefault = "api/v1/customer/address/default/";
-const urlCustomerAddress = "api/v1/customer/address/";
-const urlChangeAddressDefault = "api/v1/customer/address/default/";
-const urlGetProvince = "api/v1/customer/address/province";
-const urlGetCity = "api/v1/customer/address/city";
+const CustomerAddressDefault = "api/v1/customer/address/default/";
+const CustomerAddress = "api/v1/customer/address/";
+const ChangeAddressDefault = "api/v1/customer/address/default/";
+const GetProvince = "api/v1/customer/address/province";
+const GetCity = "api/v1/customer/address/city";
 const ngrokUrlGetProvince = "api/v1/customer/address/province";
 const ngrokUrlGetCity = "api/v1/customer/address/city";
-const urlAddUserAddress = "api/v1/customer/address";
-const urlDeleteAddress = "/api/v1/customer/address/";
+const AddUserAddress = "api/v1/customer/address";
+const DeleteAddress = "/api/v1/customer/address/";
 
 //Order
-const urlAddOrder = "api/v1/order";
+const AddOrder = "api/v1/order";
 
 //Payment
-const urlCreatePayment = "api/v1/payment";
+const CreatePayment = "api/v1/payment";
 
 //Product Category
 const GetCategoryFeature = "api/v1/category/feature";
 const urlGetSliderHome = "api/v1/home/slider/";
 
 const urls = {
-    urlDetailUser : urlDetailUser,
+    DetailUser : DetailUser,
     addToCart: addToCart,
     GetProductById: GetProductById,
     updateProductFromCart : updateProductFromCart,
@@ -65,17 +65,17 @@ const urls = {
     loginSocialMedia: loginSocialMedia,
     registerSocialMedia: registerSocialMedia,
     getProductsFromCart: getProductsFromCart,
-    urlCustomerAddressDefault : urlCustomerAddressDefault,
-    urlCustomerAddress : urlCustomerAddress,
-    urlChangeAddressDefault : urlChangeAddressDefault,
-    urlGetProvince : urlGetProvince,
-    urlDeleteAddress : urlDeleteAddress,
-    urlGetCity : urlGetCity,
-    urlGetCourier : urlGetCourier,
-    urlGenerateOrderId : urlGenerateOrderId,
-    urlAddUserAddress : urlAddUserAddress,
-    urlAddOrder : urlAddOrder,
-    urlCreatePayment : urlCreatePayment,
+    CustomerAddressDefault : CustomerAddressDefault,
+    CustomerAddress : CustomerAddress,
+    ChangeAddressDefault : ChangeAddressDefault,
+    GetProvince : GetProvince,
+    DeleteAddress : DeleteAddress,
+    GetCity : GetCity,
+    GetCourier : GetCourier,
+    GenerateOrderId : GenerateOrderId,
+    AddUserAddress : AddUserAddress,
+    AddOrder : AddOrder,
+    CreatePayment : CreatePayment,
     deleteProductFromCart : deleteProductFromCart,
     ngrokUrlGetProvince : ngrokUrlGetProvince,
     ngrokUrlGetCity : ngrokUrlGetCity

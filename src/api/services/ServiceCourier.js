@@ -6,7 +6,7 @@ export const apiGetCourier = (request) => {
     httpClient.mainService
       .request({
         method: "POST",
-        url: urls.urlGetCourier,
+        url: urls.GetCourier,
         data: request
       })
       .then(response => {

@@ -1,8 +1,9 @@
 import axios from 'axios'
+import urls from '../../api/urls';
 
 export const isExpired = (token) => ({
   type : 'IS_EXPIRED',
-  payload : axios.get('https://api.monggopesen.com/cart-services/v1/cart/user/',{
+  payload : axios.get(urls.cartServices+urls.getProductsFromCart,{
     headers: {
       Authorization: "Bearer " + token
     }

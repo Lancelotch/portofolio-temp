@@ -7,7 +7,7 @@ export const apiGetAddressDefault = () => {
     httpClient.mainService
       .request({
         method: "GET",
-        url: urls.urlCustomerAddressDefault
+        url: urls.CustomerAddressDefault
       })
       .then(response => {
         resolve(response.data);
@@ -23,7 +23,7 @@ export const apiGetAddress = () => {
     httpClient.httpClientMainService
       .request({
         method: "GET",
-        url: urls.urlCustomerAddress
+        url: urls.CustomerAddress
       })
       .then(response => {
         resolve(response.data);
@@ -39,7 +39,7 @@ export const apiChangeAddressDefault = (request) => {
     httpClient.httpClientMainService
       .request({
         method: "PATCH",
-        url: urls.urlChangeAddressDefault,
+        url: urls.ChangeAddressDefault,
         data : request
       })
       .then(response => {
@@ -57,7 +57,7 @@ export const apiAddUserAddress = (request) => {
     httpClient.httpClientMainService
       .request({
         method: "POST",
-        url: urls.urlAddUserAddress,
+        url: urls.AddUserAddress,
         data : request
       })
       .then(response => {
@@ -75,7 +75,7 @@ export const apiGetProvince = () => {
     httpClient.httpClientMainService
       .request({
         method: "GET",
-        url: urls.urlGetProvince
+        url: urls.GetProvince
       })
       .then(response => {
         resolve(response.data);
@@ -91,7 +91,7 @@ export const apiGetCity = (request) => {
     httpClient.httpClientMainService
       .request({
         method: "GET",
-        url: urls.urlGetCity+"?province="+request
+        url: urls.GetCity+"?province="+request
       })
       .then(response => {
         resolve(response.data);
@@ -107,7 +107,7 @@ export const apiDeleteAddress = (request) => {
     httpClient.cartServices
       .request({
         method: "DELETE",
-        url: urls.urlDeleteAddress + request
+        url: urls.DeleteAddress + request
       })
       .then(response => {
         resolve(response.data);
@@ -123,7 +123,7 @@ export const apiAddressInfo = (request) => {
     httpClient.httpClientMainService
       .request({
         method: "GET",
-        url: urls.urlDeleteAddress + request
+        url: urls.DeleteAddress + request
       })
       .then(response => {
         resolve(response.data);
@@ -139,7 +139,7 @@ export const apiAddressEdit = (id,newData) => {
     httpClient.httpClientMainService
       .request({
         method: "PUT",
-        url: urls.urlDeleteAddress,
+        url: urls.DeleteAddress,
         data: newData
       })
       .then(response => {

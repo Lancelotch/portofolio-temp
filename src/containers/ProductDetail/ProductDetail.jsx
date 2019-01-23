@@ -155,39 +155,6 @@ class ProductDetail extends Component {
     }
   };
 
-  // onChangeVariant = async selected => {
-  //   const productImages = [...this.state.productImages];
-  //   await this.updateVariants(selected);
-  //   const propPath = await this.propPath(this.state.variants);
-  //   const skuBase = await this.state.skuBase.find(skuBase =>
-  //     skuBase.propPath = propPath
-  //   )
-  //   const skuCore = this.state.skuCore[skuBase.skuId];
-  //   console.log(skuCore.quantity);
-
-  //   if(skuCore.quantity == 0){
-  //     alert("product Kosong");
-  //   }
-  //   const cnyToIdr = this.state.infoRate.cnytoidr;
-  //   const priceIdr = parseInt(skuCore.price.priceText) * cnyToIdr;
-  //   const productSalePrice = Math.ceil(priceIdr/100)*100;
-  //   this.setState({
-  //     productSalePrice : productSalePrice
-  //   })
-
-  //   if (selected.value.optionValImage.length > 0) {
-  //     productImages.shift();
-  //     productImages.unshift({
-  //       small: selected.value.optionValImage,
-  //       medium: selected.value.optionValImage.replace("100x100", "300x300"),
-  //       big: selected.value.optionValImage.replace("100x100", "800x800")
-  //     });
-  //     this.setState({
-  //       productImages: productImages
-  //     });
-  //   }
-  // };
-
   compare = (a, b) => {
     const indexA = a.index;
     const indexB = b.index;

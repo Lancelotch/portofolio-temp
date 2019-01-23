@@ -9,32 +9,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        // case login
         case "LOGIN":
             return {
                 ...state, token : action.payload,
                 isAuthenticated : true
             }
-        // case "LOGIN_PENDING":
-        //     return {
-        //         ...state, isLoading: true
-        //     }
-
-        // case "LOGIN_FULFILLED":
-        //     return {
-        //         ...state,
-        //         isLoading: false, isFinish: true,
-        //         token: action.payload,
-        //         isAuthenticated : true
-        //     }
-
-        // case "LOGIN_REJECTED":
-        //     return {
-        //         ...state, isError: true, isLoading: false
-
-        //     }
-
-        // case logout
         case "LOGOUT":
             return {
                 ...state,
