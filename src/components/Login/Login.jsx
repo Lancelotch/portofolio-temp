@@ -1,12 +1,18 @@
 import React, { Component } from "react";
+import { createStructuredSelector } from 'reselect';
+
 import { Modal, Input, Form, Button, Icon, Checkbox } from "antd";
 import ButtonFacebook from "../Button/SocialMedia/Facebook";
 import ButtonGoogle from "../Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
-import authentication from "../../api/services/authentication";
-import { LOGIN } from "../../store/actions/types";
-import strings from "../../config/localization";
+import authentication from "api/services/authentication";
+// import { LOGIN } from "store/actions/types";
+import strings from "config/localization";
+
+// import { login } from 'reduxStore/Auth/actions';
+import {login} from "../../store/actions/auth"
+// import { authSelector } from 'reduxStore/Auth/selectors';
 
 const FormItem = Form.Item;
 
@@ -21,40 +27,32 @@ class Login extends Component {
     };
   }
 
-  handleSocialLogin = request => {
-    authentication
-      .loginSosialMedia(request)
-      .then(response => {
-        console.log({ login: response });
-        const token = response.data;
-        localStorage.setItem("token", token);
-        this.props.dispatchAuthenticated(token);
-        this.props.onCancel();
-      })
-      .catch(error => {
-        console.log(error);
-        if (error.status === 404) {
-          authentication
-            .registerSosialMedia(request)
-            .then(response => {
-              authentication
-                .loginSosialMedia(request)
-                .then(response => {
-                  localStorage.setItem("token", token);
-                  const token = response.data;
-                  this.props.dispatchAuthenticated(token);
-                  this.props.onCancel();
-                })
-                .catch(error => {
-                  console.log(error);
-                });
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        }
-      });
-  };
+  handleSocialLogin = (request) => {
+    authentication.loginSosialMedia(request).then(response=>{
+      console.log({login : response});
+      const token = response.data;
+      localStorage.setItem("token", token);
+      this.props.dispatchAuthenticated(token);
+      this.props.onCancel();
+      
+    }).catch(error=>{
+      console.log(error);
+      if(error.status === 404){
+        authentication.registerSosialMedia(request).then(response=>{
+          authentication.loginSosialMedia(request).then(response=>{
+            const token = response.data;
+            localStorage.setItem("token", token);
+            this.props.dispatchAuthenticated(token);
+            this.props.onCancel();
+          }).catch(error=>{
+            console.log(error);
+          })
+        }).catch(error=>{
+          console.log(error);
+        })
+      }
+    })
+  }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -68,7 +66,7 @@ class Login extends Component {
             const token = response.data;
             localStorage.setItem("token", token);
             this.props.dispatchAuthenticated(token);
-            this.props.onCancel();
+            // this.props.onCancel();
           })
           .catch(error => {
             console.log(error);
@@ -176,18 +174,23 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.authReducer.isAuthenticated,
-    token: state.authReducer.token
-  };
-};
+// const mapStateToProps = createStructuredSelector({
+//   isAuthenticated: authSelector('isAuthenticated'),
+//   token: authSelector('token')
+// });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatchAuthenticated: token => dispatch({ type: LOGIN, payLoad: token })
-  };
-};
+// const mapDispatchToProps = (dispatch) => ({
+//   dispatchAuthenticated: () => dispatch(login()),
+// });
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  token: state.auth.token
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchAuthenticated: (token) => dispatch(login(token)),
+});
 
 const LoginForm = Form.create({})(Login);
 export default connect(

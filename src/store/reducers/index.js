@@ -1,10 +1,18 @@
-import { combineReducers } from "redux"
-import authReducer from "./authentication"
-import cart from "./cart"
+import { combineReducers } from 'redux';
+// import { reducer as formReducer } from 'redux-form'
 
-const rootReducer = combineReducers({
-    authReducer,
-    cart,
-})
+// import all reducer
+// import RootNavigator from '../../navigators/RootNavigator';
+import authReducer from './auth';
+import cartReducer from "./cart";
 
-export default rootReducer;
+// const reducerRouter = createNavigationReducer(RootNavigator);
+
+const reducers = combineReducers({
+    
+    auth: authReducer,
+    cart: cartReducer
+    
+});
+
+export default reducers;

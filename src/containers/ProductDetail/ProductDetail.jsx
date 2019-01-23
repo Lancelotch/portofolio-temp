@@ -12,9 +12,8 @@ import ProductDescription from "components/ProductDescription/ProductDescription
 import CurrencyRp from "components/Typography/CurrencyRp";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity/ButtonQuantity";
-import { actionAddCart, updateCartContentQty } from "../../redux/actions/cart";
-import { apiAddToCart } from "../../api/services/ServiceCart";
-import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
+import { actionAddCart, updateCartContentQty } from "../../store/actions/cart";
+
 
 class ProductDetail extends Component {
   constructor(props) {

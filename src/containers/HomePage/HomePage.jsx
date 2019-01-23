@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import { DummyInspirationBottom } from "../../dummy/DummyInspirationBottom";
-import { DummyInspiration } from "../../dummy/DummyInspiration";
-import Benefits from "../../components/Benefits/Benefits";
-import Categories from "../../components/Catagories/Categories";
-import Inspirations from "../../components/Inspirations/Inspirations";
-import { apiGetProductByCategory } from "../../api/services/ServiceHomePage";
-import SliderPrimary from "../../components/SliderPrimary/SliderPrimary.jsx";
-import Footer from "../../components/Footer/Footer.jsx";
-import Header from "../../components/Header/Header.jsx";
-import Products from "../../components/Product/Products";
+import { createStructuredSelector } from 'reselect';
+import { DummyInspirationBottom } from "dummy/DummyInspirationBottom";
+import { DummyInspiration } from "dummy/DummyInspiration";
+import Benefits from "components/Benefits/Benefits";
+import Categories from "components/Catagories/Categories";
+import Inspirations from "components/Inspirations/Inspirations";
+import { apiGetProductByCategory } from "api/services/ServiceHomePage";
+import SliderPrimary from "components/SliderPrimary/SliderPrimary.jsx";
+import Footer from "components/Footer/Footer.jsx";
+import Header from "components/Header/Header.jsx";
+import Products from "components/Product/Products";
+import { createSelector } from 'reselect';
 import "sass/style.sass";
+
+// import { authSelector } from 'reduxStore/Auth/selectors';
+
 class HomePage extends Component {
   constructor() {
     super();
@@ -103,10 +108,8 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.authReducer.isAuthenticated
-  };
-};
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
 export default connect(mapStateToProps)(HomePage);

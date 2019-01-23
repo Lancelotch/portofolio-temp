@@ -5,7 +5,7 @@ import { Switch, Route, Router } from "react-router-dom";
 import routes from "./routers/routes";
 import history from "./routers/history";
 
-import { login, logout, isExpired } from './redux/actions/auth';
+import { login, logout, isExpired } from './store/actions/auth';
 
 class App extends Component {
   componentDidMount() {

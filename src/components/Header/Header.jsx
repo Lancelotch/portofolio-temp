@@ -1,17 +1,25 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Badge } from "antd";
+import { Row, Col, Button, Icon, Menu, Badge } from "antd";
 import Search from "antd/lib/input/Search";
-import Login from "../../components/Login/Login";
+import Login from "components/Login/Login";
 import { connect } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { createStructuredSelector } from 'reselect';
+
+// import { logout } from "store/actions/authentication";
+import { Link, NavLink } from "react-router-dom";
 import "./style.sass";
 import "sass/style.sass";
 import serviceCategory from "api/services/ServiceCategory";
-import { apiGetProductsFromCart } from "../../api/services/ServiceCart";
-import authentication from "../../api/services/authentication";
-import { pageCart } from "../../routers/paths";
-import { logout } from "../../redux/actions/auth";
-import { updateCartContentQty } from "../../redux/actions/cart";
+import { apiGetProductsFromCart } from "api/services/ServiceCart";
+import authentication from "api/services/authentication";
+
+// import { logout } from 'reduxStore/Auth/actions';
+import {logout} from "../../store/actions/auth"
+import { authSelector } from 'reduxStore/Auth/selectors';
+
+// import { updateCartContentQty } from 'reduxStore/Cart/actions';
+import {updateCartContentQty} from "store/actions/cart"
+// import { cartSelector } from 'reduxStore/Cart/selectors';
 
 class Header extends Component {
   constructor() {
@@ -20,8 +28,7 @@ class Header extends Component {
       openModalLogin: false,
       categoryFeature: [],
       isDataCategoryFeatureLoaded: false,
-      sumProduct: 0,
-      redirectToCart: false
+      sumProduct: 0
     };
   }
 
@@ -37,33 +44,12 @@ class Header extends Component {
       .then(response => {
         const detailUser = response.data;
         this.setState({
-          name: detailUser.name
+          name: detailUser.name,
         });
       })
       .catch(error => {
         console.log(error);
       });
-  };
-
-  getListCart = () => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
-      apiGetProductsFromCart()
-        .then(response => {
-          const sumProduct = response.data.length;
-          if (response.code === "200") {
-            if (this.props.contentQty !== sumProduct) {
-              this.props.updateCartContentQty(sumProduct);
-            }
-            this.setState({
-              sumProduct: sumProduct
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
   };
 
   openModalLogin = () => {
@@ -91,7 +77,7 @@ class Header extends Component {
   toPageCart() {
     const token = localStorage.getItem("token");
     if (token !== null) {
-      this.setState = { redirectToCart: true };
+      window.location.assign("/cart");
     } else {
       this.toggleModal();
     }
@@ -101,16 +87,33 @@ class Header extends Component {
     this.props.logout();
   };
 
-  renderRedirectToCart() {
-    if (this.state.redirectToCart) {
-      return <Redirect to={pageCart} />;
+  getListCart = () => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      apiGetProductsFromCart()
+        .then(response => {
+          console.log('lenght '+response.data.length)
+          const sumProduct = response.data.length;
+          if (response.code === "200") {
+            // If the qty in Redux is different than that of server, overwrite it
+            if (this.props.contentQty !== sumProduct) {
+                this.props.updateCartQty(sumProduct)
+            }
+            this.setState({
+              sumProduct: sumProduct
+            });
+            
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  }
+  };
 
   render() {
     return (
       <div className="navigation">
-        {this.renderRedirectToCart}
         <div className="container">
           <Row gutter={40}>
             <Col md={6}>
@@ -122,17 +125,15 @@ class Header extends Component {
               </a>
             </Col>
             <Col md={8}>
-              <form action="/search">
-                <Search
-                  size="large"
-                  placeholder="input search text"
-                  onSearch={value => console.log(value)}
-                />
-              </form>
+              <Search
+                size="large"
+                placeholder="input search text"
+                onSearch={value => console.log(value)}
+              />
             </Col>
             <Col md={10}>
               <div className="item-navigation">
-                {this.props.contentQty === 0 ? (
+              {this.props.contentQty == 0 ? (
                   <Icon
                     type="shopping-cart"
                     className="icon-cart-navigation"
@@ -140,11 +141,7 @@ class Header extends Component {
                     onClick={this.toPageCart.bind(this)}
                   />
                 ) : (
-                  <Badge
-                    count={this.props.contentQty}
-                    badgeContent={this.state.contentQty}
-                    color="secondary"
-                  >
+                  <Badge count={this.props.contentQty} badgeContent={this.state.contentQty} color="secondary">
                     <Icon
                       type="shopping-cart"
                       className="icon-cart-navigation"
@@ -153,6 +150,14 @@ class Header extends Component {
                     />
                   </Badge>
                 )}
+                {/* {this.state.sumProduct === 0 ? (
+                  <Icon type="shopping-cart" className="icon-cart-navigation" />
+                ) : (
+                  <Icon type="shopping-cart" className="icon-cart-navigation">
+                    <Badge count={this.state.sumProduct} />
+                  </Icon>
+                )} */}
+
                 {this.props.isAuthenticated !== true ? (
                   <div>
                     <button
@@ -214,19 +219,25 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-    contentQty: state.cart.contentQty
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  updateCartQty: qty => dispatch(updateCartContentQty(qty)),
-  logout: () => dispatch(logout())
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  contentQty: state.cart.contentQty
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  updateCartQty: (qty) => dispatch(updateCartContentQty(qty)),
+  logout: () => dispatch(logout()),
+});
+
+// const mapStateToProps = createStructuredSelector({
+//   isAuthenticated: authSelector('isAuthenticated'),
+//   contentQty: cartSelector('contentQty')
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   updateCartContentQty: (qty) => dispatch(updateCartContentQty(qty)),
+//   logout: () => dispatch(logout()),
+// });
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
