@@ -5,7 +5,6 @@ import OrderDetail from "../../components/Cart/OrderDetail";
 import { Redirect } from "react-router-dom";
 import "./style.sass";
 import "sass/style.sass";
-import { pageCheckout } from "url/url";
 import Loader from "../../components/Loader/Loader";
 import Header from "../../components/Header/Header";
 import strings from "../../config/localization";
@@ -13,6 +12,7 @@ import {
   apiGetProductsFromCart,
   apiUpdateProductFromCart
 } from "../../api/services/ServiceCart";
+import {pageCheckout} from "routers/paths";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 import { Breadcrumb, Button, Row, Col } from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
@@ -129,6 +129,7 @@ class Cart extends Component {
         variant: cartProduct.variant
       };
     });
+
     apiUpdateProductFromCart(updateProducts)
       .then(response => {
         apiGetAddressDefault()
@@ -175,8 +176,9 @@ class Cart extends Component {
 
   renderRedirectToCheckout() {
     if (this.state.redirectToCheckout) {
-      return <Redirect to={pageCheckout} />;
+      return (<Redirect to={pageCheckout} />)
     }
+    console.log(pageCheckout);
   }
 
   render() {

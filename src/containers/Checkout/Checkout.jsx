@@ -219,10 +219,8 @@ class Checkout extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
-      <div className="cartCheckout">
-        <div className={classes.container}>
+      <div className="cartCheckout" style={{marginTop:"111px "}}>
           <Header />
           <Row>
             {/* <Col xs={12} sm={6} md={12} lg={8}>
@@ -264,7 +262,6 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
-        </div>
         {/* {this.state.openAddAddressModal === true &&
           <AddAddressCustomer
             open={this.state.openAddAddressModal}

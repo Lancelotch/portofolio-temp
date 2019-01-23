@@ -7,11 +7,13 @@ class CartVariant extends Component {
     super(props);
     this.state = {
       optionValName: this.props.name,
-      optionValImage: this.props.imageUrl,
-      optionValText: this.props.value
+      optionValImage: this.props.valImage,
+      optionValText: this.props.valText
     };
   }
-
+  componentDidMount(){
+    console.log(this.state)
+  }
   product = img => {
     return <div style={{ fontSize: "13px" }}>{img}</div>;
   };

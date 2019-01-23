@@ -6,7 +6,8 @@ import EmptyCart from "containers/Cart/EmptyCart";
 import strings from "../../config/localization";
 import { Row, Col } from "antd";
 import { apiDeleteProductFromCart } from "../../api/services/ServiceCart";
-import { UPDATE_CART_CONTENT_QTY } from "../../store/actions/types";
+// import { UPDATE_CART_CONTENT_QTY } from "../../stores/actions/types";
+import { updateCartContentQty} from "../../store/actions/cart"
 
 class CartProducts extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class CartProducts extends Component {
         return cartProducts;
       })
       .then(cartProducts => {
-        this.props.updateCartContentQty(cartProducts.length);
+        this.props.updateCartQty(cartProducts.length);
         this.setState(
           {
             cartProducts: cartProducts
@@ -86,6 +87,7 @@ class CartProducts extends Component {
     }
 
     return this.state.cartProducts.map((cartProduct, index) => {
+      // console.log(cartProduct.variant)
       return (
         <CartProduct
           key={cartProduct.cartId}
@@ -134,12 +136,9 @@ CartProducts.propTypes = {
   updateCartContentQty: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateCartContentQty: qty =>
-      dispatch({ type: UPDATE_CART_CONTENT_QTY, payload: qty })
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  updateCartQty: (qty) => dispatch(updateCartContentQty(qty))
+});
 
 export default connect(
   null,

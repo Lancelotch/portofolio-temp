@@ -1,17 +1,61 @@
-import { UPDATE_CART_CONTENT_QTY } from "../actions/types";
-
 const initialState = {
-    contentQty: 0,
-}
+  contentQty: 0,
+  isLoading: false,
+  isFinish: false,
+  isError: false,
+  error: []
+};
 
-const cart = (state = initialState, action) => {
-    if (action.type === UPDATE_CART_CONTENT_QTY) {
-        return Object.assign({}, state, {
-            contentQty: action.payload,
-        })
-    }
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case "ADD_CART":
+      return {
+        ...state, isLoading: false, isFinish: true,
+        contentQty : (initialState.contentQty + 1)
+      }
+    case "ADD_CART_PENDING":
+      return {
+        ...state, isLoading: true
+      }
 
-    return state;
-}
+    case "ADD_CART_FULFILLED":
+      return {
+        ...state, isLoading: false, isFinish: true,
+        contentQty : (initialState.contentQty + 1),
+      }
 
-export default cart;
+    case "ADD_CART_REJECTED":
+      return {
+        ...state, isError: true,
+        error: action.payload.data
+
+      }
+
+    case "UPDATE_QTY":
+      return {
+        ...state, isLoading: false, isFinish: true,
+        contentQty: action.payload,
+      }
+
+    case "UPDATE_QTY_PENDING":
+      return {
+        ...state, isLoading: true,
+      }
+
+    case "UPDATE_QTY_FULFILLED":
+      return {
+        ...state, isLoading: false, isFinish: true,
+        contentQty: action.payload
+      }
+
+    case "UPDATE_QTY_REJECTED":
+      return {
+        ...state, isError: true,
+        error: action.payload.data,
+
+      }
+
+    default:
+      return state;
+  }
+};
