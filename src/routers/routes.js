@@ -3,6 +3,7 @@ import RegisterPage from "../containers/RegisterPage/RegisterPage"
 import ProductDetail from "../containers/ProductDetail/ProductDetail"
 import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"
+import Dashboard from '../containers/Dashboard/Dashboard'
 
 const routes = [{
         path: "/",
@@ -25,6 +26,10 @@ const routes = [{
     {
         path:"/checkout",
         component: Checkout
+    },
+    {
+        path:"/dashboard-customer/:tab",
+        component: Dashboard
     }
 ]
 

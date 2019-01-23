@@ -1,29 +1,31 @@
-import React, { Component } from "react";
-import SidebarCustomer from "../../components/SidebarCustomer/SidebarCustomer";
-import { Row, Col } from "antd";
-import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
+import React, { Component } from 'react'
+import SidebarCustomer from '../../components/SidebarCustomer/SidebarCustomer'
+import { Row, Col } from 'antd'
+import Footer from '../../components/Footer/Footer'
+import Header from '../../components/Header/Header'
 import '../../sass/style.sass'
 
 class DashboardCustomer extends Component {
-  render() {
-    let activeTab =
-      this.props.match.params.tab == undefined
-        ? 1
-        : this.props.match.params.tab;
+  render () {
+    // let activeTab =
+    //   this.props.match.params.tab == undefined
+    //     ? 1
+    //     : this.props.match.params.tab;
 
     return (
-      <div>
-        <Header />
-        <div className="container">
-          <Row>
-            <SidebarCustomer activeTab={activeTab} />
-          </Row>
-        </div>
+      <React.Fragment>
+        <Row>
+          <Col xs={24} md={24}>
+            <Header />
+            <div style={{ marginTop: '120px' }} className='container'>
+              <SidebarCustomer />
+            </div>
+          </Col>
+        </Row>
         <Footer />
-      </div>
-    );
+      </React.Fragment>
+    )
   }
 }
 
-export default DashboardCustomer;
+export default DashboardCustomer

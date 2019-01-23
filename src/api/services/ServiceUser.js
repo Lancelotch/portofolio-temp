@@ -6,7 +6,7 @@ const GetDetailUser = () => {
     httpClient.mainService
       .request({
         method: "GET",
-        url: urls.detailUser
+        url: urls.DetailUser
       })
       .then(response => {
         resolve(response.data);
