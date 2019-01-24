@@ -28,10 +28,10 @@ export default class CheckoutDetail extends Component {
   render() {
     return (
       <Row>
-        <Col xs={12} style={{ marginTop: "-10px" }}>
+        <Col md={24}>
           <h4 className="checkoutDetailTitle">{this.state.title}</h4>
         </Col>
-        <Col md={12} className="price-label-cart">
+        <Col md={24} className="price-label-cart">
           <Card style={{ backgroundColor: " #F6F6F6", marginTop: "0px" }}>
             <p>
               {strings.total_price_product} x ({this.state.totalProduct})
