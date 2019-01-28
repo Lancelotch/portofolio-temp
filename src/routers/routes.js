@@ -3,7 +3,8 @@ import RegisterPage from "../containers/RegisterPage/RegisterPage"
 import ProductDetail from "../containers/ProductDetail/ProductDetail"
 import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"
-import Dashboard from '../containers/Dashboard/Dashboard'
+import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
+import ProductSearch from "../containers/ProductSearch/ProductSearch";
 
 const routes = [{
         path: "/",
@@ -28,8 +29,12 @@ const routes = [{
         component: Checkout
     },
     {
-        path:"/dashboard-customer/:tab",
-        component: Dashboard
+        path:"/category-product/:categoryId",
+        component: CategoryProduct
+    },
+    {
+        path:"/search", 
+        component:ProductSearch
     }
 ]
 

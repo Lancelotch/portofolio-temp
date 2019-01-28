@@ -53,7 +53,7 @@ const CreatePayment = "api/v1/payment";
 
 //Product Category
 const GetCategoryFeature = "api/v1/category/feature";
-const urlGetSliderHome = "api/v1/home/slider/";
+const GetSliderHome = "api/v1/home/slider/";
 
 const urls = {
     mainServices : mainServices,
@@ -76,7 +76,7 @@ const urls = {
     login: login,
     register: register,
     GetCategoryFeature: GetCategoryFeature,
-    urlGetSliderHome: urlGetSliderHome,
+    GetSliderHome: GetSliderHome,
     loginSocialMedia: loginSocialMedia,
     registerSocialMedia: registerSocialMedia,
     getProductsFromCart: getProductsFromCart,

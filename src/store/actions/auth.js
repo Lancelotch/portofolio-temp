@@ -19,4 +19,4 @@ export const logout = (token) => ({
   type: "LOGOUT",
   payload: token
 });
-
+  

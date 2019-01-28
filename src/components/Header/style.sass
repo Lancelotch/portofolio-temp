@@ -9,10 +9,9 @@
     z-index: 997
     margin-bottom: 2rem
     background-color: #ffffff
-    padding-top: 1rem 
+    padding: 2rem  
     
 .img-navigation
-    width: 250px 
     margin-top: 0px 
     display: block 
     max-width: 100% 
@@ -22,43 +21,29 @@ a.link-navigation
     padding: .5rem 1rem
     color: $primary-font-color
 
-.line-navigation
-    height: 1px
-    background-color: #F1D9B2
-    border-top: unset
-    border: unset
-
-.categories-navigation
-    justify-content: flex-start
-    flex-direction: row
-    display: flex
-    align-items: center      
-
-.icon-cart-navigation
-    margin-right: 22px
-    font-size: 35px
-    color: #ffa122        
-
 .item-navigation 
     display: flex
-    justify-content: flex-end 
+    justify-content: flex-start
+
+.item-navigation .anticon 
+    vertical-align: -12px 
+    padding-left: 20px   
 
 .item-navigation .ant-badge-count 
     left: 15px 
     right: unset      
 
-.button-navigation
-    background-color: $primary-color
-    border: unset
-    border-radius: $primary-border-radius
-    padding: 11px 30px     
-    color: white
-    font-size: 13px
-    font-weight: 500
-    cursor: pointer  
+.navigation .ant-input-affix-wrapper .ant-input:not(:last-child)
+	height: 48px 
+	border: 1px solid #979797 
+	border-radius: 3px 
+	background-color: #FFFFFF 
+	box-shadow: inset 0 0 1px 0 rgba(0,0,0,0.5)
 
-.ant-input-affix-wrapper .ant-input:not(:last-child)
-    border: 1px solid $primary-color !important
+.navigation .ant-input-search > .ant-input-suffix > .ant-input-search-button 
+    height: 48px
+    border-radius: 3px  
+    background-color: $background-color-primary 
 
-.ant-input-search-icon 
-    color: $primary-color !important            
+.navigation .ant-input-search-icon 
+    color: $primary-color             
