@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { createStructuredSelector } from 'reselect';
+
 import { Modal, Input, Form, Button, Icon, Checkbox } from "antd";
 import ButtonFacebook from "../Button/SocialMedia/Facebook";
 import ButtonGoogle from "../Button/SocialMedia/Google";

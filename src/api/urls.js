@@ -16,6 +16,21 @@ const DetailUser = "api/v1/customer/";
 const GetProductById = "api/v1/product/";
 const GetProductByCategory = "api/v1/product/category/";
 
+
+//Address
+const CustomerAddressDefault = "api/v1/customer/address/default/";
+const CustomerAddress = "api/v1/customer/address/";
+const ChangeAddressDefault = "api/v1/customer/address/default/";
+const GetProvince = "api/v1/customer/address/province";
+const GetCity = "api/v1/customer/address/city";
+const NgrokGetProvince = "api/v1/customer/address/province";
+const NgrokGetCity = "api/v1/customer/address/city";
+const AddUserAddress = "api/v1/customer/address";
+const DeleteAddress = "/api/v1/customer/address/";
+
+//Invoice
+const GetInvoice = "api/v1/invoice/";
+
 //Cart
 const addToCart = "v1/cart/user/";
 const getProductsFromCart = "v1/cart/user/";
@@ -28,16 +43,6 @@ const GetCourier = "api/v1/courier/cost";
 //Generate Order Id
 const GenerateOrderId = "api/v1/order/generate/";
 
-//Address
-const CustomerAddressDefault = "api/v1/customer/address/default/";
-const CustomerAddress = "api/v1/customer/address/";
-const ChangeAddressDefault = "api/v1/customer/address/default/";
-const GetProvince = "api/v1/customer/address/province";
-const GetCity = "api/v1/customer/address/city";
-const ngrokUrlGetProvince = "api/v1/customer/address/province";
-const ngrokUrlGetCity = "api/v1/customer/address/city";
-const AddUserAddress = "api/v1/customer/address";
-const DeleteAddress = "/api/v1/customer/address/";
 
 //Order
 const AddOrder = "api/v1/order";
@@ -45,11 +50,21 @@ const AddOrder = "api/v1/order";
 //Payment
 const CreatePayment = "api/v1/payment";
 
+
 //Product Category
 const GetCategoryFeature = "api/v1/category/feature";
 const GetSliderHome = "api/v1/home/slider/";
 
 const urls = {
+    mainServices : mainServices,
+    cartServices: cartServices,
+    cart : cart,
+    DetailUser : DetailUser,
+    login : login,
+    addToCart: addToCart,
+    GetProductById: GetProductById,
+    updateProductFromCart : updateProductFromCart,
+    GetProductByCategory: GetProductByCategory,
     DetailUser : DetailUser,
     addToCart: addToCart,
     GetProductById: GetProductById,
@@ -77,8 +92,10 @@ const urls = {
     AddOrder : AddOrder,
     CreatePayment : CreatePayment,
     deleteProductFromCart : deleteProductFromCart,
-    ngrokUrlGetProvince : ngrokUrlGetProvince,
-    ngrokUrlGetCity : ngrokUrlGetCity
+    NgrokGetProvince : NgrokGetProvince,
+    NgrokGetCity : NgrokGetCity,
+    GetInvoice: GetInvoice
 }
+
 
 export default urls
