@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
 import { DummyInspirationBottom } from "dummy/DummyInspirationBottom";
 import { DummyInspiration } from "dummy/DummyInspiration";
 import Benefits from "components/Benefits/Benefits";
@@ -12,10 +11,8 @@ import SliderPrimary from "components/SliderPrimary/SliderPrimary.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Header from "components/Header/Header.jsx";
 import Products from "components/Product/Products";
-import { createSelector } from 'reselect';
 import "sass/style.sass";
 
-// import { authSelector } from 'reduxStore/Auth/selectors';
 
 class HomePage extends Component {
   constructor() {
