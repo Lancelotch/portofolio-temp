@@ -16,6 +16,7 @@ const strings = new LocalizedStrings({
     price_courier : "Ongkos Kirim",
     pcs : "pcs",
     delivery_courier : "Delivery Courier",
+    address : "Alamat",
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",

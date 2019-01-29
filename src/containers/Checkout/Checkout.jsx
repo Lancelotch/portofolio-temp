@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { apiGetAddressDefault } from "../../api/services/ServiceAddress";
 import { apiGetCourier } from "../../api/services/ServiceCourier";
 import strings from "../../config/localization";
-import { apiGetOrderId, apiGetProductsFromCart } from "../../api/services/ServiceCart";
+import {
+  apiGetOrderId,
+  apiGetProductsFromCart
+} from "../../api/services/ServiceCart";
 import serviceOrder from "../../api/services/ServiceOrder";
 import AddAddressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
 import servicePayment from "../../api/services/ServicePayment";
@@ -13,6 +16,9 @@ import CheckoutDetail from "components/Checkout/CheckoutDetail.jsx";
 import CheckoutProducts from "components/Checkout/CheckoutProducts.jsx";
 import { Row, Button, Col, Alert, Empty } from "antd";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
+import AddressReceiver from "../../components/Address/AddressReceiver";
+import AddAdressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
+import ChangeAddressCustomer from "../../components/Address/ChangeAddressCustomer";
 const snap = window.snap;
 
 class Checkout extends Component {
@@ -24,9 +30,11 @@ class Checkout extends Component {
       order: [],
       addressReceiver: "",
       openChangeAddressModal: false,
-      openAddAddressModal: false,
+      modalAddAdress: false,
       alert: null,
-      customerAddressId: ""
+      customerAddressId: "",
+      redirectToCart: false,
+      isProductLoaded: false
     };
   }
 
@@ -40,43 +48,43 @@ class Checkout extends Component {
         if (response.code.toString() === "200") {
           return new Promise((resolve, reject) => {
             if (response.data.length < 1) {
-              resolve();
+              resolve([]);
             }
-            let cartProducts = []
-            response.data.map(cartProduct => 
+            const cartProducts = response.data.map(cartProduct =>
               apiGetProductById(cartProduct.productId)
                 .then(res => {
                   const detail = JSON.parse(
                     decodeURIComponent(res.data.homePageDetails)
                   );
-                  const { productName, productPic, prices } = detail
-                  const price = prices.find(({price}) => price.code === "IDR") || 0;
-                  const piyinPrice =  prices.find(({price}) => price.code === "CNY") || 0;
+                  const { productName, productPic, prices } = detail;
+                  const price =
+                    prices.find(({ price }) => price.code === "IDR") || 0;
+                  const piyinPrice =
+                    prices.find(({ price }) => price.code === "CNY") || 0;
                   return {
                     productName,
                     productPic,
                     price: price.price.value,
-                    piyinPrice: piyinPrice.price.value, 
-                    category: res.data.category.indonesian,
+                    piyinPrice: piyinPrice.price.value,
+                    category: res.data.category.indonesian
                   };
                 })
                 .then(product => {
-                  const mergeCartProduct = { ...cartProduct, ...product };
-                  cartProducts = [...cartProducts, mergeCartProduct]
-                  resolve(cartProducts)
+                  return { ...cartProduct, ...product };
                 })
                 .catch(error => {
                   console.log(error);
                   reject();
                 })
             );
+            resolve(cartProducts);
           });
         }
       })
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   getCheckout = () => {
     apiGetAddressDefault()
@@ -89,9 +97,11 @@ class Checkout extends Component {
         return customerAddressDefault;
       })
       .then(customerAddressDefault => {
-        const products = this.getProducts()
-        products.then(cartProducts => {
-          cartProducts.map((product, _, arr) => {
+        this.getProducts().then(cartProductPromises => {
+          if (!cartProductPromises.length)
+            return this.setState({ redirectToCart: true });
+          cartProductPromises.map((cartProductPromises, _, arr) => {
+            cartProductPromises.then(product => {
               let request = {
                 destination: customerAddressDefault.cityId,
                 category: product.category,
@@ -115,13 +125,15 @@ class Checkout extends Component {
                 }));
               });
             });
-        })
-        const weight = 1000;
+          });
+          this.setState({ isLoaded: true });
+        });
       });
+    const weight = 1000;
   };
 
   totalPrice = () => {
-    let { cartProducts } = this.state;
+    const cartProducts = this.state.cartProducts;
     let totalPriceProduct = cartProducts.reduce(
       (accumulator, cartProduct) =>
         accumulator + cartProduct.price * cartProduct.quantity,
@@ -139,16 +151,26 @@ class Checkout extends Component {
   };
 
   addAddress = () => {
-    this.setState({ openAddAddressModal: true });
+    this.setState({ modalAddAdress: true });
   };
 
   changeAddress = () => {
     this.setState({ openChangeAddressModal: true });
   };
 
-  handleCloseAdd() {
-    this.setState({ openAddAddressModal: !this.state.openAddAddressModal });
-  }
+  modalAddAdress = () => {
+    this.setState({
+      modalAddAdress: !this.state.modalAddAdress
+    });
+  };
+
+  openChangeAddressModal = () => {
+    this.setState({
+      openChangeAddressModal: !this.state.openChangeAddressModal
+    });
+  };
+
+  
 
   getChangeAddress = () => {
     apiGetAddressDefault()
@@ -256,38 +278,41 @@ class Checkout extends Component {
   };
 
   render() {
-    const {
-      cartProducts,
-      qytCartProduct,
-      alert,
-      openAddAddressModal
-    } = this.state;
+    const { cartProducts, qytCartProduct, alert, isLoaded } = this.state;
     return (
       <div className="container" style={{ marginTop: "230px" }}>
         <Header />
         <Row>
-          {/* <Col xs={12} sm={6} md={12} lg={8}>
-              <AddressReceiver
-                labelName={strings.address}
-                addressReceiver={this.state.addressReceiver}
-                addAddress={this.addAddress}
-                changeAddress={this.changeAddress}
-              />
-            </Col>  */}
-          <Col xs={12} md={18}>
-            <CheckoutProducts
-              cartProducts={cartProducts}
-              onChange={cartProducts => this.setState({ cartProducts })}
+          <Col xs={12} md={24}>
+            <AddressReceiver
+              labelName={strings.address}
+              addressReceiver={this.state.addressReceiver}
+              addAddress={this.addAddress}
+              changeAddress={this.changeAddress}
             />
           </Col>
+          <Col xs={12} md={18}>
+            {cartProducts.length && isLoaded ? (
+              <CheckoutProducts
+                cartProducts={cartProducts}
+                onChange={cartProducts => this.setState({ cartProducts })}
+              />
+            ) : (
+              ""
+            )}
+          </Col>
           <Col md={6}>
-            <CheckoutDetail
-              title={strings.checkout_shopping_summary}
-              totalProduct={qytCartProduct}
-              totalPriceProduct={this.totalPrice().totalPriceProduct}
-              totalPriceDelivery={this.totalPrice().totalPriceDelivery}
-              totalPriceInvoice={this.totalPrice().totalPriceInvoice}
-            />
+            {isLoaded ? (
+              <CheckoutDetail
+                title={strings.checkout_shopping_summary}
+                totalProduct={qytCartProduct}
+                totalPriceProduct={this.totalPrice().totalPriceProduct}
+                totalPriceDelivery={this.totalPrice().totalPriceDelivery}
+                totalPriceInvoice={this.totalPrice().totalPriceInvoice}
+              />
+            ) : (
+              ""
+            )}
             <div className="price-label-button">
               {this.state.alert !== null && (
                 <Alert
@@ -305,20 +330,19 @@ class Checkout extends Component {
             </div>
           </Col>
         </Row>
-        {openAddAddressModal === true && (
-          <AddAddressCustomer
-            open={openAddAddressModal}
-            handleClose={this.handleCloseAdd.bind(this)}
-            changeAddress={this.getChangeAddress.bind(this)}
+        {this.state.modalAddAdress === true && (
+          <AddAdressCustomer
+            visible={this.state.modalAddAdress}
+            onCancel={this.modalAddAdress}
           />
         )}
-        {/* {this.state.openChangeAddressModal === true &&
+        {this.state.openChangeAddressModal === true && (
           <ChangeAddressCustomer
-            open={this.state.openChangeAddressModal}
-            handleClose={this.handleCloseChange.bind(this)}
+            visible={this.state.openChangeAddressModal}
+            onCancel={this.openChangeAddressModal}
             addressIdDefault={this.state.addressReceiver.id}
           />
-        }  */}
+        )}
         <Footer />
       </div>
     );
