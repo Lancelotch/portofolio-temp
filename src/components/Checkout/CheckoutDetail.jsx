@@ -29,9 +29,9 @@ export default class CheckoutDetail extends Component {
     return (
       <Row>
         <Col md={24}>
-          <h4 className="checkoutDetailTitle">{this.state.title}</h4>
+          <h4>{this.state.title}</h4>
         </Col>
-        <Col md={24} className="price-label-cart">
+        <Col md={24}>
           <Card style={{ backgroundColor: " #F6F6F6", marginTop: "0px" }}>
             <p>
               {strings.total_price_product} x ({this.state.totalProduct})
@@ -42,10 +42,8 @@ export default class CheckoutDetail extends Component {
             <p>{strings.total_price_courier}</p>
             <CurrencyRp price={this.state.totalPriceDelivery} />
             <hr />
-            <h4 className="checkoutDetailTotal">{strings.total_invoice}</h4>
-            <span className="detailCheckoutItem">
+            <h4>{strings.total_invoice}</h4>
               <CurrencyRp price={this.state.totalPriceInvoice} />
-            </span>
           </Card>
         </Col>
       </Row>

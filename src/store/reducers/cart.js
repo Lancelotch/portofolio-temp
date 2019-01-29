@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case "ADD_CART":
       return {
         ...state, isLoading: false, isFinish: true,
-        contentQty : (initialState.contentQty + 1)
+        contentQty : (initialState.contentQty)
       }
     case "ADD_CART_PENDING":
       return {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     case "ADD_CART_FULFILLED":
       return {
         ...state, isLoading: false, isFinish: true,
-        contentQty : (initialState.contentQty + 1),
+        contentQty : (initialState.contentQty),
       }
 
     case "ADD_CART_REJECTED":

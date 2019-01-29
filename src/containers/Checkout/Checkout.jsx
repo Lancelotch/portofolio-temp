@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import { apiGetAddressDefault } from "../../api/services/ServiceAddress";
 import { apiGetCourier } from "../../api/services/ServiceCourier";
 import strings from "../../config/localization";
-import { apiGetOrderId } from "../../api/services/ServiceCart";
+import { apiGetOrderId, apiGetProductsFromCart } from "../../api/services/ServiceCart";
 import serviceOrder from "../../api/services/ServiceOrder";
+import AddAddressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
 import servicePayment from "../../api/services/ServicePayment";
 import Waitingredirect from "../../components/WaitingRedirect/WaitingRedirect";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import CheckoutDetail from "components/Checkout/CheckoutDetail.jsx";
 import CheckoutProducts from "components/Checkout/CheckoutProducts.jsx";
-import { Row, Button, Col, Alert } from "antd";
+import { Row, Button, Col, Alert, Empty } from "antd";
+import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 const snap = window.snap;
 
 class Checkout extends Component {
@@ -32,6 +34,50 @@ class Checkout extends Component {
     this.getCheckout();
   }
 
+  getProducts = () => {
+    return apiGetProductsFromCart()
+      .then(response => {
+        if (response.code.toString() === "200") {
+          return new Promise((resolve, reject) => {
+            if (response.data.length < 1) {
+              resolve();
+            }
+            let cartProducts = []
+            response.data.map(cartProduct => 
+              apiGetProductById(cartProduct.productId)
+                .then(res => {
+                  const detail = JSON.parse(
+                    decodeURIComponent(res.data.homePageDetails)
+                  );
+                  const { productName, productPic, prices } = detail
+                  const price = prices.find(({price}) => price.code === "IDR") || 0;
+                  const piyinPrice =  prices.find(({price}) => price.code === "CNY") || 0;
+                  return {
+                    productName,
+                    productPic,
+                    price: price.price.value,
+                    piyinPrice: piyinPrice.price.value, 
+                    category: res.data.category.indonesian,
+                  };
+                })
+                .then(product => {
+                  const mergeCartProduct = { ...cartProduct, ...product };
+                  cartProducts = [...cartProducts, mergeCartProduct]
+                  resolve(cartProducts)
+                })
+                .catch(error => {
+                  console.log(error);
+                  reject();
+                })
+            );
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   getCheckout = () => {
     apiGetAddressDefault()
       .then(result => {
@@ -43,73 +89,65 @@ class Checkout extends Component {
         return customerAddressDefault;
       })
       .then(customerAddressDefault => {
-        const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
+        const products = this.getProducts()
+        products.then(cartProducts => {
+          cartProducts.map((product, _, arr) => {
+              let request = {
+                destination: customerAddressDefault.cityId,
+                category: product.category,
+                weight: weight
+              };
+              apiGetCourier(request).then(response => {
+                let couriers = response.data;
+                let mergeCartProductCouriers = {
+                  ...product,
+                  priceCourier: 0,
+                  couriers,
+                  courier: { cost: 0 },
+                  customerAddressId: customerAddressDefault.id
+                };
+                this.setState(prevState => ({
+                  cartProducts: [
+                    ...prevState.cartProducts,
+                    mergeCartProductCouriers
+                  ],
+                  qytCartProduct: arr.length
+                }));
+              });
+            });
+        })
         const weight = 1000;
-        cartProducts.products.map((product, i, arr) => {
-          let request = {
-            destination: customerAddressDefault.cityId,
-            category: product.category,
-            weight: weight
-          };
-          apiGetCourier(request).then(response => {
-            let couriers = response.data;
-            let mergeCartProductCouriers = {
-              ...product,
-             priceCourier: 0,
-             couriers: [...couriers],
-             courier: { cost: 0 },
-             customerAddressId: customerAddressDefault.id 
-            };
-            this.setState(prevState => ({
-              cartProducts: [
-                ...prevState.cartProducts,
-                mergeCartProductCouriers
-              ],
-              qytCartProduct: arr.length
-            }));
-          });
-        });
       });
   };
 
-  onChange = cartProducts => {
-    this.setState({
-      cartProducts: cartProducts
-    });
-  };
-
   totalPrice = () => {
-    let totalPriceProduct = 0;
-    let totalPriceDelivery = 0;
-    this.state.cartProducts.map(cartProduct => {
-      totalPriceProduct =
-        totalPriceProduct + cartProduct.price * cartProduct.quantity;
-      totalPriceDelivery = totalPriceDelivery + cartProduct.courier.cost;
-    });
-    const totalPrice = {
-      totalPriceProduct: totalPriceProduct,
-      totalPriceDelivery: totalPriceDelivery,
+    let { cartProducts } = this.state;
+    let totalPriceProduct = cartProducts.reduce(
+      (accumulator, cartProduct) =>
+        accumulator + cartProduct.price * cartProduct.quantity,
+      0
+    );
+    let totalPriceDelivery = cartProducts.reduce(
+      (accumulator, cartProduct) => accumulator + cartProduct.courier.cost,
+      0
+    );
+    return {
+      totalPriceProduct,
+      totalPriceDelivery,
       totalPriceInvoice: totalPriceProduct + totalPriceDelivery
     };
-    return totalPrice;
   };
 
   addAddress = () => {
-    this.setState({
-      openAddAddressModal: true
-    });
+    this.setState({ openAddAddressModal: true });
   };
 
   changeAddress = () => {
-    this.setState({
-      openChangeAddressModal: true
-    });
+    this.setState({ openChangeAddressModal: true });
   };
 
   handleCloseAdd() {
-    this.setState({
-      openAddAddressModal: !this.state.openAddAddressModal
-    });
+    this.setState({ openAddAddressModal: !this.state.openAddAddressModal });
   }
 
   getChangeAddress = () => {
@@ -132,24 +170,22 @@ class Checkout extends Component {
   }
 
   addOrder = () => {
+    const { cartProducts, customerAddressId } = this.state;
     this.setState({ alert: null });
-    const cekCourier = this.state.cartProducts.find(
+    const cekCourier = cartProducts.find(
       cartProduct => cartProduct.courier.cost === 0
     );
     cekCourier !== undefined
       ? this.setState({ alert: strings.checkout_alert_fill_courier })
       : apiGetOrderId()
           .then(response => {
-            const orderId = response.data;
-            return orderId;
+            return response.data;
           })
           .then(orderId => {
-            const customerAddressId = this.state.customerAddressId;
             const order = {
               customerAddressId: customerAddressId,
               orderId: orderId,
-              indexRequest: this.state.cartProducts.map(cartProduct => {
-                const piyinPrice = parseInt(cartProduct.piyinPrice);
+              indexRequest: cartProducts.map(cartProduct => {
                 const amount = this.totalPrice().totalPriceInvoice;
                 return {
                   product: {
@@ -160,10 +196,10 @@ class Checkout extends Component {
                     quantity: cartProduct.quantity,
                     idrPrice: cartProduct.price,
                     notes: cartProduct.note,
-                    piyinPrice: piyinPrice,
+                    piyinPrice: parseInt(cartProduct.piyinPrice),
                     amount: amount,
                     category: cartProduct.category,
-                    variants: cartProduct.variant
+                    variants: cartProduct.variants
                   },
                   courier: cartProduct.courier
                 };
@@ -184,7 +220,7 @@ class Checkout extends Component {
                   servicePayment
                     .createPayment(transaction)
                     .then(payment => {
-                      if (payment.code == "200") {
+                      if (payment.code.toString() === "200") {
                         snap.pay(payment.data.token, {
                           onSuccess: async result => {
                             console.log("Success");
@@ -212,7 +248,7 @@ class Checkout extends Component {
               .catch(error => {
                 console.log(error);
               });
-              console.log(orderId);
+            console.log(orderId);
           })
           .catch(error => {
             console.log(error);
@@ -220,8 +256,14 @@ class Checkout extends Component {
   };
 
   render() {
+    const {
+      cartProducts,
+      qytCartProduct,
+      alert,
+      openAddAddressModal
+    } = this.state;
     return (
-      <div className="container" style={{marginTop:"17rem"}}>
+      <div className="container" style={{ marginTop: "230px" }}>
         <Header />
         <Row>
           {/* <Col xs={12} sm={6} md={12} lg={8}>
@@ -234,14 +276,14 @@ class Checkout extends Component {
             </Col>  */}
           <Col xs={12} md={18}>
             <CheckoutProducts
-              cartProducts={this.state.cartProducts}
-              onChange={this.onChange}
+              cartProducts={cartProducts}
+              onChange={cartProducts => this.setState({ cartProducts })}
             />
           </Col>
           <Col md={6}>
             <CheckoutDetail
               title={strings.checkout_shopping_summary}
-              totalProduct={this.state.qytCartProduct}
+              totalProduct={qytCartProduct}
               totalPriceProduct={this.totalPrice().totalPriceProduct}
               totalPriceDelivery={this.totalPrice().totalPriceDelivery}
               totalPriceInvoice={this.totalPrice().totalPriceInvoice}
@@ -251,7 +293,7 @@ class Checkout extends Component {
                 <Alert
                   message={
                     <span>
-                      <b>{strings.failed} </b> {this.state.alert}
+                      <b>{strings.failed} </b> {alert}
                     </span>
                   }
                   showIcon
@@ -263,20 +305,20 @@ class Checkout extends Component {
             </div>
           </Col>
         </Row>
-        {/* {this.state.openAddAddressModal === true &&
+        {openAddAddressModal === true && (
           <AddAddressCustomer
-            open={this.state.openAddAddressModal}
+            open={openAddAddressModal}
             handleClose={this.handleCloseAdd.bind(this)}
             changeAddress={this.getChangeAddress.bind(this)}
           />
-        }
-        {this.state.openChangeAddressModal === true &&
+        )}
+        {/* {this.state.openChangeAddressModal === true &&
           <ChangeAddressCustomer
             open={this.state.openChangeAddressModal}
             handleClose={this.handleCloseChange.bind(this)}
             addressIdDefault={this.state.addressReceiver.id}
           />
-        } */}
+        }  */}
         <Footer />
       </div>
     );

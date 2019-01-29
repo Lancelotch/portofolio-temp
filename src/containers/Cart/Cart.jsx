@@ -7,16 +7,18 @@ import "./style.sass";
 import "sass/style.sass";
 import Loader from "../../components/Loader/Loader";
 import Header from "../../components/Header/Header";
+import AddAddressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
 import strings from "../../config/localization";
 import {
   apiGetProductsFromCart,
   apiUpdateProductFromCart
 } from "../../api/services/ServiceCart";
-import {pageCheckout} from "routers/paths";
+import { pageCheckout } from "routers/paths";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 import { Breadcrumb, Button, Row, Col } from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
 import { apiGetAddressDefault } from "../../api/services/ServiceAddress";
+import EmptyCart from "./EmptyCart";
 
 const buttonCartPesan = {
   width: "99px",
@@ -49,79 +51,64 @@ class Cart extends Component {
   productCart = () => {
     apiGetProductsFromCart()
       .then(response => {
-        if (response.code == 200) {
+        if (response.code.toString() === "200") {
           return new Promise((resolve, reject) => {
             if (response.data.length < 1) {
               resolve();
             }
-            response.data.map(cartProduct => {
+            response.data.map(cartProduct =>
               apiGetProductById(cartProduct.productId)
                 .then(res => {
                   const detail = JSON.parse(
                     decodeURIComponent(res.data.homePageDetails)
                   );
-                  var priceIdr = 0;
-                  var pricePiyin = 0;
-                  detail.prices.map(price => {
-                    if (price.price.code === "IDR") {
-                      priceIdr = price.price.value;
-                    } else if (price.price.code === "CNY") {
-                      pricePiyin = price.price.value;
-                    }
-                  });
-                  const product = {
-                    productName: detail.productName,
-                    productPic: detail.productPic,
-                    price: priceIdr,
-                    category: res.data.category.indonesian,
-                    piyinPrice: pricePiyin
+                  const { productName, productPic, prices } = detail;
+                  const price =
+                    prices.find(({ price }) => price.code === "IDR") || 0;
+                  const piyinPrice =
+                    prices.find(({ price }) => price.code === "CNY") || 0;
+                  return {
+                    productName,
+                    productPic,
+                    price: price.price.value,
+                    piyinPrice: piyinPrice.price.value,
+                    category: res.data.category.indonesian
                   };
-                  return product;
                 })
                 .then(product => {
                   const mergeCartProduct = { ...cartProduct, ...product };
                   this.setState(prevState => ({
                     cartProducts: [...prevState.cartProducts, mergeCartProduct]
                   }));
-                  return resolve();
+                  resolve();
                 })
                 .catch(error => {
                   console.log(error);
-                  return reject();
-                });
-            });
+                  reject();
+                })
+            );
           });
         }
       })
       .then(() => {
-        this.setState({
-          isLoaded: true
-        });
+        this.setState({ isLoaded: true });
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  onChange = cartProduct => {
-    this.setState({
-      cartProducts: cartProduct
-    });
-  };
-
-  countTotal = cartProducts => {
-    var priceTotal = 0;
-    cartProducts.map(cartProduct => {
-      priceTotal = priceTotal + cartProduct.quantity * cartProduct.price;
-    });
-    return priceTotal;
-  };
+  countTotal = cartProducts =>
+    cartProducts.reduce(
+      (accumulator, cartProduct) =>
+        accumulator + cartProduct.quantity * cartProduct.price,
+      0
+    );
 
   checkout = () => {
-    this.setState({
-      isLoaderActive: true
-    });
-    const updateProducts = this.state.cartProducts.map(cartProduct => {
+    const { cartProducts } = this.state;
+    this.setState({ isLoaderActive: true });
+    const updateProducts = cartProducts.map(cartProduct => {
       return {
         cartId: cartProduct.cartId,
         note: cartProduct.note,
@@ -131,70 +118,46 @@ class Cart extends Component {
     });
 
     apiUpdateProductFromCart(updateProducts)
-      .then(response => {
-        apiGetAddressDefault()
-          .then(response => {
-            localStorage.setItem(
-              "cartProducts",
-              JSON.stringify({
-                products: this.state.cartProducts
-              })
-            );
-            this.setState({
-              isLoaderActive: false,
-              redirectToCheckout: true
-            });
-          })
-          .catch(error => {
-            this.setState({
-              isLoaderActive: false
-            });
-            if (error.status === 500) {
-              this.toggleModal();
-            }
-          });
+      .then(_ => {
+        this.setState({ isLoaderActive: false, redirectToCheckout: true });
       })
       .catch(error => {
-        this.setState({
-          isLoaderActive: false
-        });
+        this.setState({ isLoaderActive: false });
         console.log(error);
+        if (error.status === 500) {
+          this.toggleModal();
+        }
       });
   };
 
   toggleModal() {
-    this.setState({
-      open: true
-    });
+    this.setState({ open: true });
   }
 
   handleClose() {
-    this.setState({
-      open: !this.state.open
-    });
+    this.setState({ open: !this.state.open });
   }
 
   renderRedirectToCheckout() {
     if (this.state.redirectToCheckout) {
-      return (<Redirect to={pageCheckout} />)
+      return <Redirect to={pageCheckout} />;
     }
-    console.log(pageCheckout);
   }
 
   render() {
+    const { cartProducts, isLoaded, isLoaderActive } = this.state;
+
     return (
-      <Loader active={this.state.isLoaderActive}>
+      <Loader active={isLoaderActive}>
         {this.renderRedirectToCheckout()}
         <Header />
         <div
-          className={
-            this.state.cartProducts.length < 1 ? "container-fluid" : "container"
-          }
-          style={{ marginTop: "111px" }}
+          className={cartProducts.length < 1 ? "container-fluid" : "container"}
+          style={{ marginTop: "230px" }}
         >
           <Row>
-            <Col md={this.state.cartProducts.length < 1 ? 24 : 16} xs={24}>
-              {this.state.cartProducts.length > 0 && (
+            <Col md={!cartProducts.length ? 24 : 16} xs={24}>
+              {cartProducts.length > 0 && (
                 <Breadcrumb style={{ paddingLeft: "0px" }}>
                   <BreadcrumbItem>
                     <a href="/">{strings.monggoPesen}</a>
@@ -204,27 +167,29 @@ class Cart extends Component {
                   </BreadcrumbItem>
                 </Breadcrumb>
               )}
-              {this.state.cartProducts.length > 0 && (
-                <h4>{strings.cart_tittle}</h4>
+              {cartProducts.length > 0 && <h4>{strings.cart_tittle}</h4>}
+              {cartProducts.length ? (
+                <CartProducts
+                  cartProducts={cartProducts}
+                  onChange={cartProducts => this.setState({ cartProducts })}
+                  isLoaded={isLoaded}
+                />
+              ) : (
+                <EmptyCart />
               )}
-              <CartProducts
-                cartProducts={this.state.cartProducts}
-                onChange={this.onChange}
-                isLoaded={this.state.isLoaded}
-              />
-              {this.state.cartProducts.length > 0 && (
-                <a href="#">
+              {cartProducts.length > 0 && (
+                <a href="/#">
                   <Button style={buttonCartPesan}>
                     {strings.repeat_order}
                   </Button>
                 </a>
               )}
             </Col>
-            {this.state.cartProducts.length > 0 && (
+            {cartProducts.length > 0 && (
               <Col md={8} xs={6}>
                 <OrderDetail
                   label={strings.total_price_product}
-                  price={this.countTotal(this.state.cartProducts)}
+                  price={this.countTotal(cartProducts)}
                   title={strings.orderDetail}
                 />
                 <Col xs={24} className="price-label-button">
@@ -234,13 +199,13 @@ class Cart extends Component {
                   <br />
                   <br />
                   <p>{strings.cart_easy_and_safe}</p>
-                  {/* {this.state.open === true && (
-                      <AddAddressCustomer
-                        open={this.state.open}
-                        handleClose={this.handleClose.bind(this)}
-                        changeAddress={this.checkout}
-                      />
-                    )} */}
+                  {this.state.open === true && (
+                    <AddAddressCustomer
+                      open={this.state.open}
+                      handleClose={this.handleClose.bind(this)}
+                      changeAddress={this.checkout}
+                    />
+                  )}
                 </Col>
               </Col>
             )}

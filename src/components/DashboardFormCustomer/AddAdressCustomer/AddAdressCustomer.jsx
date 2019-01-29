@@ -5,8 +5,6 @@ import {
   Input,
   Form,
   Button,
-  Icon,
-  Checkbox,
   Row,
   Col
 } from 'antd'
@@ -49,9 +47,6 @@ class AddAdressCustomer extends Component {
         provinces: provinces
       })
     })
-    // this.setState({
-    //   provinces : dummyProvinces.data
-    // })
   }
 
   onChangeProvince = (event) => {

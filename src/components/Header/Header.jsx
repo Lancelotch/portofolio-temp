@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Icon, Badge, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login/Login";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./style.sass";
 import "sass/style.sass";
@@ -93,10 +94,9 @@ class Header extends Component {
     if (token !== null) {
       apiGetProductsFromCart()
         .then(response => {
-          console.log("lenght " + response.data.length);
+          console.log("length" + response.data.length);
           const sumProduct = response.data.length;
           if (response.code === "200") {
-            // If the qty in Redux is different than that of server, overwrite it
             if (this.props.contentQty !== sumProduct) {
               this.props.updateCartQty(sumProduct);
             }
@@ -118,138 +118,152 @@ class Header extends Component {
       </Menu.Item>
     ));
 
+    const usetItems = (
+      <font
+        style={{
+          marginLeft: "0px",
+          marginTop: "5px",
+          cursor: "pointer"
+        }}
+        onClick={this.handleLogout}
+      >
+        Logut
+      </font>
+    );
+
+    const userItems = <Menu>{usetItems}</Menu>;
+
     const menu = <Menu>{menuItems}</Menu>;
 
     return (
       <div className="navigation">
-          <Row>
-            <Col md={24}>
-              <p style={{ textAlign: "center" }}>
-                Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo
-                mampir &nbsp;
-                <a
-                  style={{
-                    fontSize: "14px",
-                    fontWight: "600",
-                    color: "#007E80"
-                  }}
-                  href=" "
-                >
-                  kesini
-                </a>
-              </p>
-            </Col>
-            <Col md={5} style={{ marginTop: 25 }}>
-              <a href="/">
-                <img
-                  src={require("assets/img/monggopesen_logo.png")}
-                  className="img-navigation"
-                  alt=""
-                />
+        <Row>
+          <Col md={24}>
+            <p style={{ textAlign: "center" }}>
+              Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo
+              mampir &nbsp;
+              <a
+                style={{
+                  fontSize: "14px",
+                  fontWight: "600",
+                  color: "#007E80"
+                }}
+                href=" "
+              >
+                kesini
               </a>
-            </Col>
-            <Col md={13} style={{ marginTop: 25 }}>
-              <form action="/search">
-                <Search
-                  placeholder="input search text"
-                  id="filter"
-                  name="q"
-                  value={this.state.keyword}
-                  onChange={this.handleInputSearchChange.bind(this)}
-                  enterButton
-                />
-              </form>
-            </Col>
-            <Col md={6}>
+            </p>
+          </Col>
+          <Col md={5} style={{ marginTop: 25 }}>
+            <a href="/">
               <img
-                src={require("assets/img/monggopesen_header_discount.png")}
-                style={{ maxWidth: "100%", marginLeft: 110 }}
+                src={require("assets/img/monggopesen_logo.png")}
+                className="img-navigation"
                 alt=""
               />
-            </Col>
-            <Col md={18} style={{ marginTop: 24 }}>
-              <div className="categories-navigation">
-                <Dropdown overlay={menu}>
-                  <a
+            </a>
+          </Col>
+          <Col md={13} style={{ marginTop: 25 }}>
+            <form action="/search">
+              <Search
+                placeholder="input search text"
+                id="filter"
+                name="q"
+                value={this.state.keyword}
+                onChange={this.handleInputSearchChange.bind(this)}
+                enterButton
+              />
+            </form>
+          </Col>
+          <Col md={6}>
+            <img
+              src={require("assets/img/monggopesen_header_discount.png")}
+              style={{ maxWidth: "100%", marginLeft: 110 }}
+              alt=""
+            />
+          </Col>
+          <Col md={18} style={{ marginTop: 24 }}>
+            <div className="categories-navigation">
+              <Dropdown overlay={menu}>
+                <a
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    color: "#007E80"
+                  }}
+                  href={" "}
+                >
+                  Kategori <Icon type="down" />
+                </a>
+              </Dropdown>
+            </div>
+          </Col>
+          <Col md={6} style={{ marginTop: 16 }}>
+            <div className="item-navigation">
+              {this.props.isAuthenticated !== true ? (
+                <React.Fragment>
+                  <Icon
+                    type="user"
+                    style={{ fontSize: "35px" }}
+                    onClick={this.openModalLogin}
+                  />
+                  <font
                     style={{
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      color: "#007E80"
+                      marginLeft: "0px",
+                      marginTop: "5px",
+                      cursor: "pointer"
                     }}
-                    href={" "}
+                    onClick={this.openModalLogin}
                   >
-                    Kategori <Icon type="down" />
-                  </a>
-                </Dropdown>
-              </div>
-            </Col>
-            <Col md={6} style={{ marginTop: 16 }}>
-              <div className="item-navigation">
-                {this.props.isAuthenticated !== true ? (
-                  <React.Fragment>
-                    <Icon
-                      type="user"
-                      style={{ fontSize: "35px" }}
-                      onClick={this.openModalLogin}
-                    />
-                    <font
+                    Login
+                  </font>
+                  <Login
+                    visible={this.state.openModalLogin}
+                    onCancel={this.openModalLogin}
+                  />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Icon
+                    type="user"
+                    style={{ fontSize: "35px" }}
+                    onClick={this.handleLogout}
+                  />
+                  <Dropdown overlay={userItems}>
+                    <a
                       style={{
-                        marginLeft: "0px",
-                        marginTop: "5px",
-                        cursor: "pointer"
+                        fontSize: "16px",
+                        fontWeight: "600",
+                        color: "#007E80"
                       }}
-                      onClick={this.openModalLogin}
+                      href="/dashboard-customer/1"
                     >
-                      Login
-                    </font>
-                    <Login
-                      visible={this.state.openModalLogin}
-                      onCancel={this.openModalLogin}
-                    />
-                  </React.Fragment>
-                ) : (
-                  <React.Fragment>
-                    <Icon
-                      type="user"
-                      style={{ fontSize: "35px" }}
-                      onClick={this.handleLogout}
-                    />
-                    <font
-                      style={{
-                        marginLeft: "0px",
-                        marginTop: "5px",
-                        cursor: "pointer"
-                      }}
-                      onClick={this.handleLogout}
-                    >
-                      Logut
-                    </font>
-                  </React.Fragment>
-                )}
-                {this.props.contentQty == 0 ? (
+                      {this.state.name}
+                      <Icon type="down" />
+                    </a>
+                  </Dropdown>
+                </React.Fragment>
+              )}
+              {this.props.contentQty == 0 ? (
+                <Icon
+                  type="shopping-cart"
+                  className="icon-cart-navigation"
+                  style={{ fontSize: "35px" }}
+                  onClick={this.toPageCart.bind(this)}
+                />
+              ) : (
+                <Badge count={this.props.contentQty} color="secondary">
                   <Icon
                     type="shopping-cart"
                     className="icon-cart-navigation"
                     style={{ fontSize: "35px" }}
                     onClick={this.toPageCart.bind(this)}
                   />
-                ) : (
-                  <Badge
-                    count={this.props.contentQty}
-                    badgeContent={this.state.contentQty}
-                    color="secondary"
-                  >
-                    <Icon
-                      type="shopping-cart"
-                      className="icon-cart-navigation"
-                      style={{ fontSize: "35px" }}
-                      onClick={this.toPageCart.bind(this)}
-                    />
-                  </Badge>
-                )}
-              </div>
-            </Col>
-          </Row>
+                </Badge>
+              )}
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }

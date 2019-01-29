@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
 import strings from "../../config/localization";
 import { Button, Col } from "antd";
 
@@ -24,6 +23,7 @@ class EmptyCart extends Component {
             src={require("assets/img/monggopesen_empty.png")}
             style={{ margin: "auto", marginTop: "111px", display: "block" }}
             className="img-responsive"
+            alt="Monggo pesen empty"
           />
         </Col>
         <Col md={24}>
