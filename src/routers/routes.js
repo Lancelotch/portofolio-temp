@@ -4,6 +4,7 @@ import ProductDetail from "../containers/ProductDetail/ProductDetail"
 import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"
 import Dashboard from '../containers/Dashboard/Dashboard'
+import InvoiceCustomerDetail from '../components/DashboardFormCustomer/InvoiceCustomerDetail/InvoiceCustomerDetail'
 
 const routes = [{
         path: "/",
@@ -30,6 +31,10 @@ const routes = [{
     {
         path:"/dashboard-customer/:tab",
         component: Dashboard
+    },
+    {
+        path:"/sidebar-profile/:invoiceNumber",
+        component: InvoiceCustomerDetail
     }
 ]
 
