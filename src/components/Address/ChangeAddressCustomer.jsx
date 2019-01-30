@@ -31,6 +31,7 @@ class ChangeAddressCustomer extends React.Component {
 
   onCancel = () => {
     this.props.onCancel();
+    window.location.reload();
   }
  
 
@@ -50,7 +51,7 @@ class ChangeAddressCustomer extends React.Component {
   };
 
   render() {
-    const { visible, onCancel, form } = this.props;
+    const { visible, onCancel, onChangeAddress } = this.props;
     return (
       <Modal
         visible={visible}
@@ -59,10 +60,7 @@ class ChangeAddressCustomer extends React.Component {
         onCancel={onCancel}
         width={600}
       >
-        <div className="modal-header">
-          <h4 className="typography-title">Pilih Alamat Pengiriman</h4>
-        </div>
-        <div className="modal-body">
+          <h4>Pilih Alamat Pengiriman</h4>
           <Row>
             <Col md={12}>
               {this.state.addresses.map(address => {
@@ -80,14 +78,11 @@ class ChangeAddressCustomer extends React.Component {
                   >
                     <Row>
                       <Col md={8}>
-                        <i className="far fa-user-circle CustomeridIcon">
                           <b
-                            className="CustomeridIconText"
                             style={{ marginBottom: "24px" }}
                           >
                             {address.receiverName}
-                          </b>
-                        </i>
+                          </b> s
                         <p>{address.labelName + ", " + address.fullAddress}</p>
                       </Col>
                       <Col md={4}>
@@ -111,16 +106,13 @@ class ChangeAddressCustomer extends React.Component {
               })}
             </Col>
             <Col md={6}>
-      
               <Button
-                onClick={this.onCancel.bind(this)}
+                onClick={onChangeAddress}
               >
                 Selesai
-              </Button>
-          
+              </Button>        
             </Col>
           </Row>
-        </div>
       </Modal>
     );
   }

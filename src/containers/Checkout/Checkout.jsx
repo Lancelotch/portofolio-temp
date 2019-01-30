@@ -7,18 +7,18 @@ import {
   apiGetProductsFromCart
 } from "../../api/services/ServiceCart";
 import serviceOrder from "../../api/services/ServiceOrder";
-import AddAddressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
 import servicePayment from "../../api/services/ServicePayment";
 import Waitingredirect from "../../components/WaitingRedirect/WaitingRedirect";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import CheckoutDetail from "components/Checkout/CheckoutDetail.jsx";
 import CheckoutProducts from "components/Checkout/CheckoutProducts.jsx";
-import { Row, Button, Col, Alert, Empty } from "antd";
+import { Row, Button, Col, Alert } from "antd";
 import { apiGetProductById } from "../../api/services/ServiceProductDetail";
 import AddressReceiver from "../../components/Address/AddressReceiver";
 import AddAdressCustomer from "../../components/DashboardFormCustomer/AddAdressCustomer/AddAdressCustomer";
 import ChangeAddressCustomer from "../../components/Address/ChangeAddressCustomer";
+
 const snap = window.snap;
 
 class Checkout extends Component {
@@ -40,6 +40,18 @@ class Checkout extends Component {
 
   componentWillMount() {
     this.getCheckout();
+  }
+
+  getAddress = () =>{
+    return apiGetAddressDefault()
+    .then(result => {
+      const customerAddressDefault = result.data;
+      this.setState({
+        addressReceiver: customerAddressDefault,
+        customerAddressId: customerAddressDefault.id
+      });
+      return customerAddressDefault;
+    })
   }
 
   getProducts = () => {
@@ -87,15 +99,7 @@ class Checkout extends Component {
   };
 
   getCheckout = () => {
-    apiGetAddressDefault()
-      .then(result => {
-        const customerAddressDefault = result.data;
-        this.setState({
-          addressReceiver: customerAddressDefault,
-          customerAddressId: customerAddressDefault.id
-        });
-        return customerAddressDefault;
-      })
+    this.getAddress()
       .then(customerAddressDefault => {
         this.getProducts().then(cartProductPromises => {
           if (!cartProductPromises.length)
@@ -164,13 +168,18 @@ class Checkout extends Component {
     });
   };
 
+  onChangeAddress = () => {
+    this.getAddress();
+    this.setState({
+      openChangeAddressModal: !this.state.openChangeAddressModal
+    });
+  }
+
   openChangeAddressModal = () => {
     this.setState({
       openChangeAddressModal: !this.state.openChangeAddressModal
     });
   };
-
-  
 
   getChangeAddress = () => {
     apiGetAddressDefault()
@@ -280,7 +289,7 @@ class Checkout extends Component {
   render() {
     const { cartProducts, qytCartProduct, alert, isLoaded } = this.state;
     return (
-      <div className="container" style={{ marginTop: "230px" }}>
+      <div className="container" style={{ marginTop: 230 }}>
         <Header />
         <Row>
           <Col xs={12} md={24}>
@@ -340,6 +349,7 @@ class Checkout extends Component {
           <ChangeAddressCustomer
             visible={this.state.openChangeAddressModal}
             onCancel={this.openChangeAddressModal}
+            onChangeAddress={this.onChangeAddress}
             addressIdDefault={this.state.addressReceiver.id}
           />
         )}

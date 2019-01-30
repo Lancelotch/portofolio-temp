@@ -41,14 +41,11 @@ const addressReceiver = props => {
               <Skeleton />
             </Col>
           ) : (
-            <i className="far fa-user-circle CustomeridIcon">
               <b
-                className="CustomeridIconText"
-                style={{ marginBottom: "24px" }}
+                style={{ marginBottom: 24 }}
               >
                 {address.receiverName}
               </b>
-            </i>
           )}
 
           <p onClick={props.changeAddress} style={textChangeAddress}>

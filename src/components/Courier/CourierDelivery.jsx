@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import strings from "../../config/localization";
 import { Select } from "antd";
+const Option = Select.Option
 
 class CourierDelivery extends Component {
   constructor(props) {
@@ -25,22 +24,22 @@ class CourierDelivery extends Component {
   };
   listCouriers = () => {
     return this.state.couriers[0].map((courier, index) => (
-      <MenuItem key={index} value={courier.serviceCode}>
+      <Option key={index} value={courier.serviceCode}>
         {courier.courierCode +
           " - " +
           courier.serviceName +
           " (" +
           courier.estimation +
           ")"}
-      </MenuItem>
+      </Option>
     ));
   };
   render() {
     return (
       <React.Fragment>
-        <InputLabel htmlFor="simple-select">
+        <h4>
           {strings.delivery_courier}
-        </InputLabel>
+        </h4>
         <Select
           value={this.state.serviceCode}
           onChange={this.onChangeCourier}

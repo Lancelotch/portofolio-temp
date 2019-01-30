@@ -49,25 +49,24 @@ class AddAdressCustomer extends Component {
     })
   }
 
-  onChangeProvince = (event) => {
-    apiGetCity(event.target.value).then(response => {
+  onChangeProvince = provinceId => {
+    apiGetCity(provinceId).then(response => {
       const cities = response.data
       this.setState({
-        [event.target.name]: event.target.value,
+        provinceId,
         cities: cities
       })
     })
   }
 
-  onChangeCity = event => {
+  onChangeCity = zipCode => {
     const findProvince = this.state.provinces.find(
       province => province.province_id === this.state.provinceId
     )
     const findCity = this.state.cities.find(
-      city => city.city_id === event.target.value
+      city => city.city_id === zipCode
     )
     this.setState({
-      [event.target.name]: event.target.value,
       province: findProvince.province,
       city: findCity.city_name,
       cityId: findCity.city_id,
