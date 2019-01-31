@@ -33,7 +33,7 @@ const strings = new LocalizedStrings({
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
-    register_agree: "Saya setuju dengan syarat dan ketentuan",
+    register_agree: "Dengan melakukan pendaftaran, saya setuju dengan {0} dan {1} monggopesen.com",
     //product detail
     product_detail_description: "Deskripsi Produk",
   }
