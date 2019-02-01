@@ -2,10 +2,19 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import dynamicMiddlewares, { addMiddleware, resetMiddlewares } from 'redux-dynamic-middlewares';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from "redux-saga";
+import mySaga from './sagas';
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+
+// then run the saga
+sagaMiddleware.run(mySaga);
 
 export default (() => {
   const store = createStore(createReducer(), composeWithDevTools(
-    applyMiddleware(thunk, dynamicMiddlewares)
+    applyMiddleware(thunk, dynamicMiddlewares,sagaMiddleware)
   ));
   store.async = {};
   store.middleware = {};

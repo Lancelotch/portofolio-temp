@@ -188,7 +188,7 @@ class RegisterPage extends Component {
                 </Card>
               </Col>
             </Row>
-          </div>
+        </div>
     );
   }
 }
