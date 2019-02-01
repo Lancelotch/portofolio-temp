@@ -42,49 +42,55 @@ class ProductDetail extends Component {
       infoRate: {}
     };
   }
-  componentWillMount() {
-    const productId = this.props.match.params.productId;
-    apiGetProductById(productId)
-      .then(res => {
-        var details = JSON.parse(decodeURIComponent(res.data.details));
-        const category = res.data.category.indonesian;
-        var productPriceIdr = "";
-        if (details.resp) {
-          details = details.resp;
+  componentDidMount() {
+    this.productDetail();
+  
+  }
+
+  productDetail = () => {
+  const productId = this.props.match.params.productId;
+  apiGetProductById(productId)
+    .then(res => {
+      var details = JSON.parse(decodeURIComponent(res.data.details));
+      const category = res.data.category.indonesian;
+      var productPriceIdr = "";
+      if (details.resp) {
+        details = details.resp;
+      }
+      details.productSalePrice.map(productPrice => {
+        if (productPrice.price.code === "IDR") {
+          productPriceIdr = productPrice.price.value;
         }
-        details.productSalePrice.map(productPrice => {
-          if (productPrice.price.code === "IDR") {
-            productPriceIdr = productPrice.price.value;
-          }
-          return null
-        });
-        var productSalePrice = productPriceIdr;
-        const productDetail = {
-          productId: res.data.productId,
-          productTitle: details.productTitle,
-          options: details.options,
-          productAttributes: details.productAttributes,
-          productImages: details.productImages,
-          productSalePrice: productSalePrice,
-          productDescriptions: details.productDescription,
-          skuBase: details.skuBase,
-          skuCore: details.skuCore,
-          infoRate: details.infoRate,
-          category: category
-        };
-        return productDetail;
-      })
-      .then(productDetail => {
-        this.setState({
-         ...productDetail,
-          productDisplayState: !productDetail.productSalePrice
-            ? "NOT_FOUND"
-            : "DISPLAYING"
-        });
-      })
-      .catch(error => {
-        this.props.history.push("/notfound");
+        return null
       });
+      var productSalePrice = productPriceIdr;
+      const productDetail = {
+        productId: res.data.productId,
+        productTitle: details.productTitle,
+        options: details.options,
+        productAttributes: details.productAttributes,
+        productImages: details.productImages,
+        productSalePrice: productSalePrice,
+        productDescriptions: details.productDescription,
+        skuBase: details.skuBase,
+        skuCore: details.skuCore,
+        infoRate: details.infoRate,
+        category: category
+      };
+      return productDetail;
+    })
+    .then(productDetail => {
+      this.setState({
+       ...productDetail,
+        productDisplayState: !productDetail.productSalePrice
+          ? "NOT_FOUND"
+          : "DISPLAYING"
+      });
+    })
+    .catch(error => {
+      this.props.history.push("/notfound");
+    });
+
   }
 
   updateVariants = responseVariant => {
@@ -93,36 +99,19 @@ class ProductDetail extends Component {
     const result = variants.find(
       variant => variant.name === responseVariant.name
     );
-    if (variants < 1) {
+    if (!variants || !result) {
       updatedvariant.push({
         name: responseVariant.name,
         value: responseVariant.value.optionValText,
         imageUrl: responseVariant.value.optionValImage,
       });
-    } else {
-      if (result === undefined) {
-        updatedvariant.push({
-          name: responseVariant.name,
-          value: responseVariant.value.optionValText,
-          imageUrl: responseVariant.value.optionValImage,
-        });
-      } else {
-        updatedvariant = variants.map(variant =>
-          variant.name !== responseVariant.name
-            ? variant
-            : {
-                ...variant,
-                value: responseVariant.value.optionValText,
-                imageUrl: responseVariant.value.optionValImage,
-                valueId: responseVariant.value.optionValId
-              }
-        );
-      }
     }
     this.setState({
       variants: updatedvariant
     });
   };
+
+
 
   onChangeVariant = selected => {
     const productImages = [...this.state.productImages];
@@ -207,7 +196,7 @@ class ProductDetail extends Component {
         <Row>
           <Col xs={24} md={24}>
             <Header />
-            <div className="container" style={{ marginTop: 111 }}>
+            <div className="container" style={{ marginTop: 230 }}>
               <Row>
                 <Col md={15}>
                   <Breadcrumb>

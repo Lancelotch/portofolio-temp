@@ -41,6 +41,14 @@ const strings = new LocalizedStrings({
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
     register_agree: "Saya setuju dengan syarat dan ketentuan",
+    register_name: "Nama lengkap harus diisi",
+    register_email: "Pastikan e-mail kamu valid",
+    register_email_quote: "Patikan e-mail kamu diisi",
+    register_password: "Password harus diisi",
+    register_password_quote: "Password harus 6 digit kombinasi angka dan huruf",
+    register_password_placeholder: "Password Monggopesen",
+    register_sucsess: "Pendaftaran Berhasil Silahkan Cek Email Untuk Aktivasi",
+    register_pattern_quote: "Nama hanya boleh berupa huruf, titik (.), underscore (_), dan spasi",
     //product detail
     product_detail_description: "Deskripsi Produk",
   }

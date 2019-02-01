@@ -78,6 +78,7 @@ class Login extends Component {
         <Modal
           visible={visible}
           closable={false}
+          centered={true}
           footer={null}
           onCancel={onCancel}
           width={380}

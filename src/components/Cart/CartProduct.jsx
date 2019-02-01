@@ -9,6 +9,7 @@ import strings from "../../config/localization";
 import { Card, Input, Col, Row } from "antd";
 
 export default class CartProduct extends Component {
+
   onChangeNote = event => {
     const cartProduct = this.props.cartProduct;
     cartProduct.note = event.target.value;
@@ -22,7 +23,6 @@ export default class CartProduct extends Component {
   render() {
     const cartProduct = this.props.cartProduct;
     console.log(cartProduct);
-
     return (
       <div className="container-fluid">
         <Row>
@@ -54,7 +54,7 @@ export default class CartProduct extends Component {
                       <CurrencyRp price={cartProduct.price} />
                     )}
                   </span>
-                  {!cartProduct.variants.length && !cartProduct.price ? (
+                  {!cartProduct.variants || !cartProduct.price ? (
                     <Skeleton />
                   ) : (
                     <CartVariants variants={cartProduct.variants} />

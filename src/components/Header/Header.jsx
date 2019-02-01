@@ -112,6 +112,7 @@ class Header extends Component {
   };
 
   render() {
+
     const menuItems = this.state.categoryFeature.map(category => (
       <Menu.Item key={category.id}>
         <a href={"/category-product/" + category.id}>{category.name}</a>
@@ -209,8 +210,8 @@ class Header extends Component {
                   />
                   <font
                     style={{
-                      marginLeft: "0px",
-                      marginTop: "5px",
+                      marginLeft: 0,
+                      marginTop: 5,
                       cursor: "pointer"
                     }}
                     onClick={this.openModalLogin}
