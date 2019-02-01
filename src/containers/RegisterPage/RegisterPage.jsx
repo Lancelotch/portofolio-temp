@@ -197,7 +197,7 @@ class RegisterPage extends Component {
                         {strings.google}
                       </ButtonGoogle>
                       <div>
-                        <span>{strings.register_quote}</span>
+                        <span>{strings.register_quote} </span>
                       </div>
                     </Form>
                   </div>
