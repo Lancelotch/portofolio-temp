@@ -37,6 +37,8 @@ class RegisterPage extends Component {
     })
   }
 
+  
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -64,6 +66,7 @@ class RegisterPage extends Component {
         <Redirect to='/' />
       )
     }
+    
 
     return (
       <React.Fragment>
@@ -94,6 +97,7 @@ class RegisterPage extends Component {
                         <a href="/">{strings.register_enter}</a>
                       )}
                     </p>
+                    {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
                     <ButtonFacebook className="register-form__button" onSubmit={this.handleSocialRegister}>
                       {strings.facebook}
                     </ButtonFacebook>
