@@ -1,59 +1,59 @@
 //Root Service
-const mainServices = "https://api.monggopesen.com/main-services/";
-const cartServices = "https://api.monggopesen.com/cart-services/";
-const cart = "v1/cart/user";
+const mainServices = process.env.REACT_APP_API_MAIN_SERVICE;
+const cartServices = process.env.REACT_APP_API_CART_SERVICE;
+const cart = "cart/user";
 
 //Authentication Page
-const login = "api/v1/public/user/login";
-const register = "api/v1/public/user/register";
-const loginSocialMedia = "api/v1/public/user/login-sosmed";
-const registerSocialMedia = "api/v1/public/user/register-sosmed";
+const login = "public/user/login";
+const register = "public/user/register";
+const loginSocialMedia = "public/user/login-sosmed";
+const registerSocialMedia = "public/user/register-sosmed";
 
 //User
-const DetailUser = "api/v1/customer/";
+const DetailUser = "customer/";
 
 //Product
-const GetProductById = "api/v1/product/";
-const GetProductByCategory = "api/v1/product/category/";
+const GetProductById = "product/";
+const GetProductByCategory = "product/category/";
 
 
 //Address
-const CustomerAddressDefault = "api/v1/customer/address/default/";
-const CustomerAddress = "api/v1/customer/address/";
-const ChangeAddressDefault = "api/v1/customer/address/default/";
-const GetProvince = "api/v1/customer/address/province";
-const GetCity = "api/v1/customer/address/city";
-const NgrokGetProvince = "api/v1/customer/address/province";
-const NgrokGetCity = "api/v1/customer/address/city";
-const AddUserAddress = "api/v1/customer/address";
-const DeleteAddress = "/api/v1/customer/address/";
+const CustomerAddressDefault = "customer/address/default/";
+const CustomerAddress = "customer/address/";
+const ChangeAddressDefault = "customer/address/default/";
+const GetProvince = "customer/address/province";
+const GetCity = "customer/address/city";
+const NgrokGetProvince = "customer/address/province";
+const NgrokGetCity = "customer/address/city";
+const AddUserAddress = "customer/address";
+const DeleteAddress = "/customer/address/";
 
 //Invoice
-const GetInvoice = "api/v1/invoice/";
+const GetInvoice = "invoice/";
 
 //Cart
-const addToCart = "v1/cart/user/";
-const getProductsFromCart = "v1/cart/user/";
-const updateProductFromCart = "v1/cart/user/";
-const deleteProductFromCart = "v1/cart/user/";
+const addToCart = "cart/user/";
+const getProductsFromCart = "cart/user/";
+const updateProductFromCart = "cart/user/";
+const deleteProductFromCart = "cart/user/";
 
 //Courier
-const GetCourier = "api/v1/courier/cost";
+const GetCourier = "courier/cost";
 
 //Generate Order Id
-const GenerateOrderId = "api/v1/order/generate/";
+const GenerateOrderId = "order/generate/";
 
 
 //Order
-const AddOrder = "api/v1/order";
+const AddOrder = "order";
 
 //Payment
-const CreatePayment = "api/v1/payment";
+const CreatePayment = "payment";
 
 
 //Product Category
-const GetCategoryFeature = "api/v1/category/feature";
-const urlGetSliderHome = "api/v1/home/slider/";
+const GetCategoryFeature = "category/feature";
+const GetSliderHome = "home/slider/";
 
 const urls = {
     mainServices : mainServices,
@@ -76,7 +76,7 @@ const urls = {
     login: login,
     register: register,
     GetCategoryFeature: GetCategoryFeature,
-    urlGetSliderHome: urlGetSliderHome,
+    GetSliderHome: GetSliderHome,
     loginSocialMedia: loginSocialMedia,
     registerSocialMedia: registerSocialMedia,
     getProductsFromCart: getProductsFromCart,

@@ -87,9 +87,10 @@ class RegisterPage extends Component {
                 alt='register__logo'
               />
               <h1 className='register__title'>{strings.register_now}</h1>
-              <Form className='register__form' onSubmit={this.handleSubmit}>
+              <Form onSubmit={this.handleSubmit}>
                 <FormItem>
                   <Input
+                    className='register__input'
                     size={'large'}
                     prefix={<Icon type={'user'} />}
                     placeholder={'Nama'}
@@ -97,6 +98,7 @@ class RegisterPage extends Component {
                 </FormItem>
                 <FormItem>
                   <Input
+                    className='register__input'
                     size={'large'}
                     prefix={<Icon type={'mail'} />}
                     placeholder={'Email'}
@@ -104,7 +106,7 @@ class RegisterPage extends Component {
                 </FormItem>
                 <Form.Item>
                   <Input.Password
-                    className='input'
+                    className='register__input'
                     prefix={
                       <Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
                     }
@@ -115,12 +117,12 @@ class RegisterPage extends Component {
                 <div className='register__form__note'>
                 {strings.formatString(
                         strings.register_agree,
-                        <a href="/">{strings.register_policy}</a>,<a href="/">{strings.register_requirement}</a>
+                        <a className='register__form__link' href="/">{strings.register_policy}</a>,<a  className='register__form__link' href="/">{strings.register_requirement}</a>
                       )}
                 </div>
                 <FormItem>
-                  <Button size={'large'} htmlType='submit' type='primary'>
-                    <p className='register__form__button-first-text'>
+                  <Button className='register__form__button-register' size={'large'} htmlType='submit' type='primary'>
+                    <p className='register__form__button-register-text'>
                       {strings.login_register}
                     </p>
                   </Button>
@@ -148,7 +150,7 @@ class RegisterPage extends Component {
                   <center className='register__form__direct-login'>
                   {strings.formatString(
                         strings.register_quote,
-                        <a href="/">{strings.register_now}</a>
+                        <a  className='register__form__link' href="/">{strings.register_now}</a>
                       )}
                   </center>
                 </Form.Item>

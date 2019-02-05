@@ -10,6 +10,11 @@ const strings = new LocalizedStrings({
     total_price_product : "Total Harga Barang",
     failed : "Gagal",
     pay : "Bayar",
+    total : "Jumlah",
+    note : "Catatan",
+    sub_total : "Sub Total",
+    price_courier : "Ongkos Kirim",
+    pcs : "pcs",
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",

@@ -16,7 +16,15 @@
       margin-top: 64px
       font-size: 20px
       margin-bottom: 32px
+    &__input
+      height: 48px
+    &__input:hover,
+    &__input:focus
+      border: 1px solid $primary-color !important
+      border-radius: 4px
+      box-shadow: 0 0 0 0 transparent !important
     &__form
+      height: 40px
       &__note
         display: block
         width: 360px
@@ -24,9 +32,19 @@
         text-align: justify
         font-size: 16px
         color: $text-grey
-      &__button-first-text
+      &__button-register
+        margin-top: 32px
+        height: 48 !important
+        width: 360px
+        background: $primary-color !important
+        border: $primary-color !important
+      &__button-register:hover,
+      &__button-register:focus
+        background: $primary-color-hover !important
+        border: 1px solid $primary-color-hover !important
+      &__button-register-text
         color: $text-white
-        padding-top: 11px
+        padding-top: 6px
         font-size: 18px
         font-weight: 500
       &__text-line
@@ -40,42 +58,12 @@
         height: 48px
       &__direct-login
         color: $text-grey
+      &__link
+        color: $link-color !important
+      &__link:hover,
+      &__link:focus
+        color: $primary-color !important
 
-
-// custom default ant css
-.ant-input
-  height: 48px !important
-
-.ant-input:hover 
-  border-color: $primary-color!important
-  border-right-width: 1px !important
-
-.ant-input:focus
-  border-color: $primary-color!important
-  outline: 
-  -webkit-box-shadow: $text-white!important
-          box-shadow: $text-white!important
-  border-right-width: 1px !important
-
-.ant-btn-primary 
-  margin-top: 32px
-  color: $text-white
-  background-color: $primary-color !important
-  border-color: $primary-color !important
-  height: 48px!important
-  width: 360px!important
-  border-radius: 4px!important
-  text-shadow: none
-  -webkit-box-shadow: $primary-color !important
-          box-shadow: $primary-color !important
-
-.ant-btn-primary:hover,
-.ant-btn-primary:focus 
-  background-color: $primary-color-hover !important
-  border-color: $primary-color-hover !important
-
-a
-  color: $link-color !important
 
 
 

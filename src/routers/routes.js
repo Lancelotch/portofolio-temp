@@ -5,6 +5,8 @@ import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"
 import Dashboard from '../containers/Dashboard/Dashboard'
 import InvoiceCustomerDetail from '../components/DashboardFormCustomer/InvoiceCustomerDetail/InvoiceCustomerDetail'
+import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
+import ProductSearch from "../containers/ProductSearch/ProductSearch";
 
 const routes = [{
         path: "/",
@@ -35,6 +37,14 @@ const routes = [{
     {
         path:"/sidebar-profile/:invoiceNumber",
         component: InvoiceCustomerDetail
+    },
+    {
+        path:"/search", 
+        component:ProductSearch
+    },
+    {
+        path:"/category-product/:categoryId",
+        component: CategoryProduct
     }
 ]
 

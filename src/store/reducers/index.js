@@ -3,10 +3,8 @@ import authReducer from './auth';
 import cartReducer from "./cart";
 
 const reducers = combineReducers({
-    
     auth: authReducer,
-    cart: cartReducer
-    
+    cart: cartReducer   
 });
 
 export default reducers;

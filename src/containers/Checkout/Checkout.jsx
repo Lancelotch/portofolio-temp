@@ -1,16 +1,16 @@
-import React, { Component } from "react"
-import { apiGetAddressDefault } from "../../api/services/ServiceAddress"
-import { apiGetCourier } from "../../api/services/ServiceCourier"
-import strings from "../../config/localization"
-import { apiGetOrderId } from "../../api/services/ServiceCart"
-import serviceOrder from "../../api/services/ServiceOrder"
-import servicePayment from "../../api/services/ServicePayment"
-import Waitingredirect from "../../components/WaitingRedirect/WaitingRedirect"
-import Header from "components/Header/Header.jsx"
-import Footer from "components/Footer/Footer.jsx"
-import CheckoutDetail from "components/Checkout/CheckoutDetail.jsx"
-import CheckoutProducts from "components/Checkout/CheckoutProducts.jsx"
-import { Row, Button, Col, Alert } from "antd"
+import React, { Component } from "react";
+import { apiGetAddressDefault } from "../../api/services/ServiceAddress";
+import { apiGetCourier } from "../../api/services/ServiceCourier";
+import strings from "../../config/localization";
+import { apiGetOrderId } from "../../api/services/ServiceCart";
+import serviceOrder from "../../api/services/ServiceOrder";
+import servicePayment from "../../api/services/ServicePayment";
+import Waitingredirect from "../../components/WaitingRedirect/WaitingRedirect";
+import Header from "components/Header/Header.jsx";
+import Footer from "components/Footer/Footer.jsx";
+import CheckoutDetail from "components/Checkout/CheckoutDetail.jsx";
+import CheckoutProducts from "components/Checkout/CheckoutProducts.jsx";
+import { Row, Button, Col, Alert } from "antd";
 const snap = window.snap;
 
 class Checkout extends Component {
@@ -55,10 +55,10 @@ class Checkout extends Component {
             let couriers = response.data;
             let mergeCartProductCouriers = {
               ...product,
-              ...{ priceCourier: 0 },
-              ...{ couriers: [...couriers] },
-              ...{ courier: { cost: 0 } },
-              ...{ customerAddressId: customerAddressDefault.id }
+             priceCourier: 0,
+             couriers: [...couriers],
+             courier: { cost: 0 },
+             customerAddressId: customerAddressDefault.id 
             };
             this.setState(prevState => ({
               cartProducts: [
@@ -212,6 +212,7 @@ class Checkout extends Component {
               .catch(error => {
                 console.log(error);
               });
+              console.log(orderId);
           })
           .catch(error => {
             console.log(error);
@@ -220,10 +221,10 @@ class Checkout extends Component {
 
   render() {
     return (
-      <div className="cartCheckout" style={{marginTop:"111px "}}>
-          <Header />
-          <Row>
-            {/* <Col xs={12} sm={6} md={12} lg={8}>
+      <div className="container" style={{marginTop:"17rem"}}>
+        <Header />
+        <Row>
+          {/* <Col xs={12} sm={6} md={12} lg={8}>
               <AddressReceiver
                 labelName={strings.address}
                 addressReceiver={this.state.addressReceiver}
@@ -231,37 +232,37 @@ class Checkout extends Component {
                 changeAddress={this.changeAddress}
               />
             </Col>  */}
-            <Col lg={6}>
-              <CheckoutDetail
-                title={strings.checkout_shopping_summary}
-                totalProduct={this.state.qytCartProduct}
-                totalPriceProduct={this.totalPrice().totalPriceProduct}
-                totalPriceDelivery={this.totalPrice().totalPriceDelivery}
-                totalPriceInvoice={this.totalPrice().totalPriceInvoice}
-              />
-              <div className="price-label-button">
-                {this.state.alert !== null && (
-                  <Alert
-                    message={
-                      <span>
-                        <b>{strings.failed} </b> {this.state.alert}
-                      </span>
-                    }
-                    showIcon
-                  />
-                )}
-                <Button style={{ marginTop: "0rem" }} onClick={this.addOrder}>
-                  {strings.pay}
-                </Button>
-              </div>
-            </Col>
-            <Col xs={12} sm={6} md={12} lg={18} style={{ marginTop: "-56px" }}>
-              <CheckoutProducts
-                cartProducts={this.state.cartProducts}
-                onChange={this.onChange}
-              />
-            </Col>
-          </Row>
+          <Col xs={12} md={18}>
+            <CheckoutProducts
+              cartProducts={this.state.cartProducts}
+              onChange={this.onChange}
+            />
+          </Col>
+          <Col md={6}>
+            <CheckoutDetail
+              title={strings.checkout_shopping_summary}
+              totalProduct={this.state.qytCartProduct}
+              totalPriceProduct={this.totalPrice().totalPriceProduct}
+              totalPriceDelivery={this.totalPrice().totalPriceDelivery}
+              totalPriceInvoice={this.totalPrice().totalPriceInvoice}
+            />
+            <div className="price-label-button">
+              {this.state.alert !== null && (
+                <Alert
+                  message={
+                    <span>
+                      <b>{strings.failed} </b> {this.state.alert}
+                    </span>
+                  }
+                  showIcon
+                />
+              )}
+              <Button style={{ marginTop: "0rem" }} onClick={this.addOrder}>
+                {strings.pay}
+              </Button>
+            </div>
+          </Col>
+        </Row>
         {/* {this.state.openAddAddressModal === true &&
           <AddAddressCustomer
             open={this.state.openAddAddressModal}

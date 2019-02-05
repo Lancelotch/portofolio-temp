@@ -1,26 +1,26 @@
-import React, { Component } from "react"
-import { Row, Col, Icon, Badge } from "antd"
-import Search from "antd/lib/input/Search"
-import Login from "components/Login/Login"
-import { connect } from "react-redux"
-import { NavLink } from "react-router-dom"
-import "./style.sass"
-import "sass/style.sass"
-import serviceCategory from "api/services/ServiceCategory"
-import { apiGetProductsFromCart } from "api/services/ServiceCart"
-import authentication from "api/services/authentication"
-import {logout} from "../../store/actions/auth"
-import {updateCartContentQty} from "store/actions/cart"
-
+import React, { Component } from "react";
+import { Row, Col, Icon, Badge, Menu, Dropdown } from "antd";
+import Search from "antd/lib/input/Search";
+import Login from "components/Login/Login";
+import { connect } from "react-redux";
+import "./style.sass";
+import "sass/style.sass";
+import serviceCategory from "api/services/ServiceCategory";
+import { apiGetProductsFromCart } from "api/services/ServiceCart";
+import authentication from "api/services/authentication";
+import { logout } from "../../store/actions/auth";
+import { updateCartContentQty } from "store/actions/cart";
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      name: "",
       openModalLogin: false,
       categoryFeature: [],
       isDataCategoryFeatureLoaded: false,
-      sumProduct: 0
+      sumProduct: 0,
+      keyword: this.props.keyword
     };
   }
 
@@ -30,13 +30,17 @@ class Header extends Component {
     this.getUserDetail();
   }
 
+  componentDidMount() {
+    this.getCategoryFeature();
+  }
+
   getUserDetail = () => {
     authentication
       .apiGetDetailUser()
       .then(response => {
         const detailUser = response.data;
         this.setState({
-          name: detailUser.name,
+          name: detailUser.name
         });
       })
       .catch(error => {
@@ -57,8 +61,7 @@ class Header extends Component {
       .then(response => {
         const categoryFeature = response.data;
         this.setState({
-          categoryFeature: categoryFeature,
-          isDataCategoryFeatureLoaded: true
+          categoryFeature: categoryFeature
         });
       })
       .catch(error => {
@@ -75,6 +78,12 @@ class Header extends Component {
     }
   }
 
+  handleInputSearchChange = e => {
+    this.setState({
+      keyword: e.target.value
+    });
+  };
+
   handleLogout = () => {
     this.props.logout();
   };
@@ -84,17 +93,16 @@ class Header extends Component {
     if (token !== null) {
       apiGetProductsFromCart()
         .then(response => {
-          console.log('lenght '+response.data.length)
+          console.log("lenght " + response.data.length);
           const sumProduct = response.data.length;
           if (response.code === "200") {
             // If the qty in Redux is different than that of server, overwrite it
             if (this.props.contentQty !== sumProduct) {
-                this.props.updateCartQty(sumProduct)
+              this.props.updateCartQty(sumProduct);
             }
             this.setState({
               sumProduct: sumProduct
             });
-            
           }
         })
         .catch(error => {
@@ -104,28 +112,121 @@ class Header extends Component {
   };
 
   render() {
+    const menuItems = this.state.categoryFeature.map(category => (
+      <Menu.Item key={category.id}>
+        <a href={"/category-product/" + category.id}>{category.name}</a>
+      </Menu.Item>
+    ));
+
+    const menu = <Menu>{menuItems}</Menu>;
+
     return (
       <div className="navigation">
-        <div className="container">
-          <Row gutter={40}>
-            <Col md={6}>
+          <Row>
+            <Col md={24}>
+              <p style={{ textAlign: "center" }}>
+                Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo
+                mampir &nbsp;
+                <a
+                  style={{
+                    fontSize: "14px",
+                    fontWight: "600",
+                    color: "#007E80"
+                  }}
+                  href=" "
+                >
+                  kesini
+                </a>
+              </p>
+            </Col>
+            <Col md={5} style={{ marginTop: 25 }}>
               <a href="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="img-navigation"
+                  alt=""
                 />
               </a>
             </Col>
-            <Col md={8}>
-              <Search
-                size="large"
-                placeholder="input search text"
-                onSearch={value => console.log(value)}
+            <Col md={13} style={{ marginTop: 25 }}>
+              <form action="/search">
+                <Search
+                  placeholder="input search text"
+                  id="filter"
+                  name="q"
+                  value={this.state.keyword}
+                  onChange={this.handleInputSearchChange.bind(this)}
+                  enterButton
+                />
+              </form>
+            </Col>
+            <Col md={6}>
+              <img
+                src={require("assets/img/monggopesen_header_discount.png")}
+                style={{ maxWidth: "100%", marginLeft: 110 }}
+                alt=""
               />
             </Col>
-            <Col md={10}>
+            <Col md={18} style={{ marginTop: 24 }}>
+              <div className="categories-navigation">
+                <Dropdown overlay={menu}>
+                  <a
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      color: "#007E80"
+                    }}
+                    href={" "}
+                  >
+                    Kategori <Icon type="down" />
+                  </a>
+                </Dropdown>
+              </div>
+            </Col>
+            <Col md={6} style={{ marginTop: 16 }}>
               <div className="item-navigation">
-              {this.props.contentQty == 0 ? (
+                {this.props.isAuthenticated !== true ? (
+                  <React.Fragment>
+                    <Icon
+                      type="user"
+                      style={{ fontSize: "35px" }}
+                      onClick={this.openModalLogin}
+                    />
+                    <font
+                      style={{
+                        marginLeft: "0px",
+                        marginTop: "5px",
+                        cursor: "pointer"
+                      }}
+                      onClick={this.openModalLogin}
+                    >
+                      Login
+                    </font>
+                    <Login
+                      visible={this.state.openModalLogin}
+                      onCancel={this.openModalLogin}
+                    />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <Icon
+                      type="user"
+                      style={{ fontSize: "35px" }}
+                      onClick={this.handleLogout}
+                    />
+                    <font
+                      style={{
+                        marginLeft: "0px",
+                        marginTop: "5px",
+                        cursor: "pointer"
+                      }}
+                      onClick={this.handleLogout}
+                    >
+                      Logut
+                    </font>
+                  </React.Fragment>
+                )}
+                {this.props.contentQty == 0 ? (
                   <Icon
                     type="shopping-cart"
                     className="icon-cart-navigation"
@@ -133,7 +234,11 @@ class Header extends Component {
                     onClick={this.toPageCart.bind(this)}
                   />
                 ) : (
-                  <Badge count={this.props.contentQty} badgeContent={this.state.contentQty} color="secondary">
+                  <Badge
+                    count={this.props.contentQty}
+                    badgeContent={this.state.contentQty}
+                    color="secondary"
+                  >
                     <Icon
                       type="shopping-cart"
                       className="icon-cart-navigation"
@@ -142,70 +247,9 @@ class Header extends Component {
                     />
                   </Badge>
                 )}
-                {/* {this.state.sumProduct === 0 ? (
-                  <Icon type="shopping-cart" className="icon-cart-navigation" />
-                ) : (
-                  <Icon type="shopping-cart" className="icon-cart-navigation">
-                    <Badge count={this.state.sumProduct} />
-                  </Icon>
-                )} */}
-
-                {this.props.isAuthenticated !== true ? (
-                  <div>
-                    <button
-                      className="button-navigation"
-                      onClick={this.openModalLogin}
-                    >
-                      Login
-                    </button>
-                    <Login
-                      visible={this.state.openModalLogin}
-                      onCancel={this.openModalLogin}
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <button
-                      className="button-navigation"
-                      onClick={this.handleLogout}
-                    >
-                      logout
-                    </button>
-                  </div>
-                )}
               </div>
             </Col>
           </Row>
-        </div>
-        <div className="container-fluid">
-          <hr className="line-navigation" />
-          <Row>
-            <Col md={24}>
-              <div className="container">
-                <div className="categories-navigation">
-                  {this.state.isDataCategoryFeatureLoaded !== false &&
-                    this.state.categoryFeature[0].subCategory[1].childSubCategory.map(
-                      (category, index) => {
-                        if (index <= 5) {
-                          var link = "/category-product/" + category.id;
-                          return (
-                            <NavLink
-                              key={category.id}
-                              to={link}
-                              className="link-navigation"
-                            >
-                              {category.name}
-                            </NavLink>
-                          );
-                        }
-                      }
-                    )}
-                </div>
-              </div>
-            </Col>
-          </Row>
-          <hr className="line-navigation" />
-        </div>
       </div>
     );
   }
@@ -216,20 +260,12 @@ const mapStateToProps = state => ({
   contentQty: state.cart.contentQty
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCartQty: (qty) => dispatch(updateCartContentQty(qty)),
-  logout: () => dispatch(logout()),
+const mapDispatchToProps = dispatch => ({
+  updateCartQty: qty => dispatch(updateCartContentQty(qty)),
+  logout: () => dispatch(logout())
 });
 
-// const mapStateToProps = createStructuredSelector({
-//   isAuthenticated: authSelector('isAuthenticated'),
-//   contentQty: cartSelector('contentQty')
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   updateCartContentQty: (qty) => dispatch(updateCartContentQty(qty)),
-//   logout: () => dispatch(logout()),
-// });
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

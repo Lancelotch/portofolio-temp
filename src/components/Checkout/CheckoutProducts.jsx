@@ -65,8 +65,8 @@ export default class CheckoutProducts extends Component {
   render() {
     return (
       <Row>
-        <Col xs={24}>{this.state.title}</Col>
-        <Col xs={24}>{this.listCheckoutProducts()}</Col>
+        <Col md ={24} xs={24}>{this.state.title}</Col>
+        <Col md ={24} xs={24}>{this.listCheckoutProducts()}</Col>
       </Row>
     );
   }

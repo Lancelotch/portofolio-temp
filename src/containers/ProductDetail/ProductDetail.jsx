@@ -205,7 +205,7 @@ class ProductDetail extends Component {
         .then(res => {
           this.setState({ productNotificationOpen: true });
           const newQty =
-            this.props.contentQty == null ? 1 : this.props.contentQty + 1;
+          this.props.contentQty == null ? 1 : this.props.contentQty + 1;
           this.props.updateCartQty(newQty);
         })
         .catch(error => {
