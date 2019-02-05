@@ -1,4 +1,4 @@
-import LocalizedStrings from "react-localization";
+import LocalizedStrings from 'react-localization';
 
 const strings = new LocalizedStrings({
   id: {
@@ -33,7 +33,10 @@ const strings = new LocalizedStrings({
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
+    register_policy: "Kebijakan Privasi",
+    register_requirement: "Syarat & Ketentuan",
     register_agree: "Dengan melakukan pendaftaran, saya setuju dengan {0} dan {1} monggopesen.com",
+
     //product detail
     product_detail_description: "Deskripsi Produk",
   }

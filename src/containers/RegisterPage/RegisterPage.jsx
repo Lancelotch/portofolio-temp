@@ -1,16 +1,25 @@
 import React, { Component } from 'react'
-import { Input, Form, Button, Icon, Checkbox, Card, Row, Col, Avatar } from 'antd'
+import {
+  Input,
+  Form,
+  Button,
+  Icon,
+  Checkbox,
+  Card,
+  Row,
+  Col,
+  Avatar
+} from 'antd'
 import ButtonFacebook from '../../components/Button/SocialMedia/Facebook'
 import ButtonGoogle from '../../components/Button/SocialMedia/Google'
 import { connect } from 'react-redux'
 import './style.sass'
 import authentication from '../../api/services/authentication'
 import strings from '../../config/localization'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
 import imageLogin from '../../assets/img/login_pict.png'
-import ReactFullpage from '@fullpage/react-fullpage';
-// import "../../sass/style.sass";
+import FrontImage from '../../components/Image/FrontImage'
 
 function mapStateToProps (state) {
   return {}
@@ -66,145 +75,87 @@ class RegisterPage extends Component {
 
     return (
       <React.Fragment>
-          <Col xs={{ span: 14 }} lg={{ span: 14 }}>
-              <img
-                className='register-image'
-                src={imageLogin}
-              />
+        <Row>
+          <Col span={14}>
+            <FrontImage src={imageLogin} />
           </Col>
-          <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-            <div style={{ marginTop: '4rem' }}>
-              <Row type='flex' justify='center'>
-                <Col>
-                  <img
-                    src={logoMonggoPesen}
-                    className='register-header__image'
-                    alt=''
+          <Col span={10}>
+            <div className='register'>
+              <img
+                className='register__logo'
+                src={logoMonggoPesen}
+                alt='register__logo'
+              />
+              <h1 className='register__title'>{strings.register_now}</h1>
+              <Form className='register__form' onSubmit={this.handleSubmit}>
+                <FormItem>
+                  <Input
+                    size={'large'}
+                    prefix={<Icon type={'user'} />}
+                    placeholder={'Nama'}
                   />
-                </Col>
-              </Row>
-              <Row type='flex' justify='center'>
-                <Col>
-                  <h1 className='register-form__typography'>
-                    {strings.register_now}
-                  </h1>
-                </Col>
-              </Row>
-              <Row type='flex' justify='center'>
-                <Col>
-                  <div className='register-form'>
-                    <Form
-                      onSubmit={this.handleSubmit}
-                      
+                </FormItem>
+                <FormItem>
+                  <Input
+                    size={'large'}
+                    prefix={<Icon type={'mail'} />}
+                    placeholder={'Email'}
+                  />
+                </FormItem>
+                <Form.Item>
+                  <Input.Password
+                    className='input'
+                    prefix={
+                      <Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
+                    }
+                    type='password'
+                    placeholder='Password'
+                  />
+                </Form.Item>
+                <div className='register__form__note'>
+                {strings.formatString(
+                        strings.register_agree,
+                        <a href="/">{strings.register_policy}</a>,<a href="/">{strings.register_requirement}</a>
+                      )}
+                </div>
+                <FormItem>
+                  <Button size={'large'} htmlType='submit' type='primary'>
+                    <p className='register__form__button-first-text'>
+                      {strings.login_register}
+                    </p>
+                  </Button>
+                </FormItem>
+                <Row type='flex' align='middle' justify='space-between' className='register__form__option-text'>
+                  <div className='register__form__text-line' />
+                  <span>{strings.register_option}</span>
+                  <div className='register__form__text-line' />
+                </Row>
+                <Form.Item className='register__form__btn-socmed' >
+                  <Row type='flex' justify='space-between'>
+                    <ButtonFacebook
+                      className='register__form__socmed-button'
+                      onSubmit={this.handleSocialRegister}
                     >
-                      <FormItem className='register-form__input-text'>
-                        {getFieldDecorator('name', {
-                          rules: [
-                            {
-                              required: true,
-                              message: 'Please input your name!'
-                            }
-                          ]
-                        })(
-                          <Input
-                            size={'large'}
-                            prefix={
-                              <Icon
-                                type={'user'}
-                                style={{ color: 'rgba(0,0,0,.25)' }}
-                              />
-                            }
-                            placeholder={'Nama'}
-                          />
-                        )}
-                      </FormItem>
-                      <FormItem className='register-form__input-text'>
-                        {getFieldDecorator('email', {
-                          rules: [
-                            {
-                              type: 'email',
-                              required: true,
-                              message: 'Please input your email!'
-                            }
-                          ]
-                        })(
-                          <Input
-                            size={'large'}
-                            prefix={
-                              <Icon
-                                type={'mail'}
-                                style={{ color: 'rgba(0,0,0,.25)' }}
-                              />
-                            }
-                            placeholder={'Email'}
-                          />
-                        )}
-                      </FormItem>
-                      <FormItem className='register-form__input-text'>
-                        {getFieldDecorator('password', {
-                          rules: [
-                            {
-                              required: true,
-                              message: 'Please input your password!'
-                            }
-                          ]
-                        })(
-                          <Input
-                            size={'large'}
-                            prefix={
-                              <Icon
-                                type={'lock'}
-                                style={{ color: 'rgba(0,0,0,.25)' }}
-                              />
-                             
-                            }
-                            placeholder={'Password'}
-                            type='password'
-                          >
-                         
-                          </Input>
-                        )}
-                      </FormItem>
-                      <FormItem>
-                        <h4>
-                         {strings.register_agree}
-                        </h4>
-                        <Button
-                          size={'large'}
-                          htmlType='submit'
-                          className='register-form__button__submit'
-                        >
-                          <p className='register-form__button__fontSubmit'>{strings.login_register}</p>
-                        </Button>
-                      </FormItem>
-                      <div className='register-form__separator'>
-                        <span className='register-form__separator__hline' />
-                        <span className='register-form__separator__text'>
-                          {strings.register_option}
-                        </span>
-                        <span className='register-form__separator__hline' />
-                      </div>
-                      <ButtonFacebook
-                        className='register-form__button'
-                        onSubmit={this.handleSocialRegister}
-                      >
-                        {strings.facebook}
-                      </ButtonFacebook>
-                      <ButtonGoogle
-                        className='register-form__button'
-                        onSubmit={this.handleSocialRegister}
-                      >
-                        {strings.google}
-                      </ButtonGoogle>
-                      <div>
-                        <span>{strings.register_quote} </span>
-                      </div>
-                    </Form>
-                  </div>
-                </Col>
-              </Row>
+                      {strings.facebook}
+                    </ButtonFacebook>
+                    <ButtonGoogle
+                      className='register__form__socmed-button'
+                      onSubmit={this.handleSocialRegister}
+                    >
+                      {strings.google}
+                    </ButtonGoogle>
+                  </Row>
+                  <center className='register__form__direct-login'>
+                  {strings.formatString(
+                        strings.register_quote,
+                        <a href="/">{strings.register_now}</a>
+                      )}
+                  </center>
+                </Form.Item>
+              </Form>
             </div>
           </Col>
+        </Row>
       </React.Fragment>
     )
   }
