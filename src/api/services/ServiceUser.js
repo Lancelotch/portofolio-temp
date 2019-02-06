@@ -22,7 +22,7 @@ const UpdateDetailUser = (request) => {
     httpClient.mainService
       .request({
         method: "PUT",
-        url: urls.detailUser,
+        url: urls.DetailUser,
         data : request
       })
       .then(response => {

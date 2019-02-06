@@ -31,7 +31,7 @@ class ButtonGoogle extends Component{
           appId='349644748762-cg756l74shs9ho00ukq13k5f9uk7p6c3.apps.googleusercontent.com'
           callback={this.handleSocialResponse}
         >
-          <GoogleButton iconSize={"2rem"} size={"4rem"} align={"center"}>
+          <GoogleButton className='button-socmed' iconSize={"2rem"} size={"4rem"} align={"center"}>
             {this.props.children}
           </GoogleButton>
         </SocialLogin>
