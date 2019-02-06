@@ -10,26 +10,26 @@ const loginSocialMedia = "public/user/login-sosmed";
 const registerSocialMedia = "public/user/register-sosmed";
 
 //User
-const DetailUser = "customer/";
+const detailUser = "customer/";
 
 //Product
-const GetProductById = "product/";
-const GetProductByCategory = "product/category/";
+const getProductById = "product/";
+const getProductByCategory = "product/category/";
 
 
 //Address
-const CustomerAddressDefault = "customer/address/default/";
-const CustomerAddress = "customer/address/";
-const ChangeAddressDefault = "customer/address/default/";
-const GetProvince = "customer/address/province";
-const GetCity = "customer/address/city";
-const NgrokGetProvince = "customer/address/province";
-const NgrokGetCity = "customer/address/city";
-const AddUserAddress = "customer/address";
-const DeleteAddress = "/customer/address/";
+const customerAddressDefault = "customer/address/default/";
+const customerAddress = "customer/address/";
+const changeAddressDefault = "customer/address/default/";
+const getProvince = "customer/address/province";
+const getCity = "customer/address/city";
+const ngrokGetProvince = "customer/address/province";
+const ngrokGetCity = "customer/address/city";
+const addUserAddress = "customer/address";
+const deleteAddress = "/customer/address/";
 
 //Invoice
-const GetInvoice = "invoice/";
+const getInvoice = "invoice/";
 
 //Cart
 const addToCart = "cart/user/";
@@ -38,63 +38,56 @@ const updateProductFromCart = "cart/user/";
 const deleteProductFromCart = "cart/user/";
 
 //Courier
-const GetCourier = "courier/cost";
+const getCourier = "courier/cost";
 
 //Generate Order Id
-const GenerateOrderId = "order/generate/";
+const generateOrderId = "order/generate/";
 
 
 //Order
-const AddOrder = "order";
+const addOrder = "order";
 
 //Payment
-const CreatePayment = "payment";
+const createPayment = "payment";
 
 
 //Product Category
-const GetCategoryFeature = "category/feature";
-const GetSliderHome = "home/slider/";
+const getCategoryFeature = "category/feature";
+const getSliderHome = "home/slider/";
 
 const urls = {
     mainServices : mainServices,
     cartServices: cartServices,
     cart : cart,
-    DetailUser : DetailUser,
-    login : login,
-    addToCart: addToCart,
-    GetProductById: GetProductById,
-    updateProductFromCart : updateProductFromCart,
-    GetProductByCategory: GetProductByCategory,
-    DetailUser : DetailUser,
-    addToCart: addToCart,
-    GetProductById: GetProductById,
-    updateProductFromCart : updateProductFromCart,
-    GetProductByCategory: GetProductByCategory,
-    mainServices: mainServices,
-    cartServices: cartServices,
-    cart: cart,
     login: login,
     register: register,
-    GetCategoryFeature: GetCategoryFeature,
-    GetSliderHome: GetSliderHome,
     loginSocialMedia: loginSocialMedia,
+    detailUser : detailUser,
     registerSocialMedia: registerSocialMedia,
+    getProductById: getProductById,
+    getProductByCategory: getProductByCategory,
+    customerAddressDefault : customerAddressDefault,
+    customerAddress : customerAddress,
+    getProvince : getProvince,
+    getCity : getCity,
+    addToCart: addToCart,
+    updateProductFromCart : updateProductFromCart,
+    addToCart: addToCart,
+    updateProductFromCart : updateProductFromCart,
+    getCategoryFeature: getCategoryFeature,
+    getSliderHome: getSliderHome,
     getProductsFromCart: getProductsFromCart,
-    CustomerAddressDefault : CustomerAddressDefault,
-    CustomerAddress : CustomerAddress,
-    ChangeAddressDefault : ChangeAddressDefault,
-    GetProvince : GetProvince,
-    DeleteAddress : DeleteAddress,
-    GetCity : GetCity,
-    GetCourier : GetCourier,
-    GenerateOrderId : GenerateOrderId,
-    AddUserAddress : AddUserAddress,
-    AddOrder : AddOrder,
-    CreatePayment : CreatePayment,
+    changeAddressDefault : changeAddressDefault,
+    deleteAddress : deleteAddress,
+    getCourier : getCourier,
+    generateOrderId : generateOrderId,
+    aAddress : addUserAddress,
+    addOrder : addOrder,
+    createPayment : createPayment,
     deleteProductFromCart : deleteProductFromCart,
-    NgrokGetProvince : NgrokGetProvince,
-    NgrokGetCity : NgrokGetCity,
-    GetInvoice: GetInvoice
+    ngrokGetProvince : ngrokGetProvince,
+    ngrokGetCity : ngrokGetCity,
+    getInvoice: getInvoice
 }
 
 

@@ -37,7 +37,6 @@ class RegisterPage extends Component {
 
   handleSocialRegister = request => {
     console.log({ req: request })
-
     authentication
       .registerSosialMedia(request)
       .then(response => {
@@ -76,10 +75,10 @@ class RegisterPage extends Component {
     return (
       <React.Fragment>
         <Row>
-          <Col span={14}>
+          <Col xs={{ span: 0}} md={{ span: 0}}lg={{ span: 14}}>
             <FrontImage src={imageLogin} />
           </Col>
-          <Col span={10}>
+          <Col xs={{ span: 24}} md={{ span: 24}} lg={{ span: 10}}>
             <div className='register'>
               <img
                 className='register__logo'
