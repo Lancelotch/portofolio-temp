@@ -27,10 +27,11 @@ class RegisterPage extends Component {
 
   handleSocialRegister = (request) => {
     console.log({req : request});
-    
     authentication.registerSosialMedia(request).then(response=>{
       console.log(response);
-      
+      this.setState({
+        isAuthenticated : true
+      })
     }).catch(error=>{
       console.log(error);
       
