@@ -1,5 +1,5 @@
 import HomePage from "../containers/HomePage/HomePage"
-import RegisterPage from "../containers/RegisterPage/RegisterPage"
+import RegisterPage from "../containers/RegisterPage/RegisterForm"
 import ProductDetail from "../containers/ProductDetail/ProductDetail"
 import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"

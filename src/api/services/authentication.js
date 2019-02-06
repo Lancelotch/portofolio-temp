@@ -54,7 +54,6 @@ const loginSosialMedia = request => {
 
 const apiGetDetailUser = () => {
   return new Promise((resolve, reject) => {
-    // httpClient.httpClientMainService
     httpClient.mainService
       .request({
         method: "GET",

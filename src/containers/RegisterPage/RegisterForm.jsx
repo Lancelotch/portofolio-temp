@@ -31,7 +31,7 @@ class RegisterPage extends Component {
         console.log("Received values of form: ", values);
         authentication
           .register(values)
-          .then(response => {
+          .then(response => { 
             console.log(response);
             this.setState({
               status: {
@@ -62,7 +62,6 @@ class RegisterPage extends Component {
     }
 
     return (
-        <div className="container">
             <Row>
               <Col xs={24} md={24}>
                 <Card>
@@ -180,15 +179,12 @@ class RegisterPage extends Component {
                         className="register-form__button__submit"
                       >
                         {strings.login_register}
-                      </Button>
-
+                     </Button>
                     </FormItem>
-                  
                   </Form>
                 </Card>
               </Col>
             </Row>
-        </div>
     );
   }
 }
