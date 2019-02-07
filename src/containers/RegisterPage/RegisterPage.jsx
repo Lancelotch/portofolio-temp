@@ -20,6 +20,7 @@ import { Redirect, Link } from 'react-router-dom'
 import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
 import imageLogin from '../../assets/img/login_pict.png'
 import FrontImage from '../../components/Image/FrontImage'
+import Facebook from '../../components/Button/SocialMedia/FacebookTrial'
 
 function mapStateToProps (state) {
   return {}
@@ -152,6 +153,9 @@ class RegisterPage extends Component {
                         <a  className='register__form__link' href="/">{strings.register_now}</a>
                       )}
                   </center>
+                  <Row>
+                    <Facebook/>
+                  </Row>
                 </Form.Item>
               </Form>
             </div>
