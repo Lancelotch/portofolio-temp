@@ -1,3 +1,5 @@
+import { ACTIVATION } from "../actions/types";
+
 const initialState = {
     token: [],
     isLoading: false,
@@ -26,7 +28,12 @@ export default (state = initialState, action) => {
                 ...state,
                   isAuthenticated : (action.payload.data == 'Unauthorized') ? false :true,
                   token : (action.payload.data == 'Unauthorized') ? null : state.token
-            }       
+            }  
+        case ACTIVATION:
+            return {
+                ...state, token : action.payload,
+                isAuthenticated : true
+            }     
        
         default:
             return state

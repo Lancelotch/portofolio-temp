@@ -1,0 +1,1 @@
+export const ACTIVATION = "ACTIVATION";

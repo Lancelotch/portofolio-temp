@@ -5,7 +5,8 @@ import Checkout from "../containers/Checkout/Checkout"
 import Cart from "../containers/Cart/Cart"
 import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
 import ProductSearch from "../containers/ProductSearch/ProductSearch";
-import { verificationEmail } from "./paths";
+import { verificationEmail, confirmationEmail } from "./paths";
+import ConfirmationEmail from "../containers/Confirmation/ConfirmationEmail";
 
 const routes = [{
         path: "/",
@@ -36,6 +37,10 @@ const routes = [{
     {
         path:"/search", 
         component:ProductSearch
+    },
+    {
+        path:confirmationEmail, 
+        component:ConfirmationEmail
     }
 ]
 
