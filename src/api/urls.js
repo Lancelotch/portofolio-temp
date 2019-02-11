@@ -8,6 +8,7 @@ const login = "api/v1/public/user/login";
 const register = "api/v1/public/user/register";
 const loginSocialMedia = "api/v1/public/user/login-sosmed";
 const registerSocialMedia = "api/v1/public/user/register-sosmed";
+const activatingCustomer = "api/v1/public/user/actived/";
 
 //User
 const DetailUser = "api/v1/customer/";
@@ -94,7 +95,8 @@ const urls = {
     deleteProductFromCart : deleteProductFromCart,
     NgrokGetProvince : NgrokGetProvince,
     NgrokGetCity : NgrokGetCity,
-    GetInvoice: GetInvoice
+    GetInvoice: GetInvoice,
+    activatingCustomer: activatingCustomer
 }
 
 

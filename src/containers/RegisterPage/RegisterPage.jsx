@@ -7,14 +7,8 @@ import "./style.sass";
 import authentication from "../../api/services/authentication";
 import strings from "../../config/localization";
 import { Redirect } from "react-router-dom";
-import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
-import imageLogin from "../../assets/img/login_pict.png";
-import FrontImage from "../../components/Image/FrontImage";
-                      
-
-function mapStateToProps(state) {
-  return {};
-}
+import {loginSocialMedia} from '../../store/actions/auth';
+//import "../../sass/style.sass";
 
 const FormItem = Form.Item;
 
@@ -25,6 +19,11 @@ class RegisterPage extends Component {
       isAuthenticated: this.props.isAuthenticated,
       status: null
     };
+  }
+
+  handleSocialRegister = (request) => {
+    console.log({req : request});
+    this.props.loginSocialMedia(this.props.history, request);
   }
 
   handleSubmit = e => {
@@ -62,11 +61,14 @@ class RegisterPage extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { isAuthenticated } = this.state;
+    const {isAuthenticated} = this.state; 
+    console.log(this.state.isAuthenticated);
+    
 
     if (isAuthenticated === true) {
       return <Redirect to="/" />;
     }
+    
 
     return (
       <React.Fragment>
@@ -190,25 +192,8 @@ class RegisterPage extends Component {
                     <p className="register__form__button-register-text">
                       {strings.login_register}
                     </p>
-                    <span>{strings.register_option}</span>
-                  </Button>
-                </FormItem>
-                <Row
-                  type="flex"
-                  align="middle"
-                  justify="space-between"
-                  className="register__form__option-text"
-                >
-                  <div className="register__form__text-line" />
-                  <span>{strings.register_option}</span>
-                  <div className="register__form__text-line" />
-                </Row>
-                <Form.Item className="register__form__btn-socmed">
-                  <Row type="flex" justify="space-between">
-                    <ButtonFacebook
-                      className="register__form__socmed-button"
-                      onSubmit={this.handleSocialRegister}
-                    >
+                    {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
+                    <ButtonFacebook className="register-form__button" onSubmit={this.handleSocialRegister}>
                       {strings.facebook}
                     </ButtonFacebook>
                     <ButtonGoogle
@@ -216,8 +201,7 @@ class RegisterPage extends Component {
                       onSubmit={this.handleSocialRegister}
                     >
                       {strings.google}
-                    </ButtonGoogle>
-                  </Row>
+                   </ButtonGoogle>    
                   <center className="register__form__direct-login">
                     {strings.formatString(
                       strings.register_quote,
@@ -227,8 +211,10 @@ class RegisterPage extends Component {
                     )}
                   </center>
                 </Form.Item>
-              </Form>
             </div>
+          
+          </Form>
+          </div>
           </Col>
         </Row>
       </React.Fragment>
@@ -237,4 +223,8 @@ class RegisterPage extends Component {
 }
 const RegisterForm = Form.create({})(RegisterPage);
 
-export default connect(mapStateToProps)(RegisterForm);
+const mapStateToProps = (state) => ({
+  isAuthenticated : state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps,{loginSocialMedia})(RegisterForm);

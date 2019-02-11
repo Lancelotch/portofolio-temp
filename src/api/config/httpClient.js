@@ -1,5 +1,6 @@
 import axios from "axios";
 import urls from "../urls";
+import urlsDummy from "../urlsDummy";
 
 const token = localStorage.getItem("token");
 console.log(token);
@@ -20,10 +21,19 @@ const httpClientCart = axios.create({
   }
 });
 
+const dummyService = axios.create({
+  baseURL: urlsDummy.mainServiceLocal,
+  timeout: 60 * 4 * 1000,
+  headers: {
+    Authorization: "Bearer " + token
+  }
+});
+
 
 const httpClient = {
     mainService : mainService,
     httpClientCart : httpClientCart,
+    dummyService : dummyService
 }
   
 export default httpClient;

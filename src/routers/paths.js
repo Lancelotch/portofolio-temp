@@ -1,5 +1,13 @@
 export const pageUrlProductDetail = '/product-detail/';
 export const pageCheckout = '/checkout';
-export const waitingRedirect = "/waitingredirect";
+export const waitingRedirect = '/waitingredirect';
+export const register = '/register';
+export const productDetailId = '/product-detail/:productId';
+export const cart = '/cart';
+export const checkout = '/checkout';
+export const dashboard = '/dashboard-customer/:tab';
+export const search = '/search';
+export const categoryProduct  = '/category-product/:categoryId';
+export const invoiceCustomerDetail = '/sidebar-profile/:invoiceNumber';
 export const pageCart = '/cart';
-export const dashboard = '/dashboard-customer'
+export const confirmationEmail = '/confirmation/:idConfirmation';

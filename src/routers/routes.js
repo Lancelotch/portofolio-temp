@@ -7,6 +7,8 @@ import Dashboard from '../containers/Dashboard/Dashboard'
 import InvoiceCustomerDetail from '../components/DashboardFormCustomer/InvoiceCustomerDetail/InvoiceCustomerDetail'
 import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
 import ProductSearch from "../containers/ProductSearch/ProductSearch";
+import { verificationEmail, confirmationEmail, register, productDetailId, cart, checkout, dashboard, invoiceCustomerDetail, search, categoryProduct } from "./paths";
+import ConfirmationEmail from "../containers/Confirmation/ConfirmationEmail";
 
 
 const routes = [{
@@ -15,41 +17,41 @@ const routes = [{
         component: HomePage
     },
     {
-        path: "/register",
+        path: register,
         breadcrumb: "Register",
         component: RegisterPage
     },
     {
-        path: "/product-detail/:productId",
+        path: productDetailId,
         component: ProductDetail
     },
     {
-        path: "/cart",
+        path: cart,
         component: Cart
     },
     {
-        path:"/checkout",
+        path: checkout,
         component: Checkout
     },
     {
-        path:"/dashboard-customer/:tab",
+        path: dashboard,
         component: Dashboard
     },
     {
-        path:"/sidebar-profile/:invoiceNumber",
+        path: invoiceCustomerDetail,
         component: InvoiceCustomerDetail
     },
     {
-        path:"/search", 
+        path: search, 
         component:ProductSearch
-    },
-    {    
-        path:"/dashboard-customer/:tab",
-        component: Dashboard
     },    
     {
-        path:"/category-product/:categoryId",
+        path: categoryProduct,
         component: CategoryProduct
+    },
+    {
+        path:confirmationEmail, 
+        component:ConfirmationEmail
     }
 ]
 
