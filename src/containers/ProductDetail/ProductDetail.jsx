@@ -42,102 +42,76 @@ class ProductDetail extends Component {
       infoRate: {}
     };
   }
-  componentWillMount() {
-    const productId = this.props.match.params.productId;
-    const response = apiGetProductById(productId)
-      .then(res => {
-        var details = JSON.parse(decodeURIComponent(res.data.details));
-        const category = res.data.category.indonesian;
-        var productPriceIdr = "";
-        if (details.resp) {
-          details = details.resp;
+  componentDidMount() {
+    this.productDetail();
+  
+  }
+
+  productDetail = () => {
+  const productId = this.props.match.params.productId;
+  apiGetProductById(productId)
+    .then(res => {
+      var details = JSON.parse(decodeURIComponent(res.data.details));
+      const category = res.data.category.indonesian;
+      var productPriceIdr = "";
+      if (details.resp) {
+        details = details.resp;
+      }
+      details.productSalePrice.map(productPrice => {
+        if (productPrice.price.code === "IDR") {
+          productPriceIdr = productPrice.price.value;
         }
-        details.productSalePrice.map(productPrice => {
-          if (productPrice.price.code === "IDR") {
-            productPriceIdr = productPrice.price.value;
-          }
-        });
-        var productSalePrice = productPriceIdr;
-        const productDetail = {
-          productId: res.data.productId,
-          productTitle: details.productTitle,
-          options: details.options,
-          productAttributes: details.productAttributes,
-          productImages: details.productImages,
-          productSalePrice: productSalePrice,
-          productDescriptions: details.productDescription,
-          skuBase: details.skuBase,
-          skuCore: details.skuCore,
-          infoRate: details.infoRate,
-          category: category
-        };
-        return productDetail;
-      })
-      .then(productDetail => {
-        this.setState({
-          category: productDetail.category,
-          productId: productDetail.productId,
-          productTitle: productDetail.productTitle,
-          options: productDetail.options,
-          productAttributes: productDetail.productAttributes,
-          productImages: productDetail.productImages,
-          productDescriptions: productDetail.productDescriptions,
-          productSalePrice: productDetail.productSalePrice,
-          skuBase: productDetail.skuBase,
-          skuCore: productDetail.skuCore,
-          infoRate: productDetail.infoRate,
-          productDisplayState: !productDetail.productSalePrice
-            ? "NOT_FOUND"
-            : "DISPLAYING"
-        });
-      })
-      .catch(error => {
-        this.props.history.push("/notfound");
+        return null
       });
+      var productSalePrice = productPriceIdr;
+      const productDetail = {
+        productId: res.data.productId,
+        productTitle: details.productTitle,
+        options: details.options,
+        productAttributes: details.productAttributes,
+        productImages: details.productImages,
+        productSalePrice: productSalePrice,
+        productDescriptions: details.productDescription,
+        skuBase: details.skuBase,
+        skuCore: details.skuCore,
+        infoRate: details.infoRate,
+        category: category
+      };
+      return productDetail;
+    })
+    .then(productDetail => {
+      this.setState({
+       ...productDetail,
+        productDisplayState: !productDetail.productSalePrice
+          ? "NOT_FOUND"
+          : "DISPLAYING"
+      });
+    })
+    .catch(error => {
+      this.props.history.push("/notfound");
+    });
+
   }
 
   updateVariants = responseVariant => {
     const variants = [...this.state.variants];
     var updatedvariant = variants;
     const result = variants.find(
-      variant => variant.name == responseVariant.name
+      variant => variant.name === responseVariant.name
     );
-    if (variants < 1) {
+    if (!variants || !result) {
       updatedvariant.push({
-        index: responseVariant.index,
-        optionId: responseVariant.optionId,
         name: responseVariant.name,
-        valText: responseVariant.value.optionValText,
-        valImage: responseVariant.value.optionValImage,
-        valueId: responseVariant.value.optionValId
+        value: responseVariant.value.optionValText,
+        imageUrl: responseVariant.value.optionValImage,
       });
-    } else {
-      if (result === undefined) {
-        updatedvariant.push({
-          index: responseVariant.index,
-          optionId: responseVariant.optionId,
-          name: responseVariant.name,
-          valText: responseVariant.value.optionValText,
-          valImage: responseVariant.value.optionValImage,
-          valueId: responseVariant.value.optionValId
-        });
-      } else {
-        updatedvariant = variants.map(variant =>
-          variant.name !== responseVariant.name
-            ? variant
-            : {
-                ...variant,
-                valText: responseVariant.value.optionValText,
-                valImage: responseVariant.value.optionValImage,
-                valueId: responseVariant.value.optionValId
-              }
-        );
-      }
     }
     this.setState({
       variants: updatedvariant
     });
   };
+
+
 
   onChangeVariant = selected => {
     const productImages = [...this.state.productImages];
@@ -169,13 +143,10 @@ class ProductDetail extends Component {
 
   propPath = variants => {
     const sortVariants = variants.sort(this.compare);
-    var propPath = "";
-    sortVariants.map((variant, index) => {
-      index === 0
-        ? (propPath = propPath + variant.optionId + ":" + variant.valueId)
-        : (propPath =
-            propPath + ";" + variant.optionId + ":" + variant.valueId);
-    });
+    var propPath = sortVariants.reduce((accumulator, variant, index) => {
+      if (index === 0) return accumulator + variant.optionId + ":" + variant.valueId;
+      return accumulator + ";" + variant.optionId + ":" + variant.valueId
+    }, "");
     return propPath;
   };
 
@@ -188,25 +159,24 @@ class ProductDetail extends Component {
   };
 
   addToCart = () => {
-    const token = this.props.auth.token;
-    if (token !== null) {
-      if (this.state.variants.length < this.state.options.length) {
+    const { auth: {token}, addCart, contentQty, updateCartQty } = this.props;
+    const { variants, options, productId, quantity, note } = this.state;
+    if (token) {
+      if (variants.length < options.length) {
         return this.setState({ variantNotificationOpen: true });
       }
-      const state = { ...this.state };
       const requestAddtoCart = {
-        productId: state.productId,
-        variant: state.variants,
-        quantity: state.quantity,
-        note: state.note
+        productId,
+        variants,
+        quantity,
+        note
       };
-      this.props
-        .addCart(requestAddtoCart, token)
-        .then(res => {
+      addCart(requestAddtoCart, token)
+        .then(_ => {
           this.setState({ productNotificationOpen: true });
           const newQty =
-          this.props.contentQty == null ? 1 : this.props.contentQty + 1;
-          this.props.updateCartQty(newQty);
+            contentQty == null ? 1 : contentQty + 1;
+          updateCartQty(newQty);
         })
         .catch(error => {
           console.log(error);
@@ -216,13 +186,17 @@ class ProductDetail extends Component {
     }
   };
 
+  toggleModal() {
+    this.setState({ open: true });
+  }
+
   render() {
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
             <Header />
-            <div className="container" style={{ marginTop: "111px" }}>
+            <div className="container" style={{ marginTop: 230 }}>
               <Row>
                 <Col md={15}>
                   <Breadcrumb>
@@ -279,6 +253,7 @@ class ProductDetail extends Component {
                     {this.state.productDescriptions.length > 0 &&
                       this.state.productDescriptions[0] !== null && (
                         <ProductDescription
+                          productTitle={this.state.productTitle}
                           productDescriptions={this.state.productDescriptions}
                         />
                       )}

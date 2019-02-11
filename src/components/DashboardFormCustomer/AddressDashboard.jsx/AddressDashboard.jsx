@@ -1,84 +1,82 @@
-import React, { Component } from 'react'
-import { message, Row, Col, Card, Button, Icon } from 'antd'
+import React, { Component } from "react";
+import { message, Row, Col, Card, Button, Icon } from "antd";
 import {
   apiGetAddress,
   apiChangeAddressDefault,
   apiDeleteAddress
-} from '../../../api/services/ServiceAddress'
-import AddAdressCustomer from '../AddAdressCustomer/AddAdressCustomer'
-import homeDashboard from '../../../assets/img/home_dashboard.png'
+} from "../../../api/services/ServiceAddress";
+import AddAdressCustomer from "../AddAdressCustomer/AddAdressCustomer";
+import homeDashboard from "../../../assets/img/home_dashboard.png";
 
 class AddressDashboard extends Component {
-  constructor () {
-    super()
+  constructor() {
+    super();
     this.state = {
       addresses: [],
       editId: null,
       modalAddAdress: false
-    }
+    };
   }
 
-  componentDidMount () {
-    this.loadAddresses()
+  componentDidMount() {
+    this.loadAddresses();
   }
 
-  loadAddresses () {
+  loadAddresses() {
     apiGetAddress()
       .then(response => {
-        const addresses = response.data
+        const addresses = response.data;
         this.setState({
           addresses: addresses
-        })
-        console.log(addresses)
+        });
+        console.log(addresses);
       })
       .catch(error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   changeDefaultAddress(id) {
     const request = { addressId: id };
     apiChangeAddressDefault(request)
-        .then(response => {
-            this.loadAddresses()
-            this.success()
-            
-        })
-        .catch(error => {
-            console.log(error);
-        });
-};
+      .then(response => {
+        this.loadAddresses();
+        this.success();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
-success = () => {
-    message.success('Alamat anda telah dirubah');
+  success = () => {
+    message.success("Alamat anda telah dirubah");
   };
 
-deleteAddress(id) {
+  deleteAddress(id) {
     apiDeleteAddress(id).then(res => {
-        this.loadAddresses()
-    })
-
-}
+      this.loadAddresses();
+    });
+  }
 
   modalAddAdress = () => {
     this.setState({
       modalAddAdress: !this.state.modalAddAdress
-    })
-  }
+    });
+  };
 
-  render () {
-    const { addresses } = this.state
+  render() {
+    const { addresses } = this.state;
     return (
-      <div>
+      <React.Fragment>
         <Row>
           <Col xs={{ span: 8 }} md={{ span: 8 }}>
             <Card
-              style={{ width: '50%' }}
-              cover={<img style={{ width: '100%' }} src={homeDashboard} />}
+              style={{ width: "50%" }}
+              cover={<img style={{ width: "100%" }} src={homeDashboard} />}
             />
-            <div>
+            <React.Fragment>
               <button
-                className='button-navigation'
+                className="button-navigation"
                 onClick={this.modalAddAdress}
               >
                 Tambah Alamat
@@ -87,7 +85,7 @@ deleteAddress(id) {
                 visible={this.state.modalAddAdress}
                 onCancel={this.modalAddAdress}
               />
-            </div>
+            </React.Fragment>
           </Col>
 
           {addresses.map(address => {
@@ -95,22 +93,22 @@ deleteAddress(id) {
               <Col
                 xs={{ span: 16 }}
                 md={{ span: 16 }}
-                style={{ marginBottom: '10px' }}
+                style={{ marginBottom: "10px" }}
               >
                 <Card>
                   <Row>
                     <Col xs={{ span: 24 }} md={{ span: 24 }}>
-                      <div>
-                        <Icon type='user' />
+                      <React.Fragment>
+                        <Icon type="user" />
                         <span>{address.receiverName}</span>
-                      </div>
+                      </React.Fragment>
                       <p>{`${address.labelName}, ${address.fullAddress}`}</p>
                       <p>{`Phone Number : ${address.phoneNumber}`}</p>
                       <Row>
-                        <Col xs={{ span: 6 }}
-                md={{ span: 6 }}>
+                        <Col xs={{ span: 6 }} md={{ span: 6 }}>
                           {!address.isDefault ? (
-                            <Button type='danger'
+                            <Button
+                              type="danger"
                               onClick={this.changeDefaultAddress.bind(
                                 this,
                                 address.id
@@ -119,28 +117,32 @@ deleteAddress(id) {
                               Pilih Alamat
                             </Button>
                           ) : (
-                            <div>
-                              {' '}
+                            <React.Fragment>
+                              {" "}
                               <Button disabled>utamakan</Button>
-                            </div>
+                            </React.Fragment>
                           )}
                         </Col>
                         <Col>
-                            <Button style={{marginRight:'5px',
-                        padding:'0px 10px '}} onClick={this.deleteAddress.bind(this, address.id)}>hapus</Button>
-                            <Button  >edit</Button>
+                          <Button
+                            style={{ marginRight: "5px", padding: "0px 10px " }}
+                            onClick={this.deleteAddress.bind(this, address.id)}
+                          >
+                            hapus
+                          </Button>
+                          <Button>edit</Button>
                         </Col>
                       </Row>
                     </Col>
                   </Row>
                 </Card>
               </Col>
-            )
+            );
           })}
         </Row>
-      </div>
-    )
+      </React.Fragment>
+    );
   }
 }
 
-export default AddressDashboard
+export default AddressDashboard;

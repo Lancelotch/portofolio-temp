@@ -39,9 +39,6 @@ class Categories extends Component {
           {categoryFeature.map((category, index) => {
             if (index <= 2) {
               return (
-                // <div>
-                // {category.imageUrl}
-                // </div>
                 <Category
                   key={index}
                   id={category.id}

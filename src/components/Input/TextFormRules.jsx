@@ -5,6 +5,12 @@ import PropTypes from 'prop-types';
 const FormItem = Form.Item;
 
 class TextFormRules extends Component {
+  constructor(props){
+    super(props);
+    this.state ={
+      
+    }
+  }
   onChangeValue = (event) => {
     const value = event.target.value;
     this.props.onChange(value);
@@ -14,7 +20,6 @@ class TextFormRules extends Component {
     const {item, icon, placeholder, message } = this.props;
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
         <FormItem>
           {getFieldDecorator(item, {
             rules: [{ required: true, message: message }]
@@ -26,7 +31,6 @@ class TextFormRules extends Component {
             />
           )}
         </FormItem>
-      </div>
     );
   }
 }

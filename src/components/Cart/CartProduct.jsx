@@ -9,43 +9,20 @@ import strings from "../../config/localization";
 import { Card, Input, Col, Row } from "antd";
 
 export default class CartProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartId: this.props.cartId,
-      productId: this.props.productId,
-      variants: this.props.variant,
-      quantity: this.props.quantity,
-      note: this.props.note,
-      productName: this.props.productName,
-      productPic: this.props.productPic,
-      price: this.props.price
-    };
-  }
 
   onChangeNote = event => {
-    this.setState(
-      {
-        note: event.target.value
-      },
-      () => {
-        this.props.onChangeProduct(this.state);
-      }
-    );
+    const cartProduct = this.props.cartProduct;
+    cartProduct.note = event.target.value;
+    this.props.onChangeProduct(cartProduct);
   };
-
-  onChangeQuantity = (quantity, operator) => {
-    this.setState(
-      {
-        quantity: quantity
-      },
-      () => {
-        this.props.onChangeProduct(this.state);
-      }
-    );
+  onChangeQuantity = quantity => {
+    const cartProduct = this.props.cartProduct;
+    cartProduct.quantity = quantity;
+    this.props.onChangeProduct(cartProduct);
   };
-
   render() {
+    const cartProduct = this.props.cartProduct;
+    console.log(cartProduct);
     return (
       <div className="container-fluid">
         <Row>
@@ -53,48 +30,46 @@ export default class CartProduct extends Component {
             <Card>
               <Row>
                 <Col md={24} xs={24} className="close-button-cart">
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     ""
                   ) : (
                     <p onClick={this.props.onDelete}>{strings.action_delete}</p>
                   )}
                 </Col>
                 <Col md={8} xs={8}>
-                  {!this.state.productPic ? (
+                  {!cartProduct.productPic ? (
                     <SkeletonImg heightSkeleton="95px" />
                   ) : (
-                    <img src={this.state.productPic} alt="" />
+                    <img src={cartProduct.productPic} alt="" />
                   )}
                 </Col>
                 <Col md={16} xs={16}>
-                  <p>
-                    {this.state.productName.trim() || <Skeleton />}
-                  </p>
+                  <p>{cartProduct.productName.trim() || <Skeleton />}</p>
                   <span>
-                    {!this.state.price ? (
+                    {!cartProduct.price ? (
                       <p>
                         <Skeleton />
                       </p>
                     ) : (
-                      <CurrencyRp price={this.state.price} />
+                      <CurrencyRp price={cartProduct.price} />
                     )}
                   </span>
-                  {this.state.variants.length < 1 && !this.state.price ? (
+                  {!cartProduct.variants || !cartProduct.price ? (
                     <Skeleton />
                   ) : (
-                    <CartVariants variants={this.state.variants} />
+                    <CartVariants variants={cartProduct.variants} />
                   )}
-                  {!this.state.quantity ? (
+                  {!cartProduct.quantity ? (
                     <p>
                       <Skeleton />
                     </p>
                   ) : (
                     <ButtonQuantity
-                      quantity={this.state.quantity}
+                      quantity={cartProduct.quantity}
                       onChange={this.onChangeQuantity}
                     />
                   )}
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <p>
                       <Skeleton />
                     </p>
@@ -103,7 +78,7 @@ export default class CartProduct extends Component {
                       placeholder={strings.cart_placeHolder_Note}
                       id="note"
                       onChange={this.onChangeNote}
-                      value={this.state.note}
+                      value={cartProduct.note}
                     />
                   )}
                 </Col>
@@ -121,5 +96,5 @@ CartProduct.propTypes = {
   cartId: PropTypes.string,
   quantity: PropTypes.number,
   note: PropTypes.string,
-  variant: PropTypes.arrayOf(Object)
+  variants: PropTypes.arrayOf(Object)
 };

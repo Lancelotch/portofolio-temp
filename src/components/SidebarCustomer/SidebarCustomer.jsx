@@ -44,8 +44,7 @@ class SidebarCustomer extends Component {
   render () {
     const { mode } = this.state
     return (
-      <div className='dashboard-customer' style={{ marginTop: '0.5rem' }}>
-        <Row>
+        <Row style={{ marginTop: "18rem" }}>
           <Col xs={{ span: 24 }} md={{ span: 24 }}>
             <Breadcrumb>
               <Breadcrumb.Item>
@@ -56,10 +55,8 @@ class SidebarCustomer extends Component {
               </Breadcrumb.Item>
               <Breadcrumb.Item>Detail Transaksi</Breadcrumb.Item>
             </Breadcrumb>
-            <b className='titleDashboard'>Dashboard</b>
+            <b>Dashboard</b>
           </Col>
-        </Row>
-        <Row>
           <Col xs={{ span: 24 }} md={{ span: 24 }}>
             <Tabs
               defaultActiveKey='1'
@@ -87,8 +84,7 @@ class SidebarCustomer extends Component {
             </Tabs>
           </Col>
         </Row>
-      </div>
-    )
+    );
   }
 }
 

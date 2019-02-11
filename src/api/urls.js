@@ -1,7 +1,7 @@
 //Root Service
-const mainServices = process.env.REACT_APP_API_MAIN_SERVICE;
-const cartServices = process.env.REACT_APP_API_CART_SERVICE;
-const cart = "cart/user";
+const mainServices = "https://api.monggopesen.com/main-services/";
+const cartServices = "https://api.monggopesen.com/cart-services/";
+const cart = "v1/cart/user";
 
 //Authentication Page
 const login = "api/v1/public/user/login";
@@ -33,10 +33,10 @@ const deleteAddress = "/customer/address/";
 const getInvoice = "invoice/";
 
 //Cart
-const addToCart = "cart/user/";
-const getProductsFromCart = "cart/user/";
-const updateProductFromCart = "cart/user/";
-const deleteProductFromCart = "cart/user/";
+const addToCart = "v1/cart/user/";
+const getProductsFromCart = "v1/cart/user/";
+const updateProductFromCart = "v1/cart/user/";
+const deleteProductFromCart = "v1/cart/user/";
 
 //Courier
 const getCourier = "courier/cost";

@@ -93,6 +93,7 @@ class SliderPrimary extends Component {
       items.push({
         src: productSlider.imageUrl
       });
+      console.log(productSlider.imageUrl);
       return (
         <React.Fragment  key={productSlider.id}>
           <a href={productSlider.url}>
@@ -101,6 +102,7 @@ class SliderPrimary extends Component {
         </React.Fragment>
       );
     });
+   
 
     return (
       <React.Fragment>
