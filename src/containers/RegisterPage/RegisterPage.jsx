@@ -6,11 +6,11 @@ import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
-import authentication from "../../api/services/authentication";
-import strings from "../../config/localization";
+import authentication from '../../api/services/authentication'
+import strings from '../../config/localization'
 import imageLogin from '../../assets/img/login_pict.png'
-import { Redirect } from "react-router-dom";
-import {loginSocialMedia} from '../../store/actions/auth';
+import { Redirect } from 'react-router-dom'
+import { loginSocialMedia } from '../../store/actions/auth'
 import FrontImage from '../../components/Image/FrontImage'
 
 
@@ -25,9 +25,9 @@ class RegisterPage extends Component {
     };
   }
 
-  handleSocialRegister = (request) => {
-    console.log({req : request});
-    this.props.loginSocialMedia(this.props.history, request);
+  handleSocialRegister = request => {
+    console.log({ req: request })
+    this.props.loginSocialMedia(this.props.history, request)
   }
 
   handleSubmit = e => {
@@ -57,8 +57,8 @@ class RegisterPage extends Component {
                 success: false,
                 message: error.data.message
               }
-            });
-          });
+            })
+          })
       }
     });
   };
@@ -70,25 +70,24 @@ class RegisterPage extends Component {
     if (isAuthenticated === true) {
       return <Redirect to="/" />;
     }
-    
 
     return (
       <React.Fragment>
         <Row>
-          <Col xs={{ span: 0}} md={{ span: 0}}lg={{ span: 14}}>
+          <Col md={{ span: 14 }}>
             <FrontImage src={imageLogin} />
           </Col>
-          <Col  md={{ span: 10}}>
+          <Col md={{ span: 10 }}>
             <div className='register'>
               <img
                 className="register__logo"
                 src={logoMonggoPesen}
                 alt="register__logo"
               />
-              <h2 className="register__title">{strings.register_now}</h2>
+              <h2 className='register__title'>{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                  {getFieldDecorator("name", {
+                  {getFieldDecorator('name', {
                     rules: [
                       {
                         required: true,
@@ -101,18 +100,18 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input
-                    className="register__input"
-                    size={"large"}
-                    prefix={<Icon type={"user"} />}
-                    placeholder={"Name"}
-                  />
+                      className='register__input'
+                      size={'large'}
+                      prefix={<Icon type={'user'} />}
+                      placeholder={'Name'}
+                    />
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("email", {
+                  {getFieldDecorator('email', {
                     rules: [
                       {
-                        type: "email",
+                        type: 'email',
                         message: strings.register_email
                       },
                       {
@@ -122,15 +121,15 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input
-                      className="register__input"
-                      size={"large"}
-                      prefix={<Icon type={"mail"} />}
-                      placeholder={"Email"}
+                      className='register__input'
+                      size={'large'}
+                      prefix={<Icon type={'mail'} />}
+                      placeholder={'Email'}
                     />
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", {
+                  {getFieldDecorator('password', {
                     rules: [
                       {
                         required: true,
@@ -143,28 +142,28 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input.Password
-                      className="register__input"
+                      className='register__input'
                       min={6}
                       max={12}
-                      size={"large"}
+                      size={'large'}
                       prefix={
                         <Icon
-                          type={"lock"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
+                          type={'lock'}
+                          style={{ color: 'rgba(0,0,0,.25)' }}
                         />
                       }
                       placeholder={strings.register_password_placeholder}
-                      type="password"
+                      type='password'
                     />
                   )}
                 </FormItem>
-                <div className="register__form__note">
+                <div className='register__form__note'>
                   {strings.formatString(
                     strings.register_agree,
-                    <a className="register__form__link" href="/">
+                    <a className='register__form__link' href='/'>
                       {strings.register_policy}
                     </a>,
-                    <a className="register__form__link" href="/">
+                    <a className='register__form__link' href='/'>
                       {strings.register_requirement}
                     </a>
                   )}
@@ -172,12 +171,12 @@ class RegisterPage extends Component {
                 <FormItem>
                   {this.state.status != null && (
                     <Alert
-                      type={this.state.status.success ? "success" : "error"}
+                      type={this.state.status.success ? 'success' : 'error'}
                       message={
                         <span>
                           <b>
-                            {this.state.status.success ? "Berhasil" : "Gagal"}
-                          </b>{" "}
+                            {this.state.status.success ? 'Berhasil' : 'Gagal'}
+                          </b>{' '}
                           &nbsp;
                           {this.state.status.message}
                         </span>
@@ -186,23 +185,28 @@ class RegisterPage extends Component {
                     />
                   )}
                   <Button
-                    className="register__form__button-register"
-                    size={"large"}
-                    htmlType="submit"
-                    type="primary"
+                    className='register__form__button-register'
+                    size={'large'}
+                    htmlType='submit'
+                    type='primary'
                   >
-                    <p className="register__form__button-register-text">
+                    <p className='register__form__button-register-text'>
                       {strings.login_register}
                     </p>
                   </Button>
                 </FormItem>
-                <Row type='flex' align='middle' justify='space-between' className='register__form__option-text'>
+                <Row
+                  type='flex'
+                  align='middle'
+                  justify='space-between'
+                  className='register__form__option-text'
+                >
                   <div className='register__form__text-line' />
                   <span>{strings.register_option}</span>
                   <div className='register__form__text-line' />
                 </Row>
-                <Form.Item className='register__form__btn-socmed' >
-                  <Row type='flex' justify='space-between'>
+                <Form.Item className='register__form__btn-socmed'>
+                  <div className='register__form__socmed-box'>
                     <ButtonFacebook
                       className='register__form__socmed-button'
                       onSubmit={this.handleSocialRegister}
@@ -214,16 +218,16 @@ class RegisterPage extends Component {
                       onSubmit={this.handleSocialRegister}
                     >
                       {strings.google}
-                   </ButtonGoogle>    
-                  <center className="register__form__direct-login">
+                    </ButtonGoogle>
+                  </div>
+                  <center className='register__form__direct-login'>
                     {strings.formatString(
                       strings.register_quote,
-                      <a className="register__form__link" href="/">
+                      <a className='register__form__link' href='/'>
                         {strings.register_now}
                       </a>
                     )}
                   </center>
-                  </Row>
              </Form.Item>
           </Form>
           </div>
@@ -235,8 +239,11 @@ class RegisterPage extends Component {
 }
 const RegisterForm = Form.create({})(RegisterPage);
 
-const mapStateToProps = (state) => ({
-  isAuthenticated : state.auth.isAuthenticated
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps,{loginSocialMedia})(RegisterForm);
+export default connect(
+  mapStateToProps,
+  { loginSocialMedia }
+)(RegisterForm)

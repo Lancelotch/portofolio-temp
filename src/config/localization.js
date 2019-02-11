@@ -23,6 +23,10 @@ const strings = new LocalizedStrings({
     //Social Media
     google: "Google",
     facebook: "Facebook",
+
+    //enter
+    enter: "Masuk",
+    
     //Login
     login_enter: "Masuk",
     login_option: "atau masuk dengan",
@@ -36,14 +40,14 @@ const strings = new LocalizedStrings({
      warning_empty_cart : "Belum ada barang di keranjang belanja kamu",
      warning_unavailable_product : "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
     //Register
-    register_now: "Daftar Sekarang",
+    register_now: "Masuk Sekarang",
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
     register_agree: "Saya setuju dengan syarat dan ketentuan",
     register_name: "Nama lengkap harus diisi",
     register_email: "Pastikan e-mail kamu valid",
-    register_email_quote: "Patikan e-mail kamu diisi",
+    register_email_quote: "Pastikan e-mail kamu diisi",
     register_password: "Password harus diisi",
     register_password_quote: "Password harus 6 digit kombinasi angka dan huruf",
     register_password_placeholder: "Password Monggopesen",
