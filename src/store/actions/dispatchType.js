@@ -1,4 +1,4 @@
-import { ACTIVATION } from "./types";
+import { ACTIVATION, LOGIN_SOCIAL_MEDIA, LOGIN } from "./types";
 
 const activationUser = authData => {
     return{
@@ -7,8 +7,24 @@ const activationUser = authData => {
     }
 }
 
+const login = authData => {
+    return{
+        type : LOGIN,
+        payload : authData
+    }
+}
+
+const loginSocialMedia = authData => {
+    return{
+        type : LOGIN_SOCIAL_MEDIA,
+        payload : authData
+    }
+}
+
 const dispatchType = {
-    activationUser : activationUser
+    activationUser : activationUser,
+    loginSocialMedia : loginSocialMedia,
+    login : login
 }
 
 export default dispatchType;

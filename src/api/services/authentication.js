@@ -73,11 +73,22 @@ const apiGetDetailUser = () => {
 
 const registerSosialMedia = request => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    // httpClient.mainService
+    //   .request({
+    //     method: "POST",
+    //     url: urls.registerSocialMedia,
+    //     data: request
+    //   })
+    //   .then(response => {
+    //     resolve(response.data);
+    //   })
+    //   .catch(error => {
+    //     reject(error.response);
+    //   });
+    httpClient.dummyService
       .request({
-        method: "POST",
-        url: urls.registerSocialMedia,
-        data: request
+        method: "GET",
+        url: urlsDummy.activation+ request
       })
       .then(response => {
         resolve(response.data);

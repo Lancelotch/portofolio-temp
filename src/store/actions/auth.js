@@ -12,10 +12,24 @@ export const isExpired = (token) => ({
   })
 })
 
-export const login = (token) => ({
-  type: "LOGIN",
-  payload: token
-});
+export const login = (request) => (dispatch) =>{
+  authentication.login(request).then(response=>{
+      console.log(response);
+      dispatch(dispatchType.login(response));
+    }).catch(error=>{
+      console.log(error);
+    })
+};
+
+export const loginSocialMedia = (history, request) => (dispatch) =>{
+  authentication.registerSosialMedia(request).then(response=>{
+      console.log(response);
+      dispatch(dispatchType.loginSocialMedia(response));
+      history.push('/');
+    }).catch(error=>{
+      console.log(error);
+    })
+};
 
 export const logout = (token) => ({
   type: "LOGOUT",

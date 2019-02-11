@@ -7,13 +7,8 @@ import "./style.sass";
 import authentication from "../../api/services/authentication";
 import strings from "../../config/localization";
 import { Redirect } from "react-router-dom";
+import {loginSocialMedia} from '../../store/actions/auth';
 //import "../../sass/style.sass";
-
-function mapStateToProps(state) {
-  return {
-    
-  };
-}
 
 const FormItem = Form.Item;
 
@@ -27,18 +22,8 @@ class RegisterPage extends Component {
 
   handleSocialRegister = (request) => {
     console.log({req : request});
-    authentication.registerSosialMedia(request).then(response=>{
-      console.log(response);
-      this.setState({
-        isAuthenticated : true
-      })
-    }).catch(error=>{
-      console.log(error);
-      
-    })
+    this.props.loginSocialMedia(this.props.history, request);
   }
-
-  
 
   handleSubmit = e => {
     e.preventDefault();
@@ -61,6 +46,8 @@ class RegisterPage extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const {isAuthenticated} = this.state; 
+    console.log(this.state.isAuthenticated);
+    
 
     if(isAuthenticated === true){
       return (
@@ -207,4 +194,8 @@ class RegisterPage extends Component {
 }
 const RegisterForm = Form.create({})(RegisterPage);
 
-export default connect(mapStateToProps)(RegisterForm);
+const mapStateToProps = (state) => ({
+  isAuthenticated : state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps,{loginSocialMedia})(RegisterForm);
