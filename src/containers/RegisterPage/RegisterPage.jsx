@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  Input,
-  Form,
-  Button,
-  Icon,
-  Row,
-  Col,
-  Alert
-} from "antd";
+import { Input, Form, Button, Icon, Row, Col, Alert} from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -18,6 +10,7 @@ import { Redirect } from "react-router-dom";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import imageLogin from "../../assets/img/login_pict.png";
 import FrontImage from "../../components/Image/FrontImage";
+                      
 
 function mapStateToProps(state) {
   return {};
@@ -53,6 +46,7 @@ class RegisterPage extends Component {
               }
             });
           })
+
           .catch(error => {
             console.log(error);
             this.setState({
@@ -97,17 +91,17 @@ class RegisterPage extends Component {
                         message: strings.register_name
                       },
                       {
-                        pattern: /^[. a-zA-Z]+$/,
+                        pattern: /(?=.*[a-zA-Z])[a-zA-Z .]+$/,
                         message: strings.register_pattern_quote
                       }
                     ]
                   })(
                     <Input
-                      className="register__input"
-                      size={"large"}
-                      prefix={<Icon type={"user"} />}
-                      placeholder={"Nama"}
-                    />
+                    className="register__input"
+                    size={"large"}
+                    prefix={<Icon type={"user"} />}
+                    placeholder={"Name"}
+                  />
                   )}
                 </FormItem>
                 <FormItem>
@@ -139,7 +133,7 @@ class RegisterPage extends Component {
                         message: strings.register_password
                       },
                       {
-                        min: 6,
+                        pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
                         message: strings.register_password_quote
                       }
                     ]
@@ -179,7 +173,8 @@ class RegisterPage extends Component {
                         <span>
                           <b>
                             {this.state.status.success ? "Berhasil" : "Gagal"}
-                          </b>
+                          </b>{" "}
+                          &nbsp;
                           {this.state.status.message}
                         </span>
                       }
@@ -243,4 +238,3 @@ class RegisterPage extends Component {
 const RegisterForm = Form.create({})(RegisterPage);
 
 export default connect(mapStateToProps)(RegisterForm);
- 
