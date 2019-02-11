@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { Input, Form, Button, Icon, Row, Col, Alert} from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
@@ -77,7 +78,7 @@ class RegisterPage extends Component {
           <Col xs={{ span: 0}} md={{ span: 0}}lg={{ span: 14}}>
             <FrontImage src={imageLogin} />
           </Col>
-          <Col xs={{ span: 24}} md={{ span: 24}} lg={{ span: 10}}>
+          <Col  md={{ span: 10}}>
             <div className='register'>
               <img
                 className="register__logo"
