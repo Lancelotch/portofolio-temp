@@ -1,32 +1,20 @@
-import React, { Component } from 'react'
-import {
-  Input,
-  Form,
-  Button,
-  Icon,
-  Checkbox,
-  Card,
-  Row,
-  Col,
-  Avatar
-} from 'antd'
-import ButtonFacebook from '../../components/Button/SocialMedia/Facebook'
-import ButtonGoogle from '../../components/Button/SocialMedia/Google'
-import { connect } from 'react-redux'
-import './style.sass'
-import authentication from '../../api/services/authentication'
-import strings from '../../config/localization'
-import { Redirect, Link } from 'react-router-dom'
+import React, { Component } from "react";
+import { Input, Form, Button, Icon, Checkbox, Card, Row, Col } from "antd";
+import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
+import ButtonGoogle from "../../components/Button/SocialMedia/Google";
+import { connect } from "react-redux";
+import "./style.sass";
 import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
+import authentication from "../../api/services/authentication";
+import strings from "../../config/localization";
 import imageLogin from '../../assets/img/login_pict.png'
+import { Redirect } from "react-router-dom";
+import {loginSocialMedia} from '../../store/actions/auth';
 import FrontImage from '../../components/Image/FrontImage'
-import Facebook from '../../components/Button/SocialMedia/FacebookTrial'
+//import "../../sass/style.sass";
 
-function mapStateToProps (state) {
-  return {}
-}
+const FormItem = Form.Item;
 
-const FormItem = Form.Item
 
 class RegisterPage extends Component {
   constructor (props) {
@@ -36,16 +24,9 @@ class RegisterPage extends Component {
     }
   }
 
-  handleSocialRegister = request => {
-    console.log({ req: request })
-    authentication
-      .registerSosialMedia(request)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  handleSocialRegister = (request) => {
+    console.log({req : request});
+    this.props.loginSocialMedia(this.props.history, request);
   }
 
   handleSubmit = e => {
@@ -72,6 +53,7 @@ class RegisterPage extends Component {
     if (isAuthenticated === true) {
       return <Redirect to='/' />
     }
+    
 
     return (
       <React.Fragment>
@@ -153,9 +135,6 @@ class RegisterPage extends Component {
                         <a  className='register__form__link' href="/">{strings.register_now}</a>
                       )}
                   </center>
-                  <Row>
-                    <Facebook/>
-                  </Row>
                 </Form.Item>
               </Form>
             </div>
@@ -167,4 +146,8 @@ class RegisterPage extends Component {
 }
 const RegisterForm = Form.create({})(RegisterPage)
 
-export default connect(mapStateToProps)(RegisterForm)
+const mapStateToProps = (state) => ({
+  isAuthenticated : state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps,{loginSocialMedia})(RegisterForm);

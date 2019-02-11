@@ -4,10 +4,11 @@ const cartServices = process.env.REACT_APP_API_CART_SERVICE;
 const cart = "cart/user";
 
 //Authentication Page
-const login = "public/user/login";
-const register = "public/user/register";
-const loginSocialMedia = "public/user/login-sosmed";
-const registerSocialMedia = "public/user/register-sosmed";
+const login = "api/v1/public/user/login";
+const register = "api/v1/public/user/register";
+const loginSocialMedia = "api/v1/public/user/login-sosmed";
+const registerSocialMedia = "api/v1/public/user/register-sosmed";
+const activatingCustomer = "api/v1/public/user/actived/";
 
 //User
 const detailUser = "customer/";
@@ -87,7 +88,8 @@ const urls = {
     deleteProductFromCart : deleteProductFromCart,
     ngrokGetProvince : ngrokGetProvince,
     ngrokGetCity : ngrokGetCity,
-    getInvoice: getInvoice
+    getInvoice: getInvoice,
+    activatingCustomer: activatingCustomer
 }
 
 

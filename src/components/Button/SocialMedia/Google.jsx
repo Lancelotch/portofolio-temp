@@ -9,16 +9,9 @@ class ButtonGoogle extends Component{
 
   handleSocialResponse = (user, err) => {
     console.log({google : user});
-
-    const profile = user._profile;
-    const token = user._token;
-    const provider = user._provider;
+    const token = user._token.idToken;
     const request = {
-      email: profile.email,
-      name: profile.name,
-      password: "",
-      platformId: profile.id,
-      platform: provider
+      token : token
     }
     this.props.onSubmit(request);
   }
@@ -28,7 +21,7 @@ class ButtonGoogle extends Component{
       <div className={`${this.props.className}`}>
         <SocialLogin
           provider='google'
-          appId='349644748762-cg756l74shs9ho00ukq13k5f9uk7p6c3.apps.googleusercontent.com'
+          appId='395205780758-1e4e7gm2hi6p6of87j82ar6petjf1u6t.apps.googleusercontent.com'
           callback={this.handleSocialResponse}
         >
           <GoogleButton className='button-socmed' iconSize={"2rem"} size={"4rem"} align={"center"}>

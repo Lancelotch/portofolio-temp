@@ -7,6 +7,8 @@ import Dashboard from '../containers/Dashboard/Dashboard'
 import InvoiceCustomerDetail from '../components/DashboardFormCustomer/InvoiceCustomerDetail/InvoiceCustomerDetail'
 import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
 import ProductSearch from "../containers/ProductSearch/ProductSearch";
+import { verificationEmail, confirmationEmail } from "./paths";
+import ConfirmationEmail from "../containers/Confirmation/ConfirmationEmail";
 
 const routes = [{
         path: "/",
@@ -43,8 +45,8 @@ const routes = [{
         component:ProductSearch
     },
     {
-        path:"/category-product/:categoryId",
-        component: CategoryProduct
+        path:confirmationEmail, 
+        component:ConfirmationEmail
     }
 ]
 

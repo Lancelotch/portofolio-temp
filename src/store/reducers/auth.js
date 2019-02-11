@@ -1,3 +1,5 @@
+import { ACTIVATION, LOGIN_SOCIAL_MEDIA, LOGIN } from "../actions/types";
+
 const initialState = {
     token: [],
     isLoading: false,
@@ -9,7 +11,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case "LOGIN":
+        case LOGIN:
+            return {
+                ...state, token : action.payload,
+                isAuthenticated : true
+            }
+        case LOGIN_SOCIAL_MEDIA:
             return {
                 ...state, token : action.payload,
                 isAuthenticated : true
@@ -20,14 +27,17 @@ export default (state = initialState, action) => {
                 token: null,
                 isAuthenticated : false
             }
-
         case "IS_EXPIRED" : 
             return {
                 ...state,
                   isAuthenticated : (action.payload.data == 'Unauthorized') ? false :true,
                   token : (action.payload.data == 'Unauthorized') ? null : state.token
-            }       
-       
+            }  
+        case ACTIVATION:
+            return {
+                ...state, token : action.payload,
+                isAuthenticated : true
+            }     
         default:
             return state
     }
