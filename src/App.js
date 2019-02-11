@@ -26,7 +26,7 @@ class App extends Component {
           key={key} 
           exact 
           path={path}
-          component={component} 
+          component={component}
         />
       );
     return (

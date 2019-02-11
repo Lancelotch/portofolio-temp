@@ -9,16 +9,9 @@ class ButtonGoogle extends Component{
 
   handleSocialResponse = (user, err) => {
     console.log({google : user});
-
-    const profile = user._profile;
-    const token = user._token;
-    const provider = user._provider;
+    const token = user._token.idToken;
     const request = {
-      email: profile.email,
-      name: profile.name,
-      password: "",
-      platformId: profile.id,
-      platform: provider
+      token : token
     }
     this.props.onSubmit(request);
   }

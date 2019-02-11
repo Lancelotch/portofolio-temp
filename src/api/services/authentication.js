@@ -1,5 +1,6 @@
 import urls from "../urls";
 import httpClient from "../../config/httpClient";
+import urlsDummy from "../urlsDummy";
 
 const login = request => {
   return new Promise((resolve, reject) => {
@@ -72,11 +73,22 @@ const apiGetDetailUser = () => {
 
 const registerSosialMedia = request => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    // httpClient.mainService
+    //   .request({
+    //     method: "POST",
+    //     url: urls.registerSocialMedia,
+    //     data: request
+    //   })
+    //   .then(response => {
+    //     resolve(response.data);
+    //   })
+    //   .catch(error => {
+    //     reject(error.response);
+    //   });
+    httpClient.dummyService
       .request({
-        method: "POST",
-        url: urls.registerSocialMedia,
-        data: request
+        method: "GET",
+        url: urlsDummy.activation+ request
       })
       .then(response => {
         resolve(response.data);
@@ -87,12 +99,41 @@ const registerSosialMedia = request => {
   });
 };
 
+const activatingCustomer = request =>{
+  return new Promise((resolve, reject) => {
+    // httpClient.mainService
+    //   .request({
+    //     method: "GET",
+    //     url: urls.activatingCustomer+ request
+    //   })
+    //   .then(response => {
+    //     resolve(response.data);
+    //   })
+    //   .catch(error => {
+    //     reject(error.response);
+    //   });
+    httpClient.dummyService
+      .request({
+        method: "GET",
+        url: urlsDummy.activation+ request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+    
+  });
+}
+
 const authentication = {
   apiGetDetailUser: apiGetDetailUser,
   login: login,
   register: register,
   loginSosialMedia: loginSosialMedia,
-  registerSosialMedia: registerSosialMedia
+  registerSosialMedia: registerSosialMedia,
+  activatingCustomer: activatingCustomer
 }
 
 export default authentication;
