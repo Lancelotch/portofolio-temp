@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
-import { Input, Form, Button, Icon, Row, Col, Alert } from 'antd'
-import ButtonFacebook from '../../components/Button/SocialMedia/Facebook'
-import ButtonGoogle from '../../components/Button/SocialMedia/Google'
-import { connect } from 'react-redux'
-import './style.sass'
+
+import React, { Component } from "react";
+import { Input, Form, Button, Icon, Row, Col, Alert} from "antd";
+import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
+import ButtonGoogle from "../../components/Button/SocialMedia/Google";
+import { connect } from "react-redux";
+import "./style.sass";
 import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
 import authentication from '../../api/services/authentication'
 import strings from '../../config/localization'
@@ -12,15 +13,16 @@ import { Redirect } from 'react-router-dom'
 import { loginSocialMedia } from '../../store/actions/auth'
 import FrontImage from '../../components/Image/FrontImage'
 
-const FormItem = Form.Item
+
+const FormItem = Form.Item;
 
 class RegisterPage extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
       status: null
-    }
+    };
   }
 
   handleSocialRegister = request => {
@@ -29,27 +31,27 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       status: null
-    })
+    });
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values)
+        console.log("Received values of form: ", values);
         authentication
           .register(values)
           .then(response => {
-            console.log(response)
+            console.log(response);
             this.setState({
               status: {
                 success: true,
                 message: strings.register_sucsess
               }
-            })
+            });
           })
 
           .catch(error => {
-            console.log(error)
+            console.log(error);
             this.setState({
               status: {
                 success: false,
@@ -58,15 +60,15 @@ class RegisterPage extends Component {
             })
           })
       }
-    })
-  }
+    });
+  };
 
   render () {
     const { getFieldDecorator } = this.props.form
     const { isAuthenticated } = this.state
 
     if (isAuthenticated === true) {
-      return <Redirect to='/' />
+      return <Redirect to="/" />;
     }
 
     return (
@@ -78,9 +80,9 @@ class RegisterPage extends Component {
           <Col md={{ span: 10 }}>
             <div className='register'>
               <img
-                className='register__logo'
+                className="register__logo"
                 src={logoMonggoPesen}
-                alt='register__logo'
+                alt="register__logo"
               />
               <h2 className='register__title'>{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
@@ -212,7 +214,7 @@ class RegisterPage extends Component {
                       {strings.facebook}
                     </ButtonFacebook>
                     <ButtonGoogle
-                      className='register__form__socmed-button'
+                      className="register__form__socmed-button"
                       onSubmit={this.handleSocialRegister}
                     >
                       {strings.google}
@@ -226,16 +228,16 @@ class RegisterPage extends Component {
                       </a>
                     )}
                   </center>
-                </Form.Item>
-              </Form>
-            </div>
+             </Form.Item>
+          </Form>
+          </div>
           </Col>
         </Row>
       </React.Fragment>
-    )
+    );
   }
 }
-const RegisterForm = Form.create({})(RegisterPage)
+const RegisterForm = Form.create({})(RegisterPage);
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
