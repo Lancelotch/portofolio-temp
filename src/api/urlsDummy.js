@@ -1,4 +1,4 @@
-const mainServiceLocal = "http://localhost:3050/monggopesen/";
+const mainServiceLocal = "http://192.168.100.19:3050/monggopesen/";
 const activation = "activation/"
 
 const urlsDummy = {

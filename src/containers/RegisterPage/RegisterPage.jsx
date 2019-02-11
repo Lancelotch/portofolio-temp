@@ -4,20 +4,24 @@ import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
+import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
 import authentication from "../../api/services/authentication";
 import strings from "../../config/localization";
+import imageLogin from '../../assets/img/login_pict.png'
 import { Redirect } from "react-router-dom";
 import {loginSocialMedia} from '../../store/actions/auth';
+import FrontImage from '../../components/Image/FrontImage'
 //import "../../sass/style.sass";
 
 const FormItem = Form.Item;
 
+
 class RegisterPage extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       isAuthenticated: this.props.isAuthenticated
-    };
+    }
   }
 
   handleSocialRegister = (request) => {
@@ -26,173 +30,121 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        console.log('Received values of form: ', values)
         authentication
           .register(values)
           .then(response => {
-            console.log(response);
-            
+            console.log(response)
           })
           .catch(error => {
-            console.log(error);
-          });
+            console.log(error)
+          })
       }
-    });
-  };
+    })
+  }
 
-  render() {
-    const { getFieldDecorator } = this.props.form;
-    const {isAuthenticated} = this.state; 
-    console.log(this.state.isAuthenticated);
-    
+  render () {
+    const { getFieldDecorator } = this.props.form
+    const { isAuthenticated } = this.state
 
-    if(isAuthenticated === true){
-      return (
-        <Redirect to='/' />
-      )
+    if (isAuthenticated === true) {
+      return <Redirect to='/' />
     }
     
 
     return (
       <React.Fragment>
-        <div className="register-header">
-          <a href="/">
-            <img
-              src="/static/media/monggopesen_logo.9eae6d5c.png"
-              className="register-header__image"
-              alt=""
-            />
-          </a>
-        </div>
-        <div className="container">
-          <div className="user-account-container">
-            <Row>
-              <Col span={12} className="user-account-container-col">
-                Logo
-              </Col>
-              <Col span={12} className="user-account-container-col">
-                <Card>
-                  <Form onSubmit={this.handleSubmit} className="register-form">
-                    <h1 className="register-form__typography">
-                      {strings.register_now}
-                    </h1>
-                    <p>
-                      {strings.formatString(
-                        strings.register_quote,
-                        <a href="/">{strings.register_enter}</a>
+        <Row>
+          <Col xs={{ span: 0}} md={{ span: 0}}lg={{ span: 14}}>
+            <FrontImage src={imageLogin} />
+          </Col>
+          <Col xs={{ span: 24}} md={{ span: 24}} lg={{ span: 10}}>
+            <div className='register'>
+              <img
+                className='register__logo'
+                src={logoMonggoPesen}
+                alt='register__logo'
+              />
+              <h1 className='register__title'>{strings.register_now}</h1>
+              <Form onSubmit={this.handleSubmit}>
+                <FormItem>
+                  <Input
+                    className='register__input'
+                    size={'large'}
+                    prefix={<Icon type={'user'} />}
+                    placeholder={'Nama'}
+                  />
+                </FormItem>
+                <FormItem>
+                  <Input
+                    className='register__input'
+                    size={'large'}
+                    prefix={<Icon type={'mail'} />}
+                    placeholder={'Email'}
+                  />
+                </FormItem>
+                <Form.Item>
+                  <Input.Password
+                    className='register__input'
+                    prefix={
+                      <Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
+                    }
+                    type='password'
+                    placeholder='Password'
+                  />
+                </Form.Item>
+                <div className='register__form__note'>
+                {strings.formatString(
+                        strings.register_agree,
+                        <a className='register__form__link' href="/">{strings.register_policy}</a>,<a  className='register__form__link' href="/">{strings.register_requirement}</a>
                       )}
+                </div>
+                <FormItem>
+                  <Button className='register__form__button-register' size={'large'} htmlType='submit' type='primary'>
+                    <p className='register__form__button-register-text'>
+                      {strings.login_register}
                     </p>
-                    {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
-                    <ButtonFacebook className="register-form__button" onSubmit={this.handleSocialRegister}>
+                  </Button>
+                </FormItem>
+                <Row type='flex' align='middle' justify='space-between' className='register__form__option-text'>
+                  <div className='register__form__text-line' />
+                  <span>{strings.register_option}</span>
+                  <div className='register__form__text-line' />
+                </Row>
+                <Form.Item className='register__form__btn-socmed' >
+                  <Row type='flex' justify='space-between'>
+                    <ButtonFacebook
+                      className='register__form__socmed-button'
+                      onSubmit={this.handleSocialRegister}
+                    >
                       {strings.facebook}
                     </ButtonFacebook>
-                    <ButtonGoogle className="register-form__button" onSubmit={this.handleSocialRegister}>
+                    <ButtonGoogle
+                      className='register__form__socmed-button'
+                      onSubmit={this.handleSocialRegister}
+                    >
                       {strings.google}
                     </ButtonGoogle>
-                    <div className="register-form__separator">
-                      <span className="register-form__separator__hline" />
-                      <span className="register-form__separator__text">
-                        {strings.register_option}
-                      </span>
-                      <span className="register-form__separator__hline" />
-                    </div>
-                    <FormItem className="register-form__input-text">
-                      {getFieldDecorator("name", {
-                        rules: [
-                          {
-                            required: true,
-                            message: "Please input your name!"
-                          }
-                        ]
-                      })(
-                        <Input
-                          size={"large"}
-                          prefix={
-                            <Icon
-                              type={"user"}
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder={"Nama"}
-                        />
+                  </Row>
+                  <center className='register__form__direct-login'>
+                  {strings.formatString(
+                        strings.register_quote,
+                        <a  className='register__form__link' href="/">{strings.register_now}</a>
                       )}
-                    </FormItem>
-                    <FormItem className="register-form__input-text">
-                      {getFieldDecorator("email", {
-                        rules: [
-                          {
-                            type: "email",
-                            required: true,
-                            message: "Please input your email!"
-                          }
-                        ]
-                      })(
-                        <Input
-                          size={"large"}
-                          prefix={
-                            <Icon
-                              type={"mail"}
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder={"Email"}
-                        />
-                      )}
-                    </FormItem>
-                    <FormItem className="register-form__input-text">
-                      {getFieldDecorator("password", {
-                        rules: [
-                          {
-                            required: true,
-                            message: "Please input your password!"
-                          }
-                        ]
-                      })(
-                        <Input
-                          size={"large"}
-                          prefix={
-                            <Icon
-                              type={"lock"}
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder={"Password"}
-                          type="password"
-                        />
-                      )}
-                    </FormItem>
-                    <FormItem>
-                      {getFieldDecorator("remember", {
-                        valuePropName: "checked",
-                        initialValue: true
-                      })(<Checkbox>{strings.register_agree}</Checkbox>)}
-                      <Button
-                        size={"large"}
-                        htmlType="submit"
-                        className="register-form__button__submit"
-                      >
-                        {strings.login_register}
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div className="register-footer">
-          <a href="#">
-            Bantuan
-          </a>
-        </div>
+                  </center>
+                </Form.Item>
+              </Form>
+            </div>
+          </Col>
+        </Row>
       </React.Fragment>
-    );
+    )
   }
 }
-const RegisterForm = Form.create({})(RegisterPage);
+const RegisterForm = Form.create({})(RegisterPage)
 
 const mapStateToProps = (state) => ({
   isAuthenticated : state.auth.isAuthenticated
