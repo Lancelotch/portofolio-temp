@@ -10,8 +10,8 @@ const cartVariants = props => {
           <Col md={24} key={index}>
             <CartVariant
               name={variant.name}
-              valText={variant.valText}
-              valImage={variant.valImage}
+              value={variant.value}
+              imageUrl={variant.imageUrl}
             />
           </Col>
         );

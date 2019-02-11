@@ -4,68 +4,40 @@ import CheckoutProduct from "./CheckoutProduct";
 import { Row, Col } from "antd";
 
 export default class CheckoutProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: this.props.title,
-      cartProducts: []
-    };
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      cartProducts: props.cartProducts
-    });
-  }
-
-  onChangeCourier = cartProductChanged => {
-    this.setState(
-      {
-        cartProducts: this.state.cartProducts.map(cartProduct => {
-          if (cartProduct.cartId === cartProductChanged.cartId) {
-            cartProduct = {
-              ...cartProduct,
-              courier: cartProductChanged.courier
-            };
-          }
-          return cartProduct;
-        })
-      },
-      () => {
-        this.props.onChange(this.state.cartProducts);
+  onChangeProduct = productChanged => {
+    const cartProducts = this.props.cartProducts
+    cartProducts.map(cartProduct => {
+      if (cartProduct.cartId === productChanged.cartId) {
+        return cartProduct = {
+          ...cartProduct,
+          courier: productChanged.courier
+        }
       }
-    );
+      return cartProduct
+    })
+    this.props.onChange(cartProducts)
   };
 
   listCheckoutProducts = () => {
-    if (this.state.cartProducts < 1) {
-      return <CheckoutProduct key={0} />;
+    const { cartProducts } = this.props
+    if (cartProducts) {
+      return cartProducts.map((product, index) => {
+        return (
+          <CheckoutProduct
+            key={product.cartId}
+            cartProduct={product}
+            onChangeProduct={this.onChangeProduct}
+          />
+        );
+      });
     }
-
-    return this.state.cartProducts.map((product, index) => {
-      return (
-        <CheckoutProduct
-          key={product.cartId}
-          cartId={product.cartId}
-          productId={product.productId}
-          variant={product.variant}
-          quantity={product.quantity}
-          note={product.note}
-          productName={product.productName}
-          productPic={product.productPic}
-          couriers={product.couriers}
-          price={product.price}
-          courier={product.courier}
-          onChangeCourier={this.onChangeCourier}
-        />
-      );
-    });
+    return <CheckoutProduct key={0} />;
   };
 
   render() {
     return (
       <Row>
-        <Col md ={24} xs={24}>{this.state.title}</Col>
+        <Col md ={24} xs={24}>{this.props.title}</Col>
         <Col md ={24} xs={24}>{this.listCheckoutProducts()}</Col>
       </Row>
     );

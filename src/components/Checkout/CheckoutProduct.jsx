@@ -9,37 +9,17 @@ import CartVariants from "../Variant/CartVariants";
 import CourierDelivery from "../Courier/CourierDelivery";
 
 export default class CheckoutProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartId: this.props.cartId,
-      productId: this.props.productId,
-      variants: this.props.variant,
-      quantity: this.props.quantity,
-      note: this.props.note,
-      productName: this.props.productName,
-      productPic: this.props.productPic,
-      price: this.props.price,
-      couriers: this.props.couriers,
-      courier: { cost: 0 }
-    };
-  }
-
   onChangeCourier = serviceCode => {
-    const courier = this.state.couriers.find(
+    const cartProduct = this.props.cartProduct;
+    const courier = this.props.cartProduct.couriers.find(
       courier => courier.serviceCode === serviceCode
     );
-    this.setState(
-      {
-        courier: courier
-      },
-      () => {
-        this.props.onChangeCourier(this.state);
-      }
-    );
+    cartProduct.courier = courier;
+    this.props.onChangeProduct(cartProduct);
   };
 
   render() {
+    const cartProduct = this.props.cartProduct;
     return (
       <Card>
         <div style={{ paddingTop: "10px", paddingBottom: "10px" }}>
@@ -47,32 +27,32 @@ export default class CheckoutProduct extends Component {
             <Col md={24}>
               <Row>
                 <Col md={4} xs={2}>
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <SkeletonImg heightSkeleton="95px" />
                   ) : (
                     <img
-                      src={this.state.productPic}
+                      src={cartProduct.productPic}
                       alt=""
                       style={{ maxWidth: "100%" }}
                     />
                   )}
                 </Col>
                 <Col md={20} xs={7}>
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <Skeleton />
                   ) : (
                     <p style={{ paddingLeft: "1rem" }}>
-                      {this.state.productName.trim()}
+                      {cartProduct.productName.trim()}
                     </p>
                   )}
                   <p style={{ paddingLeft: "1rem" }}>
-                    {!this.state.productName ? (
+                    {!cartProduct.productName ? (
                       <Skeleton />
                     ) : (
-                      <CurrencyRp price={this.state.price} />
+                      <CurrencyRp price={cartProduct.price} />
                     )}
                   </p>
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <Skeleton />
                   ) : (
                     <p
@@ -83,18 +63,18 @@ export default class CheckoutProduct extends Component {
                     >
                       {strings.total}
                       <b style={{ fontWeight: "300", paddingLeft: "1rem" }}>
-                        {this.state.quantity}
+                        {cartProduct.quantity}
                       </b>
                     </p>
                   )}
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <Skeleton />
                   ) : (
-                    <p style={{ paddingLeft: "1rem" }}>
-                      <CartVariants variants={this.state.variants} />
-                    </p>
+                    <div style={{ paddingLeft: "1rem" }}>
+                      <CartVariants variants={cartProduct.variants} />
+                    </div>
                   )}
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     <Skeleton />
                   ) : (
                     <Row>
@@ -102,61 +82,55 @@ export default class CheckoutProduct extends Component {
                         <p style={{ paddingLeft: "1rem" }}>{strings.note}</p>
                       </Col>
                       <Col md={12}>
-                        <p>{this.state.note}</p>
+                        <p>{cartProduct.note}</p>
                       </Col>
                     </Row>
                   )}
                 </Col>
                 <Col md={10} xs={3}>
-                  {/* {(!this.state.productName) ?
-                      <Skeleton />
-                      :
-                      <CourierDelivery
-                        couriers={[this.state.couriers]}
-                        onChangeCourier={this.onChangeCourier}
-                      />
-                    } */}
+                  {!cartProduct.productName ? (
+                    <Skeleton />
+                  ) : (
+                    <CourierDelivery
+                      couriers={[cartProduct.couriers]}
+                      onChangeCourier={this.onChangeCourier}
+                    />
+                  )}
                 </Col>
                 <Col md={24}>
                   <hr />
-                  {!this.state.productName ? (
+                  {!cartProduct.productName ? (
                     ""
                   ) : (
-                    <div>
-                      <p className="priceCourierDelivery">
-                        <CurrencyRp
-                          price={this.state.price * this.state.quantity}
-                        />
+                    <React.Fragment>
+                      <CurrencyRp
+                        price={cartProduct.price * cartProduct.quantity}
+                      />
+                      <p>
+                        {strings.price} ({cartProduct.quantity} {strings.pcs} x{" "}
+                        {cartProduct.price})
                       </p>
-                      <p className="ongkosKirim">
-                        <p>
-                          {strings.price} ({this.state.quantity} {strings.pcs} x{" "}
-                          {this.state.price})
-                        </p>
-                      </p>
-                    </div>
+                    </React.Fragment>
                   )}
-                  <p className="priceCourierDelivery">
-                    {!this.state.productName ? (
-                      <Skeleton />
-                    ) : (
-                      <CurrencyRp price={this.state.courier.cost} />
-                    )}
-                  </p>
-                  <p className="ongkosKirim">{strings.price_courier}</p>
+                  {!cartProduct.productName ? (
+                    <Skeleton />
+                  ) : (
+                    <CurrencyRp price={cartProduct.courier.cost} />
+                  )}
+                  <p>{strings.price_courier}</p>
                   <hr />
                 </Col>
                 <Col md={6} xs={6}>
-                  <b className="totalPriceCheckout">{strings.sub_total}</b>
+                  <b>{strings.sub_total}</b>
                 </Col>
-                <Col md={6} className="priceCheckout">
-                  {!this.state.productName ? (
+                <Col md={6}>
+                  {!cartProduct.productName ? (
                     <Skeleton />
                   ) : (
                     <CurrencyRp
                       price={
-                        this.state.courier.cost +
-                        this.state.price * this.state.quantity
+                        cartProduct.courier.cost +
+                        cartProduct.price * cartProduct.quantity
                       }
                     />
                   )}

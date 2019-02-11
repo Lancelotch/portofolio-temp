@@ -7,8 +7,8 @@ class CartVariant extends Component {
     super(props);
     this.state = {
       optionValName: this.props.name,
-      optionValImage: this.props.valImage,
-      optionValText: this.props.valText
+      optionValImage: this.props.imageUrl,
+      optionValText: this.props.value
     };
   }
   componentDidMount(){
@@ -41,9 +41,9 @@ class CartVariant extends Component {
 
   tooltip = () => {
     return (
-      <Row style={{ marginTop: "1.4em" }}>
+      <Row style={{ marginTop: "1.4rem" }}>
         <Col xs={12} md={12}>
-          <p>{this.state.optionValName}</p>
+          {this.state.optionValName}
         </Col>
         <Col xs={12} md={12}>
           {this.productImage()}
