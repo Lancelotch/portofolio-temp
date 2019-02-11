@@ -11,26 +11,26 @@ const registerSocialMedia = "api/v1/public/user/register-sosmed";
 const activatingCustomer = "api/v1/public/user/actived/";
 
 //User
-const DetailUser = "api/v1/customer/";
+const detailUser = "customer/";
 
 //Product
-const GetProductById = "api/v1/product/";
-const GetProductByCategory = "api/v1/product/category/";
+const getProductById = "product/";
+const getProductByCategory = "product/category/";
 
 
 //Address
-const CustomerAddressDefault = "api/v1/customer/address/default/";
-const CustomerAddress = "api/v1/customer/address/";
-const ChangeAddressDefault = "api/v1/customer/address/default/";
-const GetProvince = "api/v1/customer/address/province";
-const GetCity = "api/v1/customer/address/city";
-const NgrokGetProvince = "api/v1/customer/address/province";
-const NgrokGetCity = "api/v1/customer/address/city";
-const AddUserAddress = "api/v1/customer/address";
-const DeleteAddress = "/api/v1/customer/address/";
+const customerAddressDefault = "customer/address/default/";
+const customerAddress = "customer/address/";
+const changeAddressDefault = "customer/address/default/";
+const getProvince = "customer/address/province";
+const getCity = "customer/address/city";
+const ngrokGetProvince = "customer/address/province";
+const ngrokGetCity = "customer/address/city";
+const addUserAddress = "customer/address";
+const deleteAddress = "/customer/address/";
 
 //Invoice
-const GetInvoice = "api/v1/invoice/";
+const getInvoice = "invoice/";
 
 //Cart
 const addToCart = "v1/cart/user/";
@@ -39,63 +39,56 @@ const updateProductFromCart = "v1/cart/user/";
 const deleteProductFromCart = "v1/cart/user/";
 
 //Courier
-const GetCourier = "api/v1/courier/cost";
+const getCourier = "courier/cost";
 
 //Generate Order Id
-const GenerateOrderId = "api/v1/order/generate/";
+const generateOrderId = "order/generate/";
 
 
 //Order
-const AddOrder = "api/v1/order";
+const addOrder = "order";
 
 //Payment
-const CreatePayment = "api/v1/payment";
+const createPayment = "payment";
 
 
 //Product Category
-const GetCategoryFeature = "api/v1/category/feature";
-const GetSliderHome = "api/v1/home/slider/";
+const getCategoryFeature = "category/feature";
+const getSliderHome = "home/slider/";
 
 const urls = {
     mainServices : mainServices,
     cartServices: cartServices,
     cart : cart,
-    DetailUser : DetailUser,
-    login : login,
-    addToCart: addToCart,
-    GetProductById: GetProductById,
-    updateProductFromCart : updateProductFromCart,
-    GetProductByCategory: GetProductByCategory,
-    DetailUser : DetailUser,
-    addToCart: addToCart,
-    GetProductById: GetProductById,
-    updateProductFromCart : updateProductFromCart,
-    GetProductByCategory: GetProductByCategory,
-    mainServices: mainServices,
-    cartServices: cartServices,
-    cart: cart,
     login: login,
     register: register,
-    GetCategoryFeature: GetCategoryFeature,
-    GetSliderHome: GetSliderHome,
     loginSocialMedia: loginSocialMedia,
+    detailUser : detailUser,
     registerSocialMedia: registerSocialMedia,
+    getProductById: getProductById,
+    getProductByCategory: getProductByCategory,
+    customerAddressDefault : customerAddressDefault,
+    customerAddress : customerAddress,
+    getProvince : getProvince,
+    getCity : getCity,
+    addToCart: addToCart,
+    updateProductFromCart : updateProductFromCart,
+    addToCart: addToCart,
+    updateProductFromCart : updateProductFromCart,
+    getCategoryFeature: getCategoryFeature,
+    getSliderHome: getSliderHome,
     getProductsFromCart: getProductsFromCart,
-    CustomerAddressDefault : CustomerAddressDefault,
-    CustomerAddress : CustomerAddress,
-    ChangeAddressDefault : ChangeAddressDefault,
-    GetProvince : GetProvince,
-    DeleteAddress : DeleteAddress,
-    GetCity : GetCity,
-    GetCourier : GetCourier,
-    GenerateOrderId : GenerateOrderId,
-    AddUserAddress : AddUserAddress,
-    AddOrder : AddOrder,
-    CreatePayment : CreatePayment,
+    changeAddressDefault : changeAddressDefault,
+    deleteAddress : deleteAddress,
+    getCourier : getCourier,
+    generateOrderId : generateOrderId,
+    aAddress : addUserAddress,
+    addOrder : addOrder,
+    createPayment : createPayment,
     deleteProductFromCart : deleteProductFromCart,
-    NgrokGetProvince : NgrokGetProvince,
-    NgrokGetCity : NgrokGetCity,
-    GetInvoice: GetInvoice,
+    ngrokGetProvince : ngrokGetProvince,
+    ngrokGetCity : ngrokGetCity,
+    getInvoice: getInvoice,
     activatingCustomer: activatingCustomer
 }
 

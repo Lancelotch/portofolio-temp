@@ -4,11 +4,14 @@ import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
+import logoMonggoPesen from '../../assets/img/logo_monggopesen.png'
 import authentication from "../../api/services/authentication";
 import strings from "../../config/localization";
+import imageLogin from '../../assets/img/login_pict.png'
 import { Redirect } from "react-router-dom";
 import {loginSocialMedia} from '../../store/actions/auth';
-//import "../../sass/style.sass";
+import FrontImage from '../../components/Image/FrontImage'
+
 
 const FormItem = Form.Item;
 
@@ -59,11 +62,9 @@ class RegisterPage extends Component {
     });
   };
 
-  render() {
-    const { getFieldDecorator } = this.props.form;
-    const {isAuthenticated} = this.state; 
-    console.log(this.state.isAuthenticated);
-    
+  render () {
+    const { getFieldDecorator } = this.props.form
+    const { isAuthenticated } = this.state
 
     if (isAuthenticated === true) {
       return <Redirect to="/" />;
@@ -73,11 +74,11 @@ class RegisterPage extends Component {
     return (
       <React.Fragment>
         <Row>
-          <Col span={14}>
+          <Col xs={{ span: 0}} md={{ span: 0}}lg={{ span: 14}}>
             <FrontImage src={imageLogin} />
           </Col>
-          <Col span={10}>
-            <div className="register">
+          <Col xs={{ span: 24}} md={{ span: 24}} lg={{ span: 10}}>
+            <div className='register'>
               <img
                 className="register__logo"
                 src={logoMonggoPesen}
@@ -192,8 +193,19 @@ class RegisterPage extends Component {
                     <p className="register__form__button-register-text">
                       {strings.login_register}
                     </p>
-                    {/* <div className="g-signin2" data-onsuccess={this.onSignIn}></div> */}
-                    <ButtonFacebook className="register-form__button" onSubmit={this.handleSocialRegister}>
+                  </Button>
+                </FormItem>
+                <Row type='flex' align='middle' justify='space-between' className='register__form__option-text'>
+                  <div className='register__form__text-line' />
+                  <span>{strings.register_option}</span>
+                  <div className='register__form__text-line' />
+                </Row>
+                <Form.Item className='register__form__btn-socmed' >
+                  <Row type='flex' justify='space-between'>
+                    <ButtonFacebook
+                      className='register__form__socmed-button'
+                      onSubmit={this.handleSocialRegister}
+                    >
                       {strings.facebook}
                     </ButtonFacebook>
                     <ButtonGoogle
@@ -210,9 +222,8 @@ class RegisterPage extends Component {
                       </a>
                     )}
                   </center>
-                </Form.Item>
-            </div>
-          
+                  </Row>
+             </Form.Item>
           </Form>
           </div>
           </Col>

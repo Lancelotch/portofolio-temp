@@ -28,7 +28,7 @@ class ButtonFacebook extends Component{
       <div className={`${this.props.className}`}>
         <SocialLogin
         provider='facebook'
-        appId='1254904154668703'
+        appId='802059323470783'
         callback={this.handleSocialResponse}
         >
           <FacebookButton iconSize={"2rem"} size={"4rem"} align={"center"}>
