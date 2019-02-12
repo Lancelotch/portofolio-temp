@@ -43,7 +43,7 @@ class SliderPrimary extends Component {
 
   sliderHome = () => {
     serviceCategory
-      .SliderHome()
+      .sliderHome()
       .then(response => {
         const productsSlider = response.data;
         this.setState({

@@ -84,7 +84,7 @@ const registerSosialMedia = request => {
     //   .catch(error => {
     //     reject(error.response);
     //   });
-    httpClient.dummyService
+    httpClients.dummyService
       .request({
         method: "GET",
         url: urlsDummy.activation+ request
@@ -111,7 +111,7 @@ const activatingCustomer = request =>{
     //   .catch(error => {
     //     reject(error.response);
     //   });
-    httpClient.dummyService
+    httpClients.dummyService
       .request({
         method: "GET",
         url: urlsDummy.activation+ request

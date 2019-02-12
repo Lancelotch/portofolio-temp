@@ -58,7 +58,7 @@ class Header extends Component {
 
   getCategoryFeature = () => {
     serviceCategory
-      .CategoryFeature()
+      .categoryFeature()
       .then(response => {
         const categoryFeature = response.data;
         this.setState({

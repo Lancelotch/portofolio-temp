@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "./Product";
+import Product from ".";
 import {Row, Col} from 'antd'
 import "./style.sass"
 
