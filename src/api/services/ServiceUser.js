@@ -1,9 +1,9 @@
 import urls from "../urls";
-import httpClient  from "config/httpClient";
+import httpClients from "./httpClients";
 
-const GetDetailUser = () => {    
+const getDetailUser = () => {    
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.DetailUser
@@ -17,9 +17,9 @@ const GetDetailUser = () => {
   });
 };
 
-const UpdateDetailUser = (request) => {    
+const updateDetailUser = (request) => {    
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "PUT",
         url: urls.DetailUser,
@@ -35,8 +35,8 @@ const UpdateDetailUser = (request) => {
 };
 
 const serviceUser = {
-  GetDetailUser : GetDetailUser,
-  UpdateDetailUser : UpdateDetailUser
+  getDetailUser : getDetailUser,
+  updateDetailUser : updateDetailUser
 }
 
 export default serviceUser

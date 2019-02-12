@@ -1,10 +1,9 @@
-
-import httpClient  from "../config/httpClient"
+import httpClients from "./httpClients";
 import urls from "../urls"
 
 export const apiAddToCart = productSelected => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientCart
+    httpClients.cartService
       .request({
         method: "POST",
         url: urls.addToCart,
@@ -21,7 +20,7 @@ export const apiAddToCart = productSelected => {
 
 export const apiGetProductsFromCart = () => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientCart
+    httpClients.cartService
       .request({
         method: "GET",
         url: urls.getProductsFromCart
@@ -37,7 +36,7 @@ export const apiGetProductsFromCart = () => {
 
 export const apiUpdateProductFromCart = updateProducts => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientCart
+    httpClients.cartService
       .request({
         method: "PATCH",
         url: urls.updateProductFromCart,
@@ -54,7 +53,7 @@ export const apiUpdateProductFromCart = updateProducts => {
 
 export const apiDeleteProductFromCart = cartId => {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientCart
+    httpClients.cartService
       .request({
         method: "DELETE",
         url: urls.deleteProductFromCart,
@@ -71,7 +70,7 @@ export const apiDeleteProductFromCart = cartId => {
 
 export const apiGetOrderId = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GenerateOrderId

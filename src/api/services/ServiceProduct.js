@@ -1,10 +1,10 @@
-import httpClient from "../config/httpClient";
+import httpClients from "./httpClients";
 import urls from "../urls";
 
 
 const apiProductByCategory = (request) => {    
     return new Promise((resolve, reject) => {
-      httpClient.mainService
+      httpClients.mainService
         .request({
           method: "GET",
           url: urls.GetProductByCategory+request,

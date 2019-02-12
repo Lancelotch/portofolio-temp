@@ -1,13 +1,13 @@
-import urls from "../urls";
-import httpClient from "../../config/httpClient";
+import URLS from "../urls";
+import httpClients from "./httpClients";
 import urlsDummy from "../urlsDummy";
 
 const login = request => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "POST",
-        url: urls.login,
+        url: URLS.CUSTOMER_LOGIN,
         data: request
       })
       .then(response => {
@@ -21,10 +21,10 @@ const login = request => {
 
 const register = request => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "POST",
-        url: urls.register,
+        url: URLS.CUSTOMER_REGISTER,
         data: request
       })
       .then(response => {
@@ -38,10 +38,10 @@ const register = request => {
 
 const loginSosialMedia = request => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "POST",
-        url: urls.loginSocialMedia,
+        url: URLS.CUSTOMER_LOGIN_SOSMED,
         data: request
       })
       .then(response => {
@@ -55,10 +55,10 @@ const loginSosialMedia = request => {
 
 const apiGetDetailUser = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
-        url: urls.DetailUser
+        url: URLS.CUSTOMER_DETAIL
       })
       .then(response => {
         resolve(response.data);

@@ -1,9 +1,9 @@
 import urls from "../urls";
-import httpClient  from "config/httpClient";
+import httpClients from "./httpClients";
 
 const apiGetInvoice = () => {    
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GetInvoice,
@@ -19,7 +19,7 @@ const apiGetInvoice = () => {
 
 const apiGetInvoiceById = (request) => {    
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GetInvoice+request,

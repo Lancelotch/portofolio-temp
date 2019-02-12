@@ -1,20 +1,20 @@
 import axios from "axios";
-import urls from "../api/urls";
-import urlsDummy from "../api/urlsDummy";
+import urlsDummy from "../urlsDummy";
+const API_URL = process.env.REACT_APP_API_MAIN_SERVICE;
+const API_CART = process.env.REACT_APP_API_CART_SERVICE;
 
 const token = localStorage.getItem("token");
-console.log(token);
 
 const mainService = axios.create({
-  baseURL: urls.mainServices,
+  baseURL: API_URL,
   timeout: 60 * 4 * 1000,
   headers: {
     Authorization: "Bearer " + token
   }
 });
 
-const cartServices = axios.create({
-  baseURL: urls.cartServices,
+const cartService = axios.create({
+  baseURL: API_CART,
   timeout: 60 * 4 * 1000,
   headers: {
     Authorization: "Bearer " + token
@@ -29,10 +29,11 @@ const dummyService = axios.create({
   }
 });
 
-const httpClient = {
+
+const httpClients = {
     mainService : mainService,
-    cartServices : cartServices,
+    cartService : cartService,
     dummyService : dummyService
 }
   
-export default httpClient;
+export default httpClients;

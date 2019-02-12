@@ -1,10 +1,10 @@
 import urls from "../urls";
-import httpClient  from "../config/httpClient"
+import httpClients from "./httpClients";
 
 
 export const apiGetAddressDefault = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.CustomerAddressDefault
@@ -20,7 +20,7 @@ export const apiGetAddressDefault = () => {
 
 export const apiGetAddress = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.CustomerAddress
@@ -36,7 +36,7 @@ export const apiGetAddress = () => {
 
 export const apiChangeAddressDefault = (request) => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "PATCH",
         url: urls.ChangeAddressDefault,
@@ -54,7 +54,7 @@ export const apiChangeAddressDefault = (request) => {
 
 export const apiAddUserAddress = (request) => {
   return new Promise((resolve,reject)=>{
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "POST",
         url: urls.AddUserAddress,
@@ -72,7 +72,7 @@ export const apiAddUserAddress = (request) => {
 
 export const apiGetProvince = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GetProvince
@@ -88,7 +88,7 @@ export const apiGetProvince = () => {
 
 export const apiGetCity = (request) => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GetCity+"?province="+request
@@ -104,7 +104,7 @@ export const apiGetCity = (request) => {
 
 export const apiDeleteAddress = (request) => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "DELETE",
         url: urls.DeleteAddress + request
@@ -120,7 +120,7 @@ export const apiDeleteAddress = (request) => {
 
 export const apiAddressInfo = (request) => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.DeleteAddress + request
@@ -136,7 +136,7 @@ export const apiAddressInfo = (request) => {
 
 export const apiAddressEdit = (id,newData) => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "PUT",
         url: urls.DeleteAddress,

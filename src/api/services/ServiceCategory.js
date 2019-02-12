@@ -1,9 +1,9 @@
 import urls from "../urls";
-import httpClient  from "../config/httpClient";
+import httpClients from "./httpClients";
 
-const CategoryFeature = () => {
+const categoryFeature = () => {
     return new Promise((resolve, reject) => {
-      httpClient.mainService
+      httpClients.mainService
         .request({
           method: "GET",
           url: urls.GetCategoryFeature
@@ -17,9 +17,9 @@ const CategoryFeature = () => {
     });
   };
 
-const PromoFeature = ()=> {
+const promoFeature = ()=> {
   return new Promise((resolve, reject) => {
-    httpClient.httpClientMainService
+    httpClients.httpClientMainService
       .request({
         method: "GET",
         url: urls.GetPromoFeature
@@ -33,9 +33,9 @@ const PromoFeature = ()=> {
   });
 }
 
-const SliderHome = () => {
+const sliderHome = () => {
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "GET",
         url: urls.GetSliderHome
@@ -50,9 +50,9 @@ const SliderHome = () => {
 }
 
 const serviceCategory = {
-  CategoryFeature : CategoryFeature,
-  PromoFeature : PromoFeature,
-  SliderHome : SliderHome
+  categoryFeature : categoryFeature,
+  promoFeature : promoFeature,
+  sliderHome : sliderHome
 }
 
 export default serviceCategory;

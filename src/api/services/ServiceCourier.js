@@ -1,9 +1,9 @@
-import httpClient  from "../config/httpClient"
-import urls from "../urls"
+import httpClients from "./httpClients";
+import urls from "../urls";
 
 export const apiGetCourier = (request) => {    
   return new Promise((resolve, reject) => {
-    httpClient.mainService
+    httpClients.mainService
       .request({
         method: "POST",
         url: urls.GetCourier,
