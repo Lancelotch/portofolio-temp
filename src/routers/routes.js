@@ -1,59 +1,27 @@
-import HomePage from "../containers/HomePage/HomePage"
-import RegisterPage from "../containers/RegisterPage/RegisterPage"
-import ProductDetail from "../containers/ProductDetail/ProductDetail"
-import Checkout from "../containers/Checkout/Checkout"
-import Cart from "../containers/Cart/Cart"
-import Dashboard from '../containers/Dashboard/Dashboard'
-import InvoiceCustomerDetail from '../components/DashboardFormCustomer/InvoiceCustomerDetail/InvoiceCustomerDetail'
-import CategoryProduct from "../containers/CategoryProduct/CategoryProduct";
-import ProductSearch from "../containers/ProductSearch/ProductSearch";
-import { verificationEmail, confirmationEmail, register, productDetailId, cart, checkout, dashboard, invoiceCustomerDetail, search, categoryProduct } from "./paths";
-import ConfirmationEmail from "../containers/Confirmation/ConfirmationEmail";
-
+import PATH_URL from './path';
+import Home from '../containers/Home';
+import Register from '../containers/Register';
+import Test from '../containers/Test';
+import Confirmation from '../containers/Confirmation';
 
 const routes = [{
-        path: "/",
-        breadcrumb: 'Monggopesen',
-        component: HomePage
+        path: PATH_URL.HOME,
+        breadcrumb: 'monggopesen',
+        component: Home
     },
     {
-        path: register,
-        breadcrumb: "Register",
-        component: RegisterPage
+        path: PATH_URL.REGISTER,
+        breadcrumb: "register",
+        component: Register
     },
     {
-        path: productDetailId,
-        component: ProductDetail
+        path: PATH_URL.CONFIRMATION,
+        component:Confirmation
     },
     {
-        path: cart,
-        component: Cart
-    },
-    {
-        path: checkout,
-        component: Checkout
-    },
-    {
-        path: dashboard,
-        component: Dashboard
-    },
-    {
-        path: invoiceCustomerDetail,
-        component: InvoiceCustomerDetail
-    },
-    {
-        path: search, 
-        component:ProductSearch
-    },    
-    {
-        path: categoryProduct,
-        component: CategoryProduct
-    },
-    {
-        path:confirmationEmail, 
-        component:ConfirmationEmail
+        path: "test",
+        component:Test
     }
 ]
-
 
 export default routes;
