@@ -3,10 +3,6 @@ import {OldSocialLogin as SocialLogin} from 'react-social-login'
 import { FacebookLoginButton as FacebookButton} from "react-social-login-buttons";
 
 class ButtonFacebook extends Component{
-  constructor(props){
-    super(props);
-  }
-
   handleSocialResponse = (user, err) => {
     console.log({facebook : user});
 

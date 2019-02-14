@@ -1,30 +1,37 @@
-import { ACTIVATION, LOGIN_SOCIAL_MEDIA, LOGIN } from "./types";
+import TYPE from "./type";
 
 const activationUser = authData => {
     return{
-        type : ACTIVATION,
+        type : TYPE.ACTIVATION,
         payload : authData
     }
 }
 
 const login = authData => {
     return{
-        type : LOGIN,
+        type : TYPE.LOGIN,
         payload : authData
     }
 }
 
-const loginSocialMedia = authData => {
+const logout = () => {
     return{
-        type : LOGIN_SOCIAL_MEDIA,
+        type : TYPE.LOGOUT
+    }
+}
+
+const loginWithGoogle = authData => {
+    return{
+        type : TYPE.LOGIN_WITH_GOOGLE,
         payload : authData
     }
 }
 
 const dispatchType = {
     activationUser : activationUser,
-    loginSocialMedia : loginSocialMedia,
-    login : login
+    loginWithGoogle : loginWithGoogle,
+    login : login,
+    logout: logout
 }
 
 export default dispatchType;
