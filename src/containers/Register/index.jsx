@@ -9,7 +9,7 @@ import logoMonggoPesen from '../../assets/img/logo_monggopesen.png';
 import strings from '../../localization/localization';
 import imageLogin from '../../assets/img/login_pict.png';
 import { Redirect } from 'react-router-dom';
-import { loginWithGoogle } from '../../store/actions/authentication';
+import { registerWithGoogle } from '../../store/actions/authentication';
 import FrontImage from '../../components/Image/FrontImage';
 
 
@@ -25,7 +25,7 @@ class RegisterPage extends Component {
   }
 
   handleRegisterGoogle = request => {
-    this.props.loginWithGoogle(this.props.history, request)
+    this.props.registerWithGoogle(this.props.history, request)
   }
 
   handleSubmit = e => {
@@ -243,5 +243,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginWithGoogle }
+  { registerWithGoogle }
 )(RegisterForm)
