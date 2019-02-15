@@ -1,30 +1,35 @@
-import authentication from '../../api/services/authentication';
-import dispatchType from './dispatchType';
+import authentication from "../../api/services/authentication";
+import dispatchType from "./dispatchType";
 
-export const loginWithGoogle = (history, request) => (dispatch) =>{
-  authentication.loginWithGoogle(request)
-  .then(response=>{
-    console.log(response);
-      dispatch(dispatchType.loginWithGoogle(response));
-      history.push('/');
-  })
-  .catch(error=>{
+export const registerWithGoogle = (history, request) => async dispatch => {
+  try {
+    const responseLoginGoogle = await authentication.loginWithGoogle(request);
+    dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
+    history.push('/');
+  } catch (error) {
     console.log(error);
-  })
+  }
 };
 
-export const activatingUser = (history, request) => (dispatch) =>{
-  authentication.activatingUser(request)
-  .then(response=>{
-    console.log(response);
-      dispatch(dispatchType.activationUser(response));
-      history.push('/');
-  })
-  .catch(error=>{
+export const loginWithGoogle = request => async dispatch => {
+  try {
+    const responseLoginGoogle = await authentication.loginWithGoogle(request);
+    dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
+  } catch (error) {
     console.log(error);
-  })
+  }
 };
 
-export const logout = () => (dispatch) => {
+export const activatingUser = (history, request) => async dispatch => {
+  try{
+    const responseActivatingUser = await authentication.activatingUser(request);
+    dispatch(dispatchType.activationUser(responseActivatingUser));
+    history.push("/");
+  }catch(error){
+    console.log(error);
+  }
+};
+
+export const logout = () => dispatch => {
   dispatch(dispatchType.logout());
 };
