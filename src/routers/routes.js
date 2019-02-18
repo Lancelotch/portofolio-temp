@@ -3,6 +3,7 @@ import Home from '../containers/Home';
 import Register from '../containers/Register';
 import Test from '../containers/Test';
 import Confirmation from '../containers/Confirmation';
+import Category from '../containers/Category';
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -19,8 +20,8 @@ const routes = [{
         component:Confirmation
     },
     {
-        path: "test",
-        component:Test
+        path: PATH_URL.CATEGORY,
+        component:Category
     }
 ]
 

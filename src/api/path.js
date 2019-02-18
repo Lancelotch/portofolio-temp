@@ -29,7 +29,7 @@ export const PATH_CUSTOMER = {
 }
 
 //PRODUCT
-const PRODUCT = "product/";
+const PRODUCT = "product";
 const PRODUCT_CATEGORY = "product/category/";
 export const PATH_PRODUCT = {
     PRODUCT: PRODUCT,
