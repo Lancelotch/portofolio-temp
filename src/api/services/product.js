@@ -6,7 +6,7 @@ const listProductCategory = page =>{
       dummyService
         .request({
           method: "GET",
-          //url: `${PATH_PRODUCT.PRODUCT}?limit=10&page=${page}`
+          //url: `${PATH_PRODUCT.PRODUCT}?limit=8&page=${page}`
           url: `listProduct/dsad`
         })
         .then(response => {

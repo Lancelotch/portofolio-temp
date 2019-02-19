@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import Product from "../Product";
 import product from "../../api/services/product";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Row, Col } from "antd";
+import { Row, Col, BackTop } from "antd";
+import strings from "../../localization/localization";
 
-class Products extends Component {
+const colStyle = {
+  paddingRight: "16px",
+  paddingBottom: "16px"
+};
+
+class ProductListCategory extends Component {
   state = {
     products: [],
-    limit: 0,
     hasMore: true,
     page: 0
   };
@@ -31,51 +36,54 @@ class Products extends Component {
   }
 
   fetchMoreData = () => {
-    const { products, limit } = this.state;
+    const { products, limit, hasMore } = this.state;
+    console.log(products.length, hasMore, limit);
+    
     if (products.length >= limit) {
       this.setState({ hasMore: false });
       return;
+    }else{
+      this.getProductList();
     }
-    this.getProductList();
   };
 
   renderProduct = products => {
     return products.map((product, index) => (
-      <React.Fragment>
-        <Col span={6}>
-          <center>
-            <Product
-              key={product.id}
-              urlImage={product.urlImage}
-              name={product.name}
-              price={product.price}
-            />
-          </center>
-        </Col>
-      </React.Fragment>
+      <Col key={index} span={6} style={colStyle}>
+        <Product
+          id={product.id}
+          urlImage={product.urlImage}
+          name={product.name}
+          price={product.price}
+        />
+      </Col>
     ));
   };
 
   render() {
-    const { products, hasMore } = this.state;
+    const { products, hasMore, limit=0 } = this.state;
+    
+    const categoryTextResult = strings.formatString(strings.category_text_result, limit, "sepatu");
+    
     return (
       <React.Fragment>
+        <p>{categoryTextResult}</p>
         <InfiniteScroll
           dataLength={products.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
           endMessage={
-            <p style={{ textAlign: "right" }}>
-              <b>Back To Top?</b>
-            </p>
+            <div>
+              <BackTop />
+            </div>
           }
         >
-          <Row>{this.renderProduct(products)}</Row>
+          {this.renderProduct(products)}
         </InfiniteScroll>
       </React.Fragment>
     );
   }
 }
 
-export default Products;
+export default ProductListCategory;

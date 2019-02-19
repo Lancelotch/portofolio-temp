@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
-import Products from "../../components/Products.js";
+import ProductListCategory from "../../components/ProductListCategory";
 
 
 class CategoryPage extends Component {
@@ -22,7 +22,7 @@ class CategoryPage extends Component {
             <Row>
               <Col xs={24} md={24}>
                 <Header />
-                  <Products></Products>
+                  <ProductListCategory />
                 <Footer />
               </Col>
             </Row>
