@@ -70,8 +70,8 @@ export const PATH_PAYMENT = {
     PAYMENT: PAYMENT
 }
 
-//CATEGORY
-const CATEGORY_FEATURE = "category/feature";
+//CATEGORY DUMMY
+const CATEGORY_FEATURE = "category";
 export const PATH_CATEGORY = {
     CATEGORY_FEATURE: CATEGORY_FEATURE
 }
@@ -81,3 +81,4 @@ const HOME_SLIDER = "home/slider/";
 export const PATH_HOME = {
     HOME_SLIDER: HOME_SLIDER
 }
+

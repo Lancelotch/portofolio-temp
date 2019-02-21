@@ -2,7 +2,23 @@ import LocalizedStrings from 'react-localization';
 
 const strings = new LocalizedStrings({
   id: {
+    //topHeader
+    topHeader_link:'kesini', 
+    topHeader_sentence: 'Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo mampir {0}',
+
+    //Header
+    search_place_holder : 'cari produk',
+    header_greeting: 'Hello, monggo masuk',
+    header_greeting_auth: 'Hello, monggo belanja',
+    header_my_order: 'Pesenan Saya',
+    header_check_order: 'Lacak Pesenan',
+
+    //Category
+    category: 'Kategori',
+    
     //general
+    log_in: 'Log In',
+    log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart : "Tambah Ke Keranjang",
     action_delete : "Hapus",
@@ -17,9 +33,11 @@ const strings = new LocalizedStrings({
     pcs : "pcs",
     delivery_courier : "Delivery Courier",
     address : "Alamat",
+
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
+
     //Social Media
     google: "Google",
     facebook: "Facebook",
@@ -31,8 +49,8 @@ const strings = new LocalizedStrings({
     login_enter: "Masuk",
     login_option: "atau masuk dengan",
     login_remember_me: "Ingat saya",
-    login_forgot_password: "Lupa Password",
-    login_quote: "Belum punya Akun MonggoPesen ? {0} Sekarang",
+    login_forgot_password: "Lupa Password ?",
+    login_quote: "Belum punya Akun MonggoPesen ? {0}",
     login_register: "Daftar",
     //Button
     button_empty_cart : "Ayo Mulai Belanja",

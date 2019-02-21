@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, BackTop, Spin } from "antd";
 import { connect } from "react-redux";
-import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
 import Products from "../../components/Products";
@@ -97,7 +96,6 @@ class SearchPage extends Component {
                 <Header />
                 <p>{categoryTextResult}</p>
                 {this.state.isProductAvailable && this.infiniteScroll()}
-                <Footer />
               </Col>
             </Row>
           </div>

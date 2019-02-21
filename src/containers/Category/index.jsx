@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
-import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
 import ProductListCategory from "../../components/ProductListCategory";
@@ -23,7 +22,6 @@ class CategoryPage extends Component {
               <Col xs={24} md={24}>
                 <Header />
                   <ProductListCategory />
-                <Footer />
               </Col>
             </Row>
           </div>
