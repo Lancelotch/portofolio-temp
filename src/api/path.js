@@ -31,9 +31,11 @@ export const PATH_CUSTOMER = {
 //PRODUCT
 const PRODUCT = "product";
 const PRODUCT_CATEGORY = "product/category/";
+const PRODUCT_SEARCH = "product/search/";
 export const PATH_PRODUCT = {
     PRODUCT: PRODUCT,
-    PRODUCT_CATEGORY: PRODUCT_CATEGORY
+    PRODUCT_CATEGORY: PRODUCT_CATEGORY,
+    PRODUCT_SEARCH: PRODUCT_SEARCH
 }
 
 //INVOICE
