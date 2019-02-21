@@ -24,7 +24,7 @@ export const cartService = axios.create({
 export const dummyService = axios.create({
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
-  headers: {
-    Authorization: "Bearer " + token
-  }
+  // headers: {
+  //   Authorization: "Bearer " + token
+  // }
 });

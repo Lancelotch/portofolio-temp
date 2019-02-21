@@ -59,6 +59,8 @@ const strings = new LocalizedStrings({
 
     //product detail
     product_detail_description: "Deskripsi Produk",
+    //Category
+    category_text_result: "Menampilkan {0} produk untuk \"{1}\""
   }
 })
 
