@@ -9,6 +9,7 @@ import strings from '../../localization/localization'
 import './style.sass'
 import 'sass/style.sass'
 import { logout } from '../../store/actions/authentication'
+import customer from '../../api/services/customer'
 
 class Header extends Component {
   constructor (props) {
@@ -20,6 +21,10 @@ class Header extends Component {
       sumProduct: 0,
       keyword: this.props.keyword
     }
+  }
+
+  componentDidMount() {
+    this.getUserDetail()
   }
 
   openModalLogin = () => {
@@ -39,13 +44,43 @@ class Header extends Component {
     this.props.logout()
   }
 
+  // getUserDetail = async() => {
+  //   try {
+  //     const name = await customer.customerDetail()
+  //     this.setState({
+  //       name: name
+  //     })
+  //     console.log(name)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  getUserDetail = () => {
+    customer
+      .customerDetail()
+      .then(response => {
+        const detailUser = response.data
+        this.setState({
+          name: detailUser.name
+        })
+        console.log(detailUser)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render () {
+    const {keyword, name} = this.state
+    const { isAuthenticated } = this.props
+
     const greeting = (
       <div className='header__greeting'>
         {isAuthenticated !== true ? (
           <h3>{strings.header_greeting}!</h3>
         ) : (
-          <h3>{strings.header_greeting_auth}</h3>
+          <h4>{strings.header_greeting_auth}</h4>
         )}
       </div>
     )
@@ -98,9 +133,6 @@ class Header extends Component {
       </Menu>
     )
     
-    const {keyword, name} = this.state
-    const { isAuthenticated } = this.props
-
     return (
       <div>
         <Row>

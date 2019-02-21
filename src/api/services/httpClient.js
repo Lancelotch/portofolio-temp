@@ -8,9 +8,9 @@ const token = localStorage.getItem("token");
 export const mainService = axios.create({
   baseURL: REACT_APP_API_MAIN_SERVICE,
   timeout: 60 * 4 * 1000,
-  headers: {
-    Authorization: "Bearer " + token
-  }
+  // headers: {
+  //   Authorization: "Bearer " + token
+  // }
 });
 
 export const cartService = axios.create({

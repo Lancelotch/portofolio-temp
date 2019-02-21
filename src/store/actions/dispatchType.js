@@ -7,9 +7,9 @@ const activationUser = authData => {
     }
 }
 
-const login = authData => {
+const loginWithForm = authData => {
     return{
-        type : TYPE.LOGIN,
+        type : TYPE.LOGIN_WITH_FORM,
         payload : authData
     }
 }
@@ -30,7 +30,7 @@ const loginWithGoogle = authData => {
 const dispatchType = {
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
-    login : login,
+    loginWithForm : loginWithForm,
     logout: logout
 }
 

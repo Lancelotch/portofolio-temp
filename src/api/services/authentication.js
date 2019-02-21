@@ -20,6 +20,23 @@ const loginWithGoogle = request => {
     });
 };
 
+const loginWithForm = request => {
+  return new Promise((resolve, reject) => {
+    mainService
+      .request({
+        method: "POST",
+        url: PATH_PUBLIC.PUBLIC_USER_LOGIN,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 const activatingUser = request =>{
   return new Promise((resolve, reject) => {
     dummyService
@@ -38,6 +55,7 @@ const activatingUser = request =>{
 }
 
 const authentication = {
+  loginWithForm: loginWithForm,
   loginWithGoogle:  loginWithGoogle,
   activatingUser: activatingUser
 }
