@@ -1,7 +1,7 @@
 import { mainService, dummyService } from './httpClient';
 import {PATH_PUBLIC} from '../path'
 
-const loginWithGoogle = async request => {
+const loginWithGoogle = request => {
     const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_GOOGLE;
     const data = request;
     //mainRequestPost(url, data);
@@ -18,6 +18,23 @@ const loginWithGoogle = async request => {
           reject(error.response);
         });
     });
+};
+
+const loginWithForm = request => {
+  return new Promise((resolve, reject) => {
+    mainService
+      .request({
+        method: "POST",
+        url: PATH_PUBLIC.PUBLIC_USER_LOGIN,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
 };
 
 const activatingUser = request =>{
@@ -38,6 +55,7 @@ const activatingUser = request =>{
 }
 
 const authentication = {
+  loginWithForm: loginWithForm,
   loginWithGoogle:  loginWithGoogle,
   activatingUser: activatingUser
 }

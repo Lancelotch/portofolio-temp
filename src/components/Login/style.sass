@@ -7,6 +7,8 @@
   justify-content: center
   &__forgot
     float: right
+    display: flex
+    flex-direction: row
   &__button 
     width: 100%
     &__submit
@@ -15,6 +17,9 @@
       margin: 0.5rem 0
       border-color: $primary-color!important
       background-color: $primary-color!important
+    &__submit h4
+      color: $text-white
+      padding-top: 5px
   &__separator
     display: flex
     align-items: center
@@ -32,3 +37,9 @@
   &__input-text
     width: 100%
     margin-bottom: 1rem!important
+  &__socmed-box
+    display: flex
+    flex-direction: row
+  &__socmed-button
+    height: 60px
+    width: 147px

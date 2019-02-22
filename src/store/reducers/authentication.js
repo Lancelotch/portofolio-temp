@@ -11,7 +11,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case TYPE.LOGIN:
+        case TYPE.LOGIN_WITH_FORM:
             return {
                 ...state, 
                 auth : action.payload,

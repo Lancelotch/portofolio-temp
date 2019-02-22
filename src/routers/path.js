@@ -4,7 +4,7 @@ const REGISTER = '/register';
 const PRODUCT_DETAIL = '/product-detail/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER = '/dashboard-customer/:tab';
-const SEARCH = '/search';
+const SEARCH = '/search/:quote';
 const CATEGORY  = '/category/:categoryId';
 const CONFIRMATION = '/confirmation/:idConfirmation';
 

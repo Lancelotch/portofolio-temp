@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import Header from "../../components/Header"
-import Footer from "../../components/Footer"
 import SliderProductDetail from "components/SliderSecondary"
 import { Col, Row} from "antd"
 import Variants from "../../components/Variant/Variants"
@@ -96,16 +95,6 @@ onChangeVariant = selected => {
   }
 };
 
-
-idVariant =() =>{
-  this.state.variants.map( v => v.values.map( val => (
-     <React.Fragment>
-       {val.id}
-     </React.Fragment>
-  ))
-)}
-
-
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
     quantity = qyt;
@@ -133,7 +122,7 @@ idVariant =() =>{
         <Row>
           <Col md={24}>
             <Header />
-            <div className="container productDetail" style={{ marginTop: 230 }}>
+            <div className="container productDetail">
               <Row>
                 <Col md={15}>
                   <h2>{this.state.productTitle}</h2>   
@@ -171,7 +160,6 @@ idVariant =() =>{
                 </Col>
               </Row>
             </div>
-            <Footer />
           </Col>
         </Row>
       </React.Fragment>

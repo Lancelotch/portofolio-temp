@@ -19,11 +19,11 @@ class Variant extends Component {
       <div className="variant">
         <div
           className={
-            this.props.selected ? "variant__selection active" : "variant__selection"
+            this.props.selected ? "box-variant active" : "box-variant"
           }
           onClick={this.onVariantSelected}
         >
-          <div className="radio-tile-content">{img}</div>
+          <div className="variant__titleContent">{img}</div>
         </div>
       </div>
     );

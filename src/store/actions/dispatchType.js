@@ -7,9 +7,9 @@ const activationUser = authData => {
     }
 }
 
-const login = authData => {
+const loginWithForm = authData => {
     return{
-        type : TYPE.LOGIN,
+        type : TYPE.LOGIN_WITH_FORM,
         payload : authData
     }
 }
@@ -27,11 +27,19 @@ const loginWithGoogle = authData => {
     }
 }
 
+const products = productList => {
+    return{
+        type : TYPE.PRODUCT_LIST,
+        payload : productList
+    }
+}
+
 const dispatchType = {
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
-    login : login,
-    logout: logout
+    loginWithForm : loginWithForm,
+    logout: logout,
+    products: products
 }
 
 export default dispatchType;

@@ -1,50 +1,74 @@
 @import "../../sass/variable.sass"
 
-.navigation 
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    width: 100%
-    z-index: 997
-    margin-bottom: 2rem
-    background-color: #ffffff
-    padding: 2rem  
-    
-.img-navigation
-    margin-top: 0px 
-    display: block 
-    max-width: 100% 
-
-a.link-navigation
-    display: block
-    padding: .5rem 1rem
-    color: $primary-font-color
-
-.item-navigation 
+.topHeader
     display: flex
-    justify-content: flex-start
+    justify-content: center
+    align-items: center
+    height: 40px
+    background: #FAFAFA
+    width: 100%
+    padding-top: 10px
 
-.item-navigation .anticon 
-    vertical-align: -12px 
-    padding-left: 20px   
+.header
+    width: 100%
+    padding-left: 70px
+    padding-right: 70px
+    height: 
+    &__logo
+        padding-top: 49px
+    &__search-box
+        padding-top: 32px
+    &__search 
+        height: 48px
+        width: 750px
+    &__search input
+        background-color: #FAFAFA
+    &__icon
+        margin-left: 100px
+    &__categories
+        display: flex
+        flex-direction: row
+        padding-top: 30px
+    &__greeting
+        padding-top: 30px
+    &__greeting h3
+        font-size: 18px
+        color: $text-grey
+    &__greeting h4
+        font-size: 18px
+        font-weight: 500
+        color: $text-orange
+    &__user-box
+        margin-top: 5px
+        display: flex
+    &__user-icon
+        padding-top: 27px
+        font-size: 20px
+    &__user-box h4
+        margin-left: 5px
+        margin-top: 5px
+        cursor: pointer
+        font-size: 18px
+        color: $primary-color
+        padding-top: 21px
+    &__arrow
+        font-size: 20px
+        margin-left: 5px
+        color: $text-grey
+        padding-top: 40px
+    &__user-menu
+        width: 250px
+        margin-top: 8px
+        &__button
+            width: 220px
+            height: 40px
+            margin-top: 60px
+            margin-left: 4px
+    &__user-menu a
+        color: $text-grey
+    
+    
 
-.item-navigation .ant-badge-count 
-    left: 15px 
-    right: unset      
+        
 
-.navigation .ant-input-affix-wrapper .ant-input:not(:last-child)
-	height: 48px 
-	border: 1px solid black 
-	border-radius: 3px 
-	background-color: #FFFFFF 
-	box-shadow: inset 0 0 1px 0 rgba(0,0,0,0.5)
-
-.navigation .ant-input-search > .ant-input-suffix > .ant-input-search-button 
-    height: 48px
-    border-radius: 3px  
-
-    background-color: $background-color-primary 
-
-.navigation .ant-input-search-icon 
-    color: $primary-color             
+             

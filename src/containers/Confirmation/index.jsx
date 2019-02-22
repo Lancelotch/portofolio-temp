@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../../components/Header";
 import { Col, Row } from "antd";
 import { connect } from "react-redux";
-import {activatingUser} from '../../store/actions/authentication';
+import { activatingUser } from "../../store/actions/authentication";
 import "../../sass/style.sass";
 
 class ConfirmationEmail extends Component {
@@ -41,4 +41,7 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated
 });
 
-export default connect(mapStateToProps,{activatingUser})(ConfirmationEmail);
+export default connect(
+  mapStateToProps,
+  { activatingUser }
+)(ConfirmationEmail);
