@@ -3,23 +3,43 @@ const dummyProductDetail = {
   "message": "OK",
   "data": {
     "id": "String",
-    "name": "维多利亚无痕文胸套装本命年红色无钢圈蕾丝聚拢性感少女内衣胸罩",
+    "name": "Sepatu Sneakers Naik Air Max 270 Series All Season",
     "price": 100000,
     "images": [{
-        "large": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01ojkpMw1ycO7s2vNz7_!!167236599.jpg_100x100",
-        "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-        "small": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01ojkpMw1ycO7s2vNz7_!!167236599.jpg_100x100"
-      },
-      {
-        "large": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01hqOPCO1ycO7s2wnK0_!!167236599.jpg_100x100",
-        "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-        "small": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01hqOPCO1ycO7s2wnK0_!!167236599.jpg_100x100"
-      },
-      {
-        "large": "http://img.alicdn.com/imgextra/i4/2269346600/O1CN01BvHYcm1ycqWEdEuIW_!!2269346600.jpg_100x100",
-        "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-        "small": "http://img.alicdn.com/imgextra/i4/2269346600/O1CN01BvHYcm1ycqWEdEuIW_!!2269346600.jpg_100x100"
-      }
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+    {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+   {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+    {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:26:00.739Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:23:14.630Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:28:26.150Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+    {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:26:55.768Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:23:55.755Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:28:56.353Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+    {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:26.070Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:24:33.064Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:26.402Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    },
+    {
+      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    }
     ],
     "variants": [
       {
@@ -29,94 +49,85 @@ const dummyProductDetail = {
             "id": "0",
             "name": "",
             "description": "Hitam",
-            "images": {
-              "large": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01ojkpMw1ycO7s2vNz7_!!167236599.jpg_100x100",
-              "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-              "small": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01ojkpMw1ycO7s2vNz7_!!167236599.jpg_100x100"
+            "image": {
+              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
             }
           },
           {
             "id": "1",
             "name": "",
             "description": "Biru",
-            "images": {
-              "large": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01hqOPCO1ycO7s2wnK0_!!167236599.jpg_100x100",
-              "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-              "small": "http://img.alicdn.com/imgextra/i1/167236599/O1CN01hqOPCO1ycO7s2wnK0_!!167236599.jpg_100x100"
+            "image": {
+              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
             }
           },
           {
             "id": "2",
-            "name": "",
-            "description": "孔雀蓝",
-            "images": {
-              "large": "http://img.alicdn.com/imgextra/i4/2269346600/O1CN01BvHYcm1ycqWEdEuIW_!!2269346600.jpg_100x100",
-              "medium": "http://img.alicdn.com/imgextra/i3/901929816/O1CN012MNmFTcKEZIUOV6_!!901929816.jpg_500x500.jpg",
-              "small": "http://img.alicdn.com/imgextra/i4/2269346600/O1CN01BvHYcm1ycqWEdEuIW_!!2269346600.jpg_100x100"
+            "name": "hitam",
+            "description": "hitam",
+            "image": {
+              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
             }
-          },
-        ]
-      },
+          }
+        ]},
       {
         "id": "1",
         "name": "ukuran",
-        "values": [{
+        "values": 
+        [
+          {
             "id": "33",
             "name": "S",
-            "description":"",
-            "images": {
-              "large": "",
-              "medium": "",
-              "small": ""
-            }
+            "description":""        
           },
           {
             "id": "34",
             "name": "M",
-            "description": "",
-            "images": {
-              "large": "",
-              "medium": "",
-              "small": ""
-            }
+            "description": ""
           },
           {
             "id": "35",
             "name": "L",
-            "description": "",
-            "images": {
-              "large": "",
-              "medium": "",
-              "small": ""
-            }
+            "description": ""      
           },
           {
             "id": "36",
             "name": "XL",
-            "description": "",
-            "images": {
-              "large": "",
-              "medium": "",
-              "small": ""
-            }
+            "description": "" 
           },
           {
             "id": "37",
             "name": "XLL",
-            "description": "",
-            "images": {
-              "large": "",
-              "medium": "",
-              "small": ""
-            }
+            "description": ""                
           }
         ]
-      },
+      }
     ],
-    "sku": [{
+    "sku": [
+      {
+        "id":"VARW01",
+        "price": 50000,
+        "stock": 100,
+        "dimensi": 12,
+        "weight": 0.005
+      },
+      {
+        "id":"32",
+        "price": 55000,
+        "stock": 100,
+        "dimensi": 12,
+        "weight": 0.005
+      },
+      {
         "id": "33",
         "price": 51000,
-        "stock": 100,
+        "stock": 10,
         "dimensi": 12,
         "weight": 0.005
       },
@@ -133,15 +144,13 @@ const dummyProductDetail = {
         "stock": 54,
         "dimensi": 12,
         "weight": 0.005
-      },
+      }
     ],
     "details": {
-      "category": "String",
+      "category": "aaaaaaa",
       "weight": 15,
-      "description": "String"
+      "description": "aaaaa"
     }
-
-
   }
 
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Variant from "./Variant";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
+import Variant from ".";
 
 class Variants extends Component {
   constructor(props) {
@@ -19,7 +19,10 @@ class Variants extends Component {
 
   onChangeVariant = selected => {
     this.setState(
-      { variantSelected: selected, selectedValue: selected.description },
+    { 
+      variantSelected: selected, 
+      selectedValue: selected.description 
+    },
     () => {
         let variant = {
           name: this.state.name,
@@ -33,21 +36,12 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    if(this.state.index === 1) {
-      // let default_selected = {
-      //   optionValId: this.state.optionValue[0].id,
-      //   optionValImage: this.state.optionValue[0].images,
-      //   optionValText: this.state.optionValue[0].name,
-      //   optionValDescription : this.state.optionValue[0].description
-      // };
-      // if(this.props.changed === 1) {
-      //   this.onChangeVariant(default_selected);
-      // }
+    if(this.state.index===1) {
       return this.state.values.map((value,index) => (
         <Variant
           key={value.id}
           id={value.id}
-          images={value.images}
+          image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
           description={value.description}
@@ -64,7 +58,7 @@ class Variants extends Component {
         <Variant
           key={value.id}
           id={value.id}
-          images={value.images}
+          image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
           description={value.description}
@@ -75,19 +69,18 @@ class Variants extends Component {
           }
         />
       ));
-    }
+        }
   };
 
   render() {
     return (
         <Row>
-          <Col md={12} >
-            <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-              {this.state.name}
+          <Col md={24}>
+            <p style={{ fontSize: "14px" }}>
+              {this.state.name}&nbsp;
+              <font style={{fontWeight: 600}}>{
+                this.state.selectedValue}</font>
             </p>
-            {this.state.selectedValue}
-          </Col>
-          <Col md={12}>
             {this.loopVariantProduct()}
           </Col>
         </Row>
@@ -97,7 +90,7 @@ class Variants extends Component {
 Variants.propTypes = {
   name: PropTypes.string,
   value: PropTypes.arrayOf(Object),
-  optionId: PropTypes.string
+  id: PropTypes.string
 };
 
 export default Variants;

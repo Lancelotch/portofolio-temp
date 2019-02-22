@@ -1,83 +1,150 @@
 import React, { Component } from "react"
-import dummyProductDetail from "../../api/dummyProductDetail"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-import { Row, Col, Breadcrumb, Card, Button } from "antd"
-import SliderProductDetail from "../../components/SliderSecondary"
-import ButtonQuantity from "../../components/ButtonQuantity"
+import SliderProductDetail from "components/SliderSecondary"
+import { Col, Row} from "antd"
 import Variants from "../../components/Variant/Variants"
-import strings from "../../localization/localization";
+import "./style.sass"
+import ButtonQuantity from "../../components/ButtonQuantity"
+import dummyProductDetail from "../../api/dummyProductDetail"
+import strings from "../../localization/localization"
 
-class ProductDetail extends Component {
+
+class DummyProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       quantity: 1,
-      size: 0,
       variants: [],
+      variant: [],
+      productId: "",
+      productImages: [],
+      productSalePrice: 0,
+      productTitle: "",
+      index: 0,
+      price_changed: -1,
+      size: 0,
+      changed: 0,
+      sku:[]
     };
   }
 
-  componentDidMount() {
-    this.productDetail();
+   componentDidMount() {
+     this.productDetail();
   }
 
-  productDetail = ()=> {
-    const res = dummyProductDetail;
-    const productDetail = {
+  productDetail = () => {
+  const res = dummyProductDetail;
+      const productDetail = {
         productId: res.data.productId,
+        sku: res.data.sku,
+        variants: res.data.variants,
         productTitle: res.data.name,
+        details: res.data.details,
         size: 0 ,
-        productImages: res.data.images,    
+        productImages: res.data.images,
+        productSalePrice: res.data.price,
         productPrice: res.data.price,
         productDescriptions: res.data.description
       };
       this.setState({
-          ...productDetail
-      })
-  }
+       ...productDetail
+  })
+  console.log(this.state)
+}
 
+
+onChangeVariant = selected => {
+  this.setState({
+    changed: 0
+  })
+  if(selected.index===1){
+    this.setState({
+      productPrice: this.state.productSalePrice,
+      size:0,
+      changed: 0
+     });
+     for(let i=1;i<this.state.sku.length;i++){
+     if(selected.value.id===this.state.sku[i].id){
+       if(this.state.price_changed !==-1) { 
+        this.setState({
+          productPrice:this.state.sku[i].price,
+          size: i     
+        })
+       }
+     }   
+   }
+  } 
+  else if(selected.index===0){
+    this.setState({
+      changed: 1,
+      price_changed: 1,
+     });
+    for(let i=0;i<this.state.sku.length;i++){
+      if(selected.value.id===this.state.sku[i].id){
+         this.setState({
+           productPrice:this.state.sku[i].price,
+           size: i  
+         })
+      }
+     else if(selected.value.id==i){ 
+        this.setState({
+          index:i
+        })       
+      }
+    }
+  }
+};
+
+
+idVariant =() =>{
+  this.state.variants.map( v => v.values.map( val => (
+     <React.Fragment>
+       {val.id}
+     </React.Fragment>
+  ))
+)}
+
+
+  onChangeQuantity = qyt => {
+    let quantity = this.state.quantity;
+    quantity = qyt;
+    if(this.state.sku[this.state.size].stock < quantity) {
+      this.setState({
+        stockAlert : "Current Stock: " + 
+       this.state.sku[this.state.size].stock 
+        + ". Please Reduce amount of Products."
+      });
+    }
+    else {
+      this.setState({
+        stockAlert : ""
+      });
+    }
+    this.setState({
+      quantity: quantity
+    });
+  };
+
+  
   render() {
     return (
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <Header/>
-            <div className="container" style={{ marginTop: 230 }}>
+            <Header />
+            <div className="container productDetail" style={{ marginTop: 230 }}>
               <Row>
                 <Col md={15}>
-                  <Breadcrumb>
-                    <Breadcrumb.Item>
-                      <a href="/">{strings.monggoPesen}</a>
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                      <a href="{this.state.linkProductDetail}">
-                        {this.state.category}
-                      </a>
-                    </Breadcrumb.Item>
-                  </Breadcrumb>
+                  <h2>{this.state.productTitle}</h2>   
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
-                    selected={this.state.selected}
                   />
                 </Col>
                 <Col md={9}>
-                  <Card>
-                    <h2>{this.state.productTitle}</h2>
-                    {/* <CurrencyRp price={this.state.productPrice} /> */}
-                    <p>
-                        {this.state.stockAlert}
-                      </p>
-                    <ButtonQuantity
-                      title="Jumlah"
-                      quantity={1}
-                      onChange={this.onChangeQuantity}
-                    />
-                      <Button onClick={this.addToCart}>
-                        {strings.add_to_cart}
-                      </Button>
-                    {this.state.variants.map((variant, index) => {
+                    <p className="productDetail__price">{this.state.productPrice}</p>
+                      {this.state.variants.map((variant,index) => {
                         return (
                           <Variants
                             key={variant.id}
@@ -90,7 +157,17 @@ class ProductDetail extends Component {
                           />
                         );
                       })}
-                  </Card>
+                    <ButtonQuantity
+                      title="Jumlah"
+                      quantity={1}
+                      onChange={this.onChangeQuantity}
+                    />
+                      <p className="productDetail__stock">
+                        {this.state.stockAlert}
+                      </p>
+                      <button className="productDetail__addCart">
+                        {strings.add_to_cart}
+                      </button>
                 </Col>
               </Row>
             </div>
@@ -103,4 +180,4 @@ class ProductDetail extends Component {
 }
 
 
-export default ProductDetail;
+export default DummyProductDetail;

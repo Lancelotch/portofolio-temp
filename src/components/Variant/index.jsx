@@ -8,7 +8,7 @@ class Variant extends Component {
     super(props);
     this.state = {
       id: this.props.id,
-      images: this.props.images,
+      image: this.props.image,
       name: this.props.name,
       description : this.props.description
     };
@@ -16,10 +16,10 @@ class Variant extends Component {
   
   product = img => {
     return (
-      <div className="box-parent">
+      <div className="variant">
         <div
           className={
-            this.props.selected ? "box-image tes active" : "box-image tes"
+            this.props.selected ? "variant__selection active" : "variant__selection"
           }
           onClick={this.onVariantSelected}
         >
@@ -30,7 +30,7 @@ class Variant extends Component {
   };
 
   productImage = () => {
-    if (this.state.images.large === "") {
+    if (!this.state.image || !this.state.image.large) {
       return this.product(<p>{this.state.name}</p>);
     } else {
       return this.product(
@@ -40,9 +40,9 @@ class Variant extends Component {
           placement="topLeft"
         >
           <img
-            src={this.state.images.large}
+            src={this.state.image.large}
             alt=""
-            className="radio-content-image"
+            className="variant_image"
           />
         </Tooltip>
       );
@@ -64,7 +64,7 @@ class Variant extends Component {
 
 Variant.propTypes = {
   id: PropTypes.string,
-  images: PropTypes.string,
+  image: PropTypes.string,
   name: PropTypes.string
 };
 
