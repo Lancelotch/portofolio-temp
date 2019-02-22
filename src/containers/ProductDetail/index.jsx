@@ -132,6 +132,7 @@ onChangeVariant = selected => {
                   />
                 </Col>
                 <Col md={9}>
+                <div className="productDetail__variantContent">
                     <p className="productDetail__price">{this.state.productPrice}</p>
                       {this.state.variants.map((variant,index) => {
                         return (
@@ -157,6 +158,7 @@ onChangeVariant = selected => {
                       <button className="productDetail__addCart">
                         {strings.add_to_cart}
                       </button>
+                      </div>
                 </Col>
               </Row>
             </div>
