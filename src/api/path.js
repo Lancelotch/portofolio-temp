@@ -45,7 +45,7 @@ export const PATH_INVOICE = {
 }
 
 //CART
-const CART_USER = "v1/cart/user/";
+const CART_USER = "cart/user/";
 export const PATH_CART = {
     CART_USER: CART_USER
 }
