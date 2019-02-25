@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import Header from "../../components/Header"
 import SliderProductDetail from "components/SliderSecondary"
-import { Col, Row} from "antd"
+import { Col, Row, Card} from "antd"
 import Variants from "../../components/Variant/Variants"
 import "./style.sass"
 import ButtonQuantity from "../../components/ButtonQuantity"
 import dummyProductDetail from "../../api/dummyProductDetail"
 import strings from "../../localization/localization"
+import ProductAttibutes from "../../components/ProductAttributes";
 
 
 class DummyProductDetail extends Component {
@@ -24,7 +25,8 @@ class DummyProductDetail extends Component {
       price_changed: -1,
       size: 0,
       changed: 0,
-      sku:[]
+      sku:[],
+      details: []
     };
   }
 
@@ -85,8 +87,8 @@ onChangeVariant = selected => {
            productPrice:this.state.sku[i].price,
            size: i  
          })
-      }
-     else if(selected.value.id==i){ 
+      } 
+      else if(selected.value.id==i){ 
         this.setState({
           index:i
         })       
@@ -161,13 +163,28 @@ onChangeVariant = selected => {
                       </div>
                 </Col>
               </Row>
+              <Row>
+                <Col md={24}>
+                <h2>Produk Terkait</h2>
+                  <Card>
+                    {Object.keys(this.state.details).map(detail=>{ 
+                      return (
+                      <ProductAttibutes 
+                        description={this.state.details[detail]}
+                        label={detail.charAt(0).toUpperCase() + detail.substring(1)}
+                      />               
+                      ) 
+                    })}
+                  </Card>
+                </Col>
+              </Row>
             </div>
           </Col>
         </Row>
       </React.Fragment>
     );
   }
-}
+};
 
 
 export default DummyProductDetail;

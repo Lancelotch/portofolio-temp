@@ -46,7 +46,9 @@ class Variants extends Component {
           onChangeVariant={this.onChangeVariant}
           description={value.description}
           selected={
-            ((this.state.variantSelected.id === value.id && this.props.changed===0) || (this.props.changed === 1 && index === 0))
+            ((this.state.variantSelected.id === value.id && 
+              this.props.changed===0) || 
+              (this.props.changed === 1 && index === 0))
               ? true
               : false
           }

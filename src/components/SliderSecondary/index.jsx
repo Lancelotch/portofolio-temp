@@ -86,7 +86,7 @@ class SliderProductDetail extends Component {
           <Col md={24} sm={12}>
             <ImageGallery
               key={this.state.index}
-              showFullscreenButton={false}
+              showFullscreenButton={true}
               showPlayButton={false}
               startIndex={this.state.index}
               onClick={e =>

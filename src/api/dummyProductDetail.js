@@ -111,13 +111,6 @@ const dummyProductDetail = {
     ],
     "sku": [
       {
-        "id":"VARW01",
-        "price": 50000,
-        "stock": 100,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
         "id":"32",
         "price": 55000,
         "stock": 100,
@@ -147,9 +140,9 @@ const dummyProductDetail = {
       }
     ],
     "details": {
-      "category": "aaaaaaa",
-      "weight": 15,
-      "description": "aaaaa"
+      "category": "Sneaker",
+      "weight": 700,
+      "description": "Barang tersedia dan dirikim dari China lama pengiriman tergantung metode pengiriman yang anda pilih jadi sebelum anda membeli barang, harap memperhatikan detail metode pengiriman yang anda gunakan dan catat kira-kira batas waktu pengiriman yang telah diperkirakan, jangan sampai lamanya pengiriman dijadikan sebuah kesalahan penjual hanya karna pembeli tidak membaca informasi yang disediakan pada saat pembelian dengan seksama"
     }
   }
 
