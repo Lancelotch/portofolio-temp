@@ -1,14 +1,19 @@
-import React, { Component } from "react";
-import { Row, Col, BackTop, Spin } from "antd";
+import React, { Component, Suspense } from "react";
+import { Row, Col, BackTop, Spin, Card } from "antd";
 import { connect } from "react-redux";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
-import Products from "../../components/Products";
+
+//import Products from "../../components/Products";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import "./style.sass";
+import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
+import Spinner from "../../components/Spinner";
+
+const Products = React.lazy(() => import('../../components/Products'));
 
 class SearchPage extends Component {
   constructor(props) {
@@ -18,7 +23,8 @@ class SearchPage extends Component {
       hasMore: true,
       page: 0,
       quote: this.props.match.params.quote,
-      isProductAvailable: false
+      isProductAvailable: false,
+      loadingSkeleton: true
     };
   }
 
@@ -31,7 +37,7 @@ class SearchPage extends Component {
     try {
       const nextProduct = await product.listProductSearch(request);
       console.log(nextProduct);
-
+      
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
@@ -67,9 +73,7 @@ class SearchPage extends Component {
         next={this.fetchMoreData}
         hasMore={hasMore}
         loader={
-          <div className="spin">
-            <Spin size="large"/>
-          </div>
+          <Spinner size="large" />
         }
         endMessage={
           <div>
@@ -77,8 +81,18 @@ class SearchPage extends Component {
           </div>
         }
       >
-        <Products productList={productList} />
+        <Suspense fallback={<SkeletonProduct count={20} />}>
+          <Products productList={productList} />
+        </Suspense>
       </InfiniteScroll>
+    );
+  };
+
+  renderProducts = () => {
+    return this.state.isProductAvailable ? (
+      this.infiniteScroll()
+    ) : (
+      <SkeletonProduct count={20} />
     );
   };
 
@@ -96,7 +110,7 @@ class SearchPage extends Component {
               <Col>
                 <Header />
                 <p>{categoryTextResult}</p>
-                {this.state.isProductAvailable && this.infiniteScroll()}
+                {this.renderProducts()}
                 <Footer />
               </Col>
             </Row>

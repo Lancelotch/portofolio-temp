@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "../Product";
 import { Col } from "antd";
+import PropTypes from 'prop-types';
 
 const colStyle = {
   paddingRight: "16px",
@@ -19,5 +20,9 @@ const Products = props => {
     </Col>
   ));
 };
+
+Products.propTypes = {
+  productList : PropTypes.arrayOf(Object)
+}
 
 export default Products;
