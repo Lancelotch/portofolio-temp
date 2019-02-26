@@ -9,6 +9,7 @@ import dummyProductDetail from "../../api/dummyProductDetail"
 import strings from "../../localization/localization"
 import ProductAttibutes from "../../components/ProductAttributes"
 import { select } from "@redux-saga/core/effects";
+import productDetail from "../../api/services/productDetail";
 
 class DummyProductDetail extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class DummyProductDetail extends Component {
       changed: 0,
       variants: [],
       details: [],
-      productImages:[]
+      productImages:[],
+      sku:[]
     };
   }
 
@@ -32,24 +34,38 @@ class DummyProductDetail extends Component {
     this.productDetail();
   }
 
-  productDetail = () => {
-    const res = dummyProductDetail;
-    const productDetail = {
-      productId: res.data.productId,
-      sku: res.data.sku,
-      variants: res.data.variants,
-      productTitle: res.data.name,
-      details: res.data.details,
-      size: 0,
-      productImages: res.data.images,
-      productSalePrice: res.data.price,
-      productPrice: res.data.price,
-      productDescriptions: res.data.description
-    };
-    this.setState({
-      ...productDetail
-    }); 
-  };
+  productDetail = async () => {
+    const productId = this.props.match.params.productId;
+    try{
+      const response = await productDetail.getProductDetail(productId);
+      console.log('product')
+      console.log(response)
+      this.setState({
+        
+      })
+    }catch(error){
+      console.log(error);     
+    }
+}
+
+  // productDetail = () => {
+  //   const res = dummyProductDetail;
+  //   const productDetail = {
+  //     productId: res.data.productId,
+  //     sku: res.data.sku,
+  //     variants: res.data.variants,
+  //     productTitle: res.data.name,
+  //     details: res.data.details,
+  //     size: 0,
+  //     productImages: res.data.images,
+  //     productSalePrice: res.data.price,
+  //     productPrice: res.data.price,
+  //     productDescriptions: res.data.description
+  //   };
+  //   this.setState({
+  //     ...productDetail
+  //   }); 
+  // };
 
   onChangeVariant = selected => {
     this.setState({
