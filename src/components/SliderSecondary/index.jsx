@@ -37,7 +37,6 @@ class SliderProductDetail extends Component {
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
         {...{
-          isHintEnabled: true,
           shouldHideHintAfterFirstActivation: false,
           enlargedImagePosition: "over",
           enlargedImageContainerStyle: { Index: 1000 }
@@ -49,7 +48,7 @@ class SliderProductDetail extends Component {
   imageViewer() {
     const images = [{ src: this.state.original }];
     this.props.productImages.map(productImage => {
-      images.push({
+      return images.push({
         src: productImage.large
       });
     });
@@ -75,7 +74,7 @@ class SliderProductDetail extends Component {
   render() {
     const images = [];
     this.props.productImages.map(productImage => {
-      images.push({
+      return images.push({
         original: productImage.large,
         thumbnail: productImage.small
       });
@@ -86,7 +85,7 @@ class SliderProductDetail extends Component {
           <Col md={24} sm={12}>
             <ImageGallery
               key={this.state.index}
-              showFullscreenButton={true}
+              showFullscreenButton={false}
               showPlayButton={false}
               startIndex={this.state.index}
               onClick={e =>
@@ -95,7 +94,6 @@ class SliderProductDetail extends Component {
                   original: e.target.firstChild.currentSrc
                 })
               }
-              // onSlide={this.props.slideChange}
               renderItem={this.imageHover}
               items={images}
             />

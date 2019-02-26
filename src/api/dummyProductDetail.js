@@ -111,13 +111,6 @@ const dummyProductDetail = {
     ],
     "sku": [
       {
-        "id":"32",
-        "price": 55000,
-        "stock": 100,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
         "id": "33",
         "price": 51000,
         "stock": 10,
@@ -135,6 +128,13 @@ const dummyProductDetail = {
         "id": "35",
         "price": 54000,
         "stock": 54,
+        "dimensi": 12,
+        "weight": 0.005
+      },
+      {
+        "id":"36",
+        "price": 55000,
+        "stock": 100,
         "dimensi": 12,
         "weight": 0.005
       }

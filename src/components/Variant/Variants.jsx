@@ -78,7 +78,7 @@ class Variants extends Component {
     return (
         <Row>
           <Col md={24}>
-            <p style={{ fontSize: "14px" }}>
+            <p style={{ fontSize: 14 }}>
               {this.state.name}&nbsp;
               <font style={{fontWeight: 600}}>{
                 this.state.selectedValue}</font>
