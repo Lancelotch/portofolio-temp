@@ -1,14 +1,13 @@
-import React, { Component } from "react"
-import Header from "../../components/Header"
-import SliderProductDetail from "components/SliderSecondary"
-import { Col, Row, Card } from "antd"
-import Variants from "../../components/Variant/Variants"
-import "./style.sass"
-import ButtonQuantity from "../../components/ButtonQuantity"
-import dummyProductDetail from "../../api/dummyProductDetail"
-import strings from "../../localization/localization"
-import ProductAttibutes from "../../components/ProductAttributes"
-import { select } from "@redux-saga/core/effects";
+import React, { Component } from "react";
+import Header from "../../components/Header";
+import SliderProductDetail from "components/SliderSecondary";
+import { Col, Row, Card } from "antd";
+import Variants from "../../components/Variant/Variants";
+import "./style.sass";
+import ButtonQuantity from "../../components/ButtonQuantity";
+import dummyProductDetail from "../../dummy/dummyProductDetail";
+import strings from "../../localization/localization";
+import ProductAttibutes from "../../components/ProductAttributes";
 import productDetail from "../../api/services/productDetail";
 
 class DummyProductDetail extends Component {
@@ -25,8 +24,8 @@ class DummyProductDetail extends Component {
       changed: 0,
       variants: [],
       details: [],
-      productImages:[],
-      sku:[]
+      productImages: [],
+      sku: []
     };
   }
 
@@ -36,7 +35,7 @@ class DummyProductDetail extends Component {
 
   productDetail = async () => {
     const productId = this.props.match.params.productId;
-    try{
+    try {
       // const res = await productDetail.getProductDetail(productId);
       const res = await dummyProductDetail;
       const itemProductDetail = {
@@ -53,20 +52,19 @@ class DummyProductDetail extends Component {
       };
       this.setState({
         ...itemProductDetail
-      }); 
-    }catch(error){
-      console.log(error);     
+      });
+    } catch (error) {
+      console.log(error);
     }
-}
+  };
 
-  slideVariantColorSku = selected => {
-    let colorVariant = this.state.variants.map(variant=>variant.values.id)
-      if (selected.value.id === colorVariant) {
-        this.setState({
-          index: colorVariant
-        });
-      }   
-      for (let i = 1; i<this.state.sku.length; i++) {
+  onChangeVariant = selected => {
+    if (selected.index === 1) {
+      this.setState({
+        size: 0,
+        changed: 0
+      });
+      for (let i = 1; i < this.state.sku.length; i++) {
         if (selected.value.id === this.state.sku[i].id) {
           if (this.state.price_changed !== -1) {
             this.setState({
@@ -76,24 +74,22 @@ class DummyProductDetail extends Component {
           }
         }
       }
-    };
-  
-    onChangeVariant = selected => {
-      if (selected.index === 1) {
-        this.setState({ 
-          size: 0,
-          changed: 0
-        });
-        this.slideVariantColorSku(selected)
-      } else if (selected.index === 0) {
-        this.setState({
-          changed: 1,
-          price_changed: 1,
-          productPrice: this.state.sku[0].price
-        });
-        this.slideVariantColorSku(selected)
+    } else if (selected.index === 0) {
+      this.setState({
+        changed: 1,
+        price_changed: 1,
+        productPrice: this.state.sku[0].price
+      });
+      for (let i = 0; i < this.state.variants[0].values.length; i++) {
+        let values = this.state.variants[0].values[i];
+        if (selected.value.id === values.id) {
+          this.setState({
+            index: i
+          });
+        }
       }
-    };
+    }
+  };
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
@@ -123,7 +119,7 @@ class DummyProductDetail extends Component {
             <Header />
             <div className="container productDetail">
               <Row>
-                <Col md={11}>    
+                <Col md={11}>
                   <h2>{this.state.productTitle}</h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}

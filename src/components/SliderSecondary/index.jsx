@@ -20,7 +20,7 @@ class SliderProductDetail extends Component {
   }
   componentWillReceiveProps(props){
     this.setState({index:props.index})
-  }
+  } 
   imageHover(item) {
     return (
       <ReactImageMagnify

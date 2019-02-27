@@ -46,7 +46,7 @@ const dummyProductDetail = {
         "id": "0",
         "name": "warna",
         "values": [{
-            "id": "0",
+            "id": "22251",
             "name": "",
             "description": "Hitam",
             "image": {
@@ -56,7 +56,7 @@ const dummyProductDetail = {
             }
           },
           {
-            "id": "1",
+            "id": "22252",
             "name": "",
             "description": "Biru",
             "image": {
@@ -66,7 +66,7 @@ const dummyProductDetail = {
             }
           },
           {
-            "id": "2",
+            "id": "22253",
             "name": "hitam",
             "description": "hitam",
             "image": {
