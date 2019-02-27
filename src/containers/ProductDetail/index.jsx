@@ -25,7 +25,11 @@ class DummyProductDetail extends Component {
       variants: [],
       details: [],
       productImages: [],
-      sku: []
+      sku: [],
+      warnaId: "01",
+      ukranId: "01",
+      idUkuran: "002",
+      idWarna: "001"
     };
   }
 
@@ -36,8 +40,8 @@ class DummyProductDetail extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      // const res = await productDetail.getProductDetail(productId);
-      const res = await dummyProductDetail;
+      const res = await productDetail.getProductDetail(productId);
+      // const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -59,13 +63,24 @@ class DummyProductDetail extends Component {
   };
 
   onChangeVariant = selected => {
+    this.setState({
+      changed: 0
+    });
     if (selected.index === 1) {
+      let idWarna = this.state.variants[0].id;
+      let idUkuran = this.state.variants[1].id;
+      let ukranId = selected.value.id;
+      let warnaId = this.state.warnaId;
       this.setState({
         size: 0,
-        changed: 0
+        changed: 0,
+        ukranId: selected.value.id
       });
-      for (let i = 1; i < this.state.sku.length; i++) {
-        if (selected.value.id === this.state.sku[i].id) {
+      for (let i = 0; i < this.state.sku.length; i++) {
+        if (
+          idWarna +  warnaId +  idUkuran + ukranId ===
+          this.state.sku[i].id
+        ) {
           if (this.state.price_changed !== -1) {
             this.setState({
               productPrice: this.state.sku[i].price,
@@ -74,17 +89,27 @@ class DummyProductDetail extends Component {
           }
         }
       }
-    } else if (selected.index === 0) {
+    } else if (selected.index === 0) {   
+      let idWarna = this.state.variants[0].id;
+      let idUkuran = this.state.variants[1].id;
+      let warnaId = selected.value.id;
+      let ukranId = this.state.variants[1].values[0].id;
       this.setState({
         changed: 1,
         price_changed: 1,
-        productPrice: this.state.sku[0].price
+        productPrice: this.state.sku[0].price,
+        warnaId: selected.value.id,
+        ukranId: this.state.variants[1].values[0].id
       });
-      for (let i = 0; i < this.state.variants[0].values.length; i++) {
-        let values = this.state.variants[0].values[i];
-        if (selected.value.id === values.id) {
+      for (let i = 0; i < this.state.sku.length; i++) {
+        let sku_id = this.state.sku[i].id;      
+        if (
+          idWarna + warnaId + idUkuran  + ukranId ===
+          sku_id
+        ) {
           this.setState({
-            index: i
+            index: i,
+            productPrice: this.state.sku[i].price
           });
         }
       }
