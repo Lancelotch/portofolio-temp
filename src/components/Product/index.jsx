@@ -21,6 +21,7 @@ const Product = props => {
     <React.Fragment>
       <Card
         hoverable
+        bordered={true}
         style={cardStyle}
         cover={<img alt="example" src={urlImage} style={imageStyle}/>}
       >
@@ -29,5 +30,7 @@ const Product = props => {
     </React.Fragment>
   );
 };
+
+
 
 export default Product;

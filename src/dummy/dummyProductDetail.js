@@ -46,7 +46,7 @@ const dummyProductDetail = {
         "id": "0",
         "name": "warna",
         "values": [{
-            "id": "0",
+            "id": "22251",
             "name": "",
             "description": "Hitam",
             "image": {
@@ -56,7 +56,7 @@ const dummyProductDetail = {
             }
           },
           {
-            "id": "1",
+            "id": "22252",
             "name": "",
             "description": "Biru",
             "image": {
@@ -66,7 +66,7 @@ const dummyProductDetail = {
             }
           },
           {
-            "id": "2",
+            "id": "22253",
             "name": "hitam",
             "description": "hitam",
             "image": {
@@ -111,20 +111,6 @@ const dummyProductDetail = {
     ],
     "sku": [
       {
-        "id":"VARW01",
-        "price": 50000,
-        "stock": 100,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
-        "id":"32",
-        "price": 55000,
-        "stock": 100,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
         "id": "33",
         "price": 51000,
         "stock": 10,
@@ -144,12 +130,19 @@ const dummyProductDetail = {
         "stock": 54,
         "dimensi": 12,
         "weight": 0.005
+      },
+      {
+        "id":"36",
+        "price": 55000,
+        "stock": 100,
+        "dimensi": 12,
+        "weight": 0.005
       }
     ],
     "details": {
-      "category": "aaaaaaa",
-      "weight": 15,
-      "description": "aaaaa"
+      "category": "Sneaker",
+      "weight": 700,
+      "description": "Barang tersedia dan dirikim dari China lama pengiriman tergantung metode pengiriman yang anda pilih jadi sebelum anda membeli barang, harap memperhatikan detail metode pengiriman yang anda gunakan dan catat kira-kira batas waktu pengiriman yang telah diperkirakan, jangan sampai lamanya pengiriman dijadikan sebuah kesalahan penjual hanya karna pembeli tidak membaca informasi yang disediakan pada saat pembelian dengan seksama"
     }
   }
 
