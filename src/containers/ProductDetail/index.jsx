@@ -37,45 +37,35 @@ class DummyProductDetail extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try{
-      const response = await productDetail.getProductDetail(productId);
-      console.log('product')
-      console.log(response)
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
+      const itemProductDetail = {
+        productId: res.data.productId,
+        sku: res.data.sku,
+        variants: res.data.variants,
+        productTitle: res.data.name,
+        details: res.data.details,
+        size: 0,
+        productImages: res.data.images,
+        productSalePrice: res.data.price,
+        productPrice: res.data.price,
+        productDescriptions: res.data.description
+      };
       this.setState({
-        
-      })
+        ...itemProductDetail
+      }); 
     }catch(error){
       console.log(error);     
     }
 }
 
-  // productDetail = () => {
-  //   const res = dummyProductDetail;
-  //   const productDetail = {
-  //     productId: res.data.productId,
-  //     sku: res.data.sku,
-  //     variants: res.data.variants,
-  //     productTitle: res.data.name,
-  //     details: res.data.details,
-  //     size: 0,
-  //     productImages: res.data.images,
-  //     productSalePrice: res.data.price,
-  //     productPrice: res.data.price,
-  //     productDescriptions: res.data.description
-  //   };
-  //   this.setState({
-  //     ...productDetail
-  //   }); 
-  // };
-
-  onChangeVariant = selected => {
-    this.setState({
-      changed: 0
-    });
-    if (selected.index === 1) {
-      this.setState({ 
-        size: 0,
-        changed: 0
-      });
+  slideVariantColorSku = selected => {
+    let colorVariant = this.state.variants.map(variant=>variant.values.id)
+      if (selected.value.id === colorVariant) {
+        this.setState({
+          index: colorVariant
+        });
+      }   
       for (let i = 1; i<this.state.sku.length; i++) {
         if (selected.value.id === this.state.sku[i].id) {
           if (this.state.price_changed !== -1) {
@@ -86,22 +76,24 @@ class DummyProductDetail extends Component {
           }
         }
       }
-    } else if (selected.index === 0) {
-      this.setState({
-        changed: 1,
-        price_changed: 1,
-        productPrice: this.state.sku[0].price
-      });
-      for (let i = 0; i <this.state.variants[0].values.length; i++) {
-        let values = this.state.variants[0].values[i]
-        if (selected.value.id === values.id) {
-          this.setState({
-            index: i
-          });
-        }
+    };
+  
+    onChangeVariant = selected => {
+      if (selected.index === 1) {
+        this.setState({ 
+          size: 0,
+          changed: 0
+        });
+        this.slideVariantColorSku(selected)
+      } else if (selected.index === 0) {
+        this.setState({
+          changed: 1,
+          price_changed: 1,
+          productPrice: this.state.sku[0].price
+        });
+        this.slideVariantColorSku(selected)
       }
-    }
-  };
+    };
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;

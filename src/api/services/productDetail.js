@@ -11,7 +11,6 @@ const getProductDetail = (productId) => {
                 url: PATH_PRODUCT.PRODUCT+productId
             })
             .then(response => {
-                console.log(response)
                 resolve(response.data)
             })
             .catch(error => {

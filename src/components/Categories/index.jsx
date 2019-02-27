@@ -23,10 +23,9 @@ class Categories extends Component {
       try{
         const categoryList = await category.categoryFeature();
         this.setState({
-            categoryList: categoryList,
+            categoryList: categoryList.data,
             isCategoryLoaded: true
         })
-        // console.log(categoryList)
       }catch(error){
         console.log(error);
         
