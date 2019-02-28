@@ -6,8 +6,7 @@ const listProductCategory = page => {
     dummyService
       .request({
         method: "GET",
-        //url: `${PATH_PRODUCT.PRODUCT}?limit=8&page=${page}`
-        url: `listProduct/dsad`
+        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}?limit=208&page=${page}`
       })
       .then(response => {
         resolve(response.data);
@@ -41,8 +40,7 @@ const listProductSearch = request => {
     dummyService
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${quote}?limit=60&page=${page}`
-        //url: `listProduct/dsad`
+        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${quote}?limit=20&page=${page}`
       })
       .then(response => {
         resolve(response.data);
