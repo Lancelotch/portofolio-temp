@@ -1,12 +1,14 @@
 import { PATH_PRODUCT } from "../path";
 import { dummyService } from "./httpClient";
 
-const listProductCategory = page => {
+const listProductCategory = request => {
+  const categoryId = request.categoryId;
+  const page = request.page;
   return new Promise((resolve, reject) => {
     dummyService
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}?limit=208&page=${page}`
+        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=208&page=${page}`
       })
       .then(response => {
         resolve(response.data);

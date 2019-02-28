@@ -14,6 +14,7 @@ class App extends Component {
           component={component}
         />
       );
+
     return (
       <Router history={history}>
         <Switch>
