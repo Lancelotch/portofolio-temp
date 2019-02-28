@@ -31,26 +31,6 @@ class Login extends Component {
     })
   }
 
-  // handleSubmit = e => {
-  //   e.preventDefault()
-  //   this.props.form.validateFields((err, values) => {
-  //     if (!err) {
-  //       console.log('Received values of form: ', values)
-  //       authentication
-  //         .login(values)
-  //         .then(response => {
-  //           console.log(response);
-  //           const token = response.data;
-  //           localStorage.setItem("token", token);
-  //           this.props.dispatchAuthenticated(token);
-  //           // this.props.onCancel();
-  //         })
-  //         .catch(error => {
-  //           console.log(error);
-  //         });
-  //     }
-  //   })
-  // }
 
   render () {
     console.log(this.props.token)

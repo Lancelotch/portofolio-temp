@@ -1,4 +1,4 @@
-import { mainService, dummyService } from './httpClient';
+import { mainService, dummyService, dummyServiceLogin } from './httpClient';
 import {PATH_PUBLIC} from '../path'
 
 const loginWithGoogle = request => {
@@ -22,7 +22,7 @@ const loginWithGoogle = request => {
 
 const loginWithForm = request => {
   return new Promise((resolve, reject) => {
-    mainService
+    dummyServiceLogin
       .request({
         method: "POST",
         url: PATH_PUBLIC.PUBLIC_USER_LOGIN,

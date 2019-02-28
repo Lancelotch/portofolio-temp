@@ -4,6 +4,7 @@ import Category from '../Category'
 import strings from '../../localization/localization'
 import './style.sass'
 import category from '../../api/services/category';
+import {Link} from 'react-router-dom'
 
 
 class Categories extends Component {
@@ -23,39 +24,45 @@ class Categories extends Component {
       try{
         const categoryList = await category.categoryFeature();
         this.setState({
-            categoryList: categoryList,
+            categoryList: categoryList.data,
             isCategoryLoaded: true
         })
-        // console.log(categoryList)
+        console.log(categoryList)
       }catch(error){
         console.log(error);
         
       }
   }
 
+  suggestedProduct = () => {
+    const {categoryList} = this.state
+    return(
+      <React.Fragment>
+        {categoryList[0].map()}
+      </React.Fragment>
+    )
+  }
+
+
   render () {
     const {categoryList, isCategoryLoaded } = this.state
     console.log(isCategoryLoaded)
-    const categoryFeature = 
+    console.log(categoryList)
+   
+    const categoryMenu = (
       <React.Fragment>
-          {categoryList.map(category => (
-            <Category
-              key={category.id} 
-              category={category}
-            />
-          ))}
-        </React.Fragment>
-    
-    const categoryMenu =  (
-      <Menu>
-        <Menu.Item key="0">
-          <a> </a>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <a></a>
-        </Menu.Item>
-      </Menu>
-    );
+        {categoryList.map(category => (
+          <Menu>
+            <Menu.Item key={category.id}>
+              <Link to={`/categoryList ${category.id}`}>
+              {category.name}
+              </Link>
+            </Menu.Item>
+          </Menu>
+        ))}
+      </React.Fragment>
+    )
+
 
     return (
       <React.Fragment>
@@ -64,7 +71,6 @@ class Categories extends Component {
             {strings.category} <Icon type='down' />
           </a>
         </Dropdown>
-        {categoryFeature}
       </React.Fragment>
     )
   }

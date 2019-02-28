@@ -24,7 +24,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    this.getUserDetail()
+    this.getCustomerDetail()
   }
 
   openModalLogin = () => {
@@ -44,35 +44,26 @@ class Header extends Component {
     this.props.logout()
   }
 
-  // getUserDetail = async() => {
-  //   try {
-  //     const name = await customer.customerDetail()
-  //     this.setState({
-  //       name: name
-  //     })
-  //     console.log(name)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
-  getUserDetail = () => {
-    customer
-      .customerDetail()
-      .then(response => {
-        const detailUser = response.data
-        this.setState({
-          name: detailUser.name
-        })
-        console.log(detailUser)
+  getCustomerDetail = async() => {
+    try {
+      const payload = await customer.customerDetail()
+      console.log(payload)
+      this.setState({
+        name: payload.data.name
       })
-      .catch(error => {
-        console.log(error)
-      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  showCustomerName = () => {
+    const name = this.state.name
+    return name.substr(0,8) + '...'
   }
 
   render () {
-    const {keyword, name} = this.state
+    const {keyword} = this.state
     const { isAuthenticated } = this.props
 
     const greeting = (
@@ -100,7 +91,7 @@ class Header extends Component {
             />
           </React.Fragment>
         ) : (
-          <React.Fragment><h4>{name}</h4></React.Fragment>
+          <React.Fragment><h4>{this.showCustomerName()}</h4></React.Fragment>
         )}
       </React.Fragment>
     )
@@ -141,7 +132,7 @@ class Header extends Component {
               <TopHeader />
             </div>
           </Col>
-          <div className='header'>
+          <div className='header'> 
             <Col md={5}>
               <a href='/'>
                 <img
