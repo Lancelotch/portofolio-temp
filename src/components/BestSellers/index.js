@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
-class Category extends Component {
+
+class BestSellers extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
     }
-    render() {
-        const {id, name} = this.props 
+    render() { 
         return ( 
             <div>
-                {name}
+                <p>BestSellers</p>
             </div>
          );
     }
 }
  
-export default Category;
+export default BestSellers;

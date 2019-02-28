@@ -1,5 +1,5 @@
 import {
-    mainService
+    mainService, dummyService
 } from './httpClient';
 import {
     PATH_CUSTOMER
@@ -7,7 +7,7 @@ import {
 
 const customerDetail = () => {
     return new Promise((resolve, reject) => {
-        mainService
+        dummyService
             .request({
                 method: 'GET',
                 url: PATH_CUSTOMER.CUSTOMER
