@@ -19,6 +19,22 @@ const listProductCategory = request => {
   });
 };
 
+const popularSearchProduct = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method:'GET',
+        url: PATH_PRODUCT.PRODUCT_BY_ID
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error.response)
+      })
+  })
+}
+
 const listProductSearch = request => {
   const quote = request.quote;
   const page = request.page;
@@ -39,7 +55,8 @@ const listProductSearch = request => {
 
 const product = {
   listProductCategory: listProductCategory,
-  listProductSearch: listProductSearch
+  listProductSearch: listProductSearch,
+  popularSearchProduct: popularSearchProduct
 };
 
 export default product;

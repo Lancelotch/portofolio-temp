@@ -30,10 +30,12 @@ export const PATH_CUSTOMER = {
 
 //PRODUCT
 const PRODUCT = "product";
+const PRODUCT_BY_ID = 'product/'
 const PRODUCT_CATEGORY = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
 export const PATH_PRODUCT = {
     PRODUCT: PRODUCT,
+    PRODUCT_BY_ID: PRODUCT_BY_ID,
     PRODUCT_CATEGORY: PRODUCT_CATEGORY,
     PRODUCT_SEARCH: PRODUCT_SEARCH
 }
@@ -45,7 +47,7 @@ export const PATH_INVOICE = {
 }
 
 //CART
-const CART_USER = "v1/cart/user/";
+const CART_USER = "cart/user/";
 export const PATH_CART = {
     CART_USER: CART_USER
 }
@@ -70,14 +72,17 @@ export const PATH_PAYMENT = {
     PAYMENT: PAYMENT
 }
 
-//CATEGORY
-const CATEGORY_FEATURE = "category/feature";
+//CATEGORY 
+const CATEGORY_FEATURE = "category";
 export const PATH_CATEGORY = {
-    CATEGORY_FEATURE: CATEGORY_FEATURE
+    CATEGORY_FEATURE: CATEGORY_FEATURE,
 }
 
 //HOME
 const HOME_SLIDER = "home/slider/";
+const HOME_BENEFIT = "home/benefit";
 export const PATH_HOME = {
-    HOME_SLIDER: HOME_SLIDER
+    HOME_SLIDER: HOME_SLIDER,
+    HOME_BENEFIT: HOME_BENEFIT
 }
+

@@ -1,7 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Row, Col, BackTop, Spin, Card } from "antd";
 import { connect } from "react-redux";
-import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
 
@@ -111,7 +110,6 @@ class SearchPage extends Component {
                 <Header />
                 <p>{categoryTextResult}</p>
                 {this.renderProducts()}
-                <Footer />
               </Col>
             </Row>
           </div>
