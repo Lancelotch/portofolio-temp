@@ -20,17 +20,17 @@ class CategoryPage extends Component {
       productList: [],
       hasMore: true,
       page: 0,
-      quote: this.props.match.params.quote,
+      categoryId: this.props.match.params.categoryId,
       isProductAvailable: false,
       loadingSkeleton: true
     };
   }
 
   getProductList = async () => {
-    const { productList, page, quote } = this.state;
+    const { productList, page, categoryId } = this.state;
     const request = {
       page: page,
-      quote: quote
+      categoryId: categoryId
     };
     try {
       const nextProduct = await product.listProductCategory(request);

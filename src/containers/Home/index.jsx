@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import "sass/style.sass";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class HomePage extends Component {
