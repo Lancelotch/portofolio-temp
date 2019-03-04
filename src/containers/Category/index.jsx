@@ -96,6 +96,7 @@ class CategoryPage extends Component {
   };
 
   render() {
+    const {match} = this.props;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       "limit",
@@ -107,7 +108,7 @@ class CategoryPage extends Component {
           <div className="container__first-item">
             <Row>
               <Col>
-                <Header />
+                <Header match={match}/>
                 <p>{categoryTextResult}</p>
                 {this.renderProducts()}
               </Col>
