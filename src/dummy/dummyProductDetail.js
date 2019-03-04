@@ -1,152 +1,200 @@
 const dummyProductDetail = {
-  "code": "200",
-  "message": "OK",
-  "data": {
-    "id": "String",
-    "name": "Sepatu Sneakers Naik Air Max 270 Series All Season",
-    "price": 100000,
-    "images": [{
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-    {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-   {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-    {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:26:00.739Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:23:14.630Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:28:26.150Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-    {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:26:55.768Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:23:55.755Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:28:56.353Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-    {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:26.070Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:24:33.064Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:26.402Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    },
-    {
-      "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-      "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-    }
-    ],
-    "variants": [
-      {
-        "id": "0",
-        "name": "warna",
-        "values": [{
-            "id": "22251",
-            "name": "",
-            "description": "Hitam",
-            "image": {
-              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+    "code": "200",
+    "message": "OK",
+    "data": {
+        "id": "5c74f0fb6301794b06b78b1a",
+        "name": "Sepatu Nike Snekkers286000000",
+        "price": 520000,
+        "images": [
+            {
+                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "isDefault": true
+            },
+            {
+                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "isDefault": false
+            },
+            {
+                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:26:55.768Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:23:55.755Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:28:56.353Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "isDefault": false
+            },
+            {
+                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "isDefault": false
+            },
+            {
+                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "isDefault": false
             }
-          },
-          {
-            "id": "22252",
-            "name": "",
-            "description": "Biru",
-            "image": {
-              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+        ],
+        "variants": [
+            {
+                "id": "001",
+                "name": "warna",
+                "values": [
+                    {
+                        "id": "01",
+                        "name": "biru",
+                        "description": "biru",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    },
+                    {
+                        "id": "03",
+                        "name": "oren",
+                        "description": "oren",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    },
+                    {
+                        "id": "02",
+                        "name": "hitam",
+                        "description": "hitam",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "002",
+                "name": "ukuran",
+                "values": [
+                    {
+                        "id": "01",
+                        "name": "23",
+                        "description": "ukuran 23"
+                    },
+                    {
+                        "id": "02",
+                        "name": "24",
+                        "description": "ukuran 24"
+                    },
+                    {
+                        "id": "03",
+                        "name": "25",
+                        "description": "ukuran 25"
+                    },
+                    {
+                        "id": "04",
+                        "name": "26",
+                        "description": "ukuran 26"
+                    }
+                ]
             }
-          },
-          {
-            "id": "22253",
-            "name": "hitam",
-            "description": "hitam",
-            "image": {
-              "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-              "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+        ],
+        "sku": [
+            {
+                "id": "0010100201",
+                "price": 510000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010100202",
+                "price": 520000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010100203",
+                "price": 530000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010100204",
+                "price": 540000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010200201",
+                "price": 550000,
+                "stock": 8,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010200202",
+                "price": 560000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010200203",
+                "price": 570000,
+                "stock": 12,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010200204",
+                "price": 580000,
+                "stock": 14,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010300201",
+                "price": 590000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010300202",
+                "price": 600000,
+                "stock": 13,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010300203",
+                "price": 610000,
+                "stock": 15,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010300204",
+                "price": 615000,
+                "stock": 10,
+                "dimension": 8000,
+                "weight": 600
             }
-          }
-        ]},
-      {
-        "id": "1",
-        "name": "ukuran",
-        "values": 
-        [
-          {
-            "id": "33",
-            "name": "S",
-            "description":""        
-          },
-          {
-            "id": "34",
-            "name": "M",
-            "description": ""
-          },
-          {
-            "id": "35",
-            "name": "L",
-            "description": ""      
-          },
-          {
-            "id": "36",
-            "name": "XL",
-            "description": "" 
-          },
-          {
-            "id": "37",
-            "name": "XLL",
-            "description": ""                
-          }
-        ]
-      }
-    ],
-    "sku": [
-      {
-        "id": "33",
-        "price": 51000,
-        "stock": 10,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
-        "id": "34",
-        "price": 52000,
-        "stock": 14,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
-        "id": "35",
-        "price": 54000,
-        "stock": 54,
-        "dimensi": 12,
-        "weight": 0.005
-      },
-      {
-        "id":"36",
-        "price": 55000,
-        "stock": 100,
-        "dimensi": 12,
-        "weight": 0.005
-      }
-    ],
-    "details": {
-      "category": "Sneaker",
-      "weight": 700,
-      "description": "Barang tersedia dan dirikim dari China lama pengiriman tergantung metode pengiriman yang anda pilih jadi sebelum anda membeli barang, harap memperhatikan detail metode pengiriman yang anda gunakan dan catat kira-kira batas waktu pengiriman yang telah diperkirakan, jangan sampai lamanya pengiriman dijadikan sebuah kesalahan penjual hanya karna pembeli tidak membaca informasi yang disediakan pada saat pembelian dengan seksama"
-    }
+        ],
+        "details": {
+            "category": "Fashion Pria",
+            "weight": 600,
+            "description": "Sepatu Snakers "
+        }
+    },
+    "responseTime": 2
   }
-
-}
 
 
 export default dummyProductDetail

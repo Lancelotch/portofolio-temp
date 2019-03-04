@@ -40,8 +40,8 @@ class DummyProductDetail extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -66,9 +66,10 @@ class DummyProductDetail extends Component {
     this.setState({
       changed: 0
     });
+    const {variants,sku,productImages} = this.state
     if (selected.index === 1) {
-      let idWarna = this.state.variants[0].id;
-      let idUkuran = this.state.variants[1].id;
+      let idWarna = variants[0].id;
+      let idUkuran = variants[1].id;
       let ukranId = selected.value.id;
       let warnaId = this.state.warnaId;
       this.setState({
@@ -76,40 +77,47 @@ class DummyProductDetail extends Component {
         changed: 0,
         ukranId: selected.value.id
       });
-      for (let i = 0; i < this.state.sku.length; i++) {
+      for (let i = 0; i <sku.length; i++) {
         if (
           idWarna +  warnaId +  idUkuran + ukranId ===
-          this.state.sku[i].id
+          sku[i].id
         ) {
           if (this.state.price_changed !== -1) {
             this.setState({
-              productPrice: this.state.sku[i].price,
+              productPrice: sku[i].price,
               size: i
             });
           }
         }
       }
     } else if (selected.index === 0) {   
-      let idWarna = this.state.variants[0].id;
-      let idUkuran = this.state.variants[1].id;
+      let idWarna = variants[0].id;
+      let idUkuran = variants[1].id;
       let warnaId = selected.value.id;
-      let ukranId = this.state.variants[1].values[0].id;
+      let ukranId = variants[1].values[0].id;
       this.setState({
         changed: 1,
         price_changed: 1,
-        productPrice: this.state.sku[0].price,
+        productPrice: sku[0].price,
         warnaId: selected.value.id,
-        ukranId: this.state.variants[1].values[0].id
+        ukranId: variants[1].values[0].id
       });
-      for (let i = 0; i < this.state.sku.length; i++) {
-        let sku_id = this.state.sku[i].id;      
-        if (
-          idWarna + warnaId + idUkuran  + ukranId ===
-          sku_id
-        ) {
+      for(let j = 0; j <variants[0].values.length; j++) {
+        if(variants[0].values[j].id == warnaId) {
+          for(let i = 0; i <productImages.length; i++) {
+            if(productImages[i].large === variants[0].values[j].image.large) {
+              this.setState({
+                index: i
+              });
+            }
+          }
+        }
+      }
+      for (let i = 0; i <sku.length; i++) {
+        let sku_id = sku[i].id;      
+        if (idWarna + warnaId + idUkuran  + ukranId === sku_id) {
           this.setState({
-            index: i,
-            productPrice: this.state.sku[i].price
+            productPrice: sku[i].price
           });
         }
       }
