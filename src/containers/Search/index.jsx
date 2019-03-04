@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component, Suspense, Fragment } from "react";
 import { Row, Col, BackTop, Spin, Card } from "antd";
 import { connect } from "react-redux";
 import Header from "components/Header";
@@ -11,8 +11,9 @@ import product from "../../api/services/product";
 import "./style.sass";
 import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
 import Spinner from "../../components/Spinner";
+import getParamUrl from "../../library/getParamUrl";
 
-const Products = React.lazy(() => import('../../components/Products'));
+const Products = React.lazy(() => import("../../components/Products"));
 
 class SearchPage extends Component {
   constructor(props) {
@@ -21,22 +22,36 @@ class SearchPage extends Component {
       productList: [],
       hasMore: true,
       page: 0,
-      quote: this.props.match.params.quote,
       isProductAvailable: false,
-      loadingSkeleton: true
+      loadingSkeleton: true,
+      query: "",
+      isQueryAvailable : true,
+      limit: 20,
+      direction: "asc",
+      sortBy: ""
     };
   }
 
+  componentDidMount() {
+    this.getProductList();
+  }
+
   getProductList = async () => {
-    const { productList, page, quote } = this.state;
+    const { productList, page, limit, sortBy, direction } = this.state;
+    const { location } = this.props;
+    const { query } = getParamUrl(location);
+    this.setState({
+      query: query
+    });
     const request = {
       page: page,
-      quote: quote
+      limit: limit,
+      sortBy: sortBy,
+      direction: direction,
+      query: query
     };
     try {
       const nextProduct = await product.listProductSearch(request);
-      console.log(nextProduct);
-      
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
@@ -45,17 +60,16 @@ class SearchPage extends Component {
       });
     } catch (error) {
       console.log(error);
+      if(error.status === 404){
+        this.setState({
+          isQueryAvailable : false
+        })
+      }
     }
   };
 
-  componentDidMount() {
-    this.getProductList();
-  }
-
   fetchMoreData = () => {
     const { productList, limit, hasMore } = this.state;
-    console.log(productList.length, hasMore, limit);
-
     if (productList.length >= limit) {
       this.setState({ hasMore: false });
       return;
@@ -65,25 +79,31 @@ class SearchPage extends Component {
   };
 
   infiniteScroll = () => {
-    const { productList, hasMore } = this.state;
+    const { productList, hasMore, query, limit } = this.state;
+    const categoryTextResult = strings.formatString(
+      strings.category_text_result,
+      limit,
+      <b>{query}</b>
+    );
     return (
-      <InfiniteScroll
-        dataLength={productList.length}
-        next={this.fetchMoreData}
-        hasMore={hasMore}
-        loader={
-          <Spinner size="large" />
-        }
-        endMessage={
-          <div>
-            <BackTop />
-          </div>
-        }
-      >
-        <Suspense fallback={<SkeletonProduct count={20} />}>
-          <Products productList={productList} />
-        </Suspense>
-      </InfiniteScroll>
+      <Fragment>
+        <p>{categoryTextResult}</p>
+        <InfiniteScroll
+          dataLength={productList.length}
+          next={this.fetchMoreData}
+          hasMore={hasMore}
+          loader={<Spinner size="large" />}
+          endMessage={
+            <div>
+              <BackTop />
+            </div>
+          }
+        >
+          <Suspense fallback={<SkeletonProduct count={20} />}>
+            <Products productList={productList} />
+          </Suspense>
+        </InfiniteScroll>
+      </Fragment>
     );
   };
 
@@ -95,21 +115,28 @@ class SearchPage extends Component {
     );
   };
 
+  renderNotFound = () => {
+    const {query} = this.state;
+    return (
+      <p>Oooopppss... <b>"{query}"</b> tidak ditemukan</p>
+    )
+  }
+
+  showResultSearch = (isQueryAvailable) => (
+    isQueryAvailable === true ? this.renderProducts() : this.renderNotFound()
+  )
+
   render() {
-    const categoryTextResult = strings.formatString(
-      strings.category_text_result,
-      "limit",
-      "sepatu"
-    );
+    const {match} = this.props;
+    const {isQueryAvailable} = this.state;
     return (
       <React.Fragment>
         <div className="container">
           <div className="container__first-item">
             <Row>
               <Col>
-                <Header />
-                <p>{categoryTextResult}</p>
-                {this.renderProducts()}
+                <Header match={match}/>
+                  {this.showResultSearch(isQueryAvailable)}
               </Col>
             </Row>
           </div>

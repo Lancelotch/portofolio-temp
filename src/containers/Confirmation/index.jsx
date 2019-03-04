@@ -20,9 +20,10 @@ class ConfirmationEmail extends Component {
   }
 
   render() {
+    const {match} = this.props;
     return (
       <React.Fragment>
-        <Header />
+        <Header match={match}/>
         <div className="container">
           <div className="container__first-item">
             <Row>

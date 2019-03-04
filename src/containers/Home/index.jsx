@@ -50,13 +50,13 @@ class HomePage extends Component {
 
   render () {
     const { benefit, popularProduct } = this.state
-    
+    const {match} = this.props;
     
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
-            <Header />
+            <Header match={match}/>
             <SliderHome />
             <Row type='flex' justify='center'>
                 <Benefit benefit={benefit} />
