@@ -36,19 +36,19 @@ const popularSearchProduct = request => {
 }
 
 const listProductSearch = request => {
-  const quote = request.quote;
+  const query = request.query;
   const page = request.page;
   return new Promise((resolve, reject) => {
     dummyService
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${quote}?limit=20&page=${page}`
+        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${query}?limit=20&page=${page}`
       })
       .then(response => {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error.response);
+        reject(error.response.data);
       });
   });
 };
