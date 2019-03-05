@@ -8,7 +8,7 @@ const getProductDetail = (productId) => {
         dummyService
             .request({
                 method: 'GET',
-                url: PATH_PRODUCT.PRODUCT+productId
+                url: PATH_PRODUCT.PRODUCT+'/'+productId
             })
             .then(response => {
                 resolve(response.data)
