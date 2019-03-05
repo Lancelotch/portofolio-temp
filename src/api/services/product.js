@@ -38,11 +38,13 @@ const popularSearchProduct = request => {
 const listProductSearch = request => {
   const query = request.query;
   const page = request.page;
+  const sortBy = request.sortBy;
+  const direction = request.direction;
   return new Promise((resolve, reject) => {
     dummyService
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${query}?limit=20&page=${page}`
+        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${query}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
       })
       .then(response => {
         resolve(response.data);
