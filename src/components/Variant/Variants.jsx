@@ -16,7 +16,6 @@ class Variants extends Component {
       variantSelected: []
     };
   }
-
   onChangeVariant = selected => {
     this.setState(
     { 

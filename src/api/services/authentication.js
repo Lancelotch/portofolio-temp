@@ -37,6 +37,24 @@ const loginWithForm = request => {
   });
 };
 
+const registerWithForm = request => {
+  return new Promise((resolve,reject)=>{
+    dummyServiceLogin
+    .request({
+     method: "POST",
+     url: PATH_PUBLIC.PUBLIC_USER_REGISTER,
+     data: request
+    })
+    .then(response=> {
+      resolve(response.data);
+    })
+    .catch(error=>{
+      reject(error.response);
+    });
+  });
+};
+
+
 const activatingUser = request =>{
   return new Promise((resolve, reject) => {
     dummyService
@@ -56,6 +74,7 @@ const activatingUser = request =>{
 
 const authentication = {
   loginWithForm: loginWithForm,
+  registerWithForm: registerWithForm,
   loginWithGoogle:  loginWithGoogle,
   activatingUser: activatingUser
 }

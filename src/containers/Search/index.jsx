@@ -12,6 +12,7 @@ import "./style.sass";
 import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
 import Spinner from "../../components/Spinner";
 import getParamUrl from "../../library/getParamUrl";
+import SortListProduct from "../../components/SortListProduct/";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
@@ -27,8 +28,9 @@ class SearchPage extends Component {
       query: "",
       isQueryAvailable : true,
       limit: 20,
-      direction: "asc",
-      sortBy: ""
+      direction: "desc",
+      sortBy: "createdDate",
+      element: 0
     };
   }
 
@@ -37,7 +39,7 @@ class SearchPage extends Component {
   }
 
   getProductList = async () => {
-    const { productList, page, limit, sortBy, direction } = this.state;
+    const { productList, page, limit,sortBy, direction } = this.state;
     const { location } = this.props;
     const { query } = getParamUrl(location);
     this.setState({
@@ -52,10 +54,12 @@ class SearchPage extends Component {
     };
     try {
       const nextProduct = await product.listProductSearch(request);
+      console.log(nextProduct);
+      
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
-        limit: nextProduct.element,
+        element: nextProduct.element,
         isProductAvailable: true
       });
     } catch (error) {
@@ -69,8 +73,10 @@ class SearchPage extends Component {
   };
 
   fetchMoreData = () => {
-    const { productList, limit, hasMore } = this.state;
-    if (productList.length >= limit) {
+    const { productList, element, hasMore } = this.state;
+    console.log('element', element);
+    
+    if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
     } else {
@@ -78,16 +84,31 @@ class SearchPage extends Component {
     }
   };
 
+  onChangeSort = (sortValue)=> {
+    const arraySort = sortValue.split("|");
+    const sortBy = arraySort[0];
+    const direction = arraySort[1];
+    console.log(sortBy);
+    this.setState({
+      productList : [],
+      page: 0,
+      sortBy: sortBy,
+      direction: direction,
+      hasMore: true
+    },()=>this.getProductList())
+  }
+
   infiniteScroll = () => {
-    const { productList, hasMore, query, limit } = this.state;
+    const { productList, hasMore, query, element } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
-      limit,
+      element,
       <b>{query}</b>
     );
     return (
       <Fragment>
-        <p>{categoryTextResult}</p>
+        <p>{categoryTextResult} </p>
+        <SortListProduct onChange={this.onChangeSort}/>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}

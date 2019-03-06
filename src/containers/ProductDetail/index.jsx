@@ -35,7 +35,7 @@ class DummyProductDetail extends Component {
 
   componentDidMount() {
     this.productDetail();
-  }
+  };
 
   productDetail = async () => {
     const productId = this.props.match.params.productId;
@@ -62,7 +62,7 @@ class DummyProductDetail extends Component {
     }
   };
 
-  onChangeVariant = selected => {
+  selectVariant = selected => {
     this.setState({
       changed: 0
     });
@@ -70,19 +70,19 @@ class DummyProductDetail extends Component {
     if (selected.index === 1) {
       let idWarna = variants[0].id;
       let idUkuran = variants[1].id;
-      let ukranId = selected.value.id;
       let warnaId = this.state.warnaId;
+      let ukranId = selected.value.id;
       this.setState({
         size: 0,
         changed: 0,
         ukranId: selected.value.id
       });
-      for (let i = 0; i <sku.length; i++) {
+      for (let i = 0; i <sku.length;i++) {
         if (
-          idWarna +  warnaId +  idUkuran + ukranId ===
+          idWarna+warnaId+idUkuran+ukranId ===
           sku[i].id
         ) {
-          if (this.state.price_changed !== -1) {
+          if(this.state.price_changed !== -1) {
             this.setState({
               productPrice: sku[i].price,
               size: i
@@ -102,7 +102,7 @@ class DummyProductDetail extends Component {
         warnaId: selected.value.id,
         ukranId: variants[1].values[0].id
       });
-      for(let j = 0; j <variants[0].values.length; j++) {
+      for(let j = 0; j<variants[0].values.length;j++) {
         if(variants[0].values[j].id == warnaId) {
           for(let i = 0; i <productImages.length; i++) {
             if(productImages[i].large === variants[0].values[j].image.large) {
@@ -115,7 +115,7 @@ class DummyProductDetail extends Component {
       }
       for (let i = 0; i <sku.length; i++) {
         let sku_id = sku[i].id;      
-        if (idWarna + warnaId + idUkuran  + ukranId === sku_id) {
+        if (idWarna+warnaId+idUkuran+ukranId === sku_id) {
           this.setState({
             productPrice: sku[i].price
           });
@@ -123,6 +123,10 @@ class DummyProductDetail extends Component {
       }
     }
   };
+
+  onChangeVariant = selected => {
+    this.selectVariant(selected)
+   };
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;

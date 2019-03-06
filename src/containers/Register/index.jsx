@@ -9,8 +9,9 @@ import logoMonggoPesen from '../../assets/img/logo_monggopesen.png';
 import strings from '../../localization/localization';
 import imageLogin from '../../assets/img/login_pict.png';
 import { Redirect } from 'react-router-dom';
-import { registerWithGoogle } from '../../store/actions/authentication';
+import { registerWithGoogle,registerWithForm } from '../../store/actions/authentication';
 import FrontImage from '../../components/Image/FrontImage';
+
 
 
 const FormItem = Form.Item;
@@ -33,37 +34,21 @@ class RegisterPage extends Component {
     this.setState({
       status: null
     });
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err,values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
-        // authentication
-        //   .register(values)
-        //   .then(response => {
-        //     console.log(response);
-        //     this.setState({
-        //       status: {
-        //         success: true,
-        //         message: strings.register_sucsess
-        //       }
-        //     });
-        //   })
+        this.props.registerWithForm(values)
+          const message = this.props.message.data.message
+          this.setState({
+            message 
+          })   
+      } 
 
-        //   .catch(error => {
-        //     console.log(error);
-        //     this.setState({
-        //       status: {
-        //         success: false,
-        //         message: error.data.message
-        //       }
-        //     })
-        //   })
-      }
     });
   };
 
   render () {
     const { getFieldDecorator } = this.props.form
-    const { isAuthenticated } = this.state
+    const { isAuthenticated,message,success } = this.state
 
     if (isAuthenticated === true) {
       return <Redirect to="/" />;
@@ -167,16 +152,13 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  {this.state.status != null && (
+                {message && (
                     <Alert
-                      type={this.state.status.success ? 'success' : 'error'}
+                      type={success ? "success" : "error"}
                       message={
                         <span>
-                          <b>
-                            {this.state.status.success ? 'Berhasil' : 'Gagal'}
-                          </b>{' '}
-                          &nbsp;
-                          {this.state.status.message}
+                          <b>{success ? "Berhasil" : "Gagal"}</b> &nbsp;
+                          {message}
                         </span>
                       }
                       showIcon
@@ -238,10 +220,12 @@ class RegisterPage extends Component {
 const RegisterForm = Form.create({})(RegisterPage);
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  isAuthenticated: state.authentication.isAuthenticated,
+  token: state.authentication.token,
+  message: state.authentication.message
 })
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle }
+  { registerWithGoogle,registerWithForm }
 )(RegisterForm)

@@ -7,6 +7,12 @@ const activationUser = authData => {
     }
 }
 
+const registerWithForm = authData => {
+    return{
+        type: TYPE.REGISTER_WITH_FORM,
+        payload: authData
+    }
+}
 const loginWithForm = authData => {
     return{
         type : TYPE.LOGIN_WITH_FORM,
@@ -38,6 +44,7 @@ const dispatchType = {
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
     loginWithForm : loginWithForm,
+    registerWithForm: registerWithForm,
     logout: logout,
     products: products
 }
