@@ -111,7 +111,7 @@ class DummyProductDetail extends Component {
     let { warnaId, ukranId } = "01";
     let idUkuran = "002";
     let idWarna = "001";
-    let lowestPrice = 9999999999; 
+    let lowestPrice = 9999999999;
     let i = 0;
     res.data.sku.map(variantLowestPrice => {
       if (variantLowestPrice.price < lowestPrice) {
@@ -264,4 +264,3 @@ function idWarnaIdUkuran(variants) {
   let idUkuran = variants[1].id;
   return { idWarna, idUkuran };
 }
-
