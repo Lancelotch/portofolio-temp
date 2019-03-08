@@ -1,7 +1,7 @@
 const dummyProductDetail = {
     "code": "200",
     "message": "OK",
-    "data": {
+    "data": { 
         "id": "5c74f0fb6301794b06b78b1a",
         "name": "Sepatu Nike Snekkers286000000",
         "price": 520000,
@@ -109,7 +109,7 @@ const dummyProductDetail = {
         "sku": [
             {
                 "id": "0010100201",
-                "price": 510000,
+                "price": 550000,
                 "stock": 10,
                 "dimension": 8000,
                 "weight": 600
@@ -123,7 +123,7 @@ const dummyProductDetail = {
             },
             {
                 "id": "0010100203",
-                "price": 530000,
+                "price": 470000,
                 "stock": 10,
                 "dimension": 8000,
                 "weight": 600
@@ -137,7 +137,7 @@ const dummyProductDetail = {
             },
             {
                 "id": "0010200201",
-                "price": 550000,
+                "price": 480000,
                 "stock": 8,
                 "dimension": 8000,
                 "weight": 600
