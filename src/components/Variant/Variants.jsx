@@ -6,27 +6,11 @@ import Variant from ".";
 class Variants extends Component {
   constructor(props) {
     super(props);
-    let selected = [];
-    let i = 0;
-    if(this.props.index === 0) {
-      for(i=0;i<this.props.values.length;i++){
-        if(this.props.values[i].id === this.props.warnaId) {
-          selected = this.props.values[i];
-        }
-      }
-    }
-    if(this.props.index === 1) {
-      for(i=0;i<this.props.values.length;i++){
-        if(this.props.values[i].id === this.props.ukranId) {
-          selected = this.props.values[i];
-        }
-      }
-    }
+    let selected = this.variantDefault();
     this.state = {
       index: this.props.index,
       name: this.props.name,
       values: this.props.values,
-      description : this.props.description,
       id: this.props.id,
       changed: this.props.changed,
       warnaId: this.props.warnaId,
@@ -51,8 +35,9 @@ class Variants extends Component {
       }
     );
   };
+
   loopVariantProduct = () => {
-    if(this.state.index===1 && this.state.values.length > 0) {    
+    if(this.state.index === 1 && this.state.values.length > 0) {    
         return this.state.values.map((value,index) => (
           <Variant
             key={value.id}
@@ -60,7 +45,6 @@ class Variants extends Component {
             image={value.image}
             name={value.name}
             onChangeVariant={this.onChangeVariant}
-            description={value.description}
             selected={
               ((this.state.variantSelected.id === value.id && 
                 this.props.changed === 0 ) || 
@@ -71,8 +55,7 @@ class Variants extends Component {
           />
         ));
       
-    }
-    else {
+    } else {
       return this.state.values.map(value => (
         <Variant
           key={value.id}
@@ -89,6 +72,26 @@ class Variants extends Component {
         />
       ));
         }
+  };
+
+  variantDefault() {
+    let selected = [];
+    let i = 0;
+    if (this.props.index === 0) {  
+      for (i = 0; i < this.props.values.length; i++) {
+        if (this.props.values[i].id === this.props.warnaId) {
+          selected = this.props.values[i];
+        }
+      }
+    }
+    if (this.props.index === 1) {
+      for (i = 0; i < this.props.values.length; i++) {
+        if (this.props.values[i].id === this.props.ukranId) {
+          selected = this.props.values[i];
+        }
+      }
+    }
+    return selected;
   };
 
   render() {

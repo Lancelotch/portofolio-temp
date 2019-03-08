@@ -14,12 +14,7 @@ class DummyProductDetail extends Component {
   constructor(props) {
     super(props);
     const res = dummyProductDetail;
-    let warnaId = "01";
-    let ukranId = "01";
-    let idUkuran = "002";
-    let idWarna = "001";
-    let lowestPrice = 9999999999;
-    let i = 0;
+    let { lowestPrice, idUkuran, ukranId, idWarna, warnaId, i } = this.idVariantChange();
     res.data.sku.map(variant1 => {
       if (variant1.price < lowestPrice) {
         lowestPrice = variant1.price;
@@ -52,6 +47,7 @@ class DummyProductDetail extends Component {
       variants: [],
       details: [],
       productImages: [],
+      lowestPrice : 0,
       sku: [],
       warnaId: warnaId,
       ukranId: ukranId,
@@ -84,12 +80,7 @@ class DummyProductDetail extends Component {
       this.setState({
         ...itemProductDetail
       });
-      let warnaId = "01";
-      let ukranId = "01";
-      let idUkuran = "002";
-      let idWarna = "001";
-      let lowestPrice = 9999999999;
-      let i = 0;
+      let { lowestPrice, idUkuran, ukranId, idWarna, warnaId, i } = this.idVariantChange();
       res.data.sku.map(variant1 => {
         if (variant1.price < lowestPrice) {
           lowestPrice = variant1.price;
@@ -108,33 +99,12 @@ class DummyProductDetail extends Component {
         }
         i = i + 1;
       });
-      console.log(ukranId);
-      console.log(warnaId);
-      let variants = res.data.variants;
-      let productImages = res.data.images;
-      for (let j = 0; j < variants[0].values.length; j++) {
-        if (variants[0].values[j].id === warnaId) {
-          for (let i = 0; i < productImages.length; i++) {
-            if (productImages[i].large === variants[0].values[j].image.large) {
-              this.setState({
-                index: i
-              });
-            }
-          }
-        }
-      }
-      for (let j = 0; j < variants[1].values.length; j++) {
-        if (variants[1].values[j].id === ukranId) {
-          this.setState({
-            size: j
-          });
-        }
-      }
       this.setState({
         warnaId: warnaId,
         ukranId: ukranId,
         productPrice: lowestPrice
       });
+
     } catch (error) {
       console.log(error);
     }
@@ -146,62 +116,15 @@ class DummyProductDetail extends Component {
     });
     const { variants, sku, productImages } = this.state;
     if (selected.index === 1) {
-      let idWarna = variants[0].id;
-      let idUkuran = variants[1].id;
-      let warnaId = this.state.warnaId;
-      let ukranId = selected.value.id;
-      this.setState({
-        size: 0,
-        changed: 0,
-        ukranId: selected.value.id
-      });
-      for (let i = 0; i < sku.length; i++) {
-        if (idWarna + warnaId + idUkuran + ukranId === sku[i].id) {
-          //if (this.state.price_changed !== -1) {
-            this.setState({
-              productPrice: sku[i].price,
-              size: i
-            });
-          //}
-        }
-      }
+      this.sizeVariant(variants, selected, sku);
     } else if (selected.index === 0) {
-      let idWarna = variants[0].id;
-      let idUkuran = variants[1].id;
-      let warnaId = selected.value.id;
-      let ukranId = variants[1].values[0].id;
-      this.setState({
-        changed: 1,
-        price_changed: 1,
-        productPrice: sku[0].price,
-        warnaId: selected.value.id,
-        ukranId: variants[1].values[0].id
-      });
-      for (let j = 0; j < variants[0].values.length; j++) {
-        if (variants[0].values[j].id == warnaId) {
-          for (let i = 0; i < productImages.length; i++) {
-            if (productImages[i].large === variants[0].values[j].image.large) {
-              this.setState({
-                index: i
-              });
-            }
-          }
-        }
-      }
-      for (let i = 0; i < sku.length; i++) {
-        let sku_id = sku[i].id;
-        if (idWarna + warnaId + idUkuran + ukranId === sku_id) {
-          this.setState({
-            productPrice: sku[i].price
-          });
-        }
-      }
+      this.colorVariant(variants, selected, sku, productImages);
     }
-  };
+  }
 
   onChangeVariant = selected => {
     this.selectVariant(selected);
-  };
+  }
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
@@ -221,7 +144,72 @@ class DummyProductDetail extends Component {
     this.setState({
       quantity: quantity
     });
-  };
+  }
+
+  idVariantChange() {
+    let warnaId = "01";
+    let ukranId = "01";
+    let idUkuran = "002";
+    let idWarna = "001";
+    let lowestPrice = 9999999999;
+    let i = 0;
+    return { lowestPrice, idUkuran, ukranId, idWarna, warnaId, i };
+  }
+
+  colorVariant(variants, selected, sku, productImages) {
+    let idWarna = variants[0].id;
+    let idUkuran = variants[1].id;
+    let warnaId = selected.value.id;
+    let ukranId = variants[1].values[0].id;
+    this.setState({
+      changed: 1,
+      price_changed: 1,
+      productPrice: sku[0].price,
+      warnaId: selected.value.id,
+      ukranId: variants[1].values[0].id
+    });
+    for (let j = 0; j < variants[0].values.length; j++) {
+      if (variants[0].values[j].id == warnaId) {
+        for (let i = 0; i < productImages.length; i++) {
+          if (productImages[i].large === variants[0].values[j].image.large) {
+            this.setState({
+              index: i
+            });
+          }
+        }
+      }
+    }
+    for (let i = 0; i < sku.length; i++) {
+      let sku_id = sku[i].id;
+      if (idWarna + warnaId + idUkuran + ukranId === sku_id) {
+        this.setState({
+          productPrice: sku[i].price
+        });
+      }
+    }
+  }
+
+  sizeVariant(variants, selected, sku) {
+    let idWarna = variants[0].id;
+    let idUkuran = variants[1].id;
+    let warnaId = this.state.warnaId;
+    let ukranId = selected.value.id;
+    this.setState({
+      size: 0,
+      changed: 0,
+      ukranId: selected.value.id
+    });
+    for (let i = 0; i < sku.length; i++) {
+      if (idWarna + warnaId + idUkuran + ukranId === sku[i].id) {
+        //if (this.state.price_changed !== -1) {
+        this.setState({
+          productPrice: sku[i].price,
+          size: i
+        });
+        //}
+      }
+    }
+  }
 
   render() {
     const { match } = this.props;
