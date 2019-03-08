@@ -160,6 +160,7 @@ class DummyProductDetail extends Component {
                       return (
                         <Variants
                           key={variant.id}
+
                           index={index}
                           name={variant.name}
                           values={variant.values}

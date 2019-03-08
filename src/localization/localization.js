@@ -78,7 +78,24 @@ const strings = new LocalizedStrings({
     //product detail
     product_detail_description: "Deskripsi Produk",
     //Category
-    category_text_result: "Menampilkan {0} produk untuk \"{1}\""
+    category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
+
+    //footer
+    footer_any_help: 'Apa yang bisa kami bantu?',
+    how_to_shop: 'Cara Belanja',
+    delivery_time: 'Lama Pengiriman',
+    how_to_pay: 'Cara Bayar',
+    track_the_delivery: 'Lacak Pengiriman',
+    contact_us: 'Hubungi Kami',
+    about_us: 'Tentang Kami',
+    career: 'Karir',
+    terms_and_condition: 'Syarat dan Ketentuan',
+    privacy_policy: 'Kebijakan Privasi',
+    payment: 'Pembayaran',
+    follow_us: 'Follow Us',
+    monggo: 'Monggo...',
+    subscripton_invitation:'berlangganan sekarang untuk mendapatkan informasi seputan update, promo dan penawaran menarik lainya'
+
   }
 })
 
