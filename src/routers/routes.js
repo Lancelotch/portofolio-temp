@@ -30,6 +30,14 @@ const routes = [{
         component:Category
     },
     {
+        path: '/category/fashion-pria/:categoryId',
+        component:Category
+    },
+    {
+        path: '/category/fashion-pria/sepatu/:categoryId',
+        component:Category
+    },
+    {
         path: PATH_URL.SEARCH,
         component: Search
     }

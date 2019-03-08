@@ -137,11 +137,12 @@ class DummyProductDetail extends Component {
   };
 
   render() {
+    const {match} = this.props;
     return (
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <Header />
+            <Header match={match}/>
             <div className="container productDetail">
               <Row>
                 <Col md={11}>

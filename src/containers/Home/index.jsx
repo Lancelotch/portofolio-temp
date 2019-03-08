@@ -84,13 +84,14 @@ class HomePage extends Component {
       bestSellerProduct,
       mostClickProduct
     } = this.state
+    const {match} = this.props;
     console.log(mostClickProduct)
 
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
-            <Header />
+            <Header match={match}/>
             <SliderHome />
             <Row type='flex' justify='center'>
               <Benefit benefit={benefit} />

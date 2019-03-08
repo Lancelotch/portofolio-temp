@@ -10,6 +10,7 @@ import './style.sass'
 import 'sass/style.sass'
 import { logout } from '../../store/actions/authentication'
 import customer from '../../api/services/customer'
+import CategoryMenu from '../CategoryMenu';
 
 class Header extends Component {
   constructor (props) {
@@ -64,7 +65,7 @@ class Header extends Component {
 
   render () {
     const {keyword} = this.state
-    const { isAuthenticated } = this.props
+    const { isAuthenticated, match } = this.props
 
     const greeting = (
       <div className='header__greeting'>
@@ -162,7 +163,8 @@ class Header extends Component {
             </Col>
             <Col md={18}>
               <div className='header__categories'>
-                <Categories />
+                {/* <Categories /> */}
+                <CategoryMenu match={match}/>
               </div>
             </Col>
             <Col md={4}>
