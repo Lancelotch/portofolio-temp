@@ -15,9 +15,36 @@ class Variants extends Component {
       changed: this.props.changed,
       warnaId: this.props.warnaId,
       ukranId: this.props.ukranId,
+      sku: this.props.sku,
       variantSelected: selected
     };
+    let sku = this.props.sku;
+    this.stockInfo = {};
+    for (let j = 0; j < sku.length; j++) {
+      this.stockInfo[sku[j].id] = sku[j].stock;
+      console.log(sku[j].stock);
+    }
+    this.variantsRef = []
+    for(let i = 0; i < this.state.values.length; i++)
+      this.variantsRef[i] = React.createRef()
   }
+
+  changedInfo = (warnaId, ukranId) => {
+    console.log(warnaId);
+    console.log(ukranId);
+    this.setState({
+      warnaId: warnaId,
+      ukranId: ukranId,
+    });
+    // for (let i = 0; i < this.state.values.length; i++) {
+    //   this.stockInfo[idWarna + this.warnaId + idWarna + this.ukranId]
+    // }
+  }
+
+  componentDidMount() {
+    console.log(this.state.warnaId);
+  }
+
   onChangeVariant = selected => {
     this.setState(
     { 
@@ -37,14 +64,22 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    if(this.state.index === 1 && this.state.values.length > 0) {    
+    let idUkuran = "002";
+    let idWarna = "001"; 
+    console.log(this.stockInfo);
+    console.log(this.stockInfo);
+    if(this.state.index === 1) {    
         return this.state.values.map((value,index) => (
           <Variant
             key={value.id}
             id={value.id}
+            ref={this.variantsRef[index]}
             image={value.image}
             name={value.name}
             onChangeVariant={this.onChangeVariant}
+            disabled={
+              this.stockInfo[idWarna + this.state.warnaId + idUkuran + value.id]
+            }
             selected={
               ((this.state.variantSelected.id === value.id && 
                 this.props.changed === 0 ) || 
@@ -56,14 +91,16 @@ class Variants extends Component {
         ));
       
     } else {
-      return this.state.values.map(value => (
+      return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
           id={value.id}
+          ref={this.variantsRef[index]}
           image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
           description={value.description}
+          disabled={"1"}
           selected={
           (this.state.variantSelected.id === value.id )
               ? true
@@ -71,7 +108,7 @@ class Variants extends Component {
           }
         />
       ));
-        }
+    }
   };
 
   variantDefault() {
@@ -95,6 +132,8 @@ class Variants extends Component {
   };
 
   render() {
+    console.log(this.state.warnaId);
+    console.log(this.state.ukranId);
     return (
         <Row>
           <Col md={24}>
@@ -114,7 +153,8 @@ Variants.propTypes = {
   value: PropTypes.arrayOf(Object),
   id: PropTypes.string,
   ukranId: PropTypes.string,
-  warnaId: PropTypes.string
+  warnaId: PropTypes.string,
+  sku: PropTypes.arrayOf(Object)
 };
 
 export default Variants;

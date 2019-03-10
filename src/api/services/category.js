@@ -1,6 +1,7 @@
-import { mainService, dummyService } from './httpClient';
+import { mainService, dummyService, dummyServiceLogin } from './httpClient';
 import {PATH_PUBLIC, PATH_CATEGORY, PATH_HOME} from '../path'
 import { resolve, reject } from 'q';
+import { request } from 'http';
 
 const categoryFeature = () => {
     return new Promise((resolve,reject) => {
@@ -49,10 +50,27 @@ const benefit = () => {
     })
 }
 
+const subscription = request => {
+    return new Promise((resolve, reject) => {
+        dummyService
+            .request({
+                method: 'POST',
+                url: PATH_HOME.HOME_SUBSCRIPTION,
+                data: request
+            })
+            .then(response => 
+                resolve(response.data))
+            .catch(error => {
+                reject(error.response)
+            })
+    })
+}
+
 const category = {
     categoryFeature : categoryFeature,
     sliderHome: sliderHome,
-    benefit: benefit
+    benefit: benefit,
+    subscription: subscription
 }
 
 export default category;

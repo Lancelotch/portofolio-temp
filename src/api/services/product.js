@@ -19,7 +19,7 @@ const listProductCategory = request => {
   });
 };
 
-const popularSearchProduct = request => {
+const popularProduct = request => {
   return new Promise((resolve, reject) => {
     dummyService
       .request({
@@ -55,10 +55,44 @@ const listProductSearch = request => {
   });
 };
 
+const bestSellerProduct = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method:'GET',
+        url: PATH_PRODUCT.PRODUCT_BY_ID
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error.response)
+      })
+  })
+}
+
+const mostClickProduct = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method:'GET',
+        url: PATH_PRODUCT.PRODUCT_BY_ID
+      })
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error.response)
+      })
+  })
+}
+
 const product = {
   listProductCategory: listProductCategory,
   listProductSearch: listProductSearch,
-  popularSearchProduct: popularSearchProduct
+  popularProduct: popularProduct,
+  bestSellerProduct: bestSellerProduct,
+  mostClickProduct: mostClickProduct
 };
 
 export default product;

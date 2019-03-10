@@ -33,6 +33,7 @@ class SliderHome extends Component {
 
     const settings = {
       dots: true,
+      speed: 500,
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1

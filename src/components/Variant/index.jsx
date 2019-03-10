@@ -15,13 +15,19 @@ class Variant extends Component {
   }
   
   product = img => {
+    console.log(this.props.disabled);
+    let disabled={
+      border: '1px solid #eee',
+      backgroundColor: '#bdc3c7'
+    }
     return (
       <div className="variant">
         <div
           className={
             this.props.selected ? "box-variant active" : "box-variant"
           }
-          onClick={this.onVariantSelected}
+          style={this.props.disabled == "0" ? disabled : null}
+          onClick={this.props.disabled == "0" ? null : this.onVariantSelected}
         >
           <div className="variant__titleContent">{img}</div>
         </div>
@@ -58,14 +64,15 @@ class Variant extends Component {
   };
 
   render() {
-    return this.tooltip();
+    return this.tooltip()
   }
 }
 
 Variant.propTypes = {
   id: PropTypes.string,
   image: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  disabled: PropTypes.string
 };
 
 export default Variant;

@@ -106,7 +106,7 @@ const dummyProductDetail = {
                 ]
             }
         ],
-        "sku": [
+    "sku": [
             {
                 "id": "0010100201",
                 "price": 550000,
@@ -123,7 +123,7 @@ const dummyProductDetail = {
             },
             {
                 "id": "0010100203",
-                "price": 430000,
+                "price": 510000,
                 "stock": 10,
                 "dimension": 8000,
                 "weight": 600
@@ -137,7 +137,7 @@ const dummyProductDetail = {
             },
             {
                 "id": "0010200201",
-                "price": 460000,
+                "price": 560000,
                 "stock": 8,
                 "dimension": 8000,
                 "weight": 600
@@ -173,14 +173,14 @@ const dummyProductDetail = {
             {
                 "id": "0010300202",
                 "price": 600000,
-                "stock": 13,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010300203",
-                "price": 610000,
-                "stock": 15,
+                "price": 330000,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
