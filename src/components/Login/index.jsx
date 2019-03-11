@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Input, Form, Button, Icon, Checkbox } from 'antd'
+import { Modal, Input, Form, Button, Icon, Checkbox, Menu } from 'antd'
 import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
@@ -27,6 +27,7 @@ class Login extends Component {
       if (!err) {
         console.log('Received values of form: ', values)
         this.props.loginWithForm(values)
+        
       }
     })
   }
@@ -38,16 +39,9 @@ class Login extends Component {
     const { getFieldDecorator } = form
     return (
       <React.Fragment>
-        <Modal
-          visible={visible}
-          closable={false}
-          footer={null}
-          centered
-          onCancel={onCancel}
-          width={371}
-          bodyStyle={{borderRadius:0, padding:'40px'}}
-         
+        <Menu className='login-box'
         >
+        <div className='login-content'>
           <Form onSubmit={this.handleSubmit} className='login-form'>
             <FormItem className='login-form__input-text'>
               {getFieldDecorator('email', {
@@ -87,10 +81,11 @@ class Login extends Component {
                 />
               )}
             </FormItem>
-            <FormItem>
+            <FormItem className='login-form__checkBox'>
               {getFieldDecorator('remember', {
                 valuePropName: 'checked',
                 initialValue: true
+
               })(<Checkbox>{strings.login_remember_me}</Checkbox>)}
               <a className='login-form__forgot' href='/'>
                 {strings.login_forgot_password}
@@ -102,34 +97,36 @@ class Login extends Component {
               >
                 <h4>{strings.login_enter}</h4>
               </Button>
-              <div>
+              <div className='login-form__separator'>
               
-              <span className='login-form__separator__text'>
+              <p className='login-form__separator__text'>
                 {strings.login_option}
-              </span>
-            </div>
-            <div style={{display:'flex'}} className='login-form_socmed-box'>
+              </p>
+              </div>
+            <div className='login-form__socmed-box'>
               <ButtonFacebook
                 className='login-form__socmed-button'
                 onSubmit={this.handleRegisterGoogle}
               >
-                {strings.facebook}
+                <p> {strings.facebook}</p>
               </ButtonFacebook>
               <ButtonGoogle
                 className='login-form__socmed-button'
                 onSubmit={this.handleRegisterGoogle}
               >
-                {strings.google}
+                <p> {strings.google}</p>
               </ButtonGoogle>
             </div>
-
+              <p style={{marginTop:'70px'}}>
               {strings.formatString(
                 strings.login_quote,
-                <a href='/register'>{strings.login_register} </a>
+                <a href='/register' className='login-form__register'>{strings.login_register} </a>
               )}
+              </p>
             </FormItem>
           </Form>
-        </Modal>
+          </div>
+        </Menu>
       </React.Fragment>
     )
   }

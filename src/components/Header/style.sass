@@ -13,7 +13,7 @@
     width: 100%
     padding-left: 70px
     padding-right: 70px
-    height: 
+    margin-bottom: 100px !important
     &__logo
         padding-top: 49px
     &__search-box
@@ -40,6 +40,7 @@
         color: $text-orange
     &__user-box
         margin-top: 5px
+        margin-bottom: 5px
         display: flex
     &__user-icon
         padding-top: 27px
@@ -58,14 +59,28 @@
         padding-top: 40px
     &__user-menu
         width: 250px
+        height: 203px
         margin-top: 8px
-        &__button
-            width: 220px
-            height: 40px
-            margin-top: 60px
-            margin-left: 4px
+        box-shadow: 0 19px 32px 0 rgba(0,0,0,0.1) !important
+    &__user-menu-box
+        display: flex
+        flex-direction: column
+        padding-left: 30px
+        padding-top: 20px
     &__user-menu a
         color: $text-grey
+        font-size: 16px
+        padding-bottom: 15px
+    &__user-menu a button
+        width: 190px
+        height: 48px
+        margin-top: 26px
+        cursor: pointer
+        background-color: #ffffff
+    &__user-menu a button:hover
+        color: $secondary-color
+        border-color: $secondary-color
+
     
     
 
