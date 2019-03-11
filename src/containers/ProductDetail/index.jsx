@@ -11,6 +11,7 @@ import ProductAttibutes from "../../components/ProductAttributes";
 import Footer from "../../components/Footer";
 import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
+import Shipping from "../../components/Shipping";
 
 class DummyProductDetail extends Component {
   constructor(props) {
@@ -253,7 +254,7 @@ class DummyProductDetail extends Component {
                         sku={this.state.sku}
                       />
                     ))}
-
+<Shipping/>
                     <ButtonQuantity
                       title="Jumlah"
                       quantity={1}
