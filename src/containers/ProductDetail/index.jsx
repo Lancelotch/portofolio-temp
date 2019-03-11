@@ -34,8 +34,10 @@ class DummyProductDetail extends Component {
       idUkuran: "002",
       idWarna: "001"
     };
+    console.log(this.variantsRef);
+    
     this.variantsRef = [];
-    for(let i =0; i < res.data.variants.length; i++)
+    for (let i = 0; i < res.data.variants.length; i++)
       this.variantsRef[i] = React.createRef();
   }
 
@@ -73,6 +75,56 @@ class DummyProductDetail extends Component {
       console.log(error);
     }
   };
+
+  colorVariant(variants, selected, sku, productImages) {
+    let { idWarna, idUkuran } = idWarnaIdUkuran(variants);
+    let warnaId = selected.value.id;
+    let ukranId = variants[1].values[0].id;
+    this.setState({
+      changed: 1,
+      productPrice: sku[0].price,
+      warnaId: selected.value.id,
+      ukranId: variants[1].values[0].id
+    });
+    for (let j = 0; j < variants[0].values.length; j++) {
+      if (variants[0].values[j].id === warnaId) {
+        for (let i = 0; i < productImages.length; i++) {
+          if (productImages[i].large === variants[0].values[j].image.large) {
+            this.setState({
+              index: i
+            });
+          }
+        }
+      }
+    }
+    for (let i = 0; i < this.state.variants.length; i++) {
+      this.variantsRef[i].current.changedInfo(warnaId, ukranId);
+    }
+    this.idVariant(sku, idWarna, warnaId, idUkuran, ukranId);
+  }
+
+  sizeVariant(variants, selected, sku) {
+    let { idWarna, idUkuran } = idWarnaIdUkuran(variants);
+    let warnaId = this.state.warnaId;
+    let ukranId = selected.value.id;
+    this.setState({
+      size: 0,
+      changed: 0,
+      ukranId: selected.value.id
+    });
+    this.idVariant(sku, idWarna, warnaId, idUkuran, ukranId);
+  }
+
+  idVariant(sku, idWarna, warnaId, idUkuran, ukranId) {
+    for (let i = 0; i < sku.length; i++) {
+      if (idWarna+warnaId+idUkuran+ukranId === sku[i].id) {
+        this.setState({
+          productPrice: sku[i].price,
+          size: i
+        });
+      }
+    }
+  }
 
   selectVariant = selected => {
     this.setState({
@@ -118,8 +170,10 @@ class DummyProductDetail extends Component {
     let lowestPrice = 9999999999;
     let i = 0;
     res.data.sku.map(variantLowestPrice => {
-      if (variantLowestPrice.stock !== 0 && variantLowestPrice.price < lowestPrice) {
-        console.log(variantLowestPrice.id);
+      if (
+        variantLowestPrice.stock !== 0 &&
+        variantLowestPrice.price < lowestPrice
+      ) {
         lowestPrice = variantLowestPrice.price;
         let id = variantLowestPrice.id.substring(0, 3);
         if (id === idUkuran) {
@@ -133,66 +187,11 @@ class DummyProductDetail extends Component {
         } else if (id === idWarna) {
           warnaId = variantLowestPrice.id.substring(8, 10);
         }
-        console.log(ukranId)
-        console.log(warnaId)
-        console.log(lowestPrice)
       }
       i = i + 1;
     });
     return { ukranId, warnaId, lowestPrice };
   };
-
-  colorVariant(variants, selected, sku, productImages) {
-    let { idWarna, idUkuran } = idWarnaIdUkuran(variants);
-    let warnaId = selected.value.id;
-    let ukranId = variants[1].values[0].id;
-    this.setState({
-      changed: 1,
-      price_changed: 1,
-      productPrice: sku[0].price,
-      warnaId: selected.value.id,
-      ukranId: variants[1].values[0].id
-    });
-    for (let j = 0; j < variants[0].values.length; j++) {
-      if (variants[0].values[j].id === warnaId) {
-        for (let i = 0; i < productImages.length; i++) {
-          if (productImages[i].large === variants[0].values[j].image.large) {
-            this.setState({
-              index: i
-            });
-          }
-        }
-      }
-    }
-    for(let i =0; i < this.state.variants.length; i++)
-      this.variantsRef[i].current.changedInfo(warnaId, ukranId);   
-    this.newMethod(sku, idWarna, warnaId, idUkuran, ukranId);
-  }
-
-  sizeVariant(variants, selected, sku) {
-    let { idWarna, idUkuran } = idWarnaIdUkuran(variants);
-    let warnaId = this.state.warnaId;
-    let ukranId = selected.value.id;
-    this.setState({
-      size: 0,
-      changed: 0,
-      ukranId: selected.value.id
-    });
-    this.newMethod(sku, idWarna, warnaId, idUkuran, ukranId);
-  }
-
-  newMethod(sku, idWarna, warnaId, idUkuran, ukranId) {
-    for (let i = 0; i < sku.length; i++) {
-      if (idWarna + warnaId + idUkuran + ukranId === sku[i].id) {
-        //if (sku[i].id&&sku[i].stock < 1) {
-        this.setState({
-          productPrice: sku[i].price,
-          size: i
-        });
-        //}
-      }
-    }
-  }
 
   render() {
     const { match } = this.props;
@@ -204,7 +203,10 @@ class DummyProductDetail extends Component {
             <div className="container productDetail">
               <Row>
                 <Col md={11}>
-                  <h2>{this.state.productTitle}-{this.state.warnaId}-{this.state.ukranId}</h2>
+                  <h2>
+                    {this.state.productTitle}-{this.state.idWarna}{this.state.warnaId}-{this.state.idUkuran}
+                    {this.state.ukranId}
+                  </h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
@@ -215,7 +217,7 @@ class DummyProductDetail extends Component {
                     <p className="productDetail__price">
                       {this.state.productPrice}
                     </p>
-                    {this.state.variants.map((variant,index) => (
+                    {this.state.variants.map((variant, index) => (
                       <Variants
                         ref={this.variantsRef[index]}
                         key={variant.id}
@@ -230,7 +232,7 @@ class DummyProductDetail extends Component {
                         sku={this.state.sku}
                       />
                     ))}
-                  
+
                     <ButtonQuantity
                       title="Jumlah"
                       quantity={1}

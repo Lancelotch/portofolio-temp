@@ -33,7 +33,9 @@ export default (state = initialState, action) => {
         case TYPE.REGISTER_WITH_FORM:
             return {
                 ...state,
-                message: action.payload
+                message: action.payload,
+                auth: action.payload,
+                isAuthenticated: true
             }    
         // case "IS_EXPIRED" : 
         //     return {

@@ -10,22 +10,19 @@ class Variant extends Component {
       id: this.props.id,
       image: this.props.image,
       name: this.props.name,
-      description : this.props.description
+      description: this.props.description
     };
   }
-  
+
   product = img => {
-    console.log(this.props.disabled);
-    let disabled={
-      border: '1px solid #eee',
-      backgroundColor: '#bdc3c7'
-    }
+    let disabled = {
+      border: "1px solid #eee",
+      backgroundColor: "#bdc3c7"
+    };
     return (
       <div className="variant">
         <div
-          className={
-            this.props.selected ? "box-variant active" : "box-variant"
-          }
+          className={this.props.selected ? "box-variant active" : "box-variant"}
           style={this.props.disabled == "0" ? disabled : null}
           onClick={this.props.disabled == "0" ? null : this.onVariantSelected}
         >
@@ -40,16 +37,8 @@ class Variant extends Component {
       return this.product(<p>{this.state.name}</p>);
     } else {
       return this.product(
-        <Tooltip
-          id="tooltip-top"
-          title={this.state.name}
-          placement="topLeft"
-        >
-          <img
-            src={this.state.image.large}
-            alt=""
-            className="variant_image"
-          />
+        <Tooltip id="tooltip-top" title={this.state.name} placement="topLeft">
+          <img src={this.state.image.large} alt="" className="variant_image" />
         </Tooltip>
       );
     }
@@ -64,7 +53,7 @@ class Variant extends Component {
   };
 
   render() {
-    return this.tooltip()
+    return this.tooltip();
   }
 }
 

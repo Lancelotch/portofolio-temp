@@ -1,12 +1,11 @@
 const dummyProductDetail = {
     "code": "200",
     "message": "OK",
-    "data": { 
+    "data": {
         "id": "5c74f0fb6301794b06b78b1a",
         "name": "Sepatu Nike Snekkers286000000",
         "price": 520000,
-        "images": [
-            {
+        "images": [{
                 "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -41,13 +40,11 @@ const dummyProductDetail = {
                 "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
             }
-            ],
-        "variants": [
-            {
+        ],
+        "variants": [{
                 "id": "001",
                 "name": "warna",
-                "values": [
-                    {
+                "values": [{
                         "id": "01",
                         "name": "biru",
                         "description": "biru",
@@ -82,8 +79,7 @@ const dummyProductDetail = {
             {
                 "id": "002",
                 "name": "ukuran",
-                "values": [
-                    {
+                "values": [{
                         "id": "01",
                         "name": "23",
                         "description": "ukuran 23"
@@ -106,52 +102,51 @@ const dummyProductDetail = {
                 ]
             }
         ],
-    "sku": [
-            {
+        "sku": [{
                 "id": "0010100201",
                 "price": 550000,
-                "stock": 10,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100202",
                 "price": 520000,
-                "stock": 10,
+                "stock": 15,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100203",
                 "price": 510000,
-                "stock": 10,
+                "stock": 16,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100204",
                 "price": 540000,
-                "stock": 10,
+                "stock": 17,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010200201",
-                "price": 560000,
-                "stock": 8,
+                "price": 530000,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010200202",
                 "price": 560000,
-                "stock": 10,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010200203",
-                "price": 570000,
+                "price": 490000,
                 "stock": 12,
                 "dimension": 8000,
                 "weight": 600
@@ -166,7 +161,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300201",
                 "price": 590000,
-                "stock": 10,
+                "stock": 18,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -180,14 +175,14 @@ const dummyProductDetail = {
             {
                 "id": "0010300203",
                 "price": 330000,
-                "stock": 10,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010300204",
                 "price": 615000,
-                "stock": 10,
+                "stock": 19,
                 "dimension": 8000,
                 "weight": 600
             }
@@ -199,7 +194,7 @@ const dummyProductDetail = {
         }
     },
     "responseTime": 2
-  }
+}
 
 
 export default dummyProductDetail
