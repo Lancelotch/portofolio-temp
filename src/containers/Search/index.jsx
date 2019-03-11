@@ -152,16 +152,14 @@ class SearchPage extends Component {
     const {isQueryAvailable} = this.state;
     return (
       <React.Fragment>
-        <div className="container">
-          <div className="container__first-item">
             <Row>
               <Col>
                 <Header match={match}/>
+                <div className='container'>
                   {this.showResultSearch(isQueryAvailable)}
+                </div>
               </Col>
             </Row>
-          </div>
-        </div>
       </React.Fragment>
     );
   }

@@ -13,6 +13,7 @@ const strings = new LocalizedStrings({
     header_my_order: 'Pesenan Saya',
     header_check_order: 'Lacak Pesenan',
 
+
     //Category
     category: 'Kategori',
     
@@ -33,6 +34,7 @@ const strings = new LocalizedStrings({
     pcs : "pcs",
     delivery_courier : "Delivery Courier",
     address : "Alamat",
+    my_account: 'Akun Saya',
 
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",
