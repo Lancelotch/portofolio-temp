@@ -13,8 +13,8 @@ class Variants extends Component {
       values: this.props.values,
       id: this.props.id,
       changed: this.props.changed,
-      warnaId: this.props.warnaId,
-      ukranId: this.props.ukranId,
+      colorId: this.props.colorId,
+      sizeId: this.props.sizeId,
       sku: this.props.sku,
       variantSelected: selected
     };
@@ -28,10 +28,10 @@ class Variants extends Component {
       this.variantsRef[i] = React.createRef();
   }
 
-  changedInfo = (warnaId, ukranId) => {
+  changedInfo = (colorId, sizeId) => {
     this.setState({
-      warnaId: warnaId,
-      ukranId: ukranId
+      colorId: colorId,
+      sizeId: sizeId
     });
   };
 
@@ -54,10 +54,18 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    let idUkuran = "002";
-    let idWarna = "001";
+    let idSize = "002";
+    let idColor = "001";
     if (this.state.index === 1) {
-      return this.state.values.map((value, index) => (
+      let notZeroIndex = 0;
+      for(let i = 0; i < this.state.values.length; i++) {
+        let value = this.state.values[i];
+        if (this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0) {
+          notZeroIndex = i;
+          break;
+        }
+      }
+      return this.state.values.map((value, index) => (    
         <Variant
           key={value.id}
           id={value.id}
@@ -66,17 +74,17 @@ class Variants extends Component {
           name={value.name}
           onChangeVariant={this.onChangeVariant}
           disabled={
-            this.stockInfo[idWarna + this.state.warnaId + idUkuran + value.id]
+            this.stockInfo[idColor+this.state.colorId+idSize+value.id]
           }
           selected={
             (this.state.variantSelected.id === value.id &&
               this.props.changed === 0) ||
-            (this.props.changed === 1 && index === 0)
+            (this.props.changed === 1 && index === notZeroIndex)
               ? true
               : false
           }
-        />
-      ));
+        />     
+      ));  
     } else {
       return this.state.values.map((value, index) => (
         <Variant
@@ -94,24 +102,24 @@ class Variants extends Component {
     }
   };
 
-  variantDefault() {
+  variantDefault() {  
     let selected = [];
     let i = 0;
     if (this.props.index === 0) {
       for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === this.props.warnaId) {
+        if (this.props.values[i].id === this.props.colorId) {
           selected = this.props.values[i];
         }
       }
     }
     if (this.props.index === 1) {
       for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === this.props.ukranId) {
+        if (this.props.values[i].id === this.props.sizeId) {
           selected = this.props.values[i];
         }
       }
     }
-    return selected;
+    return selected;  
   }
 
   render() {
@@ -132,8 +140,8 @@ Variants.propTypes = {
   name: PropTypes.string,
   value: PropTypes.arrayOf(Object),
   id: PropTypes.string,
-  ukranId: PropTypes.string,
-  warnaId: PropTypes.string,
+  sizeId: PropTypes.string,
+  colorId: PropTypes.string,
   sku: PropTypes.arrayOf(Object)
 };
 

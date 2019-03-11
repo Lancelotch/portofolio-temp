@@ -161,7 +161,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300201",
                 "price": 590000,
-                "stock": 18,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
