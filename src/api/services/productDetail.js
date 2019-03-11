@@ -2,8 +2,7 @@ import { mainService, dummyService } from './httpClient';
 import { PATH_PRODUCT} from '../path'
 
 
-const getProductDetail = (productId) => {
-    
+const getProductDetail = (productId) => {  
     return new Promise((resolve,reject) => {
         dummyService
             .request({

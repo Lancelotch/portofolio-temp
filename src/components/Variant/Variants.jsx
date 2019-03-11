@@ -6,7 +6,7 @@ import Variant from ".";
 class Variants extends Component {
   constructor(props) {
     super(props);
-    let selected = this.variantDefault();
+    let selected = this.variantDefault(this.props.colorId, this.props.sizeId);
     this.state = {
       index: this.props.index,
       name: this.props.name,
@@ -33,6 +33,17 @@ class Variants extends Component {
       colorId: colorId,
       sizeId: sizeId
     });
+    let selected = this.variantDefault(colorId, sizeId);
+    this.setState({
+      variantSelected: selected,
+      selectedValue: selected.description
+    });
+    if(this.state.index === 1)
+    {
+      this.setState({
+        selectedValue: ""
+      });
+    }
   };
 
   onChangeVariant = selected => {
@@ -51,6 +62,12 @@ class Variants extends Component {
         this.props.onChangeVariant(variant);
       }
     );
+    if(this.state.index === 1)
+    {
+      this.setState({
+        selectedValue: ""
+      });
+    }
   };
 
   loopVariantProduct = () => {
@@ -58,14 +75,16 @@ class Variants extends Component {
     let idColor = "001";
     if (this.state.index === 1) {
       let notZeroIndex = 0;
-      for(let i = 0; i < this.state.values.length; i++) {
+      for (let i = 0; i < this.state.values.length; i++) {
         let value = this.state.values[i];
-        if (this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0) {
+        if (
+          this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0
+        ) {
           notZeroIndex = i;
           break;
         }
       }
-      return this.state.values.map((value, index) => (    
+      return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
           id={value.id}
@@ -74,7 +93,7 @@ class Variants extends Component {
           name={value.name}
           onChangeVariant={this.onChangeVariant}
           disabled={
-            this.stockInfo[idColor+this.state.colorId+idSize+value.id]
+            this.stockInfo[idColor + this.state.colorId + idSize + value.id]
           }
           selected={
             (this.state.variantSelected.id === value.id &&
@@ -83,8 +102,8 @@ class Variants extends Component {
               ? true
               : false
           }
-        />     
-      ));  
+        />
+      ));
     } else {
       return this.state.values.map((value, index) => (
         <Variant
@@ -94,7 +113,6 @@ class Variants extends Component {
           image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
-          description={value.description}
           disabled={"1"}
           selected={this.state.variantSelected.id === value.id ? true : false}
         />
@@ -102,31 +120,32 @@ class Variants extends Component {
     }
   };
 
-  variantDefault() {  
+  variantDefault = (colorId, sizeId) => {
     let selected = [];
     let i = 0;
     if (this.props.index === 0) {
       for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === this.props.colorId) {
+        if (this.props.values[i].id === colorId) {
           selected = this.props.values[i];
         }
       }
     }
     if (this.props.index === 1) {
       for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === this.props.sizeId) {
+        if (this.props.values[i].id === sizeId) {
           selected = this.props.values[i];
         }
       }
     }
-    return selected;  
-  }
+    console.log(selected);
+    return selected;
+  };
 
   render() {
     return (
-      <Row>
+      <Row style={{ marginTop: 12 }}>
         <Col md={24}>
-          <p style={{ fontSize: 14 }}>
+          <p style={{ fontSize: 18 }}>
             {this.state.name}&nbsp;
             <font style={{ fontWeight: 600 }}>{this.state.selectedValue}</font>
           </p>

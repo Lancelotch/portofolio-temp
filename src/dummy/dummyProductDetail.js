@@ -3,7 +3,7 @@ const dummyProductDetail = {
     "message": "OK",
     "data": {
         "id": "5c74f0fb6301794b06b78b1a",
-        "name": "Sepatu Nike Snekkers286000000",
+        "name": "Sepatu Sneakers Naik Air Max 270 Series All Season",
         "price": 520000,
         "images": [{
                 "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -112,21 +112,21 @@ const dummyProductDetail = {
             {
                 "id": "0010100202",
                 "price": 520000,
-                "stock": 15,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100203",
                 "price": 510000,
-                "stock": 16,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100204",
                 "price": 540000,
-                "stock": 17,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -147,21 +147,21 @@ const dummyProductDetail = {
             {
                 "id": "0010200203",
                 "price": 490000,
-                "stock": 12,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010200204",
                 "price": 580000,
-                "stock": 14,
+                "stock": 0,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010300201",
                 "price": 590000,
-                "stock": 0,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -175,14 +175,14 @@ const dummyProductDetail = {
             {
                 "id": "0010300203",
                 "price": 330000,
-                "stock": 0,
+                "stock": 1,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010300204",
                 "price": 615000,
-                "stock": 19,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             }

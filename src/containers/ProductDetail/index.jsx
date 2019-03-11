@@ -8,13 +8,18 @@ import ButtonQuantity from "../../components/ButtonQuantity";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
+import Footer from "../../components/Footer";
+import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 
 class DummyProductDetail extends Component {
   constructor(props) {
     super(props);
-    let { sizeId, colorId } = this.functionLowestPrice();
-    const res = dummyProductDetail;
+    //let { sizeId, colorId } = this.functionLowestPrice();
+    // const res = dummyProductDetail;
+    //const productId = this.props.match.params.productId;
+    //console.log(productId);
+    //const res =  productDetail.getProductDetail(productId);
     this.state = {
       quantity: 1,
       productId: "",
@@ -24,31 +29,32 @@ class DummyProductDetail extends Component {
       price_changed: -1,
       size: 0,
       changed: 0,
-      variants: res.data.variants,
+      variants: [],
       details: [],
       productImages: [],
       lowestPrice: 0,
-      sku: res.data.sku,
-      colorId: colorId,
-      sizeId: sizeId,
+      sku: [],
+      colorId: "01",
+      sizeId: "01",
       idSize: "002",
       idColor: "001"
     };
-    console.log(this.variantsRef);
-
     this.variantsRef = [];
-    for (let i = 0; i < res.data.variants.length; i++)
-      this.variantsRef[i] = React.createRef();
+    this.variantsRef[0] = React.createRef();
+    this.variantsRef[1] = React.createRef();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.productDetail();
   }
 
   productDetail = async () => {
     const productId = this.props.match.params.productId;
+    console.log(productId);
     try {
       // const res = await productDetail.getProductDetail(productId);
+      // console.log(productId);
+      // console.log(res);
       const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
@@ -71,6 +77,11 @@ class DummyProductDetail extends Component {
         sizeId: sizeId,
         productPrice: lowestPrice
       });
+      for (let i = 0; i < this.state.variants.length; i++) {
+        this.variantsRef[i].current.changedInfo(colorId, sizeId);
+      }
+      let { idColor, idSize } = idColoridSize(res.data.variants);
+      this.idVariant(res.data.sku, idColor, colorId, idSize, sizeId);
     } catch (error) {
       console.log(error);
     }
@@ -174,14 +185,13 @@ class DummyProductDetail extends Component {
     });
   };
 
-  functionLowestPrice = () => {
-    const res = dummyProductDetail;
+  functionLowestPrice () {
     let { colorId, sizeId } = "01";
     let idSize = "002";
     let idColor = "001";
     let lowestPrice = 9999999999;
     let i = 0;
-    res.data.sku.map(variantLowestPrice => {
+    this.state.sku.map(variantLowestPrice => {
       if (
         variantLowestPrice.stock !== 0 &&
         variantLowestPrice.price < lowestPrice
@@ -206,6 +216,7 @@ class DummyProductDetail extends Component {
   };
 
   render() {
+    const price = currencyRupiah(this.state.productPrice);
     const { match } = this.props;
     return (
       <React.Fragment>
@@ -215,11 +226,7 @@ class DummyProductDetail extends Component {
             <div className="container productDetail">
               <Row>
                 <Col md={11}>
-                  <h2>
-                    {this.state.productTitle}-{this.state.idColor}-
-                    {this.state.colorId}-{this.state.idSize}
-                    {this.state.sizeId}
-                  </h2>
+                  <h2>{this.state.productTitle}</h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
@@ -227,15 +234,16 @@ class DummyProductDetail extends Component {
                 </Col>
                 <Col md={13}>
                   <div className="productDetail__variantContent">
-                    <p className="productDetail__price">
-                      {this.state.productPrice}
-                    </p>
+                    <p className="productDetail__price">{price}</p>
                     {this.state.variants.map((variant, index) => (
                       <Variants
                         ref={this.variantsRef[index]}
                         key={variant.id}
                         index={index}
-                        name={variant.name}
+                        name={
+                          variant.name.charAt(0).toUpperCase() +
+                          variant.name.substring(1)
+                        }
                         values={variant.values}
                         id={variant.id}
                         changed={this.state.changed}
@@ -278,6 +286,7 @@ class DummyProductDetail extends Component {
                 </Col>
               </Row>
             </div>
+            <Footer />
           </Col>
         </Row>
       </React.Fragment>
