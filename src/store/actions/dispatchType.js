@@ -13,6 +13,8 @@ const registerWithForm = authData => {
         payload: authData
     }
 }
+
+
 const loginWithForm = authData => {
     return{
         type : TYPE.LOGIN_WITH_FORM,
@@ -46,7 +48,8 @@ const dispatchType = {
     loginWithForm : loginWithForm,
     registerWithForm: registerWithForm,
     logout: logout,
-    products: products
+    products: products,
+     
 }
 
 export default dispatchType;

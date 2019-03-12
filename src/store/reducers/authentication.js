@@ -34,7 +34,6 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 message: action.payload,
-                auth: action.payload,
                 isAuthenticated: true
             }    
         // case "IS_EXPIRED" : 

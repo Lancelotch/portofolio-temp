@@ -1,18 +1,18 @@
-
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Alert} from "antd";
+import { Input, Form, Button, Icon, Row, Col, Alert } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
-import logoMonggoPesen from '../../assets/img/logo_monggopesen.png';
-import strings from '../../localization/localization';
-import imageLogin from '../../assets/img/login_pict.png';
-import { Redirect } from 'react-router-dom';
-import { registerWithGoogle,registerWithForm } from '../../store/actions/authentication';
-import FrontImage from '../../components/Image/FrontImage';
-
-
+import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
+import strings from "../../localization/localization";
+import imageLogin from "../../assets/img/login_pict.png";
+import { Redirect } from "react-router-dom";
+import {
+  registerWithGoogle,
+  registerWithForm
+} from "../../store/actions/authentication";
+import FrontImage from "../../components/Image/FrontImage";
 
 const FormItem = Form.Item;
 
@@ -21,34 +21,45 @@ class RegisterPage extends Component {
     super(props);
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
-      status: null
+      status: null,
+      success: "",
+      message: ""
     };
   }
 
   handleRegisterGoogle = request => {
-    this.props.registerWithGoogle(this.props.history, request)
-  }
+    this.props.registerWithGoogle(this.props.history, request);
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     this.setState({
       status: null
     });
-    this.props.form.validateFields((err,values) => {
+    this.props.form.validateFields((err, values) => {
+      console.log("validate", values);
       if (!err) {
-        this.props.registerWithForm(values)
-          const message = this.props.message.data.message
+        this.props.registerWithForm(values);
+        console.log(this.props.message);
+        if (this.props.message.status === 409) {
+          const message = this.props.message.data.message;
           this.setState({
-            message 
-          })   
-      } 
+            message
+          });
+        } else {
+          this.setState({
+            message: "",
+            success: "register "
+          });
+          this.props.history.push("/");
+        }
+      }
     });
   };
 
-  render () {
-
-    const { getFieldDecorator } = this.props.form
-    const { message,success } = this.state
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const { message, success } = this.state;
 
     return (
       <React.Fragment>
@@ -57,16 +68,16 @@ class RegisterPage extends Component {
             <FrontImage src={imageLogin} />
           </Col>
           <Col md={{ span: 10 }}>
-            <div className='register'>
+            <div className="register">
               <img
                 className="register__logo"
                 src={logoMonggoPesen}
                 alt="register__logo"
               />
-              <h2 className='register__title'>{strings.register_now}</h2>
+              <h2 className="register__title">{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                  {getFieldDecorator('name', {
+                  {getFieldDecorator("name", {
                     rules: [
                       {
                         required: true,
@@ -79,18 +90,18 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input
-                      className='register__input'
-                      size={'large'}
-                      prefix={<Icon type={'user'} />}
-                      placeholder={'Name'}
+                      className="register__input"
+                      size={"large"}
+                      prefix={<Icon type={"user"} />}
+                      placeholder={"Name"}
                     />
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator('email', {
+                  {getFieldDecorator("email", {
                     rules: [
                       {
-                        type: 'email',
+                        type: "email",
                         message: strings.register_email
                       },
                       {
@@ -100,15 +111,15 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input
-                      className='register__input'
-                      size={'large'}
-                      prefix={<Icon type={'mail'} />}
-                      placeholder={'Email'}
+                      className="register__input"
+                      size={"large"}
+                      prefix={<Icon type={"mail"} />}
+                      placeholder={"Email"}
                     />
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator('password', {
+                  {getFieldDecorator("password", {
                     rules: [
                       {
                         required: true,
@@ -121,34 +132,34 @@ class RegisterPage extends Component {
                     ]
                   })(
                     <Input.Password
-                      className='register__input'
+                      className="register__input"
                       min={6}
                       max={12}
-                      size={'large'}
+                      size={"large"}
                       prefix={
                         <Icon
-                          type={'lock'}
-                          style={{ color: 'rgba(0,0,0,.25)' }}
+                          type={"lock"}
+                          style={{ color: "rgba(0,0,0,.25)" }}
                         />
                       }
                       placeholder={strings.register_password_placeholder}
-                      type='password'
+                      type="password"
                     />
                   )}
                 </FormItem>
-                <div className='register__form__note'>
+                <div className="register__form__note">
                   {strings.formatString(
                     strings.register_agree,
-                    <a className='register__form__link' href='/'>
+                    <a className="register__form__link" href="/">
                       {strings.register_policy}
                     </a>,
-                    <a className='register__form__link' href='/'>
+                    <a className="register__form__link" href="/">
                       {strings.register_requirement}
                     </a>
                   )}
                 </div>
                 <FormItem>
-                {message && (
+                  {message && (
                     <Alert
                       type={success ? "success" : "error"}
                       message={
@@ -161,30 +172,30 @@ class RegisterPage extends Component {
                     />
                   )}
                   <Button
-                    className='register__form__button-register'
-                    size={'large'}
-                    htmlType='submit'
-                    type='primary'
+                    className="register__form__button-register"
+                    size={"large"}
+                    htmlType="submit"
+                    type="primary"
                   >
-                    <p className='register__form__button-register-text'>
+                    <p className="register__form__button-register-text">
                       {strings.login_register}
                     </p>
                   </Button>
                 </FormItem>
                 <Row
-                  type='flex'
-                  align='middle'
-                  justify='space-between'
-                  className='register__form__option-text'
+                  type="flex"
+                  align="middle"
+                  justify="space-between"
+                  className="register__form__option-text"
                 >
-                  <div className='register__form__text-line' />
+                  <div className="register__form__text-line" />
                   <span>{strings.register_option}</span>
-                  <div className='register__form__text-line' />
+                  <div className="register__form__text-line" />
                 </Row>
-                <Form.Item className='register__form__btn-socmed'>
-                  <div className='register__form__socmed-box'>
+                <Form.Item className="register__form__btn-socmed">
+                  <div className="register__form__socmed-box">
                     <ButtonFacebook
-                      className='register__form__socmed-button'
+                      className="register__form__socmed-button"
                       onSubmit={this.handleRegisterGoogle}
                     >
                       {strings.facebook}
@@ -196,17 +207,17 @@ class RegisterPage extends Component {
                       {strings.google}
                     </ButtonGoogle>
                   </div>
-                  <center className='register__form__direct-login'>
+                  <center className="register__form__direct-login">
                     {strings.formatString(
                       strings.register_quote,
-                      <a className='register__form__link' href='/'>
+                      <a className="register__form__link" href="/">
                         {strings.register_now}
                       </a>
                     )}
                   </center>
-             </Form.Item>
-          </Form>
-          </div>
+                </Form.Item>
+              </Form>
+            </div>
           </Col>
         </Row>
       </React.Fragment>
@@ -219,9 +230,9 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
   token: state.authentication.token,
   message: state.authentication.message
-})
+});
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle,registerWithForm }
-)(RegisterForm)
+  { registerWithGoogle, registerWithForm }
+)(RegisterForm);
