@@ -39,7 +39,7 @@ const loginWithForm = request => {
 
 const registerWithForm = request => {
   return new Promise((resolve,reject)=>{
-    dummyServiceLogin
+   dummyService
     .request({
      method: "POST",
      url: PATH_PUBLIC.PUBLIC_USER_REGISTER,
