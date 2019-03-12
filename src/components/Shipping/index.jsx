@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Shippings from "./shippings";
+import Shippings from "./Shippings";
 import dummyShipping from "../../dummy/dummyShipping";
 
 class Shipping extends Component {

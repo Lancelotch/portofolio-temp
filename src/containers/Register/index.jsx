@@ -10,7 +10,7 @@ import imageLogin from "../../assets/img/login_pict.png";
 import { Redirect } from "react-router-dom";
 import {
   registerWithGoogle,
-  registerWithForm
+  registerForm
 } from "../../store/actions/authentication";
 import FrontImage from "../../components/Image/FrontImage";
 
@@ -37,22 +37,13 @@ class RegisterPage extends Component {
       status: null
     });
     this.props.form.validateFields((err, values) => {
-      console.log("validate", values);
+      const history = this.props.history;
       if (!err) {
-        this.props.registerWithForm(values);
-        console.log(this.props.message);
-        if (this.props.message.status === 409) {
-          const message = this.props.message.data.message;
-          this.setState({
-            message
-          });
-        } else {
-          this.setState({
-            message: "",
-            success: "register "
-          });
-          this.props.history.push("/");
-        }
+        this.props.registerForm(history, values);
+        const message = this.props.message.data.message;
+        this.setState({
+          message
+        });
       }
     });
   };
@@ -234,5 +225,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerWithForm }
+  { registerWithGoogle, registerForm }
 )(RegisterForm);
