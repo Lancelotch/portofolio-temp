@@ -32,6 +32,14 @@ export const dummyServiceLogin = axios.create({
 export const dummyService = axios.create({
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
+  // headers: {
+  //   Authorization: "Bearer " + token
+  // }
+});
+
+export const dummyServiceWithToken = axios.create({
+  baseURL: REACT_APP_API_DUMMY_SERVICE,
+  timeout: 60 * 4 * 1000,
   headers: {
     Authorization: "Bearer " + token
   }
