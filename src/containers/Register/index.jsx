@@ -42,17 +42,13 @@ class RegisterPage extends Component {
             message 
           })   
       } 
-
     });
   };
 
   render () {
-    const { getFieldDecorator } = this.props.form
-    const { isAuthenticated,message,success } = this.state
 
-    if (isAuthenticated === true) {
-      return <Redirect to="/" />;
-    }
+    const { getFieldDecorator } = this.props.form
+    const { message,success } = this.state
 
     return (
       <React.Fragment>

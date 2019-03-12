@@ -10,7 +10,7 @@ import './style.sass'
 import 'sass/style.sass'
 import { logout } from '../../store/actions/authentication'
 import customer from '../../api/services/customer'
-import CategoryMenu from '../CategoryMenu';
+import CategoryMenu from '../CategoryMenu'
 
 class Header extends Component {
   constructor (props) {
@@ -20,11 +20,12 @@ class Header extends Component {
       openModalLogin: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
-      keyword: this.props.keyword
+      keyword: this.props.keyword,
+      isAuthenticated: this.props.isAuthenticated
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.getCustomerDetail()
   }
 
@@ -45,8 +46,7 @@ class Header extends Component {
     this.props.logout()
   }
 
-
-  getCustomerDetail = async() => {
+  getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail()
       console.log(payload)
@@ -54,17 +54,55 @@ class Header extends Component {
         name: payload.data.name
       })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   showCustomerName = () => {
     const name = this.state.name
-    return name.substr(0,8) + '...'
+    return name.substr(0, 8) + '...'
   }
 
+  renderAuthList = () => {
+    return (
+      <Dropdown overlay={this.userMenu()} trigger={['click']}>
+        <a className='ant-dropdown-link' href='#'>
+          <h4>{this.showCustomerName()}</h4>
+        </a>
+      </Dropdown>
+    )
+  }
+
+  renderNotAuthList = () => {
+    return (
+      <Dropdown overlay={<Login />} trigger={['click']}>
+        <a className='ant-dropdown-link' href='#'>
+          <h4>{strings.log_in}</h4>
+        </a>
+      </Dropdown>
+    )
+  }
+
+  userMenu = () => (
+    <Menu className='header__user-menu'>
+      <div className='header__user-menu-box'>
+        <a> {strings.my_account}</a>
+        <a> {strings.header_my_order}</a>
+        <a onClick={this.handleLogout}>
+          <button className='header__user-menu__button'>
+            {' '}
+            {strings.log_out}{' '}
+          </button>{' '}
+        </a>
+      </div>
+    </Menu>
+  )
+
+  showUserDropDown = isAuthenticated =>
+    isAuthenticated == true ? this.renderAuthList() : this.renderNotAuthList()
+
   render () {
-    const {keyword} = this.state
+    const { keyword } = this.state
     const { isAuthenticated, match } = this.props
 
     const greeting = (
@@ -77,54 +115,6 @@ class Header extends Component {
       </div>
     )
 
-    const LoginMenu = (
-      <React.Fragment>
-        {this.props.isAuthenticated !== true ? (
-          <React.Fragment>
-            <h4
-              onClick={this.openModalLogin}
-            >
-              {strings.log_in}
-            </h4>
-            <Login
-              visible={this.state.openModalLogin}
-              onCancel={this.openModalLogin}
-            />
-          </React.Fragment>
-        ) : (
-          <React.Fragment><h4>{this.showCustomerName()}</h4></React.Fragment>
-        )}
-      </React.Fragment>
-    )
-
-    const userMenu = (
-      <Menu className='header__user-menu'>
-        <Menu.Item key='0'>
-          <a> {strings.header_my_order}</a>
-        </Menu.Item>
-        <Menu.Item key='0'>
-          <a> {strings.header_check_order}</a>
-        </Menu.Item>
-        {isAuthenticated !== true ? (
-          <Menu.Item key='1' disabled>
-            {' '}
-            <Button
-              disabled
-              className='header__user-menu__button'
-            >
-              {strings.log_out}
-            </Button>
-          </Menu.Item>
-        ) : (
-          <Menu.Item key='2'>
-            <a onClick={this.handleLogout} style={{ color: 'red' }}>
-              <Button className='header__user-menu__button'> {strings.log_out} </Button>{' '}
-            </a>
-          </Menu.Item>
-        )}
-      </Menu>
-    )
-    
     return (
       <div>
         <Row>
@@ -133,7 +123,7 @@ class Header extends Component {
               <TopHeader />
             </div>
           </Col>
-          <div className='header'> 
+          <div className='header'>
             <Col md={5}>
               <a href='/'>
                 <img
@@ -164,7 +154,7 @@ class Header extends Component {
             <Col md={18}>
               <div className='header__categories'>
                 {/* <Categories /> */}
-                <CategoryMenu match={match}/>
+                <CategoryMenu match={match} />
               </div>
             </Col>
             <Col md={4}>
@@ -177,18 +167,7 @@ class Header extends Component {
                   onClick={this.openModalLogin}
                   className='header__user-icon'
                 />
-                <React.Fragment>{LoginMenu}</React.Fragment>
-                <Dropdown
-                  overlay={userMenu}
-                  trigger={['click']}
-                >
-                  <a className='ant-dropdown-link' href='#'>
-                    <Icon
-                      className='header__arrow'
-                      type='down'
-                    />
-                  </a>
-                </Dropdown>
+                {this.showUserDropDown(isAuthenticated)}
               </div>
             </Col>
           </div>

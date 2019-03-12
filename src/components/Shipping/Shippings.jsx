@@ -1,28 +1,30 @@
-import React from 'react'
-import {Col } from 'antd'
+import React from "react";
+import { Col, Row } from "antd";
+import "./style.sass";
 
 
 const Shippings = props => {
-  const { shipping } = props
-  const showShipping = shipping.map((shippings)=> {
-    return (
-      <React.Fragment>
-        <Col md={24}>
-          <div className='shipping'>
+  const { shipping } = props;
+  return (
+    <React.Fragment>
+      {shipping.length > 0 ? (
+        <div className="container-row-shipping">
+          <div className="shipping" style={{ marginRight: 25 }}>
           <Col md={24}>
-            <p>{shippings.via}</p>
-            </Col>
-            <Col md={24}>
-           <p>{shippings.estimation}</p> 
-            {shippings.price}
-            </Col>
+              <Col md={12}>
+              <p style={{fontSize:18}}>{shipping[1].via}</p>
+              {shipping[1].estimation.substring(8)}<br/>
+              Harga sudah termasuk
+              </Col>
+              <Col md={12}>{shipping[0].via}<br/>
+              {shipping[0].estimation.substring(9)}<br/>
+              Rp. {shipping[0].price}</Col>
+              </Col>
           </div>
-        </Col>
-      </React.Fragment>
-    )
-  })
+        </div>
+      ) : null}
+    </React.Fragment>
+  );
+};
 
-  return <React.Fragment>{showShipping}</React.Fragment>
-}
-
-export default Shippings
+export default Shippings;

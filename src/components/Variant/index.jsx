@@ -15,6 +15,19 @@ class Variant extends Component {
   }
 
   product = img => {
+    return (
+      <div className="variant">
+        <div
+          className={this.props.selected ? "box-variant active" : "box-variant"}
+          onClick={this.onVariantSelected}
+        >
+          {img}
+        </div>
+      </div>
+    );
+  };
+
+  productText = img => {
     let disabled = {
       border: "1px solid #eee",
       backgroundColor: "#bdc3c7"
@@ -22,7 +35,9 @@ class Variant extends Component {
     return (
       <div className="variant">
         <div
-          className={this.props.selected ? "box-variant active" : "box-variant"}
+          className={
+            this.props.selected ? "box-variant-text active" : "box-variant-text"
+          }
           style={this.props.disabled == "0" ? disabled : null}
           onClick={this.props.disabled == "0" ? null : this.onVariantSelected}
         >
@@ -31,10 +46,10 @@ class Variant extends Component {
       </div>
     );
   };
-
+ 
   productImage = () => {
     if (!this.state.image || !this.state.image.large) {
-      return this.product(<p>{this.state.name}</p>);
+      return this.productText(<p>{this.state.name}</p>);
     } else {
       return this.product(
         <Tooltip id="tooltip-top" title={this.state.name} placement="topLeft">

@@ -37,11 +37,7 @@ export const loginWithForm = request => async dispatch => {
 export const registerWithForm = request => async dispatch => {
   try{
     const responseRegisterForm = await authentication.registerWithForm(request);
-    dispatch(dispatchType.registerWithForm(registerWithForm))
-    const token = responseRegisterForm.data.refresh_token
-    const expiredToken = responseRegisterForm.data.refresh_token
-    localStorage.setItem('accessToken',token)
-    localStorage.setItem('refreshToken', expiredToken)
+    dispatch(dispatchType.registerWithForm(responseRegisterForm))    
   } catch (error){
     dispatch(dispatchType.registerWithForm(error))
   }

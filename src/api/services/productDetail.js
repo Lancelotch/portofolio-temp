@@ -1,10 +1,10 @@
-import { mainService, dummyService } from './httpClient';
+import { mainService, dummyService, dummyServiceLogin } from './httpClient';
 import { PATH_PRODUCT} from '../path'
 
 
 const getProductDetail = (productId) => {  
     return new Promise((resolve,reject) => {
-        dummyService
+        dummyServiceLogin
             .request({
                 method: 'GET',
                 url: PATH_PRODUCT.PRODUCT+'/'+productId

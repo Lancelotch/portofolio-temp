@@ -13,14 +13,9 @@ import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 import Shipping from "../../components/Shipping";
 
-class DummyProductDetail extends Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
-    //let { sizeId, colorId } = this.functionLowestPrice();
-    // const res = dummyProductDetail;
-    //const productId = this.props.match.params.productId;
-    //console.log(productId);
-    //const res =  productDetail.getProductDetail(productId);
     this.state = {
       quantity: 1,
       productId: "",
@@ -50,13 +45,10 @@ class DummyProductDetail extends Component {
   }
 
   productDetail = async () => {
-    const productId = this.props.match.params.productId;
-    console.log(productId);
+    const productId = this.props.match.params.productId; 
     try {
-      // const res = await productDetail.getProductDetail(productId);
-      // console.log(productId);
-      // console.log(res);
-      const res = await dummyProductDetail;
+      const res = await productDetail.getProductDetail(productId);
+      // const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -186,7 +178,7 @@ class DummyProductDetail extends Component {
     });
   };
 
-  functionLowestPrice () {
+  functionLowestPrice() {
     let { colorId, sizeId } = "01";
     let idSize = "002";
     let idColor = "001";
@@ -214,7 +206,7 @@ class DummyProductDetail extends Component {
       i = i + 1;
     });
     return { sizeId, colorId, lowestPrice };
-  };
+  }
 
   render() {
     const price = currencyRupiah(this.state.productPrice);
@@ -226,14 +218,14 @@ class DummyProductDetail extends Component {
             <Header match={match} />
             <div className="container productDetail">
               <Row>
-                <Col md={11}>
+                <Col md={10}>
                   <h2>{this.state.productTitle}</h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
                   />
                 </Col>
-                <Col md={13}>
+                <Col md={14}>
                   <div className="productDetail__variantContent">
                     <p className="productDetail__price">{price}</p>
                     {this.state.variants.map((variant, index) => (
@@ -254,7 +246,7 @@ class DummyProductDetail extends Component {
                         sku={this.state.sku}
                       />
                     ))}
-<Shipping/>
+                    <Shipping />
                     <ButtonQuantity
                       title="Jumlah"
                       quantity={1}
@@ -295,7 +287,7 @@ class DummyProductDetail extends Component {
   }
 }
 
-export default DummyProductDetail;
+export default ProductDetail;
 function idColoridSize(variants) {
   let idColor = variants[0].id;
   let idSize = variants[1].id;

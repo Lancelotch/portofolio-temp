@@ -36,7 +36,7 @@ class Variants extends Component {
     let selected = this.variantDefault(colorId, sizeId);
     this.setState({
       variantSelected: selected,
-      selectedValue: selected.description
+      selectedValue: selected.description.substring(5)
     });
     if(this.state.index === 1)
     {
