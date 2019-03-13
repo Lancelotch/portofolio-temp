@@ -1,7 +1,9 @@
 import React from "react";
-import { Col, Row } from "antd";
+import { Col } from "antd";
 import "./style.sass";
-
+import currencyRupiah from "../../library/currency";
+import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
+import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 
 const Shippings = props => {
   const { shipping } = props;
@@ -10,16 +12,26 @@ const Shippings = props => {
       {shipping.length > 0 ? (
         <div className="container-row-shipping">
           <div className="shipping" style={{ marginRight: 25 }}>
-          <Col md={24}>
-              <Col md={12}>
-              <p style={{fontSize:18}}>{shipping[1].via}</p>
-              {shipping[1].estimation.substring(8)}<br/>
-              Harga sudah termasuk
-              </Col>
-              <Col md={12}>{shipping[0].via}<br/>
-              {shipping[0].estimation.substring(9)}<br/>
-              Rp. {shipping[0].price}</Col>
-              </Col>
+            <Col md={24}>
+              <p>
+                <img src={Laut} alt="" />
+                &nbsp;
+                {shipping[1].estimation.charAt(0).toUpperCase() +
+                  shipping[1].estimation.substring(1)}
+              </p>
+              <p className="price">Harga sudah termasuk</p>
+            </Col>
+          </div>
+          <div className="shipping">
+            <Col md={24}>
+              <p>
+                <img src={Udara} alt="" />
+                &nbsp;
+                {shipping[0].estimation.charAt(0).toUpperCase() +
+                  shipping[0].estimation.substring(1)}
+              </p>
+              <p className="price">{currencyRupiah(shipping[0].price)}</p>
+            </Col>
           </div>
         </div>
       ) : null}

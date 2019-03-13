@@ -52,7 +52,7 @@ class ButtonQuantity extends React.Component {
         <Col md={24}>
           <p style={{ fontSize: 18 }}>{this.props.title}</p>
         </Col>
-        <Col md={24} style={{ marginLeft: "8px" }}>
+        <Col md={24}>
           <button className="button_quantity" onClick={this.decreaseItem}>
             <Icon type="minus" style={{ fontSize: "14px" }} />
           </button>

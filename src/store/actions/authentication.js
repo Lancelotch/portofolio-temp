@@ -35,10 +35,15 @@ export const loginWithForm = request => async dispatch => {
   }
 }
 
-export const registerWithForm = request => async dispatch => {
+export const registerForm = (history,request) => async dispatch => {
   try{
     const responseRegisterForm = await authentication.registerWithForm(request);
-    dispatch(dispatchType.registerWithForm(responseRegisterForm)) 
+    dispatch(dispatchType.registerWithForm(responseRegisterForm));
+    const token = responseRegisterForm.data.access_token;
+    const expiredToken = responseRegisterForm.data.refresh_token
+        localStorage.setItem('accessToken', token)
+        localStorage.setItem('refreshToken', expiredToken)
+    history.push("/");
   } catch (error){
     dispatch(dispatchType.registerWithForm(error))
   }

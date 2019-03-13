@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Shippings from "./shippings";
+import Shippings from "./Shippings";
 import dummyShipping from "../../dummy/dummyShipping";
+import shipping from "../../api/services/shipping";
 
 class Shipping extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Shipping extends Component {
 
   shipping = async () => {
     try {
+      // const res = await shipping.getShipping();
       const res = await dummyShipping;
       this.setState({
         shipping: res.data
@@ -26,9 +28,9 @@ class Shipping extends Component {
   };
   render() {
     return (
-      <React.Fragment>
+      <div style={{ marginTop: 22}}>
         <Shippings shipping={this.state.shipping} />
-      </React.Fragment>
+      </div>
     );
   }
 }

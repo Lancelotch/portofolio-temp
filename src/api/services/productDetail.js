@@ -2,12 +2,12 @@ import { mainService, dummyService, dummyServiceLogin } from './httpClient';
 import { PATH_PRODUCT} from '../path'
 
 
-const getProductDetail = (productId) => {  
+const getProductDetail = productId => {  
     return new Promise((resolve,reject) => {
         dummyServiceLogin
             .request({
                 method: 'GET',
-                url: PATH_PRODUCT.PRODUCT+'/'+productId
+                url: PATH_PRODUCT.PRODUCT_BY_ID+productId
             })
             .then(response => {
                 resolve(response.data)

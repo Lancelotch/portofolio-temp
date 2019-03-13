@@ -32,7 +32,7 @@ const loginWithGoogle = authData => {
     return{
         type : TYPE.LOGIN_WITH_GOOGLE,
         payload : authData
-    }
+    } 
 }
 
 const products = productList => {

@@ -11,6 +11,7 @@ class Variants extends Component {
       index: this.props.index,
       name: this.props.name,
       values: this.props.values,
+      productImages: this.props.productImages,
       id: this.props.id,
       changed: this.props.changed,
       colorId: this.props.colorId,
@@ -38,8 +39,7 @@ class Variants extends Component {
       variantSelected: selected,
       selectedValue: selected.description.substring(5)
     });
-    if(this.state.index === 1)
-    {
+    if (this.state.index === 1) {
       this.setState({
         selectedValue: ""
       });
@@ -62,8 +62,7 @@ class Variants extends Component {
         this.props.onChangeVariant(variant);
       }
     );
-    if(this.state.index === 1)
-    {
+    if (this.state.index === 1) {
       this.setState({
         selectedValue: ""
       });

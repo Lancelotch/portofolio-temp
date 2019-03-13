@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import Header from "../../components/Header";
-import SliderProductDetail from "components/SliderSecondary";
-import { Col, Row, Card } from "antd";
-import Variants from "../../components/Variant/Variants";
-import "./style.sass";
-import ButtonQuantity from "../../components/ButtonQuantity";
-import dummyProductDetail from "../../dummy/dummyProductDetail";
-import strings from "../../localization/localization";
-import ProductAttibutes from "../../components/ProductAttributes";
-import Footer from "../../components/Footer";
-import currencyRupiah from "../../library/currency";
-import productDetail from "../../api/services/productDetail";
-import Shipping from "../../components/Shipping";
+import React, { Component } from "react"
+import Header from "../../components/Header"
+import SliderProductDetail from "components/SliderSecondary"
+import { Col, Row, Card, Spin } from "antd"
+import Variants from "../../components/Variant/Variants"
+import "./style.sass"
+import ButtonQuantity from "../../components/ButtonQuantity"
+import dummyProductDetail from "../../dummy/dummyProductDetail"
+import strings from "../../localization/localization"
+import ProductAttibutes from "../../components/ProductAttributes"
+import Footer from "../../components/Footer"
+import currencyRupiah from "../../library/currency"
+import productDetail from "../../api/services/productDetail"
+import Shipping from "../../components/Shipping"
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -45,10 +45,10 @@ class ProductDetail extends Component {
   }
 
   productDetail = async () => {
-    const productId = this.props.match.params.productId; 
+    const productId = this.props.match.params.productId;
     try {
-      const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -219,7 +219,7 @@ class ProductDetail extends Component {
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2>{this.state.productTitle}</h2>
+                  <h2> {this.state.productTitle || <Spin />}</h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
@@ -227,7 +227,11 @@ class ProductDetail extends Component {
                 </Col>
                 <Col md={14}>
                   <div className="productDetail__variantContent">
-                    <p className="productDetail__price">{price}</p>
+                    {!this.state.productSalePrice ? (
+                      <Spin />
+                    ) : (
+                      <p className="productDetail__price">{price}</p>
+                    )}
                     {this.state.variants.map((variant, index) => (
                       <Variants
                         ref={this.variantsRef[index]}
@@ -237,6 +241,7 @@ class ProductDetail extends Component {
                           variant.name.charAt(0).toUpperCase() +
                           variant.name.substring(1)
                         }
+                        productImages={this.state.productImages}
                         values={variant.values}
                         id={variant.id}
                         changed={this.state.changed}
@@ -246,7 +251,6 @@ class ProductDetail extends Component {
                         sku={this.state.sku}
                       />
                     ))}
-                    <Shipping />
                     <ButtonQuantity
                       title="Jumlah"
                       quantity={1}
@@ -255,6 +259,21 @@ class ProductDetail extends Component {
                     <p className="productDetail__stock">
                       {this.state.stockAlert}
                     </p>
+
+                    <div className="productDetail__delivery">
+                      {!this.state.productSalePrice ? (
+                        <Spin />
+                      ) : (
+                        <p>
+                          {strings.delivery_from}:{" "}
+                          <b className="productDetail__china">
+                            {strings.china}
+                          </b>{" "}
+                          {strings.delivery_to}
+                        </p>
+                      )}
+                    </div>
+                    <Shipping />
                     <button className="productDetail__addCart">
                       {strings.add_to_cart}
                     </button>
@@ -262,9 +281,9 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={24}>
-                  <h2>Produk Terkait</h2>
+                <Col md={24} style={{ marginTop: 50 }}>
                   <Card>
+                    <h2 style={{ padding: 12 }}>{strings.detail_product}</h2>
                     {Object.keys(this.state.details).map(detail => {
                       return (
                         <ProductAttibutes
