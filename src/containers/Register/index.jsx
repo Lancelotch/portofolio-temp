@@ -48,6 +48,51 @@ class RegisterPage extends Component {
     });
   };
 
+  rulesName = () => {
+    return {
+      rules: [
+        {
+          required: true,
+          message: strings.register_name
+        },
+        {
+          pattern: /(?=.*[a-zA-Z])[a-zA-Z .]+$/,
+          message: strings.register_pattern_quote
+        }
+      ]
+    };
+  };
+
+  rulesEmail = () => {
+    return {
+      rules: [
+        {
+          type: "email",
+          message: strings.register_email
+        },
+        {
+          required: true,
+          message: strings.register_email_quote
+        }
+      ]
+    };
+  };
+
+  rulesPassword = () => {
+    return{
+    rules: [
+      {
+        required: true,
+        message: strings.register_password
+      },
+      {
+        pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
+        message: strings.register_password_quote
+      }
+    ]
+  }
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { message, success } = this.state;
@@ -68,18 +113,7 @@ class RegisterPage extends Component {
               <h2 className="register__title">{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                  {getFieldDecorator("name", {
-                    rules: [
-                      {
-                        required: true,
-                        message: strings.register_name
-                      },
-                      {
-                        pattern: /(?=.*[a-zA-Z])[a-zA-Z .]+$/,
-                        message: strings.register_pattern_quote
-                      }
-                    ]
-                  })(
+                  {getFieldDecorator("name", this.rulesName())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -89,18 +123,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("email", {
-                    rules: [
-                      {
-                        type: "email",
-                        message: strings.register_email
-                      },
-                      {
-                        required: true,
-                        message: strings.register_email_quote
-                      }
-                    ]
-                  })(
+                  {getFieldDecorator("email", this.rulesEmail())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -110,18 +133,8 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", {
-                    rules: [
-                      {
-                        required: true,
-                        message: strings.register_password
-                      },
-                      {
-                        pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
-                        message: strings.register_password_quote
-                      }
-                    ]
-                  })(
+                  {getFieldDecorator("password",this.rulesPassword()
+                  )(
                     <Input.Password
                       className="register__input"
                       min={6}

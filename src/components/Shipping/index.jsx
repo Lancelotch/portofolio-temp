@@ -17,8 +17,8 @@ class Shipping extends Component {
 
   shipping = async () => {
     try {
-      // const res = await shipping.getShipping();
-      const res = await dummyShipping;
+      const res = await shipping.getShipping();
+      // const res = await dummyShipping;
       this.setState({
         shipping: res.data
       });
