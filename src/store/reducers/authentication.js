@@ -5,7 +5,8 @@ const initialState = {
     isLoading: false,
     isFinish: false,
     isError: false,
-    isAuthenticated : false
+    isAuthenticated : false,
+    message: {}
 }
 
 
@@ -29,6 +30,12 @@ export default (state = initialState, action) => {
                 auth: null,
                 isAuthenticated : false
             }
+        case TYPE.REGISTER_WITH_FORM:
+            return {
+                ...state,
+                message: action.payload,
+                isAuthenticated: true
+            }    
         // case "IS_EXPIRED" : 
         //     return {
         //         ...state,

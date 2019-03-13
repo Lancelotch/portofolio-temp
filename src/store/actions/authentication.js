@@ -1,5 +1,6 @@
 import authentication from "../../api/services/authentication";
 import dispatchType from "./dispatchType";
+import { defaultFormatUtc } from "moment";
 
 export const registerWithGoogle = (history, request) => async dispatch => {
   try {
@@ -29,9 +30,22 @@ export const loginWithForm = request => async dispatch => {
     const expiredToken = responseLoginForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
-
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const registerForm = (history,request) => async dispatch => {
+  try{
+    const responseRegisterForm = await authentication.registerWithForm(request);
+    dispatch(dispatchType.registerWithForm(responseRegisterForm));
+    const token = responseRegisterForm.data.access_token;
+    const expiredToken = responseRegisterForm.data.refresh_token
+        localStorage.setItem('accessToken', token)
+        localStorage.setItem('refreshToken', expiredToken)
+    history.push("/");
+  } catch (error){
+    dispatch(dispatchType.registerWithForm(error))
   }
 }
 

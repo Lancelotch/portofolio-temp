@@ -1,16 +1,19 @@
-import React, { Component } from "react";
-import Header from "../../components/Header";
-import SliderProductDetail from "components/SliderSecondary";
-import { Col, Row, Card } from "antd";
-import Variants from "../../components/Variant/Variants";
-import "./style.sass";
-import ButtonQuantity from "../../components/ButtonQuantity";
-import dummyProductDetail from "../../dummy/dummyProductDetail";
-import strings from "../../localization/localization";
-import ProductAttibutes from "../../components/ProductAttributes";
-import productDetail from "../../api/services/productDetail";
+import React, { Component } from "react"
+import Header from "../../components/Header"
+import SliderProductDetail from "components/SliderSecondary"
+import { Col, Row, Card, Spin } from "antd"
+import Variants from "../../components/Variant/Variants"
+import "./style.sass"
+import ButtonQuantity from "../../components/ButtonQuantity"
+import dummyProductDetail from "../../dummy/dummyProductDetail"
+import strings from "../../localization/localization"
+import ProductAttibutes from "../../components/ProductAttributes"
+import Footer from "../../components/Footer"
+import currencyRupiah from "../../library/currency"
+import productDetail from "../../api/services/productDetail"
+import Shipping from "../../components/Shipping"
 
-class DummyProductDetail extends Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,15 +28,19 @@ class DummyProductDetail extends Component {
       variants: [],
       details: [],
       productImages: [],
+      lowestPrice: 0,
       sku: [],
-      warnaId: "01",
-      ukranId: "01",
-      idUkuran: "002",
-      idWarna: "001"
+      colorId: "01",
+      sizeId: "01",
+      idSize: "002",
+      idColor: "001"
     };
+    this.variantsRef = [];
+    this.variantsRef[0] = React.createRef();
+    this.variantsRef[1] = React.createRef();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.productDetail();
   }
 
@@ -57,63 +64,98 @@ class DummyProductDetail extends Component {
       this.setState({
         ...itemProductDetail
       });
+      let { sizeId, colorId, lowestPrice } = this.functionLowestPrice();
+      this.setState({
+        colorId: colorId,
+        sizeId: sizeId,
+        productPrice: lowestPrice
+      });
+      for (let i = 0; i < this.state.variants.length; i++) {
+        this.variantsRef[i].current.changedInfo(colorId, sizeId);
+      }
+      let { idColor, idSize } = idColoridSize(res.data.variants);
+      this.idVariant(res.data.sku, idColor, colorId, idSize, sizeId);
     } catch (error) {
       console.log(error);
     }
   };
 
-  onChangeVariant = selected => {
+  colorVariant(variants, selected, sku, productImages) {
+    let { idColor, idSize } = idColoridSize(variants);
+    let colorId = selected.value.id;
+    let sizeId = variants[1].values[0].id;
+    let stockInfo = {};
+    for (let j = 0; j < sku.length; j++) {
+      stockInfo[sku[j].id] = sku[j].stock;
+    }
+    let notZeroIndex = 0;
+    for (let i = 0; i < variants[1].values.length; i++) {
+      let value = variants[1].values[i];
+      if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
+        notZeroIndex = i;
+        break;
+      }
+    }
     this.setState({
-      changed: 0
+      changed: 1,
+      productPrice: sku[0].price,
+      colorId: selected.value.id
     });
-    if (selected.index === 1) {
-      let idWarna = this.state.variants[0].id;
-      let idUkuran = this.state.variants[1].id;
-      let ukranId = selected.value.id;
-      let warnaId = this.state.warnaId;
-      this.setState({
-        size: 0,
-        changed: 0,
-        ukranId: selected.value.id
-      });
-      for (let i = 0; i < this.state.sku.length; i++) {
-        if (
-          idWarna +  warnaId +  idUkuran + ukranId ===
-          this.state.sku[i].id
-        ) {
-          if (this.state.price_changed !== -1) {
+    sizeId = variants[1].values[notZeroIndex].id;
+    for (let j = 0; j < variants[0].values.length; j++) {
+      if (variants[0].values[j].id === colorId) {
+        for (let i = 0; i < productImages.length; i++) {
+          if (productImages[i].large === variants[0].values[j].image.large) {
             this.setState({
-              productPrice: this.state.sku[i].price,
-              size: i
+              index: i
             });
           }
         }
       }
-    } else if (selected.index === 0) {   
-      let idWarna = this.state.variants[0].id;
-      let idUkuran = this.state.variants[1].id;
-      let warnaId = selected.value.id;
-      let ukranId = this.state.variants[1].values[0].id;
-      this.setState({
-        changed: 1,
-        price_changed: 1,
-        productPrice: this.state.sku[0].price,
-        warnaId: selected.value.id,
-        ukranId: this.state.variants[1].values[0].id
-      });
-      for (let i = 0; i < this.state.sku.length; i++) {
-        let sku_id = this.state.sku[i].id;      
-        if (
-          idWarna + warnaId + idUkuran  + ukranId ===
-          sku_id
-        ) {
-          this.setState({
-            index: i,
-            productPrice: this.state.sku[i].price
-          });
-        }
+    }
+    for (let i = 0; i < this.state.variants.length; i++) {
+      this.variantsRef[i].current.changedInfo(colorId, sizeId);
+    }
+    this.idVariant(sku, idColor, colorId, idSize, sizeId);
+  }
+
+  sizeVariant(variants, selected, sku) {
+    let { idColor, idSize } = idColoridSize(variants);
+    let colorId = this.state.colorId;
+    let sizeId = selected.value.id;
+    this.setState({
+      size: 0,
+      changed: 0,
+      sizeId: selected.value.id
+    });
+    this.idVariant(sku, idColor, colorId, idSize, sizeId);
+  }
+
+  idVariant(sku, idColor, colorId, idSize, sizeId) {
+    for (let i = 0; i < sku.length; i++) {
+      if (idColor + colorId + idSize + sizeId === sku[i].id) {
+        this.setState({
+          productPrice: sku[i].price,
+          size: i
+        });
       }
     }
+  }
+
+  selectVariant = selected => {
+    this.setState({
+      changed: 0
+    });
+    const { variants, sku, productImages } = this.state;
+    if (selected.index === 1) {
+      this.sizeVariant(variants, selected, sku);
+    } else if (selected.index === 0) {
+      this.colorVariant(variants, selected, sku, productImages);
+    }
+  };
+
+  onChangeVariant = selected => {
+    this.selectVariant(selected);
   };
 
   onChangeQuantity = qyt => {
@@ -136,41 +178,79 @@ class DummyProductDetail extends Component {
     });
   };
 
+  functionLowestPrice() {
+    let { colorId, sizeId } = "01";
+    let idSize = "002";
+    let idColor = "001";
+    let lowestPrice = 9999999999;
+    let i = 0;
+    this.state.sku.map(variantLowestPrice => {
+      if (
+        variantLowestPrice.stock !== 0 &&
+        variantLowestPrice.price < lowestPrice
+      ) {
+        lowestPrice = variantLowestPrice.price;
+        let id = variantLowestPrice.id.substring(0, 3);
+        if (id === idSize) {
+          sizeId = variantLowestPrice.id.substring(3, 5);
+        } else if (id === idColor) {
+          colorId = variantLowestPrice.id.substring(3, 5);
+        }
+        id = variantLowestPrice.id.substring(5, 8);
+        if (id === idSize) {
+          sizeId = variantLowestPrice.id.substring(8, 10);
+        } else if (id === idColor) {
+          colorId = variantLowestPrice.id.substring(8, 10);
+        }
+      }
+      i = i + 1;
+    });
+    return { sizeId, colorId, lowestPrice };
+  }
+
   render() {
-    const {match} = this.props;
+    const price = currencyRupiah(this.state.productPrice);
+    const { match } = this.props;
     return (
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <Header match={match}/>
+            <Header match={match} />
             <div className="container productDetail">
               <Row>
-                <Col md={11}>
-                  <h2>{this.state.productTitle}</h2>
+                <Col md={10}>
+                  <h2> {this.state.productTitle || <Spin />}</h2>
                   <SliderProductDetail
                     productImages={this.state.productImages}
                     index={this.state.index}
                   />
                 </Col>
-                <Col md={13}>
+                <Col md={14}>
                   <div className="productDetail__variantContent">
-                    <p className="productDetail__price">
-                      {this.state.productPrice}
-                    </p>
-                    {this.state.variants.map((variant, index) => {
-                      return (
-                        <Variants
-                          key={variant.id}
-
-                          index={index}
-                          name={variant.name}
-                          values={variant.values}
-                          id={variant.id}
-                          changed={this.state.changed}
-                          onChangeVariant={this.onChangeVariant}
-                        />
-                      );
-                    })}
+                    {!this.state.productSalePrice ? (
+                      <Spin />
+                    ) : (
+                      <p className="productDetail__price">{price}</p>
+                    )}
+                    {this.state.variants.map((variant, index) => (
+                      <Variants
+                        ref={this.variantsRef[index]}
+                        key={variant.id}
+                        index={index}
+                        name={
+                          variant.name.charAt(0).toUpperCase() +
+                          variant.name.substring(1)
+                        }
+                        productImages={this.state.productImages}
+                        values={variant.values}
+                        id={variant.id}
+                        changed={this.state.changed}
+                        onChangeVariant={this.onChangeVariant}
+                        sizeId={this.state.sizeId}
+                        colorId={this.state.colorId}
+                        sku={this.state.sku}
+                      />
+                    ))}
                     <ButtonQuantity
                       title="Jumlah"
                       quantity={1}
@@ -179,6 +259,21 @@ class DummyProductDetail extends Component {
                     <p className="productDetail__stock">
                       {this.state.stockAlert}
                     </p>
+
+                    <div className="productDetail__delivery">
+                      {!this.state.productSalePrice ? (
+                        <Spin />
+                      ) : (
+                        <p>
+                          {strings.delivery_from}:{" "}
+                          <b className="productDetail__china">
+                            {strings.china}
+                          </b>{" "}
+                          {strings.delivery_to}
+                        </p>
+                      )}
+                    </div>
+                    <Shipping />
                     <button className="productDetail__addCart">
                       {strings.add_to_cart}
                     </button>
@@ -186,9 +281,9 @@ class DummyProductDetail extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={24}>
-                  <h2>Produk Terkait</h2>
+                <Col md={24} style={{ marginTop: 50 }}>
                   <Card>
+                    <h2 style={{ padding: 12 }}>{strings.detail_product}</h2>
                     {Object.keys(this.state.details).map(detail => {
                       return (
                         <ProductAttibutes
@@ -203,6 +298,7 @@ class DummyProductDetail extends Component {
                 </Col>
               </Row>
             </div>
+            <Footer />
           </Col>
         </Row>
       </React.Fragment>
@@ -210,4 +306,9 @@ class DummyProductDetail extends Component {
   }
 }
 
-export default DummyProductDetail;
+export default ProductDetail;
+function idColoridSize(variants) {
+  let idColor = variants[0].id;
+  let idSize = variants[1].id;
+  return { idColor, idSize };
+}

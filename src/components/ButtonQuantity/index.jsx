@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Col, Row, Input, Icon } from "antd";
-import "./style.css"
-
+import "./style.css";
 
 class ButtonQuantity extends React.Component {
   constructor(props) {
@@ -49,36 +48,30 @@ class ButtonQuantity extends React.Component {
 
   render() {
     return (
-          <Row>
-            <Col md={24}>
-              <b>{this.props.title}</b>
-            </Col>
-            <Col md={24} style={{ marginLeft: "8px" }}>
-              <button
-                className="button_quantity"
-                onClick={this.decreaseItem}
-              >
-                <Icon type="minus" style={{ fontSize: "14px" }} />
-              </button>
-              <Input
-                defaultValue={1}
-                style={{
-                  textAlign: "center",
-                  fontSize: 16,
-                  width: "100px",
-                  color: "#004853"
-                }}
-                value={this.state.quantity}
-                onChange={this.onChangeQuantity}
-              />
-              <button
-                className="button_quantity"
-                onClick={this.incrementItem}
-              >
-                <Icon type="plus" style={{ fontSize: "14px" }} />
-              </button>
-            </Col>
-          </Row>
+      <Row style={{marginTop: 12}}>
+        <Col md={24}>
+          <p style={{ fontSize: 18 }}>{this.props.title}</p>
+        </Col>
+        <Col md={24}>
+          <button className="button_quantity" onClick={this.decreaseItem}>
+            <Icon type="minus" style={{ fontSize: "14px" }} />
+          </button>
+          <Input
+            defaultValue={1}
+            style={{
+              textAlign: "center",
+              fontSize: 16,
+              width: "100px",
+              color: "#004853"
+            }}
+            value={this.state.quantity}
+            onChange={this.onChangeQuantity}
+          />
+          <button className="button_quantity" onClick={this.incrementItem}>
+            <Icon type="plus" style={{ fontSize: "14px" }} />
+          </button>
+        </Col>
+      </Row>
     );
   }
 }

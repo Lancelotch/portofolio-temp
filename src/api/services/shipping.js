@@ -1,13 +1,13 @@
 import { mainService, dummyService, dummyServiceLogin } from './httpClient';
-import { PATH_PRODUCT} from '../path'
+import { PATH_PRODUCT, PATH_SHIPPING} from '../path'
 
 
-const getProductDetail = productId => {  
+const getShipping = () => {  
     return new Promise((resolve,reject) => {
         dummyServiceLogin
             .request({
                 method: 'GET',
-                url: PATH_PRODUCT.PRODUCT_BY_ID+productId
+                url: PATH_SHIPPING.SHIPPING
             })
             .then(response => {
                 resolve(response.data)
@@ -18,8 +18,8 @@ const getProductDetail = productId => {
     })
 }
 
-const productDetail = {
-    getProductDetail : getProductDetail
+const shipping = {
+    getShipping : getShipping
 }
 
-export default productDetail;
+export default shipping;
