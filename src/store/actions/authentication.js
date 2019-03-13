@@ -30,7 +30,8 @@ export const loginWithForm = request => async dispatch => {
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
 
-  } catch (error) {
+  } catch (error) 
+  {
     console.log(error)
   }
 }
@@ -46,5 +47,12 @@ export const activatingUser = (history, request) => async dispatch => {
 };
 
 export const logout = () => dispatch => {
-  dispatch(dispatchType.logout());
+  try {
+    dispatch(dispatchType.logout());
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+    
+  } catch (error) {
+    console.log(error)
+  }
 };

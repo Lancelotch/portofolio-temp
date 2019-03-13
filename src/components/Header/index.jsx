@@ -21,19 +21,13 @@ class Header extends Component {
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: this.props.keyword,
-      isAuthenticated: this.props.isAuthenticated
+      isAuthenticated: this.props.isAuthenticated,
+      dropdownShow: null
     }
   }
 
   componentDidMount () {
     this.getCustomerDetail()
-  }
-
-  openModalLogin = () => {
-    const openModalLogin = this.state.openModalLogin
-    this.setState({
-      openModalLogin: !openModalLogin
-    })
   }
 
   handleInputSearchChange = e => {
@@ -63,6 +57,12 @@ class Header extends Component {
     return name.substr(0, 8) + '...'
   }
 
+  // onShowDropdown = () => {
+  //   this.setState(dropdownShow({
+
+  //   }))
+  // }
+
   renderAuthList = () => {
     return (
       <Dropdown overlay={this.userMenu()} trigger={['click']}>
@@ -74,7 +74,7 @@ class Header extends Component {
   }
 
   renderNotAuthList = () => {
-    return (
+    return ( 
       <Dropdown overlay={<Login />} trigger={['click']}>
         <a className='ant-dropdown-link' href='#'>
           <h4>{strings.log_in}</h4>
@@ -83,7 +83,7 @@ class Header extends Component {
     )
   }
 
-  userMenu = () => (
+  userMenu = () => ( 
     <Menu className='header__user-menu'>
       <div className='header__user-menu-box'>
         <a> {strings.my_account}</a>
@@ -178,7 +178,9 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  isAuthenticated: state.authentication.isAuthenticated,
+
+
 })
 
 export default connect(

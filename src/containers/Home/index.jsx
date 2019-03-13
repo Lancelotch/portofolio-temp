@@ -14,6 +14,7 @@ import Foother from '../../components/Footer'
 import { Link } from 'react-router-dom'
 import './style.sass'
 import Footer from '../../components/Footer'
+import strings from '../../localization/localization';
 
 class HomePage extends Component {
   constructor () {
