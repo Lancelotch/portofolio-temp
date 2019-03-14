@@ -2,7 +2,6 @@ import PATH_URL from './path';
 import Home from '../containers/Home';
 import Register from '../containers/Register';
 import ProductDetail from '../containers/ProductDetail'
-import Test from '../containers/Test';
 import Confirmation from '../containers/Confirmation';
 import Category from '../containers/Category';
 import Search from '../containers/Search';

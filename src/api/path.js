@@ -40,6 +40,12 @@ export const PATH_PRODUCT = {
     PRODUCT_SEARCH: PRODUCT_SEARCH
 }
 
+//SHIPPING
+const SHIPPING = "international-shipping";
+export const PATH_SHIPPING = {
+    SHIPPING: SHIPPING
+}
+
 //INVOICE
 const INVOICE = "invoice/";
 export const PATH_INVOICE = {

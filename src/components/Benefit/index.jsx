@@ -10,7 +10,7 @@ const Benefit = props => {
       <React.Fragment>
         <Col md={4}>
           <div className='benefitBox'>
-            <img className='benefitImage' src={benefit.imageUrl} />
+            <img className='benefitImage' alt ="" src={benefit.imageUrl} />
           </div>
         </Col>
       </React.Fragment>
