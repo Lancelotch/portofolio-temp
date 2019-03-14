@@ -11,7 +11,7 @@ class ProductAttibutes extends Component {
   }
   render() {
     return (
-      <div style={{padding:20}} >
+      <div style={{paddingLeft:20}} >
         <Col md={3}>
           <p>{this.state.label}</p>
         </Col>

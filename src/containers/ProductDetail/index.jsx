@@ -1,17 +1,17 @@
-import React, { Component } from "react"
-import Header from "../../components/Header"
-import SliderProductDetail from "components/SliderSecondary"
-import { Col, Row, Card, Spin } from "antd"
-import Variants from "../../components/Variant/Variants"
-import "./style.sass"
-import ButtonQuantity from "../../components/ButtonQuantity"
-import dummyProductDetail from "../../dummy/dummyProductDetail"
-import strings from "../../localization/localization"
-import ProductAttibutes from "../../components/ProductAttributes"
-import Footer from "../../components/Footer"
-import currencyRupiah from "../../library/currency"
-import productDetail from "../../api/services/productDetail"
-import Shipping from "../../components/Shipping"
+import React, { Component } from "react";
+import Header from "../../components/Header";
+import SliderProductDetail from "components/SliderSecondary";
+import { Col, Row, Card, Spin } from "antd";
+import Variants from "../../components/Variant/Variants";
+import "./style.sass";
+import ButtonQuantity from "../../components/ButtonQuantity";
+import dummyProductDetail from "../../dummy/dummyProductDetail";
+import strings from "../../localization/localization";
+import ProductAttibutes from "../../components/ProductAttributes";
+import Footer from "../../components/Footer";
+import currencyRupiah from "../../library/currency";
+import productDetail from "../../api/services/productDetail";
+import Shipping from "../../components/Shipping";
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class ProductDetail extends Component {
         this.variantsRef[i].current.changedInfo(colorId, sizeId);
       }
       let { idColor, idSize } = idColoridSize(res.data.variants);
-      this.idVariant(res.data.sku, idColor, colorId, idSize, sizeId);
+      this.idVariant(idColor, idSize);
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +153,7 @@ class ProductDetail extends Component {
       this.colorVariant(variants, selected, sku, productImages);
     }
   };
-
+  
   onChangeVariant = selected => {
     this.selectVariant(selected);
   };
@@ -180,8 +180,7 @@ class ProductDetail extends Component {
 
   functionLowestPrice() {
     let { colorId, sizeId } = "01";
-    let idSize = "002";
-    let idColor = "001";
+    let { idSize, idColor } = { idSize: "002", idColor: "001" };
     let lowestPrice = 9999999999;
     let i = 0;
     this.state.sku.map(variantLowestPrice => {
@@ -283,10 +282,11 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={24} style={{ marginTop: 50 }}>
                   <Card>
-                    <h2 style={{ padding: 12 }}>{strings.detail_product}</h2>
-                    {Object.keys(this.state.details).map(detail => {
+                    <h3>{strings.detail_product}</h3>
+                    {Object.keys(this.state.details).map((detail, i) => {
                       return (
                         <ProductAttibutes
+                          key={i}
                           description={this.state.details[detail]}
                           label={
                             detail.charAt(0).toUpperCase() + detail.substring(1)

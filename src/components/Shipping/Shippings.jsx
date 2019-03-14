@@ -1,9 +1,10 @@
-import React from "react";
-import { Col } from "antd";
-import "./style.sass";
-import currencyRupiah from "../../library/currency";
-import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
-import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
+import React from "react"
+import { Col } from "antd"
+import "./style.sass"
+import currencyRupiah from "../../library/currency"
+import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png"
+import Udara from "../../assets/img/icon_product-detail/ic_airplane.png"
+import PropTypes from "prop-types"
 
 const Shippings = props => {
   const { shipping } = props;
@@ -37,6 +38,11 @@ const Shippings = props => {
       ) : null}
     </React.Fragment>
   );
+};
+
+Shippings.propTypes = {
+  estimation: PropTypes.string,
+  price: PropTypes.string
 };
 
 export default Shippings;

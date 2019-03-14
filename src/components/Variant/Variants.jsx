@@ -70,8 +70,7 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    let idSize = "002";
-    let idColor = "001";
+    let { idSize, idColor } = { idSize: "002", idColor: "001" };
     if (this.state.index === 1) {
       let notZeroIndex = 0;
       for (let i = 0; i < this.state.values.length; i++) {
