@@ -5,6 +5,7 @@ import ProductDetail from '../containers/ProductDetail'
 import Confirmation from '../containers/Confirmation';
 import Category from '../containers/Category';
 import Search from '../containers/Search';
+import Product from '../containers/Product';
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -39,6 +40,10 @@ const routes = [{
     {
         path: PATH_URL.SEARCH,
         component: Search
+    },
+    {
+        path: PATH_URL.PRODUCTS,
+        component: Product
     }
 ]
 
