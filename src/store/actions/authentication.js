@@ -35,11 +35,11 @@ export const loginWithForm = request => async dispatch => {
   }
 }
 
-export const activatingUser = (history, request) => async dispatch => {
+export const activatingUser = (request) => async dispatch => {
   try{
     const responseActivatingUser = await authentication.activatingUser(request);
     dispatch(dispatchType.activationUser(responseActivatingUser));
-    history.push("/");
+    //history.push("/");
   }catch(error){
     console.log(error);
   }

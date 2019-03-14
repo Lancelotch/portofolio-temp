@@ -7,6 +7,7 @@ const DASHBOARD_CUSTOMER = '/dashboard-customer/:tab';
 const SEARCH = '/search';
 const CATEGORY  = '/category/:categoryId';
 const CONFIRMATION = '/confirmation/:idConfirmation';
+const PRODUCTS = '/products';
 
 const PATH_URL = {
     HOME: HOME,
@@ -17,7 +18,8 @@ const PATH_URL = {
     DASHBOARD_CUSTOMER: DASHBOARD_CUSTOMER,
     SEARCH: SEARCH,
     CATEGORY: CATEGORY,
-    CONFIRMATION: CONFIRMATION
+    CONFIRMATION: CONFIRMATION,
+    PRODUCTS: PRODUCTS
 }
 
 export default PATH_URL;

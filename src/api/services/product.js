@@ -1,14 +1,12 @@
 import { PATH_PRODUCT } from "../path";
 import { dummyService } from "./httpClient";
 
-const listProductCategory = request => {
-  const categoryId = request.categoryId;
-  const page = request.page;
+const listProductCategory = ({categoryId,page, sortBy, direction}) => {
   return new Promise((resolve, reject) => {
     dummyService
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=208&page=${page}`
+        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
       })
       .then(response => {
         resolve(response.data);
@@ -35,11 +33,7 @@ const popularProduct = request => {
   })
 }
 
-const listProductSearch = request => {
-  const query = request.query;
-  const page = request.page;
-  const sortBy = request.sortBy;
-  const direction = request.direction;
+const listProductSearch = ({query,page, sortBy, direction}) => {
   return new Promise((resolve, reject) => {
     dummyService
       .request({
@@ -87,12 +81,29 @@ const mostClickProduct = request => {
   })
 }
 
+const products = ({page,limit}) =>{
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method: "GET",
+        url: `${PATH_PRODUCT.PRODUCT}?limit=${limit}&page=${page}`
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response.data);
+      });
+  });
+}
+
 const product = {
   listProductCategory: listProductCategory,
   listProductSearch: listProductSearch,
   popularProduct: popularProduct,
   bestSellerProduct: bestSellerProduct,
-  mostClickProduct: mostClickProduct
+  mostClickProduct: mostClickProduct,
+  products: products
 };
 
 export default product;

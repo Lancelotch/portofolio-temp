@@ -42,7 +42,7 @@ const activatingUser = request =>{
     dummyService
       .request({
         method: "GET",
-        url: "activation/"+ request
+        url: PATH_PUBLIC.PUBLIC_USER_ACTIVED + request
       })
       .then(response => {
         resolve(response.data);
