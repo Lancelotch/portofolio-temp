@@ -1,19 +1,13 @@
 import React, { Component } from "react";
-import Header from "../../components/Header";
-import SliderProductDetail from "components/SliderSecondary";
-import { Col, Row, Card, Spin } from "antd";
-import Variants from "../../components/Variant/Variants";
+
 import "./style.sass";
-import ButtonQuantity from "../../components/ButtonQuantity";
-import dummyProductDetail from "../../dummy/dummyProductDetail";
-import strings from "../../localization/localization";
-import ProductAttibutes from "../../components/ProductAttributes";
-import Footer from "../../components/Footer";
+
 import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
-import Shipping from "../../components/Shipping";
+import dummyProductDetail from "../../dummy/dummyProductDetail";
+import ProductDetail from ".";
 
-class ProductDetail extends Component {
+export default class ProducDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -208,105 +202,49 @@ class ProductDetail extends Component {
   }
 
   render() {
+    const {
+      productTitle,
+      productImages,
+      index,
+      productSalePrice,
+      variants,
+      changed,
+      sizeId,
+      colorId,
+      sku,
+      stockAlert,
+      details
+    } = this.state;
     const price = currencyRupiah(this.state.productPrice);
     const { match } = this.props;
+    const variantsRef = this.variantsRef;
+    const onChangeVariant = this.onChangeVariant;
+    const onChangeQuantity = this.onChangeQuantity;
+
     return (
       <React.Fragment>
-        <Row>
-          <Col md={24}>
-            <Header match={match} />
-            <div className="container productDetail">
-              <Row>
-                <Col md={10}>
-                  <h2> {this.state.productTitle || <Spin />}</h2>
-                  <SliderProductDetail
-                    productImages={this.state.productImages}
-                    index={this.state.index}
-                  />
-                </Col>
-                <Col md={14}>
-                  <div className="productDetail__variantContent">
-                    {!this.state.productSalePrice ? (
-                      <Spin />
-                    ) : (
-                      <p className="productDetail__price">{price}</p>
-                    )}
-                    {this.state.variants.map((variant, index) => (
-                      <Variants
-                        ref={this.variantsRef[index]}
-                        key={variant.id}
-                        index={index}
-                        name={
-                          variant.name.charAt(0).toUpperCase() +
-                          variant.name.substring(1)
-                        }
-                        productImages={this.state.productImages}
-                        values={variant.values}
-                        id={variant.id}
-                        changed={this.state.changed}
-                        onChangeVariant={this.onChangeVariant}
-                        sizeId={this.state.sizeId}
-                        colorId={this.state.colorId}
-                        sku={this.state.sku}
-                      />
-                    ))}
-                    <ButtonQuantity
-                      title="Jumlah"
-                      quantity={1}
-                      onChange={this.onChangeQuantity}
-                    />
-                    <p className="productDetail__stock">
-                      {this.state.stockAlert}
-                    </p>
-
-                    <div className="productDetail__delivery">
-                      {!this.state.productSalePrice ? (
-                        <Spin />
-                      ) : (
-                        <p>
-                          {strings.delivery_from}:{" "}
-                          <b className="productDetail__china">
-                            {strings.china}
-                          </b>{" "}
-                          {strings.delivery_to}
-                        </p>
-                      )}
-                    </div>
-                    <Shipping />
-                    <button className="productDetail__addCart">
-                      {strings.add_to_cart}
-                    </button>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={24} style={{ marginTop: 50 }}>
-                  <Card>
-                    <h3>{strings.detail_product}</h3>
-                    {Object.keys(this.state.details).map((detail, i) => {
-                      return (
-                        <ProductAttibutes
-                          key={i}
-                          description={this.state.details[detail]}
-                          label={
-                            detail.charAt(0).toUpperCase() + detail.substring(1)
-                          }
-                        />
-                      );
-                    })}
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-            <Footer />
-          </Col>
-        </Row>
+        <ProductDetail
+          price={price}
+          match={match}
+          productTitle={productTitle}
+          productImages={productImages}
+          index={index}
+          productSalePrice={productSalePrice}
+          variants={variants}
+          variantsRef={variantsRef}
+          changed={changed}
+          onChangeVariant={onChangeVariant}
+          sizeId={sizeId}
+          colorId={colorId}
+          sku={sku}
+          onChangeQuantity={onChangeQuantity}
+          stockAlert={stockAlert}
+          details={details}
+        />
       </React.Fragment>
     );
   }
 }
-
-export default ProductDetail;
 function idColoridSize(variants) {
   let idColor = variants[0].id;
   let idSize = variants[1].id;

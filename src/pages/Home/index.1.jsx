@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Slider, Button } from 'antd'
 import { connect } from 'react-redux'
-import Header from 'components/Header'
+import Header from '../../components/Header'
 import SliderHome from '../../components/SliderHome'
 import category from '../../api/services/category'
 import Benefit from '../../components/Benefit'
