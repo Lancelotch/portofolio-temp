@@ -1,17 +1,16 @@
 import PATH_URL from './path';
-import Home from '../pages/Home';
+import HomeContainer from '../pages/Home/HomeContainer.jsx';
 import Register from '../pages/Register';
 import ProductDetail from '../pages/ProductDetail'
 import Confirmation from '../pages/Confirmation';
 import Category from '../pages/Category';
 import Search from '../pages/Search';
-import Product from '../pages/Product';
-import Example from '../pages/Example';
+
 
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
-        component: Home
+        component: HomeContainer
     },
     {
         path: PATH_URL.REGISTER,
@@ -41,15 +40,7 @@ const routes = [{
     {
         path: PATH_URL.SEARCH,
         component: Search
-    },
-    {
-        path: PATH_URL.PRODUCTS,
-        component: Product
-    },
-    {
-        path: PATH_URL.EXAMPLE,
-        component:Example
-    },
+    }
 ]
 
 export default routes;

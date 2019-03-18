@@ -11,7 +11,7 @@ export default class HomePage extends Component {
 
     return (
       <React.Fragment>
-          <Benefit benefit={benefit} />
+          {/* <Benefit benefit={benefit} /> */}
           <PopularProducts products={popularProduct} maxNumber={4} />
       </React.Fragment>
     )
