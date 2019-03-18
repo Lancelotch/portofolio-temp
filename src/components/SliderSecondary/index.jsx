@@ -47,7 +47,7 @@ class SliderProductDetail extends Component {
 
   imageViewer() {
     const images = [{ src: this.state.original }];
-    this.props.productImages.map(productImage => {
+    this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
       });
@@ -73,7 +73,7 @@ class SliderProductDetail extends Component {
 
   render() {
     const images = [];
-    this.props.productImages.map(productImage => {
+    this.props.images.map(productImage => {
       return images.push({
         original: productImage.large,
         thumbnail: productImage.small

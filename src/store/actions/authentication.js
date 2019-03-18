@@ -62,4 +62,6 @@ export const activatingUser = (history, request) => async dispatch => {
 
 export const logout = () => dispatch => {
   dispatch(dispatchType.logout());
+  localStorage.removeItem('accesToken')
+  localStorage.removeItem('refreshToken')
 };

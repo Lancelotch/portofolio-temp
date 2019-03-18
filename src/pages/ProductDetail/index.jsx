@@ -1,23 +1,27 @@
-import React, { Component } from "react"
-import Header from "../../components/Header"
-import SliderProductDetail from "components/SliderSecondary"
-import { Col, Row, Card, Spin } from "antd"
-import Variants from "../../components/Variant/Variants"
-import "./style.sass"
-import ButtonQuantity from "../../components/ButtonQuantity"
+import React, { Component } from "react";
+import Header from "../../components/Header";
+import SliderProductDetail from "components/SliderSecondary";
+import { Col, Row, Card, Spin } from "antd";
+import Variants from "../../components/Variant/Variants";
+import "./style.sass";
+import ButtonQuantity from "../../components/ButtonQuantity";
 
-import strings from "../../localization/localization"
-import ProductAttibutes from "../../components/ProductAttributes"
-import Footer from "../../components/Footer"
+import strings from "../../localization/localization";
+import ProductAttibutes from "../../components/ProductAttributes";
+import Footer from "../../components/Footer";
 
-import Shipping from "../../components/Shipping"
+import Shipping from "../../components/Shipping";
 
 export default class ProductDetail extends Component {
   render() {
-    const { 
+    const {
       price,
-      match, productTitle, productImages, index, 
-      productSalePrice, variants, variantsRef,
+      match,
+      name,
+      images,
+      index,
+      variants,
+      variantsRef,
       changed,
       onChangeVariant,
       sizeId,
@@ -32,18 +36,16 @@ export default class ProductDetail extends Component {
         <Row>
           <Col md={24}>
             <Header match={match} />
+            <div className="productDetailBorder"/>
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2> {productTitle || <Spin />}</h2>
-                  <SliderProductDetail
-                    productImages={productImages}
-                    index={index}
-                  />
+                  <h2> {name || <Spin />}</h2>
+                  <SliderProductDetail images={images} index={index} />
                 </Col>
                 <Col md={14}>
                   <div className="productDetail__variantContent">
-                    {!productSalePrice ? (
+                    {!name ? (
                       <Spin />
                     ) : (
                       <p className="productDetail__price">{price}</p>
@@ -57,7 +59,6 @@ export default class ProductDetail extends Component {
                           variant.name.charAt(0).toUpperCase() +
                           variant.name.substring(1)
                         }
-                        productImages={productImages}
                         values={variant.values}
                         id={variant.id}
                         changed={changed}
@@ -72,12 +73,10 @@ export default class ProductDetail extends Component {
                       quantity={1}
                       onChange={onChangeQuantity}
                     />
-                    <p className="productDetail__stock">
-                      {stockAlert}
-                    </p>
+                    <p className="productDetail__stock">{stockAlert}</p>
 
                     <div className="productDetail__delivery">
-                      {!productSalePrice ? (
+                      {!price ? (
                         <Spin />
                       ) : (
                         <p>
@@ -118,6 +117,6 @@ export default class ProductDetail extends Component {
           </Col>
         </Row>
       </React.Fragment>
-    )
+    );
   }
 }
