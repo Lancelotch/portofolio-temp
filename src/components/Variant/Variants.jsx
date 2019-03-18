@@ -21,14 +21,14 @@ class Variants extends Component {
     };
     let sku = this.props.sku;
     this.stockInfo = {};
-    for (let j = 0; j < sku.length; j++) {
-      this.stockInfo[sku[j].id] = sku[j].stock;
-      console.log('stock-info',this.stockInfo);
-    }
+    sku.map(item => {
+      this.stockInfo[item.id] = item.stock;
+    });
+
     this.variantsRef = [];
-    for (let i = 0; i < this.state.values.length; i++)
-      this.variantsRef[i] = React.createRef();
-      console.log('varians-ref',this.variantsRef);     
+    this.state.values.map((item, index) => {
+      this.variantsRef[index] = React.createRef();
+    });  
   }
 
   changedInfo = (colorId, sizeId) => {

@@ -53,6 +53,17 @@ export default class ProducDetailContainer extends Component {
         ...itemProductDetail
       });
       let { sizeId, colorId, lowestPrice } = this.lowestPrice();
+      res.data.variants[0].values.map((value) => {
+        if (value.id === colorId) {
+          res.data.images.map((productValue, j) => {
+            if (productValue.large === value.image.large) {
+              this.setState({
+                index: j
+              });
+            }
+          });
+        }
+      });
       this.setState({
         colorId: colorId,
         sizeId: sizeId,
@@ -70,6 +81,31 @@ export default class ProducDetailContainer extends Component {
       console.log(error);
     }
   };
+
+  lowestPrice() {
+    let { colorId, sizeId } = "01";
+    let { idSize, idColor } = { idSize: "002", idColor: "001" };
+    let lowestPrice;
+    let lowest = _.chain(this.state.sku)
+      .sortBy("price").map(function(value) {
+        return value;
+      }).head()
+        .value();
+    lowestPrice = lowest.price;
+    let id = lowest.id.substring(0, 3);
+    if (id === idSize) {
+      sizeId = lowest.id.substring(3, 5);
+    } else if (id === idColor) {
+      colorId = lowest.id.substring(3, 5);
+    }
+    id = lowest.id.substring(5, 8);
+    if (id === idSize) {
+      sizeId = lowest.id.substring(8, 10);
+    } else if (id === idColor) {
+      colorId = lowest.id.substring(8, 10);
+    }
+    return { sizeId, colorId, lowestPrice };
+  }
 
   colorVariant(variants, selected, sku, images) {
     let { idColor, idSize, colorId, sizeId } = {
@@ -169,31 +205,6 @@ export default class ProducDetailContainer extends Component {
       quantity: quantity
     });
   };
-
-  lowestPrice() {
-    let { colorId, sizeId } = "01";
-    let { idSize, idColor } = { idSize: "002", idColor: "001" };
-    let lowestPrice;
-    let lowest = _.chain(this.state.sku)
-      .sortBy("price").map(function(value) {
-        return value;
-      }).head()
-        .value();
-    lowestPrice = lowest.price;
-    let id = lowest.id.substring(0, 3);
-    if (id === idSize) {
-      sizeId = lowest.id.substring(3, 5);
-    } else if (id === idColor) {
-      colorId = lowest.id.substring(3, 5);
-    }
-    id = lowest.id.substring(5, 8);
-    if (id === idSize) {
-      sizeId = lowest.id.substring(8, 10);
-    } else if (id === idColor) {
-      colorId = lowest.id.substring(8, 10);
-    }
-    return { sizeId, colorId, lowestPrice };
-  }
 
   render() {
     const {
