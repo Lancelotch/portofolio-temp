@@ -8,6 +8,7 @@ const SEARCH = '/search';
 const CATEGORY  = '/category/:categoryId';
 const CONFIRMATION = '/confirmation/:idConfirmation';
 const PRODUCTS = '/products';
+const EXAMPLE = '/example';
 
 const PATH_URL = {
     HOME: HOME,
@@ -19,7 +20,8 @@ const PATH_URL = {
     SEARCH: SEARCH,
     CATEGORY: CATEGORY,
     CONFIRMATION: CONFIRMATION,
-    PRODUCTS: PRODUCTS
+    PRODUCTS: PRODUCTS,
+    EXAMPLE: EXAMPLE
 }
 
 export default PATH_URL;
