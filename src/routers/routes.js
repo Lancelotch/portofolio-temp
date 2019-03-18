@@ -1,12 +1,12 @@
 import PATH_URL from './path';
-import Home from '../containers/Home';
-import Register from '../containers/Register';
-import ProductDetail from '../containers/ProductDetail'
-import Confirmation from '../containers/Confirmation';
-import Category from '../containers/Category';
-import Search from '../containers/Search';
-import Product from '../containers/Product';
-import Example from '../containers/Example';
+import Home from '../pages/Home';
+import Register from '../pages/Register';
+import ProductDetail from '../pages/ProductDetail'
+import Confirmation from '../pages/Confirmation';
+import Category from '../pages/Category';
+import Search from '../pages/Search';
+import Example from '../pages/Example';
+
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -31,6 +31,10 @@ const routes = [{
         component:Category
     },
     {
+        path: PATH_URL.EXAMPLE,
+        component:Example
+    },
+    {
         path: '/category/fashion-pria/:categoryId',
         component:Category
     },
@@ -41,15 +45,7 @@ const routes = [{
     {
         path: PATH_URL.SEARCH,
         component: Search
-    },
-    {
-        path: PATH_URL.PRODUCTS,
-        component: Product
-    },
-    {
-        path: PATH_URL.EXAMPLE,
-        component:Example
-    },
+    }
 ]
 
 export default routes;

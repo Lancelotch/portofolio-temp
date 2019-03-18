@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Variant from ".";
+import _ from "lodash";
 
 class Variants extends Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class Variants extends Component {
       index: this.props.index,
       name: this.props.name,
       values: this.props.values,
-      productImages: this.props.productImages,
       id: this.props.id,
       changed: this.props.changed,
       colorId: this.props.colorId,
@@ -21,12 +21,14 @@ class Variants extends Component {
     };
     let sku = this.props.sku;
     this.stockInfo = {};
-    for (let j = 0; j < sku.length; j++) {
-      this.stockInfo[sku[j].id] = sku[j].stock;
-    }
+    sku.map(item => {
+      this.stockInfo[item.id] = item.stock;
+    });
+
     this.variantsRef = [];
-    for (let i = 0; i < this.state.values.length; i++)
-      this.variantsRef[i] = React.createRef();
+    this.state.values.map((item, index) => {
+      this.variantsRef[index] = React.createRef();
+    });  
   }
 
   changedInfo = (colorId, sizeId) => {
@@ -70,19 +72,17 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    let idSize = "002";
-    let idColor = "001";
+    let { idSize, idColor } = { idSize: "002", idColor: "001" };
     if (this.state.index === 1) {
       let notZeroIndex = 0;
-      for (let i = 0; i < this.state.values.length; i++) {
-        let value = this.state.values[i];
+      _.forEach(this.state.values.length, function(i, value) {
         if (
           this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0
         ) {
           notZeroIndex = i;
-          break;
+          return false;
         }
-      }
+      });
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
@@ -121,22 +121,12 @@ class Variants extends Component {
 
   variantDefault = (colorId, sizeId) => {
     let selected = [];
-    let i = 0;
-    if (this.props.index === 0) {
-      for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === colorId) {
-          selected = this.props.values[i];
-        }
-      }
-    }
-    if (this.props.index === 1) {
-      for (i = 0; i < this.props.values.length; i++) {
-        if (this.props.values[i].id === sizeId) {
-          selected = this.props.values[i];
-        }
-      }
-    }
-    console.log(selected);
+    let id = 0;
+    if (this.props.index === 0) id = colorId;
+    else id = sizeId;
+    this.props.values.map(value => {
+      if (value.id === id) selected = value;
+    });
     return selected;
   };
 
@@ -164,3 +154,4 @@ Variants.propTypes = {
 };
 
 export default Variants;
+

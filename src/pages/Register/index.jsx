@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Alert } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Alert, Spin } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -13,6 +13,7 @@ import {
   registerForm
 } from "../../store/actions/authentication";
 import FrontImage from "../../components/Image/FrontImage";
+import Loading from "../../components/Loading";
 
 const FormItem = Form.Item;
 
@@ -79,23 +80,56 @@ class RegisterPage extends Component {
   };
 
   rulesPassword = () => {
-    return{
-    rules: [
-      {
-        required: true,
-        message: strings.register_password
-      },
-      {
-        pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
-        message: strings.register_password_quote
-      }
-    ]
-  }
-  }
+    return {
+      rules: [
+        {
+          required: true,
+          message: strings.register_password
+        },
+        {
+          pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
+          message: strings.register_password_quote
+        }
+      ]
+    };
+  };
+
+  renderButton = () => {
+    return this.props.isLoading ? (
+      <Loading />
+    ) : (
+      <Button
+        className="register__form__button-register"
+        size={"large"}
+        htmlType="submit"
+        type="primary"
+      >
+        <p className="register__form__button-register-text">
+          {strings.login_register}
+        </p>
+      </Button>
+    );
+  };
+
+  alertMessage = () => {
+    return (
+      this.state.message && (
+        <Alert
+          type={this.state.success ? "success" : "error"}
+          message={
+            <span>
+              <b>{this.state.success ? "Berhasil" : "Gagal"}</b> &nbsp;
+              {this.state.message}
+            </span>
+          }
+          showIcon
+        />
+      )
+    );
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { message, success } = this.state;
 
     return (
       <React.Fragment>
@@ -133,8 +167,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password",this.rulesPassword()
-                  )(
+                  {getFieldDecorator("password", this.rulesPassword())(
                     <Input.Password
                       className="register__input"
                       min={6}
@@ -163,28 +196,10 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  {message && (
-                    <Alert
-                      type={success ? "success" : "error"}
-                      message={
-                        <span>
-                          <b>{success ? "Berhasil" : "Gagal"}</b> &nbsp;
-                          {message}
-                        </span>
-                      }
-                      showIcon
-                    />
-                  )}
-                  <Button
-                    className="register__form__button-register"
-                    size={"large"}
-                    htmlType="submit"
-                    type="primary"
-                  >
-                    <p className="register__form__button-register-text">
-                      {strings.login_register}
-                    </p>
-                  </Button>
+                  <div className="register__form__confirm">
+                    {this.alertMessage()}
+                  </div>
+                  {this.renderButton()}
                 </FormItem>
                 <Row
                   type="flex"
@@ -230,11 +245,15 @@ class RegisterPage extends Component {
 }
 const RegisterForm = Form.create({})(RegisterPage);
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated,
-  token: state.authentication.token,
-  message: state.authentication.message
-});
+const mapStateToProps = state => {
+  const { isAuthenticated, token, message, isLoading } = state.authentication;
+  return {
+    isAuthenticated,
+    token,
+    message,
+    isLoading
+  };
+};
 
 export default connect(
   mapStateToProps,

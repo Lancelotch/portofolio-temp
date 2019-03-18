@@ -14,7 +14,6 @@ const registerWithForm = authData => {
     }
 }
 
-
 const loginWithForm = authData => {
     return{
         type : TYPE.LOGIN_WITH_FORM,
@@ -42,7 +41,14 @@ const products = productList => {
     }
 }
 
+const handleLoading = () => {
+    return{
+        type: TYPE.HANDLE_LOADING
+    }
+}
+
 const dispatchType = {
+    handleLoading : handleLoading,
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
     loginWithForm : loginWithForm,
