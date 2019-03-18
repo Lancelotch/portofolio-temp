@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Header from 'components/Header'
 import SliderHome from '../../components/SliderHome'
 import category from '../../api/services/category'
-import Benefit from '../../components/Benefit'
+import {BenefitWithData, Benefit} from '../../components/Benefit'
 import product from '../../api/services/product'
 import BestSeller from '../../components/BestSellers'
 import PopularProducts from '../../components/PopularProducts'
@@ -27,22 +27,22 @@ class HomePage extends Component {
   }
 
   componentDidMount () {
-    this.getBenefit()
+    //this.getBenefit()
     this.getPopularProduct()
     this.getBestSellerProduct()
     this.getMostClickProduct()
   }
 
-  getBenefit = async () => {
-    try {
-      const payload = await category.benefit()
-      this.setState({
-        benefit: payload.data
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // getBenefit = async () => {
+  //   try {
+  //     const payload = await category.benefit()
+  //     this.setState({
+  //       benefit: payload.data
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   getPopularProduct = async () => {
     try {
@@ -94,7 +94,7 @@ class HomePage extends Component {
             <Header match={match}/>
             <SliderHome />
             <Row type='flex' justify='center'>
-              <Benefit benefit={benefit} />
+              <BenefitWithData />
             </Row>
             <Row type='flex' justify='center'>
               <PopularProducts products={popularProduct} maxNumber={4} />

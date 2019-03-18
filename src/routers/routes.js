@@ -6,6 +6,7 @@ import Confirmation from '../containers/Confirmation';
 import Category from '../containers/Category';
 import Search from '../containers/Search';
 import Product from '../containers/Product';
+import Example from '../containers/Example';
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -44,7 +45,11 @@ const routes = [{
     {
         path: PATH_URL.PRODUCTS,
         component: Product
-    }
+    },
+    {
+        path: PATH_URL.EXAMPLE,
+        component:Example
+    },
 ]
 
 export default routes;
