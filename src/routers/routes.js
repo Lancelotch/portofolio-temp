@@ -1,16 +1,17 @@
 import PATH_URL from './path';
-import HomeContainer from '../pages/Home/HomeContainer.jsx';
+import Home from '../pages/Home';
 import Register from '../pages/Register';
-import ProductDetailContainer from '../pages/ProductDetail/ProductDetailContainer.jsx'
+import ProductDetail from '../pages/ProductDetail'
 import Confirmation from '../pages/Confirmation';
 import Category from '../pages/Category';
 import Search from '../pages/Search';
-
+import Product from '../pages/Product';
+import Example from '../pages/Example';
 
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
-        component: HomeContainer
+        component: Home
     },
     {
         path: PATH_URL.REGISTER,
@@ -23,7 +24,7 @@ const routes = [{
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetailContainer
+        component: ProductDetail
     },
     {
         path: PATH_URL.CATEGORY,
@@ -40,7 +41,15 @@ const routes = [{
     {
         path: PATH_URL.SEARCH,
         component: Search
-    }
+    },
+    {
+        path: PATH_URL.PRODUCTS,
+        component: Product
+    },
+    {
+        path: PATH_URL.EXAMPLE,
+        component:Example
+    },
 ]
 
 export default routes;

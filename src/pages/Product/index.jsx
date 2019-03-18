@@ -13,7 +13,7 @@ import SortListProduct from "../../components/SortListProduct/";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
-class CategoryPage extends Component {
+class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,13 +22,11 @@ class CategoryPage extends Component {
       page: 0,
       isProductAvailable: false,
       loadingSkeleton: true,
-      query: this.props.match.params.categoryId,
       isQueryAvailable: true,
       limit: 20,
       direction: "desc",
       sortBy: "createdDate",
-      element: 0,
-      categoryId: this.props.match.params.categoryId
+      element: 0
     };
   }
 
@@ -40,22 +38,14 @@ class CategoryPage extends Component {
     const {
       productList,
       page,
-      limit,
-      sortBy,
-      direction,
-      categoryId
+      limit
     } = this.state;
     const request = {
       page: page,
-      limit: limit,
-      sortBy: sortBy,
-      direction: direction,
-      categoryId: categoryId
+      limit: limit
     };
     try {
-      const nextProduct = await product.listProductCategory(request);
-      console.log(nextProduct);
-
+      const nextProduct = await product.products(request);
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
@@ -63,18 +53,9 @@ class CategoryPage extends Component {
         isProductAvailable: true
       });
     } catch (error) {
-      this.handleCategoryNotFound(error)
+        console.log(error);
     }
   };
-
-  handleCategoryNotFound = (error)=> {
-    if (error.status === 500) {
-      this.props.history.push('/products');
-      this.setState({
-        isQueryAvailable: false
-      });
-    }
-  }
 
   fetchMoreData = () => {
     const { productList, element, hasMore } = this.state;
@@ -114,7 +95,6 @@ class CategoryPage extends Component {
     );
     return (
       <Fragment>
-        <p>{categoryTextResult} </p>
         <SortListProduct onChange={this.onChangeSort} />
         <InfiniteScroll
           dataLength={productList.length}
@@ -143,18 +123,8 @@ class CategoryPage extends Component {
     );
   };
 
-  renderNotFound = () => {
-    const { query } = this.state;
-    return (
-      <p>
-        Oooopppss... <b>"{query}"</b> tidak ditemukan
-      </p>
-    );
-  };
-
   render() {
     const { match } = this.props;
-    
     return (
       <React.Fragment>
         <Row>
@@ -174,4 +144,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated
 });
 
-export default connect(mapStateToProps)(CategoryPage);
+export default connect(mapStateToProps)(ProductPage);
