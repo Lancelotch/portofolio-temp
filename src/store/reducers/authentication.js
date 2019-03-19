@@ -1,12 +1,12 @@
 import TYPE from '../actions/type';
+import { message } from 'antd';
 
 const initialState = {
     token: [],
     isLoading: false,
     isFinish: false,
     isError: false,
-    isAuthenticated: false,
-    message: {}
+    isAuthenticated : false,
 }
 
 

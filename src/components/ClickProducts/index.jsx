@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import {Row, Col, Card, Icon, Carousel} from 'antd'
 import Slider from 'react-slick'
+import './style.sass'
 
 
 const SampleNextArrow = props => {
     const { className, style, onClick } = props
     return (
-    <div className={className} style={{ marginRight: '30px', zIndex: '1' }}>
+        <div className={className} style={{ marginRight: '30px', zIndex: '1', height:'60px', width:'60px', opacity:'0.5', backgroundColor:'#AAAAAA', display:'flex', justifyContent:'center', alignItems:'center', marginRight:'60px' }}>>
       <Icon
         type='right'
-        style={{ color: 'red', fontSize: '100px' }}
+        style={{ color: 'white', fontSize: '30px' }}
         onClick={onClick}
       />
     </div>
@@ -17,13 +18,14 @@ const SampleNextArrow = props => {
 
 }
 
+
 const SamplePrevArrow = props => {
     const { className, style, onClick } = props
   return (
-    <div className={className} style={{ marginLeft: '30px', zIndex: '1' }}>
+    <div className={className} style={{ marginRight: '30px', zIndex: '1', height:'60px', width:'60px', opacity:'0.5', backgroundColor:'#AAAAAA', display:'flex', justifyContent:'center', alignItems:'center', marginLeft:'25px' }}>>
       <Icon
         type='left'
-        style={{ color: 'red', fontSize: '30px' }}
+        style={{ color: 'white', fontSize: '30px' }}
         onClick={onClick}
       />
     </div>
@@ -45,34 +47,49 @@ class ClickProducts extends Component {
         
         const settings = {
             dots: true,
-            infinite: true,
-            autoplay: 2000,
+            autoplay: 5000,
+            arrows: true,
             slidesToShow: 5,
             slidesToScroll: 5,
+            swipeToSlide: true,
             nextArrow: <SampleNextArrow />,
-            prevArrow: <SamplePrevArrow />
+            prevArrow: <SamplePrevArrow />,
+            appendDots: dots => (
+                <div
+                  style={{
+                    borderRadius: "10px",
+                    padding: "10px", 
+                  }}
+                >
+                  <ul className='dots'> {dots} </ul>
+                </div>
+              )
           };
 
         const slides = products.map(product => {
             return(
-                <Col md={24}>
+                <Col md={3}>
                     <Card
                         style={{
-                            height: '330px',
+                            height: '380px',
                             width: '220px',
-                            padding: '20px',
                             background: '#fffff',
-                            borderRadius: '5px'
+                            borderRadius: '5px',
+                            marginRight:'20px',
+                            padding: '80px 20px 0px 20px',
+                            boxShadow: '0 3px 6px 0 rgba(0,0,0,0.3)'
+
                         }}
                         cover={
                             <img
                             alt='example'
                             src={product.urlImage}
+                            style={{width:'100%'}}
                             />
                         }
                     >
                      <div>
-                        <p className='best__title'>{product.name}</p>
+                        <p  style={{padding:'70px 0 0 0'}}className='best__title'>{product.name}</p>
                         <p className='best__price'>{product.price} </p>
                     </div>  
                     </Card>
@@ -83,16 +100,13 @@ class ClickProducts extends Component {
 
         return ( 
             <React.Fragment>
-                <div >
-                <Carousel autoplay {...settings}>
+                
+                <Carousel  {...settings}>
+                    
                     {slides}
-                </Carousel>
-                </div>
-               
-                {/* <Carousel  {...settings}>
-                    {slides}
-                </Carousel> */}
-
+                   
+                 </Carousel>
+            
             </React.Fragment>
          );
     }
