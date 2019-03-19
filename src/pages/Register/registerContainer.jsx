@@ -1,5 +1,27 @@
+import React, { Component } from 'react';
+import { Button } from "antd";
 import strings from "../../localization/localization";
+import Loading from '../../components/Loading';
 
+class RegistrationSubmitButton extends Component {
+  render() {
+    return this.props.isLoading ? (
+      <Loading />
+    ) : (
+      <Button
+        className="register__form__button-register"
+        size={"large"}
+        htmlType="submit"
+        type="primary"
+      >
+        <p className="register__form__button-register-text">
+          {strings.login_register}
+        </p>
+      </Button>
+    );
+  }
+}
+export default RegistrationSubmitButton;
 
 
 export const rulesName = () => {
@@ -46,3 +68,5 @@ export const rulesPassword = () => {
     ]
   };
 };
+
+

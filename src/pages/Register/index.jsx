@@ -13,12 +13,13 @@ import {
 } from "../../store/actions/authentication";
 import FrontImage from "../../components/Image/FrontImage";
 import Loading from "../../components/Loading";
-import {
+import RegistrationSubmitButton, {
   rulesName,
   rulesEmail,
   rulesPassword,
   handleSubmit
 } from "./registerContainer";
+import RegistrationAlert from "./registerAlert";
 
 const FormItem = Form.Item;
 
@@ -52,40 +53,6 @@ class RegisterPage extends Component {
 
   handleRegisterGoogle = request => {
     this.props.loginWithGoogle(this.props.history, request);
-  };
-
-  renderButton = () => {
-    return this.props.isLoading ? (
-      <Loading />
-    ) : (
-      <Button
-        className="register__form__button-register"
-        size={"large"}
-        htmlType="submit"
-        type="primary"
-      >
-        <p className="register__form__button-register-text">
-          {strings.login_register}
-        </p>
-      </Button>
-    );
-  };
-
-  alertMessage = () => {
-    return (
-      this.state.message && (
-        <Alert
-          type={this.state.success ? "success" : "error"}
-          message={
-            <span>
-              <b>{this.state.success ? "Berhasil" : "Gagal"}</b> &nbsp;
-              {this.state.message}
-            </span>
-          }
-          showIcon
-        />
-      )
-    );
   };
 
   render() {
@@ -165,9 +132,9 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <div className="register__form__confirm">
-                    {this.alertMessage()}
+                   <RegistrationAlert message={this.state.message} success={this.state.success} />
                   </div>
-                  {this.renderButton()}
+                  <RegistrationSubmitButton isLoading={this.state.isLoading} />
                 </FormItem>
                 <Row
                   type="flex"
