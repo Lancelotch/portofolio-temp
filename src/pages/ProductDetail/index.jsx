@@ -6,9 +6,9 @@ import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import ProductDetail from "./ProductDetailContainer.jsx";
-import {chain,forEach}from "lodash";
+import { chain, forEach } from "lodash";
 
-export default class ProducDetailContainer extends Component {
+export default class ProducDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,7 +73,7 @@ export default class ProducDetailContainer extends Component {
   };
 
   defaultImageSlide(res, colorId) {
-    res.data.variants[0].values.map((value) => {
+    res.data.variants[0].values.map(value => {
       if (value.id === colorId) {
         res.data.images.map((productValue, j) => {
           if (productValue.large === value.image.large) {
@@ -91,10 +91,12 @@ export default class ProducDetailContainer extends Component {
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
     let lowestPrice;
     let lowestPriceVariant = chain(this.state.sku)
-      .sortBy("price").map(function(value) {
+      .sortBy("price")
+      .map(function(value) {
         return value;
-      }).head()
-        .value();
+      })
+      .head()
+      .value();
     lowestPrice = lowestPriceVariant.price;
     let id = lowestPriceVariant.id.substring(0, 3);
     if (id === idSize) {
@@ -112,30 +114,38 @@ export default class ProducDetailContainer extends Component {
   }
 
   colorVariant(variants, selected, sku, images) {
-    let { idColor, idSize, colorId, sizeId } = {
+    let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
       idColor: variants[0].id,
       idSize: variants[1].id,
       colorId: selected.value.id,
-      sizeId: variants[1].values[0].id
+      sizeId: variants[1].values[0].id,
+      stockInfo: {},
+      notZeroIndex: 0
     };
-    let stockInfo = {};
-    let notZeroIndex = 0;
     this.setState({
       changed: 1,
       price: sku[0].price,
       colorId: selected.value.id
     });
     sku.map(item => {
-      stockInfo[item.id] = item.stock;
+      return (stockInfo[item.id] = item.stock);
     });
-    forEach(variants[1].values, function(value) {
-      if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
-        sizeId = value.id;
-        return false;
+    console.log(this.stockInfo);
+    forEach(this.state.values, function (value, i) {
+      if (stockInfo[idColor+colorId+idSize+value.id] !== 0) {
+        notZeroIndex = i;
+       return false;
       }
-    });
+   });
+    // for (let i = 0; i < variants[1].values.length; i++) {
+    //   let value = variants[1].values[i];
+    //   if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
+    //     notZeroIndex = i;
+    //     break;
+    //   }
+    // }
     sizeId = variants[1].values[notZeroIndex].id;
-    variants[0].values.map((value, i) => {
+    variants[0].values.map(value => {
       if (value.id === colorId) {
         images.map((productValue, j) => {
           if (productValue.large === value.image.large) {
@@ -147,7 +157,7 @@ export default class ProducDetailContainer extends Component {
       }
     });
     this.variantsRef.map((value, index) => {
-      this.variantsRef[index].current.changedInfo(colorId, sizeId);
+      return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
     this.variantPrice(sku, idColor, colorId, idSize, sizeId);
   }
@@ -167,9 +177,9 @@ export default class ProducDetailContainer extends Component {
     this.variantPrice(sku, idColor, colorId, idSize, sizeId);
   }
 
-  variantPrice(sku,idColor, colorId, idSize, sizeId) {
+  variantPrice(sku, idColor, colorId, idSize, sizeId) {
     sku.map((value, index) => {
-      if (idColor+colorId+idSize+sizeId === value.id) {
+      if (idColor + colorId + idSize + sizeId === value.id) {
         this.setState({
           price: value.price,
           size: index
@@ -252,5 +262,3 @@ export default class ProducDetailContainer extends Component {
     );
   }
 }
-
-

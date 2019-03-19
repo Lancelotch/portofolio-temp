@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Variant from ".";
-import _ from "lodash";
+import {forEach} from "lodash";
 
 class Variants extends Component {
   constructor(props) {
@@ -22,12 +22,12 @@ class Variants extends Component {
     let sku = this.props.sku;
     this.stockInfo = {};
     sku.map(item => {
-      this.stockInfo[item.id] = item.stock;
+     return this.stockInfo[item.id] = item.stock;
     });
 
     this.variantsRef = [];
     this.state.values.map((item, index) => {
-      this.variantsRef[index] = React.createRef();
+     return this.variantsRef[index] = React.createRef();
     });  
   }
 
@@ -75,17 +75,23 @@ class Variants extends Component {
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
     if (this.state.index === 1) {    
       let notZeroIndex = 0;
+      let temp_stockInfo = this.stockInfo;
+      let colorId = this.state.colorId;
       console.log(this.stockInfo);
-      for (let i = 0; i<this.state.values.length; i++) {
-        let value = this.state.values[i];
-        console.log(value);     
-        if (
-          this.stockInfo[idColor+this.state.colorId+idSize+value.id] !== 0
-        ) {
+      forEach(this.state.values, function (value, i) {
+        if (temp_stockInfo[idColor+colorId+idSize+value.id] !== 0) {
           notZeroIndex = i;
-          break;
+         return false;
         }
-      }
+     });
+      // for (let i = 0; i<this.state.values.length; i++) {
+      //   let value = this.state.values[i];
+      //   console.log(value);     
+      //   if (this.stockInfo[idColor+this.state.colorId+idSize+value.id] !== 0) {
+      //     notZeroIndex = i;
+      //     break;
+      //   }
+      // }
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
