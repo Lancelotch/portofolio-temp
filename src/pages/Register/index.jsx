@@ -17,7 +17,8 @@ import RegistrationSubmitButton, {
   rulesName,
   rulesEmail,
   rulesPassword,
-  handleSubmit
+  handleSubmit,
+  svgReactElement
 } from "./registerContainer";
 import RegistrationAlert from "./registerAlert";
 
@@ -68,7 +69,7 @@ class RegisterPage extends Component {
               }}
             >
               <Affix target={() => this.container}>
-                <FrontImage src={imageRegister} />
+              <div className="register_Background"/>
               </Affix>
             </div>
           </Col>
@@ -165,7 +166,7 @@ class RegisterPage extends Component {
                     {strings.formatString(
                       strings.register_quote,
                       <a className="register__form__link" href="/">
-                        {strings.register_now}
+                        {strings.register_login}
                       </a>
                     )}
                   </center>

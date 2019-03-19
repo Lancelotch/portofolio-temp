@@ -62,7 +62,7 @@ const strings = new LocalizedStrings({
      warning_empty_cart : "Belum ada barang di keranjang belanja kamu",
      warning_unavailable_product : "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
     //Register
-    register_now: "Masuk Sekarang",
+    register_now: "Daftar Sekarang",
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
@@ -72,11 +72,12 @@ const strings = new LocalizedStrings({
     register_email_quote: "Pastikan e-mail kamu diisi",
     register_password: "Password harus diisi",
     register_password_quote: "Password harus 6 digit kombinasi angka dan huruf",
-    register_password_placeholder: "Password Monggopesen",
+    register_password_placeholder: "Password",
     register_sucsess: "Pendaftaran Berhasil Silahkan Cek Email Untuk Aktivasi",
     register_pattern_quote: "Nama hanya boleh berupa huruf, titik (.), underscore (_), dan spasi",
     register_policy: "Kebijakan Privasi",
     register_requirement: "Syarat & Ketentuan",
+    register_login: "Masuk Sekarang",
     register_agree: "Dengan melakukan pendaftaran, saya setuju dengan {0} dan {1} monggopesen.com",
 
     //product detail

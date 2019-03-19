@@ -23,7 +23,46 @@ class RegistrationSubmitButton extends Component {
 }
 export default RegistrationSubmitButton;
 
+export const svgReactElement = (
 
+<svg
+      width="840px"
+      height="900px"
+      viewBox="0 0 840 900"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient
+          x1="-13.4063232%"
+          y1="92.6674292%"
+          x2="114.914791%"
+          y2="29.2926902%"
+          id="linearGradient-1"
+        >
+          <stop stop-color="#00B5B7" offset="0%" />
+          <stop stop-color="#007E80" offset="100%" />
+        </linearGradient>
+      </defs>
+      <g
+        id="Login-&amp;-Register"
+        stroke="none"
+        stroke-width="1"
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <rect
+          id="Mask"
+          fill="url(#linearGradient-1)"
+          x="0"
+          y="0"
+          width="840"
+          height="900"
+        />
+      </g>
+    </svg>
+
+);
 export const rulesName = () => {
   return {
     rules: [
