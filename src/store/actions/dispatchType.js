@@ -7,6 +7,13 @@ const activationUser = authData => {
     }
 }
 
+const registerWithForm = authData => {
+    return{
+        type: TYPE.REGISTER_WITH_FORM,
+        payload: authData
+    }
+}
+
 const loginWithForm = authData => {
     return{
         type : TYPE.LOGIN_WITH_FORM,
@@ -32,7 +39,7 @@ const loginWithGoogle = authData => {
     return{
         type : TYPE.LOGIN_WITH_GOOGLE,
         payload : authData
-    }
+    } 
 }
 
 const products = productList => {
@@ -42,13 +49,22 @@ const products = productList => {
     }
 }
 
+const handleLoading = () => {
+    return{
+        type: TYPE.HANDLE_LOADING
+    }
+}
+
 const dispatchType = {
+    handleLoading : handleLoading,
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
     loginWithFormEror : loginWithFormEror,
     loginWithForm : loginWithForm,
+    registerWithForm: registerWithForm,
     logout: logout,
-    products: products
+    products: products,
+     
 }
 
 export default dispatchType;

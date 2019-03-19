@@ -1,11 +1,12 @@
 import PATH_URL from './path';
-import Home from '../containers/Home';
-import Register from '../containers/Register';
-import ProductDetail from '../containers/ProductDetail'
-import Test from '../containers/Test';
-import Confirmation from '../containers/Confirmation';
-import Category from '../containers/Category';
-import Search from '../containers/Search';
+import Home from '../pages/Home';
+import Register from '../pages/Register';
+import ProductDetail from '../pages/ProductDetail'
+import Confirmation from '../pages/Confirmation';
+import Category from '../pages/Category';
+import Search from '../pages/Search';
+import Example from '../pages/Example';
+
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -28,6 +29,10 @@ const routes = [{
     {
         path: PATH_URL.CATEGORY,
         component:Category
+    },
+    {
+        path: PATH_URL.EXAMPLE,
+        component:Example
     },
     {
         path: '/category/fashion-pria/:categoryId',

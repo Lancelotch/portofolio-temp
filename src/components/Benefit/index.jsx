@@ -1,15 +1,18 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 import './style.sass'
+import composedWithFetchData from '../../hoc/withFetchData';
+import { PATH_HOME } from '../../api/path';
 
 const Benefit = props => {
-  const { benefit } = props
-  const showBenefit = benefit.map(benefit => {
+  const { data } = props
+  //console.log('benefit' + benefit)
+  const showBenefit = data.map(benefit => {
     return (
       <React.Fragment>
         <Col md={4}>
           <div className='benefitBox'>
-            <img className='benefitImage' src={benefit.imageUrl} />
+            <img className='benefitImage' alt ="" src={benefit.imageUrl} />
           </div>
         </Col>
       </React.Fragment>
@@ -19,4 +22,6 @@ const Benefit = props => {
   return <React.Fragment>{showBenefit}</React.Fragment>
 }
 
-export default Benefit
+const BenefitWithData = composedWithFetchData(Benefit, PATH_HOME.HOME_BENEFIT)
+
+export {Benefit, BenefitWithData}

@@ -81,6 +81,10 @@ const strings = new LocalizedStrings({
 
     //product detail
     product_detail_description: "Deskripsi Produk",
+    delivery_from: "Pengiriman Dari",
+    china: "China",
+    delivery_to : "ke INDONESIA",
+    detail_product: "Detail Product",
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
 

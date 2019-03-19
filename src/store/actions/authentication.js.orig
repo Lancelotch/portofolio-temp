@@ -1,6 +1,6 @@
 import authentication from "../../api/services/authentication";
 import dispatchType from "./dispatchType";
-
+import { defaultFormatUtc } from "moment";
 
 export const registerWithGoogle = (history, request) => async dispatch => {
   try {
@@ -30,14 +30,15 @@ export const loginWithForm = request => async dispatch => {
     const expiredToken = responseLoginForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
-  } catch (error) 
-  {
+  } catch (error) {
     console.log(error)
   }
 }
 
+<<<<<<< HEAD
+export const activatingUser = (request) => async dispatch => {
+=======
 export const registerForm = (history,request) => async dispatch => {
-  dispatch(dispatchType.handleLoading())
   try{
     const responseRegisterForm = await authentication.registerWithForm(request);
     dispatch(dispatchType.registerWithForm(responseRegisterForm));
@@ -51,7 +52,8 @@ export const registerForm = (history,request) => async dispatch => {
   }
 }
 
-export const activatingUser = (request) => async dispatch => {
+export const activatingUser = (history, request) => async dispatch => {
+>>>>>>> development
   try{
     const responseActivatingUser = await authentication.activatingUser(request);
     dispatch(dispatchType.activationUser(responseActivatingUser));
@@ -62,12 +64,5 @@ export const activatingUser = (request) => async dispatch => {
 };
 
 export const logout = () => dispatch => {
-  try {
-    dispatch(dispatchType.logout());
-  localStorage.removeItem('accessToken')
-  localStorage.removeItem('refreshToken')
-    
-  } catch (error) {
-    console.log(error)
-  }
+  dispatch(dispatchType.logout());
 };

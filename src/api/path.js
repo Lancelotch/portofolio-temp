@@ -30,7 +30,7 @@ export const PATH_CUSTOMER = {
 
 //PRODUCT
 const PRODUCT = "product";
-const PRODUCT_BY_ID = 'product/'
+const PRODUCT_BY_ID = 'product/';
 const PRODUCT_CATEGORY = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
 export const PATH_PRODUCT = {
@@ -38,6 +38,12 @@ export const PATH_PRODUCT = {
     PRODUCT_BY_ID: PRODUCT_BY_ID,
     PRODUCT_CATEGORY: PRODUCT_CATEGORY,
     PRODUCT_SEARCH: PRODUCT_SEARCH
+}
+
+//SHIPPING
+const SHIPPING = "international-shipping";
+export const PATH_SHIPPING = {
+    SHIPPING: SHIPPING
 }
 
 //INVOICE

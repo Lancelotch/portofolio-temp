@@ -11,14 +11,14 @@ class ProductAttibutes extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div style={{paddingLeft:20}} >
         <Col md={3}>
           <p>{this.state.label}</p>
         </Col>
         <Col md={21}>
           <p>:&nbsp;{this.state.description}</p>
         </Col>
-      </React.Fragment>
+      </div>
     );
   }
 }
