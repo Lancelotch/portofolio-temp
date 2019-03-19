@@ -4,7 +4,6 @@ import './style.sass'
 
 const Benefit = props => {
   const { benefit } = props
-  console.log('benefit' + benefit)
   const showBenefit = benefit.map(benefit => {
     return (
       <React.Fragment>

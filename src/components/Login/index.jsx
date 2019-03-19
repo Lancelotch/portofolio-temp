@@ -35,6 +35,7 @@ class Login extends Component {
           console.log('Received values of form: ', values)
 
           await this.props.loginWithForm(values)
+          
           if (this.state.isAuthenticated != true) {
             this.setState({
               errorMessage: 'Email atau password anda salah',
