@@ -130,20 +130,13 @@ export default class ProducDetail extends Component {
     sku.map(item => {
       return (stockInfo[item.id] = item.stock);
     });
-    console.log(this.stockInfo);
-    forEach(this.state.values, function (value, i) {
+    const variantSize = this.state.variants[1];
+    forEach(variantSize.values, function (value, i) {
       if (stockInfo[idColor+colorId+idSize+value.id] !== 0) {
         notZeroIndex = i;
        return false;
       }
    });
-    // for (let i = 0; i < variants[1].values.length; i++) {
-    //   let value = variants[1].values[i];
-    //   if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
-    //     notZeroIndex = i;
-    //     break;
-    //   }
-    // }
     sizeId = variants[1].values[notZeroIndex].id;
     variants[0].values.map(value => {
       if (value.id === colorId) {

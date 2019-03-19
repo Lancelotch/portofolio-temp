@@ -128,7 +128,7 @@ class Variants extends Component {
     }
   };
 
-//variand default select price lowest
+//variand default select price lowest and select variant
   variantDefault = (colorId, sizeId) => {
     let selected = [];
     let id = 0;
