@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import ProductDetail from "./ProductDetailContainer.jsx";
-import _ from "lodash";
+import {chain,forEach}from "lodash";
 
 export default class ProducDetailContainer extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ export default class ProducDetailContainer extends Component {
         idColor: res.data.variants[0].id,
         idSize: res.data.variants[1].id
       };
-      this.idVariant(idColor, idSize);
+      this.variantPrice(idColor, idSize);
     } catch (error) {
       console.log(error);
     }
@@ -90,23 +90,23 @@ export default class ProducDetailContainer extends Component {
     let { colorId, sizeId } = "01";
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
     let lowestPrice;
-    let lowest = _.chain(this.state.sku)
+    let lowestPriceVariant = chain(this.state.sku)
       .sortBy("price").map(function(value) {
         return value;
       }).head()
         .value();
-    lowestPrice = lowest.price;
-    let id = lowest.id.substring(0, 3);
+    lowestPrice = lowestPriceVariant.price;
+    let id = lowestPriceVariant.id.substring(0, 3);
     if (id === idSize) {
-      sizeId = lowest.id.substring(3, 5);
+      sizeId = lowestPriceVariant.id.substring(3, 5);
     } else if (id === idColor) {
-      colorId = lowest.id.substring(3, 5);
+      colorId = lowestPriceVariant.id.substring(3, 5);
     }
-    id = lowest.id.substring(5, 8);
+    id = lowestPriceVariant.id.substring(5, 8);
     if (id === idSize) {
-      sizeId = lowest.id.substring(8, 10);
+      sizeId = lowestPriceVariant.id.substring(8, 10);
     } else if (id === idColor) {
-      colorId = lowest.id.substring(8, 10);
+      colorId = lowestPriceVariant.id.substring(8, 10);
     }
     return { sizeId, colorId, lowestPrice };
   }
@@ -128,7 +128,7 @@ export default class ProducDetailContainer extends Component {
     sku.map(item => {
       stockInfo[item.id] = item.stock;
     });
-    _.forEach(variants[1].values, function(value) {
+    forEach(variants[1].values, function(value) {
       if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
         sizeId = value.id;
         return false;
@@ -149,7 +149,7 @@ export default class ProducDetailContainer extends Component {
     this.variantsRef.map((value, index) => {
       this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
-    this.idVariant(sku, idColor, colorId, idSize, sizeId);
+    this.variantPrice(sku, idColor, colorId, idSize, sizeId);
   }
 
   sizeVariant(variants, selected, sku) {
@@ -164,10 +164,10 @@ export default class ProducDetailContainer extends Component {
       changed: 0,
       sizeId: selected.value.id
     });
-    this.idVariant(sku, idColor, colorId, idSize, sizeId);
+    this.variantPrice(sku, idColor, colorId, idSize, sizeId);
   }
 
-  idVariant(sku,idColor, colorId, idSize, sizeId) {
+  variantPrice(sku,idColor, colorId, idSize, sizeId) {
     sku.map((value, index) => {
       if (idColor+colorId+idSize+sizeId === value.id) {
         this.setState({

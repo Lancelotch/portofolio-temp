@@ -76,11 +76,11 @@ class Variants extends Component {
     if (this.state.index === 1) {    
       let notZeroIndex = 0;
       console.log(this.stockInfo);
-      for (let i = 0; i <this.state.values.length; i++) {
+      for (let i = 0; i<this.state.values.length; i++) {
         let value = this.state.values[i];
         console.log(value);     
         if (
-          this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0
+          this.stockInfo[idColor+this.state.colorId+idSize+value.id] !== 0
         ) {
           notZeroIndex = i;
           break;
@@ -122,6 +122,7 @@ class Variants extends Component {
     }
   };
 
+//variand default select price lowest
   variantDefault = (colorId, sizeId) => {
     let selected = [];
     let id = 0;
