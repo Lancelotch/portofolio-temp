@@ -12,7 +12,7 @@ import Footer from "../../components/Footer";
 
 import Shipping from "../../components/Shipping";
 
-export default class ProductDetail extends Component {
+export default class ProductDetailContainer extends Component {
   render() {
     const {
       price,

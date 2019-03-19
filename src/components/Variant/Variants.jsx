@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Variant from ".";
-import _ from "lodash";
+import { forEach } from "lodash";
 
 class Variants extends Component {
   constructor(props) {
     super(props);
-    let selected = this.variantDefault(this.props.colorId, this.props.sizeId);
+    let selected = this.variantSelectDefault(
+      this.props.colorId,
+      this.props.sizeId
+    );
     this.state = {
       index: this.props.index,
       name: this.props.name,
@@ -22,13 +25,13 @@ class Variants extends Component {
     let sku = this.props.sku;
     this.stockInfo = {};
     sku.map(item => {
-      this.stockInfo[item.id] = item.stock;
+      return (this.stockInfo[item.id] = item.stock);
     });
 
     this.variantsRef = [];
     this.state.values.map((item, index) => {
-      this.variantsRef[index] = React.createRef();
-    });  
+      return (this.variantsRef[index] = React.createRef());
+    });
   }
 
   changedInfo = (colorId, sizeId) => {
@@ -36,7 +39,7 @@ class Variants extends Component {
       colorId: colorId,
       sizeId: sizeId
     });
-    let selected = this.variantDefault(colorId, sizeId);
+    let selected = this.variantSelectDefault(colorId, sizeId);
     this.setState({
       variantSelected: selected,
       selectedValue: selected.description.substring(5)
@@ -74,15 +77,25 @@ class Variants extends Component {
   loopVariantProduct = () => {
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
     if (this.state.index === 1) {
-      let notZeroIndex = 0;
-      _.forEach(this.state.values.length, function(i, value) {
-        if (
-          this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0
-        ) {
+      let { notZeroIndex, temp_stockInfo, colorId } = {
+        notZeroIndex: 0,
+        temp_stockInfo: this.stockInfo,
+        colorId: this.state.colorId
+      };
+      forEach(this.state.values, function(value, i) {
+        if (temp_stockInfo[idColor + colorId + idSize + value.id] !== 0) {
           notZeroIndex = i;
           return false;
         }
       });
+      // for (let i = 0; i<this.state.values.length; i++) {
+      //   let value = this.state.values[i];
+      //   console.log(value);
+      //   if (this.stockInfo[idColor+this.state.colorId+idSize+value.id] !== 0) {
+      //     notZeroIndex = i;
+      //     break;
+      //   }
+      // }
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
@@ -119,7 +132,8 @@ class Variants extends Component {
     }
   };
 
-  variantDefault = (colorId, sizeId) => {
+  //variand default select price lowest and select variant
+  variantSelectDefault = (colorId, sizeId) => {
     let selected = [];
     let id = 0;
     if (this.props.index === 0) id = colorId;
@@ -154,4 +168,3 @@ Variants.propTypes = {
 };
 
 export default Variants;
-
