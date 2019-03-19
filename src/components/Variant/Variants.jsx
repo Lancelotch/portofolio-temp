@@ -73,16 +73,19 @@ class Variants extends Component {
 
   loopVariantProduct = () => {
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
-    if (this.state.index === 1) {
+    if (this.state.index === 1) {    
       let notZeroIndex = 0;
-      _.forEach(this.state.values.length, function(i, value) {
+      console.log(this.stockInfo);
+      for (let i = 0; i <this.state.values.length; i++) {
+        let value = this.state.values[i];
+        console.log(value);     
         if (
           this.stockInfo[idColor + this.state.colorId + idSize + value.id] !== 0
         ) {
           notZeroIndex = i;
-          return false;
+          break;
         }
-      });
+      }
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}

@@ -36,8 +36,8 @@ export default class ProducDetailContainer extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -53,17 +53,7 @@ export default class ProducDetailContainer extends Component {
         ...itemProductDetail
       });
       let { sizeId, colorId, lowestPrice } = this.lowestPrice();
-      res.data.variants[0].values.map((value) => {
-        if (value.id === colorId) {
-          res.data.images.map((productValue, j) => {
-            if (productValue.large === value.image.large) {
-              this.setState({
-                index: j
-              });
-            }
-          });
-        }
-      });
+      this.defaultImageSlide(res, colorId);
       this.setState({
         colorId: colorId,
         sizeId: sizeId,
@@ -81,6 +71,20 @@ export default class ProducDetailContainer extends Component {
       console.log(error);
     }
   };
+
+  defaultImageSlide(res, colorId) {
+    res.data.variants[0].values.map((value) => {
+      if (value.id === colorId) {
+        res.data.images.map((productValue, j) => {
+          if (productValue.large === value.image.large) {
+            this.setState({
+              index: j
+            });
+          }
+        });
+      }
+    });
+  }
 
   lowestPrice() {
     let { colorId, sizeId } = "01";

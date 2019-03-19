@@ -1,19 +1,24 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Alert, Spin } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Alert, Affix } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import strings from "../../localization/localization";
-import imageLogin from "../../assets/img/login_pict.png";
-import { Redirect } from "react-router-dom";
+import imageRegister from "../../assets/img/register_pict.png";
 import {
   registerWithGoogle,
   registerForm
 } from "../../store/actions/authentication";
 import FrontImage from "../../components/Image/FrontImage";
 import Loading from "../../components/Loading";
+import {
+  rulesName,
+  rulesEmail,
+  rulesPassword,
+  handleSubmit
+} from "./registerContainer";
 
 const FormItem = Form.Item;
 
@@ -27,10 +32,6 @@ class RegisterPage extends Component {
       message: ""
     };
   }
-
-  handleRegisterGoogle = request => {
-    this.props.registerWithGoogle(this.props.history, request);
-  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -49,49 +50,8 @@ class RegisterPage extends Component {
     });
   };
 
-  rulesName = () => {
-    return {
-      rules: [
-        {
-          required: true,
-          message: strings.register_name
-        },
-        {
-          pattern: /(?=.*[a-zA-Z])[a-zA-Z .]+$/,
-          message: strings.register_pattern_quote
-        }
-      ]
-    };
-  };
-
-  rulesEmail = () => {
-    return {
-      rules: [
-        {
-          type: "email",
-          message: strings.register_email
-        },
-        {
-          required: true,
-          message: strings.register_email_quote
-        }
-      ]
-    };
-  };
-
-  rulesPassword = () => {
-    return {
-      rules: [
-        {
-          required: true,
-          message: strings.register_password
-        },
-        {
-          pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
-          message: strings.register_password_quote
-        }
-      ]
-    };
+  handleRegisterGoogle = request => {
+    this.props.loginWithGoogle(this.props.history, request);
   };
 
   renderButton = () => {
@@ -130,12 +90,20 @@ class RegisterPage extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
     return (
       <React.Fragment>
         <Row>
           <Col md={{ span: 14 }}>
-            <FrontImage src={imageLogin} />
+            <div
+              className="scrollable-container"
+              ref={node => {
+                this.container = node;
+              }}
+            >
+              <Affix target={() => this.container}>
+                <FrontImage src={imageRegister} />
+              </Affix>
+            </div>
           </Col>
           <Col md={{ span: 10 }}>
             <div className="register">
@@ -147,7 +115,7 @@ class RegisterPage extends Component {
               <h2 className="register__title">{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                  {getFieldDecorator("name", this.rulesName())(
+                  {getFieldDecorator("name", rulesName())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -157,7 +125,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("email", this.rulesEmail())(
+                  {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -167,7 +135,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", this.rulesPassword())(
+                  {getFieldDecorator("password", rulesPassword())(
                     <Input.Password
                       className="register__input"
                       min={6}
