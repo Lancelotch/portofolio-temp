@@ -12,6 +12,7 @@ const strings = new LocalizedStrings({
     header_greeting_auth: 'Hello, monggo belanja',
     header_my_order: 'Pesenan Saya',
     header_check_order: 'Lacak Pesenan',
+    
 
 
     //Category
@@ -35,6 +36,7 @@ const strings = new LocalizedStrings({
     delivery_courier : "Delivery Courier",
     address : "Alamat",
     my_account: 'Akun Saya',
+    most_searched: 'Paling Banyak Dicari',
 
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",

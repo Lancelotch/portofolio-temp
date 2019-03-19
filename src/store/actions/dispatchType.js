@@ -21,6 +21,14 @@ const loginWithForm = authData => {
     }
 }
 
+const loginWithFormEror = response => {
+    return{
+        type : TYPE.LOGIN_WITH_FORM_EROR,
+        payload : response        
+    }
+    
+}
+
 const logout = () => {
     return{
         type : TYPE.LOGOUT
@@ -51,6 +59,7 @@ const dispatchType = {
     handleLoading : handleLoading,
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,
+    loginWithFormEror : loginWithFormEror,
     loginWithForm : loginWithForm,
     registerWithForm: registerWithForm,
     logout: logout,
