@@ -36,8 +36,8 @@ export default class ProducDetail extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -53,7 +53,17 @@ export default class ProducDetail extends Component {
         ...itemProductDetail
       });
       let { sizeId, colorId, lowestPrice } = this.lowestPrice();
-      this.defaultImageSlide(res, colorId);
+      res.data.variants[0].values.forEach(value => {
+        if (value.id === colorId) {
+          res.data.images.forEach((productValue, j) => {
+            if (productValue.large === value.image.large) {
+              this.setState({
+                index: j
+              });
+            }
+          });
+        }
+      })
       this.setState({
         colorId: colorId,
         sizeId: sizeId,
@@ -71,20 +81,6 @@ export default class ProducDetail extends Component {
       console.log(error);
     }
   };
-
-  defaultImageSlide(res, colorId) {
-    res.data.variants[0].values.map(value => {
-      if (value.id === colorId) {
-        res.data.images.map((productValue, j) => {
-          if (productValue.large === value.image.large) {
-            this.setState({
-              index: j
-            });
-          }
-        });
-      }
-    });
-  }
 
   lowestPrice() {
     let { colorId, sizeId } = "01";
@@ -113,7 +109,7 @@ export default class ProducDetail extends Component {
     return { sizeId, colorId, lowestPrice };
   }
 
-  colorVariant(variants, selected, sku, images) {
+  colorVariant(variants, selected, sku, images,res) {
     let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
       idColor: variants[0].id,
       idSize: variants[1].id,
@@ -131,16 +127,17 @@ export default class ProducDetail extends Component {
       return (stockInfo[item.id] = item.stock);
     });
     const variantSize = this.state.variants[1];
-    forEach(variantSize.values, function (value, i) {
-      if (stockInfo[idColor+colorId+idSize+value.id] !== 0) {
+    forEach(variantSize.values, function(value, i) {
+      if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
         notZeroIndex = i;
-       return false;
+        return false;
       }
-   });
+    });
     sizeId = variants[1].values[notZeroIndex].id;
-    variants[0].values.map(value => {
+
+    variants[0].values.forEach(value => {
       if (value.id === colorId) {
-        images.map((productValue, j) => {
+        images.forEach((productValue, j) => {
           if (productValue.large === value.image.large) {
             this.setState({
               index: j
@@ -148,7 +145,19 @@ export default class ProducDetail extends Component {
           }
         });
       }
-    });
+    })
+
+    // variants[0].values.map(value => {
+    //   if (value.id === colorId) {
+    //     images.map((productValue, j) => {
+    //       if (productValue.large === value.image.large) {
+    //         this.setState({
+    //           index: j
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
     this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
