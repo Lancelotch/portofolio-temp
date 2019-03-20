@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import "./style.sass";
-
 import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";

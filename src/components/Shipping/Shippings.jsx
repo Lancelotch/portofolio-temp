@@ -24,7 +24,7 @@ const Shippings = props => {
             </Col>
           </div>
           <div className="shipping">
-            <Col md={24}>
+            <Col md={24} style={{marginLeft:50}}>
               <p>
                 <img src={Udara} alt="" />
                 &nbsp;
