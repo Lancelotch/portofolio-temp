@@ -5,8 +5,10 @@ import ProductDetail from '../pages/ProductDetail'
 import Confirmation from '../pages/Confirmation';
 import Category from '../pages/Category';
 import Search from '../pages/Search';
+import Product from '../pages/Product';
 import Example from '../pages/Example';
-
+import CategoryContainer from '../pages/Category/CategoryContainer';
+import SearchContainer from '../pages/Search/SearchContainer';
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -28,24 +30,28 @@ const routes = [{
     },
     {
         path: PATH_URL.CATEGORY,
-        component:Category
+        component:CategoryContainer
+    },
+    {
+        path: '/category/fashion-pria/:categoryId',
+        component:CategoryContainer
+    },
+    {
+        path: '/category/fashion-pria/sepatu/:categoryId',
+        component:CategoryContainer
+    },
+    {
+        path: PATH_URL.SEARCH,
+        component: SearchContainer
+    },
+    {
+        path: PATH_URL.PRODUCTS,
+        component: Product
     },
     {
         path: PATH_URL.EXAMPLE,
         component:Example
     },
-    {
-        path: '/category/fashion-pria/:categoryId',
-        component:Category
-    },
-    {
-        path: '/category/fashion-pria/sepatu/:categoryId',
-        component:Category
-    },
-    {
-        path: PATH_URL.SEARCH,
-        component: Search
-    }
 ]
 
 export default routes;
