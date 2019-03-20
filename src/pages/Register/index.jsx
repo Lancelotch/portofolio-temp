@@ -1,19 +1,21 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Alert, Spin } from "antd";
+import { Input, Form, Icon, Row, Col, Affix } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import strings from "../../localization/localization";
-import imageLogin from "../../assets/img/login_pict.png";
-import { Redirect } from "react-router-dom";
 import {
   registerWithGoogle,
   registerForm
 } from "../../store/actions/authentication";
-import FrontImage from "../../components/Image/FrontImage";
-import Loading from "../../components/Loading";
+import RegistrationSubmitButton, {
+  rulesName,
+  rulesEmail,
+  rulesPassword
+} from "./registerContainer";
+import RegistrationAlert from "./registerAlert";
 
 const FormItem = Form.Item;
 
@@ -27,10 +29,6 @@ class RegisterPage extends Component {
       message: ""
     };
   }
-
-  handleRegisterGoogle = request => {
-    this.props.registerWithGoogle(this.props.history, request);
-  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -49,93 +47,26 @@ class RegisterPage extends Component {
     });
   };
 
-  rulesName = () => {
-    return {
-      rules: [
-        {
-          required: true,
-          message: strings.register_name
-        },
-        {
-          pattern: /(?=.*[a-zA-Z])[a-zA-Z .]+$/,
-          message: strings.register_pattern_quote
-        }
-      ]
-    };
-  };
-
-  rulesEmail = () => {
-    return {
-      rules: [
-        {
-          type: "email",
-          message: strings.register_email
-        },
-        {
-          required: true,
-          message: strings.register_email_quote
-        }
-      ]
-    };
-  };
-
-  rulesPassword = () => {
-    return {
-      rules: [
-        {
-          required: true,
-          message: strings.register_password
-        },
-        {
-          pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
-          message: strings.register_password_quote
-        }
-      ]
-    };
-  };
-
-  renderButton = () => {
-    return this.props.isLoading ? (
-      <Loading />
-    ) : (
-      <Button
-        className="register__form__button-register"
-        size={"large"}
-        htmlType="submit"
-        type="primary"
-      >
-        <p className="register__form__button-register-text">
-          {strings.login_register}
-        </p>
-      </Button>
-    );
-  };
-
-  alertMessage = () => {
-    return (
-      this.state.message && (
-        <Alert
-          type={this.state.success ? "success" : "error"}
-          message={
-            <span>
-              <b>{this.state.success ? "Berhasil" : "Gagal"}</b> &nbsp;
-              {this.state.message}
-            </span>
-          }
-          showIcon
-        />
-      )
-    );
+  handleRegisterGoogle = request => {
+    this.props.loginWithGoogle(this.props.history, request);
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
     return (
       <React.Fragment>
         <Row>
           <Col md={{ span: 14 }}>
-            <FrontImage src={imageLogin} />
+            <div
+              className="scrollable-container"
+              ref={node => {
+                this.container = node;
+              }}
+            >
+              <Affix target={() => this.container}>
+              <div className="register_Background"/>
+              </Affix>
+            </div>
           </Col>
           <Col md={{ span: 10 }}>
             <div className="register">
@@ -147,7 +78,7 @@ class RegisterPage extends Component {
               <h2 className="register__title">{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                  {getFieldDecorator("name", this.rulesName())(
+                  {getFieldDecorator("name", rulesName())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -157,7 +88,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("email", this.rulesEmail())(
+                  {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
                       size={"large"}
@@ -167,7 +98,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", this.rulesPassword())(
+                  {getFieldDecorator("password", rulesPassword())(
                     <Input.Password
                       className="register__input"
                       min={6}
@@ -197,9 +128,9 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <div className="register__form__confirm">
-                    {this.alertMessage()}
+                   <RegistrationAlert message={this.state.message} success={this.state.success} />
                   </div>
-                  {this.renderButton()}
+                  <RegistrationSubmitButton isLoading={this.state.isLoading} />
                 </FormItem>
                 <Row
                   type="flex"
@@ -230,7 +161,7 @@ class RegisterPage extends Component {
                     {strings.formatString(
                       strings.register_quote,
                       <a className="register__form__link" href="/">
-                        {strings.register_now}
+                        {strings.register_login}
                       </a>
                     )}
                   </center>
