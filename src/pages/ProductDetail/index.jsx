@@ -36,8 +36,8 @@ export default class ProducDetail extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      // const res = await productDetail.getProductDetail(productId);
-      const res = await dummyProductDetail;
+      const res = await productDetail.getProductDetail(productId);
+      // const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
@@ -53,17 +53,7 @@ export default class ProducDetail extends Component {
         ...itemProductDetail
       });
       let { sizeId, colorId, lowestPrice } = this.lowestPrice();
-      res.data.variants[0].values.forEach(value => {
-        if (value.id === colorId) {
-          res.data.images.forEach((productValue, j) => {
-            if (productValue.large === value.image.large) {
-              this.setState({
-                index: j
-              });
-            }
-          });
-        }
-      })
+      this.defaultSelectVariant(res.data.variants, colorId, res.data.images);
       this.setState({
         colorId: colorId,
         sizeId: sizeId,
@@ -81,6 +71,20 @@ export default class ProducDetail extends Component {
       console.log(error);
     }
   };
+
+  defaultSelectVariant(variants, colorId, images) {
+    variants[0].values.forEach(value => {
+      if (value.id === colorId) {
+        images.forEach((productValue, j) => {
+          if (productValue.large === value.image.large) {
+            this.setState({
+              index: j
+            });
+          }
+        });
+      }
+    });
+  }
 
   lowestPrice() {
     let { colorId, sizeId } = "01";
@@ -109,7 +113,7 @@ export default class ProducDetail extends Component {
     return { sizeId, colorId, lowestPrice };
   }
 
-  colorVariant(variants, selected, sku, images,res) {
+  colorVariant(variants, selected, sku, images, res) {
     let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
       idColor: variants[0].id,
       idSize: variants[1].id,
@@ -128,36 +132,15 @@ export default class ProducDetail extends Component {
     });
     const variantSize = this.state.variants[1];
     forEach(variantSize.values, function(value, i) {
-      if (stockInfo[idColor + colorId + idSize + value.id] !== 0) {
+      if (stockInfo[`${idColor}${colorId}${idSize}${value.id}`] !== 0) {
         notZeroIndex = i;
         return false;
       }
     });
     sizeId = variants[1].values[notZeroIndex].id;
 
-    variants[0].values.forEach(value => {
-      if (value.id === colorId) {
-        images.forEach((productValue, j) => {
-          if (productValue.large === value.image.large) {
-            this.setState({
-              index: j
-            });
-          }
-        });
-      }
-    })
+    this.defaultSelectVariant(variants, colorId, images);
 
-    // variants[0].values.map(value => {
-    //   if (value.id === colorId) {
-    //     images.map((productValue, j) => {
-    //       if (productValue.large === value.image.large) {
-    //         this.setState({
-    //           index: j
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
     this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
@@ -181,7 +164,7 @@ export default class ProducDetail extends Component {
 
   variantPrice(sku, idColor, colorId, idSize, sizeId) {
     sku.map((value, index) => {
-      if (idColor + colorId + idSize + sizeId === value.id) {
+      if (`${idColor}${colorId}${idSize}${sizeId}` === value.id) {
         this.setState({
           price: value.price,
           size: index
@@ -235,12 +218,13 @@ export default class ProducDetail extends Component {
       stockAlert,
       details
     } = this.state;
-    const price = currencyRupiah(this.state.price);
-    const { match } = this.props;
-    const variantsRef = this.variantsRef;
-    const onChangeVariant = this.onChangeVariant;
-    const onChangeQuantity = this.onChangeQuantity;
-
+    const { price,match, variantsRef, onChangeVariant,onChangeQuantity } = {
+      match: this.props,
+      variantsRef: this.variantsRef,
+      onChangeVariant: this.onChangeVariant,
+      onChangeQuantity:this.onChangeQuantity,
+      price:currencyRupiah(this.state.price)
+    };
     return (
       <React.Fragment>
         <ProductDetail
