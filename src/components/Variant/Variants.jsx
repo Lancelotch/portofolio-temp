@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import Variant from ".";
-import { forEach } from "lodash";
+import { forEach, mapKeys } from "lodash";
 
 class Variants extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class Variants extends Component {
         colorId: this.state.colorId
       };
       forEach(this.state.values, function(value, i) {
-        if (temp_stockInfo[idColor + colorId + idSize + value.id] !== 0) {
+        if (temp_stockInfo[`${idColor}${colorId}${idSize}${value.id}`] !== 0) {
           notZeroIndex = i;
           return false;
         }
@@ -138,7 +138,7 @@ class Variants extends Component {
     let id = 0;
     if (this.props.index === 0) id = colorId;
     else id = sizeId;
-    this.props.values.map(value => {
+    mapKeys(this.props.values, function(value) {
       if (value.id === id) selected = value;
     });
     return selected;

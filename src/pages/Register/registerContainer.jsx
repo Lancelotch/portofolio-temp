@@ -23,7 +23,6 @@ class RegistrationSubmitButton extends Component {
 }
 export default RegistrationSubmitButton;
 
-
 export const rulesName = () => {
   return {
     rules: [

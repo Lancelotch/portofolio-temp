@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Alert, Affix } from "antd";
+import { Input, Form, Icon, Row, Col, Affix } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import "./style.sass";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import strings from "../../localization/localization";
-import imageRegister from "../../assets/img/register_pict.png";
 import {
   registerWithGoogle,
   registerForm
 } from "../../store/actions/authentication";
-import FrontImage from "../../components/Image/FrontImage";
-import Loading from "../../components/Loading";
 import RegistrationSubmitButton, {
   rulesName,
   rulesEmail,
-  rulesPassword,
-  handleSubmit
+  rulesPassword
 } from "./registerContainer";
 import RegistrationAlert from "./registerAlert";
 
@@ -68,7 +64,7 @@ class RegisterPage extends Component {
               }}
             >
               <Affix target={() => this.container}>
-                <FrontImage src={imageRegister} />
+              <div className="register_Background"/>
               </Affix>
             </div>
           </Col>
@@ -165,7 +161,7 @@ class RegisterPage extends Component {
                     {strings.formatString(
                       strings.register_quote,
                       <a className="register__form__link" href="/">
-                        {strings.register_now}
+                        {strings.register_login}
                       </a>
                     )}
                   </center>

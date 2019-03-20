@@ -53,7 +53,7 @@ export default class ProducDetail extends Component {
         ...itemProductDetail
       });
       let { sizeId, colorId, lowestPrice } = this.lowestPrice();
-      this.defaultImageSlide(res, colorId);
+      this.defaultSelectVariant(res.data.variants, colorId, res.data.images);
       this.setState({
         colorId: colorId,
         sizeId: sizeId,
@@ -72,10 +72,10 @@ export default class ProducDetail extends Component {
     }
   };
 
-  defaultImageSlide(res, colorId) {
-    res.data.variants[0].values.map(value => {
+  defaultSelectVariant(variants, colorId, images) {
+    variants[0].values.forEach(value => {
       if (value.id === colorId) {
-        res.data.images.map((productValue, j) => {
+        images.forEach((productValue, j) => {
           if (productValue.large === value.image.large) {
             this.setState({
               index: j
@@ -113,7 +113,7 @@ export default class ProducDetail extends Component {
     return { sizeId, colorId, lowestPrice };
   }
 
-  colorVariant(variants, selected, sku, images) {
+  colorVariant(variants, selected, sku, images, res) {
     let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
       idColor: variants[0].id,
       idSize: variants[1].id,
@@ -131,24 +131,16 @@ export default class ProducDetail extends Component {
       return (stockInfo[item.id] = item.stock);
     });
     const variantSize = this.state.variants[1];
-    forEach(variantSize.values, function (value, i) {
-      if (stockInfo[idColor+colorId+idSize+value.id] !== 0) {
+    forEach(variantSize.values, function(value, i) {
+      if (stockInfo[`${idColor}${colorId}${idSize}${value.id}`] !== 0) {
         notZeroIndex = i;
-       return false;
-      }
-   });
-    sizeId = variants[1].values[notZeroIndex].id;
-    variants[0].values.map(value => {
-      if (value.id === colorId) {
-        images.map((productValue, j) => {
-          if (productValue.large === value.image.large) {
-            this.setState({
-              index: j
-            });
-          }
-        });
+        return false;
       }
     });
+    sizeId = variants[1].values[notZeroIndex].id;
+
+    this.defaultSelectVariant(variants, colorId, images);
+
     this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
@@ -172,7 +164,7 @@ export default class ProducDetail extends Component {
 
   variantPrice(sku, idColor, colorId, idSize, sizeId) {
     sku.map((value, index) => {
-      if (idColor + colorId + idSize + sizeId === value.id) {
+      if (`${idColor}${colorId}${idSize}${sizeId}` === value.id) {
         this.setState({
           price: value.price,
           size: index
@@ -226,12 +218,13 @@ export default class ProducDetail extends Component {
       stockAlert,
       details
     } = this.state;
-    const price = currencyRupiah(this.state.price);
-    const { match } = this.props;
-    const variantsRef = this.variantsRef;
-    const onChangeVariant = this.onChangeVariant;
-    const onChangeQuantity = this.onChangeQuantity;
-
+    const { price,match, variantsRef, onChangeVariant,onChangeQuantity } = {
+      match: this.props,
+      variantsRef: this.variantsRef,
+      onChangeVariant: this.onChangeVariant,
+      onChangeQuantity:this.onChangeQuantity,
+      price:currencyRupiah(this.state.price)
+    };
     return (
       <React.Fragment>
         <ProductDetail
