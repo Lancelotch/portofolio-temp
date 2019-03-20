@@ -146,9 +146,9 @@ class Variants extends Component {
 
   render() {
     return (
-      <Row style={{ marginTop: 12 }}>
+      <Row style={{ marginTop: 12, marginBottom: 24 }}>
         <Col md={24}>
-          <p style={{ fontSize: 18 }}>
+          <p style={{ fontSize: 18, marginBottom: 8 }}>
             {this.state.name}&nbsp;
             <font style={{ fontWeight: 600 }}>{this.state.selectedValue}</font>
           </p>

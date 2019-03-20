@@ -4,17 +4,35 @@
 .productDetail .image-gallery-left-nav 
     position: absolute
     top: 115%
+    font-size: 30px
+
+.productDetail .image-gallery-swipe
+    border: 1px solid #D9D9D9
+    border-radius: $primary-border-radius
+    padding: 50px
+
+.productDetail .image-gallery-right-nav::before, .productDetail .image-gallery-left-nav::before 
+    background-color: rgba(216, 216, 216, 0.945)
+    padding: 10px
+    text-shadow: unset
+
+.productDetail .image-gallery-right-nav
+    right: -10px  
+
+.productDetail .image-gallery-left-nav 
+    left: -10px
+
+.productDetail .image-gallery-thumbnails-wrapper 
+    width: 360px;
+    margin-left: 58px;    
+      
+.productDetail .image-gallery-thumbnail .image-gallery-thumbnail-inner
+	border: 1px solid rgba(151,151,151,0.22)
  
-.productDetail .image-gallery-swipe 
-	border: 1px solid #D9D9D9
-	border-radius: 4px
-
-.productDetail .image-gallery-slides 
-
-
 .productDetailBorder
-    border-top: 1px solid black
-    height: 20px
+    border: 1px solid #eeeeee
+    height: 1px
+    box-shadow: 0px 0px #dddddd
    
 .productDetail
     margin-top: 50px
@@ -38,8 +56,9 @@
     &__stock
         color: red
     &__addCart
-        border-radius: 4px
+        border-radius: $primary-border-radius
         background-color: #FB6900 
+        margin-top: 64px
         height: 64px 
         width: 100%
         color: #FFFFFF 
