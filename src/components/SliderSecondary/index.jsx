@@ -11,7 +11,7 @@ class SliderProductDetail extends Component {
     super(props);
     this.state = {
       visible: false,
-      original: "",
+      thumbnail: "",
       index:0
     };
   }
@@ -21,6 +21,7 @@ class SliderProductDetail extends Component {
   componentWillReceiveProps(props){
     this.setState({index:props.index})
   } 
+  
   imageHover(item) {
     return (
       <ReactImageMagnify
@@ -30,8 +31,8 @@ class SliderProductDetail extends Component {
             src: item.thumbnail
           },
           largeImage: {
-            src: item.original,
-            width: 1500,
+            src: item.thumbnail,
+            width: 1000,
             height: 1000
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
@@ -46,7 +47,7 @@ class SliderProductDetail extends Component {
   }
 
   imageViewer() {
-    const images = [{ src: this.state.original }];
+    const images = [{src: this.state.thumbnail}];
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
@@ -57,7 +58,6 @@ class SliderProductDetail extends Component {
         activeIndex={this.state.index}
         onMaskClick={e => void { clicked: true }}
         visible={this.state.visible}
-        startIndex={this.state.index}
         zIndex={2000}
         drag={false}
         zoomable={true}
@@ -75,8 +75,7 @@ class SliderProductDetail extends Component {
     const images = [];
     this.props.images.map(productImage => {
       return images.push({
-        original: productImage.large,
-        thumbnail: productImage.small
+        thumbnail: productImage.large
       });
     });
 
@@ -91,7 +90,7 @@ class SliderProductDetail extends Component {
               onClick={e =>
                 this.setState({
                   visible: true,
-                  original: e.target.firstChild.currentSrc
+                  thumbnail: e.target.firstChild.currentSrc
                 })
               }
               renderItem={this.imageHover}

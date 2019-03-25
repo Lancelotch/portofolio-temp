@@ -1,8 +1,16 @@
 @import '../../sass/variable.sass'
 
-.front-image
-    width: 100%
-    height: 100%
+
+.register_Background
+  width: 100%
+  background-image: url('../../assets/img/register_pict.png')
+  background-size: cover
+  background-position: center 
+  height: 100vh
+ 
+.scrollable-container
+  background: -webkit-linear-gradient(to right, #00B5B7, #007E80);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00B5B7, #007E80); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
 
 .register .ant-form-item 
     width: 350px   
@@ -19,7 +27,7 @@
       padding-top: 64px !important
     &__title
       color: $primary-color
-      margin-top: 64px
+      margin-top: 32px
       font-size: 20px
       margin-bottom: 32px
     &__input
@@ -58,6 +66,7 @@
         width: 30%
         background: gray
       &__option-text
+        margin-top: 40px
         margin-bottom: 32px
       &__socmed-box
         display: flex

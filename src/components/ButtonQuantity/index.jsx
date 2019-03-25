@@ -48,9 +48,9 @@ class ButtonQuantity extends React.Component {
 
   render() {
     return (
-      <Row style={{marginTop: 12}}>
+      <Row style={{marginTop: 32}}>
         <Col md={24}>
-          <p style={{ fontSize: 18 }}>{this.props.title}</p>
+          <p style={{ fontSize: 18, marginBottom: 8 }}>{this.props.title}</p>
         </Col>
         <Col md={24}>
           <button className="button_quantity" onClick={this.decreaseItem}>
