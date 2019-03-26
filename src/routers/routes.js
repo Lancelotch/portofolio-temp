@@ -9,6 +9,7 @@ import Product from '../pages/Product';
 import Example from '../pages/Example';
 import CategoryContainer from '../pages/Category/CategoryContainer';
 import SearchContainer from '../pages/Search/SearchContainer';
+import Address from '../pages/Address/Address';
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -52,6 +53,10 @@ const routes = [{
         path: PATH_URL.EXAMPLE,
         component:Example
     },
+    {
+        path: '/address',
+        component:Address
+    }
 ]
 
 export default routes;

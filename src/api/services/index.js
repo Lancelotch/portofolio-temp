@@ -1,23 +1,6 @@
 import { dummyService } from "./httpClient";
 
-
-export  const getMethod = ({pathService, limit, page, sortBy, direction}) => {
-    return new Promise((resolve, reject) => {
-      dummyService
-        .request({
-          method: "GET",
-          url: `${pathService}?limit=${limit}&page=${page}&sortBy=${sortBy}&direction=${direction}`
-        })
-        .then(response => {
-          resolve(response.data);
-        })
-        .catch(error => {
-          reject(error.response.data);
-        });
-    });
-  };
-
-  export  const getMethodWithoutParam = ({pathService}) => {
+  export const getMethod = (pathService) => {
     return new Promise((resolve, reject) => {
       dummyService
         .request({
@@ -32,3 +15,16 @@ export  const getMethod = ({pathService, limit, page, sortBy, direction}) => {
         });
     });
   };
+
+  export const fetchData = (request) => {
+    return new Promise((resolve, reject) => {
+      dummyService
+        .request({...request})
+        .then(response => {
+          resolve(response.data);
+        })
+        .catch(error => {
+          reject(error.response.data);
+        });
+    });
+  }
