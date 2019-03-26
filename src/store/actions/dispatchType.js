@@ -14,6 +14,13 @@ const registerWithForm = authData => {
     }
 }
 
+const customerDetail = name => {
+    return{
+        type: TYPE.NAME_HEADER,
+        payload: name
+    }
+}
+
 const loginWithForm = authData => {
     return{
         type : TYPE.LOGIN_WITH_FORM,
@@ -56,6 +63,7 @@ const handleLoading = () => {
 }
 
 const dispatchType = {
+    customerDetail: customerDetail,
     handleLoading : handleLoading,
     activationUser : activationUser,
     loginWithGoogle : loginWithGoogle,

@@ -1,4 +1,4 @@
-import { mainService, dummyService, dummyServiceLogin } from './httpClient';
+import { dummyServiceLogin } from './httpClient';
 import { PATH_PRODUCT} from '../path'
 
 

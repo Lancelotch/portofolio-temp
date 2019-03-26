@@ -1,5 +1,6 @@
 import authentication from "../../api/services/authentication";
 import dispatchType from "./dispatchType";
+import customer from "../../api/services/customer";
 
 
 export const registerWithGoogle = (history, request) => async dispatch => {
@@ -50,6 +51,15 @@ export const registerForm = (history,request) => async dispatch => {
     dispatch(dispatchType.registerWithForm(error))
   }
 }
+
+export const nameCustomer = (request) => async dispatch => { 
+  try{
+    const responseNameCustomer = await customer.customerDetail();
+    dispatch(dispatchType.customerDetail(responseNameCustomer));
+  }catch(error){
+    console.log(error);
+  }
+};
 
 export const activatingUser = (request) => async dispatch => {
   try{

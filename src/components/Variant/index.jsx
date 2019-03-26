@@ -38,8 +38,8 @@ class Variant extends Component {
           className={
             this.props.selected ? "box-variant-text active" : "box-variant-text"
           }
-          style={this.props.disabled == "0" ? disabled : null}
-          onClick={this.props.disabled == "0" ? null : this.onVariantSelected}
+          style={this.props.disabled === 0 ? disabled : null}
+          onClick={this.props.disabled === 0 ? null : this.onVariantSelected}
         >
           <div className="variant__titleContent">{img}</div>
         </div>
@@ -74,9 +74,9 @@ class Variant extends Component {
 
 Variant.propTypes = {
   id: PropTypes.string,
-  image: PropTypes.string,
+  image: PropTypes.object,
   name: PropTypes.string,
-  disabled: PropTypes.string
+  disabled: PropTypes.number
 };
 
 export default Variant;

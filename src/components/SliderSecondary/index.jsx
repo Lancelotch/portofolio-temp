@@ -12,23 +12,30 @@ class SliderProductDetail extends Component {
     this.state = {
       visible: false,
       thumbnail: "",
-      index:0
+      index:0,
+      isShowNav : false
     };
   }
   componentDidMount(){
     this.setState({index:this.props.index})
   }
   componentWillReceiveProps(props){
+    if(this.props.images.length > 6){
+      this.setState({
+        isShowNav : true
+      })
+     }  
     this.setState({index:props.index})
   } 
-  
   imageHover(item) {
     return (
       <ReactImageMagnify
         {...{
           smallImage: {
             isFluidWidth: true,
-            src: item.thumbnail
+            src: item.thumbnail,
+            width: 1000,
+            height: 1000
           },
           largeImage: {
             src: item.thumbnail,
@@ -55,7 +62,6 @@ class SliderProductDetail extends Component {
     });
     return (
       <Viewer
-        activeIndex={this.state.index}
         onMaskClick={e => void { clicked: true }}
         visible={this.state.visible}
         zIndex={2000}
@@ -86,6 +92,7 @@ class SliderProductDetail extends Component {
               key={this.state.index}
               showFullscreenButton={false}
               showPlayButton={false}
+              showNav={this.state.isShowNav}
               startIndex={this.state.index}
               onClick={e =>
                 this.setState({
