@@ -34,8 +34,8 @@ export default class ProducDetailContainer extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
+      // const res = await productDetail.getProductDetail(productId);
+      const res = await dummyProductDetail;
       const itemProductDetail = {
         productId: res.data.productId,
         sku: res.data.sku,
