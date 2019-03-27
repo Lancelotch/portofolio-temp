@@ -14,6 +14,7 @@ import Shipping from "../../components/Shipping";
 export default class ProductDetail extends Component {
   render() {
     const {
+      changeCheckout,
       open,
       addCheckout,
       price,
@@ -37,11 +38,16 @@ export default class ProductDetail extends Component {
         <Row>
           <Col md={24}>
             <Header match={match} />
-            <div className="productDetailBorder"/>
+            <div className="productDetailBorder" />
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2> {name || <Spin />}{sizeId}{colorId}</h2>
+                  <h2>
+                    {" "}
+                    {name || <Spin />}
+                    {sizeId}
+                    {colorId}
+                  </h2>
                   <SliderProductDetail images={images} index={index} />
                 </Col>
                 <Col md={14}>
@@ -90,7 +96,10 @@ export default class ProductDetail extends Component {
                       )}
                     </div>
                     <Shipping />
-                    <button className="productDetail__addCart" onClick={addCheckout}>
+                    <button
+                      className="productDetail__addCart"
+                      onClick={addCheckout}
+                    >
                       {strings.add_to_cart}
                     </button>
                   </div>
@@ -100,10 +109,10 @@ export default class ProductDetail extends Component {
                 <Col md={24} style={{ marginTop: 50 }}>
                   <Card>
                     <h2 style={{ padding: 12 }}>{strings.detail_product}</h2>
-                    {Object.keys(details).map((detail,i) => {
+                    {Object.keys(details).map((detail, i) => {
                       return (
                         <ProductAttibutes
-                         key={i}
+                          key={i}
                           description={details[detail]}
                           label={
                             detail.charAt(0).toUpperCase() + detail.substring(1)
@@ -118,9 +127,8 @@ export default class ProductDetail extends Component {
             <Footer />
           </Col>
         </Row>
-        {open === true && (
-          <Redirect to="/login" />
-        )}
+        {open === true && <Redirect to="/login" />}
+        {changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }

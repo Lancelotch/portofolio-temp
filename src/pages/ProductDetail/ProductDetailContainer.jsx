@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./style.sass";
 import currencyRupiah from "../../library/currency";
+import { Redirect } from "react-router-dom";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import ProductDetail from ".";
@@ -11,6 +12,7 @@ class ProducDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      changeCheckout: false,
       open: false,
       quantity: 1,
       productId: "",
@@ -22,8 +24,7 @@ class ProducDetailContainer extends Component {
       variants: [],
       details: [],
       images: [],
-      sku: [],
-      isAuthenticated: this.props.isAuthenticated
+      sku: []
     };
     this.variantsRef = [];
     this.variantsRef[0] = React.createRef();
@@ -138,7 +139,7 @@ class ProducDetailContainer extends Component {
     });
     sizeId = variants[1].values[notZeroIndex].id;
     this.defaultSelectVariant(variants, colorId, images);
-    this.variantsRef.map((index) => {
+    this.variantsRef.map((value,index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
     this.variantPrice(sku, idColor, colorId, idSize, sizeId);
@@ -182,17 +183,25 @@ class ProducDetailContainer extends Component {
     }
   };
 
-  toggleModal() {
+  toggleModal() { 
     this.setState({
       open: true
     });
   }
 
+  differentCheckout(){
+    this.setState({
+      changeCheckout : true
+    })
+  }
+
+  
+
   addCheckout = () => {
     if(this.props.isAuthenticated !== false){
-      alert('berhasil')
-    } else {
-      this.toggleModal()
+     this.differentCheckout();
+    } else{
+      this.toggleModal();
     }
   }
 
@@ -241,7 +250,7 @@ class ProducDetailContainer extends Component {
     return (
       <React.Fragment>
         <ProductDetail
-         open={open}
+          open={open}
           price={price}
           match={match}
           name={name}
@@ -266,6 +275,7 @@ class ProducDetailContainer extends Component {
 
 const mapStateToProps = state =>({
   isAuthenticated: state.authentication.isAuthenticated,
+  token: state.authentication.token
 })
 
 export default connect(mapStateToProps)(ProducDetailContainer);
