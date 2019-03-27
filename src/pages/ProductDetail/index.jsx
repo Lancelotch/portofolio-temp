@@ -15,7 +15,7 @@ import Shipping from "../../components/Shipping";
 export default class ProductDetail extends Component {
   render() {
     console.log(this.props.price);
-    console.log(this.props.variantsRef);
+    console.log(this.props.variantsRef);  
     const {
       price,
       match,

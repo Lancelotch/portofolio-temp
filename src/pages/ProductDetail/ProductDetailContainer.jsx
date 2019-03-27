@@ -8,7 +8,7 @@ import { chain, forEach } from "lodash";
 
 export default class ProducDetailContainer extends Component {
   constructor(props) {
-    super(props);  
+    super(props);
     this.state = {
       quantity: 1,
       productId: "",
@@ -97,16 +97,14 @@ export default class ProducDetailContainer extends Component {
       .value();
     lowestPrice = lowestPriceVariant.price;
     let id = lowestPriceVariant.id.substring(0, 3);
-    if (id === idSize) {
-      sizeId = lowestPriceVariant.id.substring(3, 5);
-    } else if (id === idColor) {
-      colorId = lowestPriceVariant.id.substring(3, 5);
+    if (id === idSize || idColor) {
+      (sizeId = lowestPriceVariant.id.substring(3, 5)) &&
+        (colorId = lowestPriceVariant.id.substring(3, 5));
     }
     id = lowestPriceVariant.id.substring(5, 8);
-    if (id === idSize) {
-      sizeId = lowestPriceVariant.id.substring(8, 10);
-    } else if (id === idColor) {
-      colorId = lowestPriceVariant.id.substring(8, 10);
+    if (id === idSize || idColor) {
+      (sizeId = lowestPriceVariant.id.substring(8, 10)) &&
+        (colorId = lowestPriceVariant.id.substring(8, 10));
     }
     return { sizeId, colorId, lowestPrice };
   }
@@ -124,7 +122,7 @@ export default class ProducDetailContainer extends Component {
       changed: 1,
       price: sku[0].price,
       colorId: selected.value.id
-    });
+    }); 
     sku.map(item => {
       return (stockInfo[item.id] = item.stock);
     });
@@ -149,7 +147,7 @@ export default class ProducDetailContainer extends Component {
       idSize: variants[1].id,
       colorId: this.state.colorId,
       sizeId: selected.value.id
-    };
+    };  
     this.setState({
       size: 0,
       changed: 0,
@@ -170,9 +168,6 @@ export default class ProducDetailContainer extends Component {
   }
 
   onChangeVariant = selected => {
-    this.setState({
-      changed: 0
-    });
     const { variants, sku, images } = this.state;
     if (selected.index === 1) {
       this.sizeVariant(variants, selected, sku);
@@ -180,6 +175,13 @@ export default class ProducDetailContainer extends Component {
       this.colorVariant(variants, selected, sku, images);
     }
   };
+
+  addCheckout = () => {
+    const token = localStorage.getItem('accessToken');
+    if(token !== null){
+      
+    }
+  }
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
