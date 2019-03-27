@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getMethod, getMethodWithoutParam, fetchData } from "../api/services";
 
-const withGetMethodApi = (path)=>(WrappedComponent) => {
+const withGetMethodApi = (path) => (WrappedComponent) => {
   class WithGetMethodApi extends Component {
     constructor(props) {
       super(props);
@@ -11,6 +11,7 @@ const withGetMethodApi = (path)=>(WrappedComponent) => {
         error: [],
       };
     }
+    
     componentDidMount(){
       this.fetchData(path);
     }

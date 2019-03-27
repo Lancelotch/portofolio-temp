@@ -5,7 +5,6 @@ import { PATH_HOME } from "../../api/path";
 import withGetMethodApi from "../../hoc/withGetMethodApi";
 
 const Benefit = ({ data, error, loading }) => {
-  //const { data } = props
   console.log("benefit" + data);
   const showBenefit = data.map(benefit => (
       <Col md={4}>
