@@ -20,7 +20,7 @@ export const loginWithGoogle = request => async dispatch => {
   } catch (error) {
     console.log(error);
   }
-};
+};         
 
 export const loginWithForm = request => async dispatch => {
   try {
@@ -46,7 +46,7 @@ export const registerForm = (history,request) => async dispatch => {
     const expiredToken = responseRegisterForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
-    history.push("/");
+        history.push("/");
   } catch (error){
     dispatch(dispatchType.registerWithForm(error))
   }

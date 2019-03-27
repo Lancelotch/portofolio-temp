@@ -5,7 +5,7 @@ const initialState = {
     isLoading: false,
     isFinish: false,
     isError: false,
-    isAuthenticated : false,
+    isAuthenticated: false,
 }
 
 
@@ -29,8 +29,8 @@ export default (state = initialState, action) => {
                 auth: null,
                 isAuthenticated: false
             }
-            case TYPE.NAME_HEADER:
-            return{
+        case TYPE.NAME_HEADER:
+            return {
                 ...state,
                 name: action.payload
             }

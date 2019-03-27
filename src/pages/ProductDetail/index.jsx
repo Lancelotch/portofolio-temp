@@ -5,18 +5,17 @@ import { Col, Row, Card, Spin } from "antd";
 import Variants from "../../components/Variant/Variants";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity";
-
+import { Redirect } from "react-router-dom";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Footer from "../../components/Footer";
-
 import Shipping from "../../components/Shipping";
 
 export default class ProductDetail extends Component {
   render() {
-    console.log(this.props.price);
-    console.log(this.props.variantsRef);  
     const {
+      open,
+      addCheckout,
       price,
       match,
       name,
@@ -91,7 +90,7 @@ export default class ProductDetail extends Component {
                       )}
                     </div>
                     <Shipping />
-                    <button className="productDetail__addCart">
+                    <button className="productDetail__addCart" onClick={addCheckout}>
                       {strings.add_to_cart}
                     </button>
                   </div>
@@ -119,6 +118,9 @@ export default class ProductDetail extends Component {
             <Footer />
           </Col>
         </Row>
+        {open === true && (
+          <Redirect to="/login" />
+        )}
       </React.Fragment>
     );
   }

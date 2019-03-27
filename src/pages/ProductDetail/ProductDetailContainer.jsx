@@ -4,12 +4,14 @@ import currencyRupiah from "../../library/currency";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import ProductDetail from ".";
+import { connect } from 'react-redux';
 import { chain, forEach } from "lodash";
 
-export default class ProducDetailContainer extends Component {
+class ProducDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      open: false,
       quantity: 1,
       productId: "",
       price: 0,
@@ -20,7 +22,8 @@ export default class ProducDetailContainer extends Component {
       variants: [],
       details: [],
       images: [],
-      sku: []
+      sku: [],
+      isAuthenticated: this.props.isAuthenticated
     };
     this.variantsRef = [];
     this.variantsRef[0] = React.createRef();
@@ -135,7 +138,7 @@ export default class ProducDetailContainer extends Component {
     });
     sizeId = variants[1].values[notZeroIndex].id;
     this.defaultSelectVariant(variants, colorId, images);
-    this.variantsRef.map((value, index) => {
+    this.variantsRef.map((index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
     this.variantPrice(sku, idColor, colorId, idSize, sizeId);
@@ -168,6 +171,9 @@ export default class ProducDetailContainer extends Component {
   }
 
   onChangeVariant = selected => {
+    this.setState({
+      changed:0
+    })
     const { variants, sku, images } = this.state;
     if (selected.index === 1) {
       this.sizeVariant(variants, selected, sku);
@@ -176,10 +182,17 @@ export default class ProducDetailContainer extends Component {
     }
   };
 
+  toggleModal() {
+    this.setState({
+      open: true
+    });
+  }
+
   addCheckout = () => {
-    const token = localStorage.getItem('accessToken');
-    if(token !== null){
-      
+    if(this.props.isAuthenticated !== false){
+      alert('berhasil')
+    } else {
+      this.toggleModal()
     }
   }
 
@@ -205,6 +218,7 @@ export default class ProducDetailContainer extends Component {
 
   render() {
     const {
+      open,
       name,
       images,
       index,
@@ -216,21 +230,24 @@ export default class ProducDetailContainer extends Component {
       stockAlert,
       details
     } = this.state;
-    const { price, match, variantsRef, onChangeVariant, onChangeQuantity } = {
+    const { price, match, variantsRef, onChangeVariant, onChangeQuantity,addCheckout } = {
       match: this.props,
       variantsRef: this.variantsRef,
       onChangeVariant: this.onChangeVariant,
+      addCheckout: this.addCheckout,
       onChangeQuantity: this.onChangeQuantity,
       price: currencyRupiah(this.state.price)
     };
     return (
       <React.Fragment>
         <ProductDetail
+         open={open}
           price={price}
           match={match}
           name={name}
           images={images}
           index={index}
+          addCheckout={addCheckout}
           variants={variants}
           variantsRef={variantsRef}
           changed={changed}
@@ -246,3 +263,9 @@ export default class ProducDetailContainer extends Component {
     );
   }
 }
+
+const mapStateToProps = state =>({
+  isAuthenticated: state.authentication.isAuthenticated,
+})
+
+export default connect(mapStateToProps)(ProducDetailContainer);
