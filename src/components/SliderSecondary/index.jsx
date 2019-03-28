@@ -11,7 +11,8 @@ class SliderProductDetail extends Component {
     super(props);
     this.state = {
       visible: false,
-      thumbnail: "",
+      original: "",
+      large: "",
       index:0,
       isShowNav : false
     };
@@ -33,14 +34,10 @@ class SliderProductDetail extends Component {
         {...{
           smallImage: {
             isFluidWidth: true,
-            src: item.thumbnail,
-            width: 1000,
-            height: 1000
+            src: item.thumbnail
           },
           largeImage: {
-            src: item.thumbnail,
-            width: 1000,
-            height: 1000
+            src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
@@ -54,7 +51,7 @@ class SliderProductDetail extends Component {
   }
 
   imageViewer() {
-    const images = [{src: this.state.thumbnail}];
+    const images = [{src: this.state.original}];
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
@@ -81,7 +78,8 @@ class SliderProductDetail extends Component {
     const images = [];
     this.props.images.map(productImage => {
       return images.push({
-        thumbnail: productImage.large
+        original: productImage.large,
+        thumbnail: productImage.small
       });
     });
 
@@ -97,7 +95,7 @@ class SliderProductDetail extends Component {
               onClick={e =>
                 this.setState({
                   visible: true,
-                  thumbnail: e.target.firstChild.currentSrc
+                  original: e.target.firstChild.currentSrc
                 })
               }
               renderItem={this.imageHover}

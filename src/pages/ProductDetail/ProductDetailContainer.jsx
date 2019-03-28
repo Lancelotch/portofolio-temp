@@ -15,7 +15,7 @@ class ProducDetailContainer extends Component {
       changeCheckout: false,
       open: false,
       quantity: 1,
-      productId: "",
+      id: "",
       price: 0,
       name: "",
       index: 0,
@@ -40,8 +40,10 @@ class ProducDetailContainer extends Component {
     try {
       // const res = await productDetail.getProductDetail(productId);
       const res = await dummyProductDetail;
+      console.log(productId, res.data);
+      
       const itemProductDetail = {
-        productId: res.data.productId,
+        id: res.data.id,
         sku: res.data.sku,
         variants: res.data.variants,
         name: res.data.name,
@@ -88,6 +90,7 @@ class ProducDetailContainer extends Component {
     });
   }
 
+ 
   lowestPrice() {
     let { colorId, sizeId } = "01";
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
@@ -101,17 +104,20 @@ class ProducDetailContainer extends Component {
       .value();
     lowestPrice = lowestPriceVariant.price;
     let id = lowestPriceVariant.id.substring(0, 3);
-    if (id === idSize || idColor) {
-      (sizeId = lowestPriceVariant.id.substring(3, 5)) &&
-        (colorId = lowestPriceVariant.id.substring(3, 5));
+    if (id === idSize) {
+      sizeId = lowestPriceVariant.id.substring(3, 5);
+    } else if (id === idColor) {
+      colorId = lowestPriceVariant.id.substring(3, 5);
     }
     id = lowestPriceVariant.id.substring(5, 8);
-    if (id === idSize || idColor) {
-      (sizeId = lowestPriceVariant.id.substring(8, 10)) &&
-        (colorId = lowestPriceVariant.id.substring(8, 10));
+    if (id === idSize) {
+      sizeId = lowestPriceVariant.id.substring(8, 10);
+    } else if (id === idColor) {
+      colorId = lowestPriceVariant.id.substring(8, 10);
     }
     return { sizeId, colorId, lowestPrice };
   }
+
 
   colorVariant(variants, selected, sku, images) {
     let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
@@ -183,25 +189,38 @@ class ProducDetailContainer extends Component {
     }
   };
 
-  toggleModal() { 
+  redirectLogin() { 
     this.setState({
       open: true
     });
   }
 
-  differentCheckout(){
+  redirectCheckout(){
     this.setState({
       changeCheckout : true
     })
   }
 
-  
-
-  addCheckout = () => {
+  addCheckout = (event) => {
+    event.preventDefault()
+    const { id, quantity, sku, size } = this.state
+    const skuId = sku[size].id
     if(this.props.isAuthenticated !== false){
-     this.differentCheckout();
-    } else{
-      this.toggleModal();
+     console.log(id, skuId, quantity )
+     const data = {
+       productId: id,
+       skuId: skuId,
+       quantity: quantity
+     } 
+
+     const dataToString = JSON.stringify(data)
+     
+     localStorage.setItem('product', dataToString)
+      
+     this.redirectCheckout();
+
+    } else {
+      this.redirectLogin();
     }
   }
 
@@ -226,7 +245,10 @@ class ProducDetailContainer extends Component {
   };
 
   render() {
+    console.log(this.state.productId);
+    
     const {
+      changeCheckout,
       open,
       name,
       images,
@@ -250,6 +272,7 @@ class ProducDetailContainer extends Component {
     return (
       <React.Fragment>
         <ProductDetail
+        changeCheckout={changeCheckout}
           open={open}
           price={price}
           match={match}

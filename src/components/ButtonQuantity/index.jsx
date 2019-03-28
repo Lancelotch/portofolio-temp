@@ -13,6 +13,10 @@ class ButtonQuantity extends React.Component {
     };
   }
 
+  componentDidMount(){
+    console.log("button", this.props)
+  }
+
   incrementItem = () => {
     const quantity = this.state.quantity;
     this.setState({ quantity: quantity + 1 }, () => {
@@ -47,6 +51,7 @@ class ButtonQuantity extends React.Component {
   };
 
   render() {
+    console.log('button =====>', this.state.quantity)
     return (
       <Row style={{marginTop: 32}}>
         <Col md={24}>

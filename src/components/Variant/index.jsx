@@ -31,9 +31,9 @@ class Variant extends Component {
     let disabled = {
       border: "1px solid #eee",
       backgroundColor: "#bdc3c7"
-    };
+    }
     return (
-      <div className="variant">
+      <div className="variant">    
         <div
           className={
             this.props.selected ? "box-variant-text active" : "box-variant-text"
