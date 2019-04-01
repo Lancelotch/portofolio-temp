@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
 import SelectProvince from "../SelectProvince";
 import Fetcher from "../Fetcher";
 import { PATH_CUSTOMER } from "../../api/path";
 import SelectCity from "../SelectCity";
 import SelectSubDistrict from "../SelectSubDistrict";
+import withApiMethod from "../../hoc/withApiMethod";
 
 const { Option } = Select;
 const {TextArea} = Input;
@@ -14,9 +15,13 @@ class AddressForm extends Component {
     this.state = {
       provinceId: null,
       cityId: null,
-      subdistrictId: null,
+      subdistrictId: null
     }
   }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   return this.props.responsePost === nextProps.responsePost 
+  // }
 
   splitValue = (value, index) => {
     const splitValue = value.split("|");
@@ -44,6 +49,10 @@ class AddressForm extends Component {
     })
   }
 
+  handleReset = () => {
+    this.props.form.resetFields();
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -62,8 +71,10 @@ class AddressForm extends Component {
           latitude: 0,
           longitude: 0
         },isDefault: true};
-        console.log('Received values of form: ', payload);
-         
+        this.props.doPost(PATH_CUSTOMER.ADDRESS, payload);
+        this.props.onSubmit();
+        //this.handleReset();
+        this.props.handleCancel()
       }
     });
   }
@@ -78,7 +89,9 @@ class AddressForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {responsePost} = this.props;
     const {provinceId, cityId} = this.state;
+    
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
     })(
@@ -164,4 +177,4 @@ class AddressForm extends Component {
   }
 }
 const WrappedAddressForm = Form.create({ name: "addressForm" })(AddressForm);
-export default WrappedAddressForm;
+export default withApiMethod(WrappedAddressForm);

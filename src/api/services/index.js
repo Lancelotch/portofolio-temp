@@ -16,7 +16,7 @@ import { dummyService } from "./httpClient";
     });
   };
 
-  export const fetchData = (request) => {
+  export const fetchDataService = (request) => {
     return new Promise((resolve, reject) => {
       dummyService
         .request({...request})

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getMethod, getMethodWithoutParam, fetchData } from "../api/services";
+import { getMethod, getMethodWithoutParam, fetchDataService } from "../api/services";
 
 const withGetMethodApi = (path) => (WrappedComponent) => {
   class WithGetMethodApi extends Component {

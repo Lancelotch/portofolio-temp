@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getMethod, getMethodWithoutParam, fetchData } from "../api/services";
+import { getMethod, getMethodWithoutParam, fetchData, fetchDataService } from "../api/services";
 import { compose } from "redux";
 import { connect } from "react-redux";
 
@@ -8,10 +8,12 @@ const withApiMethod = WrappedComponent => {
     constructor(props) {
       super(props);
       this.state = {
-        data: [],
-        response: [],
         loading: false,
-        error: false
+        error: [],
+        responseGet: [],
+        responsePost: [],
+        responseUpdate: [],
+        responseDelete: []
       };
       this.method = {
         GET: "GET",
@@ -20,52 +22,65 @@ const withApiMethod = WrappedComponent => {
         DELETE: "DELETE"
       };
     }
-    
+  
     doGet = (url, payload) => {
       console.log(url);
       this.fetchData(url, this.method.GET, payload);
     };
-
+  
     doPost = (url, payload) => {
       console.log(payload);
       this.fetchData(url, this.method.POST, payload);
     };
-
+  
     doUpdate = (url, payload) => {
       this.fetchData(url, this.method.PATCH, payload);
     };
-
+  
     doDelete = (url, payload) => {
       this.fetchData(url, this.method.DELETE, payload);
     };
-
+  
+    responseMethod = (method, response) => {
+        switch(method){
+          case this.method.GET :
+              return {responseGet : response.data, loading: false}
+          case this.method.POST :
+              return {responsePost : response.data, loading: false}
+          case this.method.PATCH :
+              return {responseUpdate : response.data, loading: false}
+          case this.method.DELETE :
+              return {responseDelete : response.data, loading: false}
+        }
+    }
+  
     fetchData = async (url, method, payload) => {
       const request = {
         method: method,
         url: url,
         data: payload
       };
+      this.setState({loading: true});
       try {
-        const response = await fetchData(request);
-        this.setState({
-          response: response,
-          data: response.data
-        });
+        const response = await fetchDataService(request);
+        console.log(this.responseMethod(method, response));
+        this.setState(this.responseMethod(method, response));
+        
       } catch (error) {
-        console.log(error);
         this.setState({
-          error: true
+          error: error,
+          loading: false
         });
       }
     };
 
     render() {
-      const { data, response, error } = this.state;
+      const { data, responsePost, error } = this.state;
       return (
         <WrappedComponent
           data={data}
           error={error}
-          response={response}
+          responsePost={responsePost}
           doPost={this.doPost}
           doGet={this.doGet}
           {...this.props}
@@ -76,13 +91,4 @@ const withApiMethod = WrappedComponent => {
   return WithApiMethod;
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
-});
-
-const composedWithApiMethod = compose(
-  connect(mapStateToProps),
-  withApiMethod
-);
-
-export default composedWithApiMethod;
+export default withApiMethod;
