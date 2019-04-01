@@ -7,7 +7,7 @@ export default class CheckoutContainer extends Component {
     super(props);
     this.state = {
       price: 0,
-      shipping: [],
+      shipping: "",
       warna: null,
       ukuran: null
     };

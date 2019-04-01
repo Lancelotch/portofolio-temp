@@ -16,13 +16,13 @@ class SelectShipping extends Component {
               <div
                 key={index.toString()}
                 className={
-                  selected &&
-                  selected === ship.id &&
-                  "shipping-selected-selected"
+                  selected === ship.id
+                    ? "shipping-selected"
+                    : "shipping-selected-active"
                 }
                 onClick={onChangeSelected.bind(this, ship)}
               >
-                <Col md={24} style={{ padding: 15 }}>
+                <Col md={24} style={{ padding: 10 }}>
                   <Col md={4}>
                     <img
                       src={ship.via === "Laut" ? Laut : Udara}
