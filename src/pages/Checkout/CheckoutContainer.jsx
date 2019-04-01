@@ -6,32 +6,25 @@ export default class CheckoutContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: "",
-      skuId: "",
-      quantity: 0,
-      sku: [],
-      name: "",
       price: 0,
-      length: 0,
-      shipping: "",
-      variants: [],
+      shipping: [],
       warna: null,
       ukuran: null
     };
   }
 
   componentDidMount() {
-    this.productDetail();
+    this.orderDetails();
   }
 
-  productDetail = async () => {
+  orderDetails = async () => {
     const {
       productId,
       skuId,
       quantity,
       colorId,
       sizeId
-    } = this.getPesananDetail();
+    } = this.getOrderDetails();
     try {
       const res = await productDetail.getProductDetail(productId);
       const sku = res.data.sku;
@@ -44,29 +37,25 @@ export default class CheckoutContainer extends Component {
       const warna = dataWarna.filter(warna => warna.id === colorId )[0]
       // const res = await dummyProductDetail(productId);
       console.log(res.data);
-      const itemProductDetail = {
-        id: res.data.id,
+      const itemOderDetails = {
         sku: selectedSku,
         name: res.data.name,
-        details: res.data.details,
         size: 0,
-        images: res.data.images,
         price: res.data.price,
-        description: res.data.description,
         quantity,
         totalPrice: Number(selectedSku.price) * Number(quantity),
         warna,
         ukuran
       };
       this.setState({
-        ...itemProductDetail
+        ...itemOderDetails
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  getPesananDetail = () => {
+  getOrderDetails = () => {
     const productFromLocalstorage = localStorage.getItem("product");
     const productFromLocalstorageParse = JSON.parse(productFromLocalstorage);
     return productFromLocalstorageParse;
@@ -92,13 +81,9 @@ export default class CheckoutContainer extends Component {
     const {
       warna,
       ukuran,
-      variants,
-      productId,
-      sku,
       quantity,
       totalPrice,
       name,
-      length,
       shipping
     } = this.state;
     const { onChangeQuantity, onChangeShipping } = {
@@ -111,11 +96,7 @@ export default class CheckoutContainer extends Component {
           <Checkout
             warna={warna}
             ukuran={ukuran}
-            variants={variants}
-            length={length}
             name={name}
-            productId={productId}
-            sku={sku}
             quantity={quantity}
             totalPrice={totalPrice}
             onChangeQuantity={onChangeQuantity}
