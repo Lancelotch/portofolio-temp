@@ -74,8 +74,8 @@ class HomePage extends Component {
             <React.Fragment>
                 <HomePageContainer
                     match={match}
-                    benefit={benefit}
-                    popularProduct={popularProduct}
+                    //benefit={benefit}
+                    //popularProduct={popularProduct}
                     bestSellerProduct={bestSellerProduct}
                     mostClickProduct={mostClickProduct} 
                 />
