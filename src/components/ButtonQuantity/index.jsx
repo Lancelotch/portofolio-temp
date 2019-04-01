@@ -69,6 +69,7 @@ class ButtonQuantity extends React.Component {
               width: "100px",
               color: "#004853"
             }}
+            maxLength={4}
             value={this.state.quantity}
             onChange={this.onChangeQuantity}
           />

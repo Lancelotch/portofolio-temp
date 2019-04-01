@@ -5,52 +5,47 @@ import currencyRupiah from "../../library/currency";
 import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
 import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 
-
-
 class SelectShipping extends Component {
-  onShippingSelected = () => {
-    this.props.onChangeSelected(this.props.shipping[1].id);
-  };
   render() {
-    const { shipping, selected } = this.props;
+    const { shipping, selected, onChangeSelected } = this.props;
     return (
       <React.Fragment>
-        {shipping.length > 0 ? (
-          <div className="container-row-shipping">
-            <div className={selected} onClick={this.onShippingSelected}>
-              <div className="shipping" style={{ marginRight: 25 }}>
-                <Col md={24}>
-                  <Col md={3}>
-                    <img src={Laut} alt="" style={{ maxWidth: "100%" }} />
+        {shipping.length > 0 && (
+          <div className="container-row-shipping-selected">
+            {shipping.map((ship, index) => (
+              <div
+                key={index.toString()}
+                className={
+                  selected &&
+                  selected === ship.id &&
+                  "shipping-selected-selected"
+                }
+                onClick={onChangeSelected.bind(this, ship)}
+              >
+                <Col md={24} style={{ padding: 15 }}>
+                  <Col md={4}>
+                    <img
+                      src={ship.via === "Laut" ? Laut : Udara}
+                      alt=""
+                      style={{ maxWidth: "100%" }}
+                    />
                   </Col>
-                  <Col md={21}>
-                    {shipping[1].id}
+                  <Col md={20} style={{ padding: 5 }}>
+                    {/* {ship.id} */}
                     <p>
-                      {shipping[1].estimation.charAt(0).toUpperCase() +
-                        shipping[1].estimation.substring(1)}
+                      {ship.estimation.charAt(0).toUpperCase() +
+                        ship.estimation.substring(1)}
                     </p>
-                    <p className="price">Harga sudah termasuk</p>
+                    <p className="price-selected">
+                      {currencyRupiah(ship.price)}
+                    </p>
                   </Col>
+                  {/* <p className="price">{ ship.via ===  'Laut' ?  'Harga sudah termasuk' : currencyRupiah(ship.price) }</p> */}
                 </Col>
               </div>
-            </div>
-            <div className="shipping">
-              <Col md={24} style={{ marginLeft: 50 }}>
-                <Col md={3}>
-                  <img src={Udara} alt="" style={{ maxWidth: "100%" }} />
-                </Col>
-                <Col md={21}>
-                  {shipping[0].id}
-                  <p>
-                    {shipping[0].estimation.charAt(0).toUpperCase() +
-                      shipping[0].estimation.substring(1)}
-                  </p>
-                  <p className="price">{currencyRupiah(shipping[0].price)}</p>
-                </Col>
-              </Col>
-            </div>
+            ))}
           </div>
-        ) : null}
+        )}
       </React.Fragment>
     );
   }

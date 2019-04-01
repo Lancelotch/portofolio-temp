@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import productDetail from "../../api/services/productDetail";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
 import ProductDetail from ".";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { chain, forEach } from "lodash";
 
 class ProducDetailContainer extends Component {
@@ -38,10 +38,10 @@ class ProducDetailContainer extends Component {
   productDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      // const res = await productDetail.getProductDetail(productId);
-      const res = await dummyProductDetail;
+      const res = await productDetail.getProductDetail(productId);
+      // const res = await dummyProductDetail;
       console.log(productId, res.data);
-      
+
       const itemProductDetail = {
         id: res.data.id,
         sku: res.data.sku,
@@ -90,7 +90,6 @@ class ProducDetailContainer extends Component {
     });
   }
 
- 
   lowestPrice() {
     let { colorId, sizeId } = "01";
     let { idSize, idColor } = { idSize: "002", idColor: "001" };
@@ -118,7 +117,6 @@ class ProducDetailContainer extends Component {
     return { sizeId, colorId, lowestPrice };
   }
 
-
   colorVariant(variants, selected, sku, images) {
     let { idColor, idSize, colorId, sizeId, notZeroIndex, stockInfo } = {
       idColor: variants[0].id,
@@ -132,7 +130,7 @@ class ProducDetailContainer extends Component {
       changed: 1,
       price: sku[0].price,
       colorId: selected.value.id
-    }); 
+    });
     sku.map(item => {
       return (stockInfo[item.id] = item.stock);
     });
@@ -145,7 +143,7 @@ class ProducDetailContainer extends Component {
     });
     sizeId = variants[1].values[notZeroIndex].id;
     this.defaultSelectVariant(variants, colorId, images);
-    this.variantsRef.map((value,index) => {
+    this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
     this.variantPrice(sku, idColor, colorId, idSize, sizeId);
@@ -157,7 +155,7 @@ class ProducDetailContainer extends Component {
       idSize: variants[1].id,
       colorId: this.state.colorId,
       sizeId: selected.value.id
-    };  
+    };
     this.setState({
       size: 0,
       changed: 0,
@@ -179,8 +177,8 @@ class ProducDetailContainer extends Component {
 
   onChangeVariant = selected => {
     this.setState({
-      changed:0
-    })
+      changed: 0
+    });
     const { variants, sku, images } = this.state;
     if (selected.index === 1) {
       this.sizeVariant(variants, selected, sku);
@@ -189,40 +187,38 @@ class ProducDetailContainer extends Component {
     }
   };
 
-  redirectLogin() { 
+  redirectLogin() {
     this.setState({
       open: true
     });
   }
 
-  redirectCheckout(){
+  redirectCheckout() {
     this.setState({
-      changeCheckout : true
-    })
+      changeCheckout: true
+    });
   }
 
-  addCheckout = (event) => {
-    event.preventDefault()
-    const { id, quantity, sku, size } = this.state
-    const skuId = sku[size].id
-    if(this.props.isAuthenticated !== false){
-     console.log(id, skuId, quantity )
-     const data = {
-       productId: id,
-       skuId: skuId,
-       quantity: quantity
-     } 
-
-     const dataToString = JSON.stringify(data)
-     
-     localStorage.setItem('product', dataToString)
-      
-     this.redirectCheckout();
-
+  addCheckout = event => {
+    event.preventDefault();
+    const { id, quantity, sku, size,colorId,sizeId } = this.state;
+    const skuId = sku[size].id;
+    console.log(id, skuId, quantity);
+    const data = {
+      colorId,
+      sizeId,
+      productId: id,
+      skuId: skuId,
+      quantity: quantity
+    };
+    const dataToString = JSON.stringify(data);
+    localStorage.setItem("product", dataToString);
+    if (this.props.isAuthenticated !== false) {
+      this.redirectCheckout();
     } else {
       this.redirectLogin();
     }
-  }
+  };
 
   onChangeQuantity = qyt => {
     let quantity = this.state.quantity;
@@ -246,7 +242,7 @@ class ProducDetailContainer extends Component {
 
   render() {
     console.log(this.state.productId);
-    
+
     const {
       changeCheckout,
       open,
@@ -261,7 +257,14 @@ class ProducDetailContainer extends Component {
       stockAlert,
       details
     } = this.state;
-    const { price, match, variantsRef, onChangeVariant, onChangeQuantity,addCheckout } = {
+    const {
+      price,
+      match,
+      variantsRef,
+      onChangeVariant,
+      onChangeQuantity,
+      addCheckout
+    } = {
       match: this.props,
       variantsRef: this.variantsRef,
       onChangeVariant: this.onChangeVariant,
@@ -272,7 +275,7 @@ class ProducDetailContainer extends Component {
     return (
       <React.Fragment>
         <ProductDetail
-        changeCheckout={changeCheckout}
+          changeCheckout={changeCheckout}
           open={open}
           price={price}
           match={match}
@@ -296,9 +299,9 @@ class ProducDetailContainer extends Component {
   }
 }
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
   token: state.authentication.token
-})
+});
 
 export default connect(mapStateToProps)(ProducDetailContainer);

@@ -3,52 +3,57 @@ import LocalizedStrings from 'react-localization';
 const strings = new LocalizedStrings({
   id: {
     //topHeader
-    topHeader_link:'kesini', 
+    topHeader_link: 'kesini',
     topHeader_sentence: 'Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo mampir {0}',
 
     //Header
-    search_place_holder : 'cari produk',
+    search_place_holder: 'cari produk',
     header_greeting: 'Hello, monggo masuk',
     header_greeting_auth: 'Hello, monggo belanja',
     header_my_order: 'Pesenan Saya',
     header_check_order: 'Lacak Pesenan',
-    
+
 
 
     //Category
     category: 'Kategori',
-    
+
     //general
     log_in: 'Log In',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
-    add_to_cart : "Tambah Ke Keranjang",
-    action_delete : "Hapus",
-    checkout : "Checkout",
-    total_price_product : "Total Harga Barang",
-    failed : "Gagal",
-    pay : "Bayar",
-    total : "Jumlah",
-    note : "Catatan",
-    sub_total : "Sub Total",
-    price_courier : "Ongkos Kirim",
-    pcs : "pcs",
-    delivery_courier : "Delivery Courier",
-    address : "Alamat",
+    add_to_cart: "Tambah Ke Keranjang",
+    action_delete: "Hapus",
+    checkout: "Checkout",
+    total_price_product: "Total Harga Barang",
+    failed: "Gagal",
+    pay: "Bayar",
+    total: "Jumlah",
+    note: "Catatan",
+    sub_total: "Sub Total",
+    price_courier: "Ongkos Kirim",
+    pcs: "pcs",
+    delivery_courier: "Delivery Courier",
+    address: "Alamat",
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
 
     //Checkout 
-    checkout_shopping_summary : "Ringkasan Belanja",
-    checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
-
+    order_summary: 'Ringkasan Pesenan',
+    order_details: 'Detail Pesanan',
+    choose_payment_methods: 'Pilih Metode Pembayaran',
+    international_shipping: 'Pengiriman International',
+    checkout_shopping_summary: "Ringkasan Belanja",
+    checkout_alert_fill_courier: "isi dulu semua courier pada setiap product",
+    checkout_alert_description_detail_pesanan: "Harga yang tercantum pada saat check out sudah termasuk pertambahan biaya pajak domestik, pajak import dan lain-lain.",
+    checkout_alert_info: "Sudah Termasuk Biaya Pajak Dll.",
     //Social Media
     google: "Google",
     facebook: "Facebook",
 
     //enter
     enter: "Masuk",
-    
+
     //Login
     login_enter: "Masuk",
     login_option: "atau masuk dengan",
@@ -57,10 +62,10 @@ const strings = new LocalizedStrings({
     login_quote: "Belum punya Akun MonggoPesen ? {0}",
     login_register: "Daftar",
     //Button
-    button_empty_cart : "Ayo Mulai Belanja",
-     //Warning
-     warning_empty_cart : "Belum ada barang di keranjang belanja kamu",
-     warning_unavailable_product : "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
+    button_empty_cart: "Ayo Mulai Belanja",
+    //Warning
+    warning_empty_cart: "Belum ada barang di keranjang belanja kamu",
+    warning_unavailable_product: "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
     //Register
     register_now: "Daftar Sekarang",
     register_quote: "Sudah punya akun MonggoPesen ? {0} ",
@@ -84,7 +89,7 @@ const strings = new LocalizedStrings({
     product_detail_description: "Deskripsi Produk",
     delivery_from: "Pengiriman Dari",
     china: "China",
-    delivery_to : "ke INDONESIA",
+    delivery_to: "ke INDONESIA",
     detail_product: "Detail Product",
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
@@ -103,7 +108,7 @@ const strings = new LocalizedStrings({
     payment: 'Pembayaran',
     follow_us: 'Follow Us',
     monggo: 'Monggo...',
-    subscripton_invitation:'berlangganan sekarang untuk mendapatkan informasi seputan update, promo dan penawaran menarik lainya'
+    subscripton_invitation: 'berlangganan sekarang untuk mendapatkan informasi seputan update, promo dan penawaran menarik lainya'
 
   }
 })

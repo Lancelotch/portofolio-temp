@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from "react";
-import { Input } from 'antd';
+import React, { Component } from "react";
+import { Input } from "antd";
 
 const { TextArea } = Input;
 
@@ -12,16 +12,22 @@ class NotedLimit extends Component {
   }
   render() {
     return (
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: 10 }}>
         <TextArea
           onChange={e => this.setState({ length: e.target.value.length })}
           maxLength={255}
-          style={{ width: "400px" }}
           rows={4}
         />
-        <div style={{ fontSize: "18px", lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: 14,
+            lineHeight: 1.5,
+            opacity: 0.5,
+            float: "right"
+          }}
+        >
           {this.state.length}/255
-        </div>
+        </p>
       </div>
     );
   }
