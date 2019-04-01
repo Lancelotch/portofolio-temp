@@ -13,14 +13,10 @@ class OderDetails extends Component {
     const {
       warna,
       ukuran,
-      variants,
       totalPrice,
-      productId,
-      sku,
       quantity,
       onChangeQuantity,
       onChangeShipping,
-      shipping,
       name
     } = this.props;
 

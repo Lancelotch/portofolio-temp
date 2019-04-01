@@ -3,10 +3,10 @@ import OrderDetailsContainer from "../../components/OrderDetails/OrderDetailsCon
 import "./style.sass";
 import { Row, Col } from "antd";
 import OrderSummary from "../../components/OrderSummary/OrderSummaryContainer";
+import strings from "../../localization/localization";
 
 class CheckOut extends Component {
   render() {
-    console.log("checkout container", this.props);
     const { totalPrice, shipping } = this.props;
     return (
       <div className="checkout">
@@ -22,7 +22,7 @@ class CheckOut extends Component {
               </a>
             </Col>
             <Col md={15}>
-              <p className="checkout__text">Check Out</p>
+              <p className="checkout__text">{strings.checkout}</p>
             </Col>
             </Row>
             <Row>
