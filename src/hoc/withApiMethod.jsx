@@ -63,9 +63,8 @@ const withApiMethod = WrappedComponent => {
       this.setState({loading: true});
       try {
         const response = await fetchDataService(request);
-        console.log(this.responseMethod(method, response));
         this.setState(this.responseMethod(method, response));
-        
+        console.log(this.responseMethod(method, response));
       } catch (error) {
         this.setState({
           error: error,

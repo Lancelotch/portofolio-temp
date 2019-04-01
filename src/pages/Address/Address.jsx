@@ -11,13 +11,33 @@ class Address extends Component {
     super(props);
     this.state = {
       visible: false,
-      payloadAddressDefault: null
+      payloadAddressDefault: null,
+      refreshFromSubmit : false
     };
   }
 
   componentDidMount() {
     this.getAddressDefault();
   }
+
+  // componentDidUpdate() {
+  //   const {visible, refreshFromSubmit} = this.state;
+  //   if(!visible){
+  //     if(refreshFromSubmit){
+  //       console.log(refreshFromSubmit);
+        
+  //       this.setState((prevState)=>(
+  //         {refreshFromSubmit: !prevState.refreshFromSubmit}
+  //       ),this.getAddressDefault())
+  //     }
+  //   }
+  // }
+
+  // handleRefresh = () => {
+  //   this.setState((prevState)=>(
+  //     {refreshFromSubmit: !prevState.refreshFromSubmit}
+  //   ))
+  // }
 
   handleCancel = () => {
     this.isVisible();

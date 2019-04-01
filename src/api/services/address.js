@@ -16,3 +16,20 @@ export const getAddressDefault = () => {
       });
   });
 };
+
+export const postAddressForm = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method: "POST",
+        url: PATH_CUSTOMER.ADDRESS,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};

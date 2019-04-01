@@ -6,6 +6,7 @@ import { PATH_CUSTOMER } from "../../api/path";
 import SelectCity from "../SelectCity";
 import SelectSubDistrict from "../SelectSubDistrict";
 import withApiMethod from "../../hoc/withApiMethod";
+import { postAddressForm } from "../../api/services/address";
 
 const { Option } = Select;
 const {TextArea} = Input;
@@ -19,9 +20,13 @@ class AddressForm extends Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState){
-  //   return this.props.responsePost === nextProps.responsePost 
-  // }
+  postAddressForm = (request) => {
+    postAddressForm(request).then(response=>{
+      this.props.onSubmit();
+    }).catch(error=>{
+      console.log(error);
+    })
+  }
 
   splitValue = (value, index) => {
     const splitValue = value.split("|");
@@ -71,10 +76,11 @@ class AddressForm extends Component {
           latitude: 0,
           longitude: 0
         },isDefault: true};
-        this.props.doPost(PATH_CUSTOMER.ADDRESS, payload);
-        this.props.onSubmit();
+        //this.props.doPost(PATH_CUSTOMER.ADDRESS, payload);
+        //this.props.onSubmit();
         //this.handleReset();
-        this.props.handleCancel()
+        this.postAddressForm(payload);
+        this.props.handleCancel();
       }
     });
   }
@@ -89,9 +95,7 @@ class AddressForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const {responsePost} = this.props;
     const {provinceId, cityId} = this.state;
-    
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
     })(
