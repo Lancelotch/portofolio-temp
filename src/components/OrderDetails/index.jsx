@@ -56,7 +56,7 @@ class OderDetails extends Component {
                       {currencyRupiah(totalPrice)}
                     </p>
                   </Col>
-                  <Col md={24}>
+                  <Col md={24} offset={3}>
                     <div className="detailPesanan__alert">
                       <Icon
                         type="exclamation-circle"
