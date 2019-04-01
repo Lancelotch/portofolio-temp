@@ -9,12 +9,13 @@ const dummyShipping = {
       "price": 20000
     },
     {
-      "id": "3knk2noib2oi2o23r",
+      "id": "3knk2noib2oi22o23r",
       "via": "laut",
       "estimation": "via laut 20 - 30 hari",
-      "price": 0
+      "price": "Harga Sudah Termasuk"
     }
   ]
+  
 }
 
 export default dummyShipping;

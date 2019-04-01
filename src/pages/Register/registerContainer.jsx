@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Alert } from "antd";
 import strings from "../../localization/localization";
 import Loading from '../../components/Loading';

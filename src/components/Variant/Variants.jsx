@@ -63,8 +63,9 @@ class Variants extends Component {
           index: this.state.index,
           id: this.state.id,
           value: this.state.variantSelected
-        };
+        }; 
         this.props.onChangeVariant(variant);
+        
       }
     );
     if (this.state.index === 1) {
@@ -88,14 +89,6 @@ class Variants extends Component {
           return false;
         }
       });
-      // for (let i = 0; i<this.state.values.length; i++) {
-      //   let value = this.state.values[i];
-      //   console.log(value);
-      //   if (this.stockInfo[idColor+this.state.colorId+idSize+value.id] !== 0) {
-      //     notZeroIndex = i;
-      //     break;
-      //   }
-      // }
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
@@ -104,9 +97,7 @@ class Variants extends Component {
           image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
-          disabled={
-            this.stockInfo[idColor + this.state.colorId + idSize + value.id]
-          }
+          disabled={this.stockInfo[`${idColor}${this.state.colorId}${idSize}${value.id}`]}
           selected={
             (this.state.variantSelected.id === value.id &&
               this.props.changed === 0) ||
@@ -125,7 +116,7 @@ class Variants extends Component {
           image={value.image}
           name={value.name}
           onChangeVariant={this.onChangeVariant}
-          disabled={"1"}
+          disabled={1}
           selected={this.state.variantSelected.id === value.id ? true : false}
         />
       ));

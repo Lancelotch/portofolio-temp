@@ -47,6 +47,7 @@ class Header extends Component {
       this.setState({
         name: payload.data.name
       });
+      this.render();
     } catch (error) {
       console.log(error);
     }
@@ -57,18 +58,12 @@ class Header extends Component {
     return name.substr(0, 8) + "...";
   };
 
-  // onShowDropdown = () => {
-  //   this.setState(dropdownShow({
-
-  //   }))
-  // }
-
   renderAuthList = () => {
     return (
       <Dropdown overlay={this.userMenu()} trigger={["click"]}>
-        <a className="ant-dropdown-link" href="#">
+        <li className="ant-dropdown-link" href="#" style={{display: "unset"}}>
           <h4>{this.showCustomerName()}</h4>
-        </a>
+        </li>
       </Dropdown>
     );
   };
@@ -76,9 +71,9 @@ class Header extends Component {
   renderNotAuthList = () => {
     return ( 
       <Dropdown overlay={<Login />} trigger={['click']}>
-        <a className='ant-dropdown-link' href='#'>
+        <li className='ant-dropdown-link' href='#' style={{display: "unset"}}>
           <h4>{strings.log_in}</h4>
-        </a>
+        </li>
       </Dropdown>
     );
   };
@@ -86,8 +81,8 @@ class Header extends Component {
   userMenu = () => ( 
     <Menu className='header__user-menu'>
       <div className='header__user-menu-box'>
-        <a> {strings.my_account}</a>
-        <a> {strings.header_my_order}</a>
+        <li> {strings.my_account}</li>
+        <li> {strings.header_my_order}</li>
         <a onClick={this.handleLogout}>
           <button className="header__user-menu__button">
             {" "}
@@ -113,7 +108,7 @@ class Header extends Component {
           <h4>{strings.header_greeting_auth}</h4>
         )}
       </div>
-    );
+    ); 
 
     return (
       <div>
@@ -128,7 +123,7 @@ class Header extends Component {
               <a href="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
-                  className="header__logo"
+                  className="header__logo" alt=""
                 />
               </a>
             </Col>
@@ -179,11 +174,6 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-
-
 })
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(Header);
+export default connect(mapStateToProps,{ logout })(Header);

@@ -11,17 +11,23 @@ class SliderProductDetail extends Component {
     super(props);
     this.state = {
       visible: false,
-      thumbnail: "",
-      index:0
+      original: "",
+      large: "",
+      index:0,
+      isShowNav : false
     };
   }
   componentDidMount(){
     this.setState({index:this.props.index})
   }
   componentWillReceiveProps(props){
+    if(this.props.images.length > 6){
+      this.setState({
+        isShowNav : true
+      })
+     }  
     this.setState({index:props.index})
   } 
-  
   imageHover(item) {
     return (
       <ReactImageMagnify
@@ -31,9 +37,7 @@ class SliderProductDetail extends Component {
             src: item.thumbnail
           },
           largeImage: {
-            src: item.thumbnail,
-            width: 1000,
-            height: 1000
+            src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
@@ -47,7 +51,7 @@ class SliderProductDetail extends Component {
   }
 
   imageViewer() {
-    const images = [{src: this.state.thumbnail}];
+    const images = [{src: this.state.original}];
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
@@ -55,7 +59,6 @@ class SliderProductDetail extends Component {
     });
     return (
       <Viewer
-        activeIndex={this.state.index}
         onMaskClick={e => void { clicked: true }}
         visible={this.state.visible}
         zIndex={2000}
@@ -75,7 +78,8 @@ class SliderProductDetail extends Component {
     const images = [];
     this.props.images.map(productImage => {
       return images.push({
-        thumbnail: productImage.large
+        original: productImage.large,
+        thumbnail: productImage.small
       });
     });
 
@@ -86,11 +90,12 @@ class SliderProductDetail extends Component {
               key={this.state.index}
               showFullscreenButton={false}
               showPlayButton={false}
+              showNav={this.state.isShowNav}
               startIndex={this.state.index}
               onClick={e =>
                 this.setState({
                   visible: true,
-                  thumbnail: e.target.firstChild.currentSrc
+                  original: e.target.firstChild.currentSrc
                 })
               }
               renderItem={this.imageHover}

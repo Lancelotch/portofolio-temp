@@ -1,5 +1,6 @@
 import authentication from "../../api/services/authentication";
 import dispatchType from "./dispatchType";
+import customer from "../../api/services/customer";
 
 
 export const registerWithGoogle = (history, request) => async dispatch => {
@@ -19,7 +20,7 @@ export const loginWithGoogle = request => async dispatch => {
   } catch (error) {
     console.log(error);
   }
-};
+};         
 
 export const loginWithForm = request => async dispatch => {
   try {
@@ -45,11 +46,20 @@ export const registerForm = (history,request) => async dispatch => {
     const expiredToken = responseRegisterForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
-    history.push("/");
+        history.push("/");
   } catch (error){
     dispatch(dispatchType.registerWithForm(error))
   }
 }
+
+export const nameCustomer = (request) => async dispatch => { 
+  try{
+    const responseNameCustomer = await customer.customerDetail();
+    dispatch(dispatchType.customerDetail(responseNameCustomer));
+  }catch(error){
+    console.log(error);
+  }
+};
 
 export const activatingUser = (request) => async dispatch => {
   try{

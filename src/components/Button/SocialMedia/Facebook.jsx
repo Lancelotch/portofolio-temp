@@ -7,7 +7,7 @@ class ButtonFacebook extends Component{
     console.log({facebook : user});
 
     const profile = user._profile;
-    const token = user._token;
+    // const token = user._token;
     const provider = user._provider;
     const request = {
       email: profile.email,

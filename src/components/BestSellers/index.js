@@ -11,7 +11,7 @@ class BestSellers extends Component {
         const {products, maxNumber} = this.props 
         let counter = 0
         return ( <React.Fragment>
-                {products.map((product, index) => {
+                {products.map((product) => {
                     if(maxNumber && counter < maxNumber) {
                         if(maxNumber !== null) {
                             counter +=1

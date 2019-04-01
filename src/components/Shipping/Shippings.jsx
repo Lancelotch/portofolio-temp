@@ -1,10 +1,10 @@
-import React from "react"
-import { Col } from "antd"
-import "./style.sass"
-import currencyRupiah from "../../library/currency"
-import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png"
-import Udara from "../../assets/img/icon_product-detail/ic_airplane.png"
-import PropTypes from "prop-types"
+import React from "react";
+import { Col } from "antd";
+import "./style.sass";
+import currencyRupiah from "../../library/currency";
+import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
+import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
+import PropTypes from "prop-types";
 
 const Shippings = props => {
   const { shipping } = props;
@@ -14,24 +14,30 @@ const Shippings = props => {
         <div className="container-row-shipping">
           <div className="shipping" style={{ marginRight: 25 }}>
             <Col md={24}>
-              <p>
-                <img src={Laut} alt="" />
-                &nbsp;
-                {shipping[1].estimation.charAt(0).toUpperCase() +
-                  shipping[1].estimation.substring(1)}
-              </p>
-              <p className="price">Harga sudah termasuk</p>
+              <Col md={3}>
+                <img src={Laut} alt="" style={{ maxWidth: "100%" }} />
+              </Col>
+              <Col md={21}>
+                <p>
+                  {shipping[1].estimation.charAt(0).toUpperCase() +
+                    shipping[1].estimation.substring(1)}
+                </p>
+                <p className="price">Harga sudah termasuk</p>
+              </Col>
             </Col>
           </div>
           <div className="shipping">
-            <Col md={24} style={{marginLeft:50}}>
-              <p>
-                <img src={Udara} alt="" />
-                &nbsp;
-                {shipping[0].estimation.charAt(0).toUpperCase() +
-                  shipping[0].estimation.substring(1)}
-              </p>
-              <p className="price">{currencyRupiah(shipping[0].price)}</p>
+            <Col md={24} style={{ marginLeft: 50 }}>
+              <Col md={3}>
+                <img src={Udara} alt="" style={{ maxWidth: "100%" }} />
+              </Col>
+              <Col md={21}>
+                <p>
+                  {shipping[0].estimation.charAt(0).toUpperCase() +
+                    shipping[0].estimation.substring(1)}
+                </p>
+                <p className="price">{currencyRupiah(shipping[0].price)}</p>
+              </Col>
             </Col>
           </div>
         </div>
