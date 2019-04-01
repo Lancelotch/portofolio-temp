@@ -12,13 +12,20 @@ class SliderProductDetail extends Component {
     this.state = {
       visible: false,
       original: "",
-      index:0
+      large: "",
+      index:0,
+      isShowNav : false
     };
   }
   componentDidMount(){
     this.setState({index:this.props.index})
   }
   componentWillReceiveProps(props){
+    if(this.props.images.length > 6){
+      this.setState({
+        isShowNav : true
+      })
+     }  
     this.setState({index:props.index})
   } 
   imageHover(item) {
@@ -30,9 +37,7 @@ class SliderProductDetail extends Component {
             src: item.thumbnail
           },
           largeImage: {
-            src: item.original,
-            width: 1500,
-            height: 1000
+            src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
@@ -46,7 +51,7 @@ class SliderProductDetail extends Component {
   }
 
   imageViewer() {
-    const images = [{ src: this.state.original }];
+    const images = [{src: this.state.original}];
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
@@ -54,10 +59,8 @@ class SliderProductDetail extends Component {
     });
     return (
       <Viewer
-        activeIndex={this.state.index}
         onMaskClick={e => void { clicked: true }}
         visible={this.state.visible}
-        startIndex={this.state.index}
         zIndex={2000}
         drag={false}
         zoomable={true}
@@ -87,6 +90,7 @@ class SliderProductDetail extends Component {
               key={this.state.index}
               showFullscreenButton={false}
               showPlayButton={false}
+              showNav={this.state.isShowNav}
               startIndex={this.state.index}
               onClick={e =>
                 this.setState({

@@ -13,6 +13,10 @@ class ButtonQuantity extends React.Component {
     };
   }
 
+  componentDidMount(){
+    console.log("button", this.props)
+  }
+
   incrementItem = () => {
     const quantity = this.state.quantity;
     this.setState({ quantity: quantity + 1 }, () => {
@@ -47,10 +51,11 @@ class ButtonQuantity extends React.Component {
   };
 
   render() {
+    console.log('button =====>', this.state.quantity)
     return (
-      <Row style={{marginTop: 12}}>
+      <Row style={{marginTop: 32}}>
         <Col md={24}>
-          <p style={{ fontSize: 18 }}>{this.props.title}</p>
+          <p style={{ fontSize: 18, marginBottom: 8 }}>{this.props.title}</p>
         </Col>
         <Col md={24}>
           <button className="button_quantity" onClick={this.decreaseItem}>
@@ -64,6 +69,7 @@ class ButtonQuantity extends React.Component {
               width: "100px",
               color: "#004853"
             }}
+            maxLength={4}
             value={this.state.quantity}
             onChange={this.onChangeQuantity}
           />

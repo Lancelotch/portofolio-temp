@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { Button } from "antd";
+import React from 'react';
+import { Button, Alert } from "antd";
 import strings from "../../localization/localization";
 import Loading from '../../components/Loading';
 
-class RegistrationSubmitButton extends Component {
-  render() {
-    return this.props.isLoading ? (
+export const RegistrationSubmitButton = props => {
+  const {isLoading} = props
+    return (
+    isLoading ? (
       <Loading />
     ) : (
       <Button
@@ -18,10 +19,28 @@ class RegistrationSubmitButton extends Component {
           {strings.login_register}
         </p>
       </Button>
-    );
-  }
+    )
+  );
 }
-export default RegistrationSubmitButton;
+
+
+export const RegistrationaAlert = props => {
+  const { message, success } = props;
+  return (
+    message && (
+      <Alert
+        type={success ? "success" : "error"}
+        message={
+          <span>
+            <b>{success ? "Berhasil" : "Gagal"}</b> &nbsp;
+            {message}
+          </span>
+        }
+        showIcon
+      />
+    )
+  );
+};
 
 export const rulesName = () => {
   return {

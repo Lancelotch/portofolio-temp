@@ -9,7 +9,7 @@ import {
   loginWithGoogle,
   loginWithForm
 } from '../../store/actions/authentication'
-import SnackBar from 'react-material-snackbar'
+import SnackBar from 'react-material-snackbar'   
 
 const FormItem = Form.Item
 

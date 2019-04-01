@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Affix } from "antd";
+import { Input, Form, Icon, Row, Col, Affix, Alert } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -10,12 +10,10 @@ import {
   registerWithGoogle,
   registerForm
 } from "../../store/actions/authentication";
-import RegistrationSubmitButton, {
-  rulesName,
-  rulesEmail,
-  rulesPassword
-} from "./registerContainer";
-import RegistrationAlert from "./registerAlert";
+import { rulesName, rulesEmail, rulesPassword, RegistrationaAlert, RegistrationSubmitButton } from "./registerContainer";
+
+
+
 
 const FormItem = Form.Item;
 
@@ -128,7 +126,7 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <div className="register__form__confirm">
-                   <RegistrationAlert message={this.state.message} success={this.state.success} />
+                  <RegistrationaAlert message={this.state.message}/>
                   </div>
                   <RegistrationSubmitButton isLoading={this.state.isLoading} />
                 </FormItem>
