@@ -83,18 +83,18 @@ class Header extends Component {
       <div className='header__user-menu-box'>
         <li> {strings.my_account}</li>
         <li> {strings.header_my_order}</li>
-        <a onClick={this.handleLogout}>
+        <li onClick={this.handleLogout}>
           <button className="header__user-menu__button">
             {" "}
             {strings.log_out}{" "}
           </button>{" "}
-        </a>
+        </li>
       </div>
     </Menu>
   );
 
   showUserDropDown = isAuthenticated =>
-    isAuthenticated == true ? this.renderAuthList() : this.renderNotAuthList();
+    isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
     const { keyword } = this.state;

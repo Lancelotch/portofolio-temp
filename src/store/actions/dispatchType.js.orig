@@ -69,7 +69,7 @@ const getAddressDefault = response => {
 };
 
 const dispatchType = {
-    customerDetail: customerDetail,
+<<<<<<< HEAD
   handleLoading: handleLoading,
   activationUser: activationUser,
   loginWithGoogle: loginWithGoogle,
@@ -80,5 +80,18 @@ const dispatchType = {
   products: products,
   getAddressDefault: getAddressDefault
 };
+=======
+    customerDetail: customerDetail,
+    handleLoading : handleLoading,
+    activationUser : activationUser,
+    loginWithGoogle : loginWithGoogle,
+    loginWithFormEror : loginWithFormEror,
+    loginWithForm : loginWithForm,
+    registerWithForm: registerWithForm,
+    logout: logout,
+    products: products,
+     
+}
+>>>>>>> development
 
 export default dispatchType;

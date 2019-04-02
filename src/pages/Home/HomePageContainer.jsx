@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Header from 'components/Header'
 import SliderHome from '../../components/SliderHome'
 import category from '../../api/services/category'
-import {BenefitWithData} from '../../components/Benefit'
+import Benefit from '../../components/Benefit'
 import product from '../../api/services/product'
 import BestSeller from '../../components/BestSellers'
 import PopularProducts from '../../components/PopularProducts'
@@ -14,13 +14,13 @@ import { Link } from 'react-router-dom'
 import './style.sass'
 import Footer from '../../components/Footer'
 import strings from '../../localization/localization';
+import Fetcher from '../../components/Fetcher';
+import { PATH_PRODUCT } from '../../api/path';
 
 class HomePageContainer extends Component {
 
   render () {
     const {
-      benefit,
-      popularProduct,
       bestSellerProduct,
       mostClickProduct
     } = this.props    
@@ -34,10 +34,12 @@ class HomePageContainer extends Component {
             <Header match={match}/>
             <SliderHome />
             <Row type='flex' justify='center'>
-              <BenefitWithData/>
+              <Benefit/>
             </Row>
             <Row type='flex' justify='center'>
-              <PopularProducts products={popularProduct} maxNumber={4} />
+            <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
+              <PopularProducts {...this.props} maxNumber={4} />
+            </Fetcher>
             </Row>
             <Row>
               <Col>
@@ -64,7 +66,7 @@ class HomePageContainer extends Component {
             </Row>
             <Row >
               <Link to='/'>
-                <img className='inspiration-box' src={Inspiration_1} />
+                <img className='inspiration-box' src={Inspiration_1} alt="" />
               </Link>
             </Row>
             <Row type='flex' justify='center' >      

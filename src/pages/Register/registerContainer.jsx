@@ -24,6 +24,17 @@ export const RegistrationSubmitButton = props => {
 }
 
 
+export const AlertLogin = props =>{
+  const {errorMessage,isErorloaded} = props;
+  return <div className="login-form__error-box">
+    {isErorloaded ? (
+      <p className="login-form__error-notif">{errorMessage}</p>
+    ) : null}
+  </div>
+  
+}
+
+
 export const RegistrationaAlert = props => {
   const { message, success } = props;
   return (
