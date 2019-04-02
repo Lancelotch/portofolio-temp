@@ -14,8 +14,7 @@ import Address from '../pages/Address/Address';
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
-        component: Home,
-        layoutName: 'mainLayout'
+        component: Home
     },
     {
         path: PATH_URL.LOGIN,
@@ -24,8 +23,7 @@ const routes = [{
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: CheckOut,
-        layoutName: 'mainLayout'
+        component: CheckOut
     },
     {
         path: PATH_URL.REGISTER,
@@ -35,38 +33,31 @@ const routes = [{
     },
     {
         path: PATH_URL.CONFIRMATION,
-        component: Confirmation,
-        layoutName: 'mainLayout'
+        component: Confirmation
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetail,
-        layoutName: 'mainLayout'
+        component: ProductDetail
     },
     {
         path: PATH_URL.CATEGORY,
-        component: CategoryContainer,
-        layoutName: 'mainLayout'
+        component: CategoryContainer
     },
     {
         path: '/category/fashion-pria/:categoryId',
-        component: CategoryContainer,
-        layoutName: 'mainLayout'
+        component: CategoryContainer
     },
     {
         path: '/category/fashion-pria/sepatu/:categoryId',
-        component: CategoryContainer,
-        layoutName: 'mainLayout'        
+        component: CategoryContainer    
     },
     {
         path: PATH_URL.SEARCH,
-        component: SearchContainer,
-        layoutName: 'mainLayout'        
+        component: SearchContainer      
     },
     {
         path: PATH_URL.PRODUCTS,
-        component: Product,
-        layoutName: 'mainLayout'        
+        component: Product        
     },
     {
         path: PATH_URL.EXAMPLE,
@@ -74,8 +65,7 @@ const routes = [{
     },
     {
         path: '/address',
-        component:Address,
-        layoutName: 'mainLayout'        
+        component:Address        
     }
 ]
 

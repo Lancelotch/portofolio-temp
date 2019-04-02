@@ -18,24 +18,17 @@ class App extends Component {
 
     const routeComponents =
       routes.map(({ path, component, layoutName }, key) => {
-          if(layoutName === "mainLayout" || layoutName === undefined) {
-            return <RouteWithLayout 
-              key={key} 
-              exact 
-              path={path}
-              layout={MainLayout}
-              component={component}
-            />
+          let layout = MainLayout;
+          if(layoutName === "fullLayout") {
+            layout = FullLayout;
           }
-          else if(layoutName === "fullLayout") {
-            return <RouteWithLayout 
-              key={key} 
-              exact 
-              path={path}
-              layout={FullLayout}
-              component={component}
-            />          
-          }
+          return <RouteWithLayout 
+            key={key} 
+            exact 
+            path={path}
+            layout={layout}
+            component={component}
+          />
         }
       );
 
