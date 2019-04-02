@@ -1,35 +1,36 @@
-import React, { Component } from "react";
-import category from "../../api/services/category";
-import { Carousel, Row, Col } from "antd";
-import { Link } from "react-router-dom";
-import "./style.sass";
+import React, { Component } from 'react'
+import category from '../../api/services/category'
+import { Carousel, Row, Col } from 'antd'
+import { Link } from 'react-router-dom'
+import './style.sass'
 
 class SliderHome extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       sliderImages: []
-    };
+    }
   }
 
-  componentDidMount() {
-    this.getSliderHome();
+  componentDidMount () {
+    this.getSliderHome()
   }
 
   getSliderHome = async () => {
     try {
-      const payload = await category.sliderHome();
+      const payload = await category.sliderHome()
       this.setState({
         sliderImages: payload.data
-      });   
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
-  render() {
-    const { sliderImages } = this.state;
-    console.log("ini slider ========>", sliderImages);
+
+  render () {
+    const { sliderImages } = this.state
+    console.log(sliderImages)
 
     const settings = {
       dots: true,
@@ -37,25 +38,21 @@ class SliderHome extends Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1
-    };
-    let items = [];
+    } 
 
     const slides = sliderImages.map(image => {
-      items.push({
-        src: image.imageUrl
-      });
       return (
         <React.Fragment>
-          <Link to="/">
+          <Link to='/'>
             <img
-              className="imageSlider"
+              className='imageSlider'
               src={image.imageUrl}
               alt={image.type}
             />
           </Link>
         </React.Fragment>
-      );
-    });
+      )
+    })
 
     return (
       <React.Fragment>
@@ -67,8 +64,8 @@ class SliderHome extends Component {
           </Col>
         </Row>
       </React.Fragment>
-    );
+    )
   }
 }
 
-export default SliderHome;
+export default SliderHome
