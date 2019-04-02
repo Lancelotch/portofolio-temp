@@ -1,5 +1,5 @@
-import { mainService, dummyService, dummyServiceLogin } from './httpClient';
-import { PATH_PRODUCT, PATH_SHIPPING} from '../path'
+import { dummyServiceLogin } from './httpClient';
+import { PATH_SHIPPING} from '../path'
 
 
 const getShipping = () => {  

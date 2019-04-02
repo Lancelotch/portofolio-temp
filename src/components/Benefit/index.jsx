@@ -1,27 +1,19 @@
-import React from 'react'
-import { Row, Col } from 'antd'
-import './style.sass'
-import composedWithFetchData from '../../hoc/withFetchData';
-import { PATH_HOME } from '../../api/path';
+import React from "react";
+import { Row, Col } from "antd";
+import "./style.sass";
+import { PATH_HOME } from "../../api/path";
+import withGetMethodApi from "../../hoc/withGetMethodApi";
 
-const Benefit = props => {
-  const { data } = props
-  //console.log('benefit' + benefit)
-  const showBenefit = data.map(benefit => {
-    return (
-      <React.Fragment>
-        <Col md={4}>
-          <div className='benefitBox'>
-            <img className='benefitImage' alt ="" src={benefit.imageUrl} />
-          </div>
-        </Col>
-      </React.Fragment>
-    )
-  })
+const Benefit = ({ data, error, loading }) => {
+  console.log("benefit" + data);
+  const showBenefit = data.map(benefit => (
+      <Col md={4}>
+        <div className="benefitBox">
+          <img className="benefitImage" alt="" src={benefit.imageUrl} />
+        </div>
+      </Col>
+  ));
+  return <React.Fragment>{showBenefit}</React.Fragment>;
+};
 
-  return <React.Fragment>{showBenefit}</React.Fragment>
-}
-
-const BenefitWithData = composedWithFetchData(Benefit, PATH_HOME.HOME_BENEFIT)
-
-export {Benefit, BenefitWithData}
+export default withGetMethodApi(PATH_HOME.HOME_BENEFIT)(Benefit);

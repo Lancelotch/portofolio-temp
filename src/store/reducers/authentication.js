@@ -1,12 +1,11 @@
 import TYPE from '../actions/type';
-import { message } from 'antd';
 
 const initialState = {
     token: [],
     isLoading: false,
     isFinish: false,
     isError: false,
-    isAuthenticated : false,
+    isAuthenticated: false,
 }
 
 
@@ -29,6 +28,11 @@ export default (state = initialState, action) => {
                 ...state,
                 auth: null,
                 isAuthenticated: false
+            }
+        case TYPE.NAME_HEADER:
+            return {
+                ...state,
+                name: action.payload
             }
         case TYPE.REGISTER_WITH_FORM:
             return {
