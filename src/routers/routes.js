@@ -14,48 +14,59 @@ import Address from '../pages/Address/Address';
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
-        component: Home
+        component: Home,
+        layoutName: 'mainLayout'
     },
     {
         path: PATH_URL.LOGIN,
-        component: Login
+        component: Login,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: CheckOut
+        component: CheckOut,
+        layoutName: 'mainLayout'
     },
     {
         path: PATH_URL.REGISTER,
         breadcrumb: "register",
-        component: Register
+        component: Register,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CONFIRMATION,
-        component: Confirmation
+        component: Confirmation,
+        layoutName: 'mainLayout'
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetail
+        component: ProductDetail,
+        layoutName: 'mainLayout'
     },
     {
         path: PATH_URL.CATEGORY,
-        component: CategoryContainer
+        component: CategoryContainer,
+        layoutName: 'mainLayout'
     },
     {
         path: '/category/fashion-pria/:categoryId',
-        component: CategoryContainer
+        component: CategoryContainer,
+        layoutName: 'mainLayout'
     },
     {
         path: '/category/fashion-pria/sepatu/:categoryId',
-        component: CategoryContainer
+        component: CategoryContainer,
+        layoutName: 'mainLayout'        
     },
     {
         path: PATH_URL.SEARCH,
-        component: SearchContainer
+        component: SearchContainer,
+        layoutName: 'mainLayout'        
     },
     {
         path: PATH_URL.PRODUCTS,
-        component: Product
+        component: Product,
+        layoutName: 'mainLayout'        
     },
     {
         path: PATH_URL.EXAMPLE,
@@ -63,7 +74,8 @@ const routes = [{
     },
     {
         path: '/address',
-        component:Address
+        component:Address,
+        layoutName: 'mainLayout'        
     }
 ]
 

@@ -1,7 +1,6 @@
 import React, { Component, Suspense, Fragment } from "react";
 import { Row, Col, BackTop, Spin, Card } from "antd";
 import { connect } from "react-redux";
-import Header from "components/Header";
 import "sass/style.sass";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -124,12 +123,10 @@ class ProductPage extends Component {
   };
 
   render() {
-    const { match } = this.props;
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
-            <Header match={match} />
             <div className="container">
                 {this.renderProducts()}
             </div>
