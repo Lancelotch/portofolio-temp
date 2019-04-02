@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Shipping from "../../components/Shipping";
+import ScrollToTopOnMount from "../../components/ScrollToTopOnMount"
 
 export default class ProductDetail extends Component {
   render() {
@@ -34,6 +35,7 @@ export default class ProductDetail extends Component {
       <React.Fragment>
         <Row>
           <Col md={24}>
+          <ScrollToTopOnMount/>
             <div className="productDetailBorder" />
             <div className="container productDetail">
               <Row>
