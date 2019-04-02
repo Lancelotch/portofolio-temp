@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col, Slider, Button } from 'antd'
 import { connect } from 'react-redux'
-import Header from 'components/Header'
 import SliderHome from '../../components/SliderHome'
 import category from '../../api/services/category'
 import Benefit from '../../components/Benefit'
@@ -12,7 +11,6 @@ import Inspiration_1 from '../../assets/img/Inspiration_1.jpg'
 import ClickProducts from '../../components/ClickProducts'
 import { Link } from 'react-router-dom'
 import './style.sass'
-import Footer from '../../components/Footer'
 import strings from '../../localization/localization';
 import Fetcher from '../../components/Fetcher';
 import { PATH_PRODUCT } from '../../api/path';
@@ -26,14 +24,12 @@ class HomePageContainer extends Component {
       bestSellerProduct,
       mostClickProduct
     } = this.props    
-    const {match} = this.props;
     console.log(mostClickProduct)
 
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
-            <Header match={match}/>
             <SliderHome />
             <Row type='flex' justify='center'>
               <Benefit/>
@@ -75,9 +71,6 @@ class HomePageContainer extends Component {
                 <div  style={{marginTop:'80px', marginBottom:'30px',  width:'90%', marginLeft:'40px'}}>
                   <ClickProducts products={mostClickProduct} />
                 </div>
-            </Row>
-            <Row>
-              <Footer />
             </Row>
           </Col>
         </Row>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../../components/Header";
 import SliderProductDetail from "components/SliderSecondary";
 import { Col, Row, Card, Spin } from "antd";
 import Variants from "../../components/Variant/Variants";
@@ -8,7 +7,6 @@ import ButtonQuantity from "../../components/ButtonQuantity";
 import { Redirect } from "react-router-dom";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
-import Footer from "../../components/Footer";
 import Shipping from "../../components/Shipping";
 
 export default class ProductDetail extends Component {
@@ -18,7 +16,6 @@ export default class ProductDetail extends Component {
       open,
       addCheckout,
       price,
-      match,
       name,
       images,
       index,
@@ -37,7 +34,6 @@ export default class ProductDetail extends Component {
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <Header match={match} />
             <div className="productDetailBorder" />
             <div className="container productDetail">
               <Row>
@@ -124,7 +120,6 @@ export default class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            <Footer />
           </Col>
         </Row>
         {open === true && <Redirect to="/login" />}
