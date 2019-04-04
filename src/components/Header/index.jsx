@@ -94,7 +94,7 @@ class Header extends Component {
   );
 
   showUserDropDown = isAuthenticated =>
-    isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
+    isAuthenticated == true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
     const { keyword } = this.state;

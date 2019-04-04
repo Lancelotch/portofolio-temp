@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Form, Button, Icon, Checkbox, Row, Col, Affix } from "antd";
-import { Redirect,Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -16,6 +16,7 @@ import {
   rulesPassword,
   AlertLogin
 } from "../Register/registerContainer";
+import HomePage from "../Home";
 
 const FormItem = Form.Item;
 
@@ -24,8 +25,19 @@ class Login extends Component {
     super(props);
     this.state = {
       errorMessage: null,
-      isErorloaded: false
+      isErorloaded: false,
+      nextPage: ""
     };
+  }
+
+  componentDidMount() {
+    console.log("ini location", this.props.location);
+
+    if (this.props.location.state !== undefined) {
+      this.setState({
+        nextPage: this.props.location.state.nextPage
+      });
+    } 
   }
 
   handleloginGoogle = request => {
@@ -33,12 +45,17 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-    try {
       e.preventDefault();
       this.props.form.validateFields(async (err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
-          await this.props.loginWithForm(values);
+          const history = this.props.history;
+            const linkCheckout = "/checkout";
+            if (this.state.nextPage === "checkout") {
+              this.props.loginWithForm(history, values,linkCheckout);
+            } else {
+              this.props.loginWithForm(history, values);
+            }
+            
           if (this.state.isAuthenticated !== true) {
             this.setState({
               errorMessage: "Email atau password anda salah",
@@ -47,20 +64,14 @@ class Login extends Component {
           }
         }
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   render() {
     console.log(this.props.token);
-    const { form, isAuthenticated } = this.props;
+    const { form } = this.props;
     const { getFieldDecorator } = form;
     const { errorMessage, isErorloaded } = this.state;
-    const linkCheckout = "/checkout";
-    if (isAuthenticated === true) {
-      return <Redirect to={linkCheckout} />;
-    }
+  
     console.log(errorMessage);
     return (
       <React.Fragment>
@@ -79,12 +90,12 @@ class Login extends Component {
           </Col>
           <Col md={{ span: 10 }}>
             <div className="register">
-            <Link to="/">
-              <img
-                className="register__logo"
-                src={logoMonggoPesen}
-                alt="login__logo"
-              />
+              <Link to="/">
+                <img
+                  className="register__logo"
+                  src={logoMonggoPesen}
+                  alt="login__logo"
+                />
               </Link>
               <h2 className="register__title">{strings.login_enter}</h2>
               <Form onSubmit={this.handleSubmit}>
@@ -135,12 +146,13 @@ class Login extends Component {
                       {strings.login_enter}
                     </p>
                   </Button>
-                  <AlertLogin errorMessage={errorMessage} isErorloaded={isErorloaded}/>
+                  <AlertLogin
+                    errorMessage={errorMessage}
+                    isErorloaded={isErorloaded}
+                  />
                 </FormItem>
                 <div className="login__separator">
-                  <p>
-                    {strings.login_option}
-                  </p>
+                  <p>{strings.login_option}</p>
                 </div>
                 <Form.Item className="register__form__btn-socmed">
                   <div className="register__form__socmed-box">
@@ -160,9 +172,15 @@ class Login extends Component {
                   <center className="register__form__direct-login">
                     {strings.formatString(
                       strings.login_quote,
-                      <a href="/register" className="login-form__login">
+                      <Link
+                        to={{
+                          pathname: "/register",
+                          state: { nextPage: "checkout" }
+                        }}
+                      >
+                        {/* <a href="/register" className="login-form__login"> */}
                         {strings.login_register}{" "}
-                      </a>
+                      </Link>
                     )}
                   </center>
                 </Form.Item>

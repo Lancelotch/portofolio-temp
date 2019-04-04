@@ -37,6 +37,7 @@ export const AlertLogin = props =>{
 
 export const RegistrationaAlert = props => {
   const { message, success } = props;
+  console.log("RegistrationaAlert", message, success)
   return (
     message && (
       <Alert

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SliderProductDetail from "components/SliderSecondary";
-import { Col, Row, Card, Spin } from "antd";
+import { Col, Row, Card, Spin, Switch } from "antd";
 import Variants from "../../components/Variant/Variants";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity";
@@ -8,7 +8,8 @@ import { Redirect } from "react-router-dom";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Shipping from "../../components/Shipping";
-import ScrollToTopOnMount from "../../components/ScrollToTopOnMount"
+import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
+import Login from "../Login";
 
 export default class ProductDetail extends Component {
   render() {
@@ -35,17 +36,12 @@ export default class ProductDetail extends Component {
       <React.Fragment>
         <Row>
           <Col md={24}>
-          <ScrollToTopOnMount/>
+            <ScrollToTopOnMount />
             <div className="productDetailBorder" />
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2>
-                    {" "}
-                    {name || <Spin />}
-                    {sizeId}
-                    {colorId}
-                  </h2>
+                  <h2> {name || <Spin />}</h2>
                   <SliderProductDetail images={images} index={index} />
                 </Col>
                 <Col md={14}>
@@ -124,7 +120,7 @@ export default class ProductDetail extends Component {
             </div>
           </Col>
         </Row>
-        {open === true && <Redirect to="/login" />}
+        {open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
         {changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
