@@ -7,7 +7,7 @@ import withGetMethodApi from "../../hoc/withGetMethodApi";
 const Benefit = ({ data, error, loading }) => {
   console.log("benefit" + data);
   const showBenefit = data.map(benefit => (
-      <Col md={4}>
+      <Col style={{margin:"24px"}}>
         <div className="benefitBox">
           <img className="benefitImage" alt="" src={benefit.imageUrl} />
         </div>

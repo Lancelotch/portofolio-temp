@@ -10,6 +10,7 @@ const CATEGORY = '/category/:categoryId';
 const CONFIRMATION = '/confirmation/:idConfirmation';
 const PRODUCTS = '/products';
 const EXAMPLE = '/example';
+const ORDER_SUMMARY = '/order-summary'
 
 const PATH_URL = {
     LOGIN: LOGIN,
@@ -23,7 +24,8 @@ const PATH_URL = {
     CATEGORY: CATEGORY,
     CONFIRMATION: CONFIRMATION,
     PRODUCTS: PRODUCTS,
-    EXAMPLE: EXAMPLE
+    EXAMPLE: EXAMPLE,
+    ORDER_SUMMARY: ORDER_SUMMARY
 }
 
 export default PATH_URL;
