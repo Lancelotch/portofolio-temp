@@ -8,7 +8,9 @@ class MainLayout extends Component {
         return (
             <div>
                 <Header match={this.props} />
-                    {this.props.children}
+                    <div className="container">
+                        {this.props.children}
+                    </div>
                 <Footer />
             </div>
         )
