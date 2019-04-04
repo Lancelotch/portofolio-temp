@@ -18,7 +18,7 @@ class PopularProducts extends Component {
               counter += 1;
             }
             return (
-              <Col md={4} style={{ margin: "41px" }}>
+              <Col style={{ margin: "18px" }}>
                 <PopularProduct key={product.id} product={product} />
               </Col>
             );
