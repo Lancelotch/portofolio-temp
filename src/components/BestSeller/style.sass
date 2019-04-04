@@ -1,16 +1,25 @@
 @import "sass/variable.sass"
 
 .best
-    &__card
-        height: 285px!important
-        width: 245px!important
-        padding: 20px!important
-        background: 'linear-gradient( #FFFFFF1A , #E0E0E0 )'!important
-    &__image
-        width: 100%
+    &__content
+        width: 200px
         height: auto
-        padding-top: 50px
-        padding-bottom: 60px
+    &__card
+        height: 330px !important
+        width: 100%
+        background: #ffffff
+        border-radius: 5px !important
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3)
+    &__image-cover
+        width: 20px
+        height: 200px
+        padding: 16px
+    &__image
+        height: 100%
+        width: 100% !important
+    &__info
+        padding-left: 16px
+        padding-right: 16px
     &__title
         font-size: 14px
         color: #000000
@@ -20,5 +29,5 @@
         font-weight: bold
 
 
-.ant-card-body
+.best-card .ant-card-body
     padding: 1px !important

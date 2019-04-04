@@ -23,7 +23,7 @@ class Header extends Component {
       keyword: this.props.keyword,
       isAuthenticated: this.props.isAuthenticated,
       dropdownShow: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -53,6 +53,8 @@ class Header extends Component {
     }
   };
 
+
+
   showCustomerName = () => {
     const name = this.state.name;
     return name.substr(0, 8) + "...";
@@ -61,7 +63,7 @@ class Header extends Component {
   renderAuthList = () => {
     return (
       <Dropdown overlay={this.userMenu()} trigger={["click"]}>
-        <li className="ant-dropdown-link" href="#" style={{display: "unset"}}>
+        <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{this.showCustomerName()}</h4>
         </li>
       </Dropdown>
@@ -69,18 +71,18 @@ class Header extends Component {
   };
 
   renderNotAuthList = () => {
-    return ( 
-      <Dropdown overlay={<Login />} trigger={['click']}>
-        <li className='ant-dropdown-link' href='#' style={{display: "unset"}}>
+    return (
+      <Dropdown overlay={<Login />} trigger={["click"]}>
+        <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{strings.log_in}</h4>
         </li>
       </Dropdown>
     );
   };
 
-  userMenu = () => ( 
-    <Menu className='header__user-menu'>
-      <div className='header__user-menu-box'>
+  userMenu = () => (
+    <Menu className="header__user-menu">
+      <div className="header__user-menu-box">
         <li> {strings.my_account}</li>
         <li> {strings.header_my_order}</li>
         <li onClick={this.handleLogout}>
@@ -94,7 +96,7 @@ class Header extends Component {
   );
 
   showUserDropDown = isAuthenticated =>
-    isAuthenticated == true ? this.renderAuthList() : this.renderNotAuthList();
+    isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
     const { keyword } = this.state;
@@ -108,11 +110,11 @@ class Header extends Component {
           <h4>{strings.header_greeting_auth}</h4>
         )}
       </div>
-    ); 
+    );
 
     return (
       <div>
-        <Row>
+        <Row className="header__row">
           <Col md={24}>
             <div className="topHeader">
               <TopHeader />
@@ -123,7 +125,8 @@ class Header extends Component {
               <a href="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
-                  className="header__logo" alt=""
+                  className="header__logo"
+                  alt=""
                 />
               </a>
             </Col>
@@ -146,10 +149,18 @@ class Header extends Component {
                 className="header__icon"
               />
             </Col>
-            <Col md={18}>
+            <Col md={2}>
               <div className="header__categories">
                 {/* <Categories /> */}
                 <CategoryMenu match={match} />
+              </div>
+            </Col>
+            <Col md={16}>
+              <div className="header__menus">
+                <a href="/" className="header__menu">Lacak Pengiriman</a>
+                <a href="/" className="header__menu">Cara Belanja</a>
+                <a href="/" className="header__menu">Tentang Kami</a>
+                <a href="/" className="header__menu">Bantuan</a>
               </div>
             </Col>
             <Col md={4}>
@@ -173,7 +184,10 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated,
-})
+  isAuthenticated: state.authentication.isAuthenticated
+});
 
-export default connect(mapStateToProps,{ logout })(Header);
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Header);

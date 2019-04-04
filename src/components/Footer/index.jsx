@@ -75,81 +75,83 @@ class Footer extends Component {
       <React.Fragment>
         <Row>
           <div className='backgroundFooter'>
-            <Col md={14}>
-              <Row>
-                <Col md={24}>
-                  <p className='footer__help'> {strings.footer_any_help}</p>
-                </Col>
-                <Col md={12}>
-                  <div className='footer__menu-1stcol'>
-                    <p>{strings.how_to_shop}</p>
-                    <p>{strings.delivery_time}</p>
-                    <p>{strings.how_to_pay}</p>
-                    <p>{strings.track_the_delivery}</p>
-                    <p>{strings.contact_us}</p>
-                  </div>
-                </Col>
-                <Col md={12}>
-                  <div className='footer__menu-2ndcol'>
-                    <p>{strings.about_us}</p>
-                    <p>{strings.career}</p>
-                    <p>{strings.terms_and_condition}</p>
-                    <p>{strings.privacy_policy}</p>
-                  </div>
-                </Col>
-                <Col md={24}>
-                  <div className='footer__payment-box'>
-                    <p>{strings.payment}</p>
-                    <div className='footer__icon-box'>
-                      <img src={ovo} />
-                      <img src={bca} />
-                      <img src={mandiri} />
-                      <img src={dana} />
-                      <img src={visa} />
+            <div className="container">
+              <Col md={14}>
+                <Row>
+                  <Col md={24}>
+                    <p className='footer__help'> {strings.footer_any_help}</p>
+                  </Col>
+                  <Col md={12}>
+                    <div className='footer__menu-1stcol'>
+                      <p>{strings.how_to_shop}</p>
+                      <p>{strings.delivery_time}</p>
+                      <p>{strings.how_to_pay}</p>
+                      <p>{strings.track_the_delivery}</p>
+                      <p>{strings.contact_us}</p>
                     </div>
+                  </Col>
+                  <Col md={12}>
+                    <div className='footer__menu-2ndcol'>
+                      <p>{strings.about_us}</p>
+                      <p>{strings.career}</p>
+                      <p>{strings.terms_and_condition}</p>
+                      <p>{strings.privacy_policy}</p>
+                    </div>
+                  </Col>
+                  <Col md={24}>
+                    <div className='footer__payment-box'>
+                      <p>{strings.payment}</p>
+                      <div className='footer__icon-box'>
+                        <img src={ovo} />
+                        <img src={bca} />
+                        <img src={mandiri} />
+                        <img src={dana} />
+                        <img src={visa} />
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+              <Col md={10}>
+                <row>
+                  <Col md={24}>
+                    <p className='footer__monggo'>{strings.monggo}</p>
+                  </Col>
+                  <Col md={24}>
+                    <div className='footer__invitation'>
+                      <p>{strings.subscripton_invitation}</p>
+                      <Input
+                        className="footer__input"
+                        prefix={
+                          <Icon
+                            type={'mail'}
+                            style={{ color: 'rgba(0,0,0,.25)' }}
+                          />
+                        }
+                        placeholder='Email'
+                        value={email}
+                        name='email'
+                        enterButton='Email'
+                        onChange={this.onChange}
+                      />
+                      <button className='footer__button' type='submit' onClick={this.handleSubmit}>
+                        {strings.send}
+                      </button>
+                    </div>
+                  </Col>
+                  <Col md={24}>
+                  <p className='footer__follow-us'>
+                  {strings.follow_us}
+                  </p>
+                  <div className='footer__icon-box'>
+                      <img src={instagram} />
+                      <img src={twitter} />
+                      <img src={facebook} />
                   </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col md={10}>
-              <row>
-                <Col md={24}>
-                  <p className='footer__monggo'>{strings.monggo}</p>
-                </Col>
-                <Col md={24}>
-                  <div className='footer__invitation'>
-                    <p>{strings.subscripton_invitation}</p>
-                    <Input
-                      style={{ width: '350px', height:'56px' }}
-                      prefix={
-                        <Icon
-                          type={'mail'}
-                          style={{ color: 'rgba(0,0,0,.25)' }}
-                        />
-                      }
-                      placeholder='Email'
-                      value={email}
-                      name='email'
-                      enterButton='Email'
-                      onChange={this.onChange}
-                    />
-                    <button className='footer__button' type='submit' onClick={this.handleSubmit}>
-                      SEND
-                    </button>
-                  </div>
-                </Col>
-                <Col md={24}>
-                <p className='footer__follow-us'>
-                {strings.follow_us}
-                </p>
-                <div className='footer__icon-box'>
-                    <img src={instagram} />
-                    <img src={twitter} />
-                    <img src={facebook} />
-                </div>
-                </Col>
-              </row>
-            </Col>
+                  </Col>
+                </row>
+              </Col>
+            </div>
           </div>
         </Row>
       </React.Fragment>

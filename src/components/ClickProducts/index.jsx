@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import currencyRupiah from "../../library/currency";
 import { Row, Col, Card, Icon, Carousel } from "antd";
 import Slider from "react-slick";
 import "./style.sass";
-import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../library/url";
+import { Link } from "react-router-dom";
 
 const SampleNextArrow = props => {
   const { className, style, onClick } = props;
@@ -20,6 +21,8 @@ const SampleNextArrow = props => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginRight: "40px",
+        top: "145px"
       }}
     >
       >
@@ -33,7 +36,7 @@ const SampleNextArrow = props => {
 };
 
 const SamplePrevArrow = props => {
-  const { className,onClick } = props;
+  const { className, style, onClick } = props;
   return (
     <div
       className={className}
@@ -47,7 +50,8 @@ const SamplePrevArrow = props => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginLeft: "25px"
+        marginLeft: "25px",
+        top: "145px"
       }}
     >
       >
@@ -92,35 +96,25 @@ class ClickProducts extends Component {
 
     const slides = products.map(product => {
       return (
-        <Col md={3}>
-          <Link to={pageUrlProductDetail + product.id || "#"}>
-            <Card
-              style={{
-                height: "380px",
-                width: "220px",
-                background: "#fffff",
-                borderRadius: "5px",
-                marginRight: "20px",
-                padding: "80px 20px 0px 20px",
-                boxShadow: "0 3px 6px 0 rgba(0,0,0,0.3)"
-              }}
-              cover={
+        <Link to={pageUrlProductDetail + product.id || "#"}>
+          <Card
+            className="card__style"
+            cover={
+              <div className="card__image-cover">
                 <img
                   alt="example"
                   src={product.urlImage}
-                  style={{ width: "100%" }}
+                  className="card__image"
                 />
-              }
-            >
-              <div>
-                <p style={{ padding: "70px 0 0 0" }} className="best__title">
-                  {product.name}
-                </p>
-                <p className="best__price">{product.price} </p>
               </div>
-            </Card>
+            }
+          >
+            <div>
+              <p className="card__title">{product.name}</p>
+              <p className="card__price">{currencyRupiah(product.price)}</p>
+            </div>
+          </Card>
           </Link>
-        </Col>
       );
     });
 

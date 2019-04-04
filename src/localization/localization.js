@@ -12,9 +12,7 @@ const strings = new LocalizedStrings({
     header_greeting_auth: 'Hello, monggo belanja',
     header_my_order: 'Pesenan Saya',
     header_check_order: 'Lacak Pesenan',
-
-
-
+    
     //Category
     category: 'Kategori',
 
@@ -38,15 +36,20 @@ const strings = new LocalizedStrings({
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
 
+    //Best Seller
+    best : "Best",
+    seller : "Seller",
+    see_more : "See more..",
+
     //Checkout 
+    checkout_shopping_summary : "Ringkasan Belanja",
+    checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     order_summary: 'Ringkasan Pesenan',
-    order_details: 'Detail Pesanan',
-    choose_payment_methods: 'Pilih Metode Pembayaran',
+    sub_total: 'Subtotal',
     international_shipping: 'Pengiriman International',
-    checkout_shopping_summary: "Ringkasan Belanja",
-    checkout_alert_fill_courier: "isi dulu semua courier pada setiap product",
-    checkout_alert_description_detail_pesanan: "Harga yang tercantum pada saat check out sudah termasuk pertambahan biaya pajak domestik, pajak import dan lain-lain.",
-    checkout_alert_info: "Sudah Termasuk Biaya Pajak Dll.",
+    checkout_total: 'Total',
+    choose_payment_methods: 'Pilih Metode Pembayaran',
+
     //Social Media
     google: "Google",
     facebook: "Facebook",
@@ -108,8 +111,8 @@ const strings = new LocalizedStrings({
     payment: 'Pembayaran',
     follow_us: 'Follow Us',
     monggo: 'Monggo...',
-    subscripton_invitation: 'berlangganan sekarang untuk mendapatkan informasi seputan update, promo dan penawaran menarik lainya'
-
+    subscripton_invitation:'Berlangganan sekarang untuk mendapatkan informasi seputar update, promo dan penawaran menarik lainnya',
+    send: 'SEND'
   }
 })
 
