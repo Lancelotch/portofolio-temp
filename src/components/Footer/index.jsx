@@ -120,7 +120,7 @@ class Footer extends Component {
                   <div className='footer__invitation'>
                     <p>{strings.subscripton_invitation}</p>
                     <Input
-                      style={{ width: '350px', height:'56px' }}
+                      className="footer__input"
                       prefix={
                         <Icon
                           type={'mail'}
@@ -134,7 +134,7 @@ class Footer extends Component {
                       onChange={this.onChange}
                     />
                     <button className='footer__button' type='submit' onClick={this.handleSubmit}>
-                      SEND
+                      {strings.send}
                     </button>
                   </div>
                 </Col>

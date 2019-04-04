@@ -1,41 +1,35 @@
-import React from 'react';
-import { Card } from 'antd'
-import currencyRupiah from '../../library/currency'
-import { Link } from 'react-router-dom'
-import './style.sass'
+import React from "react";
+import { Card, Col } from "antd";
+import currencyRupiah from "../../library/currency";
+import { Link } from "react-router-dom";
+import "./style.sass";
 
 const BestSeller = props => {
-    const { id, name, urlImage, price } = props.product
+  const { id, name, urlImage, price } = props.product;
 
-    const priceRp = currencyRupiah(price)
-    return ( 
-        <div>
-             <Link to='/'>
-                <Card
-                    bordered={false}
-                    style={{
-                        height: '330px',
-                        width: '200px',
-                        padding: '20px',
-                        background: '#fffff',
-                        borderRadius: '5px'
-                    }}
-                    cover={
-                        <img
-                        alt='example'
-                        src={urlImage}
-                        className='best__image'
-                        />
-                    }
-                    >
-                    <div>
-                        <p className='best__title'>{name}</p>
-                        <p className='best__price'>{priceRp} </p>
-                    </div>          
-                </Card>
-            </Link>
-        </div>
-     );
-}
- 
+  const priceRp = currencyRupiah(price);
+  return (
+    <div className="best-card">
+      <div className="best__content">
+        <Link to="/">
+          <Card
+            bordered={false}
+            className="best__card"
+            cover={
+              <div className="best__image-cover">
+                <img alt="example" src={urlImage} className="best__image" />
+              </div>
+            }
+          >
+            <div className="best__info">
+              <p className="best__title">{name}</p>
+              <p className="best__price">{priceRp} </p>
+            </div>
+          </Card>
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export default BestSeller;

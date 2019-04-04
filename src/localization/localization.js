@@ -13,8 +13,6 @@ const strings = new LocalizedStrings({
     header_my_order: 'Pesenan Saya',
     header_check_order: 'Lacak Pesenan',
     
-
-
     //Category
     category: 'Kategori',
     
@@ -41,6 +39,11 @@ const strings = new LocalizedStrings({
     //Checkout 
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
+    order_summary: 'Ringkasan Pesenan',
+    sub_total: 'Subtotal',
+    international_shipping: 'Pengiriman International',
+    checkout_total: 'Total',
+    choose_payment_methods: 'Pilih Metode Pembayaran',
 
     //Social Media
     google: "Google",
@@ -103,8 +106,8 @@ const strings = new LocalizedStrings({
     payment: 'Pembayaran',
     follow_us: 'Follow Us',
     monggo: 'Monggo...',
-    subscripton_invitation:'berlangganan sekarang untuk mendapatkan informasi seputan update, promo dan penawaran menarik lainya'
-
+    subscripton_invitation:'Berlangganan sekarang untuk mendapatkan informasi seputar update, promo dan penawaran menarik lainnya',
+    send: 'SEND'
   }
 })
 

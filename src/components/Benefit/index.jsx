@@ -10,11 +10,14 @@ const Benefit = props => {
   const showBenefit = data.map(benefit => {
     return (
       <React.Fragment>
-        <Col md={4}>
+        <Row gutter={16}>
+          <Col md={4}>
           <div className='benefitBox'>
             <img className='benefitImage' alt ="" src={benefit.imageUrl} />
           </div>
         </Col>
+        </Row>
+        
       </React.Fragment>
     )
   })
