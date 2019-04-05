@@ -117,9 +117,9 @@ class ClickProducts extends Component {
     });
 
     return (
-      <React.Fragment>
+      <div className="sliderClickProducts">
         <Carousel {...settings}>{slides}</Carousel>
-      </React.Fragment>
+      </div>
     );
   }
 }
