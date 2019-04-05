@@ -14,7 +14,8 @@ import {
 import {
   rulesEmail,
   rulesPassword,
-  AlertLogin
+  AlertLogin,
+  RegistrationaAlert
 } from "../Register/registerContainer";
 import HomePage from "../Home";
 
@@ -26,18 +27,19 @@ class Login extends Component {
     this.state = {
       errorMessage: null,
       isErorloaded: false,
-      nextPage: ""
+      nextPage: "",
+      status: null,
+      message: ""
     };
   }
 
   componentDidMount() {
     console.log("ini location", this.props.location);
-
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
       });
-    } 
+    }
   }
 
   handleloginGoogle = request => {
@@ -45,33 +47,35 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-      e.preventDefault();
-      this.props.form.validateFields(async (err, values) => {
-        if (!err) {
-          const history = this.props.history;
-            const linkCheckout = "/checkout";
-            if (this.state.nextPage === "checkout") {
-              this.props.loginWithForm(history, values,linkCheckout);
-            } else {
-              this.props.loginWithForm(history, values);
-            }
-            
-          if (this.state.isAuthenticated !== true) {
-            this.setState({
-              errorMessage: "Email atau password anda salah",
-              isErorloaded: true
-            });
-          }
+    e.preventDefault();
+    this.setState({
+      status: null
+    });
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        const history = this.props.history;
+        const linkCheckout = "/checkout";
+        if (this.state.nextPage === "checkout") {
+         await  this.props.loginWithForm(history, values, linkCheckout);
+        } else {
+         await this.props.loginWithForm(history, values);
         }
-      });
+        console.log("message>>>login-page", this.props.auth);
+        const { message, status } = this.props.auth.data;
+        this.setState({
+          message,
+          status
+        });
+      }
+    });
   };
 
   render() {
     console.log(this.props.token);
     const { form } = this.props;
     const { getFieldDecorator } = form;
-    const { errorMessage, isErorloaded } = this.state;
-  
+    const { errorMessage } = this.state;
+
     console.log(errorMessage);
     return (
       <React.Fragment>
@@ -130,6 +134,9 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
+                  <RegistrationaAlert
+                    message={this.state.message}
+                  />
                   {/* {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true
@@ -146,10 +153,6 @@ class Login extends Component {
                       {strings.login_enter}
                     </p>
                   </Button>
-                  <AlertLogin
-                    errorMessage={errorMessage}
-                    isErorloaded={isErorloaded}
-                  />
                 </FormItem>
                 <div className="login__separator">
                   <p>{strings.login_option}</p>
@@ -195,7 +198,8 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-  token: state.authentication.token
+  token: state.authentication.token,
+  auth: state.authentication.auth
 });
 
 const LoginForm = Form.create({})(Login);

@@ -14,12 +14,6 @@ const registerWithForm = authData => {
   };
 };
 
-const customerDetail = name => {
-  return {
-    type: TYPE.NAME_HEADER,
-    payload: name
-  }
-}
 
 const loginWithForm = authData => {
   return {
@@ -77,7 +71,6 @@ export const authFail = response => {
 
 const dispatchType = {
   authFail: authFail,
-  customerDetail: customerDetail,
   handleLoading: handleLoading,
   activationUser: activationUser,
   loginWithGoogle: loginWithGoogle,
