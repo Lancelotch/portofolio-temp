@@ -3,6 +3,7 @@ import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom"
 import PATH_URL from "../../routers/path";
+import { pageUrlProductDetail } from "../../library/url";
 
 const { Meta } = Card;
 
@@ -19,8 +20,10 @@ const Product = props => {
   const urlImage = props.urlImage;
   const title = props.name;
   const price = currencyRupiah(props.price);
+  const id = props.id;
   return (
     <React.Fragment>
+      <Link to={pageUrlProductDetail + id || "#"}>
       <Card
         hoverable
         bordered={true}
@@ -29,6 +32,7 @@ const Product = props => {
       >
         <Meta title={title} description={price} />
       </Card>
+      </Link>
     </React.Fragment>
   );
 };

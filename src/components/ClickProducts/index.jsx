@@ -3,6 +3,8 @@ import currencyRupiah from "../../library/currency";
 import { Row, Col, Card, Icon, Carousel } from "antd";
 import Slider from "react-slick";
 import "./style.sass";
+import { pageUrlProductDetail } from "../../library/url";
+import { Link } from "react-router-dom";
 
 const SampleNextArrow = props => {
   const { className, style, onClick } = props;
@@ -94,6 +96,7 @@ class ClickProducts extends Component {
 
     const slides = products.map(product => {
       return (
+        <Link to={pageUrlProductDetail + product.id || "#"}>
           <Card
             className="card__style"
             cover={
@@ -111,6 +114,7 @@ class ClickProducts extends Component {
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>
+          </Link>
       );
     });
 

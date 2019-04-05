@@ -6,6 +6,7 @@ import SkeletomImg from "react-js-skeleton";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import PATH_URL from "../../routers/path";
+import { pageUrlProductDetail } from "../../library/url";
 
 const { Meta } = Card;
 
@@ -16,6 +17,7 @@ const PopularProduct = props => {
 
   return (
     <div className="popular-wrapper">
+     <Link to={pageUrlProductDetail + id || "#"}>
       <Card
         bordered={false}
         className="popular__card"
@@ -34,6 +36,7 @@ const PopularProduct = props => {
           <span className="popular__price">{priceRp} </span>
         </div>
       </Card>
+      </Link>
     </div>
   );
 };

@@ -18,8 +18,6 @@ import { PATH_PRODUCT } from "../../api/path";
 class HomePageContainer extends Component {
   render() {
     const {
-      benefit,
-      popularProduct,
       bestSellerProduct,
       mostClickProduct
     } = this.props;
@@ -68,9 +66,9 @@ class HomePageContainer extends Component {
                 </div>
               </Col>
             </Row>
-            <Row>
-              <Link to="/">
-                <img className="inspiration-box" src={Inspiration_1} />
+            <Row >
+              <Link to='/'>
+                <img className='inspiration-box' src={Inspiration_1} alt="" />
               </Link>
             </Row>
             <div>
