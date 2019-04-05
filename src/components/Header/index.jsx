@@ -149,33 +149,41 @@ class Header extends Component {
                 className="header__icon"
               />
             </Col>
-            <Col md={2}>
-              <div className="header__categories">
-                {/* <Categories /> */}
-                <CategoryMenu match={match} />
-              </div>
-            </Col>
-            <Col md={16}>
-              <div className="header__menus">
-                <a href="/" className="header__menu">Lacak Pengiriman</a>
-                <a href="/" className="header__menu">Cara Belanja</a>
-                <a href="/" className="header__menu">Tentang Kami</a>
-                <a href="/" className="header__menu">Bantuan</a>
-              </div>
-            </Col>
-            <Col md={4}>
-              <React.Fragment>{greeting}</React.Fragment>
-            </Col>
-            <Col md={2}>
-              <div className="header__user-box">
-                <Icon
-                  type="user"
-                  onClick={this.openModalLogin}
-                  className="header__user-icon"
-                />
-                {this.showUserDropDown(isAuthenticated)}
-              </div>
-            </Col>
+              <Col md={2}>
+                <div className="header__categories">
+                  {/* <Categories /> */}
+                  <CategoryMenu match={match} />
+                </div>
+              </Col>
+              <Col md={16}>
+                <div className="header__menus">
+                  <a href="/" className="header__menu">
+                    Lacak Pengiriman
+                  </a>
+                  <a href="/" className="header__menu">
+                    Cara Belanja
+                  </a>
+                  <a href="/" className="header__menu">
+                    Tentang Kami
+                  </a>
+                  <a href="/" className="header__menu">
+                    Bantuan
+                  </a>
+                </div>
+              </Col>
+              <Col md={4}>
+                <React.Fragment>{greeting}</React.Fragment>
+              </Col>
+              <Col md={2}>
+                <div className="header__user-box">
+                  <Icon
+                    type="user"
+                    onClick={this.openModalLogin}
+                    className="header__user-icon"
+                  />
+                  {this.showUserDropDown(isAuthenticated)}
+                </div>
+              </Col>
           </div>
         </Row>
       </div>

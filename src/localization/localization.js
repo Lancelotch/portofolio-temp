@@ -35,6 +35,7 @@ const strings = new LocalizedStrings({
     address: "Alamat",
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
+    recommendation_product: 'Rekomendasi Produk',
 
     //Best Seller
     best : "Best",

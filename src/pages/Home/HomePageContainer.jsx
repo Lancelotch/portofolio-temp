@@ -71,15 +71,13 @@ class HomePageContainer extends Component {
                 <img className='inspiration-box' src={Inspiration_1} alt="" />
               </Link>
             </Row>
-            <div>
-              <h1 style={{ marginTop: "80px",marginLeft: "48px" }}>Rekomendasi Produk</h1>
+            <div className="recomendation-box">
+              <h1>{strings.recommendation_product}</h1>
               <Row type="flex" justify="center">
                 <div
                   style={{
-                    marginBottom: "30px",
-                    width: "92%",
-                    marginLeft: "40px",
-                    marginRight: "40px"
+                    marginBottom: "20px",
+                    width: "1130px",
                   }}
                 >
                   <ClickProducts products={mostClickProduct} />
