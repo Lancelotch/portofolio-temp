@@ -12,7 +12,6 @@ const SampleNextArrow = props => {
     <div
       className={className}
       style={{
-        marginRight: "30px",
         zIndex: "1",
         height: "60px",
         width: "60px",
@@ -21,8 +20,8 @@ const SampleNextArrow = props => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginRight: "40px",
-        top: "145px"
+        top: "145px",
+        right:"0px"
       }}
     >
       >
@@ -85,8 +84,7 @@ class ClickProducts extends Component {
       appendDots: dots => (
         <div
           style={{
-            borderRadius: "10px",
-            padding: "10px"
+            borderRadius: "10px"
           }}
         >
           <ul className="dots"> {dots} </ul>
@@ -109,7 +107,7 @@ class ClickProducts extends Component {
               </div>
             }
           >
-            <div>
+            <div className="card__info">
               <p className="card__title">{product.name}</p>
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
