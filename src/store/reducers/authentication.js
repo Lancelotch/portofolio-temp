@@ -29,11 +29,6 @@ export default (state = initialState, action) => {
                 auth: null,
                 isAuthenticated: false
             }
-        case TYPE.NAME_HEADER:
-            return {
-                ...state,
-                name: action.payload
-            }
         case TYPE.REGISTER_WITH_FORM:
             return {
                 ...state,
