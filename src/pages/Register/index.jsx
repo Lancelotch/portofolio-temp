@@ -10,10 +10,14 @@ import {
   registerWithGoogle,
   registerForm
 } from "../../store/actions/authentication";
-import { rulesName, rulesEmail, rulesPassword, RegistrationaAlert, RegistrationSubmitButton } from "./registerContainer";
-
-
-
+import { Link } from "react-router-dom";
+import {
+  rulesName,
+  rulesEmail,
+  rulesPassword,
+  RegistrationaAlert,
+  RegistrationSubmitButton
+} from "./registerContainer";
 
 const FormItem = Form.Item;
 
@@ -22,10 +26,19 @@ class RegisterPage extends Component {
     super(props);
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
+      nextPage: "",
       status: null,
-      success: "",
       message: ""
     };
+  }
+
+  componentDidMount() {
+    console.log("ini location", this.props.location);
+    if (this.props.location.state !== undefined) {
+      this.setState({
+        nextPage: this.props.location.state.nextPage
+      });
+    }
   }
 
   handleSubmit = e => {
@@ -33,13 +46,20 @@ class RegisterPage extends Component {
     this.setState({
       status: null
     });
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       const history = this.props.history;
       if (!err) {
-        this.props.registerForm(history, values);
-        const message = this.props.message.data.message;
+        const linkCheckout = "/checkout";
+        if (this.state.nextPage === "checkout") {
+          await this.props.registerForm(history, values, linkCheckout);
+        } else {
+          await this.props.registerForm(history, values);
+        }
+        console.log("message", this.props.message);
+        const { message, status } = this.props.message.data;
         this.setState({
-          message
+          message,
+          status
         });
       }
     });
@@ -62,17 +82,19 @@ class RegisterPage extends Component {
               }}
             >
               <Affix target={() => this.container}>
-              <div className="register_Background"/>
+                <div className="register_Background" />
               </Affix>
             </div>
           </Col>
           <Col md={{ span: 10 }}>
             <div className="register">
-              <img
-                className="register__logo"
-                src={logoMonggoPesen}
-                alt="register__logo"
-              />
+              <Link to="/">
+                <img
+                  className="register__logo"
+                  src={logoMonggoPesen}
+                  alt="login__logo"
+                />
+              </Link>
               <h2 className="register__title">{strings.register_now}</h2>
               <Form onSubmit={this.handleSubmit}>
                 <FormItem>
@@ -126,9 +148,12 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <div className="register__form__confirm">
-                  <RegistrationaAlert message={this.state.message}/>
+                    <RegistrationaAlert
+                      message={this.state.message}
+                      success={Number(this.state.status) < 400}
+                    />
                   </div>
-                  <RegistrationSubmitButton isLoading={this.state.isLoading} />
+                  <RegistrationSubmitButton isLoading={this.props.isLoading} />
                 </FormItem>
                 <Row
                   type="flex"
@@ -158,9 +183,14 @@ class RegisterPage extends Component {
                   <center className="register__form__direct-login">
                     {strings.formatString(
                       strings.register_quote,
-                      <a className="register__form__link" href="/">
+                      <Link
+                        to={{
+                          pathname: "/login",
+                          state: { nextPage: "/" }
+                        }}
+                      >
                         {strings.register_login}
-                      </a>
+                      </Link>
                     )}
                   </center>
                 </Form.Item>

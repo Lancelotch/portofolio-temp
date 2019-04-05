@@ -22,7 +22,7 @@ export const loginWithGoogle = request => async dispatch => {
   }
 };         
 
-export const loginWithForm = request => async dispatch => {
+export const loginWithForm = (history,request,nextPage="/") => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
     console.log(responseLoginForm)
@@ -31,13 +31,14 @@ export const loginWithForm = request => async dispatch => {
     const expiredToken = responseLoginForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
+        history.push(nextPage);
   } catch (error) 
   {
     console.log(error)
   }
 }
 
-export const registerForm = (history,request) => async dispatch => {
+export const registerForm = (history,request,nextPage="/") => async dispatch => {
   dispatch(dispatchType.handleLoading())
   try{
     const responseRegisterForm = await authentication.registerWithForm(request);
@@ -46,20 +47,16 @@ export const registerForm = (history,request) => async dispatch => {
     const expiredToken = responseRegisterForm.data.refresh_token
         localStorage.setItem('accessToken', token)
         localStorage.setItem('refreshToken', expiredToken)
-        history.push("/");
+        history.push(nextPage);
   } catch (error){
+    console.log("register with form on error",error)
+     const token = localStorage.getItem("accesToken")
+     const expiredToken = localStorage.getItem("refreshToken")
+     console.log("on error ",token, expiredToken)
     dispatch(dispatchType.registerWithForm(error))
   }
 }
 
-export const nameCustomer = (request) => async dispatch => { 
-  try{
-    const responseNameCustomer = await customer.customerDetail();
-    dispatch(dispatchType.customerDetail(responseNameCustomer));
-  }catch(error){
-    console.log(error);
-  }
-};
 
 export const activatingUser = (request) => async dispatch => {
   try{

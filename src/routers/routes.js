@@ -23,7 +23,8 @@ const routes = [{
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: CheckOut
+        component: CheckOut,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.REGISTER,
