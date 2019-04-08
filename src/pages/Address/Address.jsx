@@ -5,14 +5,19 @@ import FetcherAction from "../../hoc/FetcherAction";
 import AddressDetail from "../../components/AddressDetail";
 import { connect } from "react-redux";
 import { addressDefault } from "../../store/actions/address";
+import Addresses from "../../components/Addresses";
+import Fetcher from "../../components/Fetcher";
+import { PATH_CUSTOMER } from "../../api/path";
 
 class Address extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
+      visibleList: false,
       payloadAddressDefault: null,
-      refreshFromSubmit : false
+      refreshFromSubmit: false,
+      action: null
     };
   }
 
@@ -20,32 +25,26 @@ class Address extends Component {
     this.getAddressDefault();
   }
 
-  // componentDidUpdate() {
-  //   const {visible, refreshFromSubmit} = this.state;
-  //   if(!visible){
-  //     if(refreshFromSubmit){
-  //       console.log(refreshFromSubmit);
-        
-  //       this.setState((prevState)=>(
-  //         {refreshFromSubmit: !prevState.refreshFromSubmit}
-  //       ),this.getAddressDefault())
-  //     }
-  //   }
-  // }
-
-  // handleRefresh = () => {
-  //   this.setState((prevState)=>(
-  //     {refreshFromSubmit: !prevState.refreshFromSubmit}
-  //   ))
-  // }
-
   handleCancel = () => {
     this.isVisible();
   };
 
-  isVisible = () => {
+  handleCancelList = () => {
+    this.isListVisible();
+  };
+
+  isListVisible = () => {
     this.setState(prevState => ({
-      visible: !prevState.visible
+      visibleList: !prevState.visibleList
+    }));
+  };
+
+  isVisible = (action) => {
+    console.log(action);
+    
+    this.setState(prevState => ({
+      visible: !prevState.visible,
+      action: action
     }));
   };
 
@@ -54,7 +53,7 @@ class Address extends Component {
   };
 
   render() {
-    const { visible } = this.state;
+    const { visible, visibleList, action } = this.state;
     const { dataAddressDefault, isAddressAvailable } = this.props;
     return (
       <Card
@@ -70,15 +69,33 @@ class Address extends Component {
             isAddressAvailable={isAddressAvailable}
             onEdit={this.isVisible}
           />
-          <div style={{ float: "right", paddingBottom: 24, paddingTop: 12  }}>
-            <Button type="primary" onClick={this.isVisible} style={{marginRight: 24}} >
+          <div style={{ float: "right", paddingBottom: 24, paddingTop: 12 }}>
+            <Button
+              type="primary"
+              onClick={this.isListVisible}
+              style={{ marginRight: 24 }}
+            >
               Kirim ke Alamat Lain
             </Button>
-            <Button type="primary" onClick={this.isVisible}>
+            <Button type="primary" onClick={()=>this.isVisible("ADD")}>
               Tambah Alamat
             </Button>
           </div>
-          <AddressForm visible={visible} handleCancel={this.handleCancel} onSubmit={this.getAddressDefault}/>
+          <Fetcher path={PATH_CUSTOMER.ADDRESS}>
+            <Addresses
+              visible={visibleList}
+              onCancle={this.handleCancelList}
+              onSelect = {this.getAddressDefault}
+              {...this.props}
+            />
+          </Fetcher>
+          <AddressForm
+            visible={visible}
+            action={action}
+            handleCancel={this.handleCancel}
+            onSubmit={this.getAddressDefault}
+            address={dataAddressDefault}
+          />
         </div>
       </Card>
     );

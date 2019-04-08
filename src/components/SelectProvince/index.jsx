@@ -14,6 +14,8 @@ const options = data => {
 };
 
 const SelectProvince = props => {
+  console.log("province", props);
+  
   return (
     <Select
       showSearch

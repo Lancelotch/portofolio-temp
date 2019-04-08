@@ -17,6 +17,23 @@ export const getAddressDefault = () => {
   });
 };
 
+export const patchDefaultAddress = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method: "PATCH",
+        url: PATH_CUSTOMER.ADDRESS_DEFAULT,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 export const postAddressForm = request => {
   return new Promise((resolve, reject) => {
     dummyService
