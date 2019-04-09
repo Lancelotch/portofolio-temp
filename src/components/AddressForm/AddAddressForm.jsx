@@ -11,7 +11,7 @@ import { addressDefault } from "../../store/actions/address";
 
 const { Option } = Select;
 const { TextArea } = Input;
-class AddressForm extends Component {
+class AddAddressForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,26 +32,8 @@ class AddressForm extends Component {
     };
   }
 
-  componentDidMount() {
-    const { address } = this.props;
-    this.setState({
-      id: address.id,
-      labelName: address.labelName,
-      receiverName: address.receiverName,
-      phoneNumber: address.phoneNumber,
-      city: address.city,
-      fullAddress: address.fullAddress,
-      province: address.province,
-      //provinceId: address.provinceId,
-      //cityId: address.cityId,
-      zipcode: address.zipcode,
-      geolocation: address.geolocation,
-      isDefault: address.isDefault
-    });
-  }
-
-  editAddressForm = request => {
-    editAddressForm(request)
+  addAddressForm = request => {
+    postAddressForm(request)
       .then(response => {
         this.props.onSubmit();
       })
@@ -94,7 +76,6 @@ class AddressForm extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const id = this.state.id;
         const provinceId = this.state.provinceId;
         const province = this.splitValue(values.province, 1);
         const cityId = this.state.cityId;
@@ -103,7 +84,6 @@ class AddressForm extends Component {
         const subdistrict = this.splitValue(values.subdistrict, 1);
         const payload = {
           ...values,
-          id,
           province,
           provinceId,
           cityId,
@@ -116,8 +96,7 @@ class AddressForm extends Component {
           },
           isDefault: true
         };
-        
-        this.editAddressForm(payload);
+        this.addAddressForm(payload);
         this.props.handleCancel();
       }
     });
@@ -125,8 +104,7 @@ class AddressForm extends Component {
 
   rules = (required, message, initialValue) => {
     return {
-      rules: [{ required: required, message: message }],
-      initialValue: initialValue
+      rules: [{ required: required, message: message }]
     };
   };
 
@@ -141,7 +119,6 @@ class AddressForm extends Component {
       cityId,
       province
     } = this.state;
-    const { address, action } = this.props;
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
@@ -166,7 +143,7 @@ class AddressForm extends Component {
             loading={false}
             onClick={this.handleSubmit}
           >
-            Rubah
+            Simpan
           </Button>
         ]}
       >
@@ -174,7 +151,7 @@ class AddressForm extends Component {
           <Form.Item label="Nama Alamat">
             {getFieldDecorator(
               "labelName",
-              this.rules(true, "Silahkan isi nama alamat", address.labelName)
+              this.rules(true, "Silahkan isi nama alamat")
             )(<Input placeholder="Atas Nama" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
@@ -182,8 +159,7 @@ class AddressForm extends Component {
               "receiverName",
               this.rules(
                 true,
-                "Silahkan isi nama penerima",
-                address.receiverName
+                "Silahkan isi nama penerima"
               )
             )(<Input placeholder="Atas Nama" />)}
           </Form.Item>
@@ -192,8 +168,7 @@ class AddressForm extends Component {
               "phoneNumber",
               this.rules(
                 true,
-                "Silahkan isi no telfon kamu",
-                address.phoneNumber
+                "Silahkan isi no telfon kamu"
               )
             )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} />)}
           </Form.Item>
@@ -203,8 +178,7 @@ class AddressForm extends Component {
                 "province",
                 this.rules(
                   true,
-                  "Silahkan pilih alamat provinsi kamu",
-                  null
+                  "Silahkan pilih alamat provinsi kamu"
                 )
               )(
                 <SelectProvince
@@ -229,8 +203,7 @@ class AddressForm extends Component {
                   "city",
                   this.rules(
                     true,
-                    "Silahkan pilih alamat kota kamu",
-                    null
+                    "Silahkan pilih alamat kota kamu"
                   )
                 )(
                   <SelectCity
@@ -259,8 +232,7 @@ class AddressForm extends Component {
                       "subdistrict",
                       this.rules(
                         true,
-                        "Silahkan pilih alamat kecamatan kamu",
-                        null
+                        "Silahkan pilih alamat kecamatan kamu"
                       )
                     )(
                       <SelectSubDistrict
@@ -279,8 +251,7 @@ class AddressForm extends Component {
                   "zipcode",
                   this.rules(
                     true,
-                    "Silahkan isi Kode POS kamu",
-                    address.zipcode
+                    "Silahkan isi Kode POS kamu"
                   )
                 )(<Input />)}
               </Form.Item>
@@ -291,8 +262,7 @@ class AddressForm extends Component {
               "fullAddress",
               this.rules(
                 true,
-                "Silahkan alamat Lengkap kamu",
-                address.fullAddress
+                "Silahkan alamat Lengkap kamu"
               )
             )(
               <TextArea
@@ -306,5 +276,5 @@ class AddressForm extends Component {
     );
   }
 }
-const WrappedAddressForm = Form.create({ name: "addressForm" })(AddressForm);
+const WrappedAddressForm = Form.create({ name: "addressForm" })(AddAddressForm);
 export default withApiMethod(WrappedAddressForm);

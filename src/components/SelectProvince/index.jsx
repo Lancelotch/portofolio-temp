@@ -14,10 +14,13 @@ const options = data => {
 };
 
 const SelectProvince = props => {
+  //console.log("province", props);
+  
   return (
     <Select
       showSearch
       //style={{ width: 200 }}
+      value={props.value}
       placeholder="Select a province"
       optionFilterProp="children"
       onChange={(value)=>props.onChange(value)}
