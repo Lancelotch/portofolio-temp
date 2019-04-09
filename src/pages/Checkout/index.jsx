@@ -4,6 +4,7 @@ import "./style.sass";
 import { Row, Col } from "antd";
 import OrderSummary from "../../components/OrderSummary/OrderSummaryContainer";
 import strings from "../../localization/localization";
+import Address from "../Address";
 
 const CheckOut = props => {
   const {
@@ -35,6 +36,7 @@ const CheckOut = props => {
         </Row>
         <Row>
           <Col md={15}>
+            <Address />
             <OrderDetailsContainer
               warna={warna}
               ukuran={ukuran}
