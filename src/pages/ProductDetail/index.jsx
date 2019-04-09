@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import SliderProductDetail from "components/SliderSecondary";
-import { Col, Row, Card, Spin, Switch } from "antd";
+import { Col, Row, Card, Spin } from "antd";
 import Variants from "../../components/Variant/Variants";
 import "./style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity";
@@ -9,10 +9,8 @@ import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Shipping from "../../components/Shipping";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
-import Login from "../Login";
 
-export default class ProductDetail extends Component {
-  render() {
+const ProductDetail = props => {
     const {
       changeCheckout,
       open,
@@ -31,7 +29,7 @@ export default class ProductDetail extends Component {
       onChangeQuantity,
       stockAlert,
       details
-    } = this.props;
+    } = props;
     return (
       <React.Fragment>
         <Row>
@@ -125,4 +123,7 @@ export default class ProductDetail extends Component {
       </React.Fragment>
     );
   }
-}
+
+
+  export default ProductDetail
+

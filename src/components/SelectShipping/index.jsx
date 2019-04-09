@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Shippings from "./SelectShipping";
+import Shippings, { SelectShipping } from "./SelectShipping";
 import shipping from "../../api/services/shipping";
 import dummyShipping from "../../dummy/dummyShipping";
 
-class SelectShipping extends Component {
+class Shipping extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +45,7 @@ class SelectShipping extends Component {
   };
   render() {
     return (
-        <Shippings
+        <SelectShipping
           onChangeSelected={this.onChangeShipping}
           shipping={this.state.shipping}
           selected={this.state.shippingSelected}
@@ -54,4 +54,4 @@ class SelectShipping extends Component {
   }
 }
 
-export default SelectShipping;
+export default Shipping;

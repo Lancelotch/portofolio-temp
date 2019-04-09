@@ -9,7 +9,8 @@ import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import CheckOut from '../pages/Checkout/CheckoutContainer'
-import Address from '../pages/Address/Address';
+import Address from '../pages/Address/Address'
+import CustomerNavigation from '../components/CustomerNavigation'
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -67,6 +68,9 @@ const routes = [{
     {
         path: '/address',
         component:Address        
+    },{
+    path: '/customer-navigation',
+    component: CustomerNavigation
     }
 ]
 

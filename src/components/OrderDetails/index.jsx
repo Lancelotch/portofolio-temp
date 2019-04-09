@@ -4,7 +4,7 @@ import TextArea from "antd/lib/input/TextArea";
 import "./style.sass";
 import { Row, Col, Card, Icon } from "antd";
 import NotedLimit from "../NotedLimit";
-import SelectShipping from "../SelectShipping";
+import Shipping from "../SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
@@ -78,7 +78,7 @@ class OderDetails extends Component {
                       <b>{strings.international_shipping}</b>
                     </Col>
                     <Col md={19}>
-                      <SelectShipping onChangeShipping={onChangeShipping} />
+                      <Shipping onChangeShipping={onChangeShipping} />
                     </Col>
                     <Col md={5}>
                       <b>{strings.note}</b>

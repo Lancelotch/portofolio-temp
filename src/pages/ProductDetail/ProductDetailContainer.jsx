@@ -10,7 +10,7 @@ import { chain, forEach } from "lodash";
 
 class ProducDetailContainer extends Component {
   constructor(props) {
-    super(props);
+    super(props);  
     this.state = {
       changeCheckout: false,
       open: false,
@@ -41,7 +41,6 @@ class ProducDetailContainer extends Component {
       const res = await productDetail.getProductDetail(productId);
       // const res = await dummyProductDetail;
       console.log(productId, res.data);
-
       const itemProductDetail = {
         id: res.data.id,
         sku: res.data.sku,
@@ -272,6 +271,7 @@ class ProducDetailContainer extends Component {
       onChangeQuantity: this.onChangeQuantity,
       price: currencyRupiah(this.state.price)
     };
+    console.log('variantsssssss',name);
     return (
       <React.Fragment>
         <ProductDetail
