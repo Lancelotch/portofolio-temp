@@ -17,6 +17,7 @@ const SelectCity = props => {
     <Select
       showSearch
       //style={{ width: 200 }}
+      value={props.value}
       placeholder="Select a city"
       optionFilterProp="children"
       onChange={props.onChange}

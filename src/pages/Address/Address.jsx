@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Card, Button } from "antd";
 import AddressForm from "../../components/AddressForm/AddressForm";
+import AddAddressForm from "../../components/AddressForm/AddAddressForm";
 import FetcherAction from "../../hoc/FetcherAction";
 import AddressDetail from "../../components/AddressDetail";
 import { connect } from "react-redux";
@@ -13,7 +14,8 @@ class Address extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      addVisible: false,
+      editVisible: false,
       visibleList: false,
       payloadAddressDefault: null,
       refreshFromSubmit: false,
@@ -25,8 +27,10 @@ class Address extends Component {
     this.getAddressDefault();
   }
 
-  handleCancel = () => {
-    this.isVisible();
+  handleCancel = (action) => {
+    action === "ADD" ?
+    this.isAddVisible() :
+    this.isEditVisible()
   };
 
   handleCancelList = () => {
@@ -39,9 +43,19 @@ class Address extends Component {
     }));
   };
 
+  isAddVisible = () =>{ 
+    this.setState(prevState => ({
+      addVisible: !prevState.addVisible
+    }));
+  }
+
+  isEditVisible = () =>{ 
+    this.setState(prevState => ({
+      editVisible: !prevState.editVisible
+    }));
+  }
+
   isVisible = (action) => {
-    console.log(action);
-    
     this.setState(prevState => ({
       visible: !prevState.visible,
       action: action
@@ -53,8 +67,10 @@ class Address extends Component {
   };
 
   render() {
-    const { visible, visibleList, action } = this.state;
+    const { addVisible, editVisible, visibleList, action } = this.state;
     const { dataAddressDefault, isAddressAvailable } = this.props;
+
+    console.log("action ",action);
     return (
       <Card
         size="small"
@@ -67,7 +83,7 @@ class Address extends Component {
           <AddressDetail
             addressDefault={dataAddressDefault}
             isAddressAvailable={isAddressAvailable}
-            onEdit={this.isVisible}
+            onEdit={this.isEditVisible}
           />
           <div style={{ float: "right", paddingBottom: 24, paddingTop: 12 }}>
             <Button
@@ -77,7 +93,7 @@ class Address extends Component {
             >
               Kirim ke Alamat Lain
             </Button>
-            <Button type="primary" onClick={()=>this.isVisible("ADD")}>
+            <Button type="primary" onClick={this.isAddVisible}>
               Tambah Alamat
             </Button>
           </div>
@@ -89,10 +105,15 @@ class Address extends Component {
               {...this.props}
             />
           </Fetcher>
+          <AddAddressForm
+            visible={addVisible}
+            handleCancel={()=>this.handleCancel("ADD")}
+            onSubmit={this.getAddressDefault}
+          />
           <AddressForm
-            visible={visible}
+            visible={editVisible}
             action={action}
-            handleCancel={this.handleCancel}
+            handleCancel={()=>this.handleCancel("EDIT")}
             onSubmit={this.getAddressDefault}
             address={dataAddressDefault}
           />

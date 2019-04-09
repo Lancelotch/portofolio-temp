@@ -50,3 +50,34 @@ export const postAddressForm = request => {
       });
   });
 };
+
+export const editAddressForm = request => {
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method: "PUT",
+        url: PATH_CUSTOMER.ADDRESS,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
+export const deleteAddress = (id) => {
+  return dummyService
+    .request({
+      method: "DELETE",
+      url: `${PATH_CUSTOMER.ADDRESS}/${'06fc0503-8f93-4195-a8e4-9751c7e2024f'}`
+    })
+    .then(response => {
+      return response.data
+    })
+    .catch(error => {
+      return error
+    });
+};

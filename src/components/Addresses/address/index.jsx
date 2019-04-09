@@ -23,7 +23,7 @@ const Address = props => {
     receiverName,
     phoneNumber,
     isDefault
-  } = props;
+  } = props.data;
   return (
     <Fragment>
       <Row>
@@ -69,16 +69,16 @@ const Address = props => {
       </Row>
       <Row>
         <Col>
-          <p
+          <span
             style={{
               color: "#888888",
               fontFamily: "Helvetica Neue",
               fontSize: 16
             }}
           >
-            <Icon type="delete" style={{ marginRight: 12 }} />
-            Edit
-          </p>
+            <Icon type="delete" style={{ marginRight: 12 }} onClick={()=>props.onDelete(id)}/>
+            <span onClick={()=>props.onEdit(props.data)}>Edit</span>
+          </span>
         </Col>
       </Row>
       <hr />
