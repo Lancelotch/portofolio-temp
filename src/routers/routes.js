@@ -9,7 +9,8 @@ import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import CheckOut from '../pages/Checkout/CheckoutContainer'
-import Address from '../pages/Address/Address';
+import Address from '../pages/Address/Address'
+import CustomerNavigation from '../components/CustomerNavigation'
 
 const routes = [{
         path: PATH_URL.HOME,
@@ -18,16 +19,19 @@ const routes = [{
     },
     {
         path: PATH_URL.LOGIN,
-        component: Login
+        component: Login,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: CheckOut
+        component: CheckOut,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.REGISTER,
         breadcrumb: "register",
-        component: Register
+        component: Register,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CONFIRMATION,
@@ -47,15 +51,15 @@ const routes = [{
     },
     {
         path: '/category/fashion-pria/sepatu/:categoryId',
-        component: CategoryContainer
+        component: CategoryContainer    
     },
     {
         path: PATH_URL.SEARCH,
-        component: SearchContainer
+        component: SearchContainer      
     },
     {
         path: PATH_URL.PRODUCTS,
-        component: Product
+        component: Product        
     },
     {
         path: PATH_URL.EXAMPLE,
@@ -63,7 +67,10 @@ const routes = [{
     },
     {
         path: '/address',
-        component:Address
+        component:Address        
+    },{
+    path: '/customer-navigation',
+    component: CustomerNavigation
     }
 ]
 

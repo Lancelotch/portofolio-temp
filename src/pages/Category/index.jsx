@@ -1,7 +1,6 @@
 import React, { Component, Suspense, Fragment } from "react";
 import { Row, Col, BackTop, Spin, Card } from "antd";
 import { connect } from "react-redux";
-import Header from "components/Header";
 import "sass/style.sass";
 import "./style.sass";
 
@@ -14,10 +13,7 @@ class CategoryPage extends Component {
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
-            <Header match={match} />
-            <div className="container">
-                {this.props.children}
-            </div>
+            {this.props.children}
           </Col>
         </Row>
       </React.Fragment>

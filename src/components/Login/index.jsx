@@ -7,7 +7,7 @@ import './style.sass'
 import strings from '../../localization/localization'
 import {
   loginWithGoogle,
-  loginWithForm
+  loginWithHome
 } from '../../store/actions/authentication'
 import SnackBar from 'react-material-snackbar'   
 
@@ -33,10 +33,8 @@ class Login extends Component {
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           console.log('Received values of form: ', values)
-
-          await this.props.loginWithForm(values)
-          
-          if (this.state.isAuthenticated != true) {
+          await this.props.loginWithHome(values)
+          if (this.state.isAuthenticated !== true) {
             this.setState({
               errorMessage: 'Email atau password anda salah',
               isErorloaded: true
@@ -175,5 +173,5 @@ const mapStateToProps = state => ({
 const LoginForm = Form.create({})(Login)
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithForm }
+  { loginWithGoogle, loginWithHome }
 )(LoginForm)

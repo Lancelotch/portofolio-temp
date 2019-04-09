@@ -14,12 +14,6 @@ const registerWithForm = authData => {
   };
 };
 
-const customerDetail = name => {
-    return{
-        type: TYPE.NAME_HEADER,
-        payload: name
-    }
-}
 
 const loginWithForm = authData => {
   return {
@@ -68,8 +62,15 @@ const getAddressDefault = response => {
   };
 };
 
+export const authFail = response => {
+  return {
+    type: TYPE.AUTH_FAIL,
+    payload: response
+  };
+};
+
 const dispatchType = {
-    customerDetail: customerDetail,
+  authFail: authFail,
   handleLoading: handleLoading,
   activationUser: activationUser,
   loginWithGoogle: loginWithGoogle,

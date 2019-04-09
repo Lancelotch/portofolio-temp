@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import Header from "../../components/Header";
+import React from "react";
 import SliderProductDetail from "components/SliderSecondary";
 import { Col, Row, Card, Spin } from "antd";
 import Variants from "../../components/Variant/Variants";
@@ -8,17 +7,15 @@ import ButtonQuantity from "../../components/ButtonQuantity";
 import { Redirect } from "react-router-dom";
 import strings from "../../localization/localization";
 import ProductAttibutes from "../../components/ProductAttributes";
-import Footer from "../../components/Footer";
 import Shipping from "../../components/Shipping";
+import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
-export default class ProductDetail extends Component {
-  render() {
+const ProductDetail = props => {
     const {
       changeCheckout,
       open,
       addCheckout,
       price,
-      match,
       name,
       images,
       index,
@@ -32,22 +29,17 @@ export default class ProductDetail extends Component {
       onChangeQuantity,
       stockAlert,
       details
-    } = this.props;
+    } = props;
     return (
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <Header match={match} />
+            <ScrollToTopOnMount />
             <div className="productDetailBorder" />
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2>
-                    {" "}
-                    {name || <Spin />}
-                    {sizeId}
-                    {colorId}
-                  </h2>
+                  <h2> {name || <Spin />}</h2>
                   <SliderProductDetail images={images} index={index} />
                 </Col>
                 <Col md={14}>
@@ -124,12 +116,14 @@ export default class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            <Footer />
           </Col>
         </Row>
-        {open === true && <Redirect to="/login" />}
+        {open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
         {changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }
-}
+
+
+  export default ProductDetail
+
