@@ -46,10 +46,11 @@ const strings = new LocalizedStrings({
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     order_summary: 'Ringkasan Pesenan',
-    sub_total: 'Subtotal',
     international_shipping: 'Pengiriman International',
     checkout_total: 'Total',
     choose_payment_methods: 'Pilih Metode Pembayaran',
+    checkout_alert_info: 'Sudah Termasuk Biaya Pajak Dll.',
+    checkout_alert_description_detail_pesanan:"Harga yang tercantum pada saat check out sudah termasuk pertambahan biaya pajak domestik, pajak import dan lain-lain.",
 
     //Social Media
     google: "Google",

@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { Col } from "antd";
 import "./style.sass";
 import currencyRupiah from "../../library/currency";
 import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
 import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 
-class SelectShipping extends Component {
-  render() {
-    const { shipping, selected, onChangeSelected } = this.props;
+ export const SelectShipping = props => {
+    const { shipping, selected, onChangeSelected } = props;
     return (
       <React.Fragment>
         {shipping.length > 0 && (
@@ -48,7 +47,5 @@ class SelectShipping extends Component {
         )}
       </React.Fragment>
     );
-  }
 }
 
-export default SelectShipping;

@@ -10,14 +10,12 @@ class OrderDetailsContainers extends Component {
       productId,
       sku,
       quantity,
-       totalPrice,
-       name,
-       length,
-       shipping,
-       onChangeQuantity,
-       onChangeShipping
- 
-     } = this.props; 
+      totalPrice,
+      name,
+      shipping,
+      onChangeQuantity,
+      onChangeShipping
+    } = this.props;
     return (
       <React.Fragment>
         {quantity > 0 && (
@@ -25,7 +23,6 @@ class OrderDetailsContainers extends Component {
             warna={warna}
             ukuran={ukuran}
             variants={variants}
-            length={length}
             name={name}
             productId={productId}
             sku={sku}
