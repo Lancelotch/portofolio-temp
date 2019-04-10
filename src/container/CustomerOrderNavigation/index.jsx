@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import { Tabs, Icon } from "antd";
+import { Tabs, Icon, Col } from "antd";
 import { CustomTabPane } from "../CustomerNavigation/CustomerNavigationContainer";
-import ProductOrder from "../ProductOrder/ProductOrderContainer(Dummy)";
+import OrderListWaitingPayment from "../OrderListWaitingPayment";
 
 class CustomerOderNavigation extends Component {
   render() {
     return (
       <Tabs defaultActiveKey="1">
-        <CustomTabPane key={"1"} tab={<span>{"Belum Bayar"}</span>}
-        my_prop={<ProductOrder/>}
+        <CustomTabPane
+          key={"1"}
+          tab={<span>{"Belum Bayar"}</span>}
+          my_prop={<OrderListWaitingPayment />}
         />
         <CustomTabPane key={"2"} tab={<span>{"Belum Dikirim"}</span>} />
         <CustomTabPane key={"3"} tab={<span>{"Dalam Pengiriman"}</span>} />

@@ -36,8 +36,9 @@ export default class CheckoutContainer extends Component {
       const ukuran = dataUkuran.filter(ukuran => ukuran.id === sizeId)[0]
       const warna = dataWarna.filter(warna => warna.id === colorId )[0]
       // const res = await dummyProductDetail(productId);
-      console.log(res.data);
+      console.log('checcccckouuuut',res.data);
       const itemOderDetails = {
+        productId,
         sku: selectedSku,
         name: res.data.name,
         size: 0,
@@ -79,6 +80,7 @@ export default class CheckoutContainer extends Component {
 
   render() {
     const {
+      productId,
       warna,
       ukuran,
       quantity,
@@ -94,6 +96,7 @@ export default class CheckoutContainer extends Component {
       <React.Fragment>
         {quantity > 0 && (
           <Checkout
+          productId={productId}
             warna={warna}
             ukuran={ukuran}
             name={name}

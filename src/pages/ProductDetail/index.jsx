@@ -52,7 +52,7 @@ const ProductDetail = props => {
                     {variants.map((variant, index) => (
                       <Variants
                         ref={variantsRef[index]}
-                        key={variant.id}
+                        key={variant.id}            
                         index={index}
                         name={
                           variant.name.charAt(0).toUpperCase() +

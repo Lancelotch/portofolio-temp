@@ -11,6 +11,9 @@ import strings from "../../localization/localization";
 class OderDetails extends Component {
   render() {
     const {
+      productId,
+      sku,
+      shipping,
       warna,
       ukuran,
       totalPrice,
@@ -88,14 +91,11 @@ class OderDetails extends Component {
                     </Col>
                   </Row>
                 </Col>
-                {/* {JSON.stringify(warna)}
-                {JSON.stringify(ukuran)}
-                <p>{productId}</p>
-                <p>{JSON.stringify(sku)}</p>
-                <p>{quantity}</p>
-                <p>{JSON.stringify(shipping)}</p>
-                {shipping.price} */}
               </div>
+              {/* <p>{JSON.stringify(warna)}</p>
+              <p>{JSON.stringify(ukuran)}</p>
+              <p>{JSON.stringify(sku)}</p>
+              <p>{JSON.stringify(shipping)}</p> */}
             </Card>
           </Col>
         </Row>
