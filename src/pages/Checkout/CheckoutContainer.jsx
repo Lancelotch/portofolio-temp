@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Checkout from ".";
-import productDetail from "../../api/services/productDetail"; 
+import productDetail from "../../api/services/productDetail";
 
 export default class CheckoutContainer extends Component {
   constructor(props) {
@@ -29,14 +29,16 @@ export default class CheckoutContainer extends Component {
       const res = await productDetail.getProductDetail(productId);
       const sku = res.data.sku;
       const selectedSku = sku.filter(item => item.id === skuId)[0];
-      console.log(res.data.variants);    
-      const variants = res.data.variants
-      const dataUkuran = variants.filter( ukuran => ukuran.name === 'ukuran')[0].values 
-      const dataWarna = variants.filter( warna => warna.name === 'warna')[0].values
-      const ukuran = dataUkuran.filter(ukuran => ukuran.id === sizeId)[0]
-      const warna = dataWarna.filter(warna => warna.id === colorId )[0]
+      console.log(res.data.variants);
+      const variants = res.data.variants;
+      const dataUkuran = variants.filter(ukuran => ukuran.name === "ukuran")[0]
+        .values;
+      const dataWarna = variants.filter(warna => warna.name === "warna")[0]
+        .values;
+      const ukuran = dataUkuran.filter(ukuran => ukuran.id === sizeId)[0];
+      const warna = dataWarna.filter(warna => warna.id === colorId)[0];
       // const res = await dummyProductDetail(productId);
-      console.log('checcccckouuuut',res.data);
+      console.log("checcccckouuuut", res.data);
       const itemOderDetails = {
         productId,
         sku: selectedSku,
@@ -96,7 +98,7 @@ export default class CheckoutContainer extends Component {
       <React.Fragment>
         {quantity > 0 && (
           <Checkout
-          productId={productId}
+            productId={productId}
             warna={warna}
             ukuran={ukuran}
             name={name}
@@ -111,5 +113,3 @@ export default class CheckoutContainer extends Component {
     );
   }
 }
-
-

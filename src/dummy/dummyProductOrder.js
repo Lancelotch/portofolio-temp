@@ -5,7 +5,7 @@ const dummyProductOrder = {
     "message": "OK",
     "data": [
         {
-            "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
+            "orderId": "30e2e734-100d-4830-9c3c-752ac7091c18",
             "indexes": [
                 {
                     "productId": "5c736c8ec0297d16d00014f8",
@@ -42,7 +42,7 @@ const dummyProductOrder = {
                 "transactionId": "79002b82-3f29-48e0-9402-82ffbe592f31",
                 "statusMessage": "midtrans payment notification",
                 "paymentType": "bank_transfer",
-                "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
+                "orderId": "30e2e734-100d-4830-9c3c-752ac7091c18",
                 "grossAmount": 2660000,
                 "virtualAccount": "443220825744067",
                 "bankName": "BCA"
@@ -52,11 +52,11 @@ const dummyProductOrder = {
                 "name": "BANK BCA",
                 "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
             },
-            "endDatePay": 1554956861068,
+            "endDatePay": 13465956861068,
             "description": "PENDING"
         },
          {
-            "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
+            "orderId": "30e2e734-120d-4930-8c3c-862ac7991c18",
             "indexes": [
                 {
                     "productId": "5c736c8ec0267d16d00014f8",
@@ -93,9 +93,9 @@ const dummyProductOrder = {
                 "transactionId": "79002b82-3f29-48e0-9402-82ffbe592f31",
                 "statusMessage": "midtrans payment notification",
                 "paymentType": "bank_transfer",
-                "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
-                "grossAmount": 2660000,
-                "virtualAccount": "443220825744067",
+                "orderId": "30e2e734-120d-4930-8c3c-862ac7991c18",
+                "grossAmount": 2760000,
+                "virtualAccount": "2343220825744067",
                 "bankName": "BCA"
             },
             "bank": {

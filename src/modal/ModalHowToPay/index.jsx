@@ -20,12 +20,13 @@ class ModalHowToPay extends Component {
   };
 
   render() {
-    const { endDatePay, indexes } = this.props;
-    console.log("Ini Modal How To Pay", this.props.visible);
-
+    const { endDatePay, pay,orderId } = this.props;
+    console.log("Ini Modal How To Pay", this.props);
+    // console.log(payment.orderId);
     return (
       <div>
         <Modal
+        key={orderId}
           title="Cara Bayar"
           visible={this.props.visible}
           // onOk={ this.handleOk }
@@ -38,7 +39,9 @@ class ModalHowToPay extends Component {
         >
           <div className="contentPrice">
             <b>Total Pembayaran</b>
-            <p className="contentPrice__total">{currencyRupiah(indexes[0].totalAmount)}</p>
+            <p className="contentPrice__total">
+              {currencyRupiah(pay.grossAmount)}
+            </p>
             <b>Bayar Sebelum</b>
             <p className="contentPrice__datePay">
               {convertTimesTime.millisecond(endDatePay)}
@@ -54,7 +57,7 @@ class ModalHowToPay extends Component {
               alt=""
             />
           </p>
-          <p>Some contents...</p>
+          <p>{pay.virtualAccount}</p>
         </Modal>
       </div>
     );
