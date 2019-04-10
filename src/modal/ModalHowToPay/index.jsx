@@ -35,6 +35,7 @@ class ModalHowToPay extends Component {
             </Button>
           }
         >
+        
           <b>Total Pembayaran</b>
           <p>{currencyRupiah(totalAmount)}</p>
           <b>Bayar Sebelum</b>
