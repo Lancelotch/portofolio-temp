@@ -10,7 +10,7 @@ const confirm = Modal.confirm;
 
 function showDeleteConfirm() {
   confirm({
-    icon:"close-circle",
+    icon: "close-circle",
     iconClassName: "iconWaitingPaymentCancel",
     title: "Anda yakin ingin membatalkan pesanan?",
     content: "Pesanan yang anda buat akan kami batalkan",
@@ -27,7 +27,7 @@ function showDeleteConfirm() {
 }
 
 const WaitingPayment = props => {
-  const { endDatePay, totalAmount } = props;
+  const { endDatePay, indexes } = props;
   console.log("======> props", props);
   return (
     <React.Fragment>
@@ -38,24 +38,32 @@ const WaitingPayment = props => {
             <p className="waitingPayment__endDatePay">
               {convertTimesTime.millisecond(endDatePay)}
             </p>
-            <Button className="waitingPayment__button" onClick={showDeleteConfirm}>Batalkan Pesanan</Button>
+            <Button
+              className="waitingPayment__button"
+              onClick={showDeleteConfirm}
+            >
+              Batalkan Pesanan
+            </Button>
           </Col>
           <Col md={12}>
             <p className="waitingPayment__totalReceived">
               Total Pesenan :{" "}
               <h4 style={{ display: "unset", fontSize: 20 }}>
-                {currencyRupiah(totalAmount)}
+                {currencyRupiah(indexes[0].totalAmount)}
               </h4>
             </p>
-            <Button className="waitingPayment__payNow" onClick={props.toggleIsHowToShowModalOpen}>
+            <Button
+              className="waitingPayment__payNow"
+              onClick={props.toggleIsHowToShowModalOpen}
+            >
               Bayar Sekarang
             </Button>
           </Col>
         </Row>
       </div>
       <ModalHowToPay
-      endDatePay={endDatePay}
-        totalAmount={totalAmount}
+        endDatePay={endDatePay}
+        indexes={indexes}
         visible={props.isHowToShowModalOpen}
         close={props.toggleIsHowToShowModalOpen}
       />

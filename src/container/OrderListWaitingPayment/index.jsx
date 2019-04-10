@@ -8,6 +8,7 @@ class OrderListWaitingPayment extends Component {
     super(props);
     this.state = {
       productorder: [],
+      indexes: [],
       isHowToShowModalOpen: false
     };
   }
@@ -21,11 +22,11 @@ class OrderListWaitingPayment extends Component {
     this.setState({ isHowToShowModalOpen: !this.state.isHowToShowModalOpen });
   };
 
-  productOrder = async () => {
+  productOrder = async () => { 
     try {
       const res = await dummyProductOrder;
       const itemProductOrder = {
-        productorder: res.data
+        productorder: res.data, 
       };
       this.setState({
         ...itemProductOrder
@@ -39,9 +40,11 @@ class OrderListWaitingPayment extends Component {
     const { toggleIsHowToShowModalOpen } = {
       toggleIsHowToShowModalOpen: this.toggleIsHowToShowModalOpen
     };
+    console.log(this.state.productorder);
+              
     return (
       <React.Fragment>
-        {this.state.productorder.map((order, id) => {
+        {this.state.productorder.map((order) => {
           return (
             <div
               style={{
@@ -52,15 +55,11 @@ class OrderListWaitingPayment extends Component {
               }}
             >
               <ProductOrder
-                variants={order.variants}
-                productName={order.productName}
-                productQuantity={order.productQuantity}
-                totalAmount={order.totalAmount}
-                endDatePay={order.endDatePay}
+                indexes={order.indexes}
               />
               <WaitingPayment
                 endDatePay={order.endDatePay}
-                totalAmount={order.totalAmount}
+                indexes={order.indexes}
                 isHowToShowModalOpen={isHowToShowModalOpen}
                 toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
               />
