@@ -18,8 +18,13 @@ class ProductDetail extends Component {
     }
 
     actionSelectVariant = (variantId, valueId) =>{
+        
+
         console.log("ini id variant", variantId)
         console.log("ini id value", valueId)
+    }
+
+    checkSmallestPrice = (product) => {
     }
 
     getProductDetail = async () => {
@@ -27,9 +32,10 @@ class ProductDetail extends Component {
         try {
             const response = await productDetail.getProductDetail(productId);
             console.log({product: response});
-            
+            const product = response.data
+            this.checkSmallestPrice(product)
             this.setState({
-                product: response.data
+                product: product
             });
         } catch(error) {
             console.log(error);
