@@ -52,7 +52,8 @@ const dummyProductDetail = {
         "variants": [{
                 "id": "001",
                 "name": "warna",
-                "values": [{
+                "values": [
+                    {
                         "id": "01",
                         "name": "biru",
                         "description": "warna biru",
@@ -60,6 +61,16 @@ const dummyProductDetail = {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    },
+                    {
+                        "id": "03",
+                        "name": "oren",
+                        "description": "warna oren",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
                         }
                     },
                     {

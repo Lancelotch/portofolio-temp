@@ -2,7 +2,7 @@ import PATH_URL from './path'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
-import ProductDetail from '../pages/ProductDetail/ProductDetailContainer'
+import ProductDetail from '../pages/ProductDetail'
 import Confirmation from '../pages/Confirmation'
 import Product from '../pages/Product'
 import Example from '../pages/Example'
@@ -39,7 +39,8 @@ const routes = [{
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetail
+        component: ProductDetail,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CATEGORY,
