@@ -5,15 +5,35 @@ class VariantsContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            variants: [{}]
         }
     }
+    
+    checkSmallestPrice = (product) =>{
+         const listSku = product.sku;
+         const smallestPrice = listSku.reduce(this.skuSmallestPrice, listSku[0]);
+         console.log("pasti", smallestPrice);
+         return smallestPrice;
+    }
+
+    skuSmallestPrice = (smallest, sku)=>{
+        return (sku.price < smallest.price && sku.stock !== 0) ? sku : smallest
+    }
+
+    checkStock = (product) => {
+        
+    }
+
+    componentDidMount(){
+        this.checkSmallestPrice(this.props.product)
+    }
+
 
     render() {
+        console.log(this.props.product)
         return (
             <Fragment>
-                {this.props.variants.map((variant,index) => (
-                    <Variant {...variant} index={index}/>
+                {this.props.product.variants.map((variant,index) => (
+                    <Variant {...variant} key={variant.id} index={index} onClick={this.props.actionSelectVariants} />
                 ))}
             </Fragment>
         );
