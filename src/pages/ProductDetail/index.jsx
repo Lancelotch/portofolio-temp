@@ -12,24 +12,34 @@ class ProductDetail extends Component {
             product: {},
             isProductAvailable: false,
             sliderIndex: 0,
+            data : {
+                qty: 0,
+                sku: {}
+            }
         }
-        this.data = {
-            qty: 0,
-            sku: {}
-        };
     }
 
     componentDidMount() {
         this.getProductDetail();
     }
+    
 
-    actionUpdateSku = (sku) =>{   
-        this.data.sku = sku;
-        this.actionSubmitToCheckout();
+    // shouldComponentUpdate(nextProp, nextState){
+    //     // if(nextState.data !== this.state.data){
+    //     //     return false;
+    //     // }else{
+    //     //     return true;
+    //     // }
+    // }
+
+    actionUpdateSku = (sku) =>{
+        const data = {...this.state.data, sku};
+        this.setState({data}, this.actionSubmitToCheckout);
+        // this.actionSubmitToCheckout();
     }
 
-    actionSubmitToCheckout() {
-        console.log(this.data);
+    actionSubmitToCheckout = () => {
+        console.log(this.state.data);
     }
 
     getProductDetail = async () => {
@@ -48,18 +58,7 @@ class ProductDetail extends Component {
     }
     
     render() {
-        console.log(this.state.product);  
-        var objek1 = {
-            a : 1,
-            s: 2
-        }
-
-        var objek2 = {...objek1};
-        objek2.s = 3;
-
-        console.log("objek1",objek1.s);
-        console.log("objek2",objek2.s);
-          
+        console.log(this.state.product);
         return (
             <React.Fragment>
                 {this.state.isProductAvailable &&

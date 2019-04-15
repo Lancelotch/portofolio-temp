@@ -16,10 +16,6 @@ class SkuContainer extends Component {
         this.getSkuSmallestPrice(this.props.product)
     }
 
-    componentDidUpdate() {
-        this.updateSku();
-    }
-
     getSkuSmallestPrice = (product) =>{
          const listSku = product.sku;
          const skuSmallestPrice = listSku.reduce(this.compareSkuSmallestPrice, listSku[0]);
@@ -62,16 +58,16 @@ class SkuContainer extends Component {
         }
         this.setState({
             sku: sku
-        });
+        }, this.updateSku);
     }
 
-    updateSku() {
+    updateSku = () => {
         this.props.actionUpdateSku(this.state.sku);
     }
 
     updateVariant(variantId, value) {
         let skuId = "";
-        this.state.sku.variants.map((variant, index) => {
+        this.state.sku.variants.map(variant => {
             if(variantId === variant.variantId) {
                 variant.valueId = value.id;
                 variant.valueName = value.name;
@@ -79,13 +75,13 @@ class SkuContainer extends Component {
             skuId += variant.variantId + variant.valueId;            
         });
 
-        this.props.product.sku.map((sku, index) => {
+        this.props.product.sku.map(sku => {
             if(skuId === sku.id) {
                 const skuTmp = {...this.state.sku};
                 skuTmp.price = sku.price;
                 this.setState({
                     sku: skuTmp
-                });
+                }, this.updateSku);
             }
         });
     }
