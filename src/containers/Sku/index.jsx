@@ -7,6 +7,7 @@ class SkuContainer extends Component {
         this.state = {
             sku: {
                 price: 0,
+                stock: 0,
                 variants: []
             }
         }
@@ -34,7 +35,8 @@ class SkuContainer extends Component {
 
         let sku = {
             price: skuSmallestPrice.price,
-            variants: []            
+            variants: [],
+            stock: skuSmallestPrice.stock            
         };
 
         for(let curVariant = 0; curVariant < manyVariants; curVariant++) {
@@ -50,9 +52,10 @@ class SkuContainer extends Component {
 
             const variant = {
                 variantId: variantId,
-                valueId: valueId,
+                // valueId: valueId,
                 variantName: variantName,
-                valueName: valueName
+                // valueName: valueName
+                value: variantValueFromProduct
             }
             sku.variants.push(variant);
         }
@@ -63,27 +66,33 @@ class SkuContainer extends Component {
 
     updateSku = () => {
         this.props.actionUpdateSku(this.state.sku);
+        console.log("tes");
+        
     }
 
-    updateVariant(variantId, value) {
+    updateVariant = (variantId, value) => {
         let skuId = "";
         this.state.sku.variants.map(variant => {
             if(variantId === variant.variantId) {
-                variant.valueId = value.id;
-                variant.valueName = value.name;
+                variant.value = value
             }
-            skuId += variant.variantId + variant.valueId;            
+            skuId += variant.variantId + variant.value.id;            
         });
 
         this.props.product.sku.map(sku => {
             if(skuId === sku.id) {
                 const skuTmp = {...this.state.sku};
                 skuTmp.price = sku.price;
+                skuTmp.stock = sku.stock;
                 this.setState({
                     sku: skuTmp
                 }, this.updateSku);
             }
         });
+    }
+
+    convertSkuId = (variantId, valueId) => {
+        return variantId + valueId
     }
 
     render() {
@@ -94,7 +103,7 @@ class SkuContainer extends Component {
                     {...variant} 
                     key={variant.id} 
                     index={index} 
-                    onClick={this.updateVariant.bind(this)} />
+                    onClick={this.updateVariant} />
                 ))}
             </Fragment>
         );
