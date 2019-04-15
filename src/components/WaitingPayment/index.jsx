@@ -1,15 +1,11 @@
 import React from "react";
 import convertTimesTime from "../../library/convertTimestime";
 import "./style.sass";
-import { Row, Col,  } from "antd";
+import { Row, Col } from "antd";
 import currencyRupiah from "../../library/currency";
 
-
-
-
-
 const WaitingPayment = props => {
-  const { endDatePay,indexes,orderId } = props;
+  const { endDatePay, indexes, orderId } = props;
   console.log("======> props", props);
   return (
     <React.Fragment>
@@ -22,11 +18,10 @@ const WaitingPayment = props => {
             </p>
           </Col>
           <Col md={12}>
-            <p className="waitingPayment__totalReceived">
-              Total Pesenan :{" "}
-              <h4 style={{ display: "unset", fontSize: 20 }}>
-                {currencyRupiah(indexes[0].totalAmount)}
-              </h4>
+            <p className="waitingPayment__totalReceived">Total Pesenan : 
+            <h4 style={{ display: "unset", fontSize: 20 }}>
+              {currencyRupiah(indexes[0].totalAmount)}
+            </h4>
             </p>
           </Col>
         </Row>

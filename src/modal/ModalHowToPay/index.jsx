@@ -3,6 +3,7 @@ import { Modal, Button } from "antd";
 import convertTimesTime from "../../library/convertTimestime";
 import currencyRupiah from "../../library/currency";
 import "./style.sass";
+import strings from "../../localization/localization";
 
 class ModalHowToPay extends Component {
   constructor(props) {
@@ -20,17 +21,16 @@ class ModalHowToPay extends Component {
   };
 
   render() {
-    const { endDatePay, pay,orderId } = this.props;
+    const { endDatePay, pay, payBank } = this.props;
     console.log("Ini Modal How To Pay", this.props);
     // console.log(payment.orderId);
     return (
       <div>
         <Modal
-        key={orderId}
           title="Cara Bayar"
           visible={this.props.visible}
           // onOk={ this.handleOk }
-          onCancel={this.props.close}
+          onCancel={this.props.close.bind(this, null)}
           footer={
             <Button key="submit" type="primary" onClick={this.handleOk}>
               Submit
@@ -38,18 +38,18 @@ class ModalHowToPay extends Component {
           }
         >
           <div className="contentPrice">
-            <b>Total Pembayaran</b>
+            <b>{strings.total_payment}</b>
             <p className="contentPrice__total">
               {currencyRupiah(pay.grossAmount)}
             </p>
-            <b>Bayar Sebelum</b>
+            <b>{strings.before_pay}</b>
             <p className="contentPrice__datePay">
               {convertTimesTime.millisecond(endDatePay)}
             </p>
           </div>
           <p>
             <img
-              src={require("../../assets/img/ic_bni.png")}
+              src={payBank.imageUrl}
               style={{
                 height: 15.84,
                 width: 49
@@ -57,6 +57,7 @@ class ModalHowToPay extends Component {
               alt=""
             />
           </p>
+          <p>{pay.paymentType}</p>
           <p>{pay.virtualAccount}</p>
         </Modal>
       </div>

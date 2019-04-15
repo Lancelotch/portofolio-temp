@@ -17,6 +17,8 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    before_pay: 'Bayar Sebelum',
+    total_payment: 'Total Pembayaran',
     log_in: 'Log In',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
@@ -36,6 +38,7 @@ const strings = new LocalizedStrings({
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
     recommendation_product: 'Rekomendasi Produk',
+    
 
     //Best Seller
     best : "Best",

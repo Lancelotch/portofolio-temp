@@ -6,42 +6,48 @@ import ReactImageMagnify from "react-image-magnify";
 import Viewer from "react-viewer";
 import "react-viewer/dist/index.css";
 
+
 class SliderProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
       original: "",
-      large: "",
-      index:0,
-      isShowNav : false
+      index: 0,
+      isShowNav: false
     };
   }
-  componentDidMount(){
-    this.setState({index:this.props.index})
+  componentDidMount() {
+    this.setState({ index: this.props.index });
   }
-  componentWillReceiveProps(props){
-    if(this.props.images.length > 6){
+  componentWillReceiveProps(props) {
+    if (this.props.images.length > 6) {
       this.setState({
-        isShowNav : true
-      })
-     }  
-    this.setState({index:props.index})
-  } 
+        isShowNav: true
+      });
+    }
+    this.setState({ index: props.index });
+  }
+
+  
+
   imageHover(item) {
     return (
       <ReactImageMagnify
         {...{
           smallImage: {
             isFluidWidth: true,
-            src: item.thumbnail
+            src: item.thumbnail,
           },
           largeImage: {
+            width: 500,
+            height: 700,
             src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
         {...{
+          enlargedImageContainerDimensions: {width: '100%', height: '100%'},
           shouldHideHintAfterFirstActivation: false,
           enlargedImagePosition: "over",
           enlargedImageContainerStyle: { Index: 1000 }
@@ -51,7 +57,9 @@ class SliderProductDetail extends Component {
   }
 
   imageViewer() {
-    const images = [{src: this.state.original}];
+    const images = [{ src: this.state.original }];
+    console.log(images);
+    
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large
@@ -79,31 +87,31 @@ class SliderProductDetail extends Component {
     this.props.images.map(productImage => {
       return images.push({
         original: productImage.large,
-        thumbnail: productImage.small
+        thumbnail: productImage.medium
       });
     });
 
     return (
-        <Row>
-          <Col md={24} sm={12}>
-            <ImageGallery
-              key={this.state.index}
-              showFullscreenButton={false}
-              showPlayButton={false}
-              showNav={this.state.isShowNav}
-              startIndex={this.state.index}
-              onClick={e =>
-                this.setState({
-                  visible: true,
-                  original: e.target.firstChild.currentSrc
-                })
-              }
-              renderItem={this.imageHover}
-              items={images}
-            />
-            {this.imageViewer()}
-          </Col>
-        </Row>
+      <Row>
+        <Col md={24} sm={12}>
+          <ImageGallery
+            key={this.state.index}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showNav={this.state.isShowNav}
+            startIndex={this.state.index}
+            onClick={e =>
+              this.setState({
+                visible: true,
+                original: e.target.firstChild.currentSrc
+              })
+            }
+            renderItem={this.imageHover}
+            items={images}
+          />
+          {this.imageViewer()}
+        </Col>
+      </Row>
     );
   }
 }

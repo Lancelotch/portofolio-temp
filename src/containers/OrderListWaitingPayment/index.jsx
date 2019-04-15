@@ -4,6 +4,7 @@ import ProductOrder from "../../components/ProductOrder";
 import WaitingPayment from "../../components/WaitingPayment";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import { Button, Modal } from "antd";
+import "../../components/ProductOrder/style.sass";
 
 const confirm = Modal.confirm;
 
@@ -31,7 +32,8 @@ class OrderListWaitingPayment extends Component {
     this.state = {
       productorder: [],
       indexes: [],
-      isHowToShowModalOpen: false
+      isHowToShowModalOpen: false,
+      selectedOrder: null
     };
   }
 
@@ -39,16 +41,20 @@ class OrderListWaitingPayment extends Component {
     this.productOrder();
   }
 
-  toggleIsHowToShowModalOpen = () => {
-    console.log("aku di klik", this.state.isHowToShowModalOpen);
-    this.setState({ isHowToShowModalOpen: !this.state.isHowToShowModalOpen });
+  toggleIsHowToShowModalOpen = order => {
+    console.log("aku di klik", this.state.isHowToShowModalOpen, order);
+    this.setState({
+      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
+      selectedOrder: order ? order : null
+    });
   };
 
   productOrder = async () => {
     try {
       const res = await dummyProductOrder;
       const itemProductOrder = {
-        productorder: res.data
+        productorder: res.data,
+        indexes: res.data.indexes
       };
       this.setState({
         ...itemProductOrder
@@ -58,7 +64,7 @@ class OrderListWaitingPayment extends Component {
     }
   };
   render() {
-    const { isHowToShowModalOpen } = this.state;
+    const { isHowToShowModalOpen, selectedOrder } = this.state;
     const { toggleIsHowToShowModalOpen } = {
       toggleIsHowToShowModalOpen: this.toggleIsHowToShowModalOpen
     };
@@ -67,7 +73,7 @@ class OrderListWaitingPayment extends Component {
     return (
       <React.Fragment>
         {this.state.productorder.map(order => {
-          console.log("ambil payment", order.payment);
+          console.log("ambil aaaaaaaaaaa payment", order.bank);
           return (
             <div className="waitingPayment__list">
               <ProductOrder indexes={order.indexes} />
@@ -87,7 +93,7 @@ class OrderListWaitingPayment extends Component {
               <div style={{ float: "right", marginRight: 15 }}>
                 <Button
                   className="waitingPayment__payNow"
-                  onClick={toggleIsHowToShowModalOpen}
+                  onClick={toggleIsHowToShowModalOpen.bind(this, order)}
                 >
                   Bayar Sekarang
                 </Button>
@@ -98,17 +104,20 @@ class OrderListWaitingPayment extends Component {
                   Detail Pesanan
                 </Button>
               </div>
-              <ModalHowToPay
-                key={order.orderId}
-                endDatePay={order.endDatePay}
-                pay={order.payment}
-                indexes={order.indexes}
-                visible={isHowToShowModalOpen}
-                close={toggleIsHowToShowModalOpen}
-              />
             </div>
           );
         })}
+        {selectedOrder && (
+          <ModalHowToPay
+            payBank={selectedOrder.bank}
+            key={selectedOrder.orderId}
+            endDatePay={selectedOrder.endDatePay}
+            pay={selectedOrder.payment}
+            indexes={selectedOrder.indexes}
+            visible={isHowToShowModalOpen}
+            close={toggleIsHowToShowModalOpen}
+          />
+        )}
       </React.Fragment>
     );
   }

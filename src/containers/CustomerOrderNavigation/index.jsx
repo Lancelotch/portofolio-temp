@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Tabs, Icon, Col, Button, Affix } from "antd";
 import { CustomTabPane } from "../CustomerNavigation/CustomerNavigationContainer";
 import OrderListWaitingPayment from "../OrderListWaitingPayment";
-import OrderDetailsDashboard from "../../components/OrderDetailsDashboard";
+import OrderDetailsDashboard from "..//OrderDetailsDashboard";
 
 class CustomerOderNavigation extends Component {
   constructor() {

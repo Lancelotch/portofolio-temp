@@ -145,7 +145,7 @@ class ProducDetailContainer extends Component {
     this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
-    this.variantPrice(sku, idColor, colorId, idSize, sizeId);
+    this.variantPrice(sku, idColor, colorId, idSize, sizeId);  
   }
 
   sizeVariant(variants, selected, sku) {

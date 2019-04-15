@@ -50,7 +50,7 @@ const dummyProductOrder = {
             "bank": {
                 "code": "bca",
                 "name": "BANK BCA",
-                "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                "imageUrl": "https://3.bp.blogspot.com/-e1fOq9uUk8M/V15O0WHiIMI/AAAAAAAAAJA/IpxPlLevxLsjisy2I625Yvz-eNzgc6xfgCKgB/s1600/Logo%2BBank%2BBNI%2BPNG.png"
             },
             "endDatePay": 13465956861068,
             "description": "PENDING"

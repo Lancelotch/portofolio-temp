@@ -10,7 +10,7 @@ import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import CheckOut from '../pages/Checkout/CheckoutContainer'
 import Address from '../pages/Address/Address'
-import CustomerNavigation from '../container/CustomerNavigation'
+import CustomerNavigation from '../containers/CustomerNavigation'
 
 const routes = [{
         path: PATH_URL.HOME,
