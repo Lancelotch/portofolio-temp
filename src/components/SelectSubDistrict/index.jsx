@@ -16,6 +16,7 @@ const SelectSubDistrict = props => {
   return (
     <Select
       showSearch
+      value={props.value}
       style={props.style}
       placeholder="Pilih Kecamatan"
       optionFilterProp="children"

@@ -28,7 +28,7 @@ const AddressAvailable = props => {
               <Icon
                 type="edit"
                 style={{ fontSize: "18px", color: "#007E80", float: "right" }}
-                onClick={props.onEdit}
+                onClick={()=>props.onEdit("EDIT")}
                 className={"icon"}
               />
             </p>

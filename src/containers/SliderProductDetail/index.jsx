@@ -6,8 +6,7 @@ import ReactImageMagnify from "react-image-magnify";
 import Viewer from "react-viewer";
 import "react-viewer/dist/index.css";
 
-
-class SliderProductDetail extends Component {
+class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,8 +115,8 @@ class SliderProductDetail extends Component {
   }
 }
 
-SliderProductDetail.propTypes = {
+SliderProductDetailContainer.propTypes = {
   productImages: PropTypes.arrayOf(Object)
 };
 
-export default SliderProductDetail;
+export default SliderProductDetailContainer;
