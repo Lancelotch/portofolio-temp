@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import SliderProductDetailContainer from '../../containers/SliderProductDetail';
 import productDetail from "../../api/services/productDetail";
 import SliderProductDetailContainer from '../../containers/SliderProductDetail';
-import VariantsContainer from '../../containers/Variants';
-import Variant from "../../components/Variant"
+import SkuContainer from '../../containers/Sku';
 import dummyProductDetail from '../../dummy/dummyProductDetail';
 
 class ProductDetail extends Component {
@@ -14,21 +13,30 @@ class ProductDetail extends Component {
             isProductAvailable: false,
             sliderIndex: 0,
         }
+        this.data = {
+            qty: 0,
+            sku: {}
+        };
     }
 
     componentDidMount() {
         this.getProductDetail();
     }
 
-    actionSelectVariants = (variants) =>{        
-        console.log(variants);
+    actionUpdateSku = (sku) =>{   
+        this.data.sku = sku;
+        this.actionSubmitToCheckout();
+    }
+
+    actionSubmitToCheckout() {
+        console.log(this.data);
     }
 
     getProductDetail = async () => {
         const productId = this.props.match.params.productId;
         try {
-            //const response = await productDetail.getProductDetail(productId);
-            const response = dummyProductDetail;
+            const response = await productDetail.getProductDetail(productId);
+            // const response = dummyProductDetail;
             const product = response.data
             this.setState({
                 product: product,
@@ -38,16 +46,29 @@ class ProductDetail extends Component {
             console.log(error);
         }
     }
+    
     render() {
+        console.log(this.state.product);  
+        var objek1 = {
+            a : 1,
+            s: 2
+        }
+
+        var objek2 = {...objek1};
+        objek2.s = 3;
+
+        console.log("objek1",objek1.s);
+        console.log("objek2",objek2.s);
+          
         return (
-            <div>
+            <React.Fragment>
                 {this.state.isProductAvailable &&
                     <React.Fragment>
                         {/* <SliderProductDetailContainer images={this.state.product.images} index={this.sliderIndex} /> */}
-                        <VariantsContainer product={this.state.product} actionSelectVariants={this.actionSelectVariants} />
+                        <SkuContainer product={this.state.product} actionUpdateSku={this.actionUpdateSku} />
                     </React.Fragment>
                 }
-            </div>
+            </React.Fragment>
         );
     }
 }
