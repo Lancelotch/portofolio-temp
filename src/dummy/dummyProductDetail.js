@@ -64,27 +64,27 @@ const dummyProductDetail = {
                         }
                     },
                     {
-                        "id": "03",
-                        "name": "oren",
-                        "description": "warna oren",
-                        "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-                        }
-                    },
-                    {
-                        "id": "03",
-                        "name": "oren",
-                        "description": "warna oren",
-                        "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-                        }
-                    },
-                    {
                         "id": "02",
+                        "name": "oren",
+                        "description": "warna oren",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    },
+                    {
+                        "id": "03",
+                        "name": "oren",
+                        "description": "warna oren",
+                        "image": {
+                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                        }
+                    },
+                    {
+                        "id": "04",
                         "name": "hitam",
                         "description": "warna hitam",
                         "image": {
@@ -201,7 +201,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300204",
                 "price": 330000,
-                "stock": 0,
+                "stock": 2,
                 "dimension": 8000,
                 "weight": 600
             }

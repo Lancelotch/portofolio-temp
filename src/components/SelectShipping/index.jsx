@@ -13,7 +13,7 @@ class Shipping extends Component {
     };
   }
 
-  async componentDidMount() {
+   componentDidMount() {
     this.shipping();
 
     console.log("selected shipping", this.state)
@@ -44,6 +44,8 @@ class Shipping extends Component {
     }
   };
   render() {
+    console.log(this.state.shippingSelected);
+    
     return (
         <SelectShipping
           onChangeSelected={this.onChangeShipping}
