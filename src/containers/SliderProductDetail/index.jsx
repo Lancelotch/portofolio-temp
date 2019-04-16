@@ -12,20 +12,16 @@ class SliderProductDetailContainer extends Component {
     this.state = {
       visible: false,
       original: "",
-      index: 0,
       isShowNav: false
     };
   }
-  componentDidMount() {
-    this.setState({ index: this.props.index });
-  }
+ 
   componentWillReceiveProps(props) {
     if (this.props.images.length > 6) {
       this.setState({
         isShowNav: true
       });
     }
-    this.setState({ index: props.index });
   }
 
   
@@ -98,7 +94,7 @@ class SliderProductDetailContainer extends Component {
             showFullscreenButton={false}
             showPlayButton={false}
             showNav={this.state.isShowNav}
-            startIndex={this.state.index}
+            // startIndex={this.state.index}
             onClick={e =>
               this.setState({
                 visible: true,

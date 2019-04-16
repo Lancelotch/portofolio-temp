@@ -23,6 +23,7 @@ const strings = new LocalizedStrings({
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",
+    pay_now : "Pesan Sekarang",
     action_delete: "Hapus",
     checkout: "Checkout",
     total_price_product: "Total Harga Barang",

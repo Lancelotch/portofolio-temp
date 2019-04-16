@@ -110,13 +110,13 @@ class Address extends Component {
             handleCancel={()=>this.handleCancel("ADD")}
             onSubmit={this.getAddressDefault}
           />
-          <AddressForm
+          {/* <AddressForm
             visible={editVisible}
             action={action}
             handleCancel={()=>this.handleCancel("EDIT")}
             onSubmit={this.getAddressDefault}
             address={dataAddressDefault}
-          />
+          /> */}
         </div>
       </Card>
     );

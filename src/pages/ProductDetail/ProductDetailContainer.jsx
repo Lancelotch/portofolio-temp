@@ -39,8 +39,10 @@ class ProducDetailContainer extends Component {
     const productId = this.props.match.params.productId;
     try {
       const res = await productDetail.getProductDetail(productId);
-      // const res = await dummyProductDetail;
-      console.log(productId, res.data);
+      //const res = await dummyProductDetail;
+      //console.log(productId, res.data);
+      console.log(res);
+      
       const itemProductDetail = {
         id: res.data.id,
         sku: res.data.sku,

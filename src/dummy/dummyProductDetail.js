@@ -35,18 +35,6 @@ const dummyProductDetail = {
                 "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:08.384Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
             }
         ],
         "variants": [{
@@ -194,7 +182,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300203",
                 "price": 250000,
-                "stock": 0,
+                "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -209,7 +197,7 @@ const dummyProductDetail = {
         "details": {
             "category": "Fashion Pria",
             "weight": 600,
-            "description": "Sepatu Snakers ",
+            "description": "Barang tersedia dan dirikim dari China, lama pengiriman tergantung metode pengiriman yang anda pilih,jadi sebelum anda membeli barang, harap memperhatikan detail metode pengiriman yang anda gunakan dan catat kira-kira batas waktu pengiriman yang telah diperkirakan, jangan sampai lamanya pengiriman dijadikan sebuah kesalahan penjual hanya karna pembeli tidak membaca informasi yang disediakan pada saat pembelian dengan seksama. ",
             "dimension": "20.0 x 20.0 x 20.0"
         }
     },

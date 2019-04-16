@@ -92,10 +92,10 @@ class OderDetails extends Component {
                   </Row>
                 </Col>
               </div>
-              {/* <p>{JSON.stringify(warna)}</p>
+               <p>{JSON.stringify(warna)}</p>
               <p>{JSON.stringify(ukuran)}</p>
               <p>{JSON.stringify(sku)}</p>
-              <p>{JSON.stringify(shipping)}</p> */}
+              <p>{JSON.stringify(shipping)}</p>
             </Card>
           </Col>
         </Row>

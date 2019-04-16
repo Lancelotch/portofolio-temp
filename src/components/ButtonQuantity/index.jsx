@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, Input } from "antd";
+import "./style.css";
 
 const ButtonQuantity = props => {
   return (
-    <div>
-      <Button onClick={props.incrementItem}>+</Button>
+    <React.Fragment>
+    <button className="button_quantity" onClick={props.decrementItem}>-</button>
       <Input
         maxLength={4}
         defaultValue={1}
@@ -17,9 +18,9 @@ const ButtonQuantity = props => {
         value={props.quantity}
         onChange={props.onChangeQuantity}
       />
-      <Button onClick={props.decrementItem}>-</Button>
-      <p>{props.stock}</p>
-    </div>
+      <button className="button_quantity" onClick={props.incrementItem}>+</button>
+      <p>{props.stockAlert}</p>
+    </React.Fragment>
   );
 };
 

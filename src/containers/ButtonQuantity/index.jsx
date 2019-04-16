@@ -5,7 +5,7 @@ class ButtonQuantityContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stock: this.props.stock,  
+      stock: this.props.stock,
       quantity: this.props.quantity,
       title: this.props.title,
       onChangeQuantity: this.props.quantity
@@ -32,22 +32,26 @@ class ButtonQuantityContainer extends Component {
   };
 
   checkStock = quantity => {
-      let stock = this.props.stock
-      if ( stock < quantity) {
-         alert('alert stock kurang cyiin') ;  
-         this.setState({
-             quantity : stock
-         })
-      } else if (quantity < 1) {
-          alert('coba lagi')
-      }
+    let stock = this.props.stock
+    if (stock < quantity) {
+      this.setState({
+        stockAlert:
+          "Current Stock: " +
+          stock +
+          ". Please Reduce amount of Products."
+      });
+    } else {
+      this.setState({
+        stockAlert: ""
+      });
+    }
   }
 
   onChangeQuantity = event => {
     let quantity = this.state.quantity;
     isNaN(event.target.value) === true ||
-    event.target.value === "0" ||
-    event.target.value === ""
+      event.target.value === "0" ||
+      event.target.value === ""
       ? (quantity = 1)
       : (quantity = parseInt(event.target.value));
     this.setState(
@@ -65,6 +69,7 @@ class ButtonQuantityContainer extends Component {
     return (
       <div>
         <ButtonQuantity
+          stockAlert={this.state.stockAlert}
           incrementItem={this.incrementItem}
           decrementItem={this.decrementItem}
           quantity={this.state.quantity}

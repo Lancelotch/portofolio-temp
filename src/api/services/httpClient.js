@@ -33,10 +33,10 @@ export const dummyServiceLogin = axios.create({
 export const dummyService = axios.create({
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
-  // headers: {
-  //   "Content-Type": `application/json`,
-  //   Authorization: `Bearer ${tokenDummy}`
-  // }
+  headers: {
+    "Content-Type": `application/json`,
+    Authorization: `Bearer ${tokenDummy}`
+  }
 });
 
 export const dummyServiceWithToken = axios.create({
