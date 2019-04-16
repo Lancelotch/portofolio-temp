@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import './style.sass'
 import strings from '../../localization/localization'
-import { Card, Row, Col, Divider } from 'antd'
-import { Button } from 'antd/lib/radio'
+import { Card, Row, Col, Divider, Button } from 'antd'
 import currencyRupiah from '../../library/currency'
 
 class OrderSummary extends Component {
@@ -14,9 +13,14 @@ class OrderSummary extends Component {
       viaRoutePrice: this.props.viaRoutePrice
     }
   }
+
   render () {
     const { subTotal, viaRoute, viaRoutePrice } = this.props
+    const {visible} = this.state
     const total = subTotal + viaRoutePrice
+    const productDetail = localStorage.getItem("product")
+    console.log(productDetail);
+    
     return (
       <Card title={strings.order_summary} className='card__Style'>
         <Row className='card__Content'>
@@ -43,7 +47,7 @@ class OrderSummary extends Component {
             <p className='price'>{currencyRupiah(total)}</p>
           </Col>
           <div className='ordersummary'>
-            <Button className='card__Button'>
+            <Button className='card__Button' onClick={this.props.onOrder}>
               {strings.choose_payment_methods}
             </Button>
           </div>
@@ -53,4 +57,4 @@ class OrderSummary extends Component {
   }
 }
 
-export default OrderSummary
+export default OrderSummary;

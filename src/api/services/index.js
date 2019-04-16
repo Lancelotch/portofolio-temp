@@ -11,7 +11,7 @@ import { dummyService } from "./httpClient";
           resolve(response.data);
         })
         .catch(error => {
-          reject(error.response.data);
+          reject(error.response);
         });
     });
   };
@@ -24,7 +24,7 @@ import { dummyService } from "./httpClient";
           resolve(response.data);
         })
         .catch(error => {
-          reject(error.response.data);
+          reject(error.response);
         });
     });
   }
