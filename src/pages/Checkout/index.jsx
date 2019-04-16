@@ -5,6 +5,7 @@ import { Row, Col } from "antd";
 import OrderSummary from "../../components/OrderSummary/OrderSummaryContainer";
 import strings from "../../localization/localization";
 import Address from "../Address";
+import AddAddressForm from "../../components/AddressForm/AddAddressForm";
 
 const CheckOut = props => {
   const {
@@ -15,7 +16,11 @@ const CheckOut = props => {
     warna,
     ukuran,
     onChangeQuantity,
-    onChangeShipping
+    onChangeShipping,
+    visibleAddress,
+    onCancelAddress,
+    onSubmitAddress,
+    onOrder
   } = props;
   return (
     <div className="checkout">
@@ -53,8 +58,14 @@ const CheckOut = props => {
               subTotal={totalPrice}
               viaRoutePrice={shipping.price}
               viaRoute={shipping.via}
+              onOrder={onOrder}
             />
           </Col>
+          <AddAddressForm
+            visible={visibleAddress}
+            onCancel={onCancelAddress}
+            onSubmit={onSubmitAddress}
+          />
         </Row>
       </div>
     </div>

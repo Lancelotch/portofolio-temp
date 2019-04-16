@@ -44,7 +44,7 @@ const listProductSearch = ({query,page, sortBy, direction}) => {
         resolve(response.data);
       })
       .catch(error => {
-        reject(error.response.data);
+        reject(error.response);
       });
   });
 };
@@ -92,7 +92,7 @@ const products = ({page,limit}) =>{
         resolve(response.data);
       })
       .catch(error => {
-        reject(error.response.data);
+        reject(error.response);
       });
   });
 }

@@ -33,8 +33,6 @@ class Fetcher extends Component {
   };
 
   render() {
-    console.log( this.state.loading);
-    
     const childWithProp = React.Children.map(this.props.children, child => {
       return cloneElement(child, {
         data: this.state.data,
