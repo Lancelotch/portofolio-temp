@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import Checkout from ".";
 import productDetail from "../../api/services/productDetail"; 
+import { connect } from "react-redux";
+import { addressDefault } from '../../store/actions/address';
+import { AddOrder } from "../../api/services/order";
 
-export default class CheckoutContainer extends Component {
+class CheckoutContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       price: 0,
       shipping: "",
       warna: null,
-      ukuran: null
+      ukuran: null,
+      visible: false,
+      note: ""
     };
   }
 
@@ -38,6 +43,7 @@ export default class CheckoutContainer extends Component {
       // const res = await dummyProductDetail(productId);
       console.log(res.data);
       const itemOderDetails = {
+        productId: productId,
         sku: selectedSku,
         name: res.data.name,
         size: 0,
@@ -77,6 +83,56 @@ export default class CheckoutContainer extends Component {
     });
   };
 
+  onOrder = async ()=> {
+    const {productId,shipping, warna, ukuran, sku, quantity, note} = this.state;
+    if(!this.props.isAddressAvailable){
+      this.isAddVisible();
+    }else{
+      // console.log(this.props.dataAddressDefault);
+      // console.log(this.state);
+      const customerAddressId = this.props.dataAddressDefault.id;
+      const request = {
+        customerAddressId: customerAddressId,
+        indexes: [{
+          productId: productId,
+          shippingInternationalId: shipping.id,
+          variants: [{
+            variantId: "001",
+            variantValue: "01"
+          },{
+            variantId: "002",
+            variantValue: "02"
+          }],
+          productSkuId: sku.id,
+          quantity: quantity,
+          note: note
+        }]
+      }
+      try{
+        const response = await AddOrder(request);
+        window.location.assign(response.data.redirect_url);
+        console.log(response.data.redirect_url);
+        
+      }catch(error){
+        console.log(error);
+      }
+    }
+  }
+
+  handleCancel = () => {
+    this.isAddVisible()
+  };
+
+  isAddVisible = () =>{ 
+    this.setState(prevState => ({
+      visible: !prevState.visible
+    }));
+  }
+
+  getAddressDefault = () => {
+    this.props.addressDefault();
+  };
+
   render() {
     const {
       warna,
@@ -84,12 +140,15 @@ export default class CheckoutContainer extends Component {
       quantity,
       totalPrice,
       name,
-      shipping
+      shipping,
+      visible
     } = this.state;
     const { onChangeQuantity, onChangeShipping } = {
       onChangeQuantity: this.onChangeQuantity,
       onChangeShipping: this.onChangeShipping
     };
+    console.log("state", this.state);
+    
     return (
       <React.Fragment>
         {quantity > 0 && (
@@ -102,6 +161,10 @@ export default class CheckoutContainer extends Component {
             onChangeQuantity={onChangeQuantity}
             onChangeShipping={onChangeShipping}
             shipping={shipping}
+            visibleAddress={visible}
+            onCancelAddress = {this.handleCancel}
+            onSubmitAddress = {this.getAddressDefault}
+            onOrder={this.onOrder}
           />
         )}
       </React.Fragment>
@@ -109,4 +172,12 @@ export default class CheckoutContainer extends Component {
   }
 }
 
+const mapStatetoProps = state => ({
+  dataAddressDefault: state.address.addressDefault,
+  isAddressAvailable: state.address.isAddressAvailable
+});
 
+export default connect(
+  mapStatetoProps,
+  { addressDefault }
+)(CheckoutContainer);
