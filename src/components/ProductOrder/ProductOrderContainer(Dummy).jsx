@@ -13,7 +13,7 @@ class ProductOrderContainer extends Component {
     };
   }
 
-  async componentDidMount() {
+ componentDidMount() {
     this.productOrder();
     console.log("selected shipping", this.state)
   }

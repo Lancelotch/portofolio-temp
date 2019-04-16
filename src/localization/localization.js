@@ -36,6 +36,7 @@ const strings = new LocalizedStrings({
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
     recommendation_product: 'Rekomendasi Produk',
+    virtual_account: "Virtual Account",
 
     //Best Seller
     best : "Best",
@@ -98,6 +99,11 @@ const strings = new LocalizedStrings({
     detail_product: "Detail Product",
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
+
+    //Payment Info
+    payment_info: "Info Pembayaran",
+    payment_total_amount: "Total Pembayaran",
+    payment_pay_before: "Bayar Sebelum",
 
     //footer
     footer_any_help: 'Apa yang bisa kami bantu?',
