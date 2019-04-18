@@ -8,7 +8,7 @@ import Product from '../pages/Product'
 import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
-import CheckOut from '../pages/Checkout/CheckoutContainer'
+import Checkout from '../pages/Checkout'
 import Address from '../pages/Address/'
 import CustomerNavigation from '../components/CustomerNavigation'
 
@@ -24,7 +24,7 @@ const routes = [{
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: CheckOut,
+        component: Checkout,
         layoutName: 'fullLayout'
     },
     {
