@@ -27,13 +27,6 @@ const VariantImage = (props) => {
 }
 
 const Variant = (props) => {
-    let selectedDescription = "";
-    if(props.selectedVariant !== undefined) {
-        selectedDescription = props.selectedVariant.value.description;
-    }
-    console.log("zzz", selectedDescription);
-
-    const isShowLable = props.valueIndex === 0 ? true : false;
     return (
         <Col md={24}>
             <div className="variant">

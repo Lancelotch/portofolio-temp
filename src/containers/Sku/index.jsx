@@ -9,6 +9,7 @@ class SkuContainer extends Component {
                 price: 0,
                 stock: 0,
                 variants: [],
+                selectedDescription:""
                 // selected: null,
                 // selectedSize: null
             }
@@ -105,29 +106,42 @@ class SkuContainer extends Component {
         console.log('check sku variants containers', this.state.sku.variants);
         const skuVariants = this.state.sku.variants;
 
+        let variants = [];
+        let selectedDescription = "";
+
         return (
 
             <Fragment>
-
                 {this.props.product.variants.map((variant, index) => {                                        
-                    variant.values.map((value, index) => {
-                        let isSelected = false;
-                        const selectedVariant = skuVariants.find(skuVariant => skuVariant.variantId === variant.id && skuVariant.value.id === value.id);
-                        if (selectedVariant !== undefined) {
-                            isSelected = true;
+                    return (
+                        <div>
+                        {
+                            variant.values.map((value, index) => {
+                                let isSelected = false;
+                                const selectedVariant = skuVariants.find(skuVariant => skuVariant.variantId === variant.id && skuVariant.value.id === value.id);
+                                if (selectedVariant !== undefined) {
+                                    isSelected = true;
+                                    selectedDescription = selectedVariant.value.description;
+                                }
+                                variants.push(<Variant 
+                                    isSelected={isSelected} 
+                                    value={value}
+                                    id={variant.id}
+                                    name={variant.name}
+                                    onClick={this.updateVariant}
+                                    valueIndex={index}
+                                    />
+                                );
+                            })
                         }
-                        return (
-                            <Variant 
-                            isSelected={isSelected} 
-                            value={value}
-                            id={variant.id}
-                            name={variant.name}
-                            selectedVariant={selectedVariant}
-                            onClick={this.updateVariant}
-                            valueIndex={index}
-                            />
-                        );
-                    })
+                        <span>{variant.name} : {selectedDescription}</span>
+                        {
+                            variants.map((value, index) => {
+                                return value;
+                            })
+                        }
+                        </div>
+                    )
                 })}
             </Fragment>
         );
