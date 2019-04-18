@@ -9,9 +9,7 @@ class SkuContainer extends Component {
                 price: 0,
                 stock: 0,
                 variants: [],
-                selectedDescription:""
-                // selected: null,
-                // selectedSize: null
+                selected: []
             }
         }
     }
@@ -76,6 +74,7 @@ class SkuContainer extends Component {
 
     updateVariant = (variantId, value) => {
         let skuId = "";
+        console.log("ini warna ====",value)
         this.state.sku.variants.map(variant => {
             if (variantId === variant.variantId) {
                 variant.value = value
@@ -90,59 +89,61 @@ class SkuContainer extends Component {
                 skuTmp.stock = sku.stock;
                 this.setState({
                     sku: skuTmp,
-
+                    
                 }, this.updateSku);
             }
         });
+        // let arrValue = []
+        // arrValue.push(value)
+        this.setState({selected: value})
     }
 
-   
+    updateSize = (variantId, value) => {
+        let skuId = "";
+        console.log("ini size ===", value)
+        this.state.sku.variants.map(variant => {
+            if (variantId === variant.variantId) {
+                variant.value = value
+            }
+            skuId += variant.variantId + variant.value.id;
+        });
+
+        this.props.product.sku.map(sku => {
+            if (skuId === sku.id) {
+                const skuTmp = { ...this.state.sku };
+                skuTmp.price = sku.price;
+                skuTmp.stock = sku.stock;
+                this.setState({
+                    sku: skuTmp,
+                    
+                }, this.updateSku);
+            }
+        });
+        this.setState({selectedSize: value})
+    } 
 
     convertSkuId = (variantId, valueId) => {
         return variantId + valueId
     }
 
     render() {
-        console.log('check sku variants containers', this.state.sku.variants);
-        const skuVariants = this.state.sku.variants;
-
-        let variants = [];
-        let selectedDescription = "";
-
+        // console.log('ini skuuuuuuuuuuuu', this.state.sku.variants);
         return (
 
             <Fragment>
-                {this.props.product.variants.map((variant, index) => {                                        
-                    return (
-                        <div>
-                        {
-                            variant.values.map((value, index) => {
-                                let isSelected = false;
-                                const selectedVariant = skuVariants.find(skuVariant => skuVariant.variantId === variant.id && skuVariant.value.id === value.id);
-                                if (selectedVariant !== undefined) {
-                                    isSelected = true;
-                                    selectedDescription = selectedVariant.value.description;
-                                }
-                                variants.push(<Variant 
-                                    isSelected={isSelected} 
-                                    value={value}
-                                    id={variant.id}
-                                    name={variant.name}
-                                    onClick={this.updateVariant}
-                                    valueIndex={index}
-                                    />
-                                );
-                            })
-                        }
-                        <span>{variant.name} : {selectedDescription}</span>
-                        {
-                            variants.map((value, index) => {
-                                return value;
-                            })
-                        }
-                        </div>
-                    )
-                })}
+                {this.props.product.variants.map((variant, index) => (
+                    <Variant
+                        {...variant}
+                        sku={this.state.sku}
+                        key={variant.id}
+                        selected={this.state.selected}
+                        index={index}
+                        onClick={this.updateVariant} 
+                        onClickSize={this.updateSize}
+                        selectedSize={this.state.selectedSize}   
+                        />
+                       
+                ))}
             </Fragment>
         );
     }
