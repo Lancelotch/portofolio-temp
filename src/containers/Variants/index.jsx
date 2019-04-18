@@ -11,7 +11,7 @@ class VariantsContainer extends Component {
     checkSmallestPrice = (product) =>{
          const listSku = product.sku;
          const smallestPrice = listSku.reduce(this.skuSmallestPrice, listSku[0]);
-         console.log("pasti", smallestPrice);
+        //  console.log("pasti", smallestPrice);
          return smallestPrice;
     }
 
@@ -31,7 +31,6 @@ class VariantsContainer extends Component {
 
     render() {
         const listSku = this.props.product.sku
-        console.log(this.props.product)
         return (
             <Fragment>
                 {this.props.product.variants.map((variant,index) => (

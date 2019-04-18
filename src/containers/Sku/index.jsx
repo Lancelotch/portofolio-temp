@@ -9,7 +9,8 @@ class SkuContainer extends Component {
                 price: 0,
                 stock: 0,
                 variants: [],
-                selected: null
+                // selected: null,
+                // selectedSize: null
             }
         }
     }
@@ -35,6 +36,7 @@ class SkuContainer extends Component {
         const manyVariants = skuId.length / lenPerVariant;
 
         let sku = {
+            id: skuId,
             price: skuSmallestPrice.price,
             variants: [],
             stock: skuSmallestPrice.stock
@@ -67,7 +69,7 @@ class SkuContainer extends Component {
 
     updateSku = () => {
         this.props.actionUpdateSku(this.state.sku);
-        console.log("tes");
+        // console.log("tes", this.state.sku);
 
     }
 
@@ -87,59 +89,46 @@ class SkuContainer extends Component {
                 skuTmp.stock = sku.stock;
                 this.setState({
                     sku: skuTmp,
-                    
+
                 }, this.updateSku);
             }
         });
-        this.setState({selected: value})
     }
 
-    updateSize = (variantId, value) => {
-        let skuId = "";
-        this.state.sku.variants.map(variant => {
-            if (variantId === variant.variantId) {
-                variant.value = value
-            }
-            skuId += variant.variantId + variant.value.id;
-        });
-
-        this.props.product.sku.map(sku => {
-            if (skuId === sku.id) {
-                const skuTmp = { ...this.state.sku };
-                skuTmp.price = sku.price;
-                skuTmp.stock = sku.stock;
-                this.setState({
-                    sku: skuTmp,
-                    
-                }, this.updateSku);
-            }
-        });
-        this.setState({selectedSize: value})
-    } 
+   
 
     convertSkuId = (variantId, valueId) => {
         return variantId + valueId
     }
 
     render() {
-        console.log('ini skuuuuuuuuuuuu', this.state.sku.variants);
+        console.log('check sku variants containers', this.state.sku.variants);
+        const skuVariants = this.state.sku.variants;
 
         return (
 
             <Fragment>
-                {this.props.product.variants.map((variant, index) => (
-                    <Variant
-                        {...variant}
-                        sku={this.state.sku}
-                        key={variant.id}
-                        selected={this.state.selected}
-                        index={index}
-                        onClick={this.updateVariant} 
-                        onClickSize={this.updateSize}
-                        selectedSize={this.state.selectedSize}   
-                        />
-                       
-                ))}
+
+                {this.props.product.variants.map((variant, index) => {                                        
+                    variant.values.map((value, index) => {
+                        let isSelected = false;
+                        const selectedVariant = skuVariants.find(skuVariant => skuVariant.variantId === variant.id && skuVariant.value.id === value.id);
+                        if (selectedVariant !== undefined) {
+                            isSelected = true;
+                        }
+                        return (
+                            <Variant 
+                            isSelected={isSelected} 
+                            value={value}
+                            id={variant.id}
+                            name={variant.name}
+                            selectedVariant={selectedVariant}
+                            onClick={this.updateVariant}
+                            valueIndex={index}
+                            />
+                        );
+                    })
+                })}
             </Fragment>
         );
     }

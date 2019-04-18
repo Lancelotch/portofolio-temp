@@ -22,6 +22,8 @@ class ProductDetail extends Component {
       isProductAvailable: false,
       images: [],
       details: [],
+      note: null,
+      shippingInternationalId: null,
       data: {
         quantity: 1,
         sku: {},
@@ -41,7 +43,6 @@ class ProductDetail extends Component {
   };
 
   actionUpdateQuantity = quantity => {
-    console.log("ini button quantity", quantity);
     const data = { ...this.state.data, quantity };
     this.setState(
       { data }, this.actionSubmitToCheckout);
@@ -53,20 +54,24 @@ class ProductDetail extends Component {
 
   actionSubmitToCheckout = event => {
     // event.prevenDefault();
-    const quantity = this.state.data.quantity
-    const { id } = this.state
-    const data = {
+    // console.log(this.state)
+    const { 
+      id, 
+      shippingInternationalId,
+      note,
+      data
+    } = this.state
+    
+    const indexes = {
       productId: id,
-      quantity,
-
+      quantity: data.quantity,
+      shippingInternationalId,
+      variants: data.sku.variants,
+      productSkuId: data.sku.id,
+      note
     }
-    const indexes = JSON.stringify(data);
-    console.log('localstorageeeeeeeeeee', indexes);
-    console.log(this.state.data.sku);
-
-
-    localStorage.setItem = ("product", indexes)
-    console.log(this.state.data);
+    const indexesToLocalstorage = JSON.stringify(indexes);
+    localStorage.setItem("product", indexesToLocalstorage);
   };
 
   getProductDetail = async () => {
@@ -93,7 +98,9 @@ class ProductDetail extends Component {
     //   if(this.state.data.sku.variants){
     //     console.log(this.state.data.sku.variants[0].value.image);
     //   }
-    console.log('detailsss=product', this.state.details);
+    // console.log('detailsss', this.state.details, this.state.data);
+    // console.log('product', this.state.product)
+    // console.log('data', this.state.data)
 
     return (
       <React.Fragment>
@@ -112,6 +119,7 @@ class ProductDetail extends Component {
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
                       actionUpdateImages={this.actionUpdateImages}
+                      defaultValueSku={this.state.data.sku}
                     />
                     <ButtonQuantityContainer
                       stock={this.state.data.sku.stock}

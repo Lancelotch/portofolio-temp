@@ -9,19 +9,27 @@
     background: red;
 }
 
-.box-variant {
+.variant-image-wrapper {
     border: 1px solid #D9D9D9;
     border-radius: 2px;
     padding: 20px;
     margin-left: 10px
 }
 
-.box-variant-text p {
-    display: unset;
-    margin-left: 10px;
-    padding: 5px;
+.box-variant {
     border: 1px solid #D9D9D9;
     border-radius: 2px;
+    margin-left: 10px;
+    display: inline-flex;
+
+}
+
+.box-variant-text {
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
+    margin-left: 10px;
+    display: inline-flex;
+   
 }
 
 .variant {
