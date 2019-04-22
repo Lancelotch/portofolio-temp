@@ -19,6 +19,8 @@ const VariantText = (props) => {
         selected: props.selected,
         infoStockEmpty: props.sku.stock
     }
+    console.log('infostocoooook',infoStockEmpty);
+    
 
     if (!selected) {
         const variantSize = props.sku.variants.filter(variant => variant.variantName === props.name)[0]

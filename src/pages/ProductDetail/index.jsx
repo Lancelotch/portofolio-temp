@@ -1,21 +1,24 @@
 import React, { Component } from "react";
-// import SliderProductDetailContainer from '../../containers/SliderProductDetail';
 import productDetail from "../../api/services/productDetail";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import SkuContainer from "../../containers/Sku";
 import dummyProductDetail from "../../dummy/dummyProductDetail";
+import { Redirect } from "react-router-dom";
 import ButtonQuantityContainer from "../../containers/ButtonQuantity";
 import { Row, Col, Card } from "antd";
 import currencyRupiah from "../../library/currency";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
+import { connect } from "react-redux";
 import "./style.sass";
 
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      changeCheckout: false,
+      open: false,
       id: "",
       name: "",
       product: {},
@@ -26,7 +29,7 @@ class ProductDetail extends Component {
       shippingInternationalId: null,
       data: {
         quantity: 1,
-        sku: {},
+        sku: 0,
         price: 0
       }
     };
@@ -52,9 +55,19 @@ class ProductDetail extends Component {
     console.log(image);
   }
 
-  actionSubmitToCheckout = event => {
-    // event.prevenDefault();
-    // console.log(this.state)
+  redirectLogin() {
+    this.setState({
+      open: true
+    });
+  }
+
+  redirectCheckout() {
+    this.setState({
+      changeCheckout: true
+    });
+  }
+
+  actionSubmitToCheckout = () => {
     const { 
       id, 
       shippingInternationalId,
@@ -71,7 +84,13 @@ class ProductDetail extends Component {
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
+    console.log('localstoraaaaage',indexesToLocalstorage)
     localStorage.setItem("product", indexesToLocalstorage);
+    // if (this.props.isAuthenticated !== null) {
+    //   this.redirectCheckout();
+    // } else {
+    //   this.redirectLogin();
+    // }
   };
 
   getProductDetail = async () => {
@@ -101,6 +120,8 @@ class ProductDetail extends Component {
     // console.log('detailsss', this.state.details, this.state.data);
     // console.log('product', this.state.product)
     // console.log('data', this.state.data)
+    console.log('',this.state.open);
+    
 
     return (
       <React.Fragment>
@@ -147,6 +168,8 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
+            {this.state.open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
+            {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
       </React.Fragment>
@@ -154,4 +177,9 @@ class ProductDetail extends Component {
   }
 }
 
-export default ProductDetail;
+const mapStateToProps = state => ({
+  isAuthenticated: state.authentication.isAuthenticated,
+  token: state.authentication.token
+});
+
+export default  connect(mapStateToProps)(ProductDetail);
