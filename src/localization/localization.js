@@ -17,6 +17,7 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    stock_empty: 'Stock Kosong',
     before_pay: 'Bayar Sebelum',
     total_payment: 'Total Pembayaran',
     log_in: 'Log In',
