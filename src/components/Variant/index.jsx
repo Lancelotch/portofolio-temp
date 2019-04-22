@@ -1,11 +1,12 @@
 import React from 'react';
 import { Tooltip, Col } from "antd";
 import "./Variant.css";
+import strings from "../../localization/localization.js"
 
 
 const checkVariant = (variantId, valueid, selectedId) => {
     const id = variantId + valueid
-    var check = function(element) {
+    var check = function (element) {
         return element === id
     }
     let statusSelected = selectedId.some(check)
@@ -13,9 +14,14 @@ const checkVariant = (variantId, valueid, selectedId) => {
 }
 
 const VariantText = (props) => {
-    let selected = props.selected
-    if(!selected){
-        const variantSize = props.sku.variants.filter( variant => variant.variantName === props.name)[0]    
+    let { infoStockEmpty, selected } =
+    {
+        selected: props.selected,
+        infoStockEmpty: props.sku.stock
+    }
+
+    if (!selected) {
+        const variantSize = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantSize && variantSize.value
         variantSize && props.onClick(selected.id, selected, props.name)
     };
@@ -28,35 +34,46 @@ const VariantText = (props) => {
         <React.Fragment>
             <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)}</p>
             {props.values.map(value => (
-                <div className={props.selected && (checkVariant(props.id,value.id,selected)  ? "box-variant active" : "box-variant")}>
-                    <p onClick={() => props.onClick(props.id, value,props.name)} key={value.id}>{value.name}</p>
-                </div>
+                <Tooltip title={infoStockEmpty === 0 ?
+                    <p>{strings.stock_empty}</p>
+                    : value.description} key={value.id}>
+                    <div onClick={infoStockEmpty === 0 ? null :
+                        (() => props.onClick(props.id, value, props.name))}
+                        key={value.id}
+                        style={infoStockEmpty === 0 ? disabled : null}
+                        className={props.selected && (checkVariant(props.id, value.id, selected) ?
+                            "box-variant active" : "box-variant")}>
+                        <p>{value.name}</p>
+                    </div>
+                </Tooltip>
             ))}
         </React.Fragment>
     )
 }
 
 const VariantImage = (props) => {
-    let selected = props.selected    
-    if(!selected){
-        const variantWarna = props.sku.variants.filter( variant => variant.variantName === props.name)[0]
+    let selected = props.selected
+    if (!selected) {
+        const variantWarna = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantWarna && variantWarna.value
         variantWarna && props.onClick(selected.id, selected, props.name)
     }
-    console.log("ini selected brother",selected)
+    console.log("ini selected brother", selected)
     // checkVariant("1","2",["3"])
     return (
-        
+
         <React.Fragment>
-   
             {props.sku.variants[0] && (
-                <p>{props.name}: {props.sku.variants[0].value.description}</p>
+                <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)} :
+                &nbsp;
+                {props.sku.variants[0].value.description.charAt(0).toUpperCase() + 
+                    props.sku.variants[0].value.description.substring(1)}</p>
             )}
-            {props.values.map(value => ( 
-                    <div className={props.selected && (checkVariant(props.id,value.id,selected) ? "box-variant active" : "box-variant")} >
-                        <img onClick={() => props.onClick(props.id, value, props.name)} className="variant_image" src={value.image.small} key={value.id} alt="" />
-                    </div>
-                ))
+            {props.values.map(value => (
+                <div onClick={() => props.onClick(props.id, value, props.name)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
+                    <img className="variant_image" src={value.image.small} alt="" />
+                </div>
+            ))
             }
         </React.Fragment>
     )
