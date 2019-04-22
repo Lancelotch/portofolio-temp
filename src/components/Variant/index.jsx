@@ -29,7 +29,6 @@ const VariantText = (props) => {
         border: "1px solid #eee",
         backgroundColor: "#bdc3c7"
     }
-    console.log('props on kliiiik', props.onClick);
     return (
         <React.Fragment>
             <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)}</p>
@@ -67,7 +66,7 @@ const VariantImage = (props) => {
                 <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)} :
                 &nbsp;
                 {props.sku.variants[0].value.description.charAt(0).toUpperCase() + 
-                    props.sku.variants[0].value.description.substring(1)}</p>
+                 props.sku.variants[0].value.description.substring(1)}</p>
             )}
             {props.values.map(value => (
                 <div onClick={() => props.onClick(props.id, value, props.name)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >

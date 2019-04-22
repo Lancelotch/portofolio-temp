@@ -68,12 +68,10 @@ class SkuContainer extends Component {
         this.setState({
             sku: sku
         }, this.updateSku);
-        // console.log("ini init sku", sku)
     }
 
     updateSku = () => {
         this.props.actionUpdateSku(this.state.sku);
-        console.log("qqqqqq",this.state.sku);
     }
 
     updateVariant = (variantId, value, name) => {
@@ -85,7 +83,6 @@ class SkuContainer extends Component {
                 variant.value = value
             }
             skuId += variant.variantId + variant.value.id;
-            // console.log("ini id", skuId)
             id = variant.variantId + variant.value.id;
             arr.push(id)
         });
@@ -101,43 +98,15 @@ class SkuContainer extends Component {
                 }, this.updateSku);
             }
         });
-        // let check = {...this.state.selected, value}
         value.variantName = name
-        this.setState({selected: arr,value
-        })
-        // this.setState({check})
-        // console.log(this.state.arr)
+        this.setState({selected: arr})
     }
-
-    updateSize = (variantId, value) => {
-        let skuId = "";
-        this.state.sku.variants.map(variant => {
-            if (variantId === variant.variantId) {
-                variant.value = value
-            }
-            skuId += variant.variantId + variant.value.id;
-        });
-
-        this.props.product.sku.map(sku => {
-            if (skuId === sku.id) {
-                const skuTmp = { ...this.state.sku };
-                skuTmp.price = sku.price;
-                skuTmp.stock = sku.stock;
-                this.setState({
-                    sku: skuTmp,
-                    
-                }, this.updateSku);
-            }
-        });
-        this.setState({selectedSize: value})
-    } 
 
     convertSkuId = (variantId, valueId) => {
         return variantId + valueId
     }
 
     render() {
-        // console.log("xxxx",this.props.product.variants)
         return (
             <Fragment>
                 {this.props.product.variants.map((variant, index) => (
@@ -146,10 +115,8 @@ class SkuContainer extends Component {
                         sku={this.state.sku}
                         key={variant.id}
                         selected={this.state.selected}
-                        selectedText={this.state.selectedText} 
                         index={index}
-                        onClick={this.updateVariant} 
-                        // onClickSize={this.updateSize}  
+                        onClick={this.updateVariant}  
                         />
                        
                 ))}
