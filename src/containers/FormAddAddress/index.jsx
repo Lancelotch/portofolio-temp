@@ -8,7 +8,7 @@ import { getService } from "../../api/services";
 
 const { Option } = Select;
 const { TextArea } = Input;
-class FormAddress extends Component {
+class FormAddAddress extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,16 +61,6 @@ class FormAddress extends Component {
       console.log(error);
     }
   }
-
-  addAddressForm = request => {
-    postAddressForm(request)
-      .then(response => {
-        this.props.onSubmit();
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
 
   splitValue = (value) => {
     const splitValue = value.split("|");
@@ -147,36 +137,26 @@ class FormAddress extends Component {
     return options;
   };
 
-  handleReset = () => {
-    this.props.form.resetFields();
-  };
-
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const provinceId = this.state.provinceId;
-        const province = this.splitValue(values.province, 1);
-        const cityId = this.state.cityId;
-        const city = this.splitValue(values.city, 1);
-        const subdistrictId = this.state.subdistrictId;
-        const subdistrict = this.splitValue(values.subdistrict, 1);
+        const {province, provinceId, city, cityId, subdistrict, subdistrictId} = this.state;
         const payload = {
           ...values,
-          province,
-          provinceId,
-          cityId,
-          city,
-          subdistrict,
-          subdistrictId,
+          provinceId,province,
+          cityId,city,
+          subdistrictId,subdistrict,
           geolocation: {
             latitude: 0,
             longitude: 0
           },
           isDefault: true
         };
-        this.addAddressForm(payload);
-        this.props.onCancle();
+        console.log(payload);
+        this.props.onSubmit(payload);
+        this.props.form.resetFields();
+        //this.props.onCancle();
       }
     });
   };
@@ -206,7 +186,7 @@ class FormAddress extends Component {
       <Modal
         title="Tambah Alamat Baru"
         visible={this.props.visible}
-        onOk={this.handleOk}
+        onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
         footer={[
           <Button key="back" onClick={this.props.onCancle}>
@@ -287,7 +267,7 @@ class FormAddress extends Component {
             <Col span={16}>
               <Form.Item label="Kecamatan">
               {getFieldDecorator(
-              "kecamatan",
+              "subdistrict",
               this.rules(true, "Silahkan pilih alamat kecamatan kamu")
             )(
               <Select
@@ -295,7 +275,7 @@ class FormAddress extends Component {
                 //style={{ width: 200 }}
                 placeholder="pilih kecamatan"
                 optionFilterProp="children"
-                onChange={value => this.handleChangeCity(value)}
+                onChange={value => this.handleChangeSubDistrict(value)}
                 filterOption={(input, option) =>
                   option.props.children
                     .toLowerCase()
@@ -332,5 +312,5 @@ class FormAddress extends Component {
     );
   }
 }
-const WrappedAddressForm = Form.create({ name: "addressForm" })(FormAddress);
+const WrappedAddressForm = Form.create({ name: "addressForm" })(FormAddAddress);
 export default withApiMethod(WrappedAddressForm);

@@ -9,7 +9,6 @@ import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import Checkout from '../pages/Checkout'
-import Address from '../pages/Address/'
 import CustomerNavigation from '../components/CustomerNavigation'
 
 const routes = [{
@@ -67,9 +66,6 @@ const routes = [{
         component: Example
     },
     {
-        path: '/address',
-        component:Address        
-    },{
     path: '/customer-navigation',
     component: CustomerNavigation
     }
