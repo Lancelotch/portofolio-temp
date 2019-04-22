@@ -3,20 +3,12 @@
     height: 40px;
 }
 
-.variant-image-wrapper {
-    border: 1px solid #D9D9D9;
-    border-radius: 2px;
-    padding: 20px;
-    margin-left: 10px
-}
-
 .box-variant {
     border: 1px solid #D9D9D9;
     border-radius: 2px;
     margin-left: 10px;
     display: inline-flex;
     padding: 15px;
-
 }
 
 .variant {
