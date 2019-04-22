@@ -10,7 +10,7 @@ class SkuContainer extends Component {
                 stock: 0,
                 variants: [],
                 selected: null,
-                selectedSize: null
+                selectedText: null
             }
         }
     }
@@ -111,7 +111,7 @@ class SkuContainer extends Component {
                         sku={this.state.sku}
                         key={variant.id}
                         selected={this.state.selected}
-                        selectedSize={this.state.selectedSize} 
+                        selectedText={this.state.selectedText} 
                         index={index}
                         onClick={this.updateVariant} 
                         // onClickSize={this.updateSize}  
