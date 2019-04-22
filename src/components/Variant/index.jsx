@@ -1,20 +1,23 @@
 import React from 'react';
 import { Tooltip, Col } from "antd";
 import "./Variant.css";
-import strings from "../../localization/localization";
+
+
+const checkVariant = (variantId, valueid, selectedId) => {
+    const id = variantId + valueid
+    var check = function(element) {
+        return element === id
+    }
+    let statusSelected = selectedId.some(check)
+    return statusSelected
+}
 
 const VariantText = (props) => {
-    console.log('log props text', props.name);
-
-    let { selectedText, infoStockEmpty } =
-    {
-        selectedText: props.selectedText,
-        infoStockEmpty: props.sku.stock
-    }
-    if (!selectedText) {
-        const variantText = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
-        selectedText = variantText && variantText.value
-        variantText && props.onClick('selectedText', selectedText.id, selectedText)
+    let selected = props.selected
+    if(!selected){
+        const variantSize = props.sku.variants.filter( variant => variant.variantName === props.name)[0]    
+        selected = variantSize && variantSize.value
+        variantSize && props.onClick(selected.id, selected, props.name)
     };
     let disabled = {
         border: "1px solid #eee",
@@ -25,43 +28,36 @@ const VariantText = (props) => {
         <React.Fragment>
             <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)}</p>
             {props.values.map(value => (
-                <Tooltip title={infoStockEmpty === 0 ?
-                    <p>{strings.stock_empty}</p>
-                    : value.description} key={value.id}>
-                    <div onClick={infoStockEmpty === 0 ? null : (() => props.onClick('selectedText', props.id, value))}
-                        style={infoStockEmpty === 0 ? disabled : null} className={props.selectedText &&
-                            (selectedText.id === value.id ? "box-variant active" : "box-variant")}>
-                        <p>{value.name}</p>
-                    </div>
-                </Tooltip>
+                <div className={props.selected && (checkVariant(props.id,value.id,selected)  ? "box-variant active" : "box-variant")}>
+                    <p onClick={() => props.onClick(props.id, value,props.name)} key={value.id}>{value.name}</p>
+                </div>
             ))}
         </React.Fragment>
     )
 }
 
 const VariantImage = (props) => {
-    console.log('log props warna', props.name);
-    let selected = props.selected
-    console.log("=====", selected)
-    if (!selected) {
-        const variantImage = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
-        selected = variantImage && variantImage.value
-        variantImage && props.onClick('selected', selected.id, selected)
-        console.log('ini variant', variantImage);
+    let selected = props.selected    
+    if(!selected){
+        const variantWarna = props.sku.variants.filter( variant => variant.variantName === props.name)[0]
+        selected = variantWarna && variantWarna.value
+        variantWarna && props.onClick(selected.id, selected, props.name)
     }
+    console.log("ini selected brother",selected)
+    // checkVariant("1","2",["3"])
     return (
+        
         <React.Fragment>
-            {selected && (
-                <p>{props.name.charAt(0).toUpperCase()
-                    + props.name.substring(1)} : {selected.name.charAt(0).toUpperCase()
-                        + selected.name.substring(1)}
-                </p>
+   
+            {props.sku.variants[0] && (
+                <p>{props.name}: {props.sku.variants[0].value.description}</p>
             )}
-            {props.values.map(value => (
-                <div key={value.id} onClick={() => props.onClick(props.id, value.id, props.name)} className={props.selected && (props.selected.id === value.id ? "box-variant active" : "box-variant")} >
-                    <img className="variant_image" src={value.image.small} alt="" />
-                </div>
-            ))}
+            {props.values.map(value => ( 
+                    <div className={props.selected && (checkVariant(props.id,value.id,selected) ? "box-variant active" : "box-variant")} >
+                        <img onClick={() => props.onClick(props.id, value, props.name)} className="variant_image" src={value.image.small} key={value.id} alt="" />
+                    </div>
+                ))
+            }
         </React.Fragment>
     )
 }
