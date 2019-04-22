@@ -3,20 +3,27 @@ import { Tooltip, Col } from "antd";
 import "./Variant.css";
 import { select } from '@redux-saga/core/effects';
 
+const checkVariant = (variantId, valueid, selectedId) => {
+    const id = variantId + valueid
+    var check = function(element) {
+        return element === id
+    }
+    let statusSelected = selectedId.some(check)
+    return statusSelected
+}
+
 const VariantText = (props) => {
-    let selectedSize = props.selectedSize
-    if(!selectedSize){
-        // console.log("==========================props sku", props.sku.variants)
-        const variantSize = props.sku.variants.filter( variant => variant.variantName === 'ukuran')[0]
-       
-        selectedSize = variantSize && variantSize.value
-        variantSize && props.onClickSize(selectedSize.id, selectedSize)
+    let selected = props.selected
+    if(!selected){
+        const variantSize = props.sku.variants.filter( variant => variant.variantName === props.name)[0]    
+        selected = variantSize && variantSize.value
+        variantSize && props.onClick(selected.id, selected, props.name)
     };
     return (
         <React.Fragment>
             {props.values.map(value => (
-                <div className={props.selectedSize && (selectedSize.id === value.id ? "box-variant-text active" : "box-variant-text")}>
-                    <p onClick={() => props.onClick(props.id, value)} key={value.id}>{value.name}</p>
+                <div className={props.selected && (checkVariant(props.id,value.id,selected)  ? "box-variant active" : "box-variant")}>
+                    <p onClick={() => props.onClick(props.id, value,props.name)} key={value.id}>{value.name}</p>
                 </div>
             ))}
         </React.Fragment>
@@ -24,25 +31,24 @@ const VariantText = (props) => {
 }
 
 const VariantImage = (props) => {
-    let selected = props.selected
+    let selected = props.selected    
     if(!selected){
-        const variantWarna = props.sku.variants.filter( variant => variant.variantName === 'warna')[0]
+        const variantWarna = props.sku.variants.filter( variant => variant.variantName === props.name)[0]
         selected = variantWarna && variantWarna.value
-        variantWarna && props.onClick(selected.id, selected)
+        variantWarna && props.onClick(selected.id, selected, props.name)
     }
-    props.values.map(value => {
-        value.selected = false
-    })
-
+    console.log("ini selected brother",selected)
+    // checkVariant("1","2",["3"])
     return (
+        
         <React.Fragment>
+   
             {props.sku.variants[0] && (
-                <p>Warna: {selected.name}</p>
+                <p>{props.name}: {selected.description}</p>
             )}
-            {props.values.map(value => (
-                    <div className={props.selected && (value.selected? "box-variant active" : "box-variant")} >
-      
-                        <img onClick={() => props.onClick(props.id, value)} className="variant_image" src={value.image.small} key={value.id} alt="" />
+            {props.values.map(value => ( 
+                    <div className={props.selected && (checkVariant(props.id,value.id,selected) ? "box-variant active" : "box-variant")} >
+                        <img onClick={() => props.onClick(props.id, value, props.name)} className="variant_image" src={value.image.small} key={value.id} alt="" />
                     </div>
                 ))
             }

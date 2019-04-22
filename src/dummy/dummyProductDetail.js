@@ -45,6 +45,7 @@ const dummyProductDetail = {
                         "id": "01",
                         "name": "biru",
                         "description": "warna biru",
+                       
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -55,6 +56,7 @@ const dummyProductDetail = {
                         "id": "02",
                         "name": "oren",
                         "description": "warna oren",
+                       
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -65,6 +67,7 @@ const dummyProductDetail = {
                         "id": "03",
                         "name": "oren",
                         "description": "warna oren",
+                     
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -75,6 +78,7 @@ const dummyProductDetail = {
                         "id": "04",
                         "name": "hitam",
                         "description": "warna hitam",
+                       
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -89,21 +93,25 @@ const dummyProductDetail = {
                 "values": [{
                         "id": "01",
                         "name": "23",
+                       
                         "description": "ukuran 23"
                     },
                     {
                         "id": "02",
                         "name": "24",
+                        
                         "description": "ukuran 24"
                     },
                     {
                         "id": "03",
                         "name": "25",
+                       
                         "description": "ukuran 25"
                     },
                     {
                         "id": "04",
                         "name": "26",
+                       
                         "description": "ukuran 26"
                     }
                 ]
