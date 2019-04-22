@@ -52,9 +52,7 @@ class SliderProductDetailContainer extends Component {
   }
 
   imageViewer() {
-    const images = [{ src: this.state.original }];
-    console.log(images);
-    
+    const images = [{ src: this.state.original }];  
     this.props.images.map(productImage => {
       return images.push({
         src: productImage.large

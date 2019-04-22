@@ -33,7 +33,6 @@ class SkuContainer extends Component {
         const skuId = skuSmallestPrice.id;
         const lenPerVariant = 5;
         const manyVariants = skuId.length / lenPerVariant;
-
         let sku = {
             id: skuId,
             price: skuSmallestPrice.price,
@@ -68,11 +67,9 @@ class SkuContainer extends Component {
 
     updateSku = () => {
         this.props.actionUpdateSku(this.state.sku);
-        // console.log("tes", this.state.sku);
-
     }
 
-    updateVariant = (variantId, value) => {
+    updateVariant = (variantId, value,selected) => {
         let skuId = "";
         console.log("ini warna ====",value)
         this.state.sku.variants.map(variant => {
@@ -93,8 +90,6 @@ class SkuContainer extends Component {
                 }, this.updateSku);
             }
         });
-        // let arrValue = []
-        // arrValue.push(value)
         this.setState({selected: value})
     }
 
@@ -113,9 +108,9 @@ class SkuContainer extends Component {
                 const skuTmp = { ...this.state.sku };
                 skuTmp.price = sku.price;
                 skuTmp.stock = sku.stock;
+                
                 this.setState({
-                    sku: skuTmp,
-                    
+                    sku: skuTmp,            
                 }, this.updateSku);
             }
         });
@@ -127,9 +122,7 @@ class SkuContainer extends Component {
     }
 
     render() {
-        // console.log('ini skuuuuuuuuuuuu', this.state.sku.variants);
         return (
-
             <Fragment>
                 {this.props.product.variants.map((variant, index) => (
                     <Variant
@@ -141,8 +134,7 @@ class SkuContainer extends Component {
                         onClick={this.updateVariant} 
                         onClickSize={this.updateSize}
                         selectedSize={this.state.selectedSize}   
-                        />
-                       
+                        />                  
                 ))}
             </Fragment>
         );
