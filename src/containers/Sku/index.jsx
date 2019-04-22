@@ -73,15 +73,15 @@ class SkuContainer extends Component {
     }
 
     updateVariant = (variantId, value) => {
+        value.selected = true
+        console.log(value)
         let skuId = "";
-        console.log("ini warna ====",value)
         this.state.sku.variants.map(variant => {
             if (variantId === variant.variantId) {
                 variant.value = value
             }
             skuId += variant.variantId + variant.value.id;
         });
-
         this.props.product.sku.map(sku => {
             if (skuId === sku.id) {
                 const skuTmp = { ...this.state.sku };
@@ -93,14 +93,11 @@ class SkuContainer extends Component {
                 }, this.updateSku);
             }
         });
-        // let arrValue = []
-        // arrValue.push(value)
         this.setState({selected: value})
     }
 
     updateSize = (variantId, value) => {
         let skuId = "";
-        console.log("ini size ===", value)
         this.state.sku.variants.map(variant => {
             if (variantId === variant.variantId) {
                 variant.value = value
@@ -127,9 +124,7 @@ class SkuContainer extends Component {
     }
 
     render() {
-        // console.log('ini skuuuuuuuuuuuu', this.state.sku.variants);
         return (
-
             <Fragment>
                 {this.props.product.variants.map((variant, index) => (
                     <Variant

@@ -16,7 +16,7 @@ const VariantText = (props) => {
         <React.Fragment>
             {props.values.map(value => (
                 <div className={props.selectedSize && (selectedSize.id === value.id ? "box-variant-text active" : "box-variant-text")}>
-                    <p onClick={() => props.onClickSize(props.id, value)} key={value.id}>{value.name}</p>
+                    <p onClick={() => props.onClick(props.id, value)} key={value.id}>{value.name}</p>
                 </div>
             ))}
         </React.Fragment>
@@ -25,12 +25,14 @@ const VariantText = (props) => {
 
 const VariantImage = (props) => {
     let selected = props.selected
-    console.log("=====" ,selected)
     if(!selected){
         const variantWarna = props.sku.variants.filter( variant => variant.variantName === 'warna')[0]
         selected = variantWarna && variantWarna.value
         variantWarna && props.onClick(selected.id, selected)
     }
+    props.values.map(value => {
+        value.selected = false
+    })
 
     return (
         <React.Fragment>
@@ -38,7 +40,8 @@ const VariantImage = (props) => {
                 <p>Warna: {selected.name}</p>
             )}
             {props.values.map(value => (
-                    <div className={props.selected && (props.selected.id === value.id ? "box-variant active" : "box-variant")} >
+                    <div className={props.selected && (value.selected? "box-variant active" : "box-variant")} >
+      
                         <img onClick={() => props.onClick(props.id, value)} className="variant_image" src={value.image.small} key={value.id} alt="" />
                     </div>
                 ))
