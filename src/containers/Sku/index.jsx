@@ -46,6 +46,8 @@ class SkuContainer extends Component {
             const variantId = variantData.substring(0, 3);
             const valueId = variantData.substring(3, 5);
             const variantFromProduct = this.props.product.variants.find(variant => variant.id === variantId);
+            console.log("variantFromProduct", variantFromProduct);
+            
             const variantValueFromProduct = variantFromProduct.values.find(value => value.id === valueId);
             const variantName = variantFromProduct.name;
             const valueName = variantValueFromProduct.name;

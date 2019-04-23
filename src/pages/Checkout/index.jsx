@@ -1,75 +1,114 @@
-import React from "react";
-import OrderDetailsContainer from "../../components/OrderDetails/OrderDetailsContainer";
-import "./style.sass";
-import { Row, Col } from "antd";
-import OrderSummary from "../../components/OrderSummary/OrderSummaryContainer";
-import strings from "../../localization/localization";
-import Address from "../Address";
-import AddAddressForm from "../../components/AddressForm/AddAddressForm";
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import FormAddAddress from "../../containers/FormAddAddress";
 
-const CheckOut = props => {
-  const {
-    totalPrice,
-    shipping,
-    name,
-    quantity,
-    warna,
-    ukuran,
-    onChangeQuantity,
-    onChangeShipping,
-    visibleAddress,
-    onCancelAddress,
-    onSubmitAddress,
-    onOrder
-  } = props;
-  return (
-    <div className="checkout">
-      <div className="container">
-        <Row>
-          <Col md={5}>
-            <a href="/">
-              <img
-                src={require("assets/img/monggopesen_logo.png")}
-                className="header__logo"
-                alt=""
-              />
-            </a>
-          </Col>
-          <Col md={15}>
-            <p className="checkout__text">{strings.checkout}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={15}>
-            <Address />
-            <OrderDetailsContainer
-              warna={warna}
-              ukuran={ukuran}
-              name={name}
-              quantity={quantity}
-              totalPrice={totalPrice}
-              onChangeQuantity={onChangeQuantity}
-              onChangeShipping={onChangeShipping}
-              shipping={shipping}
-            />
-          </Col>
-          <Col md={9}>
-            <OrderSummary
-              subTotal={totalPrice}
-              viaRoutePrice={shipping.price}
-              viaRoute={shipping.via}
-              onOrder={onOrder}
-            />
-          </Col>
-          <AddAddressForm
-            visible={visibleAddress}
-            onCancel={onCancelAddress}
-            onSubmit={onSubmitAddress}
-          />
-        </Row>
-      </div>
-    </div>
-  );
-};
+import { addressDefault } from "../../store/actions/address";
+import { postService, getService } from "../../api/services";
+import { PATH_CUSTOMER } from "../../api/path";
+import { AddressCheckout } from "../../components/AddressCheckout";
+import FormEditAddress from "../../containers/FormEditAddress";
+import AddressList from "../../containers/AddressList";
 
-export default CheckOut;
+class Checkout extends Component {
+  constructor() {
+    super();
+    this.state = {
+      visibleAddAddress: false,
+      visibleEditAddress: false,
+      visibleListAddress: false,
+      addresses: []
+    };
+  }
+
+  componentDidMount() {
+    this.props.addressDefault();
+    this.getListAddress();
+  }
+
+  getListAddress = async () => {
+    try {
+      const response = await getService(PATH_CUSTOMER.ADDRESS);
+      const addresses = this.state.addresses;
+      this.setState({
+        ...addresses, addresses : response.data
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  showAddFormAddress = () => {
+    this.setState(prevState => ({
+      visibleAddAddress: !prevState.visibleAddAddress
+    }));
+  };
+
+  showEditFormAddress = () => {
+    this.setState(prevState => ({
+      visibleEditAddress: !prevState.visibleEditAddress
+    }));
+  };
+
+  showListAddress = () => {
+    this.setState(prevState => ({
+      visibleListAddress: !prevState.visibleListAddress
+    }));
+  };
+
+  handleSubmitAddFormAddress = async request => {
+    try {
+      const response = await postService(PATH_CUSTOMER.ADDRESS, request);
+      this.showAddFormAddress();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handleSubmitEditFormAddress = async request => {
+    try {
+      const response = await postService(PATH_CUSTOMER.ADDRESS, request);
+      this.showEditFormAddress();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  render() {
+    const { dataAddressDefault, isAddressAvailable } = this.props;
+    const {addresses} = this.state;
+    return (
+      <Fragment>
+        <AddressCheckout
+          dataAddressDefault={dataAddressDefault}
+          isAddressAvailable={isAddressAvailable}
+          onEditAddress={this.showEditFormAddress}
+          onSelectListAddress={this.showListAddress}
+          onAddAddress={this.showAddFormAddress}
+        />
+        <FormAddAddress
+          visible={this.state.visibleAddAddress}
+          onSubmit={this.handleSubmitAddFormAddress}
+          onCancle={this.showAddFormAddress}
+        />
+        {isAddressAvailable &&
+        <FormEditAddress 
+          visible={this.state.visibleEditAddress}
+          address={dataAddressDefault}
+          onSubmit={this.handleSubmitEditFormAddress}
+          onCancle={this.showEditFormAddress}
+        />}
+        <AddressList addresses={addresses} visible={this.state.visibleListAddress} onCancle={this.showListAddress}/>
+      </Fragment>
+    );
+  }
+}
+
+const mapStatetoProps = state => ({
+  dataAddressDefault: state.address.addressDefault,
+  isAddressAvailable: state.address.isAddressAvailable
+});
+
+export default connect(
+  mapStatetoProps,
+  { addressDefault }
+)(Checkout);
