@@ -68,13 +68,12 @@ class ProductDetail extends Component {
   }
 
   actionSubmitToCheckout = () => {
-    const { 
-      id, 
+    const {
+      id,
       shippingInternationalId,
       note,
       data
     } = this.state
-    
     const indexes = {
       productId: id,
       quantity: data.quantity,
@@ -84,13 +83,15 @@ class ProductDetail extends Component {
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
-    console.log('localstoraaaaage',indexesToLocalstorage)
     localStorage.setItem("product", indexesToLocalstorage);
-    // if (this.props.isAuthenticated !== null) {
-    //   this.redirectCheckout();
-    // } else {
-    //   this.redirectLogin();
-    // }
+    if (this.props.isAuthenticated !== false) {
+      this.redirectCheckout();
+    } else {
+      this.redirectLogin();
+    }
+    console.log('ini authenticaaaated', this.props.isAuthenticated);
+    
+
   };
 
   getProductDetail = async () => {
@@ -114,28 +115,22 @@ class ProductDetail extends Component {
   };
 
   render() {
-    //   if(this.state.data.sku.variants){
-    //     console.log(this.state.data.sku.variants[0].value.image);
-    //   }
-    // console.log('detailsss', this.state.details, this.state.data);
-    // console.log('product', this.state.product)
-    // console.log('data', this.state.data)
-    console.log('',this.state.open);
-    
-
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
           <React.Fragment>
             <div className="container productDetail">
               <Row>
-                <Col md={8}>
+                <Col md={10}>
                   <h2>{this.state.name}</h2>
                   <SliderProductDetailContainer images={this.state.images} />
                 </Col>
-                <Col md={16}>
-                  <div style={{ marginLeft: 50 }}>
-                    <p className="productDetail__price">{currencyRupiah(this.state.data.sku.price > 1 || null ? this.state.data.sku.price : this.state.price)}</p>
+                <Col md={14}>
+                  <div style={{}}>
+                    <p className="productDetail__price">
+                      {currencyRupiah(this.state.data.sku.price > 1 || null ?
+                        this.state.data.sku.price : this.state.price)}
+                    </p>
                     <SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
@@ -168,7 +163,7 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            {this.state.open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
+            {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
             {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
@@ -182,4 +177,4 @@ const mapStateToProps = state => ({
   token: state.authentication.token
 });
 
-export default  connect(mapStateToProps)(ProductDetail);
+export default connect(mapStateToProps)(ProductDetail);

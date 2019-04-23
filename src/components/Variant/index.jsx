@@ -13,16 +13,16 @@ const checkVariant = (variantId, valueid, selectedId) => {
     return statusSelected
 }
 
+const stockInfo = (props, infoStockEmpty, value, selected) => {
+    return props.selected && infoStockEmpty === 0 && checkVariant(props.id, value.id, selected);
+}
+
 const VariantText = (props) => {
-    let { infoStockEmpty, selected,stockInfo } =
+    let { infoStockEmpty, selected } =
     {
-        stockInfo: [],
         selected: props.selected,
         infoStockEmpty: props.sku.stock,
     }
-    console.log('infostocoooook', infoStockEmpty);
-    
-
     if (!selected) {
         const variantSize = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantSize && variantSize.value
@@ -36,13 +36,11 @@ const VariantText = (props) => {
         <React.Fragment>
             <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)}</p>
             {props.values.map(value => (
-                <Tooltip title={infoStockEmpty === 0 ?
-                    <p>{strings.stock_empty}</p>
-                    : value.description} key={value.id}>
-                    <div onClick={infoStockEmpty === 0 ? null :
+                <Tooltip title={strings.stock_empty} visible={stockInfo(props, infoStockEmpty, value, selected)} key={value.id}>
+                    <div onClick={stockInfo(props, infoStockEmpty, value, selected) ? null :
                         (() => props.onClick(props.id, value, props.name))}
                         key={value.id}
-                        style={infoStockEmpty === 0 ? disabled : null}
+                        style={stockInfo(props, infoStockEmpty, value, selected) ? disabled : null}
                         className={props.selected && (checkVariant(props.id, value.id, selected) ?
                             "box-variant active" : "box-variant")}>
                         <p>{value.name}</p>
@@ -61,15 +59,13 @@ const VariantImage = (props) => {
         variantWarna && props.onClick(selected.id, selected, props.name)
     }
     console.log("ini selected brother", selected)
-    // checkVariant("1","2",["3"])
     return (
-
         <React.Fragment>
             {props.sku.variants[0] && (
                 <p>{props.name.charAt(0).toUpperCase() + props.name.substring(1)} :
                 &nbsp;
-                {props.sku.variants[0].value.description.charAt(0).toUpperCase() + 
-                 props.sku.variants[0].value.description.substring(1)}</p>
+                {props.sku.variants[0].value.description.charAt(0).toUpperCase() +
+                        props.sku.variants[0].value.description.substring(1)}</p>
             )}
             {props.values.map(value => (
                 <div onClick={() => props.onClick(props.id, value, props.name)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
@@ -95,3 +91,5 @@ const Variant = (props) => {
 };
 
 export default Variant;
+
+
