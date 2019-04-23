@@ -119,7 +119,7 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", rulesPassword())(
+                  {getFieldDecorator("password")(
                     <Input
                       size={"large"}
                       prefix={

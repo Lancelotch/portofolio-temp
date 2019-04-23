@@ -76,8 +76,9 @@ class OrderListWaitingPayment extends Component {
           console.log("ambil aaaaaaaaaaa payment", order.bank);
           return (
             <div className="waitingPayment__list">
-              <ProductOrder indexes={order.indexes} />
+              <ProductOrder key={order.id} indexes={order.indexes} />
               <WaitingPayment
+                key={order.id}
                 endDatePay={order.endDatePay}
                 indexes={order.indexes}
                 pay={order.payment}

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Tabs, Icon, Col, Button, Affix } from "antd";
-import { CustomTabPane } from "../CustomerNavigation/CustomerNavigationContainer";
+
 import OrderListWaitingPayment from "../OrderListWaitingPayment";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";
+import { CustomTabPane } from "../../components/CustomTabDashboard";
 
 class CustomerOderNavigation extends Component {
   constructor() {
@@ -48,13 +49,13 @@ class CustomerOderNavigation extends Component {
                 viewOrderDetail={this.OrderDetailsDashboardDetailById}
               />
             ) : (
-              <React.Fragment>
-                <OrderDetailsDashboard invoiceId={this.state.invoiceId} />
+                <React.Fragment>
                 <Affix offsetTop={this.state.top}>
-                <Button style={{float: "right"}} onClick={() => this.showOrderDetailsDashboard()}>Back</Button>
-                </Affix>
-              </React.Fragment>
-            )
+                <Button style={{ float: "right" }} onClick={() => this.showOrderDetailsDashboard()}>Back</Button>
+              </Affix>
+                  <OrderDetailsDashboard invoiceId={this.state.invoiceId} />
+                </React.Fragment>
+              )
           }
         />
         <CustomTabPane key={"2"} tab={<span>{"Belum Dikirim"}</span>} />

@@ -18,11 +18,11 @@ const WaitingPayment = props => {
             </p>
           </Col>
           <Col md={12}>
-            <p className="waitingPayment__totalReceived">Total Pesenan : 
+            <font className="waitingPayment__totalReceived">Total Pesenan : 
             <h4 style={{ display: "unset", fontSize: 20 }}>
               {currencyRupiah(indexes[0].totalAmount)}
             </h4>
-            </p>
+            </font>
           </Col>
         </Row>
       </div>

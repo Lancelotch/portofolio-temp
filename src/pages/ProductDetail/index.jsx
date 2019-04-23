@@ -42,7 +42,6 @@ class ProductDetail extends Component {
   actionUpdateSku = sku => {
     const data = { ...this.state.data, sku };
     this.setState({ data }, this.actionSubmitToCheckout);
-    // this.actionSubmitToCheckout();
   };
 
   actionUpdateQuantity = quantity => {
@@ -55,16 +54,16 @@ class ProductDetail extends Component {
     console.log(image);
   }
 
-  redirectLogin() {
-    this.setState({
-      open: true
-    });
+  redirectLogin = () => {
+    this.setState(prevState => ({
+      open: !prevState.open
+    }));
   }
 
-  redirectCheckout() {
-    this.setState({
-      changeCheckout: true
-    });
+  redirectCheckout = () => {
+    this.setState(prevState => ({
+      changeCheckout: !prevState.changeCheckout
+    }));
   }
 
   actionSubmitToCheckout = () => {
@@ -72,14 +71,21 @@ class ProductDetail extends Component {
       id,
       shippingInternationalId,
       note,
-      data
+      images,
+      data,
+      name
     } = this.state
+    const image = images.find(image => image.isDefault === true).medium;
+    console.log('imageeeeeslider', image);
     const indexes = {
+      image,
+      name: name,
       productId: id,
+      // price: data.sku.price,
       quantity: data.quantity,
-      shippingInternationalId,
-      variants: data.sku.variants,
-      productSkuId: data.sku.id,
+      shippingInternationalId:"3knk2noib2oi22o23r",
+      // variants: data.sku.variants,
+      sku: data.sku,
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
@@ -89,9 +95,6 @@ class ProductDetail extends Component {
     } else {
       this.redirectLogin();
     }
-    console.log('ini authenticaaaated', this.props.isAuthenticated);
-    
-
   };
 
   getProductDetail = async () => {
@@ -115,6 +118,8 @@ class ProductDetail extends Component {
   };
 
   render() {
+    console.log(this.actionSubmitToCheckout);
+
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
@@ -125,7 +130,7 @@ class ProductDetail extends Component {
                   <h2>{this.state.name}</h2>
                   <SliderProductDetailContainer images={this.state.images} />
                 </Col>
-                <Col md={14}>
+                <Col md={12} offset={2}>
                   <div style={{}}>
                     <p className="productDetail__price">
                       {currencyRupiah(this.state.data.sku.price > 1 || null ?
@@ -163,18 +168,17 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
-            {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
+        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
+        {this.state.changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated,
-  token: state.authentication.token
+  isAuthenticated: state.authentication.isAuthenticated
 });
 
 export default connect(mapStateToProps)(ProductDetail);

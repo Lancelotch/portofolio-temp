@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Tabs, Icon } from "antd";
-import { CustomTabPane } from "./CustomerNavigationContainer";
 import CustomerOderNavigation from "../CustomerOrderNavigation";
 import "./style.sass";
+import { CustomTabPane } from "../../components/CustomTabDashboard";
+
+
 
 class CustomerNavigation extends Component {
   constructor(props) {

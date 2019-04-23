@@ -7,7 +7,7 @@ class SkuContainer extends Component {
         this.state = {
             sku: {
                 price: 0,
-                stock: 0,
+                // stock: 0,
                 variants: [],
                 selected: [],
                 check : false        
@@ -41,7 +41,7 @@ class SkuContainer extends Component {
             id: skuId,
             price: skuSmallestPrice.price,
             variants: [],
-            stock: skuSmallestPrice.stock
+            // stock: skuSmallestPrice.stock
         };
 
         for (let curVariant = 0; curVariant < manyVariants; curVariant++) {
@@ -90,7 +90,7 @@ class SkuContainer extends Component {
             if (skuId === sku.id) {
                 const skuTmp = { ...this.state.sku };
                 skuTmp.price = sku.price;
-                skuTmp.stock = sku.stock;
+                // skuTmp.stock = sku.stock;
                 this.setState({
                     sku: skuTmp,
                     

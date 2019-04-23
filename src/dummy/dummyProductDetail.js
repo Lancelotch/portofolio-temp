@@ -120,7 +120,7 @@ const dummyProductDetail = {
         "sku": [{
                 "id": "0010100201",
                 "price": 620000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -134,21 +134,21 @@ const dummyProductDetail = {
             {
                 "id": "0010100203",
                 "price": 430000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010100204",
                 "price": 550000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
             {
                 "id": "0010400204",
                 "price": 650000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -162,7 +162,7 @@ const dummyProductDetail = {
             {
                 "id": "0010200202",
                 "price": 520000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -183,7 +183,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300201",
                 "price": 500000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
@@ -197,7 +197,7 @@ const dummyProductDetail = {
             {
                 "id": "0010300203",
                 "price": 250000,
-                "stock": 10,
+                // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
             },
