@@ -36,7 +36,7 @@ class SliderProductDetailContainer extends Component {
           },
           largeImage: {
             width: 500,
-            height: 700,
+            height: 500,
             src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }

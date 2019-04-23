@@ -66,7 +66,7 @@ const dummyProductDetail = {
                     {
                         "id": "03",
                         "name": "oren",
-                        "description": "warna oren",
+                        "description": "warna merah",
                      
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",

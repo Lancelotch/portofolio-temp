@@ -7,11 +7,10 @@ class SkuContainer extends Component {
         this.state = {
             sku: {
                 price: 0,
-                stock: {},
+                stock: 0,
                 variants: [],
                 selected: [],
-                check : false
-                
+                check : false        
             },
             arr : []
         }

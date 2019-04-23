@@ -14,12 +14,13 @@ const checkVariant = (variantId, valueid, selectedId) => {
 }
 
 const VariantText = (props) => {
-    let { infoStockEmpty, selected } =
+    let { infoStockEmpty, selected,stockInfo } =
     {
+        stockInfo: [],
         selected: props.selected,
-        infoStockEmpty: props.sku.stock
+        infoStockEmpty: props.sku.stock,
     }
-    console.log('infostocoooook',infoStockEmpty);
+    console.log('infostocoooook', infoStockEmpty);
     
 
     if (!selected) {
