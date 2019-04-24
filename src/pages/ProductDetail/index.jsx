@@ -41,13 +41,12 @@ class ProductDetail extends Component {
 
   actionUpdateSku = sku => {
     const data = { ...this.state.data, sku };
-    this.setState({ data }, this.actionSubmitToCheckout);
+    this.setState({ data });
   };
 
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
-    this.setState(
-      { data }, this.actionSubmitToCheckout);
+    this.setState({ data });
   };
 
   actionUpdateImages = image => {
@@ -66,10 +65,9 @@ class ProductDetail extends Component {
     }));
   }
 
-  actionSubmitToCheckout = () => {
+  actionSubmitToCheckout = event => {
     const {
       id,
-      shippingInternationalId,
       note,
       images,
       data,
@@ -83,7 +81,7 @@ class ProductDetail extends Component {
       productId: id,
       // price: data.sku.price,
       quantity: data.quantity,
-      shippingInternationalId:"3knk2noib2oi22o23r",
+      shippingInternationalId: "3knk2noib2oi22o23r",
       // variants: data.sku.variants,
       sku: data.sku,
       note
@@ -118,8 +116,6 @@ class ProductDetail extends Component {
   };
 
   render() {
-    console.log(this.actionSubmitToCheckout);
-
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
@@ -170,7 +166,7 @@ class ProductDetail extends Component {
             </div>
           </React.Fragment>
         )}
-        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
+        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
         {this.state.changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
