@@ -11,6 +11,31 @@ const { TextArea } = Input;
 class FormEditAddress extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: "",
+      labelName: "",
+      receiverName: "",
+      phoneNumber: "",
+      city: "",
+      fullAddress: "",
+      province: "",
+      provinceId: "",
+      cityId: "",
+      zipcode: "zipcode",
+      geolocation: {},
+      subdistrictId: "",
+      subdistrict: "",
+      provinces: [],
+      cities: [],
+      subdistricts: []
+    };
+  }
+
+  componentDidMount() {
+    this.getProvince();
+  }
+
+  componentWillReceiveProps(){
     const {
       id,
       labelName,
@@ -26,7 +51,7 @@ class FormEditAddress extends Component {
       subdistrict,
       subdistrictId
     } = this.props.address;
-    this.state = {
+    this.setState({
       id: id,
       labelName: labelName,
       receiverName: receiverName,
@@ -39,15 +64,7 @@ class FormEditAddress extends Component {
       zipcode: zipcode,
       geolocation: { ...geolocation },
       subdistrictId: subdistrictId,
-      subdistrict: subdistrict,
-      provinces: [],
-      cities: [],
-      subdistricts: []
-    };
-  }
-
-  componentDidMount() {
-    this.getProvince();
+      subdistrict: subdistrict})
   }
 
   getProvince = async () => {
@@ -219,9 +236,6 @@ class FormEditAddress extends Component {
       geolocation,
       subdistrict,subdistrictId
     } = this.state;
-
-    console.log(this.state);
-    
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
