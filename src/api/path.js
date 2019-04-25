@@ -35,11 +35,15 @@ const PRODUCT = "product";
 const PRODUCT_BY_ID = 'product/';
 const PRODUCT_CATEGORY = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
+const PRODUCT_BEST_SELLER = "product/best-seller?page&limit&sortBy&direction";
+const PRODUCT_RECOMENDED = "product/recommendations?page&limit&sortBy&direction"
 export const PATH_PRODUCT = {
     PRODUCT: PRODUCT,
     PRODUCT_BY_ID: PRODUCT_BY_ID,
     PRODUCT_CATEGORY: PRODUCT_CATEGORY,
-    PRODUCT_SEARCH: PRODUCT_SEARCH
+    PRODUCT_SEARCH: PRODUCT_SEARCH,
+    PRODUCT_BEST_SELLER: PRODUCT_BEST_SELLER,
+    PRODUCT_RECOMENDED: PRODUCT_RECOMENDED
 }
 
 //SHIPPING

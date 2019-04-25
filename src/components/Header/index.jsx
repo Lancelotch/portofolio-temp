@@ -3,7 +3,7 @@ import { Row, Col, Icon, Menu, Dropdown, Button, Avatar } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "components/TopHeader";
-import Categories from "components/Categories";
+// import Categories from "components/Categories";
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -11,6 +11,7 @@ import "sass/style.sass";
 import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
 import CategoryMenu from "../CategoryMenu";
+import {Link} from "react-router-dom"
 
 class Header extends Component {
   constructor(props) {
@@ -43,7 +44,6 @@ class Header extends Component {
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
-      console.log(payload);
       this.setState({
         name: payload.data.name
       });
@@ -151,24 +151,23 @@ class Header extends Component {
             </Col>
               <Col md={2}>
                 <div className="header__categories">
-                  {/* <Categories /> */}
                   <CategoryMenu match={match} />
                 </div>
               </Col>
               <Col md={16}>
                 <div className="header__menus">
-                  <a href="/" className="header__menu">
+                  <Link to="/" className="header__menu">
                     Lacak Pengiriman
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Cara Belanja
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Tentang Kami
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Bantuan
-                  </a>
+                  </Link>
                 </div>
               </Col>
               <Col md={4}>

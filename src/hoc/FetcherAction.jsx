@@ -26,12 +26,10 @@ class FetcherAction extends Component {
   }
 
   doGet = (url, payload) => {
-    console.log(url);
     this.fetchData(url, this.method.GET, payload);
   };
 
   doPost = (url, payload) => {
-    console.log(payload);
     this.fetchData(url, this.method.POST, payload);
   };
 

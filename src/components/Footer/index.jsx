@@ -65,9 +65,7 @@ class Footer extends Component {
   };
 
   render() {
-    const { email, SubsResponse } = this.state;
-    console.log(SubsResponse);
-
+    const { email } = this.state;
     return (
       <React.Fragment>
         <Row>
@@ -134,7 +132,7 @@ class Footer extends Component {
                         placeholder="Email"
                         value={email}
                         name="email"
-                        enterButton="Email"
+                        // enterButton="Email"
                         onChange={this.onChange}
                       />
                       <button
