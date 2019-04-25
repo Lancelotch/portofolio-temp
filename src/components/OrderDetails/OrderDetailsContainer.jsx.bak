@@ -7,7 +7,6 @@ class OrderDetailsContainers extends Component {
       warna,
       ukuran,
       variants,
-      productId,
       sku,
       quantity,
       totalPrice,
@@ -24,7 +23,6 @@ class OrderDetailsContainers extends Component {
             ukuran={ukuran}
             variants={variants}
             name={name}
-            productId={productId}
             sku={sku}
             quantity={quantity}
             totalPrice={totalPrice}

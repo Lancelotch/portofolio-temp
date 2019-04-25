@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Tabs, Icon } from "antd";
-import { CustomTabPane } from "./CustomerNavigationContainer";
 import CustomerOderNavigation from "../CustomerOrderNavigation";
+import "./style.sass";
+import { CustomTabPane } from "../../components/CustomTabDashboard";
+
+
 
 class CustomerNavigation extends Component {
   constructor(props) {
@@ -11,19 +14,19 @@ class CustomerNavigation extends Component {
 
   render() {
     return (
-      <div style={{marginTop: 20}}>
+      <div className="dashboardUser" style={{ marginTop: 20 }}>
         <Tabs defaultActiveKey="1" animated={false} tabPosition={"left"}>
           <CustomTabPane
             key={"1"}
             tab={
-              <span>
-                <Icon type="apple" />
-                {"Pesanan Saya"}
-              </span>
-            }     
-            my_prop={<CustomerOderNavigation/>}
+              <React.Fragment>
+                <Icon type="rocket" style={{ fontSize: 20, color: "#999999" }} />
+                <span>{"Pesanan Saya"}</span>
+              </React.Fragment>
+            }
+            className={"customerOrderNavigation"}
+            my_prop={<CustomerOderNavigation />}
           />
-          <CustomTabPane key={"2"} my_prop={"b"} />
         </Tabs>
       </div>
     );

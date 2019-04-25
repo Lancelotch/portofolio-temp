@@ -118,7 +118,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", rulesPassword())(
+                  {getFieldDecorator("password",rulesPassword())(
                     <Input.Password
                       className="register__input"
                       min={6}

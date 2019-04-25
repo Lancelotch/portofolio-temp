@@ -9,8 +9,7 @@ import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import Checkout from '../pages/Checkout'
-import CustomerNavigation from '../components/CustomerNavigation'
-
+import CustomerNavigation from '../containers/CustomerNavigation'
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
@@ -67,8 +66,10 @@ const routes = [{
     },
     {
     path: '/customer-navigation',
-    component: CustomerNavigation
-    }
+    component: CustomerNavigation,
+    layoutName: 'customerLayout'
+}
+
 ]
 
 export default routes;

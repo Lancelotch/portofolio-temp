@@ -34,14 +34,16 @@ class CheckoutContainer extends Component {
       const res = await productDetail.getProductDetail(productId);
       const sku = res.data.sku;
       const selectedSku = sku.filter(item => item.id === skuId)[0];
-      console.log(res.data.variants);    
-      const variants = res.data.variants
-      const dataUkuran = variants.filter( ukuran => ukuran.name === 'ukuran')[0].values 
-      const dataWarna = variants.filter( warna => warna.name === 'warna')[0].values
-      const ukuran = dataUkuran.filter(ukuran => ukuran.id === sizeId)[0]
-      const warna = dataWarna.filter(warna => warna.id === colorId )[0]
+      console.log(res.data.variants);
+      const variants = res.data.variants;
+      const dataUkuran = variants.filter(ukuran => ukuran.name === "ukuran")[0]
+        .values;
+      const dataWarna = variants.filter(warna => warna.name === "warna")[0]
+        .values;
+      const ukuran = dataUkuran.filter(ukuran => ukuran.id === sizeId)[0];
+      const warna = dataWarna.filter(warna => warna.id === colorId)[0];
       // const res = await dummyProductDetail(productId);
-      console.log(res.data);
+      console.log("checcccckouuuut", res.data);
       const itemOderDetails = {
         productId: productId,
         sku: selectedSku,
@@ -135,6 +137,7 @@ class CheckoutContainer extends Component {
 
   render() {
     const {
+      productId,
       warna,
       ukuran,
       quantity,
@@ -153,6 +156,7 @@ class CheckoutContainer extends Component {
       <React.Fragment>
         {quantity > 0 && (
           <Checkout
+            productId={productId}
             warna={warna}
             ukuran={ukuran}
             name={name}

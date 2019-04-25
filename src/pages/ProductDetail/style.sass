@@ -1,9 +1,8 @@
 @import '../../sass/variable.sass'
 
 .productDetail .image-gallery-slide img
-    width: 450px !important
-    height: 450px !important
-
+    height: 500px !important
+    
 .productDetail .image-gallery-right-nav, 
 .productDetail .image-gallery-left-nav 
     position: absolute
@@ -25,20 +24,25 @@
 .productDetail .image-gallery-left-nav 
     left: -10px
 
-.productDetail .image-gallery-thumbnails-wrapper 
-    width: 360px
-    margin-left: 58px  
-
 .productDetail .image-gallery-thumbnail img 
     border: 1px solid rgba(151,151,151,0.22)
     vertical-align: middle
-    width: 52px
-    height: 52px
+    width: 51px
+    height: 51px
+
+.productDetail .image-gallery-thumbnail + .image-gallery-thumbnail
+    margin-left: unset !important    
+    transition: unset !important
  
 .productDetail .image-gallery-thumbnail.active 
     border: 1px solid #337ab7
     width: 52px
     height: 52px
+    transform: unset !important
+    transition: unset !important
+
+.productDetail .image-gallery-thumbnail 
+    width: unset !important   
     
 .productDetailBorder
     border: 1px solid #eeeeee
@@ -48,9 +52,8 @@
 .productDetail
     margin-top: 50px
     h2
-        width: 456px
         color: $secondary-color-text
-        font-size: 28px
+        font-size: 25px
     h3
         padding-left: 20px
         padding-top: 20px
@@ -71,10 +74,11 @@
         background-color: #FB6900 
         margin-top: 64px
         height: 64px 
-        width: 100%
+        width: 500px
         color: #FFFFFF 
         font-size: 18px
         font-weight: 500 
+        cursor: pointer
     &__variantContent
         margin-left: 50px 
     &__china         

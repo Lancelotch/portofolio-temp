@@ -31,7 +31,7 @@ class ProducDetailContainer extends Component {
     this.variantsRef[1] = React.createRef();
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.productDetail();
   }
 
@@ -147,7 +147,7 @@ class ProducDetailContainer extends Component {
     this.variantsRef.map((value, index) => {
       return this.variantsRef[index].current.changedInfo(colorId, sizeId);
     });
-    this.variantPrice(sku, idColor, colorId, idSize, sizeId);
+    this.variantPrice(sku, idColor, colorId, idSize, sizeId);  
   }
 
   sizeVariant(variants, selected, sku) {

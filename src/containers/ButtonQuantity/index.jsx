@@ -51,6 +51,8 @@ class ButtonQuantityContainer extends Component {
     return (
       <div>
         <ButtonQuantity
+          stock={this.props.stock}
+          stockAlert={this.state.stockAlert}
           incrementItem={this.incrementItem}
           decrementItem={this.decrementItem}
           quantity={this.state.quantity}

@@ -17,10 +17,14 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    stock_empty: 'Stock Kosong',
+    before_pay: 'Bayar Sebelum',
+    total_payment: 'Total Pembayaran',
     log_in: 'Log In',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",
+    pay_now : "Pesan Sekarang",
     action_delete: "Hapus",
     checkout: "Checkout",
     total_price_product: "Total Harga Barang",
@@ -36,6 +40,7 @@ const strings = new LocalizedStrings({
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
     recommendation_product: 'Rekomendasi Produk',
+    
 
     //Best Seller
     best : "Best",

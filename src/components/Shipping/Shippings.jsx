@@ -10,7 +10,7 @@ const Shippings = props => {
   const { shipping } = props;
   return (
     <React.Fragment>
-      {shipping.length > 0 ? (
+      {shipping && shipping.length > 0 ? (
         <div className="container-row-shipping">
           <div className="shipping" style={{ marginRight: 25 }}>
             <Col md={24}>
@@ -20,7 +20,7 @@ const Shippings = props => {
               <Col md={21}>
                 <p>
                   {shipping[1].estimation.charAt(0).toUpperCase() +
-                    shipping[1].estimation.substring(1)}
+                   shipping[1].estimation.substring(1)}
                 </p>
                 <p className="price">Harga sudah termasuk</p>
               </Col>
@@ -34,14 +34,14 @@ const Shippings = props => {
               <Col md={21}>
                 <p>
                   {shipping[0].estimation.charAt(0).toUpperCase() +
-                    shipping[0].estimation.substring(1)}
+                   shipping[0].estimation.substring(1)}
                 </p>
                 <p className="price">{currencyRupiah(shipping[0].price)}</p>
               </Col>
             </Col>
           </div>
         </div>
-      ) : null}
+      ):(null)}
     </React.Fragment>
   );
 };
