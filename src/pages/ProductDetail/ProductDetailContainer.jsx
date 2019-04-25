@@ -31,7 +31,7 @@ class ProducDetailContainer extends Component {
     this.variantsRef[1] = React.createRef();
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.productDetail();
   }
 

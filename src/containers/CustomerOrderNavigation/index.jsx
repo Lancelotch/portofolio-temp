@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Tabs, Icon, Col, Button, Affix } from "antd";
-
+import { Tabs, Icon, Col, Button, Affix, Modal } from "antd";
+import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaitingPayment from "../OrderListWaitingPayment";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";
-import { CustomTabPane } from "../../components/CustomTabDashboard";
+import dummyProductOrder from "../../dummy/dummyProductOrder";
+
+const confirm = Modal.confirm;
 
 class CustomerOderNavigation extends Component {
   constructor() {
@@ -11,9 +13,47 @@ class CustomerOderNavigation extends Component {
     this.state = {
       isShowOrderDetailsDashboard: false,
       top: 10,
-      bottom: 10
+      bottom: 10,
+      productorder: [],
+      stateCancelOrder: []
 
     };
+  }
+  componentDidMount() {
+    this.productOrderListWaitingPayment();
+  }
+
+  productOrderListWaitingPayment = async () => {
+    try {
+      const responseDummy = await dummyProductOrder;
+      const OrderListWaitingPayment = {
+        productorder: responseDummy.data
+      };
+      this.setState({
+        ...OrderListWaitingPayment
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  showDeleteConfirm = (order, index) => {
+    confirm({
+      iconClassName: "iconWaitingPaymentCancel",
+      title: "Anda yakin ingin membatalkan pesanan?",
+      content: "Pesanan yang anda buat akan kami batalkan",
+      okText: "Batalkan",
+      okType: "danger",
+      cancelText: "Kembali",
+      onOk: () => {
+        const cancelOrder = order.splice(index, 1)
+        const newOrder = [...order]
+        this.setState({
+          productorder: newOrder,
+          stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
+        })
+      },
+    });
   }
 
   showOrderDetailsDashboard = () => {
@@ -25,7 +65,7 @@ class CustomerOderNavigation extends Component {
   OrderDetailsDashboardDetailById = id => {
     this.showOrderDetailsDashboard();
     this.setState({
-      invoiceId: id
+      orderDetailsId: id
     });
   };
 
@@ -37,31 +77,91 @@ class CustomerOderNavigation extends Component {
           tab={
             <span
               onClick={() =>
-                this.setState({ isShowOrderDetailsDashboard: false })
+                this.setState({ 
+                  isShowOrderDetailsDashboard: false 
+                })
               }
-            >
-              {"Belum Bayar"}
-            </span>
-          }
+            >{"Belum Bayar"}</span>}
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ? (
               <OrderListWaitingPayment
                 viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                orderProduct={this.state.productorder}
+                showDeleteConfirm={this.showDeleteConfirm}
+                index={1}
               />
             ) : (
-                <React.Fragment>
-                <Affix offsetTop={this.state.top}>
-                <Button style={{ float: "right" }} onClick={() => this.showOrderDetailsDashboard()}>Back</Button>
-              </Affix>
-                  <OrderDetailsDashboard invoiceId={this.state.invoiceId} />
-                </React.Fragment>
+                <OrderDetailsDashboard
+                  showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                  orderDetailsId={this.state.orderDetailsId} index={1} />
               )
           }
         />
-        <CustomTabPane key={"2"} tab={<span>{"Belum Dikirim"}</span>} />
-        <CustomTabPane key={"3"} tab={<span>{"Dalam Pengiriman"}</span>} />
+        <CustomTabPane
+          key={"2"}
+          tab={<span
+            onClick={() =>
+              this.setState({ 
+                isShowOrderDetailsDashboard: false 
+              })
+            }>{"Belum Dikirim"}</span>}
+          my_prop={
+            this.state.productorder.length < 1 ?
+              (<p>Tidak ada Riwayat Belanja</p>)
+              : (
+                this.state.isShowOrderDetailsDashboard === false ? (
+                  <OrderListWaitingPayment
+                    viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                    orderProduct={this.state.productorder}
+                    showDeleteConfirm={this.showDeleteConfirm}
+                    index={2} />
+                ) : (
+                    <OrderDetailsDashboard
+                      showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                      orderDetailsId={this.state.orderDetailsId} index={2} />
+                  )
+              )} />
+        <CustomTabPane
+          key={"3"}
+          tab={<span
+            onClick={() =>
+              this.setState({ 
+                isShowOrderDetailsDashboard: false 
+              })
+            }>
+            {"Dalam Pengiriman"}
+            </span>}
+          my_prop={
+            this.state.productorder.length < 1 ? (<p>Tidak ada Riwayat Belanja</p>) : (
+              this.state.isShowOrderDetailsDashboard === false ? (
+                <OrderListWaitingPayment
+                  viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                  orderProduct={this.state.productorder}
+                  showDeleteConfirm={this.showDeleteConfirm}
+                  index={3} />
+              ) : (
+                  <OrderDetailsDashboard
+                    showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                    orderDetailsId={this.state.orderDetailsId} index={3} />
+                )
+            )} />
         <CustomTabPane key={"4"} tab={<span>{"Selesai"}</span>} />
-        <CustomTabPane key={"5"} tab={<span>{"Batal"}</span>} />
+        <CustomTabPane
+          key={"5"}
+          tab={<span
+            onClick={() =>
+              this.setState({ isShowOrderDetailsDashboard: false })
+            }>{"Batal"}</span>}
+          my_prop={
+            this.state.stateCancelOrder.length < 1 ? (<p>tes</p>) :
+              (<OrderListWaitingPayment
+                  viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                  orderProduct={this.state.stateCancelOrder}
+                  showDeleteConfirm={this.showDeleteConfirm}
+                  index={5}
+                />)
+            }
+        />
       </Tabs>
     );
   }

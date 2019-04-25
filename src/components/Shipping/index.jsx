@@ -11,7 +11,7 @@ class Shipping extends Component {
     };
   }
 
-  async componentDidMount() {
+   componentDidMount() {
     this.shipping();
   }
 

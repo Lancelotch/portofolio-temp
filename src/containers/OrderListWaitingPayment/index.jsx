@@ -1,30 +1,10 @@
 import React, { Component } from "react";
-import dummyProductOrder from "../../dummy/dummyProductOrder";
 import ProductOrder from "../../components/ProductOrder";
 import WaitingPayment from "../../components/WaitingPayment";
 import ModalHowToPay from "../../modal/ModalHowToPay";
-import { Button, Modal } from "antd";
 import "../../components/ProductOrder/style.sass";
-
-const confirm = Modal.confirm;
-
-function showDeleteConfirm() {
-  confirm({
-    icon: "close-circle",
-    iconClassName: "iconWaitingPaymentCancel",
-    title: "Anda yakin ingin membatalkan pesanan?",
-    content: "Pesanan yang anda buat akan kami batalkan",
-    okText: "Batalkan",
-    okType: "danger",
-    cancelText: "Kembali",
-    onOk() {
-      console.log("OK");
-    },
-    onCancel() {
-      console.log("Cancel");
-    }
-  });
-}
+import Pay from "../../components/ButtonWaitingPayment/Pay"
+import Cancel from "../../components/ButtonWaitingPayment/Cancel"
 
 class OrderListWaitingPayment extends Component {
   constructor(props) {
@@ -37,74 +17,99 @@ class OrderListWaitingPayment extends Component {
     };
   }
 
-  componentDidMount() {
-    this.productOrder();
-  }
-
   toggleIsHowToShowModalOpen = order => {
-    console.log("aku di klik", this.state.isHowToShowModalOpen, order);
     this.setState({
       isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
       selectedOrder: order ? order : null
     });
   };
 
-  productOrder = async () => {
-    try {
-      const res = await dummyProductOrder;
-      const itemProductOrder = {
-        productorder: res.data,
-        indexes: res.data.indexes
-      };
-      this.setState({
-        ...itemProductOrder
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
   render() {
+    const { orderProduct, showDeleteConfirm, index } = this.props
     const { isHowToShowModalOpen, selectedOrder } = this.state;
     const { toggleIsHowToShowModalOpen } = {
       toggleIsHowToShowModalOpen: this.toggleIsHowToShowModalOpen
     };
-    console.log(this.state.productorder);
-
     return (
       <React.Fragment>
-        {this.state.productorder.map(order => {
-          console.log("ambil aaaaaaaaaaa payment", order.bank);
+        {orderProduct.map((order, i) => {
           return (
             <div className="waitingPayment__list">
               <ProductOrder key={order.id} indexes={order.indexes} />
-              <WaitingPayment
-                key={order.id}
-                endDatePay={order.endDatePay}
-                indexes={order.indexes}
-                pay={order.payment}
-                isHowToShowModalOpen={isHowToShowModalOpen}
-                toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-              />
-              <Button
-                className="waitingPayment__button"
-                onClick={showDeleteConfirm}
-              >
-                Batalkan Pesanan
-              </Button>
-              <div style={{ float: "right", marginRight: 15 }}>
-                <Button
-                  className="waitingPayment__payNow"
-                  onClick={toggleIsHowToShowModalOpen.bind(this, order)}
-                >
-                  Bayar Sekarang
-                </Button>
-                <Button
-                  className="waitingPayment__detailPesanan"
-                  onClick={() => this.props.viewOrderDetail()}
-                >
-                  Detail Pesanan
-                </Button>
-              </div>
+              {index === 1 &&
+                <WaitingPayment
+                  label="Bayar Sebelum"
+                  index={1}
+                  key={order.id}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 1 &&
+                <Pay
+                  index={1}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
+              {index === 2 &&
+                <WaitingPayment
+                  indexDalamPengiriman={2}
+                  index={2}
+                  labelPengiriman="Dalam Proses Pengiriman"
+                  key={order.id}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 2 &&
+                <Pay
+                  indexButton={2}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />}
+              {index === 3 &&
+                <WaitingPayment
+                  indexDalamPengiriman={3}
+                  labelPengiriman="Perkiraan Barang Diterima"
+                  index={3}
+                  key={order.id}
+                  estimateShippingDate={order.estimateShippingDate}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 3 &&
+                <Pay
+                  indexButton={3}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
+              {index === 5 &&
+                <Cancel
+                  productDetail={order.indexes}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
             </div>
           );
         })}

@@ -26,7 +26,7 @@ const VariantText = (props) => {
     if (!selected) {
         const variantSize = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantSize && variantSize.value
-        variantSize && props.onClick(selected.id, selected, props.name)
+        variantSize && props.onClick(selected.id, selected)
     };
     // let disabled = {
     //     border: "1px solid #eee",
@@ -56,7 +56,8 @@ const VariantImage = (props) => {
     if (!selected) {
         const variantWarna = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantWarna && variantWarna.value
-        variantWarna && props.onClick(selected.id, selected, props.name)
+        variantWarna && props.onClick(selected.id, selected)
+        console.log("ini dalam if",selected)
     }
     console.log("ini selected brother", selected)
     return (

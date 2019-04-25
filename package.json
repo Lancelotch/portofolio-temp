@@ -25,6 +25,7 @@
     "react-loading-skeleton": "^1.0.0",
     "react-localization": "^1.0.13",
     "react-material-snackbar": "^3.0.1",
+    "react-number-format": "^4.0.7",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",

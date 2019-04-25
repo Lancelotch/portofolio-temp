@@ -1,14 +1,13 @@
-const dummyOrderDetailsDashboard = {
-
+const dummyOrderDetailsBelumDikirim = {
 
     "code": "200",
     "message": "OK",
     "data": {
-        "id": "58b63138-c592-4f20-96be-0a5c7a5c5906",
-        "endDatePay": 1556090300548,
-        "description": "PENDING",
-        "orderDate": 1555925314872,
-        "estimateShippingDate": "18-04-2019 s/d 20-05-2019",
+        "id": "8c6abff0-7198-47d3-aa2f-6c5beec057e9",
+        "invoiceNumber": "INV19043",
+        "description": "PEMBAYARAN SELESAI",
+        "orderDate": 1556103346171,
+        "paymentDate": 1556103346141,
         "indexes": [
             {
                 "productId": "5cb4239f57caac6ca19d5120",
@@ -37,16 +36,14 @@ const dummyOrderDetailsDashboard = {
                 ]
             }
         ],
-        "orderAddress": {
+        "address": {
             "labelName": "Rumah",
             "receiverName": "Moh Ashari Muklis",
             "phoneNumber": "085695492320",
-            "city": "Cikarang",
-            "cityId": "4",
-            "subdistrict": "Bekasi",
-            "subdistrictId": "3",
-            "province": "Jawa Barat",
             "provinceId": "3",
+            "province": "Jawa Barat",
+            "cityId": "4",
+            "city": "Cikarang",
             "zipcode": "17530",
             "fullAddress": "Perum Sukaraya Indah Blok c 14 no 2A rt -5 rw 07 kelurahan Sukaraya Kecamatan Karang Bahagia Bekasi"
         },
@@ -56,27 +53,11 @@ const dummyOrderDetailsDashboard = {
             "phoneNumber": "0000000000"
         },
         "shipping": {
-            "via": "Udara",
-            "internationalPrice": 60000
-        },
-        "payment": {
-            "transactionTime": "2019-04-22T09:31:20.000+0000",
-            "transactionStatus": "pending",
-            "transactionId": "2bd7a413-5054-4bd8-a0c6-389390b3c89a",
-            "statusMessage": "midtrans payment notification",
-            "paymentType": "bank_transfer",
-            "orderId": "58b63138-c592-4f20-96be-0a5c7a5c5906",
-            "grossAmount": 5260000,
-            "virtualAccount": "443220825977407",
-            "bankName": "BCA"
-        },
-        "bank": {
-            "code": "bca",
-            "name": "BANK BCA",
-            "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-04-09T10:54:16.783Z_ANONYMOUS"
+            "via": "Laut"
         }
     },
-    "responseTime": 912
+    "responseTime": 50
+
 }
 
-export default dummyOrderDetailsDashboard;
+export default dummyOrderDetailsBelumDikirim;

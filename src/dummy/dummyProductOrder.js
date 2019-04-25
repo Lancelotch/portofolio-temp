@@ -6,6 +6,7 @@ const dummyProductOrder = {
     "data": [
         {
             "orderId": "30e2e734-100d-4830-9c3c-752ac7091c18",
+            "estimateShippingDate": "18-04-2019 s/d 20-05-2019",
             "indexes": [
                 {
                     "productId": "5c736c8ec0297d16d00014f8",

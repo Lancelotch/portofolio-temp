@@ -15,6 +15,7 @@ class ModalHowToPay extends Component {
     };
   }
 
+
   handleOk = () => {
     console.log("pendcet");
     this.props.close();

@@ -12,7 +12,8 @@ class SkuContainer extends Component {
                 selected: [],
                 check : false        
             },
-            arr : []
+            arr : [],
+            name : ""
         }
     }
 
@@ -85,7 +86,6 @@ class SkuContainer extends Component {
             id = variant.variantId + variant.value.id;
             arr.push(id)
         });
-        console.log(arr)
         this.props.product.sku.map(sku => {
             if (skuId === sku.id) {
                 const skuTmp = { ...this.state.sku };

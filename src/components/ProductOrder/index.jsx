@@ -5,6 +5,7 @@ import currencyRupiah from "../../library/currency";
 
 const ProductOrder = props => {
   const { indexes } = props;
+  console.log("ini di product order", props)
   return (
     <div className="productOrder">
       <Row>
@@ -16,11 +17,11 @@ const ProductOrder = props => {
           />
         </Col>
         <Col md={17}>
-          <h2>{indexes[0].productName}</h2>
+        <h2> {indexes[0].productName} </h2>
           <p className="productOrder__variant">
-            Varian : {indexes[0].variants[0].name.charAt(0).toUpperCase() +
+    Varian : {indexes[0].variants[0].name.charAt(0).toUpperCase() +
               indexes[0].variants[0].name.substring(1)} : {indexes[0].variants[0].value},&nbsp;
-            {indexes[0].variants[1].name.charAt(0).toUpperCase() +
+             {indexes[0].variants[1].name.charAt(0).toUpperCase() +
               indexes[0].variants[1].name.substring(1)} : {indexes[0].variants[1].value}
           </p>
           <p className="productOrder__quantity">
@@ -28,9 +29,9 @@ const ProductOrder = props => {
           </p>
         </Col>
         <Col md={5} style={{ marginTop: 60 }}>
-          <p className="productOrder__totalPrice">
-            {currencyRupiah(indexes[0].totalAmount)}
-          </p>
+          {/*<p className="productOrder__totalPrice">
+           {currencyRupiah(indexes[0].totalAmount)} x {indexes[0].productQuantity}
+             </p>*/}
         </Col>
       </Row>
       <hr className="productOrder__inline" />

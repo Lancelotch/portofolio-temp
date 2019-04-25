@@ -87,6 +87,7 @@ class ProductDetail extends Component {
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
+    console.log('localstoraaaaage',indexesToLocalstorage)
     localStorage.setItem("product", indexesToLocalstorage);
     if (this.props.isAuthenticated !== false) {
       this.redirectCheckout();
@@ -164,6 +165,8 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
+            {this.state.open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
+            {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
         {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}

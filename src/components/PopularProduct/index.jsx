@@ -12,7 +12,7 @@ const { Meta } = Card;
 
 const PopularProduct = props => {
   const { id, name, urlImage, price } = props.product;
-
+  console.log("ini id" ,id)
   const priceRp = currencyRupiah(price);
 
   return (
