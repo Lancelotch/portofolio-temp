@@ -3,7 +3,7 @@ import AddressDetail from "../AddressDetail";
 import { Card, Button } from "antd";
 
 export const AddressCheckout = props => {
-  const {dataAddressDefault, isAddressAvailable, onEditAddress, onSelectListAddress, onAddAddress}  = props;
+  const {customerAddress, isAddressAvailable, onEditAddress, onSelectListAddress, onAddAddress}  = props;
   return (
     <Card
       size="small"
@@ -14,7 +14,7 @@ export const AddressCheckout = props => {
     >
       <div style={{ padding: 24 }}>
         <AddressDetail
-          addressDefault={dataAddressDefault}
+          addressDefault={customerAddress}
           isAddressAvailable={isAddressAvailable}
           onEdit={onEditAddress}
         />

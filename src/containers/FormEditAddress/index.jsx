@@ -11,6 +11,32 @@ const { TextArea } = Input;
 class FormEditAddress extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: "",
+      labelName: "",
+      receiverName: "",
+      phoneNumber: "",
+      city: "",
+      fullAddress: "",
+      province: "",
+      provinceId: "",
+      cityId: "",
+      zipcode: "zipcode",
+      geolocation: {},
+      subdistrictId: "",
+      subdistrict: "",
+      provinces: [],
+      cities: [],
+      subdistricts: [],
+      isDefault: false
+    };
+  }
+
+  componentDidMount() {
+    this.getProvince();
+  }
+
+  componentWillReceiveProps(nextProps){
     const {
       id,
       labelName,
@@ -24,9 +50,11 @@ class FormEditAddress extends Component {
       zipcode,
       geolocation,
       subdistrict,
-      subdistrictId
-    } = this.props.address;
-    this.state = {
+      subdistrictId,
+      isDefault
+    } = nextProps.address;
+    
+    this.setState({
       id: id,
       labelName: labelName,
       receiverName: receiverName,
@@ -40,14 +68,8 @@ class FormEditAddress extends Component {
       geolocation: { ...geolocation },
       subdistrictId: subdistrictId,
       subdistrict: subdistrict,
-      provinces: [],
-      cities: [],
-      subdistricts: []
-    };
-  }
-
-  componentDidMount() {
-    this.getProvince();
+      isDefault: isDefault
+    })
   }
 
   getProvince = async () => {
@@ -172,7 +194,8 @@ class FormEditAddress extends Component {
           city,
           cityId,
           subdistrict,
-          subdistrictId
+          subdistrictId,
+          isDefault
         } = this.state;
         const payload = {
           ...values,
@@ -187,9 +210,10 @@ class FormEditAddress extends Component {
             latitude: 0,
             longitude: 0
           },
-          isDefault: true
+          isDefault
         };
         this.props.onSubmit(payload);
+        this.props.form.resetFields();
         //this.props.form.resetFields();
         //this.props.onCancle();
       }
@@ -212,16 +236,13 @@ class FormEditAddress extends Component {
       labelName,
       receiverName,
       phoneNumber,
-      city,cityId,
+      city,
       fullAddress,
-      province,provinceId,
+      province,
       zipcode,
       geolocation,
-      subdistrict,subdistrictId
+      subdistrict,
     } = this.state;
-
-    console.log(this.state);
-    
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"

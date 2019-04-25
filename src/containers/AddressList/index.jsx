@@ -8,17 +8,28 @@ const confirm = Modal.confirm;
 class AddressList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      customerAddress: ""
+    };
   }
 
-  actionSelected = address => {};
+  onChange = (e) => {
+    console.log(e.target.value.address);
+    
+    this.setState({
+      customerAddress: e.target.value.address
+    });
+  }
+
+  handleOk = () => {
+    this.props.onChangeAddress(this.state.customerAddress);
+  }
 
   address = addresses => {
     return addresses.map(address => (
       <AddressListDetail
         key={address.id}
         address={address}
-        onSelected={this.actionSelected}
       />
     ));
   };

@@ -153,7 +153,6 @@ class FormAddAddress extends Component {
           },
           isDefault: true
         };
-        console.log(payload);
         this.props.onSubmit(payload);
         this.props.form.resetFields();
         //this.props.onCancle();

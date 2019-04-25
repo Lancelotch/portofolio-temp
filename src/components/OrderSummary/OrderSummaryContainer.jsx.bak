@@ -16,10 +16,7 @@ class OrderSummary extends Component {
 
   render () {
     const { subTotal, viaRoute, viaRoutePrice } = this.props
-    const {visible} = this.state
     const total = subTotal + viaRoutePrice
-    const productDetail = localStorage.getItem("product")
-    console.log(productDetail);
     
     return (
       <Card title={strings.order_summary} className='card__Style'>

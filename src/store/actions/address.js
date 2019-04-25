@@ -11,7 +11,6 @@ export const addressDefault = () => async dispatch => {
     }else{
         payload = {isAddressAvailable: false, addressDefault: response.data} 
     }
-    console.log(payload);
     
     dispatch(dispatchType.getAddressDefault(payload));
   } catch (error) {
