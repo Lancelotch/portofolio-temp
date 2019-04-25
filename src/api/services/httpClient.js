@@ -31,6 +31,7 @@ export const dummyServiceLogin = axios.create({
 });
 
 export const dummyService = axios.create({
+  //baseURL: "http://65795874.ngrok.io/api/v1/",
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {

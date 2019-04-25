@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import FormAddAddress from "../../containers/FormAddAddress";
 import { addressDefault } from "../../store/actions/address";
-import { postService, getService } from "../../api/services";
+import { postService, getService, putService } from "../../api/services";
 import { PATH_CUSTOMER, PATH_ORDER } from "../../api/path";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import FormEditAddress from "../../containers/FormEditAddress";
@@ -84,38 +84,43 @@ class Checkout extends Component {
     }
   };
 
-  showAddFormAddress = () => {
+  actionShowAddFormAddress = () => {
     this.setState(prevState => ({
       visibleAddAddress: !prevState.visibleAddAddress
     }));
   };
 
-  showEditFormAddress = () => {
+  actionShowEditFormAddress = () => {
     this.setState(prevState => ({
       visibleEditAddress: !prevState.visibleEditAddress
     }));
   };
 
-  showListAddress = () => {
+  actionShowListAddress = () => {
     this.setState(prevState => ({
       visibleListAddress: !prevState.visibleListAddress
     }));
   };
 
-  handleSubmitAddFormAddress = async request => {
+  actionSubmitAddFormAddress = async request => {
     try {
       const response = await postService(PATH_CUSTOMER.ADDRESS, request);
       this.getListAddress();
-      this.showAddFormAddress();
+      this.actionShowAddFormAddress();
     } catch (error) {
       console.log(error);
     }
   };
 
-  handleSubmitEditFormAddress = async request => {
+  actionSubmitEditFormAddress = async request => {
     try {
-      const response = await postService(PATH_CUSTOMER.ADDRESS, request);
-      this.showEditFormAddress();
+      const response = await putService(PATH_CUSTOMER.ADDRESS, request);
+      this.setState({
+        customerAddress: request
+      },()=>{
+        this.getListAddress();
+        this.actionShowEditFormAddress();
+      })
     } catch (error) {
       console.log(error);
     }
@@ -146,7 +151,7 @@ class Checkout extends Component {
     }));
   };
 
-  onSubmitOrder = async () => {
+  actionSubmitOrder = async () => {
     const {
       variants,
       customerAddress,
@@ -210,27 +215,27 @@ class Checkout extends Component {
               <AddressCheckout
                 customerAddress={customerAddress}
                 isAddressAvailable={isAddressAvailable}
-                onEditAddress={this.showEditFormAddress}
-                onSelectListAddress={this.showListAddress}
-                onAddAddress={this.showAddFormAddress}
+                onEditAddress={this.actionShowEditFormAddress}
+                onSelectListAddress={this.actionShowListAddress}
+                onAddAddress={this.actionShowAddFormAddress}
               />
               <FormAddAddress
                 visible={this.state.visibleAddAddress}
-                onSubmit={this.handleSubmitAddFormAddress}
-                onCancle={this.showAddFormAddress}
+                onSubmit={this.actionSubmitAddFormAddress}
+                onCancle={this.actionShowAddFormAddress}
               />
               {isAddressAvailable && (
                 <FormEditAddress
                   visible={this.state.visibleEditAddress}
                   address={customerAddress}
-                  onSubmit={this.handleSubmitEditFormAddress}
-                  onCancle={this.showEditFormAddress}
+                  onSubmit={this.actionSubmitEditFormAddress}
+                  onCancle={this.actionShowEditFormAddress}
                 />
               )}
               <AddressList
                 addresses={addresses}
                 visible={this.state.visibleListAddress}
-                onCancle={this.showListAddress}
+                onCancle={this.actionShowListAddress}
                 onChangeAddress={this.actionChangeAddress}
               />
               {isProductDetailAvailable && (
@@ -247,7 +252,7 @@ class Checkout extends Component {
                 quantity={quantity}
                 priceProduct={priceProduct}
                 viaRoute={shipping}
-                onOrder={this.onSubmitOrder}
+                onOrder={this.actionSubmitOrder}
               />
             </Col>
           </Row>

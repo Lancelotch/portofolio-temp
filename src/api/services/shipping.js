@@ -1,10 +1,10 @@
-import { dummyServiceLogin } from './httpClient';
+import { dummyService } from './httpClient';
 import { PATH_SHIPPING} from '../path'
 
 
 const getShipping = () => {  
     return new Promise((resolve,reject) => {
-        dummyServiceLogin
+        dummyService
             .request({
                 method: 'GET',
                 url: PATH_SHIPPING.SHIPPING

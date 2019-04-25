@@ -27,7 +27,8 @@ class FormEditAddress extends Component {
       subdistrict: "",
       provinces: [],
       cities: [],
-      subdistricts: []
+      subdistricts: [],
+      isDefault: false
     };
   }
 
@@ -35,7 +36,7 @@ class FormEditAddress extends Component {
     this.getProvince();
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps(nextProps){
     const {
       id,
       labelName,
@@ -49,8 +50,10 @@ class FormEditAddress extends Component {
       zipcode,
       geolocation,
       subdistrict,
-      subdistrictId
-    } = this.props.address;
+      subdistrictId,
+      isDefault
+    } = nextProps.address;
+    
     this.setState({
       id: id,
       labelName: labelName,
@@ -64,7 +67,9 @@ class FormEditAddress extends Component {
       zipcode: zipcode,
       geolocation: { ...geolocation },
       subdistrictId: subdistrictId,
-      subdistrict: subdistrict})
+      subdistrict: subdistrict,
+      isDefault: isDefault
+    })
   }
 
   getProvince = async () => {
@@ -189,7 +194,8 @@ class FormEditAddress extends Component {
           city,
           cityId,
           subdistrict,
-          subdistrictId
+          subdistrictId,
+          isDefault
         } = this.state;
         const payload = {
           ...values,
@@ -204,9 +210,10 @@ class FormEditAddress extends Component {
             latitude: 0,
             longitude: 0
           },
-          isDefault: true
+          isDefault
         };
         this.props.onSubmit(payload);
+        this.props.form.resetFields();
         //this.props.form.resetFields();
         //this.props.onCancle();
       }
@@ -229,12 +236,12 @@ class FormEditAddress extends Component {
       labelName,
       receiverName,
       phoneNumber,
-      city,cityId,
+      city,
       fullAddress,
-      province,provinceId,
+      province,
       zipcode,
       geolocation,
-      subdistrict,subdistrictId
+      subdistrict,
     } = this.state;
 
     const prefixSelector = getFieldDecorator("prefix", {

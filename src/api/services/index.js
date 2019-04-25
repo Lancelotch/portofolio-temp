@@ -81,6 +81,23 @@ export const patchService = (url, request) => {
   });
 };
 
+export const putService = (url, request) => {
+  return new Promise((resolve, reject) => {
+    service
+      .request({
+        method: "PUT",
+        url: url,
+        data: request
+      })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response);
+      });
+  });
+};
+
 export const deleteService = url => {
   return new Promise((resolve, reject) => {
     service
