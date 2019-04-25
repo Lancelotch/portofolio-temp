@@ -6,7 +6,6 @@ import SliderHome from "../../components/SliderHome";
 import Benefit from "../../components/Benefit";
 // import product from "../../api/services/product";
 import BestSellers from "../../components/BestSellers/index";
-import Check from "../../components/BestSellers/check"
 import PopularProducts from "../../components/PopularProducts";
 import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
 import ClickProducts from "../../components/ClickProducts";
@@ -18,12 +17,6 @@ import { PATH_PRODUCT } from "../../api/path";
 
 class HomePageContainer extends Component {
   render() {
-    console.log("ini container", this.props)
-    const {
-      bestSellerProduct,
-      mostClickProduct
-    } = this.props;
-
     return (
       <React.Fragment>
         <Row>
@@ -57,7 +50,7 @@ class HomePageContainer extends Component {
                     </Col>
                     <Col md={20}>
                       <div style={{ paddingLeft: "120px" }}>
-                        <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
+                        <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
                           <BestSellers {...this.props} maxNumber={4}></BestSellers>
                         </Fetcher>
                       </div>
@@ -79,8 +72,10 @@ class HomePageContainer extends Component {
                     marginBottom: "20px",
                     width: "1130px",
                   }}
-                >
-                  <ClickProducts products={mostClickProduct} />
+                >  
+                    <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
+                        <ClickProducts {...this.props} /> 
+                    </Fetcher>
                 </div>
               </Row>
             </div>

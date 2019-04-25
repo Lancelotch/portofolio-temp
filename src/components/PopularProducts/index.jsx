@@ -18,14 +18,14 @@ class PopularProducts extends Component {
               counter += 1;
             }
             return (
-              <Col style={{ margin: "18px" }}>
+              <Col  style={{ margin: "18px" }} key={index}>
                 <PopularProduct key={product.id} product={product} />
               </Col>
             );
           }
           if (!maxNumber) {
             return (
-              <Col>
+              <Col key={index}>
                 <PopularProduct key={product.id} product={product} />
               </Col>
             );

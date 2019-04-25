@@ -30,8 +30,6 @@ class SliderHome extends Component {
 
   render () {
     const { sliderImages } = this.state
-    console.log(sliderImages)
-
     const settings = {
       dots: true,
       speed: 999,
@@ -39,10 +37,9 @@ class SliderHome extends Component {
       slidesToShow: 1,
       slidesToScroll: 1
     } 
-
-    const slides = sliderImages.map(image => {
+    const slides = sliderImages.map((image, index) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={index}>
           <Link to='/'>
             <img
               className='imageSlider'

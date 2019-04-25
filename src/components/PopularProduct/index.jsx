@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, Col } from "antd";
 import currencyRupiah from "../../library/currency";
-import LazyLoad from "react-lazyload";
-import SkeletomImg from "react-js-skeleton";
+// import LazyLoad from "react-lazyload";
+// import SkeletomImg from "react-js-skeleton";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import PATH_URL from "../../routers/path";

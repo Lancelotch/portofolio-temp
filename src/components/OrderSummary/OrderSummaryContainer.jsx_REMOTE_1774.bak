@@ -16,10 +16,6 @@ class OrderSummary extends Component {
 
   render () {
     const { subTotal, viaRoute, viaRoutePrice } = this.props
-<<<<<<< HEAD:src/components/OrderSummary/OrderSummaryContainer.jsx
-    // const {visible} = this.state
-=======
->>>>>>> development:src/components/OrderSummary/OrderSummaryContainer.jsx.bak
     const total = subTotal + viaRoutePrice
     
     return (

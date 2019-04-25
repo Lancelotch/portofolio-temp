@@ -9,15 +9,16 @@ class BestSellers extends Component {
     }
     render() { 
         const {products, maxNumber} = this.props 
+        console.log("ini best seller", this.props)
         let counter = 0
         return ( <React.Fragment>
-                {products.map((product) => {
+                {products.map((product, i) => {
                     if(maxNumber && counter < maxNumber) {
                         if(maxNumber !== null) {
                             counter +=1
                         }
                         return(
-                            <Col md={4} style={{marginTop:'70px', marginRight:'70px'}}>
+                            <Col md={4} style={{marginTop:'70px', marginRight:'70px'}} key={i}>
                                 <BestSeller 
                                      key={product.id}
                                      product={product}
@@ -27,7 +28,7 @@ class BestSellers extends Component {
                     }
                     if(!maxNumber) {
                         return(
-                            <Col>
+                            <Col key={i}>
                             <BestSeller
                                 key={product.id}
                                 product={product} 
