@@ -12,12 +12,7 @@ const OrderStatusUser = props => {
                     <h2>{label}</h2>
                 </Col>
                 <Col md={12}>
-                    <p style={{
-                        color: " #BBBBBB",
-                        fontSize: 16,
-                        textAlign: "right",
-                        fontWeight: 500
-                    }}>
+                    <p className="perkiraanDiterima">
                         Perkiraan Diterima : &nbsp;
                         {estimateShippingDate}
                     </p>
