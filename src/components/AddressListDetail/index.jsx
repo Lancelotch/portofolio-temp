@@ -10,12 +10,12 @@ const StatusAddress = props => {
         fontSize: 17
       }}
     >
-      {props.isDefault ? "Utama" : "Jadikan Utama"}
+      {props.isDefault ? "Alamat Utama" : ""}
     </span>
   );
 };
 
-const Address = props => {
+const AddressListDetail = props => {
   const {
     id,
     labelName,
@@ -23,7 +23,7 @@ const Address = props => {
     receiverName,
     phoneNumber,
     isDefault
-  } = props.data;
+  } = props.address;
   return (
     <Fragment>
       <Row>
@@ -64,26 +64,12 @@ const Address = props => {
           </p>
         </Col>
         <Col>
-          <Radio value={id} checked={isDefault} style={{ float: "right" }} >Pilih</Radio>
+          <Radio value={props} checked={isDefault} style={{ float: "right" }} ></Radio>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <span
-            style={{
-              color: "#888888",
-              fontFamily: "Helvetica Neue",
-              fontSize: 16
-            }}
-          >
-            <Icon type="delete" style={{ marginRight: 12 }} onClick={()=>props.onDelete(id)}/>
-            <span onClick={()=>props.onEdit(props.data)}>Edit</span>
-          </span>
-        </Col>
-      </Row>
-      <hr />
+      <br/>
     </Fragment>
   );
 };
 
-export default Address;
+export default AddressListDetail;

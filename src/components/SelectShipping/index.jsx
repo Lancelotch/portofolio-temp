@@ -15,30 +15,27 @@ class Shipping extends Component {
 
    componentDidMount() {
     this.shipping();
-
-    console.log("selected shipping", this.state)
   }
 
   onChangeShipping = selected => {
-    this.props.onChangeShipping(selected)
-    this.setState({
+    this.setState(
+      {
         shippingSelected: selected.id
-      })
+      },
+      this.props.onChangeShipping(selected)
+    );
   };
 
   shipping = async () => {
     try {
       const res = await shipping.getShipping();
-      // const res = await dummyShipping;
-      this.setState({
-        shipping: res.data,
-        shippingSelected: res.data[1].id 
-      });
-
-      if( this.state.shippingSelected !== null){
-        console.log('masuk if', res.data[1])
+      this.setState(
+        {
+          shipping: res.data,
+          shippingSelected: res.data[1].id
+        },
         this.props.onChangeShipping(res.data[1])
-      }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -47,11 +44,11 @@ class Shipping extends Component {
     console.log(this.state.shippingSelected);
     
     return (
-        <SelectShipping
-          onChangeSelected={this.onChangeShipping}
-          shipping={this.state.shipping}
-          selected={this.state.shippingSelected}
-        />
+      <SelectShipping
+        onChangeSelected={this.onChangeShipping}
+        shipping={this.state.shipping}
+        selected={this.state.shippingSelected}
+      />
     );
   }
 }

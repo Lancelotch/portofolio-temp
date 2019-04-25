@@ -3,9 +3,10 @@ import { Button, Input } from "antd";
 import "./style.css";
 
 const ButtonQuantity = props => {
+  const disable = props.quantity <= 1 ? true: false;
   return (
     <React.Fragment>
-    <button className="button_quantity" onClick={props.decrementItem}>-</button>
+    <button className="button_quantity" onClick={props.decrementItem} disabled={disable}>-</button>
       <Input
         maxLength={4}
         defaultValue={1}
@@ -19,7 +20,6 @@ const ButtonQuantity = props => {
         onChange={props.onChangeQuantity}
       />
       <button className="button_quantity" onClick={props.incrementItem}>+</button>
-      <p>{props.stockAlert}</p>
     </React.Fragment>
   );
 };
