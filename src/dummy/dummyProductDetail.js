@@ -35,30 +35,6 @@ const dummyProductDetail = {
                 "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
-            }
-            ,{
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
             }
         ],
         "variants": [{
@@ -79,12 +55,11 @@ const dummyProductDetail = {
                     {
                         "id": "02",
                         "name": "oren",
-                        "description": "warna oren",
-                       
+                        "description": "warna oren",                      
                         "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                            "large": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg",
+                            "medium": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg",
+                            "small": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg"
                         }
                     },
                     {
@@ -101,8 +76,7 @@ const dummyProductDetail = {
                     {
                         "id": "04",
                         "name": "hitam",
-                        "description": "warna hitam",
-                       
+                        "description": "warna hitam",                      
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",

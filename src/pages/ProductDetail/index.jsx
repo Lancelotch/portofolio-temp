@@ -41,7 +41,9 @@ class ProductDetail extends Component {
 
   actionUpdateSku = sku => {
     const data = { ...this.state.data, sku };
-    this.setState({ data });
+    this.setState({
+      data
+    });
   };
 
   actionUpdateQuantity = quantity => {
@@ -97,8 +99,8 @@ class ProductDetail extends Component {
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const response = await productDetail.getProductDetail(productId);
-      // const response = dummyProductDetail;
+      // const response = await productDetail.getProductDetail(productId);
+      const response = dummyProductDetail;
       const product = response.data;
       this.setState({
         name: product.name,
@@ -115,8 +117,6 @@ class ProductDetail extends Component {
   };
 
   render() {
-    console.log('ini gambar variaaants',this.state.data.sku.variants);
-      
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
@@ -165,7 +165,7 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            {this.state.open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
+            {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
             {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}

@@ -52,13 +52,13 @@ class SliderProductDetailContainer extends Component {
 
   render() {
     const settings = {
-      // customPaging: function(i) {
-      //   return (
-      //     <a>
-      //       <img src={slides} alt=""/>
-      //     </a>
-      //   );
-      // },
+      customPaging: function (i) {
+        return (
+          <a>
+            <img src={i + slides} alt="" />
+          </a>
+        );
+      },
       dots: true,
       dotsClass: "slick-dots slick-thumb",
       infinite: true,
@@ -86,37 +86,11 @@ class SliderProductDetailContainer extends Component {
       <Row>
         <Col md={24} sm={12}>
           <Slider {...settings}>
-            {this.props.images.map((src, index) => (
-              <div className="inigambar" style={{ height: 450 }} key={index}>
-                {console.log("iniii", src.large)}
-                <ReactImageMagnify
-                  className="inizoom"
-                  {...{
-                    smallImage: {
-                      alt: 'Wristwatch by Versace',
-                      isFluidWidth: true,
-                      src: src.medium,
-                      sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
-                    },
-                    largeImage: {
-                      src: src.large,
-                      width: 772,
-                      height: 401,
+           
 
-                    },
-                    lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
-                  }}
-                  {...{
-                    enlargedImageContainerDimensions: { width: '100%', height: '100%' },
-                    shouldHideHintAfterFirstActivation: false,
-                    enlargedImagePosition: "over",
-                    enlargedImageContainerStyle: { Index: 1000 }
-                  }}
-
-                />
-              </div>
-            )
-            )}
+              {slides}
+          
+        
           </Slider>
         </Col>
       </Row>
