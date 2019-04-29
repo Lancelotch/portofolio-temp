@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Modal, Button, Row, Col } from "antd";
+import { Modal, Button, Row, Col, Collapse } from "antd";
 import convertTimesTime from "../../library/convertTimestime";
 import currencyRupiah from "../../library/currency";
 import "./style.sass";
 import strings from "../../localization/localization";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { caraBayarBankBni } from "../../library/dataBank";
 
 class ModalHowToPay extends Component {
   constructor(props) {
@@ -19,7 +20,12 @@ class ModalHowToPay extends Component {
     this.props.close();
   };
 
+  callback = (key) => {
+    console.log(key);
+  }
+
   render() {
+    const Panel = Collapse.Panel;
     const { endDatePay, pay, payBank } = this.props;
     return (
       <div>
@@ -57,7 +63,6 @@ class ModalHowToPay extends Component {
           <p className="paymenttype">{pay.paymentType}</p>
           <div className="virtualAccontCopy"
             style={{
-              backgroundColor: "#eef2f3",
               height: 58.42,
               borderRadius: 4
             }}>
@@ -82,6 +87,15 @@ class ModalHowToPay extends Component {
               </Col>
             </Row>
           </div>
+          <Row>
+            <Col md={24}>
+              <Collapse defaultActiveKey={['1']} onChange={this.callback}>
+                <Panel header="Cara Bayar" key="1">
+                  <p>{caraBayarBankBni}</p>
+                </Panel>
+              </Collapse>
+            </Col>
+          </Row>
         </Modal >
       </div >
     );

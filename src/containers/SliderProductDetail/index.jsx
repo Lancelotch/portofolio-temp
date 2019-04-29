@@ -11,7 +11,6 @@ class SliderProductDetailContainer extends Component {
     super(props);
     this.state = {
       visible: false,
-      original: "",
       isShowNav: false
     };
   }
@@ -24,19 +23,17 @@ class SliderProductDetailContainer extends Component {
     }
   }
 
-  
-
   imageHover(item) {
     return (
       <ReactImageMagnify
         {...{
           smallImage: {
             isFluidWidth: true,
-            src: item.thumbnail,
+            src: item.original,
           },
           largeImage: {
             width: 500,
-            height: 500,
+            height: 600,
             src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }

@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format';
 import "./style.sass";
 
 const OrderStatusUser = props => {
-    const { label, customer, estimateShippingDate } = props;
+    const { label, customer, estimateShippingDate, index } = props;
     return (
         <div className="orderStatusUser" style={{ marginTop: 10, padding: 15 }}>
             <Row>
@@ -12,10 +12,12 @@ const OrderStatusUser = props => {
                     <h2>{label}</h2>
                 </Col>
                 <Col md={12}>
-                    <p className="perkiraanDiterima">
-                        Perkiraan Diterima : &nbsp;
+                    {index === 3 &&
+                        <p className="perkiraanDiterima">
+                            Perkiraan Diterima : &nbsp;
                         {estimateShippingDate}
-                    </p>
+                        </p>
+                    }
                 </Col>
             </Row>
             <hr className="inline" />

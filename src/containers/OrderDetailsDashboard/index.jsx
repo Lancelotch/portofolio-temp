@@ -7,6 +7,7 @@ import OrderStatusUser from "../../components/OrderStatusUser";
 import { Affix, Button, Icon } from "antd";
 import "./style.sass"
 import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDikirim";
+import OrderStatusStep from "../../components/OrderStatusStep";
 
 class OrderDetailsDashboard extends Component {
   constructor(props) {
@@ -21,7 +22,8 @@ class OrderDetailsDashboard extends Component {
       orderDetailsId: this.props.orderDetailsId,
       endDatePay: 0,
       invoiceNumber: "",
-      estimateShippingDate:""
+      estimateShippingDate: "",
+      orderDate: 0
     };
   }
 
@@ -35,14 +37,15 @@ class OrderDetailsDashboard extends Component {
       const dummyBelumDikirim = await dummyOrderDetailsBelumDikirim;
       const itemProductOrder = {
         invoiceNumber: dummyBelumDikirim.data.invoiceNumber,
-        estimateShippingDate : response.data.estimateShippingDate,
+        estimateShippingDate: response.data.estimateShippingDate,
         bank: response.data.bank,
         endDatePay: response.data.endDatePay,
         shipping: response.data.shipping,
         payment: response.data.payment,
         productorder: response.data,
         orderAddress: response.data.orderAddress,
-        indexes: response.data.indexes
+        indexes: response.data.indexes,
+        orderDate: response.data.orderDate
       };
       this.setState({
         ...itemProductOrder
@@ -56,7 +59,7 @@ class OrderDetailsDashboard extends Component {
       <React.Fragment>
         {this.state.indexes.map(order => {
           return (
-            <React.Fragment>
+            <React.Fragment key={order.id}>
               <div style={{ marginBottom: 50 }}>
                 {this.props.index === 1 &&
                   <h2
@@ -99,41 +102,72 @@ class OrderDetailsDashboard extends Component {
                 </Affix>
               </div>
               {this.props.index === 1 &&
-                <ProductOrder
-                  label="Detail Pesanan"
-                  key={order.id}
-                  productImage={order.productImage}
-                  variants={order.variants}
-                  productName={order.productName}
-                  productQuantity={order.productQuantity}
-                  totalAmount={order.totalAmount}
-                />
+                <React.Fragment>
+                  <OrderStatusStep orderDate={this.state.orderDate} />
+                  <ProductOrder
+                    label="Detail Pesanan"
+                    key={order.id}
+                    productImage={order.productImage}
+                    variants={order.variants}
+                    productName={order.productName}
+                    productQuantity={order.productQuantity}
+                    totalAmount={order.totalAmount}
+                  />
+                </React.Fragment>
               }
+
               {this.props.index === 2 &&
-                <ProductOrder
-                  label="Detail Pesanan"
-                  noInvoice={"No Invoice"}
-                  invoiceNumber={this.state.invoiceNumber}
-                  key={order.id}
-                  productImage={order.productImage}
-                  variants={order.variants}
-                  productName={order.productName}
-                  productQuantity={order.productQuantity}
-                  totalAmount={order.totalAmount}
-                />
+                <React.Fragment>
+                  <OrderStatusStep orderDate={this.state.orderDate} index={2} />
+                  <ProductOrder
+                    label="Detail Pesanan"
+                    noInvoice={"No Invoice"}
+                    invoiceNumber={this.state.invoiceNumber}
+                    key={order.id}
+                    productImage={order.productImage}
+                    variants={order.variants}
+                    productName={order.productName}
+                    productQuantity={order.productQuantity}
+                    totalAmount={order.totalAmount}
+                  />
+                </React.Fragment>
               }
               {this.props.index === 3 &&
-                <ProductOrder
-                  label="Detail Pesanan"
-                  noInvoice={"No Invoice"}
-                  invoiceNumber={this.state.invoiceNumber}
-                  key={order.id}
-                  productImage={order.productImage}
-                  variants={order.variants}
-                  productName={order.productName}
-                  productQuantity={order.productQuantity}
-                  totalAmount={order.totalAmount}
-                />
+                <React.Fragment>
+                  <OrderStatusStep orderDate={this.state.orderDate} indexPesanDikirim={3} index={2} />
+                  <ProductOrder
+                    label="Detail Pesanan"
+                    noInvoice={"No Invoice"}
+                    invoiceNumber={this.state.invoiceNumber}
+                    key={order.id}
+                    productImage={order.productImage}
+                    variants={order.variants}
+                    productName={order.productName}
+                    productQuantity={order.productQuantity}
+                    totalAmount={order.totalAmount}
+                  />
+                </React.Fragment>
+              }
+              {this.props.index === 4 &&
+                <React.Fragment>
+                  <OrderStatusStep
+                    orderDate={this.state.orderDate}
+                    indexPesanDiterima={4}
+                    indexPesanDikirim={3}
+                    index={2}
+                  />
+                  <ProductOrder
+                    label="Detail Pesanan"
+                    noInvoice={"No Invoice"}
+                    invoiceNumber={this.state.invoiceNumber}
+                    key={order.id}
+                    productImage={order.productImage}
+                    variants={order.variants}
+                    productName={order.productName}
+                    productQuantity={order.productQuantity}
+                    totalAmount={order.totalAmount}
+                  />
+                </React.Fragment>
               }
               <PaymentInfo
                 key={order.id}
@@ -162,6 +196,7 @@ class OrderDetailsDashboard extends Component {
                 />}
               {this.props.index === 3 &&
                 <OrderStatusUser
+                  index={3}
                   label="Pengiriman"
                   estimateShippingDate={this.state.estimateShippingDate}
                   customer={this.state.orderAddress}
