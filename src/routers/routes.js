@@ -38,7 +38,7 @@ const routes = [{
     {
         path: PATH_URL.PRODUCT_DETAIL,
         component: ProductDetail,
-        layoutName: 'fullLayout'
+        // layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CATEGORY,

@@ -27,6 +27,7 @@ class SliderProductDetailContainer extends Component {
   
 
   imageHover(item) {
+    console.log("====",item)
     return (
       <ReactImageMagnify
         {...{
@@ -35,15 +36,16 @@ class SliderProductDetailContainer extends Component {
             src: item.thumbnail,
           },
           largeImage: {
-            width: 500,
-            height: 500,
+            width: 800,
+            height: 800,
             src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
         {...{
+          isHintEnabled: true,
           enlargedImageContainerDimensions: {width: '100%', height: '100%'},
-          shouldHideHintAfterFirstActivation: false,
+          // shouldHideHintAfterFirstActivation: true,
           enlargedImagePosition: "over",
           enlargedImageContainerStyle: { Index: 1000 }
         }}
@@ -102,7 +104,7 @@ class SliderProductDetailContainer extends Component {
             renderItem={this.imageHover}
             items={images}
           />
-          {this.imageViewer()}
+          {/* {this.imageViewer()} */}
         </Col>
       </Row>
     );

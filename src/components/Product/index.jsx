@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom"
-import PATH_URL from "../../routers/path";
+// import PATH_URL from "../../routers/path";
 import { pageUrlProductDetail } from "../../library/url";
 
 const { Meta } = Card;

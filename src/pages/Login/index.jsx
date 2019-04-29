@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Checkbox, Row, Col, Affix } from "antd";
-import { Redirect, Link } from "react-router-dom";
+import { Input, Form, Button, Icon, Row, Col, Affix } from "antd";
+import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -13,11 +13,11 @@ import {
 } from "../../store/actions/authentication";
 import {
   rulesEmail,
-  rulesPassword,
-  AlertLogin,
+  // rulesPassword,
+  // AlertLogin,
   RegistrationaAlert
 } from "../Register/registerContainer";
-import HomePage from "../Home";
+// import HomePage from "../Home";
 
 const FormItem = Form.Item;
 
@@ -34,7 +34,6 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    console.log("ini location", this.props.location);
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -60,7 +59,6 @@ class Login extends Component {
         } else {
          await this.props.loginWithForm(history, values);
         }
-        console.log("message>>>login-page", this.props.auth);
         const { message, status } = this.props.auth.data;
         this.setState({
           message,
@@ -71,12 +69,9 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.props.token);
     const { form } = this.props;
     const { getFieldDecorator } = form;
-    const { errorMessage } = this.state;
-
-    console.log(errorMessage);
+    // const { errorMessage } = this.state;
     return (
       <React.Fragment>
         <Row>

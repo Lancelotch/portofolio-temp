@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Input, Form, Button, Icon, Checkbox, Menu, Message } from 'antd'
+import { Input, Form, Button, Icon, Checkbox, Menu } from 'antd'
 import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
@@ -9,7 +9,7 @@ import {
   loginWithGoogle,
   loginWithHome
 } from '../../store/actions/authentication'
-import SnackBar from 'react-material-snackbar'   
+// import SnackBar from 'react-material-snackbar'   
 
 const FormItem = Form.Item
 
@@ -32,7 +32,6 @@ class Login extends Component {
       e.preventDefault()
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values)
           await this.props.loginWithHome(values)
           if (this.state.isAuthenticated !== true) {
             this.setState({
@@ -55,10 +54,9 @@ class Login extends Component {
 
 
   render () {
-    console.log(this.props.token)
-    const { visible, onCancel, form } = this.props
+    const {  form } = this.props
     const { getFieldDecorator } = form
-    const { isAuthenticated, errorMessage, isErorloaded } = this.state
+    const {  errorMessage, isErorloaded } = this.state
     console.log(errorMessage)
     return (
       <React.Fragment>

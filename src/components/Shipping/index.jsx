@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Shippings from "./Shippings";
-import dummyShipping from "../../dummy/dummyShipping";
+// import dummyShipping from "../../dummy/dummyShipping";
 import shipping from "../../api/services/shipping";
 
 class Shipping extends Component {

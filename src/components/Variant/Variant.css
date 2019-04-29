@@ -9,6 +9,7 @@
     margin-left: 10px;
     display: inline-flex;
     padding: 15px;
+    cursor: pointer;
 }
 
 .variant {
@@ -21,4 +22,5 @@
 .box-variant.active {
     border: 2px solid #004853;
     border-radius: 2px;
+    cursor: pointer;
 }

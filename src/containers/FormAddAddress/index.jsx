@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
-import Fetcher from "../../hoc/Fetcher";
+// import Fetcher from "../../hoc/Fetcher";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
-import { postAddressForm, addressService } from "../../api/services/address";
+// import { postAddressForm, addressService } from "../../api/services/address";
 import { getService } from "../../api/services";
 
 const { Option } = Select;

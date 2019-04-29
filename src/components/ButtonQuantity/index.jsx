@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input } from "antd";
+import { Input } from "antd";
 import "./style.css";
 
 const ButtonQuantity = props => {
