@@ -80,17 +80,40 @@ class SliderProductDetailContainer extends Component {
       )
     });
 
-
-
     return (
       <Row>
         <Col md={24} sm={12}>
           <Slider {...settings}>
-           
+            {this.props.images.map((src, index) => (
+              <div className="App" style={{ height: 450 }} key={index}>
+                {console.log("iniii", src.large)}
+                <ReactImageMagnify
+                  className="inizoom"
+                  {...{
+                    smallImage: {
+                      alt: '',
+                      isFluidWidth: true,
+                      src: src.medium,
+                      sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                    },
+                    largeImage: {
+                      src: src.large,
+                      width: 772,
+                      height: 401,
 
-              {slides}
-          
-        
+                    },
+                    lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
+                  }}
+                  {...{
+                    enlargedImageContainerDimensions: { width: '100%', height: '100%' },
+                    shouldHideHintAfterFirstActivation: false,
+                    enlargedImagePosition: "over",
+                    enlargedImageContainerStyle: { Index: 1000 }
+                  }}
+                />
+              </div>
+            )
+            )}
           </Slider>
         </Col>
       </Row>
