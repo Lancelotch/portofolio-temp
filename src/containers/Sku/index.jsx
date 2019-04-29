@@ -24,14 +24,12 @@ class SkuContainer extends Component {
     getSkuSmallestPrice = (product) => {
         const listSku = product.sku;
         const skuSmallestPrice = listSku.reduce(this.compareSkuSmallestPrice, listSku[0]);
-        console.log("small",skuSmallestPrice)
         this.initSku(skuSmallestPrice);
     }
 
     compareSkuSmallestPrice = (smallest, sku) => {
         return (sku.price < smallest.price && sku.stock !== 0) ? sku : smallest
     }
-
 
     initSku(skuSmallestPrice) {
         const skuId = skuSmallestPrice.id;
@@ -52,8 +50,6 @@ class SkuContainer extends Component {
             const variantId = variantData.substring(0, 3);
             const valueId = variantData.substring(3, 5);
             const variantFromProduct = this.props.product.variants.find(variant => variant.id === variantId);
-            console.log("variantFromProduct", variantFromProduct);
-            
             const variantValueFromProduct = variantFromProduct.values.find(value => value.id === valueId);
             const variantName = variantFromProduct.name;
             const valueName = variantValueFromProduct.name;

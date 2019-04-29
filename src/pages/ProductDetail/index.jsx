@@ -74,7 +74,6 @@ class ProductDetail extends Component {
       name
     } = this.state
     const image = images.find(image => image.isDefault === true).medium;
-    console.log('imageeeeeslider', image);
     const indexes = {
       image,
       name: name,
@@ -87,7 +86,6 @@ class ProductDetail extends Component {
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
-    console.log('localstoraaaaage',indexesToLocalstorage)
     localStorage.setItem("product", indexesToLocalstorage);
     if (this.props.isAuthenticated !== false) {
       this.redirectCheckout();
@@ -99,8 +97,8 @@ class ProductDetail extends Component {
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      // const response = await productDetail.getProductDetail(productId);
-      const response = dummyProductDetail;
+      const response = await productDetail.getProductDetail(productId);
+      // const response = dummyProductDetail;
       const product = response.data;
       this.setState({
         name: product.name,
@@ -117,6 +115,8 @@ class ProductDetail extends Component {
   };
 
   render() {
+    console.log('ini gambar variaaants',this.state.data.sku.variants);
+      
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (

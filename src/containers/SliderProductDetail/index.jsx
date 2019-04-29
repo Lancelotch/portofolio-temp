@@ -1,10 +1,35 @@
 import React, { Component } from "react";
-import ImageGallery from "react-image-gallery";
 import { Row, Col } from "antd";
 import PropTypes from "prop-types";
-import ReactImageMagnify from "react-image-magnify";
-import Viewer from "react-viewer";
-import "react-viewer/dist/index.css";
+import ReactImageMagnify from 'react-image-magnify';
+import Slider from "react-slick";
+import "./style.css";
+
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "green" }}
+      onClick={onClick}
+    />
+  );
+}
+
+
+
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
@@ -14,7 +39,8 @@ class SliderProductDetailContainer extends Component {
       isShowNav: false
     };
   }
- 
+
+
   componentWillReceiveProps(props) {
     if (this.props.images.length > 6) {
       this.setState({
@@ -23,83 +49,75 @@ class SliderProductDetailContainer extends Component {
     }
   }
 
-  imageHover(item) {
-    return (
-      <ReactImageMagnify
-        {...{
-          smallImage: {
-            isFluidWidth: true,
-            src: item.original,
-          },
-          largeImage: {
-            width: 500,
-            height: 600,
-            src: item.original
-          },
-          lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
-        }}
-        {...{
-          enlargedImageContainerDimensions: {width: '100%', height: '100%'},
-          shouldHideHintAfterFirstActivation: false,
-          enlargedImagePosition: "over",
-          enlargedImageContainerStyle: { Index: 1000 }
-        }}
-      />
-    );
-  }
-
-  imageViewer() {
-    const images = [{ src: this.state.original }];  
-    this.props.images.map(productImage => {
-      return images.push({
-        src: productImage.large
-      });
-    });
-    return (
-      <Viewer
-        onMaskClick={e => void { clicked: true }}
-        visible={this.state.visible}
-        zIndex={2000}
-        drag={false}
-        zoomable={true}
-        attribute={true}
-        title={true}
-        rotatable={true}
-        scalable={false}
-        onClose={() => this.setState({ visible: false })}
-        images={images}
-      />
-    );
-  }
 
   render() {
-    const images = [];
-    this.props.images.map(productImage => {
-      return images.push({
-        original: productImage.large,
-        thumbnail: productImage.medium
-      });
+    const settings = {
+      // customPaging: function(i) {
+      //   return (
+      //     <a>
+      //       <img src={slides} alt=""/>
+      //     </a>
+      //   );
+      // },
+      dots: true,
+      dotsClass: "slick-dots slick-thumb",
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      slickGoTo: false,
+      // arrows: this.state.isShowNav,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
+    };
+
+    const slides = this.props.images.map(productImage => {
+      return (
+        <img
+          alt="example"
+          src={productImage.large}
+        />
+      )
     });
+
+
 
     return (
       <Row>
         <Col md={24} sm={12}>
-          <ImageGallery
-            key={this.state.index}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            showNav={this.state.isShowNav}
-            // startIndex={this.state.index}
-            onClick={e =>
-              this.setState({
-                visible: true,
-                original: e.target.firstChild.currentSrc
-              })
-            }
-            renderItem={this.imageHover}
-            items={images}
-          />
-          {this.imageViewer()}
+          <Slider {...settings}>
+            {this.props.images.map((src, index) => (
+              <div className="inigambar" style={{ height: 450 }} key={index}>
+                {console.log("iniii", src.large)}
+                <ReactImageMagnify
+                  className="inizoom"
+                  {...{
+                    smallImage: {
+                      alt: 'Wristwatch by Versace',
+                      isFluidWidth: true,
+                      src: src.medium,
+                      sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                    },
+                    largeImage: {
+                      src: src.large,
+                      width: 772,
+                      height: 401,
+
+                    },
+                    lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
+                  }}
+                  {...{
+                    enlargedImageContainerDimensions: { width: '100%', height: '100%' },
+                    shouldHideHintAfterFirstActivation: false,
+                    enlargedImagePosition: "over",
+                    enlargedImageContainerStyle: { Index: 1000 }
+                  }}
+
+                />
+              </div>
+            )
+            )}
+          </Slider>
         </Col>
       </Row>
     );
