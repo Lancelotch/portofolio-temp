@@ -41,8 +41,6 @@ class Shipping extends Component {
     }
   };
   render() {
-    console.log(this.state.shippingSelected);
-    
     return (
       <SelectShipping
         onChangeSelected={this.onChangeShipping}
