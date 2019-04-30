@@ -1,18 +1,20 @@
 import React from "react";
 import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
-import { Link } from "react-router-dom"
-import PATH_URL from "../../routers/path";
+import { Link } from "react-router-dom"    
 import { pageUrlProductDetail } from "../../library/url";
+import "./style.sass";
 
 const { Meta } = Card;
 
 const cardStyle = {
-  width: "100%"
+  width: "100%",
 };
 
-const imageStyle = {
-  height: "250px",
+let imageStyle = {
+  height: "150px",
+  display: "block",
+  margin: "auto",
   objectFit: "scale-down"
 }
 
@@ -22,18 +24,18 @@ const Product = props => {
   const price = currencyRupiah(props.price);
   const id = props.id;
   return (
-    <React.Fragment>
+    <div className="productBorderWrapper">
       <Link to={pageUrlProductDetail + id || "#"}>
-      <Card
-        hoverable
-        bordered={true}
-        style={cardStyle}
-        cover={<img alt="example" src={urlImage} style={imageStyle}/>}
-      >
-        <Meta title={title} description={price} />
-      </Card>
+        <Card
+          hoverable
+          bordered={true}
+          style={cardStyle}
+          cover={<img alt="example" src={urlImage} style={imageStyle} />}
+        >
+          <Meta title={title} description={<span className="priceProduct">{price}</span>} />
+        </Card>
       </Link>
-    </React.Fragment>
+    </div>
   );
 };
 

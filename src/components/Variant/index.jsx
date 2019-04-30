@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip, Col } from "antd";
-import "./Variant.css";
+import "./Variant.sass";
 import strings from "../../localization/localization.js"
 
 
@@ -42,8 +42,8 @@ const VariantText = (props) => {
                         key={value.id}
                         // style={stockInfo(props, infoStockEmpty, value, selected) ? disabled : null}
                         className={props.selected && (checkVariant(props.id, value.id, selected) ?
-                            "box-variant active" : "box-variant")}>
-                        <p>{value.name}</p>
+                            "box-variant-text active" : "box-variant-text")}>
+                        <span>{value.name}</span>
                     </div>
                 // </Tooltip>
             ))}

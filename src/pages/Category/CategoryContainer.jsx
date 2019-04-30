@@ -67,7 +67,7 @@ class CategoryPage extends Component {
     }
   };
 
-  handleCategoryNotFound = (error)=> {
+  handleCategoryNotFound = (error) => {
     if (error.status === 500) {
       this.props.history.push('/products');
       this.setState({
@@ -109,29 +109,31 @@ class CategoryPage extends Component {
     const { productList, hasMore, query, element } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
-      element,
-      <b>{query}</b>
+      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
+      <b style={{ color: "#FF416C" }}>{query}</b>
     );
     return (
-      <Fragment>
-        <p>{categoryTextResult} </p>
-        <SortListProduct onChange={this.onChangeSort} />
+      <div style={{ marginTop: 15 }}>
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span className="categoryTextResult">{categoryTextResult}</span>
+          <span>Urutkan &nbsp;&nbsp;&nbsp;
+            <SortListProduct onChange={this.onChangeSort} /></span>
+        </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
           loader={<Spinner size="large" />}
-          endMessage={
-            <div>
-              <BackTop />
-            </div>
-          }
+          endMessage={<BackTop />}
         >
-          <Suspense fallback={<SkeletonProduct count={20} />}>
-            <Products productList={productList} />
-          </Suspense>
+          <div style={{ marginTop: 35 }}>
+            <Suspense fallback={<SkeletonProduct count={20} />}>
+              <Products productList={productList} />
+            </Suspense>
+          </div>
         </InfiniteScroll>
-      </Fragment>
+      </div>
     );
   };
 
@@ -139,8 +141,8 @@ class CategoryPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-      <SkeletonProduct count={20} />
-    );
+        <SkeletonProduct count={20} />
+      );
   };
 
   renderNotFound = () => {
@@ -155,7 +157,7 @@ class CategoryPage extends Component {
   render() {
     const { match } = this.props;
     return (
-      <Category match = {match}>
+      <Category match={match}>
         {this.renderProducts()}
       </Category>
 

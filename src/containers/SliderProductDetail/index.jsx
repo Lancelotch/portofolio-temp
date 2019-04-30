@@ -3,6 +3,8 @@ import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import ReactImageMagnify from 'react-image-magnify';
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"; 
 import "./style.css";
 
 
@@ -28,18 +30,49 @@ function SamplePrevArrow(props) {
   );
 }
 
+function _defineProperty(obj, key, value) {if (key in obj) 
+  {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;
+}
 
 
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
+    const slides = this.props.images.map(productImage => {
+      return (
+        <img
+          alt="example"
+          src={productImage.large}
+        />
+      )
+    });
+    this.originalImageWidth = slides
+    this.originalImageHeight = slides
     this.state = {
       visible: false,
-      isShowNav: false
+      isShowNav: false,
+      // imageWidth: 0,
+      // imageHeight: 0
     };
   }
 
+  // updateImageDimensions = () => {
+  //   let { offsetWidth: imageWidth = 0 } = document.getElementById('image-wrapper') || {}
+  //   imageWidth -= 26
+  //   const imageHeight = imageWidth * this.originalImageHeight / this.originalImageWidth
+  //   this.setState({ imageWidth, imageHeight })
+  // }
+
+
+  // componentDidMount() {
+  //   this.updateImageDimensions()
+  //   window.addEventListener('resize', this.updateImageDimensions)
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.updateImageDimensions)
+  // }
 
   componentWillReceiveProps(props) {
     if (this.props.images.length > 6) {
@@ -50,13 +83,15 @@ class SliderProductDetailContainer extends Component {
   }
 
 
+
+
   render() {
     const settings = {
       customPaging: function (i) {
         return (
-          <a>
-            <img src={i + slides} alt="" />
-          </a>
+
+          <img src={slides} alt="" />
+
         );
       },
       dots: true,
@@ -84,36 +119,8 @@ class SliderProductDetailContainer extends Component {
       <Row>
         <Col md={24} sm={12}>
           <Slider {...settings}>
-            {this.props.images.map((src, index) => (
-              <div className="App" style={{ height: 450 }} key={index}>
-                {console.log("iniii", src.large)}
-                <ReactImageMagnify
-                  className="inizoom"
-                  {...{
-                    smallImage: {
-                      alt: '',
-                      isFluidWidth: true,
-                      src: src.medium,
-                      sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
-                    },
-                    largeImage: {
-                      src: src.large,
-                      width: 772,
-                      height: 401,
 
-                    },
-                    lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
-                  }}
-                  {...{
-                    enlargedImageContainerDimensions: { width: '100%', height: '100%' },
-                    shouldHideHintAfterFirstActivation: false,
-                    enlargedImagePosition: "over",
-                    enlargedImageContainerStyle: { Index: 1000 }
-                  }}
-                />
-              </div>
-            )
-            )}
+              {slides}          
           </Slider>
         </Col>
       </Row>
