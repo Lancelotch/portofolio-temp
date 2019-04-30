@@ -5,7 +5,9 @@ const initialState = {
     isLoading: false,
     isFinish: false,
     isError: false,
+    checkError: false,
     isAuthenticated: false,
+    messageError: '',
 }
 
 
@@ -17,6 +19,13 @@ export default (state = initialState, action) => {
                 auth: action.payload,
                 isAuthenticated: true
             }
+        case TYPE.LOGIN_FAILED:
+            return {
+                ...state,
+                // isAuthenticated: false,
+                messageError: action.payload,
+                checkError: true
+            }
         case TYPE.LOGIN_WITH_GOOGLE:
             return {
                 ...state,
@@ -27,7 +36,9 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 auth: null,
-                isAuthenticated: false
+                isAuthenticated: false,
+                checkError: false,
+                messageError: ''
             }
         case TYPE.REGISTER_WITH_FORM:
             return {

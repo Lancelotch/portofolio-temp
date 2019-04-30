@@ -22,6 +22,13 @@ const loginWithForm = authData => {
   };
 };
 
+const loginFailed = errorData => {
+  return {
+    type : TYPE.LOGIN_FAILED,
+    payload: errorData
+  }
+}
+
 const loginWithFormEror = response => {
   return {
     type: TYPE.LOGIN_WITH_FORM_EROR,
@@ -79,7 +86,8 @@ const dispatchType = {
   registerWithForm: registerWithForm,
   logout: logout,
   products: products,
-  getAddressDefault: getAddressDefault
+  getAddressDefault: getAddressDefault,
+  loginFailed: loginFailed
 };
 
 export default dispatchType;

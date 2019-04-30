@@ -28,36 +28,19 @@ class Login extends Component {
   }
 
   handleSubmit = e => {
-    try {
-      e.preventDefault()
-      this.props.form.validateFields( async (err, values) => {
+    e.preventDefault()
+      this.props.form.validateFields(  (err, values) => {
         if (!err) {
-          await this.props.loginWithHome(values)
-          if (this.state.isAuthenticated !== true) {
-            this.setState({
-              errorMessage: 'Email atau password anda salah',
-              isErorloaded: true
-            })
-          }
-
-          setTimeout(() => {
-            this.setState({isErorloaded: false});
-          }, 5000)
+          this.props.loginWithHome(values)
+          this.props.closeModal()
         }
       })
-    } catch (error) {
-      console.log(error)
-    }
+    
   }
-
-
-
 
   render () {
     const {  form } = this.props
     const { getFieldDecorator } = form
-    const {  errorMessage, isErorloaded } = this.state
-    console.log(errorMessage)
     return (
       <React.Fragment>
         <Menu className='login-box'>
@@ -124,7 +107,7 @@ class Login extends Component {
                   <h4>{strings.login_enter}</h4>
                 </Button>
                 <div className='login-form__error-box'>
-                  {isErorloaded ? (<p className='login-form__error-notif'> {errorMessage}</p>): null}
+                  {this.props.isError ? (<p className='login-form__error-notif'> {this.props.messageError}</p>): null}
                 </div>
                 </div>
                 <div className='login-form__separator'>
@@ -165,7 +148,9 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-  token: state.authentication.token
+  token: state.authentication.token,
+  messageError: state.authentication.messageError,
+  isError : state.authentication.checkError
 })
 
 const LoginForm = Form.create({})(Login)
