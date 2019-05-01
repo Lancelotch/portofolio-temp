@@ -74,20 +74,16 @@ class ProductDetail extends Component {
       name
     } = this.state
     const image = images.find(image => image.isDefault === true).medium;
-    console.log('imageeeeeslider', image);
     const indexes = {
       image,
       name: name,
       productId: id,
-      // price: data.sku.price,
       quantity: data.quantity,
       shippingInternationalId: "3knk2noib2oi22o23r",
-      // variants: data.sku.variants,
       sku: data.sku,
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
-    console.log('localstoraaaaage',indexesToLocalstorage)
     localStorage.setItem("product", indexesToLocalstorage);
     if (this.props.isAuthenticated !== false) {
       this.redirectCheckout();

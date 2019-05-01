@@ -1,5 +1,5 @@
 import React, { Component, Suspense, Fragment } from "react";
-import { Row, Col, BackTop, Spin, Card } from "antd";
+import {BackTop } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
 
@@ -54,7 +54,6 @@ class SearchPage extends Component {
     };
     try {
       const nextProduct = await product.listProductSearch(request);
-      console.log(nextProduct);
 
       this.setState({
         productList: productList.concat(nextProduct.data),
@@ -63,7 +62,6 @@ class SearchPage extends Component {
         isProductAvailable: true
       });
     } catch (error) {
-      console.log(error);
       if (error.status === 404) {
         this.setState({
           isQueryAvailable: false
@@ -73,9 +71,7 @@ class SearchPage extends Component {
   };
 
   fetchMoreData = () => {
-    const { productList, element, hasMore } = this.state;
-    console.log("element", element);
-
+    const { productList, element } = this.state;
     if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
@@ -88,7 +84,6 @@ class SearchPage extends Component {
     const arraySort = sortValue.split("|");
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    console.log(sortBy);
     this.setState(
       {
         productList: [],

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown, Button, Avatar } from "antd";
+import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "components/TopHeader";
@@ -28,7 +28,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    this.getCustomerDetail();
+    // this.getCustomerDetail(); 
   }
 
   handleInputSearchChange = e => {
@@ -49,7 +49,7 @@ class Header extends Component {
       });
       this.render();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

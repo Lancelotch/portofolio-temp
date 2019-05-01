@@ -8,28 +8,15 @@ class PopularProducts extends Component {
     this.state = {};
   }
   render() {
-    const { data, maxNumber } = this.props;
-    let counter = 0;
+    const { data } = this.props;
     return (
       <React.Fragment>
         {data.map((product, index) => {
-          if (maxNumber && counter < maxNumber) {
-            if (maxNumber !== null) {
-              counter += 1;
-            }
-            return (
-              <Col  style={{ margin: "18px" }} key={index}>
-                <PopularProduct key={product.id} product={product} />
-              </Col>
-            );
-          }
-          if (!maxNumber) {
-            return (
-              <Col key={index}>
-                <PopularProduct key={product.id} product={product} />
-              </Col>
-            );
-          }
+          return (
+            <Col  style={{ margin: "18px" }} key={index}>
+              <PopularProduct key={product.id} product={product} />
+            </Col>
+          );
         })}
       </React.Fragment>
     );

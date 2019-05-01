@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import currencyRupiah from "../../library/currency";
-import { Row, Col, Card, Icon, Carousel } from "antd";
+import { Card, Icon, Carousel } from "antd";
 // import Slider from "react-slick";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 
 const SampleNextArrow = props => {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
     <div
       className={className}
@@ -35,7 +35,7 @@ const SampleNextArrow = props => {
 };
 
 const SamplePrevArrow = props => {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
     <div
       className={className}

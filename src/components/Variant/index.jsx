@@ -1,7 +1,7 @@
 import React from 'react';
-import { Tooltip, Col } from "antd";
+import { Col } from "antd";
 import "./Variant.css";
-import strings from "../../localization/localization.js"
+// import strings from "../../localization/localization.js"
 
 
 const checkVariant = (variantId, valueid, selectedId) => {

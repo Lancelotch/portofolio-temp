@@ -11,7 +11,7 @@ class HomePage extends Component {
             mostClickProduct: []
          }
     }
-    render() { 
+    render() {
         const {match} = this.props
         return ( 
             <React.Fragment>

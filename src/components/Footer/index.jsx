@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Input, Icon, Button, notification } from "antd";
+import { Row, Col, Input, Icon, notification } from "antd";
 import category from "../../api/services/category";
 import "./style.sass";
 import strings from "../../localization/localization";
@@ -47,13 +47,13 @@ class Footer extends Component {
         email: ""
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
   openNotification = async () => {
     const { SubsResponse, showNotification } = this.state;
-    if (SubsResponse == true && showNotification == true) {
+    if (SubsResponse === true && showNotification === true) {
       notification.open({
         message: "Selamat",
         description: "sekarang kamu bisa dapetin update dari kita",
@@ -102,11 +102,11 @@ class Footer extends Component {
                       <div className="footer__payment-box">
                         <p>{strings.payment}</p>
                         <div className="footer__icon-box">
-                          <img src={ovo} />
-                          <img src={bca} />
-                          <img src={mandiri} />
-                          <img src={dana} />
-                          <img src={visa} />
+                          <img src={ovo} alt="" />
+                          <img src={bca} alt="" />
+                          <img src={mandiri} alt="" />
+                          <img src={dana} alt=""/>
+                          <img src={visa} alt=""/>
                         </div>
                       </div>
                     </Col>
@@ -148,9 +148,9 @@ class Footer extends Component {
                     <div className="footer__follow-us">
                       <p>{strings.follow_us}</p>
                       <div className="footer__icon-box">
-                        <img src={instagram} />
-                        <img src={twitter} />
-                        <img src={facebook} />
+                        <img src={instagram} alt=""/>
+                        <img src={twitter} alt=""/>
+                        <img src={facebook} alt=""/>
                       </div>
                     </div>
                   </Col>

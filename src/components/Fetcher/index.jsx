@@ -1,5 +1,6 @@
 import React, { Component,cloneElement } from "react";
-import { getMethod, fetchData } from "../../api/services";
+import { getMethod } from "../../api/services";
+// , fetchData
 
 class Fetcher extends Component {
   constructor(props) {

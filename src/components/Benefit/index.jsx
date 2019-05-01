@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "antd";
+import {  Col } from "antd";
 import "./style.sass";
 import { PATH_HOME } from "../../api/path";
 import withGetMethodApi from "../../hoc/withGetMethodApi";

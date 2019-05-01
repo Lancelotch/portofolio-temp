@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col } from "antd";
+import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom";
 import "./style.sass";

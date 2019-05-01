@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import Shippings, { SelectShipping } from "./SelectShipping";
+import 
+// Shippings, 
+{ SelectShipping } from "./SelectShipping";
 import shipping from "../../api/services/shipping";
-import dummyShipping from "../../dummy/dummyShipping";
+// import dummyShipping from "../../dummy/dummyShipping";
 
 class Shipping extends Component {
   constructor(props) {

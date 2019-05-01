@@ -7,8 +7,9 @@ import { pageUrlProductDetail } from "../../../library/url"
 const Cancel = (props) => {
   const { productDetail, viewOrderDetail } = props
   let id = ''
-  productDetail.map((p, i) => {
+  productDetail.forEach((p, i) => {
     id = p.productId
+    // return id
   })
   return (
     <p style={{ textAlign: "right", marginRight: 15 }}>

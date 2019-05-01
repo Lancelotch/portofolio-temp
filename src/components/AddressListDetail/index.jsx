@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Radio, Col, Row, Icon } from "antd";
+import { Radio, Col, Row } from "antd";
 
 const StatusAddress = props => {
   return (
@@ -17,7 +17,7 @@ const StatusAddress = props => {
 
 const AddressListDetail = props => {
   const {
-    id,
+    // id,
     labelName,
     fullAddress,
     receiverName,

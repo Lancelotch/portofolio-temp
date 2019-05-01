@@ -238,7 +238,7 @@ class FormEditAddress extends Component {
       fullAddress,
       province,
       zipcode,
-      geolocation,
+      // geolocation,
       subdistrict,
     } = this.state;
 
