@@ -35,7 +35,6 @@ class Login extends Component {
           this.props.closeModal()
         }
       })
-    
   }
 
   render () {
@@ -126,7 +125,7 @@ class Login extends Component {
                     className='login-form__socmed-button'
                     onSubmit={this.handleRegisterGoogle}
                   >
-                    <p> {strings.google}</p>
+                    <p>{strings.google}</p>
                   </ButtonGoogle>
                 </div>
                 <p style={{ marginTop: '70px' }}>

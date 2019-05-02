@@ -38,7 +38,8 @@ export default (state = initialState, action) => {
                 auth: null,
                 isAuthenticated: false,
                 checkError: false,
-                messageError: ''
+                messageError: '',
+                isLoading: false
             }
         case TYPE.REGISTER_WITH_FORM:
             return {

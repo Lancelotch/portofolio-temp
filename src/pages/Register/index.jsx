@@ -8,7 +8,8 @@ import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import strings from "../../localization/localization";
 import {
   registerWithGoogle,
-  registerForm
+  registerForm,
+  loading
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -33,7 +34,6 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
-    console.log("ini location", this.props.location);
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -55,7 +55,6 @@ class RegisterPage extends Component {
         } else {
           await this.props.registerForm(history, values);
         }
-        console.log("message", this.props.message);
         const { message, status } = this.props.message.data;
         this.setState({
           message,
@@ -154,6 +153,7 @@ class RegisterPage extends Component {
                     />
                   </div>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
+                  <button onClick={this.props.loading}>gonee</button>
                 </FormItem>
                 <Row
                   type="flex"
@@ -216,5 +216,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm }
+  { registerWithGoogle, registerForm, loading }
 )(RegisterForm);

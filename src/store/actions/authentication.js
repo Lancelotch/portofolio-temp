@@ -105,3 +105,7 @@ export const logout = () => dispatch => {
     console.log(error)
   }
 };
+
+export const loading = () => dispatch => {
+  dispatch(dispatchType.logout());
+}
