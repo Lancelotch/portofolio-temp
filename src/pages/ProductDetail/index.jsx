@@ -24,6 +24,7 @@ class ProductDetail extends Component {
       product: {},
       isProductAvailable: false,
       images: [],
+      thumbnailImage: [],
       details: [],
       note: null,
       shippingInternationalId: null,
@@ -39,7 +40,35 @@ class ProductDetail extends Component {
     this.getProductDetail();
   }
 
+  getProductDetail = async () => {
+    const productId = this.props.match.params.productId;
+    try {
+      //const response = await productDetail.getProductDetail(productId);
+      const response = dummyProductDetail;
+      const product = response.data;
+      this.setState({
+        thumbnailImage: product.images,
+        name: product.name,
+        price: product.price,
+        id: product.id,
+        images: product.images,
+        product: product,
+        details: product.details,
+        isProductAvailable: true
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   actionUpdateSku = sku => {
+    const { variants } = sku
+    const images = variants
+      .filter(variant => variant.hasOwnProperty('value') && variant.value.hasOwnProperty('image'))
+      .map(variant => variant.value.image)[0]
+      console.log('ini filterrr image product-detail2',variants);
+      
+    this.actionUpdateImages(images)
     const data = { ...this.state.data, sku };
     this.setState({
       data
@@ -52,7 +81,11 @@ class ProductDetail extends Component {
   };
 
   actionUpdateImages = image => {
-    console.log(image);
+    let images = [...this.state.images]
+    images.shift()
+    images.unshift(image)
+    this.setState({ images })
+    console.log("========images", image);
   }
 
   redirectLogin = () => {
@@ -67,15 +100,15 @@ class ProductDetail extends Component {
     }));
   }
 
-  actionSubmitToCheckout = event => {
+  actionSubmitToCheckout = () => {
     const {
       id,
       note,
-      images,
+      thumbnailImage,
       data,
       name
     } = this.state
-    const image = images.find(image => image.isDefault === true).medium;
+    const image = thumbnailImage.find(image => image.isDefault === true).medium;
     const indexes = {
       image,
       name: name,
@@ -96,26 +129,6 @@ class ProductDetail extends Component {
     }
   };
 
-  getProductDetail = async () => {
-    const productId = this.props.match.params.productId;
-    try {
-      // const response = await productDetail.getProductDetail(productId);
-      const response = dummyProductDetail;
-      const product = response.data;
-      this.setState({
-        name: product.name,
-        price: product.price,
-        id: product.id,
-        images: product.images,
-        product: product,
-        details: product.details,
-        isProductAvailable: true
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -125,7 +138,9 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={10}>
                   <h2>{this.state.name}</h2>
-                  <SliderProductDetailContainer images={this.state.images} />
+                  <SliderProductDetailContainer
+                    thumbnailImage={this.state.thumbnailImage}
+                    images={this.state.images} />
                 </Col>
                 <Col md={12} offset={2}>
                   <div style={{}}>
@@ -169,8 +184,6 @@ class ProductDetail extends Component {
             {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
-        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
-        {this.state.changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }
