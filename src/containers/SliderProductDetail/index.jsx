@@ -54,7 +54,7 @@ class SliderProductDetailContainer extends Component {
 
   render() {
     const images = [...this.props.thumbnailImage]
-    const settings = {
+    let settings = {
       appendDots: dots => (
         <ul style={{
           margin: "0px",

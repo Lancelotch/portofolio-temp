@@ -256,12 +256,21 @@ class FormEditAddress extends Component {
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
         footer={[
-          <Button key="back" onClick={this.props.onCancle}>
+          <Button 
+          key="back"
+          style={{
+            border: "unset",
+            fontWeight: 555,
+            color: "black"
+          }}
+          size="large" 
+          onClick={this.props.onCancle}
+          >
             Kembali
           </Button>,
           <Button
             key="submit"
-            type="primary"
+            className="buttonSimpan"
             loading={false}
             onClick={this.handleSubmit}
           >

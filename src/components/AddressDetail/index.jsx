@@ -15,46 +15,48 @@ const AddressAvailable = props => {
   return (
     <div>
       <Row>
-        <Col>
-          <span>
-            <p
-              style={{
-                color: "#4D4D4D",
-                fontFamily: "Helvetica Neue",
-                fontSize: 17
-              }}
-            >
-              {labelName}
-              <Icon
-                type="edit"
-                style={{ fontSize: "18px", color: "#007E80", float: "right" }}
-                onClick={()=>props.onEdit("EDIT")}
-                className={"icon"}
-              />
-            </p>
-          </span>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+        <Col md={12}>
           <p
             style={{
               color: "#4D4D4D",
-              fontFamily: "Helvetica Neue",
               fontSize: 17
             }}
-          >{`${receiverName} - ${phoneNumber}`}</p>
+          >
+            {labelName}
+          </p>
+        </Col>
+        <Col md={12}>
+          <Icon
+            type="edit"
+            style={{
+              fontSize: "18px",
+              color: "#007E80",
+              float: "right",
+              cursor: "pointer"
+            }}
+            onClick={() => props.onEdit("EDIT")}
+            className={"icon"}
+          />
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col md={24}>
           <p
             style={{
-              color: "#888888",
-              fontFamily: "Helvetica Neue",
-              fontSize: 14
-            }}
-          >{`${fullAddress}, ${city}, ${province} ${zipcode}`}</p>
+              color: "#4D4D4D",
+              fontSize: 17,
+              marginBottom: 5
+            }}>
+            {`${receiverName} - ${phoneNumber}`}
+          </p>
+          <span
+            style={{
+              display: "block",
+              fontSize: 15,
+              color: "#777777"
+            }}>
+            {`${fullAddress},${city},${province}${zipcode}`}
+          </span>
         </Col>
       </Row>
     </div>
@@ -81,7 +83,6 @@ const AddressUnAvailable = () => {
           <p
             style={{
               color: "rgba(0,0,0,0.65)",
-              fontFamily: "PingFang SC",
               fontSize: 14,
               textAlign: "center"
             }}
@@ -97,10 +98,10 @@ const AddressUnAvailable = () => {
 
 const AddressDetail = props => {
   return props.isAddressAvailable ? (
-    <AddressAvailable data={props.addressDefault} onEdit={props.onEdit}/>
+    <AddressAvailable data={props.addressDefault} onEdit={props.onEdit} />
   ) : (
-    <AddressUnAvailable />
-  );
+      <AddressUnAvailable />
+    );
 };
 
 export default AddressDetail;

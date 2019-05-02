@@ -47,9 +47,9 @@ const dummyProductDetail = {
                         "description": "warna biru",
                        
                         "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                            "large": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
+                            "medium": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
+                            "small": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
                         }
                     },
                     {
@@ -108,8 +108,7 @@ const dummyProductDetail = {
                     },
                     {
                         "id": "04",
-                        "name": "26",
-                       
+                        "name": "26",                       
                         "description": "ukuran 26"
                     }
                 ]
@@ -144,7 +143,7 @@ const dummyProductDetail = {
                 "weight": 600
             },
             {
-                "id": "0010400204",
+                "id": "0010200204",
                 "price": 10000000,
                 // "stock": 10,
                 "dimension": 8000,
@@ -202,6 +201,35 @@ const dummyProductDetail = {
             {
                 "id": "0010300204",
                 "price": 330000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            }
+            ,
+            {
+                "id": "0010400201",
+                "price": 900000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400202",
+                "price": 230000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400203",
+                "price": 2330000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400204",
+                "price": 4330000,
                 // "stock": 2,
                 "dimension": 8000,
                 "weight": 600

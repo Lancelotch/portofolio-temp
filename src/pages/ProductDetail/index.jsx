@@ -43,7 +43,7 @@ class ProductDetail extends Component {
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      //const response = await productDetail.getProductDetail(productId);
+      // const response = await productDetail.getProductDetail(productId);
       const response = dummyProductDetail;
       const product = response.data;
       this.setState({

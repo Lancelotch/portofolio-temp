@@ -6,7 +6,7 @@ import OrderStatusCancel from "../../components/OrderStatusCancel";
 import ProductOrderCancel from "../../components/ProductOrderCancel";
 import PaymentCancelOrder from "../../components/PaymentCancelOrder";
 
-class OrderDetailPembatalan extends Component {
+class OrderDetailsCancel extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,4 +80,4 @@ class OrderDetailPembatalan extends Component {
     }
 }
 
-export default OrderDetailPembatalan;
+export default OrderDetailsCancel;

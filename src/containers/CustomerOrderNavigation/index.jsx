@@ -5,7 +5,7 @@ import OrderListWaitingPayment from "../OrderListWaitingPayment";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";
 import dummyProductOrder from "../../dummy/dummyProductOrder";
 import NoOrderHistory from "../../components/NoOrderHistory";
-import OrderDetailPembatalan from "../OrderDetailPembatalan";
+import OrderDetailsCancel from "../OrderDetailsCancel";
 
 const confirm = Modal.confirm;
 
@@ -178,7 +178,7 @@ class CustomerOderNavigation extends Component {
                   showDeleteConfirm={this.showDeleteConfirm}
                   index={5}
                 />) : (
-                  <OrderDetailPembatalan
+                  <OrderDetailsCancel
                     showOrderDetailsDashboard={this.showOrderDetailsDashboard}
                     orderDetailsId={this.state.orderDetailsId} index={4} />
                 )
