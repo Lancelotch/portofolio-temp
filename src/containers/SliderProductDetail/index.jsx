@@ -5,7 +5,7 @@ import ReactImageMagnify from 'react-image-magnify';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./style.css";
+import "./style.sass";
 
 
 function SampleNextArrow(props) {
