@@ -24,6 +24,7 @@ class ProductDetail extends Component {
       product: {},
       isProductAvailable: false,
       images: [],
+      imageVariant: {},
       details: [],
       note: null,
       shippingInternationalId: null,
@@ -40,8 +41,8 @@ class ProductDetail extends Component {
   }
 
   actionUpdateSku = sku => {
-    const data = { ...this.state.data, sku };
-    this.setState({ data });
+    // const data = { ...this.state.data, sku };
+    // this.setState({ data });
   };
 
   actionUpdateQuantity = quantity => {
@@ -117,6 +118,7 @@ class ProductDetail extends Component {
         {this.state.isProductAvailable && this.state.data.quantity && (
           <React.Fragment>
             <div className="container productDetail">
+              {console.log("okesip", this.state.images)}
               <Row>
                 <Col md={10}>
                   <h2>{this.state.name}</h2>

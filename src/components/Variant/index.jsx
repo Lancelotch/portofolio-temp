@@ -57,9 +57,7 @@ const VariantImage = (props) => {
         const variantWarna = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantWarna && variantWarna.value
         variantWarna && props.onClick(selected.id, selected)
-        console.log("ini dalam if",selected)
     }
-    console.log("ini selected brother", selected)
     return (
         <React.Fragment>
             {props.sku.variants[0] && (
@@ -79,7 +77,6 @@ const VariantImage = (props) => {
 }
 
 const Variant = (props) => {
-    console.log('variaaaaaaaaaants', props);
     return (
         <Col md={24}>
             <div className="variant">
