@@ -57,7 +57,8 @@ class Header extends Component {
   handleLogout = () => {
     this.props.logout();
     this.setState({
-      openModalLogout : false
+      openModalLogout : false,
+      openModalLogin : false
     })
   };
 

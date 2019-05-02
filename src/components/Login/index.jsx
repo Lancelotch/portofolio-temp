@@ -29,10 +29,11 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-      this.props.form.validateFields(  (err, values) => {
+      this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          this.props.loginWithHome(values)
-          this.props.closeModal()
+          const login = await this.props.loginWithHome(values)
+          // console.log(login)
+          // this.props.closeModal()
         }
       })
   }
