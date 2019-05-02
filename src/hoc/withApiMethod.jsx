@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { getMethod, getMethodWithoutParam, fetchData, fetchDataService } from "../api/services";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import { fetchDataService } from "../api/services";
+// getMethod, getMethodWithoutParam, fetchData, 
+// import { compose } from "redux";
+// import { connect } from "react-redux";
 
 const withApiMethod = WrappedComponent => {
   class WithApiMethod extends Component {
@@ -24,12 +25,10 @@ const withApiMethod = WrappedComponent => {
     }
   
     doGet = (url, payload) => {
-      console.log(url);
       this.fetchData(url, this.method.GET, payload);
     };
   
     doPost = (url, payload) => {
-      console.log(payload);
       this.fetchData(url, this.method.POST, payload);
     };
   
@@ -51,6 +50,7 @@ const withApiMethod = WrappedComponent => {
               return {responseUpdate : response.data, loading: false}
           case this.method.DELETE :
               return {responseDelete : response.data, loading: false}
+          default :
         }
     }
   

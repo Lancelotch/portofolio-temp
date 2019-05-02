@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Slider, Button } from "antd";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import SliderHome from "../../components/SliderHome";
 // import category from "../../api/services/category";
@@ -32,7 +32,7 @@ class HomePageContainer extends Component {
                 justify="center"
                 style={{ marginBottom: "24px" }}
               >
-                <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
+                <Fetcher path={PATH_PRODUCT.PRODUCT_POPULAR}>
                   <PopularProducts {...this.props} maxNumber={4} />
                 </Fetcher>
               </Row>
@@ -50,7 +50,7 @@ class HomePageContainer extends Component {
                     </Col>
                     <Col md={20}>
                       <div style={{ paddingLeft: "120px" }}>
-                        <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
+                        <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
                           <BestSellers {...this.props} maxNumber={4}></BestSellers>
                         </Fetcher>
                       </div>
@@ -73,7 +73,7 @@ class HomePageContainer extends Component {
                     width: "1130px",
                   }}
                 >  
-                    <Fetcher path={PATH_PRODUCT.PRODUCT_BY_ID}>
+                    <Fetcher path={PATH_PRODUCT.PRODUCT_RECOMMENDATION}>
                         <ClickProducts {...this.props} /> 
                     </Fetcher>
                 </div>

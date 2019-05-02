@@ -1,7 +1,7 @@
 import React, { Component, Suspense, Fragment } from "react";
-import { Row, Col, BackTop, Spin, Card } from "antd";
+import {BackTop } from "antd";
 import { connect } from "react-redux";
-import Header from "components/Header";
+// import Header from "components/Header";
 import "sass/style.sass";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -54,8 +54,6 @@ class CategoryPage extends Component {
     };
     try {
       const nextProduct = await product.listProductCategory(request);
-      console.log(nextProduct);
-
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
@@ -77,9 +75,7 @@ class CategoryPage extends Component {
   }
 
   fetchMoreData = () => {
-    const { productList, element, hasMore } = this.state;
-    console.log("element", element);
-
+    const { productList, element} = this.state;
     if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
@@ -92,7 +88,6 @@ class CategoryPage extends Component {
     const arraySort = sortValue.split("|");
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    console.log(sortBy);
     this.setState(
       {
         productList: [],

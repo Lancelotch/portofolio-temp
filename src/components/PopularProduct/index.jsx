@@ -1,18 +1,17 @@
 import React from "react";
-import { Card, Col } from "antd";
+import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
 // import LazyLoad from "react-lazyload";
 // import SkeletomImg from "react-js-skeleton";
 import { Link } from "react-router-dom";
 import "./style.sass";
-import PATH_URL from "../../routers/path";
+// import PATH_URL from "../../routers/path";
 import { pageUrlProductDetail } from "../../library/url";
 
-const { Meta } = Card;
+// const { Meta } = Card;
 
 const PopularProduct = props => {
   const { id, name, urlImage, price } = props.product;
-  console.log("ini id" ,id)
   const priceRp = currencyRupiah(price);
 
   return (

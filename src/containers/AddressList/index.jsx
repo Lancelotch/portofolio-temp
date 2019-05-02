@@ -3,7 +3,7 @@ import { Modal, Radio, Button } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
 
 const RadioGroup = Radio.Group;
-const confirm = Modal.confirm;
+// const confirm = Modal.confirm;
 
 class AddressList extends Component {
   constructor(props) {
@@ -13,9 +13,7 @@ class AddressList extends Component {
     };
   }
 
-  onChange = (e) => {
-    console.log(e.target.value.address);
-    
+  onChange = (e) => {    
     this.setState({
       customerAddress: e.target.value.address
     });

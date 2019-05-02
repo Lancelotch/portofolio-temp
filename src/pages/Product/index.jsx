@@ -1,5 +1,5 @@
 import React, { Component, Suspense, Fragment } from "react";
-import { Row, Col, BackTop, Spin, Card } from "antd";
+import { Row, Col, BackTop } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
 import strings from "../../localization/localization";
@@ -57,7 +57,8 @@ class ProductPage extends Component {
   };
 
   fetchMoreData = () => {
-    const { productList, element, hasMore } = this.state;
+    const { productList, element } = this.state;
+    // , hasMore
     console.log("element", element);
 
     if (productList.length >= element) {

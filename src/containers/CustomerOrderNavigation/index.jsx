@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Icon, Col, Button, Affix, Modal } from "antd";
+import { Tabs, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaitingPayment from "../OrderListWaitingPayment";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";

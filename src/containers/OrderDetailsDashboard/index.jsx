@@ -4,7 +4,7 @@ import ProductOrder from "../../components/ProductOrderDetails";
 import PaymentInfo from "../../components/PaymentInfo";
 import PaymentDateInfo from "../../components/PaymentDateInfo";
 import OrderStatusUser from "../../components/OrderStatusUser";
-import { Affix, Button, Icon } from "antd";
+import { Affix, Icon } from "antd";
 import "./style.sass"
 import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDikirim";
 import OrderStatusStep from "../../components/OrderStatusStep";

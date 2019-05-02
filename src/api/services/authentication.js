@@ -1,9 +1,9 @@
-import { mainService, dummyService, dummyServiceLogin } from './httpClient';
+import {dummyService, dummyServiceLogin } from './httpClient';
 import {PATH_PUBLIC} from '../path'
 
 const loginWithGoogle = request => {
-    const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_GOOGLE;
-    const data = request;
+    // const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_GOOGLE;
+    // const data = request;
     //mainRequestPost(url, data);
     return new Promise((resolve, reject) => {
       dummyService

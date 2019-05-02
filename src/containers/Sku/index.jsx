@@ -52,7 +52,7 @@ class SkuContainer extends Component {
             const variantFromProduct = this.props.product.variants.find(variant => variant.id === variantId);
             const variantValueFromProduct = variantFromProduct.values.find(value => value.id === valueId);
             const variantName = variantFromProduct.name;
-            const valueName = variantValueFromProduct.name;
+            // const valueName = variantValueFromProduct.name;
 
             const variant = {
                 variantId: variantId,
@@ -88,7 +88,6 @@ class SkuContainer extends Component {
             if (skuId === sku.id) {
                 const skuTmp = { ...this.state.sku };
                 skuTmp.price = sku.price;
-                // skuTmp.stock = sku.stock;
                 this.setState({
                     sku: skuTmp,
                     
