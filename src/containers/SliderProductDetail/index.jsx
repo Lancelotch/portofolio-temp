@@ -1,17 +1,13 @@
 import React, { Component } from "react";
+import ImageGallery from "react-image-gallery";
 import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import ReactImageMagnify from "react-image-magnify";
-import ImageGallery from "react-image-gallery";
 import Viewer from "react-viewer";
 import "react-viewer/dist/index.css";
-import "./style.sass";
+
 
 class SliderProductDetailContainer extends Component {
-  state = {
-    slideIndex: 0,
-    updateCount: 0
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -22,21 +18,21 @@ class SliderProductDetailContainer extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {   
+  componentWillReceiveProps(props) {
+    this.slider.slideToIndex(0)
     this.setData(props.images, props.imageVariant);
-  }  
+  }
 
   setData(imagesProps, imageVariantProps) {
     const images = [...imagesProps];
     // const imageVariant = props.imageVariant;
     let isImageVariantExist = false;
-    const imageVariant = {...imageVariantProps};
+    const imageVariant = { ...imageVariantProps };
 
-    if(imageVariant.large !== undefined) {
+    if (imageVariant.large !== undefined) {
       images.unshift(imageVariant);
       isImageVariantExist = true;
     }
-
     let isShowNav = images.length > 6 ? true : false;
     this.setState({
       images: images,
@@ -56,15 +52,15 @@ class SliderProductDetailContainer extends Component {
             src: item.thumbnail,
           },
           largeImage: {
-            width: 800,
-            height: 800,
+            width: 450,
+            height: 450,
             src: item.original
           },
           lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
         }}
         {...{
           isHintEnabled: false,
-          enlargedImageContainerDimensions: {width: '100%', height: '100%'},
+          enlargedImageContainerDimensions: { width: '100%', height: '100%' },
           // shouldHideHintAfterFirstActivation: true,
           enlargedImagePosition: "over",
           enlargedImageContainerStyle: { Index: 1000 }
@@ -76,8 +72,8 @@ class SliderProductDetailContainer extends Component {
   removeThumbnailImageVariant = () => {
     const images = this.state.images;
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
-    const lenImagesWihoutVariant = images.length-1;
-    if(thumbnailDom.length > lenImagesWihoutVariant) {
+    const lenImagesWihoutVariant = images.length - 1;
+    if (thumbnailDom.length > lenImagesWihoutVariant) {
       thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
     }
   }
@@ -89,28 +85,29 @@ class SliderProductDetailContainer extends Component {
   }
 
   render() {
-    if(this.state.isImageVariantExist) {
+    if (this.state.isImageVariantExist) {
       this.removeThumbnailImageVariant();
     }
-    
+
     const images = [];
     this.state.images.forEach(image => {
       images.push({
-        original: image.medium,
-        thumbnail: image.small
+        original: image.large,
+        thumbnail: image.medium
       });
     });
 
-    return (      
+    return (
       <Row>
         <Col md={24} sm={12}>
           <ImageGallery
+            ref={slider => (this.slider = slider)}
             startIndex={this.state.startIndex}
             showFullscreenButton={false}
             showPlayButton={false}
             showNav={this.state.isShowNav}
             onSlide={this.changeSlide}
-            // renderItem={this.imageHover}
+           // renderItem={this.imageHover}
             items={images}
             disableArrowKeys={true}
           />
@@ -126,3 +123,4 @@ SliderProductDetailContainer.propTypes = {
 };
 
 export default SliderProductDetailContainer;
+

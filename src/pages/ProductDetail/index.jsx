@@ -40,32 +40,10 @@ class ProductDetail extends Component {
     this.getProductDetail();
   }
 
-  getProductDetail = async () => {
-    const productId = this.props.match.params.productId;
-    try {
-      const response = await productDetail.getProductDetail(productId);
-      // const response = dummyProductDetail;
-      const product = response.data;
-      this.setState({
-        thumbnailImage: product.images,
-        name: product.name,
-        price: product.price,
-        id: product.id,
-        productImage: product.images,
-        product: product,
-        details: product.details,
-        isProductAvailable: true
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   actionUpdateSku = sku => {
     const data = { ...this.state.data, sku };
     this.setState({ data });
   };
-
 
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
@@ -76,6 +54,8 @@ class ProductDetail extends Component {
     this.setState({
       imageVariant: image
     })
+    console.log('actionupdateimagevariant',image);
+    
   }
 
   redirectLogin = () => {
@@ -90,15 +70,15 @@ class ProductDetail extends Component {
     }));
   }
 
-  actionSubmitToCheckout = () => {
+  actionSubmitToCheckout = event => {
     const {
       id,
       note,
-      thumbnailImage,
+      images,
       data,
       name
     } = this.state
-    const image = thumbnailImage.find(image => image.isDefault === true).medium;
+    const image = images.find(image => image.isDefault === true).medium;
     const indexes = {
       image,
       name: name,
@@ -117,9 +97,27 @@ class ProductDetail extends Component {
     }
   };
 
+  getProductDetail = async () => {
+    const productId = this.props.match.params.productId;
+    try {
+      const response = await productDetail.getProductDetail(productId);
+      //const response = dummyProductDetail;
+      const product = response.data;
+      this.setState({
+        name: product.name,
+        price: product.price,
+        id: product.id,
+        images: product.images,
+        product: product,
+        details: product.details,
+        isProductAvailable: true
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
-    console.log('thumbnailimaaaage',this.state.thumbnailImage);
-    
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
@@ -168,10 +166,12 @@ class ProductDetail extends Component {
                 </Col>
               </Row>
             </div>
-            {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
+            {this.state.open === true && <Redirect to={{pathname: "/login", state:{nextPage:"checkout"}}} /> }
             {this.state.changeCheckout === true && <Redirect to="/checkout" />}
           </React.Fragment>
         )}
+        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "checkout" } }} />}
+        {this.state.changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }
@@ -182,3 +182,4 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ProductDetail);
+

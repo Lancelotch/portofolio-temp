@@ -31,6 +31,7 @@ class SkuContainer extends Component {
         return (sku.price < smallest.price && sku.stock !== 0) ? sku : smallest
     }
 
+
     initSku(skuSmallestPrice) {
         const skuId = skuSmallestPrice.id;
         const lenPerVariant = 5;
@@ -50,6 +51,7 @@ class SkuContainer extends Component {
             const variantId = variantData.substring(0, 3);
             const valueId = variantData.substring(3, 5);
             const variantFromProduct = this.props.product.variants.find(variant => variant.id === variantId);
+            
             const variantValueFromProduct = variantFromProduct.values.find(value => value.id === valueId);
             const variantName = variantFromProduct.name;
             // const valueName = variantValueFromProduct.name;
