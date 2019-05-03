@@ -9,7 +9,8 @@ import "./style.sass";
 import strings from "../../localization/localization";
 import {
   loginWithGoogle,
-  loginWithForm
+  loginWithForm,
+  loginWithHome
 } from "../../store/actions/authentication";
 import {
   rulesEmail,
@@ -46,26 +47,21 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
-    this.setState({
-      status: null
-    });
-    this.props.form.validateFields(async (err, values) => {
-      if (!err) {
-        const history = this.props.history;
-        const linkCheckout = "/checkout";
-        if (this.state.nextPage === "checkout") {
-         await  this.props.loginWithForm(history, values, linkCheckout);
-        } else {
-         await this.props.loginWithForm(history, values);
+    e.preventDefault()
+      this.props.form.validateFields( async (err, values) => {
+        if (!err) {
+          const login = await this.props.loginWithHome(values)
+          if(this.props.isError ){
+            this.props.form.setFields({
+              password: {
+                value: values.password,
+                errors: [new Error(this.props.messageError)]
+              }
+            })
+          }
+
         }
-        const { message, status } = this.props.auth.data;
-        this.setState({
-          message,
-          status
-        });
-      }
-    });
+      })
   };
 
   render() {
@@ -114,7 +110,14 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password")(
+                  {getFieldDecorator("password",{
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your password!'
+                      }
+                    ]
+                  })(
                     <Input
                       size={"large"}
                       prefix={
@@ -129,9 +132,7 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  <RegistrationaAlert
-                    message={this.state.message}
-                  />
+                  
                   {/* {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true
@@ -194,11 +195,13 @@ class Login extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
   token: state.authentication.token,
-  auth: state.authentication.auth
+  auth: state.authentication.auth,
+  messageError: state.authentication.messageError,
+  isError : state.authentication.checkError
 });
 
 const LoginForm = Form.create({})(Login);
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithForm }
+  { loginWithGoogle, loginWithForm, loginWithHome }
 )(LoginForm);
