@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Input, Form, Button, Icon, Checkbox, Menu } from 'antd'
+import {Link} from 'react-router-dom'
 import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
@@ -32,8 +33,15 @@ class Login extends Component {
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           const login = await this.props.loginWithHome(values)
-          // console.log(login)
-          // this.props.closeModal()
+          if(this.props.isError ){
+            this.props.form.setFields({
+              password: {
+                value: values.password,
+                errors: [new Error(this.props.messageError)]
+              }
+            })
+          }
+
         }
       })
   }
@@ -107,7 +115,7 @@ class Login extends Component {
                   <h4>{strings.login_enter}</h4>
                 </Button>
                 <div className='login-form__error-box'>
-                  {this.props.isError ? (<p className='login-form__error-notif'> {this.props.messageError}</p>): null}
+                  {/* {this.props.isError ? (<p className='login-form__error-notif'> {this.props.messageError}</p>): null} */}
                 </div>
                 </div>
                 <div className='login-form__separator'>
@@ -132,9 +140,9 @@ class Login extends Component {
                 <p style={{ marginTop: '70px' }}>
                   {strings.formatString(
                     strings.login_quote,
-                    <a href='/register' className='login-form__register'>
+                    <Link to='/register' className='login-form__register'>
                       {strings.login_register}{' '}
-                    </a>
+                    </Link>
                   )}
                 </p>
               </FormItem>

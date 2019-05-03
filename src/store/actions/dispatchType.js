@@ -14,6 +14,13 @@ const registerWithForm = authData => {
   };
 };
 
+const registerFailed = data => {
+  return {
+    type : TYPE.REGISTER_FAILED ,
+    payload: data
+  }
+}
+
 
 const loginWithForm = authData => {
   return {
@@ -87,7 +94,8 @@ const dispatchType = {
   logout: logout,
   products: products,
   getAddressDefault: getAddressDefault,
-  loginFailed: loginFailed
+  loginFailed: loginFailed,
+  registerFailed: registerFailed
 };
 
 export default dispatchType;

@@ -39,13 +39,21 @@ export default (state = initialState, action) => {
                 isAuthenticated: false,
                 checkError: false,
                 messageError: '',
-                isLoading: false
+                isLoading: false,
+                message: ""
             }
         case TYPE.REGISTER_WITH_FORM:
             return {
                 ...state,
                 message: action.payload,
                 isAuthenticated: true,
+                isLoading: false
+            }
+        case TYPE.REGISTER_FAILED :
+            return {
+                ...state,
+                message: action.payload,
+                isAuthenticated: false,
                 isLoading: false
             }
         case TYPE.HANDLE_LOADING:

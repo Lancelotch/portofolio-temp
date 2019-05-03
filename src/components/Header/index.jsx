@@ -126,7 +126,6 @@ class Header extends Component {
     isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
-    console.log(this.state.openModalLogin)
     const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
 

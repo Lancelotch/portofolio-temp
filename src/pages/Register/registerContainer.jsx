@@ -36,21 +36,16 @@ export const RegistrationSubmitButton = props => {
 
 
 export const RegistrationaAlert = props => {
-  const { message, success } = props;
-  console.log("RegistrationaAlert", message, success)
+  // const { message } = props;
+  console.log("ini alert",props)
   return (
-    message && (
-      <Alert
-        type={success ? "success" : "error"}
-        message={
-          <span>
-            <b>{success ? "Berhasil" : "Gagal"}</b> &nbsp;
-            {message}
-          </span>
-        }
-        showIcon
-      />
-    )
+    <div>
+        <Alert
+          message={props.message.message}
+        >
+
+        </Alert>
+    </div>
   );
 };
 
@@ -79,12 +74,14 @@ export const rulesEmail = () => {
       {
         required: true,
         message: strings.register_email_quote
-      }
+      },
+        
     ]
   };
 };
 
 export const rulesPassword = () => {
+  
   return {
     rules: [
       {
@@ -94,9 +91,13 @@ export const rulesPassword = () => {
       {
         pattern: /(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}/,
         message: strings.register_password_quote
-      }
+      },
     ]
   };
 };
+
+
+
+
 
 

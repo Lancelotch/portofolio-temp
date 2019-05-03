@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Affix } from "antd";
+import { Input, Form, Icon, Row, Col, Affix, Alert } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -9,7 +9,8 @@ import strings from "../../localization/localization";
 import {
   registerWithGoogle,
   registerForm,
-  loading
+  loading,
+  loginWithGoogle
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -19,6 +20,8 @@ import {
   RegistrationaAlert,
   RegistrationSubmitButton
 } from "./registerContainer";
+import Modals from "../../modal/ModalRegisterSuccess"
+import history from "../../routers/history"
 
 const FormItem = Form.Item;
 
@@ -29,8 +32,21 @@ class RegisterPage extends Component {
       isAuthenticated: this.props.isAuthenticated,
       nextPage: "",
       status: null,
-      message: ""
+      message: "",
+      modalStatus: false
     };
+  }
+
+  openModal = () => {
+    this.setState({
+      modalStatus : true
+    })
+    setTimeout(() => {
+      this.setState({
+        modalStatus : false
+      })
+      history.push("/")
+    }, 3000)
   }
 
   componentDidMount() {
@@ -41,27 +57,39 @@ class RegisterPage extends Component {
     }
   }
 
+  validation(form,values){
+    if(this.props.isAuthenticated){
+      this.openModal()
+    }else{
+      form.setFields({
+        email: {
+          value: values.email,
+          errors: [new Error(this.props.message)]
+        }
+      })
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({
-      status: null
-    });
     this.props.form.validateFields(async (err, values) => {
       const history = this.props.history;
       if (!err) {
         const linkCheckout = "/checkout";
         if (this.state.nextPage === "checkout") {
           await this.props.registerForm(history, values, linkCheckout);
+          this. validation(this.props.form,values) 
         } else {
-          await this.props.registerForm(history, values);
+          await this.props.registerForm(history, values);  
+            this. validation(this.props.form,values)          
         }
-        const { message, status } = this.props.message.data;
+      }else{
         this.setState({
-          message,
-          status
-        });
+          modalStatus: false
+        })
       }
     });
+    
   };
 
   handleRegisterGoogle = request => {
@@ -146,12 +174,6 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  <div className="register__form__confirm">
-                    <RegistrationaAlert
-                      message={this.state.message}
-                      success={Number(this.state.status) < 400}
-                    />
-                  </div>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
                   <button onClick={this.props.loading}>gonee</button>
                 </FormItem>
@@ -198,6 +220,7 @@ class RegisterPage extends Component {
             </div>
           </Col>
         </Row>
+        <Modals modalStatus={this.state.modalStatus} email={this.props.message.email}/>
       </React.Fragment>
     );
   }
@@ -216,5 +239,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm, loading }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle }
 )(RegisterForm);
