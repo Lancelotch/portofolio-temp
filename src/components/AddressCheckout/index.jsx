@@ -19,6 +19,7 @@ export const AddressCheckout = props => {
           onEdit={onEditAddress}
         />
         <div style={{ float: "right", paddingBottom: 24, paddingTop: 12 }}>
+          {isAddressAvailable && 
           <Button
             type="primary"
             onClick={onSelectListAddress}
@@ -26,6 +27,7 @@ export const AddressCheckout = props => {
           >
             Kirim ke Alamat Lain
           </Button>
+          }
           <Button type="primary" onClick={onAddAddress}>
             Tambah Alamat
           </Button>

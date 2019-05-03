@@ -9,7 +9,7 @@ import CustomerLayout from "layouts/CustomerLayout";
 
 class App extends Component {
   render() {
-    const RouteWithLayout = ({ component: Component, layout: Layout, ...rest }) => (
+    const RouteWithLayout = ({ component: Component, layout: Layout,...rest }) => (
       <Route {...rest} render={props => (
         <Layout>
           <Component {...props} />
