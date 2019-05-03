@@ -23,8 +23,8 @@ class ProductDetail extends Component {
       name: "",
       product: {},
       isProductAvailable: false,
-      productImage: [],
-      thumbnailImage: [],
+      images: [],
+      imageVariant: {},
       details: [],
       note: null,
       shippingInternationalId: null,
@@ -62,29 +62,20 @@ class ProductDetail extends Component {
   };
 
   actionUpdateSku = sku => {
-    const { variants } = sku
-    const images = variants
-      .filter(variant => variant.hasOwnProperty('value') && variant.value.hasOwnProperty('image'))
-      .map(variant => variant.value.image)[0]
-      console.log('ini filterrr image product-detail2',variants);  
-    this.actionUpdateImages(images)
     const data = { ...this.state.data, sku };
-    this.setState({
-      data
-    });
+    this.setState({ data });
   };
+
 
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
     this.setState({ data });
   };
 
-  actionUpdateImages = image => { 
-    let images = [...this.state.productImage]
-    // images.shift()
-    // images.unshift(image)
-    this.setState({ thumbnailImage:[image,...images] })
-    console.log("========images", image);
+  actionUpdateImageVariant = image => {
+    this.setState({
+      imageVariant: image
+    })
   }
 
   redirectLogin = () => {
@@ -137,9 +128,7 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={10}>
                   <h2>{this.state.name}</h2>
-                  <SliderProductDetailContainer
-                    thumbnailImage={this.state.thumbnailImage}
-                    images={this.state.thumbnailImage} />
+                  <SliderProductDetailContainer images={this.state.images} imageVariant={this.state.imageVariant} />
                 </Col>
                 <Col md={12} offset={2}>
                   <div style={{}}>
@@ -150,7 +139,7 @@ class ProductDetail extends Component {
                     <SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
-                      actionUpdateImages={this.actionUpdateImages}
+                      actionUpdateImageVariant={this.actionUpdateImageVariant}
                       defaultValueSku={this.state.data.sku}
                     />
                     <ButtonQuantityContainer

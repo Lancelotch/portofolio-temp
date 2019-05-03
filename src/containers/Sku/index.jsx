@@ -61,6 +61,9 @@ class SkuContainer extends Component {
                 // valueName: valueName
                 value: variantValueFromProduct
             }
+            if(variant.value.image !== undefined) {
+                this.props.actionUpdateImageVariant(variant.value.image);
+            }
             sku.variants.push(variant);
         }
         this.setState({
@@ -72,7 +75,10 @@ class SkuContainer extends Component {
         this.props.actionUpdateSku(this.state.sku);
     }
 
-    updateVariant = (variantId, value, name) => {
+    updateVariant = (variantId, value, name, variantTypeIsImage = false) => {
+        if(variantTypeIsImage) {
+            this.props.actionUpdateImageVariant(value.image);
+        }
         let skuId = "";
         let id = ""
         let arr = []
