@@ -13,19 +13,20 @@ class SliderProductDetailContainer extends Component {
     this.state = {
       images: [],
       isImageVariantExist: false,
-      isShowNav: false
+      isShowNav: false,
+      startIndex: 0
     };
   }
- 
-  componentWillReceiveProps(props) {
-    const images = [...props.images];
+
+  componentWillReceiveProps(props) {   
+    this.setData(props.images, props.imageVariant);
+  }  
+
+  setData(imagesProps, imageVariantProps) {
+    const images = [...imagesProps];
     // const imageVariant = props.imageVariant;
     let isImageVariantExist = false;
-    const imageVariant = {
-      small: "ssss",
-      large: "ssss",
-      medium: "ssss"
-    }
+    const imageVariant = {...imageVariantProps};
 
     if(imageVariant.large !== undefined) {
       images.unshift(imageVariant);
@@ -36,9 +37,11 @@ class SliderProductDetailContainer extends Component {
     this.setState({
       images: images,
       isShowNav: isShowNav,
-      isImageVariantExist: isImageVariantExist
+      isImageVariantExist: isImageVariantExist,
+      startIndex: 0
     });
-  }  
+    console.log(images);
+  }
 
   imageHover(item) {
     return (
@@ -67,17 +70,25 @@ class SliderProductDetailContainer extends Component {
   }
 
   removeThumbnailImageVariant = () => {
+    const images = this.state.images;
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
-    if(thumbnailDom.length > 0) {
+    const lenImagesWihoutVariant = images.length-1;
+    if(thumbnailDom.length > lenImagesWihoutVariant) {
       thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
     }
   }
 
+  changeSlide = (i) => {
+    this.setState({
+      startIndex: i
+    })
+  }
+
   render() {
     if(this.state.isImageVariantExist) {
-      this.removeThumbnailImageVariant();
+      // this.removeThumbnailImageVariant();
     }
-
+    
     const images = [];
     this.state.images.forEach(image => {
       images.push({
@@ -86,15 +97,15 @@ class SliderProductDetailContainer extends Component {
       });
     });
 
-    return (
+    return (      
       <Row>
         <Col md={24} sm={12}>
           <ImageGallery
-            key={this.state.index}
+            startIndex={this.state.startIndex}
             showFullscreenButton={false}
             showPlayButton={false}
             showNav={this.state.isShowNav}
-            // startIndex={this.state.index}
+            onSlide={this.changeSlide}
             // renderItem={this.imageHover}
             items={images}
             disableArrowKeys={true}
@@ -106,7 +117,8 @@ class SliderProductDetailContainer extends Component {
 }
 
 SliderProductDetailContainer.propTypes = {
-  productImages: PropTypes.arrayOf(Object)
+  images: PropTypes.arrayOf(Object),
+  imageVariant: PropTypes.object
 };
 
 export default SliderProductDetailContainer;

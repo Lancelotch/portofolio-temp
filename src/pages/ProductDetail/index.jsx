@@ -41,8 +41,8 @@ class ProductDetail extends Component {
   }
 
   actionUpdateSku = sku => {
-    // const data = { ...this.state.data, sku };
-    // this.setState({ data });
+    const data = { ...this.state.data, sku };
+    this.setState({ data });
   };
 
   actionUpdateQuantity = quantity => {
@@ -50,8 +50,10 @@ class ProductDetail extends Component {
     this.setState({ data });
   };
 
-  actionUpdateImages = image => {
-    console.log(image);
+  actionUpdateImageVariant = image => {
+    this.setState({
+      imageVariant: image
+    })
   }
 
   redirectLogin = () => {
@@ -118,11 +120,10 @@ class ProductDetail extends Component {
         {this.state.isProductAvailable && this.state.data.quantity && (
           <React.Fragment>
             <div className="container productDetail">
-              {console.log("okesip", this.state.images)}
               <Row>
                 <Col md={10}>
                   <h2>{this.state.name}</h2>
-                  <SliderProductDetailContainer images={this.state.images} />
+                  <SliderProductDetailContainer images={this.state.images} imageVariant={this.state.imageVariant} />
                 </Col>
                 <Col md={12} offset={2}>
                   <div style={{}}>
@@ -133,7 +134,7 @@ class ProductDetail extends Component {
                     <SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
-                      actionUpdateImages={this.actionUpdateImages}
+                      actionUpdateImageVariant={this.actionUpdateImageVariant}
                       defaultValueSku={this.state.data.sku}
                     />
                     <ButtonQuantityContainer

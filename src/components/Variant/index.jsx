@@ -67,7 +67,7 @@ const VariantImage = (props) => {
                         props.sku.variants[0].value.description.substring(1)}</p>
             )}
             {props.values.map(value => (
-                <div onClick={() => props.onClick(props.id, value, props.name)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
+                <div onClick={() => props.onClick(props.id, value, props.name, true)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
                     <img className="variant_image" src={value.image.small} alt="" />
                 </div>
             ))
