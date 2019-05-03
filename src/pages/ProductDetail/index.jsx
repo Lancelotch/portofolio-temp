@@ -23,7 +23,7 @@ class ProductDetail extends Component {
       name: "",
       product: {},
       isProductAvailable: false,
-      images: [],
+      productImage: [],
       thumbnailImage: [],
       details: [],
       note: null,
@@ -43,15 +43,15 @@ class ProductDetail extends Component {
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      // const response = await productDetail.getProductDetail(productId);
-      const response = dummyProductDetail;
+      const response = await productDetail.getProductDetail(productId);
+      // const response = dummyProductDetail;
       const product = response.data;
       this.setState({
         thumbnailImage: product.images,
         name: product.name,
         price: product.price,
         id: product.id,
-        images: product.images,
+        productImage: product.images,
         product: product,
         details: product.details,
         isProductAvailable: true
@@ -66,8 +66,7 @@ class ProductDetail extends Component {
     const images = variants
       .filter(variant => variant.hasOwnProperty('value') && variant.value.hasOwnProperty('image'))
       .map(variant => variant.value.image)[0]
-      console.log('ini filterrr image product-detail2',variants);
-      
+      console.log('ini filterrr image product-detail2',variants);  
     this.actionUpdateImages(images)
     const data = { ...this.state.data, sku };
     this.setState({
@@ -80,11 +79,11 @@ class ProductDetail extends Component {
     this.setState({ data });
   };
 
-  actionUpdateImages = image => {
-    let images = [...this.state.images]
-    images.shift()
-    images.unshift(image)
-    this.setState({ images })
+  actionUpdateImages = image => { 
+    let images = [...this.state.productImage]
+    // images.shift()
+    // images.unshift(image)
+    this.setState({ thumbnailImage:[image,...images] })
     console.log("========images", image);
   }
 
@@ -128,6 +127,8 @@ class ProductDetail extends Component {
   };
 
   render() {
+    console.log('thumbnailimaaaage',this.state.thumbnailImage);
+    
     return (
       <React.Fragment>
         {this.state.isProductAvailable && this.state.data.quantity && (
@@ -138,7 +139,7 @@ class ProductDetail extends Component {
                   <h2>{this.state.name}</h2>
                   <SliderProductDetailContainer
                     thumbnailImage={this.state.thumbnailImage}
-                    images={this.state.images} />
+                    images={this.state.thumbnailImage} />
                 </Col>
                 <Col md={12} offset={2}>
                   <div style={{}}>

@@ -53,7 +53,7 @@ class SliderProductDetailContainer extends Component {
   }
 
   render() {
-    const images = [...this.props.thumbnailImage]
+    const images = [...this.props.images]
     let settings = {
       appendDots: dots => (
         <ul style={{
@@ -64,6 +64,7 @@ class SliderProductDetailContainer extends Component {
         </ul>
       ),
       customPaging: function (indexOfSlider) {
+        console.log('ini',images[indexOfSlider].small);
         return (
           <div
             style={{
