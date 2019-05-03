@@ -4,6 +4,8 @@ import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaitingPayment from "../OrderListWaitingPayment";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";
 import dummyProductOrder from "../../dummy/dummyProductOrder";
+import NoOrderHistory from "../../components/NoOrderHistory";
+import OrderDetailsCancel from "../OrderDetailsCancel";
 
 const confirm = Modal.confirm;
 
@@ -77,8 +79,8 @@ class CustomerOderNavigation extends Component {
           tab={
             <span
               onClick={() =>
-                this.setState({ 
-                  isShowOrderDetailsDashboard: false 
+                this.setState({
+                  isShowOrderDetailsDashboard: false
                 })
               }
             >{"Belum Bayar"}</span>}
@@ -101,66 +103,86 @@ class CustomerOderNavigation extends Component {
           key={"2"}
           tab={<span
             onClick={() =>
-              this.setState({ 
-                isShowOrderDetailsDashboard: false 
+              this.setState({
+                isShowOrderDetailsDashboard: false
               })
             }>{"Belum Dikirim"}</span>}
           my_prop={
-            this.state.productorder.length < 1 ?
-              (<p>Tidak ada Riwayat Belanja</p>)
-              : (
-                this.state.isShowOrderDetailsDashboard === false ? (
-                  <OrderListWaitingPayment
-                    viewOrderDetail={this.OrderDetailsDashboardDetailById}
-                    orderProduct={this.state.productorder}
-                    showDeleteConfirm={this.showDeleteConfirm}
-                    index={2} />
-                ) : (
-                    <OrderDetailsDashboard
-                      showOrderDetailsDashboard={this.showOrderDetailsDashboard}
-                      orderDetailsId={this.state.orderDetailsId} index={2} />
-                  )
+            this.state.isShowOrderDetailsDashboard === false ? (
+              <OrderListWaitingPayment
+                viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                orderProduct={this.state.productorder}
+                showDeleteConfirm={this.showDeleteConfirm}
+                index={2} />
+            ) : (
+                <OrderDetailsDashboard
+                  showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                  orderDetailsId={this.state.orderDetailsId} index={2} />
               )} />
         <CustomTabPane
           key={"3"}
           tab={<span
             onClick={() =>
-              this.setState({ 
-                isShowOrderDetailsDashboard: false 
+              this.setState({
+                isShowOrderDetailsDashboard: false
               })
             }>
             {"Dalam Pengiriman"}
-            </span>}
+          </span>}
           my_prop={
-            this.state.productorder.length < 1 ? (<p>Tidak ada Riwayat Belanja</p>) : (
-              this.state.isShowOrderDetailsDashboard === false ? (
-                <OrderListWaitingPayment
-                  viewOrderDetail={this.OrderDetailsDashboardDetailById}
-                  orderProduct={this.state.productorder}
-                  showDeleteConfirm={this.showDeleteConfirm}
-                  index={3} />
-              ) : (
-                  <OrderDetailsDashboard
-                    showOrderDetailsDashboard={this.showOrderDetailsDashboard}
-                    orderDetailsId={this.state.orderDetailsId} index={3} />
-                )
-            )} />
-        <CustomTabPane key={"4"} tab={<span>{"Selesai"}</span>} />
+            this.state.isShowOrderDetailsDashboard === false ? (
+              <OrderListWaitingPayment
+                viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                orderProduct={this.state.productorder}
+                showDeleteConfirm={this.showDeleteConfirm}
+                index={3} />
+            ) : (
+                <OrderDetailsDashboard
+                  showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                  orderDetailsId={this.state.orderDetailsId} index={3} />
+
+              )} />
+        <CustomTabPane
+          key={"4"}
+          tab={<span>{"Selesai"}</span>}
+          my_prop={
+            this.state.isShowOrderDetailsDashboard === false ? (
+              <OrderListWaitingPayment
+                viewOrderDetail={this.OrderDetailsDashboardDetailById}
+                orderProduct={this.state.productorder}
+                showDeleteConfirm={this.showDeleteConfirm}
+                index={4} />
+            ) : (
+                <OrderDetailsDashboard
+                  showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                  orderDetailsId={this.state.orderDetailsId} index={4} />
+
+              )} />
         <CustomTabPane
           key={"5"}
           tab={<span
             onClick={() =>
               this.setState({ isShowOrderDetailsDashboard: false })
-            }>{"Batal"}</span>}
+            }>
+            {"Batal"}
+          </span>
+          }
           my_prop={
-            this.state.stateCancelOrder.length < 1 ? (<p>tes</p>) :
-              (<OrderListWaitingPayment
+            this.state.stateCancelOrder.length < 1 ?
+              (<NoOrderHistory />)
+              :
+              (this.state.isShowOrderDetailsDashboard === false ?
+                (<OrderListWaitingPayment
                   viewOrderDetail={this.OrderDetailsDashboardDetailById}
                   orderProduct={this.state.stateCancelOrder}
                   showDeleteConfirm={this.showDeleteConfirm}
                   index={5}
-                />)
-            }
+                />) : (
+                  <OrderDetailsCancel
+                    showOrderDetailsDashboard={this.showOrderDetailsDashboard}
+                    orderDetailsId={this.state.orderDetailsId} index={4} />
+                )
+              )}
         />
       </Tabs>
     );

@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from "react";
 import ButtonQuantity from "../ButtonQuantity";
 import "./style.sass";
-import { Row, Col, Card, Icon } from "antd";
+import { Row, Col, Card, Icon, Divider } from "antd";
 import NotedLimit from "../../components/NotedLimit";
 import Shipping from "../../components/SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
 class OrderDetailContainer extends Component {
-  constructor(props){
-      super(props);
-      this.state = {
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
   }
 
   actionChangeQuantity = (quantity) => {
@@ -27,23 +27,27 @@ class OrderDetailContainer extends Component {
   }
 
   variants = (variants) => {
-    return variants.map(variant=>(
-        <p key={variant.variantId} className="detailPesanan__variant">
-          {`${variant.variantName} : ${variant.value.name}`}
-        </p>
-      ))
-    }
+    return variants.map(variant => (
+      <p key={variant.variantId} className="detailPesanan__variant">
+        {`${variant.variantName} : ${variant.value.name}`}
+      </p>
+    ))
+  }
 
   render() {
-    const {image, name, sku, quantity} = this.props.payloadProductDetail;
+    const { image, name, sku, quantity } = this.props.payloadProductDetail;
     return (
       <Fragment>
         <Row>
           <Col md={24}>
-            <Card>
+            <Card
+              style={{
+                paddingLeft: 12,
+                fontSize: 18
+              }}
+              title=
+              {strings.order_details}>
               <div className="detailPesanan">
-                <b className="detailPesanan__label">{strings.order_details}</b>
-                <hr className="detailPesanan__inline" />
                 <Row>
                   <Col md={3} style={{ marginTop: 20 }}>
                     <img
@@ -80,9 +84,8 @@ class OrderDetailContainer extends Component {
                     </div>
                   </Col>
                 </Row>
-                <hr className="detailPesanan__inline" />
-                <Col md={24} style={{ marginTop: 20 }}>
-                  <Row>
+                <Divider />
+                  <Row style={{ marginTop: 20 }}>
                     <Col md={5}>
                       <b>{strings.international_shipping}</b>
                     </Col>
@@ -93,10 +96,9 @@ class OrderDetailContainer extends Component {
                       <b>{strings.note}</b>
                     </Col>
                     <Col md={19}>
-                      <NotedLimit onChange={this.actionChangeNote}/>
+                      <NotedLimit onChange={this.actionChangeNote} />
                     </Col>
                   </Row>
-                </Col>
               </div>
             </Card>
           </Col>

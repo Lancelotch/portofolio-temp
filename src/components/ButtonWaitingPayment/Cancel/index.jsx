@@ -12,7 +12,11 @@ const Cancel = (props) => {
     // return id
   })
   return (
-    <p style={{ textAlign: "right", marginRight: 15 }}>
+    <div style={{
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: 15
+    }}>
       <Button
         className="waitingPayment__payNow"
       >
@@ -20,11 +24,10 @@ const Cancel = (props) => {
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
-        onClick={() => viewOrderDetail()}
-      >
-        Detail Pesanan
+        onClick={() => viewOrderDetail()}>
+        Detail Pembatalan
         </Button>
-    </p>
+    </div>
   )
 }
 

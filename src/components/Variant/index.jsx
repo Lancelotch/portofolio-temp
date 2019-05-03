@@ -1,7 +1,7 @@
 import React from 'react';
-import { Col } from "antd";
-import "./Variant.css";
-// import strings from "../../localization/localization.js"
+import { Tooltip, Col } from "antd";
+import "./Variant.sass";
+import strings from "../../localization/localization.js"
 
 
 const checkVariant = (variantId, valueid, selectedId) => {
@@ -42,8 +42,8 @@ const VariantText = (props) => {
                         key={value.id}
                         // style={stockInfo(props, infoStockEmpty, value, selected) ? disabled : null}
                         className={props.selected && (checkVariant(props.id, value.id, selected) ?
-                            "box-variant active" : "box-variant")}>
-                        <p>{value.name}</p>
+                            "box-variant-text active" : "box-variant-text")}>
+                        <span>{value.name}</span>
                     </div>
                 // </Tooltip>
             ))}
@@ -57,9 +57,7 @@ const VariantImage = (props) => {
         const variantWarna = props.sku.variants.filter(variant => variant.variantName === props.name)[0]
         selected = variantWarna && variantWarna.value
         variantWarna && props.onClick(selected.id, selected)
-        console.log("ini dalam if",selected)
     }
-    console.log("ini selected brother", selected)
     return (
         <React.Fragment>
             {props.sku.variants[0] && (
@@ -68,8 +66,8 @@ const VariantImage = (props) => {
                 {props.sku.variants[0].value.description.charAt(0).toUpperCase() +
                         props.sku.variants[0].value.description.substring(1)}</p>
             )}
-            {props.values.map(value => (
-                <div onClick={() => props.onClick(props.id, value, props.name)} key={value.id} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
+            {props.values.map((value,index) => (
+                <div onClick={() => props.onClick(props.id, value, props.name)} key={index} className={props.selected && (checkVariant(props.id, value.id, selected) ? "box-variant active" : "box-variant")} >
                     <img className="variant_image" src={value.image.small} alt="" />
                 </div>
             ))
@@ -79,7 +77,6 @@ const VariantImage = (props) => {
 }
 
 const Variant = (props) => {
-    console.log('variaaaaaaaaaants', props);
     return (
         <Col md={24}>
             <div className="variant">

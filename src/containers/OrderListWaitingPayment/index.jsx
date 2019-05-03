@@ -34,7 +34,7 @@ class OrderListWaitingPayment extends Component {
       <React.Fragment>
         {orderProduct.map((order, i) => {
           return (
-            <div className="waitingPayment__list">
+            <div className="waitingPayment__list" key={order.id}>
               <ProductOrder key={order.id} indexes={order.indexes} />
               {index === 1 &&
                 <WaitingPayment
@@ -49,6 +49,7 @@ class OrderListWaitingPayment extends Component {
                 />}
               {index === 1 &&
                 <Pay
+                  productDetail={order.indexes}
                   index={1}
                   showDeleteConfirm={showDeleteConfirm}
                   orderProduct={orderProduct}
@@ -72,6 +73,7 @@ class OrderListWaitingPayment extends Component {
                 />}
               {index === 2 &&
                 <Pay
+                  productDetail={order.indexes}
                   indexButton={2}
                   showDeleteConfirm={showDeleteConfirm}
                   orderProduct={orderProduct}
@@ -95,7 +97,33 @@ class OrderListWaitingPayment extends Component {
                 />}
               {index === 3 &&
                 <Pay
+                  productDetail={order.indexes}
                   indexButton={3}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
+              {index === 4 &&
+                <WaitingPayment
+                  indexDalamPengiriman={4}
+                  label="Pesanan Diterima"
+                  index={4}
+                  key={order.id}
+                  estimateShippingDate={order.estimateShippingDate}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 4 &&
+                <Pay
+                  indexButton={4}
+                  productDetail={order.indexes}
                   showDeleteConfirm={showDeleteConfirm}
                   orderProduct={orderProduct}
                   i={i}

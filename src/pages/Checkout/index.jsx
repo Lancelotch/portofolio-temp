@@ -105,7 +105,7 @@ class Checkout extends Component {
   actionSubmitAddFormAddress = async request => {
     try {
       const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
-      if(response.data.data){
+      if (response.data.data) {
         this.setState({
           customerAddress: request
         })
@@ -120,10 +120,10 @@ class Checkout extends Component {
   actionSubmitEditFormAddress = async request => {
     try {
       const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
-      if(response.data.data){
+      if (response.data.data) {
         this.setState({
           customerAddress: request
-        },()=>{
+        }, () => {
           this.getListAddress();
           this.actionShowEditFormAddress();
         })
@@ -183,7 +183,7 @@ class Checkout extends Component {
     };
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
-      if(response.data.data){
+      if (response.data.data) {
         return null
       }
     } catch (error) {
@@ -220,7 +220,7 @@ class Checkout extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={15}>
+            <Col md={15} style={{ marginTop: 25 }}>
               <AddressCheckout
                 customerAddress={customerAddress}
                 isAddressAvailable={isAddressAvailable}

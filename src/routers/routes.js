@@ -37,7 +37,7 @@ const routes = [{
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetail,
+        component: ProductDetail
     },
     {
         path: PATH_URL.CATEGORY,
