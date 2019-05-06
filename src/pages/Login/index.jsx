@@ -6,6 +6,7 @@ import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import "./style.sass";
+// import "../../sass/style.sass"
 import strings from "../../localization/localization";
 import {
   loginWithGoogle,
@@ -59,7 +60,6 @@ class Login extends Component {
               }
             })
           }
-
         }
       })
   };
@@ -143,7 +143,7 @@ class Login extends Component {
                   <Button
                     size={"large"}
                     htmlType="submit"
-                    className="register__form__button-register"
+                    className="register__form__button-register color-button"
                   >
                     <p className="register__form__button-register-text">
                       {strings.login_enter}

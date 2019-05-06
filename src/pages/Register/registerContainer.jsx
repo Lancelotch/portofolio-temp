@@ -10,7 +10,7 @@ export const RegistrationSubmitButton = props => {
       <Loading />
     ) : (
       <Button
-        className="register__form__button-register"
+        className="register__form__button-register color-button"
         size={"large"}
         htmlType="submit"
         type="primary"
@@ -23,7 +23,6 @@ export const RegistrationSubmitButton = props => {
   );
 }
 
-
 // // export const AlertLogin = props =>{
 // //   const {message,isErorloaded} = props;
 // //   return <div className="login-form__error-box">
@@ -31,19 +30,16 @@ export const RegistrationSubmitButton = props => {
 // //       <p className="login-form__error-notif">{errorMessage}</p>
 // //     ) : null}
 // //   </div>
-  
 // }
-
 
 export const RegistrationaAlert = props => {
   // const { message } = props;
-  console.log("ini alert",props)
+  // console.log("ini alert",props)
   return (
     <div>
         <Alert
           message={props.message.message}
         >
-
         </Alert>
     </div>
   );
@@ -74,14 +70,12 @@ export const rulesEmail = () => {
       {
         required: true,
         message: strings.register_email_quote
-      },
-        
+      },  
     ]
   };
 };
 
 export const rulesPassword = () => {
-  
   return {
     rules: [
       {
@@ -95,9 +89,3 @@ export const rulesPassword = () => {
     ]
   };
 };
-
-
-
-
-
-

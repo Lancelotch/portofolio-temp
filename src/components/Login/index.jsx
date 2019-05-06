@@ -5,6 +5,7 @@ import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
 import './style.sass'
+import '../../sass/style.sass'
 import strings from '../../localization/localization'
 import {
   loginWithGoogle,
@@ -110,7 +111,7 @@ class Login extends Component {
                 <Button
                   size={'large'}
                   htmlType='submit'
-                  className='login-form__button__submit'
+                  className='login-form__button__submit color-button'
                 >
                   <h4>{strings.login_enter}</h4>
                 </Button>

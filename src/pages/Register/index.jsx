@@ -20,7 +20,7 @@ import {
   RegistrationaAlert,
   RegistrationSubmitButton
 } from "./registerContainer";
-import Modals from "../../modal/ModalRegisterSuccess"
+import ModalSuccess from "../../modal/ModalRegisterSuccess"
 import history from "../../routers/history"
 
 const FormItem = Form.Item;
@@ -78,10 +78,10 @@ class RegisterPage extends Component {
         const linkCheckout = "/checkout";
         if (this.state.nextPage === "checkout") {
           await this.props.registerForm(history, values, linkCheckout);
-          this. validation(this.props.form,values) 
+          this.validation(this.props.form,values) 
         } else {
           await this.props.registerForm(history, values);  
-            this. validation(this.props.form,values)          
+            this.validation(this.props.form,values)          
         }
       }else{
         this.setState({
@@ -89,7 +89,6 @@ class RegisterPage extends Component {
         })
       }
     });
-    
   };
 
   handleRegisterGoogle = request => {
@@ -100,7 +99,7 @@ class RegisterPage extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        <Row>
+        <Row className="heads">
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
@@ -175,7 +174,7 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
-                  <button onClick={this.props.loading}>gonee</button>
+                  {/* <button onClick={this.props.loading}>gonee</button> */}
                 </FormItem>
                 <Row
                   type="flex"
@@ -220,7 +219,7 @@ class RegisterPage extends Component {
             </div>
           </Col>
         </Row>
-        <Modals modalStatus={this.state.modalStatus} email={this.props.message.email}/>
+        <ModalSuccess modalStatus={this.state.modalStatus} email={this.props.message.email}/>
       </React.Fragment>
     );
   }
