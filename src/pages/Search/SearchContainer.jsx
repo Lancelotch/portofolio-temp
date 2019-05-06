@@ -1,9 +1,7 @@
-import React, { Component, Suspense, Fragment } from "react";
-import {BackTop } from "antd";
+import React, { Component, Suspense } from "react";
+import { BackTop} from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
-
-//import Products from "../../components/Products";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
@@ -100,13 +98,16 @@ class SearchPage extends Component {
     const { productList, hasMore, query, element } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
-      element,
-      <b>{query}</b>
+      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
+      <b style={{ color: "#FF416C" }}>{query}</b>
     );
     return (
-      <Fragment>
-        <p>{categoryTextResult} </p>
-        <SortListProduct onChange={this.onChangeSort} />
+      <div style={{ marginTop: 15 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span className="categoryTextResult">{categoryTextResult}</span>
+          <span>Urutkan &nbsp;&nbsp;&nbsp;
+            <SortListProduct onChange={this.onChangeSort} /></span>
+        </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
@@ -118,11 +119,13 @@ class SearchPage extends Component {
             </div>
           }
         >
-          <Suspense fallback={<SkeletonProduct count={20} />}>
-            <Products productList={productList} />
-          </Suspense>
+          <div style={{ marginTop: 35 }}>
+            <Suspense fallback={<SkeletonProduct count={20} />}>
+              <Products productList={productList} />
+            </Suspense>
+          </div>
         </InfiniteScroll>
-      </Fragment>
+      </div>
     );
   };
 
@@ -130,8 +133,8 @@ class SearchPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-      <SkeletonProduct count={20} />
-    );
+        <SkeletonProduct count={20} />
+      );
   };
 
   renderNotFound = () => {

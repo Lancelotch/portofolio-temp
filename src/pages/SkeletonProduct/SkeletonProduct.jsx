@@ -7,9 +7,9 @@ const loopSkeleton = count => {
   let skeletons = [];
   for (let i = 0; i <= count; i++) {
     skeletons.push(
-      <Col span={6} key={i}>
-        <Skeleton height={250} width={250} />
-        <Skeleton count={2} width={250} />
+      <Col span={4} key={i} style={{ marginLeft: 15 }}>
+        <Skeleton height={250} width={200} />
+        <Skeleton count={2} width={200} />
       </Col>
     );
   }
@@ -29,7 +29,7 @@ const SkeletonProduct = props => {
 };
 
 SkeletonProduct.propTypes = {
-  count : PropTypes.number
+  count: PropTypes.number
 }
 
 export default SkeletonProduct;

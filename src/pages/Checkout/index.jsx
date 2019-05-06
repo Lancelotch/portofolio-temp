@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import FormAddAddress from "../../containers/FormAddAddress";
 import { addressDefault } from "../../store/actions/address";
-import { postService, getService, putService } from "../../api/services";
+import { apiPostWithToken, apiGetWithToken, apiPutWithToken } from "../../api/services";
 import { PATH_CUSTOMER, PATH_ORDER } from "../../api/path";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import FormEditAddress from "../../containers/FormEditAddress";
@@ -47,7 +47,7 @@ class Checkout extends Component {
 
   variantsRequest = variants => {
     const variantsRequest = [];
-    variants.map(variant => {
+    variants.forEach(variant => {
       variantsRequest.push({
         variantId: variant.variantId,
         idValue: variant.value.id
@@ -75,9 +75,9 @@ class Checkout extends Component {
 
   getListAddress = async () => {
     try {
-      const response = await getService(PATH_CUSTOMER.ADDRESS);
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
       this.setState({
-        addresses: response.data
+        addresses: response.data.data
       });
     } catch (error) {
       console.log(error);
@@ -104,9 +104,14 @@ class Checkout extends Component {
 
   actionSubmitAddFormAddress = async request => {
     try {
-      const response = await postService(PATH_CUSTOMER.ADDRESS, request);
-      this.getListAddress();
-      this.actionShowAddFormAddress();
+      const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
+      if (response.data.data) {
+        this.setState({
+          customerAddress: request
+        })
+        this.getListAddress();
+        this.actionShowAddFormAddress();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -114,13 +119,15 @@ class Checkout extends Component {
 
   actionSubmitEditFormAddress = async request => {
     try {
-      const response = await putService(PATH_CUSTOMER.ADDRESS, request);
-      this.setState({
-        customerAddress: request
-      },()=>{
-        this.getListAddress();
-        this.actionShowEditFormAddress();
-      })
+      const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
+      if (response.data.data) {
+        this.setState({
+          customerAddress: request
+        }, () => {
+          this.getListAddress();
+          this.actionShowEditFormAddress();
+        })
+      }
     } catch (error) {
       console.log(error);
     }
@@ -152,6 +159,8 @@ class Checkout extends Component {
   };
 
   actionSubmitOrder = async () => {
+    console.log("test");
+    
     const {
       variants,
       customerAddress,
@@ -175,8 +184,10 @@ class Checkout extends Component {
       ]
     };
     try {
-      const response = await postService(PATH_ORDER.ORDER, request);
-      console.log(response);
+      const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
+      if (response.data.data) {
+        return null
+      }
     } catch (error) {
       console.log(error);
     }
@@ -211,7 +222,7 @@ class Checkout extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={15}>
+            <Col md={15} style={{ marginTop: 25 }}>
               <AddressCheckout
                 customerAddress={customerAddress}
                 isAddressAvailable={isAddressAvailable}
@@ -252,7 +263,7 @@ class Checkout extends Component {
                 quantity={quantity}
                 priceProduct={priceProduct}
                 viaRoute={shipping}
-                onOrder={this.actionSubmitOrder}
+                onOrder={()=>isAddressAvailable ? this.actionSubmitOrder() : this.actionShowAddFormAddress()}
               />
             </Col>
           </Row>

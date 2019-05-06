@@ -56,6 +56,20 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
+          {index === 4 &&
+            <Col md={12}>
+              <p
+                style={{
+                  paddingLeft: 15,
+                  color: "#777777",
+                  fontSize: 16
+                }}>{label}
+              </p>
+              <p className="waitingPayment__endDatePay">
+                {convertTimesTime.millisecond(endDatePay)}
+              </p>
+            </Col>
+          }
           <Col md={12}>
             <font className="waitingPayment__totalReceived">Total Pesenan : &nbsp;
             <h4 style={{ display: "unset", fontSize: 20 }}>

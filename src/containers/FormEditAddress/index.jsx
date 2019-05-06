@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
-// import Fetcher from "../../hoc/Fetcher";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
-// import { postAddressForm, addressService } from "../../api/services/address";
-import { getService } from "../../api/services";
+import { apiGetWithToken } from "../../api/services";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -74,30 +72,32 @@ class FormEditAddress extends Component {
 
   getProvince = async () => {
     try {
-      const response = await getService(PATH_CUSTOMER.ADDRESS_PROVINCE);
-      this.setState({ provinces: response.data });
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_PROVINCE);
+      this.setState({ provinces: response.data.data });
     } catch (error) {
       console.log(error);
     }
   };
 
   getCities = async () => {
+    const params = {
+      province: this.state.provinceId
+    }
     try {
-      const response = await getService(
-        `${PATH_CUSTOMER.ADDRESS_CITY}?province=${this.state.provinceId}`
-      );
-      this.setState({ cities: response.data });
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_CITY, params);
+      this.setState({ cities: response.data.data });
     } catch (error) {
       console.log(error);
     }
   };
 
   getSubdistrict = async () => {
+    const params = {
+      city: this.state.cityId
+    }
     try {
-      const response = await getService(
-        `${PATH_CUSTOMER.ADDRESS_SUBDISTRICT}?city=${this.state.cityId}`
-      );
-      this.setState({ subdistricts: response.data });
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
+      this.setState({ subdistricts: response.data.data });
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +121,7 @@ class FormEditAddress extends Component {
 
   optionsProvince = provinces => {
     const options = [];
-    provinces.map(provinces => {
+    provinces.forEach(provinces => {
       provinces.province_id === "6" &&
         options.push(
           <Option
@@ -148,7 +148,7 @@ class FormEditAddress extends Component {
 
   optionsCity = cities => {
     const options = [];
-    cities.map(city => {
+    cities.forEach(city => {
       options.push(
         <Option value={`${city.city_id}|${city.city_name}`} key={city.city_id}>
           {city.city_name}
@@ -168,7 +168,7 @@ class FormEditAddress extends Component {
 
   optionsSubdistrict = subdistricts => {
     const options = [];
-    subdistricts.map(subdistrict => {
+    subdistricts.forEach(subdistrict => {
       options.push(
         <Option
           value={`${subdistrict.subdistrict_id}|${
@@ -214,8 +214,6 @@ class FormEditAddress extends Component {
         };
         this.props.onSubmit(payload);
         this.props.form.resetFields();
-        //this.props.form.resetFields();
-        //this.props.onCancle();
       }
     });
   };
@@ -258,12 +256,21 @@ class FormEditAddress extends Component {
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
         footer={[
-          <Button key="back" onClick={this.props.onCancle}>
+          <Button 
+          key="back"
+          style={{
+            border: "unset",
+            fontWeight: 555,
+            color: "black"
+          }}
+          size="large" 
+          onClick={this.props.onCancle}
+          >
             Kembali
           </Button>,
           <Button
             key="submit"
-            type="primary"
+            className="buttonSimpan"
             loading={false}
             onClick={this.handleSubmit}
           >

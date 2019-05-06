@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
-// import Fetcher from "../../hoc/Fetcher";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
-// import { postAddressForm, addressService } from "../../api/services/address";
-import { getService } from "../../api/services";
+import { apiGetWithToken } from "../../api/services";
+import "./style.sass";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -25,42 +24,48 @@ class FormAddAddress extends Component {
       geolocation: null,
       subdistrictId: null,
       subdistrict: null,
-      provinces : [],
+      provinces: [],
       cities: [],
       subdistricts: []
     };
   }
 
   componentDidMount() {
-      this.getProvince();
+    this.getProvince();
   }
 
   getProvince = async () => {
-    try{
-      const response = await getService(PATH_CUSTOMER.ADDRESS_PROVINCE);
-      this.setState({provinces: response.data})
-    }catch(error){
+    try {
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_PROVINCE);
+      this.setState({ provinces: response.data.data });
+    } catch (error) {
       console.log(error);
     }
   };
 
   getCities = async () => {
-    try{
-      const response = await getService(`${PATH_CUSTOMER.ADDRESS_CITY}?province=${this.state.provinceId}`);
-      this.setState({cities: response.data})
-    }catch(error){
+    const params = {
+      province: this.state.provinceId
+    }
+    try {
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_CITY, params);
+      this.setState({ cities: response.data.data });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   getSubdistrict = async () => {
-    try{
-      const response = await getService(`${PATH_CUSTOMER.ADDRESS_SUBDISTRICT}?city=${this.state.cityId}`);
-      this.setState({subdistricts: response.data})
-    }catch(error){
+    const params = {
+      city: this.state.cityId
+    }
+    try {
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
+      this.setState({ subdistricts: response.data.data });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   splitValue = (value) => {
     const splitValue = value.split("|");
@@ -72,12 +77,12 @@ class FormAddAddress extends Component {
     this.setState({
       provinceId: province[0],
       province: province[1]
-    },this.getCities);
+    }, this.getCities);
   };
 
   optionsProvince = provinces => {
     const options = [];
-    provinces.map(provinces => {
+    provinces.forEach(provinces => {
       provinces.province_id === "6" &&
         options.push(
           <Option
@@ -101,15 +106,15 @@ class FormAddAddress extends Component {
 
   optionsCity = cities => {
     const options = [];
-    cities.map(city => {
-        options.push(
-          <Option
-            value={`${city.city_id}|${city.city_name}`}
-            key={city.city_id}
-          >
-            {city.city_name}
-          </Option>
-        );
+    cities.forEach(city => {
+      options.push(
+        <Option
+          value={`${city.city_id}|${city.city_name}`}
+          key={city.city_id}
+        >
+          {city.city_name}
+        </Option>
+      );
     });
     return options;
   };
@@ -124,15 +129,15 @@ class FormAddAddress extends Component {
 
   optionsSubdistrict = subdistricts => {
     const options = [];
-    subdistricts.map(subdistrict => {
-        options.push(
-          <Option
-            value={`${subdistrict.subdistrict_id}|${subdistrict.subdistrict_name}`}
-            key={subdistrict.subdistrict_id}
-          >
-            {subdistrict.subdistrict_name}
-          </Option>
-        );
+    subdistricts.forEach(subdistrict => {
+      options.push(
+        <Option
+          value={`${subdistrict.subdistrict_id}|${subdistrict.subdistrict_name}`}
+          key={subdistrict.subdistrict_id}
+        >
+          {subdistrict.subdistrict_name}
+        </Option>
+      );
     });
     return options;
   };
@@ -141,21 +146,20 @@ class FormAddAddress extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const {province, provinceId, city, cityId, subdistrict, subdistrictId} = this.state;
+        const { province, provinceId, city, cityId, subdistrict, subdistrictId } = this.state;
         const payload = {
           ...values,
-          provinceId,province,
-          cityId,city,
-          subdistrictId,subdistrict,
+          provinceId, province,
+          cityId, city,
+          subdistrictId, subdistrict,
           geolocation: {
             latitude: 0,
             longitude: 0
           },
-          isDefault: true
+          isDefault: false
         };
         this.props.onSubmit(payload);
         this.props.form.resetFields();
-        //this.props.onCancle();
       }
     });
   };
@@ -188,12 +192,21 @@ class FormAddAddress extends Component {
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
         footer={[
-          <Button key="back" onClick={this.props.onCancle}>
+          <Button
+            key="back"
+            size="large"
+            style={{
+              border: "unset",
+              fontWeight: 555,
+              color: "black"
+            }}
+            onClick={this.props.onCancle}>
             Kembali
           </Button>,
           <Button
+            size="large"
             key="submit"
-            type="primary"
+            className="buttonSimpan"
             loading={false}
             onClick={this.handleSubmit}
           >
@@ -242,7 +255,7 @@ class FormAddAddress extends Component {
             )}
           </Form.Item>
           <Form.Item label="Kota">
-          {getFieldDecorator(
+            {getFieldDecorator(
               "city",
               this.rules(true, "Silahkan pilih alamat kota kamu")
             )(
@@ -265,25 +278,25 @@ class FormAddAddress extends Component {
           <Row>
             <Col span={16}>
               <Form.Item label="Kecamatan">
-              {getFieldDecorator(
-              "subdistrict",
-              this.rules(true, "Silahkan pilih alamat kecamatan kamu")
-            )(
-              <Select
-                showSearch
-                //style={{ width: 200 }}
-                placeholder="pilih kecamatan"
-                optionFilterProp="children"
-                onChange={value => this.handleChangeSubDistrict(value)}
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
-                }
-              >
-                {subdistricts && this.optionsSubdistrict(subdistricts)}
-              </Select>
-            )}
+                {getFieldDecorator(
+                  "subdistrict",
+                  this.rules(true, "Silahkan pilih alamat kecamatan kamu")
+                )(
+                  <Select
+                    showSearch
+                    //style={{ width: 200 }}
+                    placeholder="pilih kecamatan"
+                    optionFilterProp="children"
+                    onChange={value => this.handleChangeSubDistrict(value)}
+                    filterOption={(input, option) =>
+                      option.props.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {subdistricts && this.optionsSubdistrict(subdistricts)}
+                  </Select>
+                )}
               </Form.Item>
             </Col>
             <Col span={6} offset={2}>

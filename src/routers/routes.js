@@ -10,6 +10,8 @@ import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import Checkout from '../pages/Checkout'
 import CustomerNavigation from '../containers/CustomerNavigation'
+import requiredAuth from '../hoc/requiredAuth';
+import notRequiredAuth from "../hoc/notRequiredAuth";
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
@@ -17,18 +19,18 @@ const routes = [{
     },
     {
         path: PATH_URL.LOGIN,
-        component: Login,
+        component: notRequiredAuth(Login),
         layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.CHECKOUT,
-        component: Checkout,
+        component: requiredAuth(Checkout),
         layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.REGISTER,
         breadcrumb: "register",
-        component: Register,
+        component: notRequiredAuth(Register),
         layoutName: 'fullLayout'
     },
     {
@@ -37,8 +39,7 @@ const routes = [{
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,
-        component: ProductDetail,
-        // layoutName: 'fullLayout'
+        component: ProductDetail
     },
     {
         path: PATH_URL.CATEGORY,

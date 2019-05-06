@@ -13,7 +13,7 @@ class AddressList extends Component {
     };
   }
 
-  onChange = (e) => {    
+  onChange = (e) => {
     this.setState({
       customerAddress: e.target.value.address
     });
@@ -40,12 +40,21 @@ class AddressList extends Component {
         onOk={this.handleOk}
         onCancel={this.props.onCancle}
         footer={[
-          <Button key="back" onClick={this.props.onCancle}>
+          <Button
+            key="back"
+            size="large"
+            style={{
+              border: "unset",
+              fontWeight: 555,
+              color: "black"
+            }}
+            onClick={this.props.onCancle}>
             Kembali
           </Button>,
           <Button
+            size="large"
             key="submit"
-            type="primary"
+            className="buttonSimpan"
             onClick={this.handleOk}
           >
             Gunakan Alamat
