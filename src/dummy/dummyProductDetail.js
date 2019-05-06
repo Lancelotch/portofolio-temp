@@ -41,19 +41,8 @@ const dummyProductDetail = {
                 "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
-            },
-            {
-                "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:27:51.264Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:25:35.312Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T09:29:49.156Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "isDefault": false
             }
+            
         ],
         "variants": [{
                 "id": "001",

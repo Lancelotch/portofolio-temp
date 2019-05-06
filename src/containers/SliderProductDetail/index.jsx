@@ -2,21 +2,32 @@ import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
 import { Row, Col } from "antd";
 import PropTypes from "prop-types";
-import ReactImageMagnify from "react-image-magnify";
-import Viewer from "react-viewer";
-import "react-viewer/dist/index.css";
+// import ReactImageMagnify from "react-image-magnify";
+import Magnifier from "react-magnifier";
+// import Viewer from "react-viewer";
+// import "react-viewer/dist/index.css";
 
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
+    // const slides = this.props.images.map((productImage, index) => {
+    //   return (
+    //     <img
+    //       key={index}
+    //       alt="example"
+    //       src={productImage.large}
+    //     />
+    //   )
+    // });
     this.state = {
       images: [],
       isImageVariantExist: false,
       isShowNav: false,
-      startIndex: 0
+      startIndex: 0,
     };
   }
+
 
   componentWillReceiveProps(props) {
     this.slider.slideToIndex(0)
@@ -33,7 +44,7 @@ class SliderProductDetailContainer extends Component {
       images.unshift(imageVariant);
       isImageVariantExist = true;
     }
-    let isShowNav = images.length > 6 ? true : false;
+    let isShowNav = images.length > 7 ? true : false;
     this.setState({
       images: images,
       isShowNav: isShowNav,
@@ -44,28 +55,34 @@ class SliderProductDetailContainer extends Component {
   }
 
   imageHover(item) {
+    console.log('iniiiiiii item');
     return (
-      <ReactImageMagnify
-        {...{
-          smallImage: {
-            isFluidWidth: true,
-            src: item.thumbnail,
-          },
-          largeImage: {
-            width: 450,
-            height: 450,
-            src: item.original
-          },
-          lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
-        }}
-        {...{
-          isHintEnabled: false,
-          enlargedImageContainerDimensions: { width: '100%', height: '100%' },
-          // shouldHideHintAfterFirstActivation: true,
-          enlargedImagePosition: "over",
-          enlargedImageContainerStyle: { Index: 1000 }
-        }}
-      />
+      <Magnifier
+        zoomImgSrc={item.original}
+        src={item.thumbnail}
+        zoomFactor={2.0}
+      />      
+      // <ReactImageMagnify
+      //   {...{
+      //     smallImage: {
+      //       isFluidWidth: true,
+      //       src: item.thumbnail
+      //     },
+      //     largeImage: {
+      //       width: 450,
+      //       height: 450,
+      //       src: item.original
+      //     },
+      //     lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
+      //   }}
+      //   {...{
+      //     isHintEnabled: false,
+      //     enlargedImageContainerDimensions: { width: '100%', height: '100%' },
+      //     // shouldHideHintAfterFirstActivation: true,
+      //     enlargedImagePosition: "over",
+      //     enlargedImageContainerStyle: { Index: 1000 }
+      //   }}
+      // />
     );
   }
 
@@ -85,9 +102,9 @@ class SliderProductDetailContainer extends Component {
   }
 
   render() {
-    if (this.state.isImageVariantExist) {
+
+    this.state.isImageVariantExist &&
       this.removeThumbnailImageVariant();
-    }
 
     const images = [];
     this.state.images.forEach(image => {
@@ -106,11 +123,13 @@ class SliderProductDetailContainer extends Component {
             showFullscreenButton={false}
             showPlayButton={false}
             showNav={this.state.isShowNav}
-            onSlide={this.changeSlide}
-           // renderItem={this.imageHover}
+            // onSlide={this.changeSlide}
+            lazyLoad={true}
+            renderItem={this.imageHover}
             items={images}
             disableArrowKeys={true}
           />
+
         </Col>
       </Row>
     );
