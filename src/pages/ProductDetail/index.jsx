@@ -113,7 +113,6 @@ class ProductDetail extends Component {
       name: name,
       productId: id,
       quantity: data.quantity,
-      shippingInternationalId: "3knk2noib2oi22o23r",
       sku: data.sku,
       note
     }
