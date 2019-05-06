@@ -1,11 +1,10 @@
 import React from 'react';
-import { svgReactElement } from '../../pages/Register/registerContainer';
 
 const FrontImage = (props) => {
     return (
-        <svgReactElement>
+        <React.Element>
             <img className="front-image" src={props.src} alt=""/>
-        </svgReactElement>
+        </React.Element>
     );
 }
 

@@ -23,13 +23,8 @@ const SampleNextArrow = props => {
         top: "145px",
         right:"0px"
       }}
+      onClick={onClick}
     >
-      >
-      <Icon
-        type="right"
-        style={{ color: "white", fontSize: "30px" }}
-        onClick={onClick}
-      />
     </div>
   );
 };
@@ -52,13 +47,8 @@ const SamplePrevArrow = props => {
         marginLeft: "25px",
         top: "145px"
       }}
+      onClick={onClick}
     >
-      >
-      <Icon
-        type="left"
-        style={{ color: "white", fontSize: "30px" }}
-        onClick={onClick}
-      />
     </div>
   );
 };
@@ -84,7 +74,8 @@ class ClickProducts extends Component {
       appendDots: dots => (
         <div
           style={{
-            borderRadius: "10px"
+            borderRadius: 10,
+            marginLeft:10
           }}
         >
           <ul className="dots"> {dots} </ul>

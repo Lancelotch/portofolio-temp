@@ -28,27 +28,26 @@ const AddressListDetail = props => {
     <Fragment>
       <Row>
         <Col>
-          <p
+          <b
             style={{
               color: "#4D4D4D",
-              fontFamily: "Helvetica Neue",
               fontSize: 17
             }}
           >
             {labelName}
-            <StatusAddress isDefault={isDefault} />
-          </p>
+          </b>
+          <StatusAddress isDefault={isDefault} />
         </Col>
       </Row>
       <Row>
         <Col>
-          <span
+          <b
             style={{
               color: "#4D4D4D",
-              fontFamily: "Helvetica Neue",
               fontSize: 17
             }}
-          >{`${receiverName} - ${phoneNumber}`}</span>
+          >{`${receiverName} - ${phoneNumber}`}
+          </b>
         </Col>
       </Row>
       <Row>
@@ -67,7 +66,7 @@ const AddressListDetail = props => {
           <Radio value={props} checked={isDefault} style={{ float: "right" }} ></Radio>
         </Col>
       </Row>
-      <br/>
+      <br />
     </Fragment>
   );
 };

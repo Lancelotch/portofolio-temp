@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 import './style.sass'
 
 class SliderHome extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       sliderImages: []
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getSliderHome()
   }
 
@@ -28,7 +28,7 @@ class SliderHome extends Component {
   }
 
 
-  render () {
+  render() {
     const { sliderImages } = this.state
     const settings = {
       dots: true,
@@ -36,7 +36,7 @@ class SliderHome extends Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1
-    } 
+    }
     const slides = sliderImages.map((image, index) => {
       return (
         <React.Fragment key={index}>
@@ -54,10 +54,12 @@ class SliderHome extends Component {
     return (
       <React.Fragment>
         <Row>
-          <Col>
-            <Carousel autoplay {...settings}>
-              {slides}
-            </Carousel>
+          <Col md={24}>
+            <div className="sliderHome" style={{ marginTop: 10 }}>
+              <Carousel autoplay {...settings}>
+                {slides}
+              </Carousel>
+            </div>
           </Col>
         </Row>
       </React.Fragment>

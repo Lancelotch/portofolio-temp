@@ -10,7 +10,7 @@ const colStyle = {
 
 const Products = props => {
   return props.productList.map((product, index) => (
-    <Col key={index} span={6} style={colStyle}>
+    <Col key={index} md={4} style={colStyle}>
       <Product
         id={product.id}
         urlImage={product.urlImage}

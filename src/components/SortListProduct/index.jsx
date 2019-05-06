@@ -1,14 +1,20 @@
 import React from "react";
 import { Select } from "antd";
 
-const {Option} = Select;
+const { Option } = Select;
 
 const SortListProduct = props => {
   return (
-    <Select defaultValue="createdDate|desc" onChange={(value)=>props.onChange(value)}>
-      <Option value="createdDate|desc">Terbaru</Option>
-      <Option value="price.idr|asc">Termurah</Option>
-      <Option value="price.idr|desc">Termahal</Option>
+    <Select defaultValue="createdDate|desc" onChange={(value) => props.onChange(value)}>
+      <Option value="createdDate|desc">
+        <b style={{ fontWeight: 600 }}>Terbaru</b>
+      </Option>
+      <Option value="price.idr|asc">
+        <b style={{ fontWeight: 600 }}>Termurah</b>
+      </Option>
+      <Option value="price.idr|desc">
+        <b style={{ fontWeight: 600 }}>Termahal</b>
+      </Option>
     </Select>
   );
 };

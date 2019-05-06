@@ -1,6 +1,8 @@
 import React from 'react'
 import "../../ProductOrder/style.sass"
 import { Button } from 'antd'
+import { Link } from "react-router-dom";
+import { pageUrlProductDetail } from "../../../library/url"
 
 const Pay = (props) => {
   const { showDeleteConfirm,
@@ -10,10 +12,16 @@ const Pay = (props) => {
     order,
     viewOrderDetail,
     index,
-    indexButton
+    indexButton,
+    productDetail
   } = props
+  let id = ''
+  productDetail.map((p, i) => {
+    id = p.productId
+    return id
+  })
   return (
-    <div>
+    <React.Fragment>
       {index === 1 && (
         <React.Fragment>
           <Button
@@ -39,17 +47,32 @@ const Pay = (props) => {
         </React.Fragment>
       )}
       {indexButton === 2 && (
-        <p style={{ textAlign: "right", padding: 15 }}>
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
           <Button
             className="waitingPayment__detailPesanan"
             onClick={() => viewOrderDetail()}
           >
             Detail Pesanan
           </Button>
-        </p>
+        </div>
+      )}
+      {indexButton === 4 && (
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
+          <Button
+            className="waitingPayment__payNow"
+          >
+            <Link to={pageUrlProductDetail + id}>Beli Lagi</Link>
+          </Button>
+          <Button
+            className="waitingPayment__detailPesanan"
+            onClick={() => viewOrderDetail()}
+          >
+            Detail Pesanan
+          </Button>
+        </div>
       )}
       {indexButton === 3 && (
-        <p style={{ textAlign: "right", padding: 15 }}>
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
           <Button className="waitingPayment__payNow">
             Pesanan Detirma
           </Button>
@@ -59,9 +82,9 @@ const Pay = (props) => {
           >
             Detail Pesanan
           </Button>
-        </p>
+        </div>
       )}
-    </div>
+    </React.Fragment>
   )
 }
 

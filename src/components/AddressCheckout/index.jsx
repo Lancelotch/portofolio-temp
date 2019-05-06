@@ -1,38 +1,50 @@
 import React from "react";
 import AddressDetail from "../AddressDetail";
 import { Card, Button } from "antd";
+import "./style.sass";
 
 export const AddressCheckout = props => {
-  const {customerAddress, isAddressAvailable, onEditAddress, onSelectListAddress, onAddAddress}  = props;
+  const {
+    customerAddress,
+    isAddressAvailable,
+    onEditAddress,
+    onSelectListAddress,
+    onAddAddress }
+    = props;
   return (
-    <Card
-      size="small"
-      title={
-        <div style={{ paddingLeft: 12, fontSize: 18 }}>Alamat Pengiriman</div>
-      }
-      style={{ width: 600 }}
-    >
-      <div style={{ padding: 24 }}>
-        <AddressDetail
-          addressDefault={customerAddress}
-          isAddressAvailable={isAddressAvailable}
-          onEdit={onEditAddress}
-        />
-        <div style={{ float: "right", paddingBottom: 24, paddingTop: 12 }}>
-          {isAddressAvailable && 
-          <Button
-            type="primary"
-            onClick={onSelectListAddress}
-            style={{ marginRight: 24 }}
-          >
-            Kirim ke Alamat Lain
+    <div style={{ marginBottom: 15 }}>
+      <Card
+        size="default"
+        title={
+          <div
+            style={{
+              paddingLeft: 12,
+              fontSize: 18
+            }}>Alamat Pengiriman</div>
+        }
+      >
+        <div style={{ padding: 15 }}>
+          <AddressDetail
+            addressDefault={customerAddress}
+            isAddressAvailable={isAddressAvailable}
+            onEdit={onEditAddress}
+          />
+          <div className="addressCheckout">
+            <Button
+              onClick={onSelectListAddress}
+              size="large"
+              className="addressCheckout__button">
+              Kirim ke Alamat Lain
           </Button>
-          }
-          <Button type="primary" onClick={onAddAddress}>
-            Tambah Alamat
+            <Button
+              size="large"
+              className="addressCheckout__button"
+              onClick={onAddAddress}>
+              Tambah Alamat &nbsp; +
           </Button>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };

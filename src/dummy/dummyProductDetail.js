@@ -8,7 +8,7 @@ const dummyProductDetail = {
         "price": 520000,
         "images": [{
                 "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
+                "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                 "isDefault": true
             },
@@ -47,20 +47,19 @@ const dummyProductDetail = {
                         "description": "warna biru",
                        
                         "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:10:42.044Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:09:27.121Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                            "large": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
+                            "medium": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
+                            "small": "https://ecs7.tokopedia.net/img/cache/200-square/product-1/2018/9/24/1722311/1722311_5e5af49c-5388-453a-a736-5ceed0b952df_1280_1280.jpeg",
                         }
                     },
                     {
                         "id": "02",
                         "name": "oren",
-                        "description": "warna oren",
-                       
+                        "description": "warna oren",                      
                         "image": {
-                            "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:13:39.777Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:02.533Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
-                            "small": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:14:24.821Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
+                            "large": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg",
+                            "medium": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg",
+                            "small": "https://ecs7.tokopedia.net/img/cache/700/product-1/2018/9/3/39431578/39431578_72b74a55-1de5-472d-9f34-b34015872bb0_700_700.jpg"
                         }
                     },
                     {
@@ -77,8 +76,7 @@ const dummyProductDetail = {
                     {
                         "id": "04",
                         "name": "hitam",
-                        "description": "warna hitam",
-                       
+                        "description": "warna hitam",                      
                         "image": {
                             "large": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:58.858Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
                             "medium": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20",
@@ -110,8 +108,7 @@ const dummyProductDetail = {
                     },
                     {
                         "id": "04",
-                        "name": "26",
-                       
+                        "name": "26",                       
                         "description": "ukuran 26"
                     }
                 ]
@@ -146,8 +143,8 @@ const dummyProductDetail = {
                 "weight": 600
             },
             {
-                "id": "0010400204",
-                "price": 650000,
+                "id": "0010200204",
+                "price": 10000000,
                 // "stock": 10,
                 "dimension": 8000,
                 "weight": 600
@@ -204,6 +201,35 @@ const dummyProductDetail = {
             {
                 "id": "0010300204",
                 "price": 330000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            }
+            ,
+            {
+                "id": "0010400201",
+                "price": 900000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400202",
+                "price": 230000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400203",
+                "price": 2330000,
+                // "stock": 2,
+                "dimension": 8000,
+                "weight": 600
+            },
+            {
+                "id": "0010400204",
+                "price": 4330000,
                 // "stock": 2,
                 "dimension": 8000,
                 "weight": 600

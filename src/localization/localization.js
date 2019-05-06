@@ -51,6 +51,7 @@ const strings = new LocalizedStrings({
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     order_summary: 'Ringkasan Pesenan',
+    order_details: 'Detail Pesanan',
     international_shipping: 'Pengiriman International',
     checkout_total: 'Total',
     choose_payment_methods: 'Pilih Metode Pembayaran',
