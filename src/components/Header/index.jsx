@@ -19,6 +19,7 @@ class Header extends Component {
     this.state = {
       name: "",
       openModalLogin: false,
+      openModalLogout: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: this.props.keyword,
@@ -27,18 +28,38 @@ class Header extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.getCustomerDetail(); 
-  }
-
+ 
   handleInputSearchChange = e => {
     this.setState({
       keyword: e.target.value
     });
   };
 
+  closeModal = () => {
+    this.setState({
+      openModalLogin : false
+    })
+  }
+
+  openModal = () => {
+    if(this.props.isAuthenticated){
+      this.setState({
+        openModalLogout : true
+      })
+    }else{
+      this.setState({
+        openModalLogin : true
+      })
+    }
+   
+  }
+
   handleLogout = () => {
     this.props.logout();
+    this.setState({
+      openModalLogout : false,
+      openModalLogin : false
+    })
   };
 
   getCustomerDetail = async () => {
@@ -53,7 +74,13 @@ class Header extends Component {
     }
   };
 
-
+  handleVisibleChange = (flag) => {
+    if(this.props.isAuthenticated){
+      this.setState({ openModalLogout: flag });
+    }else{
+      this.setState({ openModalLogin: flag });
+    }
+  }
 
   showCustomerName = () => {
     const name = this.state.name;
@@ -62,7 +89,7 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{this.showCustomerName()}</h4>
         </li>
@@ -72,7 +99,7 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-      <Dropdown overlay={<Login />} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{strings.log_in}</h4>
         </li>
@@ -85,7 +112,7 @@ class Header extends Component {
       <div className="header__user-menu-box">
         <li> {strings.my_account}</li>
         <li> {strings.header_my_order}</li>
-        <li onClick={this.handleLogout}>
+        <li onClick={() =>this.handleLogout()}>
           <button className="header__user-menu__button">
             {" "}
             {strings.log_out}{" "}
@@ -177,7 +204,7 @@ class Header extends Component {
                 <div className="header__user-box">
                   <Icon
                     type="user"
-                    onClick={this.openModalLogin}
+                    onClick={() => this.openModal()}
                     className="header__user-icon"
                   />
                   {this.showUserDropDown(isAuthenticated)}
@@ -191,7 +218,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  isAuthenticated: state.authentication.isAuthenticated,
+  checkError : state.authentication.checkError
 });
 
 export default connect(

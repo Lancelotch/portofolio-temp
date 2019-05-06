@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Input, Form, Button, Icon, Checkbox, Menu } from 'antd'
+import {Link} from 'react-router-dom'
 import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
 import './style.sass'
+import '../../sass/style.sass'
 import strings from '../../localization/localization'
 import {
   loginWithGoogle,
@@ -28,36 +30,26 @@ class Login extends Component {
   }
 
   handleSubmit = e => {
-    try {
-      e.preventDefault()
+    e.preventDefault()
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          await this.props.loginWithHome(values)
-          if (this.state.isAuthenticated !== true) {
-            this.setState({
-              errorMessage: 'Email atau password anda salah',
-              isErorloaded: true
+          const login = await this.props.loginWithHome(values)
+          if(this.props.isError ){
+            this.props.form.setFields({
+              password: {
+                value: values.password,
+                errors: [new Error(this.props.messageError)]
+              }
             })
           }
 
-          setTimeout(() => {
-            this.setState({isErorloaded: false});
-          }, 5000)
         }
       })
-    } catch (error) {
-      console.log(error)
-    }
   }
-
-
-
 
   render () {
     const {  form } = this.props
     const { getFieldDecorator } = form
-    const {  errorMessage, isErorloaded } = this.state
-    console.log(errorMessage)
     return (
       <React.Fragment>
         <Menu className='login-box'>
@@ -119,12 +111,12 @@ class Login extends Component {
                 <Button
                   size={'large'}
                   htmlType='submit'
-                  className='login-form__button__submit'
+                  className='login-form__button__submit color-button'
                 >
                   <h4>{strings.login_enter}</h4>
                 </Button>
                 <div className='login-form__error-box'>
-                  {isErorloaded ? (<p className='login-form__error-notif'> {errorMessage}</p>): null}
+                  {/* {this.props.isError ? (<p className='login-form__error-notif'> {this.props.messageError}</p>): null} */}
                 </div>
                 </div>
                 <div className='login-form__separator'>
@@ -143,15 +135,15 @@ class Login extends Component {
                     className='login-form__socmed-button'
                     onSubmit={this.handleRegisterGoogle}
                   >
-                    <p> {strings.google}</p>
+                    <p>{strings.google}</p>
                   </ButtonGoogle>
                 </div>
                 <p style={{ marginTop: '70px' }}>
                   {strings.formatString(
                     strings.login_quote,
-                    <a href='/register' className='login-form__register'>
+                    <Link to='/register' className='login-form__register'>
                       {strings.login_register}{' '}
-                    </a>
+                    </Link>
                   )}
                 </p>
               </FormItem>
@@ -165,7 +157,9 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-  token: state.authentication.token
+  token: state.authentication.token,
+  messageError: state.authentication.messageError,
+  isError : state.authentication.checkError
 })
 
 const LoginForm = Form.create({})(Login)

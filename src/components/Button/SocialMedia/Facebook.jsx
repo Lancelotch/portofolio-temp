@@ -5,7 +5,6 @@ import { FacebookLoginButton as FacebookButton} from "react-social-login-buttons
 class ButtonFacebook extends Component{
   handleSocialResponse = (user, err) => {
     console.log({facebook : user});
-
     const profile = user._profile;
     // const token = user._token;
     const provider = user._provider;
