@@ -38,6 +38,7 @@ class RegisterPage extends Component {
   }
 
   openModal = () => {
+    console.log("ini di open modal")
     this.setState({
       modalStatus : true
     })
@@ -78,10 +79,10 @@ class RegisterPage extends Component {
         const linkCheckout = "/checkout";
         if (this.state.nextPage === "checkout") {
           await this.props.registerForm(history, values, linkCheckout);
-          this.validation(this.props.form,values) 
+          this. validation(this.props.form,values) 
         } else {
           await this.props.registerForm(history, values);  
-            this.validation(this.props.form,values)          
+            this. validation(this.props.form,values)          
         }
       }else{
         this.setState({
