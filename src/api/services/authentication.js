@@ -9,7 +9,8 @@ const loginWithGoogle = request => {
       dummyService
         .request({
           method: 'GET',
-          url: 'login'
+          url: 'login',
+          data: request
         })
         .then(response => {
           resolve(response.data);
