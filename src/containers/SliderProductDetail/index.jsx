@@ -129,7 +129,6 @@ class SliderProductDetailContainer extends Component {
             items={images}
             disableArrowKeys={true}
           />
-
         </Col>
       </Row>
     );

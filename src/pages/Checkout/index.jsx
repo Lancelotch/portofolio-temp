@@ -261,7 +261,7 @@ class Checkout extends Component {
                 quantity={quantity}
                 priceProduct={priceProduct}
                 viaRoute={shipping}
-                onOrder={this.actionSubmitOrder}
+                onOrder={()=>isAddressAvailable ? this.actionSubmitOrder() : this.actionShowAddFormAddress()}
               />
             </Col>
           </Row>
