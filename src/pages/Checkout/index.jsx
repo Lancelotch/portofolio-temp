@@ -159,8 +159,6 @@ class Checkout extends Component {
   };
 
   actionSubmitOrder = async () => {
-    console.log("test");
-    
     const {
       variants,
       customerAddress,

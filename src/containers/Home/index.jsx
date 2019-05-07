@@ -15,7 +15,11 @@ import strings from "../../localization/localization";
 import Fetcher from "../../components/Fetcher";
 import { PATH_PRODUCT } from "../../api/path";
 
+
+
 class HomePageContainer extends Component {
+
+
   render() {
     return (
       <React.Fragment>
@@ -87,7 +91,8 @@ class HomePageContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  isAuthenticated: state.authentication.isAuthenticated,
+  checkError : state.authentication.checkError
 });
 
 export default connect(mapStateToProps)(HomePageContainer);
