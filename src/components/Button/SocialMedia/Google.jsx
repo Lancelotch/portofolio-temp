@@ -14,7 +14,7 @@ class ButtonGoogle extends Component{
     this.props.onSubmit(request);
     // console.log("apa ini wosi")
     console.log(user)
-    console.log(err)
+    console.log("ini token dari button",request)
   }
 
   render(){

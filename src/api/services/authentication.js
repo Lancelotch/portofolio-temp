@@ -3,6 +3,7 @@ import {PATH_PUBLIC} from '../path'
 
 const loginWithGoogle = request => {
     const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_GOOGLE;
+    // const url = "http://28b2c0da.ngrok.io"
     // const data = request;
     //mainRequestPost(url, data);
     return new Promise((resolve, reject) => {

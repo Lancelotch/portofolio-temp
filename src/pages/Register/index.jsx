@@ -213,7 +213,7 @@ class RegisterPage extends Component {
                         {strings.register_login}
                       </Link>
                     )}
-                  </center>
+                  </center> 
                 </Form.Item>
               </Form>
             </div>
