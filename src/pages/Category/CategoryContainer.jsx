@@ -1,5 +1,5 @@
 import React, { Component, Suspense, Fragment } from "react";
-import {BackTop } from "antd";
+import { BackTop } from "antd";
 import { connect } from "react-redux";
 // import Header from "components/Header";
 import "sass/style.sass";
@@ -75,7 +75,7 @@ class CategoryPage extends Component {
   }
 
   fetchMoreData = () => {
-    const { productList, element} = this.state;
+    const { productList, element } = this.state;
     if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
@@ -109,8 +109,11 @@ class CategoryPage extends Component {
     );
     return (
       <div style={{ marginTop: 15 }}>
-
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between"
+          }}>
           <span className="categoryTextResult">{categoryTextResult}</span>
           <span>Urutkan &nbsp;&nbsp;&nbsp;
             <SortListProduct onChange={this.onChangeSort} /></span>

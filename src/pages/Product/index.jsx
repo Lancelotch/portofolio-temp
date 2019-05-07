@@ -52,7 +52,7 @@ class ProductPage extends Component {
         isProductAvailable: true
       });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -94,7 +94,12 @@ class ProductPage extends Component {
       <b>{query}</b>
     );
     return (
-      <Fragment>
+      <div style={{ marginTop: 15 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span className="categoryTextResult">{categoryTextResult}</span>
+          <span>Urutkan &nbsp;&nbsp;&nbsp;
+        <SortListProduct onChange={this.onChangeSort} /></span>
+        </div>
         <SortListProduct onChange={this.onChangeSort} />
         <InfiniteScroll
           dataLength={productList.length}
@@ -111,7 +116,7 @@ class ProductPage extends Component {
             <Products productList={productList} />
           </Suspense>
         </InfiniteScroll>
-      </Fragment>
+      </div>
     );
   };
 
@@ -119,8 +124,8 @@ class ProductPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-      <SkeletonProduct count={20} />
-    );
+        <SkeletonProduct count={20} />
+      );
   };
 
   render() {
@@ -129,7 +134,7 @@ class ProductPage extends Component {
         <Row>
           <Col xs={24} md={24}>
             <div className="container">
-                {this.renderProducts()}
+              {this.renderProducts()}
             </div>
           </Col>
         </Row>
