@@ -11,7 +11,7 @@ import SearchContainer from "../pages/Search/SearchContainer";
 import CheckOut from "../pages/Checkout/CheckoutContainer";
 import Address from "../pages/Address/";
 import CustomerNavigation from "../components/CustomerNavigation";
-import PaymentInfoPage from "../pages/PaymentInfo";
+import PaymentInfoPage from "../pages/PaymentInfo/PaymentInfoContainer";
 
 const routes = [
   {
