@@ -43,11 +43,14 @@ class CategoryPage extends Component {
   }
 
   getCategoryId = (params) => {
+    // console.log("tess");
     const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
     this.setState({
       categoryId: categoryId,
       isProductAvailable: false,
-      productList: []
+      productList: [],
+      page: 0,
+      hasMore: true
     }, () => this.getProductList());
   }
 
