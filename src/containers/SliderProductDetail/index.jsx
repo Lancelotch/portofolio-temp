@@ -49,8 +49,6 @@ class SliderProductDetailContainer extends Component {
         src={item.original}
         zoomFactor={1.0}
         mgShape={'square'}
-        mgTouchOffsetX={0}
-        mgTouchOffsetY={0}
         mgBorderWidth={1}
       />      
     );
