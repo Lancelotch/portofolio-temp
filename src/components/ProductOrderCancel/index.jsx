@@ -19,8 +19,8 @@ const ProductOrderCancel = props => {
     } = props;
 
 
-    console.log('ini product oder cancel 2',productId);
-    
+  console.log('ini product oder cancel 2', productId);
+
 
   return (
     <div className="productOrder">
@@ -56,7 +56,7 @@ const ProductOrderCancel = props => {
             Varian :
              {variants[0].name.charAt(0).toUpperCase() +
               variants[0].name.substring(1)} : {variants[0].value},
-           &nbsp;
+         &nbsp;
              {variants[1].name.charAt(0).toUpperCase() +
               variants[1].name.substring(1)} : {variants[1].value}
           </p>
@@ -64,7 +64,11 @@ const ProductOrderCancel = props => {
         </Col>
         <Col md={5} style={{ marginTop: 60 }}>
           <p className="productOrder__totalPrice">
-            <div style={{ display: "flex",justifyContent:"flex-end", marginRight: 15 }}>
+            <div style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginRight: 15
+            }}>
               <Button
                 className="waitingPayment__payNow"
               >

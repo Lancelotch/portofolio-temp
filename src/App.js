@@ -9,7 +9,7 @@ import CustomerLayout from "layouts/CustomerLayout";
 
 class App extends Component {
   render() {
-    const RouteWithLayout = ({ component: Component, layout: Layout,...rest }) => (
+    const RouteWithLayout = ({ component: Component, layout: Layout, ...rest }) => (
       <Route {...rest} render={props => (
         <Layout>
           <Component {...props} />
@@ -19,20 +19,20 @@ class App extends Component {
 
     const routeComponents =
       routes.map(({ path, component, layoutName }, key) => {
-          let layout = MainLayout;
-          if(layoutName === "fullLayout") {
-            layout = FullLayout;
-          } else if (layoutName === "customerLayout"){
-            layout = CustomerLayout;
-          }
-          return <RouteWithLayout 
-            key={key} 
-            exact 
-            path={path}
-            layout={layout}
-            component={component}
-          />
+        let layout = MainLayout;
+        if (layoutName === "fullLayout") {
+          layout = FullLayout;
+        } else if (layoutName === "customerLayout") {
+          layout = CustomerLayout;
         }
+        return <RouteWithLayout
+          key={key}
+          exact
+          path={path}
+          layout={layout}
+          component={component}
+        />
+      }
       );
 
     return (

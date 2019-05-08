@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../../library/url"
 
 const Cancel = (props) => {
-  const { productDetail, viewOrderDetail } = props
+  const { indexes, viewOrderDetail } = props
   let id = ''
-  productDetail.forEach((p, i) => {
+  indexes.map((p, i) => {
     id = p.productId
-    // return id
+    return id
   })
   return (
     <div style={{

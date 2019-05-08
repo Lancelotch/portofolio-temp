@@ -58,7 +58,7 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(
-      localStorage.getItem("payloadProductDetail")
+      localStorage.getItem("product")
     );
     this.setState({
       isProductDetailAvailable: true,

@@ -88,19 +88,20 @@ class ProductPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
-    const categoryTextResult = strings.formatString(
-      strings.category_text_result,
-      element,
-      <b>{query}</b>
-    );
+    // const categoryTextResult = strings.formatString(
+    //   strings.category_text_result,
+    //   element,
+    //   <b>{query}</b>
+    // );
     return (
       <div style={{ marginTop: 15 }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span className="categoryTextResult">{categoryTextResult}</span>
-          <span>Urutkan &nbsp;&nbsp;&nbsp;
-        <SortListProduct onChange={this.onChangeSort} /></span>
+        <div style={{ 
+          display: "flex", 
+          justifyContent: "flex-end", 
+          marginBottom: 15 
+        }}>
+          <SortListProduct onChange={this.onChangeSort} />
         </div>
-        <SortListProduct onChange={this.onChangeSort} />
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}

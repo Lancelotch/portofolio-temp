@@ -13,13 +13,15 @@ const Pay = (props) => {
     viewOrderDetail,
     index,
     indexButton,
-    productDetail
+    productId
   } = props
-  let id = ''
-  productDetail.map((p, i) => {
-    id = p.productId
-    return id
+  let productDetailId = ''
+  productId.map((p, i) => {
+    productDetailId = p.productId
+    return productDetailId
   })
+  console.log('tombol detail pesanan by iiiid',order.orderId);
+  
   return (
     <React.Fragment>
       {index === 1 && (
@@ -30,7 +32,11 @@ const Pay = (props) => {
           >
             Batalkan Pesanan
         </Button>
-          <div style={{ float: "right", marginRight: 15 }}>
+          <div
+            style={{
+              float: "right",
+              marginRight: 15
+            }}>
             <Button
               className="waitingPayment__payNow"
               onClick={toggleIsHowToShowModalOpen.bind(this, order)}
@@ -39,15 +45,21 @@ const Pay = (props) => {
           </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => viewOrderDetail()}
+              onClick={() => viewOrderDetail(order)}
             >
+            {console.log("ini fungsi dari orderlist",()=>viewOrderDetail(order))}
               Detail Pesanan
           </Button>
           </div>
         </React.Fragment>
       )}
       {indexButton === 2 && (
-        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: 15
+          }}>
           <Button
             className="waitingPayment__detailPesanan"
             onClick={() => viewOrderDetail()}
@@ -57,11 +69,16 @@ const Pay = (props) => {
         </div>
       )}
       {indexButton === 4 && (
-        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: 15
+          }}>
           <Button
             className="waitingPayment__payNow"
           >
-            <Link to={pageUrlProductDetail + id}>Beli Lagi</Link>
+            <Link to={pageUrlProductDetail + productDetailId}>Beli Lagi</Link>
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
@@ -72,7 +89,12 @@ const Pay = (props) => {
         </div>
       )}
       {indexButton === 3 && (
-        <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: 15
+          }}>
           <Button className="waitingPayment__payNow">
             Pesanan Detirma
           </Button>

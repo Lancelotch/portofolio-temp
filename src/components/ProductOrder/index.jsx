@@ -12,7 +12,7 @@ const ProductOrder = props => {
         <Col md={2}>
           <img
             className="productOrder__image"
-            src={indexes[0].variants[0].imageUrl}
+            src={indexes[0].productImage}
             alt=""
           />
         </Col>

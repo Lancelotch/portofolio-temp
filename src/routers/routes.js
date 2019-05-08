@@ -9,7 +9,7 @@ import Example from '../pages/Example'
 import CategoryContainer from '../pages/Category/CategoryContainer'
 import SearchContainer from '../pages/Search/SearchContainer'
 import Checkout from '../pages/Checkout'
-import CustomerNavigation from '../containers/CustomerNavigation'
+import CustomerNavigation from '../pages/CustomerNavigation'
 import requiredAuth from '../hoc/requiredAuth';
 import notRequiredAuth from "../hoc/notRequiredAuth";
 const routes = [{
@@ -66,7 +66,7 @@ const routes = [{
         component: Example
     },
     {
-    path: '/customer-navigation',
+    path: '/dashboard-customer',
     component: CustomerNavigation,
     layoutName: 'customerLayout'
 }

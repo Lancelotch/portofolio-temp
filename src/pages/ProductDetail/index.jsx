@@ -45,6 +45,7 @@ class ProductDetail extends Component {
     this.setState({ data });
   };
 
+
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
     this.setState({ data });

@@ -6,7 +6,11 @@ import "./style.sass";
 const OrderStatusUser = props => {
     const { label, customer, estimateShippingDate, index } = props;
     return (
-        <div className="orderStatusUser" style={{ marginTop: 10, padding: 15 }}>
+        <div className="orderStatusUser"
+            style={{
+                marginTop: 10,
+                padding: 15
+            }}>
             <Row>
                 <Col md={12}>
                     <h2>{label}</h2>

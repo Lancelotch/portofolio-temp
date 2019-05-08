@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
+//import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
 import ProductOrder from "../../components/ProductOrderDetails";
 import PaymentInfo from "../../components/PaymentInfo";
 import PaymentDateInfo from "../../components/PaymentDateInfo";
 import OrderStatusUser from "../../components/OrderStatusUser";
 import { Affix, Icon } from "antd";
 import "./style.sass"
-import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDikirim";
 import OrderStatusStep from "../../components/OrderStatusStep";
+import { apiGetWithToken } from "../../api/services";
+import { PATH_ORDER } from "../../api/path";
 
 class OrderDetailsDashboard extends Component {
   constructor(props) {
@@ -17,9 +18,9 @@ class OrderDetailsDashboard extends Component {
       payment: {},
       shipping: {},
       bank: {},
-      orderAddress: {},
+      address: {},
       indexes: [],
-      orderDetailsId: this.props.orderDetailsId,
+      id: "",
       endDatePay: 0,
       invoiceNumber: "",
       estimateShippingDate: "",
@@ -32,21 +33,28 @@ class OrderDetailsDashboard extends Component {
   }
 
   productOrderDetailDashboard = async () => {
+    let orderDetailsId = ""
+    this.props.orderDetailsId.map((orderId) => {
+      orderDetailsId = orderId.orderId
+      return orderDetailsId
+    })
     try {
-      const response = await dummyOrderDetailsDashboard;
-      const dummyBelumDikirim = await dummyOrderDetailsBelumDikirim;
+      //const response = await dummyOrderDetailsDashboard;
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderDetailsId);
+      console.log('ini dashboard detaila', response);
       const itemProductOrder = {
-        invoiceNumber: dummyBelumDikirim.data.invoiceNumber,
-        estimateShippingDate: response.data.estimateShippingDate,
-        bank: response.data.bank,
-        endDatePay: response.data.endDatePay,
-        shipping: response.data.shipping,
-        payment: response.data.payment,
-        productorder: response.data,
-        orderAddress: response.data.orderAddress,
-        indexes: response.data.indexes,
-        orderDate: response.data.orderDate
+        invoiceNumber: response.data.data.invoiceNumber,
+        estimateShippingDate: response.data.data.estimateShippingDate,
+        bank: response.data.data.bank,
+        endDatePay: response.data.data.endDatePay,
+        shipping: response.data.data.shipping,
+        payment: response.data.data.payment,
+        productorder: response.data.data,
+        address: response.data.data.address,
+        indexes: response.data.data.indexes,
+        orderDate: response.data.data.orderDate
       };
+      console.log('ini iiiid form dashboard order details', orderDetailsId);
       this.setState({
         ...itemProductOrder
       });
@@ -55,11 +63,12 @@ class OrderDetailsDashboard extends Component {
     }
   };
   render() {
+    console.log('log-detail-dashboard-inedexs', this.state.indexes);
     return (
       <React.Fragment>
-        {this.state.indexes.map(order => {
+        {this.state.indexes.map((order) => {
           return (
-            <React.Fragment key={order.id}>
+            <div key={order.productId}>
               <div style={{ marginBottom: 50 }}>
                 {this.props.index === 1 &&
                   <h2
@@ -115,7 +124,6 @@ class OrderDetailsDashboard extends Component {
                   />
                 </React.Fragment>
               }
-
               {this.props.index === 2 &&
                 <React.Fragment>
                   <OrderStatusStep orderDate={this.state.orderDate} index={2} />
@@ -134,7 +142,10 @@ class OrderDetailsDashboard extends Component {
               }
               {this.props.index === 3 &&
                 <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} indexPesanDikirim={3} index={2} />
+                  <OrderStatusStep
+                    orderDate={this.state.orderDate}
+                    indexPesanDikirim={3}
+                    index={2} />
                   <ProductOrder
                     label="Detail Pesanan"
                     noInvoice={"No Invoice"}
@@ -179,29 +190,31 @@ class OrderDetailsDashboard extends Component {
                 typePayment={this.state.payment}
               />
               {this.props.index === 1 &&
-                <PaymentDateInfo
-                  endDatePay={this.state.endDatePay}
-                  typePayment={this.state.payment}
-                  bank={this.state.bank}
-                />}
-              {this.props.index === 1 &&
-                <OrderStatusUser
-                  label="Pengiriman"
-                  customer={this.state.orderAddress}
-                />}
+                <React.Fragment>
+                  <PaymentDateInfo
+                    endDatePay={this.state.endDatePay}
+                    typePayment={this.state.payment}
+                    bank={this.state.bank}
+                  />
+                  <OrderStatusUser
+                    label="Pengiriman"
+                    customer={this.state.address}
+                  />
+                </React.Fragment>
+              }
               {this.props.index === 2 &&
                 <OrderStatusUser
                   label="Pengiriman"
-                  customer={this.state.orderAddress}
+                  customer={this.state.address}
                 />}
               {this.props.index === 3 &&
                 <OrderStatusUser
                   index={3}
                   label="Pengiriman"
                   estimateShippingDate={this.state.estimateShippingDate}
-                  customer={this.state.orderAddress}
+                  customer={this.state.address}
                 />}
-            </React.Fragment>
+            </div>
           );
         })}
       </React.Fragment>

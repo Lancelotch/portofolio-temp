@@ -1,0 +1,89 @@
+             {index === 1 &&
+                <Pay
+                  productDetail={order.indexes}
+                  index={1}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
+              /*{index === 2 &&
+                <WaitingPayment
+                  indexDalamPengiriman={2}
+                  index={2}
+                  labelPengiriman="Dalam Proses Pengiriman"
+                  key={order.id}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 2 &&
+                <Pay
+                  productDetail={order.indexes}
+                  indexButton={2}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />}
+              {index === 3 &&
+                <WaitingPayment
+                  indexDalamPengiriman={3}
+                  labelPengiriman="Perkiraan Barang Diterima"
+                  index={3}
+                  key={order.id}
+                  estimateShippingDate={order.estimateShippingDate}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 3 &&
+                <Pay
+                  productDetail={order.indexes}
+                  indexButton={3}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />
+              }
+              {index === 4 &&
+                <WaitingPayment
+                  indexDalamPengiriman={4}
+                  label="Pesanan Diterima"
+                  index={4}
+                  key={order.id}
+                  estimateShippingDate={order.estimateShippingDate}
+                  endDatePay={order.endDatePay}
+                  indexes={order.indexes}
+                  pay={order.payment}
+                  isHowToShowModalOpen={isHowToShowModalOpen}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                />}
+              {index === 4 &&
+                <Pay
+                  indexButton={4}
+                  productDetail={order.indexes}
+                  showDeleteConfirm={showDeleteConfirm}
+                  orderProduct={orderProduct}
+                  i={i}
+                  toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                  order={order}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />}
+              {index === 5 &&
+                <Cancel
+                  productDetail={order.indexes}
+                  viewOrderDetail={this.props.viewOrderDetail}
+                />} 
