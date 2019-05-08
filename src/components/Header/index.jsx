@@ -75,11 +75,13 @@ class Header extends Component {
   };
 
   handleVisibleChange = (flag) => {
-    if(this.props.isAuthenticated){
-      this.setState({ openModalLogout: flag });
-    }else{
-      this.setState({ openModalLogin: flag });
-    }
+    this.setState({ openModalLogin: flag });
+  }
+
+  handleVisibleLogout = (flag) => {
+    this.setState({
+      openModalLogout: flag
+    })
   }
 
   showCustomerName = () => {
@@ -89,7 +91,7 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{this.showCustomerName()}</h4>
         </li>

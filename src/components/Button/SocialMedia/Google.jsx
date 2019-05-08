@@ -10,16 +10,12 @@ class ButtonGoogle extends Component{
     const request = {
       token : token
     }
-    // console.log("ini token",token)
     this.props.onSubmit(request);
-    // console.log("apa ini wosi")
-    console.log(user)
-    console.log("ini token dari button",request)
   }
 
   render(){
     const {onSubmit} = this.props
-    console.log("ini id",GOOGLE_APP_ID)
+    console.log("ini di button google",this.props)
     return(
       <div className={`${this.props.className}`}>
         <SocialLogin

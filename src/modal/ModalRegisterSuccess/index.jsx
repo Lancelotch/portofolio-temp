@@ -2,6 +2,8 @@ import React , {Component} from 'react'
 import {Modal, Row, Col, Icon, Layout} from 'antd'
 import history from "../../routers/history"
 import "./style.sass";
+import {connect} from 'react-redux'
+import {closeModal} from "../../store/actions/authentication"
 
 
 class ModalRegister extends Component {
@@ -12,8 +14,6 @@ class ModalRegister extends Component {
         history.push("/")
     }   
     render(){
-        const {Header , Content, Footer} = Layout
-
         return(
             <Modal
                 closable={false}
@@ -31,7 +31,7 @@ class ModalRegister extends Component {
                 <div className="confirmation">
                     <Row type="flex" justify="end">
                     <Col>
-                            <Icon onClick={() => this.closeRedirect()} style={{fontSize: 24}} type="close-circle" />
+                            <Icon onClick={() => this.props.closeModal()} style={{fontSize: 24}} type="close-circle" />
                         </Col>
                     </Row>
                     <div>
@@ -65,4 +65,4 @@ class ModalRegister extends Component {
 }
 
 
-export default ModalRegister
+export default connect(null,{closeModal})(ModalRegister)

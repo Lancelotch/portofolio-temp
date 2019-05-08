@@ -31,6 +31,7 @@ const routes = [{
         path: PATH_URL.REGISTER,
         breadcrumb: "register",
         component: notRequiredAuth(Register),
+        // component: Register,
         layoutName: 'fullLayout'
     },
     {

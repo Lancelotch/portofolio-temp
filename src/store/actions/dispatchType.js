@@ -83,6 +83,20 @@ export const authFail = response => {
   };
 };
 
+export const openModal = response => {
+  return {
+    type: TYPE.OPEN_MODAL,
+    payload: response
+  }
+}
+
+export const closeModal = response => {
+  return {
+    type: TYPE.CLOSE_MODAL,
+    payload: response
+  }
+}
+
 const dispatchType = {
   authFail: authFail,
   handleLoading: handleLoading,
@@ -95,7 +109,9 @@ const dispatchType = {
   products: products,
   getAddressDefault: getAddressDefault,
   loginFailed: loginFailed,
-  registerFailed: registerFailed
+  registerFailed: registerFailed,
+  openModal: openModal,
+  closeModal: closeModal
 };
 
 export default dispatchType;

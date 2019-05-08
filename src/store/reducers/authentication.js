@@ -8,6 +8,7 @@ const initialState = {
     checkError: false,
     isAuthenticated: false,
     messageError: '',
+    statusModal: false
 }
 
 
@@ -73,6 +74,16 @@ export default (state = initialState, action) => {
                 auth: action.payload,
                 isAuthenticated: true
             }
+        case TYPE.OPEN_MODAL:
+            return {
+                ...state,
+                statusModal: true
+            }
+        case TYPE.CLOSE_MODAL:
+            return {
+                ...state,
+                statusModal: false
+            }    
         default:
             return state
     }
