@@ -35,7 +35,8 @@ class Checkout extends Component {
       productSkuId: "",
       quantity: 1,
       note: "",
-      isProductDetailAvailable: false
+      isProductDetailAvailable: false,
+      selectedAddress: {}
     };
   }
 
@@ -43,7 +44,20 @@ class Checkout extends Component {
     this.props.addressDefault();
     this.getListAddress();
     this.getPayloadProductDetail();
+    // this.getDefaultAddress()
   }
+
+  getDefaultAddress =() =>{
+    console.log("-===",this.state.addresses)
+    const addresses = this.state.addresses
+    const selectedAddress = addresses.find(address => address.isDefault === true)
+    console.log("....",selectedAddress)
+    this.setState({
+      selectedAddress : selectedAddress
+    })
+  }
+
+
 
   variantsRequest = variants => {
     const variantsRequest = [];
@@ -78,7 +92,7 @@ class Checkout extends Component {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
       this.setState({
         addresses: response.data.data
-      });
+      },() => this.getDefaultAddress());
     } catch (error) {
       console.log(error);
     }
@@ -242,11 +256,12 @@ class Checkout extends Component {
                 />
               )}
               <AddressList
-                addresses={addresses}
-                visible={this.state.visibleListAddress}
-                onCancle={this.actionShowListAddress}
-                onChangeAddress={this.actionChangeAddress}
-              />
+                  addresses={addresses}
+                  visible={this.state.visibleListAddress}
+                  onCancle={this.actionShowListAddress}
+                  onChangeAddress={this.actionChangeAddress}
+                  addressDefault={this.props.dataAddressDefault}
+                />
               {isProductDetailAvailable && (
                 <OrderDetailContainer
                   payloadProductDetail={payloadProductDetail}
