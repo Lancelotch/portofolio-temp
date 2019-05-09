@@ -43,15 +43,31 @@ class Login extends Component {
     }
   }
 
+  getPath = (state) => {
+    let path = ""
+    state ? path =`/${state}` : path = '/'
+    return path
+  }
+
   handleloginGoogle = request => {
-    this.props.loginWithGoogle(this.props.history, request);
+    const path = this.getPath(this.state.nextPage)
+    console.log("ini path di login", path)
+    this.props.loginWithGoogle(path, request);
   };
 
   handleSubmit = e => {
     e.preventDefault()
+    const {history} = this.props
+    // let path = ""
+    // if(history.location.state){
+    //   path = `/${history.location.state.nextPage}`
+    // }else{
+    //   path = '/'
+    // } 
+      const path = this.getPath(this.state.nextPage)
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          const login = await this.props.loginWithHome(values)
+          const login = await this.props.loginWithHome(values, path, history)
           if(this.props.isError ){
             this.props.form.setFields({
               password: {
@@ -67,7 +83,6 @@ class Login extends Component {
   render() {
     const { form } = this.props;
     const { getFieldDecorator } = form;
-    // const { errorMessage } = this.state;
     return (
       <React.Fragment>
         <Row>
@@ -163,7 +178,7 @@ class Login extends Component {
                     </ButtonFacebook>
                     <ButtonGoogle
                       className="register__form__socmed-button"
-                      onSubmit={this.handleRegisterGoogle}
+                      onSubmit={this.handleloginGoogle}
                     >
                       {strings.google}
                     </ButtonGoogle>

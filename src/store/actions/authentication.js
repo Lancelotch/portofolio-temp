@@ -1,13 +1,13 @@
 import authentication from "../../api/services/authentication";
 import dispatchType from "./dispatchType";
-import TYPE from "./type"
-import storage from "redux-persist/es/storage";
-
+import history from "../../routers/history"
+import {apiGetWithoutToken} from "../../api/services/index"
+import {PATH_PUBLIC} from "../../api/path"
+import customer from "../../api/services/customer"
 
 export const registerWithGoogle = (history, request) => async dispatch => {
   try {
     const responseLoginGoogle = await authentication.loginWithGoogle(request);
-    console.log("ini respon di action",responseLoginGoogle)
     dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
     history.push('/');
   } catch (error) {
@@ -15,48 +15,61 @@ export const registerWithGoogle = (history, request) => async dispatch => {
   }
 };
 
-export const loginWithGoogle = (request, response) => async dispatch => {
-  
+export const loginWithGoogle = (path, response) => async dispatch => {
   try {
-    console.log("ini di loginwithgoogle",response)
     const responseLoginGoogle = await authentication.loginWithGoogle(response);
-    console.log("success",responseLoginGoogle)
     dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
+    console.log("ini history di login action google",responseLoginGoogle)
+    history.push(path)
   } catch (error) {
     console.log("ini error di login with google",error);
   }
 };
 
+export const loginWithFacebook = (response) => async dispatch => {
+  try {
+    const responseLoginFacebook = await authentication.loginWithFacebook(response)
+    console.log("ini response facebook", responseLoginFacebook)
+  }catch(error){
+    console.log("ini error di facebook", error)
+  }
+}
 
-export const loginWithHome = request => async dispatch => {
+export const loginWithHome = (request,path,history) => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
-    dispatch(dispatchType.loginWithForm(responseLoginForm))
+    await dispatch(dispatchType.loginWithForm(responseLoginForm))
     const token = responseLoginForm.data.access_token;
     const expiredToken = responseLoginForm.data.refresh_token
-    localStorage.setItem('accessToken', token)
-    localStorage.setItem('refreshToken', expiredToken)
+    await localStorage.setItem('accessToken', token)
+    await localStorage.setItem('refreshToken', expiredToken)
+    const dataCustomer = await customer.customerDetail()
+    console.log("ini response login", responseLoginForm)
+    // console.log("ini customer",dataCustomer.data.name)
+    dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+    
+    history.push(path)
   } catch (error) {
-    if(error.data.errors){
-      const msg = error.data.errors[0].defaultMessage
-      dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
-    }else{
-      const msg = error.data.message
-      dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
-    }
+    // if(error.data.errors){
+    //   const msg = error.data.errors[0].defaultMessage
+    //   dispatch(dispatchType.loginFailed(msg))
+    //   setTimeout(() => {
+    //     dispatch(dispatchType.logout());
+    //   }, 4000)
+    // }else{
+    //   const msg = error.data.message
+    //   dispatch(dispatchType.loginFailed(msg))
+    //   setTimeout(() => {
+    //     dispatch(dispatchType.logout());
+    //   }, 4000)
+    // }
+    console.log(error)
   }
 }
 
 export const loginWithForm = (history, request, nextPage = "/") => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
-    console.log("ini response",responseLoginForm)
     dispatch(dispatchType.loginWithForm(responseLoginForm))
     const token = responseLoginForm.data.access_token;
     const expiredToken = responseLoginForm.data.refresh_token
@@ -69,31 +82,45 @@ export const loginWithForm = (history, request, nextPage = "/") => async dispatc
   }
 }
 
-export const registerForm = (history, request, nextPage = "/") => async dispatch => {
+export const registerForm = (history, request, path) => async dispatch => {
   dispatch(dispatchType.handleLoading())
   try {
     const responseRegisterForm = await authentication.registerWithForm(request);
-    console.log("ini respon" ,responseRegisterForm)
     dispatch(dispatchType.registerWithForm(responseRegisterForm.data));
     const token = responseRegisterForm.data.access_token;
     const expiredToken = responseRegisterForm.data.refresh_token
     localStorage.setItem('accessToken', token)
     localStorage.setItem('refreshToken', expiredToken)
-    // history.push(nextPage);
+    history.push(path);
   } catch (error) {
-    console.log("register with form on error", error.data.message)
+    console.log(error.data.message)
     dispatch(dispatchType.registerFailed(error.data.message))
   }
+}
+
+export const openModal = () => dispatch => {
+  dispatch(dispatchType.openModal())
+  // setTimeout(() => {
+  //   dispatch(dispatchType.closeModal())
+  // }, 3000)
+}
+
+export const closeModal = () => dispatch => {
+  dispatch(dispatchType.closeModal())
 }
 
 
 export const activatingUser = (request) => async dispatch => {
   try {
-    const responseActivatingUser = await authentication.activatingUser(request);
-    dispatch(dispatchType.activationUser(responseActivatingUser));
+    const url = PATH_PUBLIC.PUBLIC_USER_ACTIVED + request
+    console.log(url)
+    // console.log(api)
+    const responseActivatingUser = await apiGetWithoutToken(url);
+    console.log(responseActivatingUser)
+    // dispatch(dispatchType.activationUser(responseActivatingUser));
     //history.push("/");
   } catch (error) {
-    console.log(error);
+    console.log("=====",error);
   }
 };
 

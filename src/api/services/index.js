@@ -33,9 +33,7 @@ export const apiDeleteWithToken = url => {
 
 /** Service Without Token */
 export const apiGetWithoutToken = (url, params = null) => {
-  return serviceWithoutToken.get(url, {
-    params: params
-  });
+  return serviceWithoutToken.get(url);
 };
 
 export const apiPostWithoutToken = (url, params) => {

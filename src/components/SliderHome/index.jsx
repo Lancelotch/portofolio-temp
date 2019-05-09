@@ -13,15 +13,23 @@ class SliderHome extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true
     this.getSliderHome()
+  }
+
+  componentWillUnmount(){
+    this.mounted = false
   }
 
   getSliderHome = async () => {
     try {
       const payload = await category.sliderHome()
-      this.setState({
-        sliderImages: payload.data
-      })
+      if(this.mounted){
+        this.setState({
+          sliderImages: payload.data
+        })
+      }
+      
     } catch (error) {
       console.log(error)
     }

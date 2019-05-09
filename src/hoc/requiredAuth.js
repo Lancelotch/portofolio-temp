@@ -6,7 +6,7 @@ export default ComposedComponent => {
     PropTypes = {
       router: PropTypes.object
     };
-
+    
     componentWillMount() {
       if (!this.props.isAuthenticated) {
         this.props.history.push("/login");

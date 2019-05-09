@@ -5,12 +5,14 @@ import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
 import { connect } from 'react-redux'
 import './style.sass'
-import '../../sass/style.sass'
+// import '../../sass/style.sass'
 import strings from '../../localization/localization'
 import {
   loginWithGoogle,
-  loginWithHome
+  loginWithHome,
+  loginWithFacebook
 } from '../../store/actions/authentication'
+import history from "../../routers/history"
 // import SnackBar from 'react-material-snackbar'   
 
 const FormItem = Form.Item
@@ -26,14 +28,18 @@ class Login extends Component {
   }
 
   handleRegisterGoogle = request => {
-    this.props.loginWithGoogle(this.props.history, request)
+    this.props.loginWithGoogle("/", request)
+  }
+
+  handleFacebook = request => {
+    this.props.loginWithFacebook(request)
   }
 
   handleSubmit = e => {
     e.preventDefault()
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          const login = await this.props.loginWithHome(values)
+          const login = await this.props.loginWithHome(values,'/',history)
           if(this.props.isError ){
             this.props.form.setFields({
               password: {
@@ -42,12 +48,12 @@ class Login extends Component {
               }
             })
           }
-
         }
       })
   }
 
   render () {
+   
     const {  form } = this.props
     const { getFieldDecorator } = form
     return (
@@ -127,7 +133,7 @@ class Login extends Component {
                 <div className='login-form__socmed-box'>
                   <ButtonFacebook
                     className='login-form__socmed-button'
-                    onSubmit={this.handleRegisterGoogle}
+                    onSubmit={this.handleFacebook}
                   >
                     <p> {strings.facebook}</p>
                   </ButtonFacebook>
@@ -165,5 +171,5 @@ const mapStateToProps = state => ({
 const LoginForm = Form.create({})(Login)
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithHome }
+  { loginWithGoogle, loginWithHome, loginWithFacebook }
 )(LoginForm)

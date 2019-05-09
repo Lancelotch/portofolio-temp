@@ -14,7 +14,13 @@ const withGetMethodApi = (path) => (WrappedComponent) => {
     }
     
     componentDidMount(){
+      this.mounted = true
       this.fetchData(path);
+    }
+
+    componentWillUnmount(){
+      // this.fetchData(path)
+      this.mounted = false
     }
 
     fetchData = async (path) => {
@@ -23,10 +29,12 @@ const withGetMethodApi = (path) => (WrappedComponent) => {
       })
       try {
         const response = await getMethod(path);
-        this.setState({
-          data: response.data,
-          loading: false
-        });
+        if(this.mounted){
+          this.setState({
+            data: response.data,
+            loading: false
+          });
+        }
       } catch (error) {
         this.setState({
           error: error,

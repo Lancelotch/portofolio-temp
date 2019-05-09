@@ -10,7 +10,8 @@ import {
   registerWithGoogle,
   registerForm,
   loading,
-  loginWithGoogle
+  loginWithGoogle,
+  openModal
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -20,7 +21,6 @@ import {
   RegistrationaAlert,
   RegistrationSubmitButton
 } from "./registerContainer";
-import ModalSuccess from "../../modal/ModalRegisterSuccess"
 import history from "../../routers/history"
 
 const FormItem = Form.Item;
@@ -59,7 +59,7 @@ class RegisterPage extends Component {
 
   validation(form,values){
     if(this.props.isAuthenticated){
-      this.openModal()
+      this.props.openModal()
     }else{
       form.setFields({
         email: {
@@ -72,17 +72,12 @@ class RegisterPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const {history} = this.props
+    const path = this.getPath(this.state.nextPage)
     this.props.form.validateFields(async (err, values) => {
-      const history = this.props.history;
       if (!err) {
-        const linkCheckout = "/checkout";
-        if (this.state.nextPage === "checkout") {
-          await this.props.registerForm(history, values, linkCheckout);
-          this.validation(this.props.form,values) 
-        } else {
-          await this.props.registerForm(history, values);  
-            this.validation(this.props.form,values)          
-        }
+        await this.props.registerForm(history, values, path);
+        this.validation(this.props.form,values)          
       }else{
         this.setState({
           modalStatus: false
@@ -91,8 +86,15 @@ class RegisterPage extends Component {
     });
   };
 
+  getPath = (state) => {
+    let path = ""
+    state ? path =`/${state}` : path = '/'
+    return path
+  }
+
   handleRegisterGoogle = request => {
-    this.props.loginWithGoogle(this.props.history, request);
+    const path = this.getPath(this.state.nextPage)
+    this.props.loginWithGoogle(path, request);
   };
 
   render() {
@@ -197,6 +199,7 @@ class RegisterPage extends Component {
                     <ButtonGoogle
                       className="register__form__socmed-button"
                       onSubmit={this.handleRegisterGoogle}
+                      path={this.props.history}
                     >
                       {strings.google}
                     </ButtonGoogle>
@@ -213,13 +216,13 @@ class RegisterPage extends Component {
                         {strings.register_login}
                       </Link>
                     )}
-                  </center>
+                  </center> 
                 </Form.Item>
               </Form>
             </div>
           </Col>
         </Row>
-        <ModalSuccess modalStatus={this.state.modalStatus} email={this.props.message.email}/>
+        {/* <ModalSuccess modalStatus={this.state.modalStatus} email={this.props.message.email}/> */}
       </React.Fragment>
     );
   }
@@ -238,5 +241,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm, loading, loginWithGoogle }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal }
 )(RegisterForm);

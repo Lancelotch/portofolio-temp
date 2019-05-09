@@ -23,6 +23,10 @@ const withApiMethod = WrappedComponent => {
         DELETE: "DELETE"
       };
     }
+
+    // componentWillUnmount(){
+    //   this.doGet()
+    // }
   
     doGet = (url, payload) => {
       this.fetchData(url, this.method.GET, payload);
