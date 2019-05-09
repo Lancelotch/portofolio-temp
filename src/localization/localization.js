@@ -17,14 +17,17 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
     before_pay: 'Bayar Sebelum',
+    pay_now : 'Bayar Sekarang',
+    cancel_details: 'Detail Pembatalan',
     total_payment: 'Total Pembayaran',
     log_in: 'Log In',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",
-    pay_now : "Pesan Sekarang",
+    order_now : "Pesan Sekarang",
     action_delete: "Hapus",
     checkout: "Checkout",
     total_price_product: "Total Harga Barang",
@@ -33,6 +36,7 @@ const strings = new LocalizedStrings({
     total: "Jumlah",
     note: "Catatan",
     sub_total: "Sub Total",
+    price_product: "Harga Product",
     price_courier: "Ongkos Kirim",
     pcs: "pcs",
     delivery_courier: "Delivery Courier",
@@ -40,6 +44,15 @@ const strings = new LocalizedStrings({
     my_account: 'Akun Saya',
     most_searched: 'Paling Banyak Dicari',
     recommendation_product: 'Rekomendasi Produk',
+    cancel_order: 'Cancel Order',
+    payment_type: 'Metode Pembayaran',
+    pay_to: "Bayar Ke",
+    giyarto: "PT. Giyarto Manunggal Sejati",
+    estimate_accepted:"Perkiraan Diterima",
+
+
+    //Dashboard Product Details
+    notice_payment_administrasi :"Subtotal yang tercantum diatas udah termasuk  biaya bea masuk, pajak dan administrasi.",
     
 
     //Best Seller

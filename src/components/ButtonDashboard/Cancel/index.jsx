@@ -3,9 +3,10 @@ import { Button } from 'antd'
 import "../../ProductOrder/style.sass"
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../../library/url"
+import strings from '../../../localization/localization';
 
 const Cancel = (props) => {
-  const { indexes, viewOrderDetail } = props
+  const { indexes, showOrderDetailsDashboard } = props
   let id = ''
   indexes.map((p, i) => {
     id = p.productId
@@ -24,8 +25,8 @@ const Cancel = (props) => {
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
-        onClick={() => viewOrderDetail()}>
-        Detail Pembatalan
+        onClick={() => showOrderDetailsDashboard()}>
+        {strings.cancel_details}
         </Button>
     </div>
   )

@@ -3,6 +3,7 @@ import "../../ProductOrder/style.sass"
 import { Button } from 'antd'
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../../library/url"
+import strings from '../../../localization/localization';
 
 const Pay = (props) => {
   const { showDeleteConfirm,
@@ -10,17 +11,13 @@ const Pay = (props) => {
     i,
     toggleIsHowToShowModalOpen,
     order,
-    viewOrderDetail,
+    showOrderDetailsDashboard,
     index,
     indexButton,
     productId
   } = props
-  let productDetailId = ''
-  productId.map((p, i) => {
-    productDetailId = p.productId
-    return productDetailId
-  })
-  console.log('tombol detail pesanan by iiiid',order.orderId);
+ 
+  console.log('tombol detail pesanan by iiiid',props);
   
   return (
     <React.Fragment>
@@ -28,9 +25,9 @@ const Pay = (props) => {
         <React.Fragment>
           <Button
             className="waitingPayment__button"
-            onClick={() => showDeleteConfirm(orderProduct, i)}
+            onClick={() => showDeleteConfirm(order, i)}
           >
-            Batalkan Pesanan
+            {strings.cancel_order}
         </Button>
           <div
             style={{
@@ -41,14 +38,13 @@ const Pay = (props) => {
               className="waitingPayment__payNow"
               onClick={toggleIsHowToShowModalOpen.bind(this, order)}
             >
-              Bayar Sekarang
+              {strings.pay_now}
           </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => viewOrderDetail(order)}
+              onClick={() => showOrderDetailsDashboard(order)}
             >
-            {console.log("ini fungsi dari orderlist",()=>viewOrderDetail(order))}
-              Detail Pesanan
+              {strings.order_details}
           </Button>
           </div>
         </React.Fragment>
@@ -62,9 +58,9 @@ const Pay = (props) => {
           }}>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => viewOrderDetail()}
+            onClick={() => showOrderDetailsDashboard(order)}
           >
-            Detail Pesanan
+            {strings.order_details}
           </Button>
         </div>
       )}
@@ -78,13 +74,13 @@ const Pay = (props) => {
           <Button
             className="waitingPayment__payNow"
           >
-            <Link to={pageUrlProductDetail + productDetailId}>Beli Lagi</Link>
+            <Link to={pageUrlProductDetail + "productDetailId"}>Beli Lagi</Link>
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => viewOrderDetail()}
+            onClick={() => showOrderDetailsDashboard()}
           >
-            Detail Pesanan
+            {strings.order_details}
           </Button>
         </div>
       )}
@@ -100,9 +96,9 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => viewOrderDetail()}
+            onClick={() => showOrderDetailsDashboard()}
           >
-            Detail Pesanan
+            {strings.order_details}
           </Button>
         </div>
       )}

@@ -150,7 +150,7 @@ class ProductDetail extends Component {
                       className="productDetail__addCart"
                       onClick={this.actionSubmitToCheckout}
                     >
-                      {strings.pay_now}
+                      {strings.order_now}
                     </button>
                   </div>
                 </Col>

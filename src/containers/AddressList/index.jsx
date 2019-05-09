@@ -9,14 +9,19 @@ class AddressList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customerAddress: ""
+      customerAddress: this.props.addressDefault,
+      defaultAddressId: "" 
     };
   }
 
   onChange = (e) => {
     this.setState({
-      customerAddress: e.target.value.address
+      customerAddress: this.getAddress(e.target.value)
     });
+  }
+
+  getAddress = (id) => {
+    return this.props.addresses.find(address => id === address.id);
   }
 
   handleOk = () => {
@@ -61,7 +66,7 @@ class AddressList extends Component {
           </Button>
         ]}
       >
-        <RadioGroup onChange={this.onChange}>
+        <RadioGroup onChange={this.onChange} value={this.state.customerAddress.id}>
           {this.address(this.props.addresses)}
         </RadioGroup>
       </Modal>

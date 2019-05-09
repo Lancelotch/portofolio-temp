@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
+import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
 import ProductOrder from "../../components/ProductOrderDetails";
 import PaymentInfo from "../../components/PaymentInfo";
 import PaymentDateInfo from "../../components/PaymentDateInfo";
@@ -9,6 +9,9 @@ import "./style.sass"
 import OrderStatusStep from "../../components/OrderStatusStep";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
+import OrderStatusCancel from "../../components/OrderStatusCancel";
+import ProductOrderCancel from "../../components/ProductOrderCancel";
+import PaymentCancelOrder from "../../components/PaymentCancelOrder";
 
 class OrderDetailsDashboard extends Component {
   constructor(props) {
@@ -33,16 +36,19 @@ class OrderDetailsDashboard extends Component {
   }
 
   productOrderDetailDashboard = async () => {
-    let orderDetailsId = ""
-    this.props.orderDetailsId.map((orderId) => {
-      orderDetailsId = orderId.orderId
-      return orderDetailsId
-    })
+    // let orderDetailsId = '';
+    // this.props.orderDetailsId.map((orderId) => {
+    //   orderDetailsId = orderId.orderId
+    //   return orderDetailsId
+    // })
+    // console.log('orderDetailsId',this.props.orderDetailsId);
+
     try {
       //const response = await dummyOrderDetailsDashboard;
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderDetailsId);
-      console.log('ini dashboard detaila', response);
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + "b7865bf5-d4d6-4cbd-9e78-c924223966f8");
+      console.log('ini dashboard detaila', this.state.id);
       const itemProductOrder = {
+        id : response.data.data.id,
         invoiceNumber: response.data.data.invoiceNumber,
         estimateShippingDate: response.data.data.estimateShippingDate,
         bank: response.data.data.bank,
@@ -54,7 +60,7 @@ class OrderDetailsDashboard extends Component {
         indexes: response.data.data.indexes,
         orderDate: response.data.data.orderDate
       };
-      console.log('ini iiiid form dashboard order details', orderDetailsId);
+      console.log('ini iiiid form dashboard order details', itemProductOrder);
       this.setState({
         ...itemProductOrder
       });
@@ -66,10 +72,10 @@ class OrderDetailsDashboard extends Component {
     console.log('log-detail-dashboard-inedexs', this.state.indexes);
     return (
       <React.Fragment>
-        {this.state.indexes.map((order) => {
+        {this.state.indexes.map(order => {
           return (
             <div key={order.productId}>
-              <div style={{ marginBottom: 50 }}>
+              <div style={{ paddingBottom: 50 }}>
                 {this.props.index === 1 &&
                   <h2
                     style={{
@@ -104,7 +110,7 @@ class OrderDetailsDashboard extends Component {
                   <button
                     style={{ float: "right" }}
                     className="buttonOrderDetails"
-                    onClick={() => this.props.showOrderDetailsDashboard()}>
+                    onClick={() => this.props.showOrderListWaitingPayment()}>
                     <Icon type="arrow-left" /> &nbsp;
                     Kembali
                   </button>
@@ -122,6 +128,26 @@ class OrderDetailsDashboard extends Component {
                     productQuantity={order.productQuantity}
                     totalAmount={order.totalAmount}
                   />
+                  <PaymentInfo
+                    key={order.id}
+                    index={1}
+                    productName={order.productName}
+                    totalAmount={order.totalAmount}
+                    shipping={this.state.shipping}
+                    price={order.price}
+                    productQuantity={order.productQuantity}
+                    payment={this.state.payment}
+                  />
+                  <PaymentDateInfo
+                    endDatePay={this.state.endDatePay}
+                    typePayment={this.state.payment}
+                    bank={this.state.bank}
+                  />
+                  <OrderStatusUser
+                    label="Pengiriman"
+                    customer={this.state.address}
+                    index={1}
+                  />
                 </React.Fragment>
               }
               {this.props.index === 2 &&
@@ -137,6 +163,21 @@ class OrderDetailsDashboard extends Component {
                     productName={order.productName}
                     productQuantity={order.productQuantity}
                     totalAmount={order.totalAmount}
+                  />
+                  <PaymentInfo
+                    key={order.id}
+                    index={1}
+                    productName={order.productName}
+                    totalAmount={order.totalAmount}
+                    shipping={this.state.shipping}
+                    price={order.price}
+                    productQuantity={order.productQuantity}
+                    payment={this.state.payment}
+                  />
+                  <OrderStatusUser
+                    label="Pengiriman"
+                    customer={this.state.address}
+                    index={2}
                   />
                 </React.Fragment>
               }
@@ -156,6 +197,22 @@ class OrderDetailsDashboard extends Component {
                     productName={order.productName}
                     productQuantity={order.productQuantity}
                     totalAmount={order.totalAmount}
+                  />
+                  <PaymentInfo
+                    key={order.id}
+                    index={1}
+                    productName={order.productName}
+                    totalAmount={order.totalAmount}
+                    shipping={this.state.shipping}
+                    price={order.price}
+                    productQuantity={order.productQuantity}
+                    payment={this.state.payment}
+                  />
+                  <OrderStatusUser
+                    index={3}
+                    label="Pengiriman"
+                    estimateShippingDate={this.state.estimateShippingDate}
+                    customer={this.state.address}
                   />
                 </React.Fragment>
               }
@@ -178,42 +235,42 @@ class OrderDetailsDashboard extends Component {
                     productQuantity={order.productQuantity}
                     totalAmount={order.totalAmount}
                   />
-                </React.Fragment>
-              }
-              <PaymentInfo
-                key={order.id}
-                productName={order.productName}
-                totalAmount={order.totalAmount}
-                transport={this.state.shipping}
-                price={order.price}
-                productQuantity={order.productQuantity}
-                typePayment={this.state.payment}
-              />
-              {this.props.index === 1 &&
-                <React.Fragment>
-                  <PaymentDateInfo
-                    endDatePay={this.state.endDatePay}
-                    typePayment={this.state.payment}
-                    bank={this.state.bank}
+                  <PaymentInfo
+                    key={order.id}
+                    index={1}
+                    productName={order.productName}
+                    totalAmount={order.totalAmount}
+                    shipping={this.state.shipping}
+                    price={order.price}
+                    productQuantity={order.productQuantity}
+                    payment={this.state.payment}
                   />
                   <OrderStatusUser
+                    index={4}
                     label="Pengiriman"
+                    estimateShippingDate={this.state.estimateShippingDate}
                     customer={this.state.address}
                   />
                 </React.Fragment>
               }
-              {this.props.index === 2 &&
-                <OrderStatusUser
-                  label="Pengiriman"
-                  customer={this.state.address}
-                />}
-              {this.props.index === 3 &&
-                <OrderStatusUser
-                  index={3}
-                  label="Pengiriman"
-                  estimateShippingDate={this.state.estimateShippingDate}
-                  customer={this.state.address}
-                />}
+              {this.props.index === 5 &&
+                <React.Fragment>
+                  <OrderStatusCancel orderDate={this.state.orderDate} />
+                  <ProductOrder
+                    label="Detail Pesanan"
+                    key={order.id}
+                    productId={order.productId}
+                    productImage={order.productImage}
+                    variants={order.variants}
+                    productName={order.productName}
+                    productQuantity={order.productQuantity}
+                    totalAmount={order.totalAmount}
+                  />
+                  <PaymentCancelOrder
+                    labelPembatalan="Pesanan dibatalkan oleh customer"
+                    estimateShippingDate={this.state.estimateShippingDate} />
+                </React.Fragment>
+              }
             </div>
           );
         })}

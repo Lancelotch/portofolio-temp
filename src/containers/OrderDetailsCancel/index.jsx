@@ -71,7 +71,9 @@ class OrderDetailsCancel extends Component {
                                 productQuantity={order.productQuantity}
                                 totalAmount={order.totalAmount}
                             />
-                            <PaymentCancelOrder labelPembatalan="Pesanan dibatalkan oleh customer" estimateShippingDate={this.state.estimateShippingDate} />
+                            <PaymentCancelOrder 
+                            labelPembatalan="Pesanan dibatalkan oleh customer" 
+                            estimateShippingDate={this.state.estimateShippingDate} />
                         </React.Fragment>
                     )
                 })}

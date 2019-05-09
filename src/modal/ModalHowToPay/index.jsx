@@ -91,7 +91,7 @@ class ModalHowToPay extends Component {
             <Col md={24}>
               <Collapse defaultActiveKey={['1']} onChange={this.callback}>
                 <Panel header="Cara Bayar" key="1">
-                  <p>{caraBayarBankBni}</p>
+                  {caraBayarBankBni}
                 </Panel>
               </Collapse>
             </Col>

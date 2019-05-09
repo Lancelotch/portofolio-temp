@@ -2,24 +2,13 @@ import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
 import { Row, Col } from "antd";
 import PropTypes from "prop-types";
-// import ReactImageMagnify from "react-image-magnify";
 import Magnifier from "react-magnifier";
-// import Viewer from "react-viewer";
-// import "react-viewer/dist/index.css";
+import "./style.sass";
 
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
-    // const slides = this.props.images.map((productImage, index) => {
-    //   return (
-    //     <img
-    //       key={index}
-    //       alt="example"
-    //       src={productImage.large}
-    //     />
-    //   )
-    // });
     this.state = {
       images: [],
       isImageVariantExist: false,
@@ -51,38 +40,17 @@ class SliderProductDetailContainer extends Component {
       isImageVariantExist: isImageVariantExist,
       startIndex: 0
     });
-    console.log(images);
   }
 
   imageHover(item) {
-    console.log('iniiiiiii item');
     return (
       <Magnifier
-        zoomImgSrc={item.original}
-        src={item.thumbnail}
-        zoomFactor={2.0}
+        zoomImgSrc={item.large}
+        src={item.original}
+        zoomFactor={1.0}
+        mgShape={'square'}
+        mgBorderWidth={1}
       />      
-      // <ReactImageMagnify
-      //   {...{
-      //     smallImage: {
-      //       isFluidWidth: true,
-      //       src: item.thumbnail
-      //     },
-      //     largeImage: {
-      //       width: 450,
-      //       height: 450,
-      //       src: item.original
-      //     },
-      //     lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
-      //   }}
-      //   {...{
-      //     isHintEnabled: false,
-      //     enlargedImageContainerDimensions: { width: '100%', height: '100%' },
-      //     // shouldHideHintAfterFirstActivation: true,
-      //     enlargedImagePosition: "over",
-      //     enlargedImageContainerStyle: { Index: 1000 }
-      //   }}
-      // />
     );
   }
 
@@ -109,8 +77,9 @@ class SliderProductDetailContainer extends Component {
     const images = [];
     this.state.images.forEach(image => {
       images.push({
-        original: image.large,
-        thumbnail: image.medium
+        large: image.large,
+        original: image.medium,
+        thumbnail: image.small
       });
     });
 

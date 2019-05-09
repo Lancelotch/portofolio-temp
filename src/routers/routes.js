@@ -42,17 +42,25 @@ const routes = [{
         component: ProductDetail
     },
     {
-        path: PATH_URL.CATEGORY,
+        path: PATH_URL.CATEGORY_LEVEL_1,
         component: CategoryContainer
     },
     {
-        path: '/category/fashion-pria/:categoryId',
+        path: PATH_URL.CATEGORY_LEVEL_2,
         component: CategoryContainer
     },
     {
-        path: '/category/fashion-pria/sepatu/:categoryId',
-        component: CategoryContainer    
+        path: PATH_URL.CATEGORY_LEVEL_3,
+        component: CategoryContainer
     },
+    // {
+    //     path: '/category/fashion-pria/:categoryId',
+    //     component: CategoryContainer
+    // },
+    // {
+    //     path: '/category/fashion-pria/sepatu/:categoryId',
+    //     component: CategoryContainer    
+    // },
     {
         path: PATH_URL.SEARCH,
         component: SearchContainer      
@@ -67,7 +75,7 @@ const routes = [{
     },
     {
     path: '/dashboard-customer',
-    component: CustomerNavigation,
+    component: requiredAuth(CustomerNavigation),
     layoutName: 'customerLayout'
 }
 

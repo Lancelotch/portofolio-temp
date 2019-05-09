@@ -19,7 +19,7 @@ const ProductOrderCancel = props => {
     } = props;
 
 
-  console.log('ini product oder cancel 2', productId);
+  console.log('ini product oder cancel 2', props);
 
 
   return (

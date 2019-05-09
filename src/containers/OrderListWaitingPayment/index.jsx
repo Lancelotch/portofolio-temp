@@ -5,6 +5,9 @@ import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
 import Pay from "../../components/ButtonDashboard/Pay"
 import Cancel from "../../components/ButtonDashboard/Cancel"
+import strings from "../../localization/localization";
+import NoOrderHistory from "../../components/NoOrderHistory";
+
 
 class OrderListWaitingPayment extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class OrderListWaitingPayment extends Component {
     });
   };
 
+
   render() {
     const { orderProduct, showDeleteConfirm, index } = this.props
     const { isHowToShowModalOpen, selectedOrder } = this.state;
@@ -33,7 +37,6 @@ class OrderListWaitingPayment extends Component {
         {orderProduct ?
           (<React.Fragment>
             {orderProduct.map((order, i) => {
-              console.log('iniiiiiiiii dari order list waiting payment', order.orderId);
               return (
                 <div className="waitingPayment__list" key={i}>
                   <ProductOrder
@@ -42,7 +45,7 @@ class OrderListWaitingPayment extends Component {
                   {index === 1 &&
                     <React.Fragment>
                       <WaitingPayment
-                        label="Bayar Sebelum"
+                        label={strings.before_pay}
                         index={1}
                         key={order.id}
                         endDatePay={order.endDatePay}
@@ -59,7 +62,7 @@ class OrderListWaitingPayment extends Component {
                         i={i}
                         toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
                         order={order}
-                        viewOrderDetail={() => this.props.viewOrderDetail(order.orderId)}
+                        showOrderDetailsDashboard={() => this.props.showOrderDetailsDashboard(order)}
                       />
                     </React.Fragment>}
                   {index === 2 &&
@@ -83,7 +86,7 @@ class OrderListWaitingPayment extends Component {
                         i={i}
                         toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
                         order={order}
-                        viewOrderDetail={this.props.viewOrderDetail}
+                        showOrderDetailsDashboard={() => this.props.showOrderDetailsDashboard(order.orderId)}
                       />
                     </React.Fragment>
                   }
@@ -109,7 +112,7 @@ class OrderListWaitingPayment extends Component {
                         i={i}
                         toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
                         order={order}
-                        viewOrderDetail={this.props.viewOrderDetail}
+                        showOrderDetailsDashboard={this.props.showOrderDetailsDashboard}
                       />
                     </React.Fragment>
                   }
@@ -121,7 +124,7 @@ class OrderListWaitingPayment extends Component {
                         index={4}
                         key={order.id}
                         estimateShippingDate={order.estimateShippingDate}
-                        endDatePay={order.endDatePay}
+                        endDatePay={order.receivedDate}
                         indexes={order.indexes}
                         pay={order.payment}
                         isHowToShowModalOpen={isHowToShowModalOpen}
@@ -135,15 +138,19 @@ class OrderListWaitingPayment extends Component {
                         i={i}
                         toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
                         order={order}
-                        viewOrderDetail={this.props.viewOrderDetail}
+                        showOrderDetailsDashboard={this.props.showOrderDetailsDashboard}
                       />
                     </React.Fragment>
                   }
                   {index === 5 &&
+                    <React.Fragment>     
                     <Cancel
                       indexes={order.indexes}
-                      viewOrderDetail={this.props.viewOrderDetail}
-                    />}
+                      showOrderDetailsDashboard={this.props.showOrderDetailsDashboard}
+                    />
+                    </React.Fragment>
+                  }
+
                 </div>
               );
             })}
@@ -160,7 +167,7 @@ class OrderListWaitingPayment extends Component {
             )}
           </React.Fragment>)
           :
-          (<p>aaaaa</p>)}
+          (<NoOrderHistory />)}
       </React.Fragment>
     );
   }

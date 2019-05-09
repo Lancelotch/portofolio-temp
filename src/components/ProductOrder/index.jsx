@@ -5,7 +5,6 @@ import "./style.sass";
 
 const ProductOrder = props => {
   const { indexes } = props;
-  console.log("ini di product order", props)
   return (
     <div className="productOrder">
       <Row>

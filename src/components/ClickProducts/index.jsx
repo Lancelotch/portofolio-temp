@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import currencyRupiah from "../../library/currency";
 import { Card, Icon, Carousel } from "antd";
-// import Slider from "react-slick";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
@@ -21,10 +20,15 @@ const SampleNextArrow = props => {
         justifyContent: "center",
         alignItems: "center",
         top: "145px",
-        right:"0px"
+        right: "0px"
       }}
       onClick={onClick}
     >
+      <Icon type="right"
+        style={{
+          fontSize: 50,
+          color: "black"
+        }} />
     </div>
   );
 };
@@ -49,6 +53,11 @@ const SamplePrevArrow = props => {
       }}
       onClick={onClick}
     >
+      <Icon type="left"
+        style={{
+          fontSize: 50,
+          color: "black"
+        }} />
     </div>
   );
 };
@@ -61,7 +70,7 @@ class ClickProducts extends Component {
 
   render() {
     const { data } = this.props;
-    const products = data.slice(0,10)
+    const products = data.slice(0, 10)
     const settings = {
       dots: true,
       autoplay: 5000,
@@ -75,7 +84,7 @@ class ClickProducts extends Component {
         <div
           style={{
             borderRadius: 10,
-            marginLeft:10
+            marginLeft: 10
           }}
         >
           <ul className="dots"> {dots} </ul>
@@ -83,7 +92,7 @@ class ClickProducts extends Component {
       )
     };
 
-    const slides = products.map((product,i) => {
+    const slides = products.map((product, i) => {
       return (
         <Link to={pageUrlProductDetail + product.id || "#"} key={i}>
           <Card
@@ -103,7 +112,7 @@ class ClickProducts extends Component {
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>
-          </Link>
+        </Link>
       );
     });
 

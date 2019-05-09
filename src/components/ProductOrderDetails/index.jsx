@@ -1,9 +1,11 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import "./style.sass";
+import { pageUrlProductDetail } from "../../library/url";
+import { Link } from "react-router-dom";
+import strings from "../../localization/localization";
 
-
-const ProductOrder = props => {
+const ProductOrderDetails = props => {
   const
     { productImage,
       productName,
@@ -11,7 +13,8 @@ const ProductOrder = props => {
       productQuantity,
       label,
       invoiceNumber,
-      noInvoice
+      noInvoice,
+      productId
     } = props;
   return (
     <div className="productOrder">
@@ -51,14 +54,26 @@ const ProductOrder = props => {
              {variants[1].name.charAt(0).toUpperCase() +
               variants[1].name.substring(1)} : {variants[1].value}
           </p>
-          <p className="productOrder__quantity">Jumlah : {productQuantity}</p>
+          <p className="productOrder__quantity">{strings.total} : {productQuantity}</p>
         </Col>
         <Col md={5} style={{ marginTop: 60 }}>
-          <p className="productOrder__totalPrice" />
+        <p className="productOrder__totalPrice">
+        <div style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginRight: 15
+        }}>
+          <Button
+            className="waitingPayment__payNow"
+          >
+            <Link to={pageUrlProductDetail + productId}>{strings.buy_again}</Link>
+          </Button>
+        </div>
+      </p>
         </Col>
       </Row>
     </div>
   );
 };
 
-export default ProductOrder;
+export default ProductOrderDetails;
