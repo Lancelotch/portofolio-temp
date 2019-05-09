@@ -24,6 +24,26 @@ const loginWithGoogle = request => {
     });
 };
 
+const loginWithFacebook = request => {
+  const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_FACEBOOK
+  return new Promise((resolve, reject) => {
+    dummyService
+      .request({
+        method: 'POST',
+        url: url,
+        data: request
+      })
+      .then(response => {
+        console.log("ini respon",response)
+        resolve(response.data);
+      })
+      .catch(error => {
+        console.log("ini di services",error)
+        reject(error.response);
+      });
+  });
+}
+
 const loginWithProductDetail = request => {
   return new Promise((resolve, reject) => {
     dummyServiceLogin
@@ -89,7 +109,6 @@ const activatingUser = request =>{
       .catch(error => {
         reject(error.response);
       });
-
   });
 }
 
@@ -98,7 +117,8 @@ const authentication = {
   loginWithForm: loginWithForm,
   registerWithForm: registerWithForm,
   loginWithGoogle:  loginWithGoogle,
-  activatingUser: activatingUser
+  activatingUser: activatingUser,
+  loginWithFacebook: loginWithFacebook
 }
 
 export default authentication;

@@ -36,7 +36,8 @@ const routes = [{
     },
     {
         path: PATH_URL.CONFIRMATION,
-        component: Confirmation
+        component: Confirmation,
+        layoutName: 'fullLayout'
     },
     {
         path: PATH_URL.PRODUCT_DETAIL,

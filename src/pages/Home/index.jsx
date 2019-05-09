@@ -12,17 +12,19 @@ class HomePage extends Component {
             popularProduct: [],
             bestSellerProduct: [],
             mostClickProduct: [],
-            modalStatus: false
+            modalStatus: false,
+            textButton: "Mulai Belanja"
         }
     }
     render() {
         const {match} = this.props
+        console.log("ini home",this.props)
         return ( 
             <React.Fragment>
                 <HomePageContainer
                     match={match}
                 />
-                <ModalSuccess modalStatus={this.props.statusModal} email={this.props.message.email}/>
+                <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
             </React.Fragment>
          );
     }

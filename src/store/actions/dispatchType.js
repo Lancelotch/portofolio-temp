@@ -97,6 +97,13 @@ export const closeModal = response => {
   }
 }
 
+export const getCustomerName = response => {
+  return {
+    type: TYPE.GET_CUSTOMER_NAME,
+    payload:response
+  }
+}
+
 const dispatchType = {
   authFail: authFail,
   handleLoading: handleLoading,
@@ -111,7 +118,8 @@ const dispatchType = {
   loginFailed: loginFailed,
   registerFailed: registerFailed,
   openModal: openModal,
-  closeModal: closeModal
+  closeModal: closeModal,
+  getCustomerName: getCustomerName
 };
 
 export default dispatchType;

@@ -12,6 +12,8 @@ import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
 import payloadProductDetail from "../../dummy/payloadProductDetail";
+import ModalSuccess from '../../modal/ModalRegisterSuccess'
+import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
 
@@ -35,7 +37,8 @@ class Checkout extends Component {
       productSkuId: "",
       quantity: 1,
       note: "",
-      isProductDetailAvailable: false
+      isProductDetailAvailable: false,
+      textButton: "Lanjut Belanja"
     };
   }
 
@@ -265,6 +268,7 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
+          <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
         </div>
       </div>
     );
@@ -273,10 +277,12 @@ class Checkout extends Component {
 
 const mapStatetoProps = state => ({
   dataAddressDefault: state.address.addressDefault,
-  isAddressAvailable: state.address.isAddressAvailable
+  isAddressAvailable: state.address.isAddressAvailable,
+  statusModal: state.authentication.statusModal,
+  message: state.authentication.message
 });
 
 export default connect(
   mapStatetoProps,
-  { addressDefault }
+  { addressDefault, openModal }
 )(Checkout);

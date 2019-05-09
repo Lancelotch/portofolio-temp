@@ -9,7 +9,8 @@ import './style.sass'
 import strings from '../../localization/localization'
 import {
   loginWithGoogle,
-  loginWithHome
+  loginWithHome,
+  loginWithFacebook
 } from '../../store/actions/authentication'
 import history from "../../routers/history"
 // import SnackBar from 'react-material-snackbar'   
@@ -28,6 +29,10 @@ class Login extends Component {
 
   handleRegisterGoogle = request => {
     this.props.loginWithGoogle("/", request)
+  }
+
+  handleFacebook = request => {
+    this.props.loginWithFacebook(request)
   }
 
   handleSubmit = e => {
@@ -128,7 +133,7 @@ class Login extends Component {
                 <div className='login-form__socmed-box'>
                   <ButtonFacebook
                     className='login-form__socmed-button'
-                    onSubmit={this.handleRegisterGoogle}
+                    onSubmit={this.handleFacebook}
                   >
                     <p> {strings.facebook}</p>
                   </ButtonFacebook>
@@ -166,5 +171,5 @@ const mapStateToProps = state => ({
 const LoginForm = Form.create({})(Login)
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithHome }
+  { loginWithGoogle, loginWithHome, loginWithFacebook }
 )(LoginForm)

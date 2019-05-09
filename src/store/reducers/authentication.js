@@ -8,7 +8,8 @@ const initialState = {
     checkError: false,
     isAuthenticated: false,
     messageError: '',
-    statusModal: false
+    statusModal: false,
+    customerName: ''
 }
 
 
@@ -27,6 +28,11 @@ export default (state = initialState, action) => {
                 messageError: action.payload,
                 checkError: true
             }
+        case TYPE.GET_CUSTOMER_NAME: 
+            return {
+                ...state,
+                customerName: action.payload
+            }
         case TYPE.LOGIN_WITH_GOOGLE:
             return {
                 ...state,
@@ -41,7 +47,8 @@ export default (state = initialState, action) => {
                 checkError: false,
                 messageError: '',
                 isLoading: false,
-                message: ""
+                message: "",
+                customerName: ''
             }
         case TYPE.REGISTER_WITH_FORM:
             return {

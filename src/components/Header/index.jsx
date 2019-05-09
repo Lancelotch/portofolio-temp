@@ -3,7 +3,7 @@ import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "components/TopHeader";
-// import Categories from "components/Categories";
+// import Categories from "components/Categories"
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -17,7 +17,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      name: this.props.customerName,
       openModalLogin: false,
       openModalLogout: false,
       isDataCategoryFeatureLoaded: false,
@@ -26,6 +26,10 @@ class Header extends Component {
       isAuthenticated: this.props.isAuthenticated,
       dropdownShow: null
     };
+  }
+
+  componentDidMount(){
+    // this.getCustomerDetail()
   }
 
  
@@ -65,6 +69,7 @@ class Header extends Component {
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
+      console.log(payload)
       this.setState({
         name: payload.data.name
       });
@@ -85,8 +90,9 @@ class Header extends Component {
   }
 
   showCustomerName = () => {
-    const name = this.state.name;
+    const name = this.props.customerName
     return name.substr(0, 8) + "...";
+    // return name
   };
 
   renderAuthList = () => {
@@ -130,7 +136,7 @@ class Header extends Component {
   render() {
     const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
-
+    console.log("ini customer di header", this.props.customerName)
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (
@@ -221,7 +227,8 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-  checkError : state.authentication.checkError
+  checkError : state.authentication.checkError,
+  customerName: state.authentication.customerName
 });
 
 export default connect(

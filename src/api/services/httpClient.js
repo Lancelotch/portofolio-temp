@@ -10,7 +10,7 @@ export const mainService = axios.create({
   baseURL: REACT_APP_API_MAIN_SERVICE,
   timeout: 60 * 4 * 1000,
   // headers: {
-  //   Authorization: "Bearer " + token
+  //   Authorization: "Bearer " + token;
   // }
 });
 
@@ -62,6 +62,6 @@ export const serviceDummyWithoutToken = axios.create({
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {
-    Authorization: "Bearer " + token
+    "Content-Type": `application/json`,
   }
 });
