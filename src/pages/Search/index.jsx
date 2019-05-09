@@ -1,5 +1,5 @@
-import React, { Component, Suspense, Fragment } from "react";
-import { Row, Col, BackTop, Spin, Card } from "antd";
+import React, { Component } from "react";
+import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
 import "./style.sass";

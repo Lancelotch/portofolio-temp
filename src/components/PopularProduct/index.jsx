@@ -1,18 +1,17 @@
 import React from "react";
-import { Card, Col } from "antd";
+import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
-import LazyLoad from "react-lazyload";
-import SkeletomImg from "react-js-skeleton";
+// import LazyLoad from "react-lazyload";
+// import SkeletomImg from "react-js-skeleton";
 import { Link } from "react-router-dom";
 import "./style.sass";
-import PATH_URL from "../../routers/path";
+// import PATH_URL from "../../routers/path";
 import { pageUrlProductDetail } from "../../library/url";
 
-const { Meta } = Card;
+// const { Meta } = Card;
 
 const PopularProduct = props => {
   const { id, name, urlImage, price } = props.product;
-
   const priceRp = currencyRupiah(price);
 
   return (
@@ -22,12 +21,16 @@ const PopularProduct = props => {
         bordered={false}
         className="popular__card"
         style={{
-          background: "linear-gradient(188.23deg, #FFFFFF 65%, #D5D5D5 100%)"
+          background: "linear-gradient(188.23deg, #FFFFFF 65%, #D5D5D5 100%)",
+          width: 240,
+          // height: 240
+        
         }}
         cover={
           <div className="popular__image-cover">
             <img alt="example" src={urlImage} className="popular__image" />
           </div>
+          // <img alt="example" src={urlImage}  />
         }
       >
         <div className="popular__info">

@@ -1,39 +1,41 @@
 import React from "react";
 import { Row, Col } from "antd";
 import "./style.sass";
-import currencyRupiah from "../../library/currency";
+// import currencyRupiah from "../../library/currency";
 
 const ProductOrder = props => {
-  const { productorder } = props;
-  console.log("proudct-order", productorder);
-
+  const { indexes } = props;
+  console.log("ini di product order", props)
   return (
-    <React.Fragment>
-      {productorder.map((order, id) => (
-        <div className="productOrder">
-          <Row>
-            <Col md={2}>
-              <img
-                className="productOrder__image"
-                src={order.variants[0].imageUrl}
-                alt=""
-              />
-            </Col>
-            <Col md={17}>
-              <h2>{order.productName}</h2>
-              <p className="productOrder__variant">
-                Varian : Warna : {order.variants[0].value},&nbsp;Size:{" "}
-                {order.variants[1].value}
-              </p>
-              <p className="productOrder__quantity">Jumlah :{" "}{order.productQuantity}</p>
-            </Col>
-            <Col md={5} style={{ marginTop: 60 }}>
-              <p className="productOrder__totalPrice">{currencyRupiah(order.totalAmount)}</p>
-            </Col>
-          </Row>
-        </div>
-      ))}
-    </React.Fragment>
+    <div className="productOrder">
+      <Row>
+        <Col md={2}>
+          <img
+            className="productOrder__image"
+            src={indexes[0].variants[0].imageUrl}
+            alt=""
+          />
+        </Col>
+        <Col md={17}>
+          <h2> {indexes[0].productName} </h2>
+          <p className="productOrder__variant">
+            Varian : {indexes[0].variants[0].name.charAt(0).toUpperCase() +
+              indexes[0].variants[0].name.substring(1)} : {indexes[0].variants[0].value},&nbsp;
+             {indexes[0].variants[1].name.charAt(0).toUpperCase() +
+              indexes[0].variants[1].name.substring(1)} : {indexes[0].variants[1].value}
+          </p>
+          <p className="productOrder__quantity">
+            Jumlah : {indexes[0].productQuantity}
+          </p>
+        </Col>
+        <Col md={5} style={{ marginTop: 60 }}>
+          {/*<p className="productOrder__totalPrice">
+           {currencyRupiah(indexes[0].totalAmount)} x {indexes[0].productQuantity}
+             </p>*/}
+        </Col>
+      </Row>
+      <hr className="productOrder__inline" />
+    </div>
   );
 };
 

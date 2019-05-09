@@ -1,23 +1,25 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Checkbox, Row, Col, Affix } from "antd";
-import { Redirect, Link } from "react-router-dom";
+import { Input, Form, Button, Icon, Row, Col, Affix } from "antd";
+import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
 import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import "./style.sass";
+// import "../../sass/style.sass"
 import strings from "../../localization/localization";
 import {
   loginWithGoogle,
-  loginWithForm
+  loginWithForm,
+  loginWithHome
 } from "../../store/actions/authentication";
 import {
   rulesEmail,
-  rulesPassword,
-  AlertLogin,
+  // rulesPassword,
+  // AlertLogin,
   RegistrationaAlert
 } from "../Register/registerContainer";
-import HomePage from "../Home";
+// import HomePage from "../Home";
 
 const FormItem = Form.Item;
 
@@ -34,7 +36,6 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    console.log("ini location", this.props.location);
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -47,36 +48,26 @@ class Login extends Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
-    this.setState({
-      status: null
-    });
-    this.props.form.validateFields(async (err, values) => {
-      if (!err) {
-        const history = this.props.history;
-        const linkCheckout = "/checkout";
-        if (this.state.nextPage === "checkout") {
-         await  this.props.loginWithForm(history, values, linkCheckout);
-        } else {
-         await this.props.loginWithForm(history, values);
+    e.preventDefault()
+      this.props.form.validateFields( async (err, values) => {
+        if (!err) {
+          const login = await this.props.loginWithHome(values)
+          if(this.props.isError ){
+            this.props.form.setFields({
+              password: {
+                value: values.password,
+                errors: [new Error(this.props.messageError)]
+              }
+            })
+          }
         }
-        console.log("message>>>login-page", this.props.auth);
-        const { message, status } = this.props.auth.data;
-        this.setState({
-          message,
-          status
-        });
-      }
-    });
+      })
   };
 
   render() {
-    console.log(this.props.token);
     const { form } = this.props;
     const { getFieldDecorator } = form;
-    const { errorMessage } = this.state;
-
-    console.log(errorMessage);
+    // const { errorMessage } = this.state;
     return (
       <React.Fragment>
         <Row>
@@ -119,7 +110,14 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", rulesPassword())(
+                  {getFieldDecorator("password",{
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your password!'
+                      }
+                    ]
+                  })(
                     <Input
                       size={"large"}
                       prefix={
@@ -134,9 +132,7 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  <RegistrationaAlert
-                    message={this.state.message}
-                  />
+                  
                   {/* {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true
@@ -147,7 +143,7 @@ class Login extends Component {
                   <Button
                     size={"large"}
                     htmlType="submit"
-                    className="register__form__button-register"
+                    className="register__form__button-register color-button"
                   >
                     <p className="register__form__button-register-text">
                       {strings.login_enter}
@@ -199,11 +195,13 @@ class Login extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
   token: state.authentication.token,
-  auth: state.authentication.auth
+  auth: state.authentication.auth,
+  messageError: state.authentication.messageError,
+  isError : state.authentication.checkError
 });
 
 const LoginForm = Form.create({})(Login);
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithForm }
+  { loginWithGoogle, loginWithForm, loginWithHome }
 )(LoginForm);

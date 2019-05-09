@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown, Button, Avatar } from "antd";
+import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "components/TopHeader";
-import Categories from "components/Categories";
+// import Categories from "components/Categories";
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -11,6 +11,7 @@ import "sass/style.sass";
 import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
 import CategoryMenu from "../CategoryMenu";
+import {Link} from "react-router-dom"
 
 class Header extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Header extends Component {
     this.state = {
       name: "",
       openModalLogin: false,
+      openModalLogout: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: this.props.keyword,
@@ -26,34 +28,59 @@ class Header extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getCustomerDetail();
-  }
-
+ 
   handleInputSearchChange = e => {
     this.setState({
       keyword: e.target.value
     });
   };
 
+  closeModal = () => {
+    this.setState({
+      openModalLogin : false
+    })
+  }
+
+  openModal = () => {
+    if(this.props.isAuthenticated){
+      this.setState({
+        openModalLogout : true
+      })
+    }else{
+      this.setState({
+        openModalLogin : true
+      })
+    }
+   
+  }
+
   handleLogout = () => {
     this.props.logout();
+    this.setState({
+      openModalLogout : false,
+      openModalLogin : false
+    })
   };
 
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
-      console.log(payload);
       this.setState({
         name: payload.data.name
       });
       this.render();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
-
+  handleVisibleChange = (flag) => {
+    if(this.props.isAuthenticated){
+      this.setState({ openModalLogout: flag });
+    }else{
+      this.setState({ openModalLogin: flag });
+    }
+  }
 
   showCustomerName = () => {
     const name = this.state.name;
@@ -62,7 +89,7 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{this.showCustomerName()}</h4>
         </li>
@@ -72,7 +99,7 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-      <Dropdown overlay={<Login />} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <h4>{strings.log_in}</h4>
         </li>
@@ -85,7 +112,7 @@ class Header extends Component {
       <div className="header__user-menu-box">
         <li> {strings.my_account}</li>
         <li> {strings.header_my_order}</li>
-        <li onClick={this.handleLogout}>
+        <li onClick={() =>this.handleLogout()}>
           <button className="header__user-menu__button">
             {" "}
             {strings.log_out}{" "}
@@ -151,24 +178,23 @@ class Header extends Component {
             </Col>
               <Col md={2}>
                 <div className="header__categories">
-                  {/* <Categories /> */}
                   <CategoryMenu match={match} />
                 </div>
               </Col>
               <Col md={16}>
                 <div className="header__menus">
-                  <a href="/" className="header__menu">
+                  <Link to="/" className="header__menu">
                     Lacak Pengiriman
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Cara Belanja
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Tentang Kami
-                  </a>
-                  <a href="/" className="header__menu">
+                  </Link>
+                  <Link to="/" className="header__menu">
                     Bantuan
-                  </a>
+                  </Link>
                 </div>
               </Col>
               <Col md={4}>
@@ -178,7 +204,7 @@ class Header extends Component {
                 <div className="header__user-box">
                   <Icon
                     type="user"
-                    onClick={this.openModalLogin}
+                    onClick={() => this.openModal()}
                     className="header__user-icon"
                   />
                   {this.showUserDropDown(isAuthenticated)}
@@ -192,7 +218,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
+  isAuthenticated: state.authentication.isAuthenticated,
+  checkError : state.authentication.checkError
 });
 
 export default connect(

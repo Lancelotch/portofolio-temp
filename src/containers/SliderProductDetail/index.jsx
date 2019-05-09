@@ -2,114 +2,143 @@ import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
 import { Row, Col } from "antd";
 import PropTypes from "prop-types";
-import ReactImageMagnify from "react-image-magnify";
-import Viewer from "react-viewer";
-import "react-viewer/dist/index.css";
+// import ReactImageMagnify from "react-image-magnify";
+import Magnifier from "react-magnifier";
+// import Viewer from "react-viewer";
+// import "react-viewer/dist/index.css";
+
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
+    // const slides = this.props.images.map((productImage, index) => {
+    //   return (
+    //     <img
+    //       key={index}
+    //       alt="example"
+    //       src={productImage.large}
+    //     />
+    //   )
+    // });
     this.state = {
-      visible: false,
-      original: "",
-      large: "",
-      index:0,
-      isShowNav : false
+      images: [],
+      isImageVariantExist: false,
+      isShowNav: false,
+      startIndex: 0,
     };
   }
-  componentDidMount(){
-    this.setState({index:this.props.index})
+
+
+  componentWillReceiveProps(props) {
+    this.slider.slideToIndex(0)
+    this.setData(props.images, props.imageVariant);
   }
-  componentWillReceiveProps(props){
-    if(this.props.images.length > 6){
-      this.setState({
-        isShowNav : true
-      })
-     }  
-    this.setState({index:props.index})
-  } 
+
+  setData(imagesProps, imageVariantProps) {
+    const images = [...imagesProps];
+    // const imageVariant = props.imageVariant;
+    let isImageVariantExist = false;
+    const imageVariant = { ...imageVariantProps };
+
+    if (imageVariant.large !== undefined) {
+      images.unshift(imageVariant);
+      isImageVariantExist = true;
+    }
+    let isShowNav = images.length > 7 ? true : false;
+    this.setState({
+      images: images,
+      isShowNav: isShowNav,
+      isImageVariantExist: isImageVariantExist,
+      startIndex: 0
+    });
+    console.log(images);
+  }
+
   imageHover(item) {
+    console.log('iniiiiiii item');
     return (
-      <ReactImageMagnify
-        {...{
-          smallImage: {
-            isFluidWidth: true,
-            src: item.thumbnail
-          },
-          largeImage: {
-            src: item.original
-          },
-          lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
-        }}
-        {...{
-          shouldHideHintAfterFirstActivation: false,
-          enlargedImagePosition: "over",
-          enlargedImageContainerStyle: { Index: 1000 }
-        }}
-      />
+      <Magnifier
+        zoomImgSrc={item.original}
+        src={item.thumbnail}
+        zoomFactor={2.0}
+      />      
+      // <ReactImageMagnify
+      //   {...{
+      //     smallImage: {
+      //       isFluidWidth: true,
+      //       src: item.thumbnail
+      //     },
+      //     largeImage: {
+      //       width: 450,
+      //       height: 450,
+      //       src: item.original
+      //     },
+      //     lensStyle: { backgroundColor: "rgba(0,0,0,.6)" }
+      //   }}
+      //   {...{
+      //     isHintEnabled: false,
+      //     enlargedImageContainerDimensions: { width: '100%', height: '100%' },
+      //     // shouldHideHintAfterFirstActivation: true,
+      //     enlargedImagePosition: "over",
+      //     enlargedImageContainerStyle: { Index: 1000 }
+      //   }}
+      // />
     );
   }
 
-  imageViewer() {
-    const images = [{src: this.state.original}];
-    this.props.images.map(productImage => {
-      return images.push({
-        src: productImage.large
-      });
-    });
-    return (
-      <Viewer
-        onMaskClick={e => void { clicked: true }}
-        visible={this.state.visible}
-        zIndex={2000}
-        drag={false}
-        zoomable={true}
-        attribute={true}
-        title={true}
-        rotatable={true}
-        scalable={false}
-        onClose={() => this.setState({ visible: false })}
-        images={images}
-      />
-    );
+  removeThumbnailImageVariant = () => {
+    const images = this.state.images;
+    const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
+    const lenImagesWihoutVariant = images.length - 1;
+    if (thumbnailDom.length > lenImagesWihoutVariant) {
+      thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
+    }
+  }
+
+  changeSlide = (i) => {
+    this.setState({
+      startIndex: i
+    })
   }
 
   render() {
+
+    this.state.isImageVariantExist &&
+      this.removeThumbnailImageVariant();
+
     const images = [];
-    this.props.images.map(productImage => {
-      return images.push({
-        original: productImage.large,
-        thumbnail: productImage.small
+    this.state.images.forEach(image => {
+      images.push({
+        original: image.large,
+        thumbnail: image.medium
       });
     });
 
     return (
-        <Row>
-          <Col md={24} sm={12}>
-            <ImageGallery
-              key={this.state.index}
-              showFullscreenButton={false}
-              showPlayButton={false}
-              showNav={this.state.isShowNav}
-              startIndex={this.state.index}
-              onClick={e =>
-                this.setState({
-                  visible: true,
-                  original: e.target.firstChild.currentSrc
-                })
-              }
-              renderItem={this.imageHover}
-              items={images}
-            />
-            {this.imageViewer()}
-          </Col>
-        </Row>
+      <Row>
+        <Col md={24} sm={12}>
+          <ImageGallery
+            ref={slider => (this.slider = slider)}
+            startIndex={this.state.startIndex}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showNav={this.state.isShowNav}
+            // onSlide={this.changeSlide}
+            lazyLoad={true}
+            renderItem={this.imageHover}
+            items={images}
+            disableArrowKeys={true}
+          />
+        </Col>
+      </Row>
     );
   }
 }
 
 SliderProductDetailContainer.propTypes = {
-  productImages: PropTypes.arrayOf(Object)
+  images: PropTypes.arrayOf(Object),
+  imageVariant: PropTypes.object
 };
 
 export default SliderProductDetailContainer;
+

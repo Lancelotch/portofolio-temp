@@ -8,7 +8,9 @@ import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
 import strings from "../../localization/localization";
 import {
   registerWithGoogle,
-  registerForm
+  registerForm,
+  loading,
+  loginWithGoogle
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -18,6 +20,8 @@ import {
   RegistrationaAlert,
   RegistrationSubmitButton
 } from "./registerContainer";
+import ModalSuccess from "../../modal/ModalRegisterSuccess"
+import history from "../../routers/history"
 
 const FormItem = Form.Item;
 
@@ -28,12 +32,24 @@ class RegisterPage extends Component {
       isAuthenticated: this.props.isAuthenticated,
       nextPage: "",
       status: null,
-      message: ""
+      message: "",
+      modalStatus: false
     };
   }
 
+  openModal = () => {
+    this.setState({
+      modalStatus : true
+    })
+    setTimeout(() => {
+      this.setState({
+        modalStatus : false
+      })
+      history.push("/")
+    }, 3000)
+  }
+
   componentDidMount() {
-    console.log("ini location", this.props.location);
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -41,26 +57,36 @@ class RegisterPage extends Component {
     }
   }
 
+  validation(form,values){
+    if(this.props.isAuthenticated){
+      this.openModal()
+    }else{
+      form.setFields({
+        email: {
+          value: values.email,
+          errors: [new Error(this.props.message)]
+        }
+      })
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({
-      status: null
-    });
     this.props.form.validateFields(async (err, values) => {
       const history = this.props.history;
       if (!err) {
         const linkCheckout = "/checkout";
         if (this.state.nextPage === "checkout") {
           await this.props.registerForm(history, values, linkCheckout);
+          this.validation(this.props.form,values) 
         } else {
-          await this.props.registerForm(history, values);
+          await this.props.registerForm(history, values);  
+            this.validation(this.props.form,values)          
         }
-        console.log("message", this.props.message);
-        const { message, status } = this.props.message.data;
+      }else{
         this.setState({
-          message,
-          status
-        });
+          modalStatus: false
+        })
       }
     });
   };
@@ -73,7 +99,7 @@ class RegisterPage extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        <Row>
+        <Row className="heads">
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
@@ -118,7 +144,7 @@ class RegisterPage extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password", rulesPassword())(
+                  {getFieldDecorator("password",rulesPassword())(
                     <Input.Password
                       className="register__input"
                       min={6}
@@ -147,13 +173,8 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  <div className="register__form__confirm">
-                    <RegistrationaAlert
-                      message={this.state.message}
-                      success={Number(this.state.status) < 400}
-                    />
-                  </div>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
+                  {/* <button onClick={this.props.loading}>gonee</button> */}
                 </FormItem>
                 <Row
                   type="flex"
@@ -198,6 +219,7 @@ class RegisterPage extends Component {
             </div>
           </Col>
         </Row>
+        <ModalSuccess modalStatus={this.state.modalStatus} email={this.props.message.email}/>
       </React.Fragment>
     );
   }
@@ -216,5 +238,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle }
 )(RegisterForm);

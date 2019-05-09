@@ -1,64 +1,82 @@
-import React from "react";
+import React, { Component } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import ic_bni from "../../assets/img/ic_bni.png";
-import { Divider, Button, Row, Col } from "antd";
+import { Divider, Button, Modal } from "antd";
+import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
+import PaymentInvoice from "../../components/PaymentInvoice/index";
+import dummyInvoiceInstructions from "../../dummy/dummyInvoiceInstructions";
+import dummyInvoice from "../../dummy/dummyInvoice";
 
-const PaymentInfo = props => {
-  const { instruction } = props;
-  return (
-    <div className="info__style">
-      <div className="info__title">
-        <p>{strings.payment_info}</p>
-        <Divider />
-      </div>
-      <div className="info__content">
-        <Row className="info__payment">
-          <Col md={24}>
-            <p style={{ color: "#9B9B9B", fontSize: "18px" }}>
-              {strings.payment_total_amount}
-            </p>
-            <p style={{ color: "#004853", fontSize: "36px" }}>Rp. 1.500.000</p>
-            <br />
-          </Col>
-          <Col md={24}>
-            <p style={{ color: "#9B9B9B", fontSize: "18px" }}>
-              {strings.payment_pay_before}
-            </p>
-            <p style={{ color: "#4A4A4A", fontSize: "24px" }}>
-              February 29 - 13.20 WIB
-            </p>
-          </Col>
-        </Row>
-        <Row type="flex" align="middle" className="info__bank">
-          <Col md={4}>
-            <img src={ic_bni} alt="" className="info__bni" />
-            <br />
-            <text style={{ color: "#9B9B9B", fontSize: "18px" }}>
-              {strings.virtual_account}
-            </text>
-          </Col>
-          <Col md={16} style={{ textAlign: "center" }}>
-            <text className="virtualNumber">ABCD123454321</text>
-          </Col>
-          <Col md={4} style={{ textAlign: "end" }}>
-            <Button className="info__bankButton">
-              <p>Salin</p>
-            </Button>
-          </Col>
-        </Row>
-        <div className="info__dropdownMethod">
-          <PaymentInstructions instruction={instruction} />
-        </div>
-        <div>
-          <Button className="info__button">
-            <p>Cek Status Pembayaran</p>
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
+class PaymentInfoPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      instructions: dummyInvoiceInstructions.instructions,
+      grossAmount: dummyInvoice.data[0].payment.grossAmount,
+      endDatePay: dummyInvoice.data[0].endDatePay,
+      virtualAccount: dummyInvoice.data[0].payment.virtualAccount,
+      imageBank: dummyInvoice.data[0].bank.imageUrl,
+      copied: false
+    };
+  }
+  onCopy = () => {
+    this.setState({ copied: true });
+  };
 
-export default PaymentInfo;
+  render() {
+    const { grossAmount, endDatePay, virtualAccount, imageBank } = this.state;
+    const instruction = this.state.instructions.map(instruct => {
+      return <li>{instruct}</li>;
+    });
+    const warning = () => {
+      Modal.warning({
+        title: "Sudah selesai bayar?",
+        content:
+          "Pembayaran akan terverifikasi secara otomatis dalam 10 menit setelah anda berhasil transfer",
+        okText: <a href="/customer-navigation">OK</a>
+      });
+    };
+    return (
+      <div className="container">
+        <div className="top-header">
+          <span>
+            Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000
+          </span>
+        </div>
+        <div className="content">
+          <div className="logo">
+            <a href="/#">
+              <img src={monggopesen_logo} alt="" />
+            </a>
+          </div>
+          <div className="info__style">
+            <div className="info__title">
+              <p>{strings.payment_info}</p>
+              <Divider />
+            </div>
+            <div className="info__content">
+              <PaymentInvoice
+                grossAmount={grossAmount}
+                endDatePay={endDatePay}
+                virtualAccount={virtualAccount}
+                imageBank={imageBank}
+                onCopy={this.onCopy}
+              />
+              <div className="info__dropdownMethod">
+                <PaymentInstructions instruction={instruction} />
+              </div>
+              <div>
+                <Button className="info__button" onClick={warning}>
+                  <p>Cek Status Pembayaran</p>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default PaymentInfoPage;

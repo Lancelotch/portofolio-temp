@@ -8,11 +8,11 @@ import Product from "../pages/Product";
 import Example from "../pages/Example";
 import CategoryContainer from "../pages/Category/CategoryContainer";
 import SearchContainer from "../pages/Search/SearchContainer";
-import CheckOut from "../pages/Checkout/CheckoutContainer";
-import Address from "../pages/Address/";
-import CustomerNavigation from "../components/CustomerNavigation";
-import PaymentInfoPage from "../pages/PaymentInfo/PaymentInfoContainer";
-
+import Checkout from "../pages/Checkout";
+import CustomerNavigation from "../containers/CustomerNavigation";
+import requiredAuth from "../hoc/requiredAuth";
+import notRequiredAuth from "../hoc/notRequiredAuth";
+import PaymentInfoPage from "../pages/PaymentInfo";
 const routes = [
   {
     path: PATH_URL.HOME,
@@ -21,18 +21,18 @@ const routes = [
   },
   {
     path: PATH_URL.LOGIN,
-    component: Login,
+    component: notRequiredAuth(Login),
     layoutName: "fullLayout"
   },
   {
     path: PATH_URL.CHECKOUT,
-    component: CheckOut,
+    component: requiredAuth(Checkout),
     layoutName: "fullLayout"
   },
   {
     path: PATH_URL.REGISTER,
     breadcrumb: "register",
-    component: Register,
+    component: notRequiredAuth(Register),
     layoutName: "fullLayout"
   },
   {
@@ -41,7 +41,11 @@ const routes = [
   },
   {
     path: PATH_URL.PRODUCT_DETAIL,
-    component: ProductDetail,
+    component: ProductDetail
+  },
+  {
+    path: PATH_URL.PAYMENT_INFO,
+    component: PaymentInfoPage,
     layoutName: "fullLayout"
   },
   {
@@ -69,16 +73,9 @@ const routes = [
     component: Example
   },
   {
-    path: PATH_URL.PAYMENT_INFO,
-    component: PaymentInfoPage
-  },
-  {
-    path: "/address",
-    component: Address
-  },
-  {
     path: "/customer-navigation",
-    component: CustomerNavigation
+    component: CustomerNavigation,
+    layoutName: "customerLayout"
   }
 ];
 

@@ -14,7 +14,12 @@ class NotedLimit extends Component {
     return (
       <div style={{ padding: 10 }}>
         <TextArea
-          onChange={e => this.setState({ length: e.target.value.length })}
+          onChange={e =>
+            this.setState(
+              { length: e.target.value.length },
+              this.props.onChange(e.target.value)
+            )
+          }
           maxLength={255}
           rows={4}
         />

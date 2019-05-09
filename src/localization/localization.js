@@ -17,10 +17,14 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    stock_empty: 'Stock Kosong',
+    before_pay: 'Bayar Sebelum',
+    total_payment: 'Total Pembayaran',
     log_in: 'Log In',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",
+    pay_now : "Pesan Sekarang",
     action_delete: "Hapus",
     checkout: "Checkout",
     total_price_product: "Total Harga Barang",
@@ -47,6 +51,7 @@ const strings = new LocalizedStrings({
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     order_summary: 'Ringkasan Pesenan',
+    order_details: 'Detail Pesanan',
     international_shipping: 'Pengiriman International',
     checkout_total: 'Total',
     choose_payment_methods: 'Pilih Metode Pembayaran',

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import currencyRupiah from "../../library/currency";
-import { Row, Col, Card, Icon, Carousel } from "antd";
-import Slider from "react-slick";
+import { Card, Icon, Carousel } from "antd";
+// import Slider from "react-slick";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 
 const SampleNextArrow = props => {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
     <div
       className={className}
@@ -15,27 +15,26 @@ const SampleNextArrow = props => {
         zIndex: "1",
         height: "60px",
         width: "60px",
-        opacity: "0.5",
-        backgroundColor: "#AAAAAA",
+        // opacity: "0.5",
+        backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         top: "145px",
-        right:"0px"
+        right: "0px"
       }}
+      onClick={onClick}
     >
-      >
       <Icon
         type="right"
         style={{ color: "white", fontSize: "30px" }}
-        onClick={onClick}
       />
     </div>
   );
 };
 
 const SamplePrevArrow = props => {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
     <div
       className={className}
@@ -44,20 +43,19 @@ const SamplePrevArrow = props => {
         zIndex: "1",
         height: "60px",
         width: "60px",
-        opacity: "0.5",
-        backgroundColor: "#AAAAAA",
+        // opacity: "0.5",
+        backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         marginLeft: "25px",
         top: "145px"
       }}
+      onClick={onClick}
     >
-      >
       <Icon
         type="left"
         style={{ color: "white", fontSize: "30px" }}
-        onClick={onClick}
       />
     </div>
   );
@@ -70,8 +68,8 @@ class ClickProducts extends Component {
   }
 
   render() {
-    const { products } = this.props;
-
+    const { data } = this.props;
+    const products = data.slice(0, 10);
     const settings = {
       dots: true,
       autoplay: 5000,
@@ -84,7 +82,8 @@ class ClickProducts extends Component {
       appendDots: dots => (
         <div
           style={{
-            borderRadius: "10px"
+            borderRadius: 10,
+            marginLeft: 10
           }}
         >
           <ul className="dots"> {dots} </ul>
@@ -92,9 +91,9 @@ class ClickProducts extends Component {
       )
     };
 
-    const slides = products.map(product => {
+    const slides = products.map((product, i) => {
       return (
-        <Link to={pageUrlProductDetail + product.id || "#"}>
+        <Link to={pageUrlProductDetail + product.id || "#"} key={i}>
           <Card
             className="card__style"
             cover={
@@ -112,7 +111,7 @@ class ClickProducts extends Component {
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>
-          </Link>
+        </Link>
       );
     });
 

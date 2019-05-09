@@ -17,6 +17,17 @@ export const getAddressDefault = () => {
     });
 };
 
+export const addressService = (request) => {
+  return service
+  .request(request)
+  .then(response => {
+    return response.data
+  })
+  .catch(error => {
+    return error.response;
+  });
+}
+
 export const patchDefaultAddress = request => {
   return service
     .request({

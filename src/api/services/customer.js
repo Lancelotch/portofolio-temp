@@ -1,5 +1,7 @@
 import {
-    mainService, dummyService, dummyServiceWithToken
+    // mainService
+    // , dummyService,
+     dummyServiceWithToken
 } from './httpClient';
 import {
     PATH_CUSTOMER

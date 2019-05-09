@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Row, Col, Slider, Button } from "antd";
 import { connect } from "react-redux";
 import SliderHome from "../../components/SliderHome";
-import category from "../../api/services/category";
+// import category from "../../api/services/category";
 import Benefit from "../../components/Benefit";
-import product from "../../api/services/product";
-import BestSeller from "../../components/BestSellers";
+// import product from "../../api/services/product";
+import BestSellers from "../../components/BestSellers/index";
+import Check from "../../components/BestSellers/check"
 import PopularProducts from "../../components/PopularProducts";
 import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
 import ClickProducts from "../../components/ClickProducts";
@@ -17,11 +18,11 @@ import { PATH_PRODUCT } from "../../api/path";
 
 class HomePageContainer extends Component {
   render() {
+    console.log("ini container", this.props)
     const {
       bestSellerProduct,
       mostClickProduct
     } = this.props;
-    console.log(mostClickProduct);
 
     return (
       <React.Fragment>
@@ -56,10 +57,9 @@ class HomePageContainer extends Component {
                     </Col>
                     <Col md={20}>
                       <div style={{ paddingLeft: "120px" }}>
-                        <BestSeller
-                          products={bestSellerProduct}
-                          maxNumber={4}
-                        />
+                        <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
+                          <BestSellers {...this.props} maxNumber={4}></BestSellers>
+                        </Fetcher>
                       </div>
                     </Col>
                   </Row>

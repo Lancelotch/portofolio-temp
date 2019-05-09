@@ -1,26 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
 import { Col } from "antd";
 
-class ProductAttibutes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      description: this.props.description,
-      label: this.props.label
-    };
-  }
-  render() {
-    return (
-      <div style={{paddingLeft:20}} >
-        <Col md={3}>
-          <p>{this.state.label}</p>
-        </Col>
-        <Col md={21}>
-          <p>:&nbsp;{this.state.description}</p>
-        </Col>
-      </div>
-    );
-  }
+const ProductAttibutes = props => {
+  const { product } = props
+  return (
+    <div style={{ paddingLeft: 20 }} >
+      <Col md={3}>
+        <p>Kategori</p>
+        <p>Berat</p>
+        <p>Dimension</p>
+        <p>Description</p>
+      </Col>
+      <Col md={21}>
+        <p>{product.category}</p>
+        <p>{product.weight}</p>
+        <p>{product.dimension}}</p>
+        <p>{product.description}</p>
+      </Col>
+    </div>
+  );
 }
+
 
 export default ProductAttibutes;

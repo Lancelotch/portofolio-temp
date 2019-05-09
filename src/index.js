@@ -9,6 +9,7 @@ import "./index.css";
 import "antd/dist/antd.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 
+
 const app = (
   <Provider store={store}>
   <PersistGate loading={null} persistor={persistor}>
