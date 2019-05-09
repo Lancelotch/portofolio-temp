@@ -20,10 +20,6 @@ import "./style.sass";
 class Checkout extends Component {
   constructor() {
     super();
-    localStorage.setItem(
-      "payloadProductDetail",
-      JSON.stringify(payloadProductDetail)
-    );
     this.state = {
       visibleAddAddress: false,
       visibleEditAddress: false,
@@ -74,7 +70,7 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(
-      localStorage.getItem("payloadProductDetail")
+      localStorage.getItem("product")
     );
     this.setState({
       isProductDetailAvailable: true,
