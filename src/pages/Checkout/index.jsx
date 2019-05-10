@@ -317,3 +317,4 @@ export default connect(
   mapStatetoProps,
   { addressDefault, openModal }
 )(Checkout);
+
