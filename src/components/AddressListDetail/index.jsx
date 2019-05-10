@@ -27,7 +27,7 @@ const AddressListDetail = props => {
   return (
     <Fragment>
       <Row>
-        <Col>
+        <Col md={12}>
           <b
             style={{
               color: "#4D4D4D",
@@ -36,11 +36,7 @@ const AddressListDetail = props => {
           >
             {labelName}
           </b>
-          <StatusAddress isDefault={isDefault} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+
           <b
             style={{
               color: "#4D4D4D",
@@ -49,9 +45,12 @@ const AddressListDetail = props => {
           >{`${receiverName} - ${phoneNumber}`}
           </b>
         </Col>
+        <Col md={12}>
+        <StatusAddress isDefault={isDefault} />
+        </Col>
       </Row>
       <Row>
-        <Col span={18}>
+        <Col md={24}>
           <p
             style={{
               color: "#888888",

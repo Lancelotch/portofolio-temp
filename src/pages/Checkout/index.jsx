@@ -45,6 +45,12 @@ class Checkout extends Component {
     // this.getDefaultAddress()
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      customerAddress: props.dataAddressDefault
+    })
+  }
+
   getDefaultAddress =() =>{
     console.log("-===",this.state.addresses)
     const addresses = this.state.addresses
@@ -121,6 +127,7 @@ class Checkout extends Component {
         this.setState({
           customerAddress: request
         })
+        this.props.addressDefault();
         this.getListAddress();
         this.actionShowAddFormAddress();
       }
@@ -244,6 +251,7 @@ class Checkout extends Component {
                 visible={this.state.visibleAddAddress}
                 onSubmit={this.actionSubmitAddFormAddress}
                 onCancle={this.actionShowAddFormAddress}
+                isAddressAvailable={this.props.isAddressAvailable}
               />
               {isAddressAvailable && (
                 <FormEditAddress

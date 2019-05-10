@@ -24,7 +24,7 @@ class HomePage extends Component {
                 <HomePageContainer
                     match={match}
                 />
-                <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
+                {/* <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/> */}
             </React.Fragment>
          );
     }
