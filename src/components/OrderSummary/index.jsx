@@ -7,8 +7,7 @@ import currencyRupiah from "../../library/currency";
 const OrderSummary = props => {
   const { quantity, viaRoute, priceProduct } = props;
   const subTotal = priceProduct * quantity;
-  const totalViaRoutePrice = viaRoute.price * quantity
-  const total = subTotal + totalViaRoutePrice;
+  const total = subTotal + viaRoute.price;
 
   return (
     <Card title={strings.order_summary} className="card__Style">

@@ -16,7 +16,6 @@ import ModalSuccess from '../../modal/ModalRegisterSuccess'
 import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
-import history from "../../routers/history";
 
 class Checkout extends Component {
   constructor() {
@@ -38,8 +37,6 @@ class Checkout extends Component {
       textButton: "Lanjut Belanja"
     };
   }
-
-  snap = window.snap;
 
   componentDidMount() {
     this.props.addressDefault();
@@ -205,18 +202,8 @@ class Checkout extends Component {
     };
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
-      if (response.data.data) {        
-        const token = response.data.data.token;
-        this.snap.pay(token, {
-          onSuccess: function(result){
-            history.push("/");
-          },
-          onPending: function(result){
-            history.push("/");
-          },
-          onError: function(result){console.log('error');console.log(result);},
-          onClose: function(){console.log('customer closed the popup without finishing the payment');}
-        })
+      if (response.data.data) {
+        return null
       }
     } catch (error) {
       console.log(error);

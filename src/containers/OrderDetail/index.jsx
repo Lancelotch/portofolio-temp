@@ -53,7 +53,7 @@ class OrderDetailContainer extends Component {
                     <img
                       src={image}
                       alt=""
-                      style={{ maxWidth: 70, maxHeight: 36 }}
+                      style={{ width: 70, height: 36 }}
                     />
                   </Col>
                   <Col md={14} style={{ marginTop: 20 }}>
