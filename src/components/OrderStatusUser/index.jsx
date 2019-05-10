@@ -6,10 +6,9 @@ import strings from '../../localization/localization';
 
 const OrderStatusUser = props => {
     const { label, customer, estimateShippingDate, index } = props;
-    console.log('paymentinffffooorderstatususer', props);
     return (
         <React.Fragment>
-           {customer !== undefined | customer &&
+            {customer !== undefined | customer &&
                 <div className="orderStatusUser"
                     style={{
                         marginTop: 10,
@@ -20,9 +19,9 @@ const OrderStatusUser = props => {
                             <h2>{label}</h2>
                         </Col>
                         <Col md={12}>
-                            {index === 3 | index === 4 &&
+                            {index === 3 && index === 4 &&
                                 <p className="perkiraanDiterima">
-                                   {strings.estimate_accepted} : &nbsp;
+                                    {strings.estimate_accepted} : &nbsp;
                         {estimateShippingDate}
                                 </p>
                             }

@@ -57,7 +57,6 @@ const ProductOrderDetails = props => {
           <p className="productOrder__quantity">{strings.total} : {productQuantity}</p>
         </Col>
         <Col md={5} style={{ marginTop: 60 }}>
-        <p className="productOrder__totalPrice">
         <div style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -69,7 +68,6 @@ const ProductOrderDetails = props => {
             <Link to={pageUrlProductDetail + productId}>{strings.buy_again}</Link>
           </Button>
         </div>
-      </p>
         </Col>
       </Row>
     </div>

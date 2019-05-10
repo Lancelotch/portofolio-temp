@@ -23,8 +23,8 @@ class CustomerOderNavigation extends Component {
       productOrderNotYetPay: [],
       productOrderNotYetSent: [],
       productOrderTabsInDelivery: [],
-      productOrderTabsFinish:[],
-      productOrderTabsCancel:[],
+      productOrderTabsFinish: [],
+      productOrderTabsCancel: [],
       stateCancelOrder: [],
       message: "",
       orderId: null
@@ -42,11 +42,9 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
       //const response = await dummyProductOrder;
-      console.log('ini message222', response);
       const productOrderTabsNotYetPay = {
         productOrderNotYetPay: response.data.data
       };
-      console.log('iiiiiiiiiiiiiiiidcustomerordernavigation', productOrderTabsNotYetPay);
       this.setState({
         ...productOrderTabsNotYetPay,
         isProductAvailable: true
@@ -59,7 +57,6 @@ class CustomerOderNavigation extends Component {
   productOrderTabsNotYetSent = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
-      console.log('ini message111', response);
       const productOrderTabsNotYetSent = {
         productOrderNotYetSent: response.data.data
       };
@@ -75,7 +72,6 @@ class CustomerOderNavigation extends Component {
   productOrderTabsInDelivery = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_IN_DELIVERY);
-      console.log('ini message333', response);
       const productOrderTabsInDelivery = {
         productOrderTabsInDelivery: response.data.data
       };
@@ -91,7 +87,6 @@ class CustomerOderNavigation extends Component {
   productOrderTabsFinish = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_FINISH);
-      console.log('ini message444', response);
       const productOrderTabsFinish = {
         productOrderTabsFinish: response.data.data
       };
@@ -121,7 +116,6 @@ class CustomerOderNavigation extends Component {
   // }
 
   actionCancelConfirm = async (orderId, index) => {
-    console.log('ini ooooooooooorder',orderId);
     try {
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
       console.log('tessss', response);
@@ -147,7 +141,7 @@ class CustomerOderNavigation extends Component {
       okType: "danger",
       cancelText: "Kembali",
       onOk: () => {
-       this.actionCancelConfirm(order.orderId,index);
+        this.actionCancelConfirm(order.orderId, index);
       },
     });
   }
@@ -159,8 +153,6 @@ class CustomerOderNavigation extends Component {
   };
 
   actionShowOrderDetailsDashboard = (order) => {
-    console.log('actionshoworderdetailsdashboard',order);
-    
     this.actionShowOrderListWaitingPayment();
     this.setState({
       orderDetailsId: order
@@ -183,21 +175,16 @@ class CustomerOderNavigation extends Component {
               }
             >{"Belum Bayar"}</span>}
           my_prop={
-            this.state.isShowOrderDetailsDashboard === false ? (
-              <OrderListWaitingPayment
-                isProductAvailable={this.state.isProductAvailable}
-                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
-                orderProduct={this.state.productOrderNotYetPay}
-                showDeleteConfirm={this.showDeleteConfirm}
-                index={1}
-              />
-            ) : (
-                <OrderDetailsDashboard
-                  showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                  orderDetailsId={this.state.productOrderNotYetPay}
-                  index={1}
-                />
-              )
+
+            <OrderListWaitingPayment
+              isProductAvailable={this.state.isProductAvailable}
+              // showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+              orderProduct={this.state.productOrderNotYetPay}
+              showDeleteConfirm={this.showDeleteConfirm}
+              tabsNotPay={1}
+              labelTabDetails={"Belum Bayar"}
+            />
+
           }
         />
         <CustomTabPane
@@ -209,19 +196,13 @@ class CustomerOderNavigation extends Component {
               })
             }>{"Belum Dikirim"}</span>}
           my_prop={
-            this.state.isShowOrderDetailsDashboard === false ? (
-              <OrderListWaitingPayment
-                isProductAvailable={this.state.isProductAvailable}
-                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
-                orderProduct={this.state.productOrderNotYetSent}
-                showDeleteConfirm={this.showDeleteConfirm}
-                index={2} />
-            ) : (
-                <OrderDetailsDashboard
-                  showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                  orderDetailsId={this.state.productOrderTabsNotYetSent}
-                  index={2} />
-              )} />
+            <OrderListWaitingPayment
+              isProductAvailable={this.state.isProductAvailable}
+              orderProduct={this.state.productOrderNotYetSent}
+              showDeleteConfirm={this.showDeleteConfirm}
+              labelTabDetails={"Belum Dikirim"}
+              tabsNotSent={2} 
+              />} />
         <CustomTabPane
           key={"3"}
           tab={<span
@@ -233,18 +214,13 @@ class CustomerOderNavigation extends Component {
             {"Dalam Pengiriman"}
           </span>}
           my_prop={
-            this.state.isShowOrderDetailsDashboard === false ? (
-              <OrderListWaitingPayment
-                showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                orderProduct={this.state.productOrderTabsInDelivery}
-                showDeleteConfirm={this.showDeleteConfirm}
-                index={3} />
-            ) : (
-                <OrderDetailsDashboard
-                  showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                  orderDetailsId={this.state.productOrderTabsInDelivery} index={3} />
-
-              )} />
+            <OrderListWaitingPayment
+              orderProduct={this.state.productOrderTabsInDelivery}
+              showDeleteConfirm={this.showDeleteConfirm}
+              labelTabDetails={"Dalam Pengiriman"}
+              tabsInDelivery={3}
+            />
+          } />
         <CustomTabPane
           key={"4"}
           tab={<span
@@ -253,18 +229,13 @@ class CustomerOderNavigation extends Component {
                 isShowOrderDetailsDashboard: false
               })}>{"Selesai"}</span>}
           my_prop={
-            this.state.isShowOrderDetailsDashboard === false ? (
-              <OrderListWaitingPayment
-                showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                orderProduct={this.state.productOrderTabsFinish}
-                showDeleteConfirm={this.showDeleteConfirm}
-                index={4} />
-            ) : (
-                <OrderDetailsDashboard
-                  showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                  orderDetailsId={this.state.productOrderTabsFinish} index={4} />
-
-              )} />
+            <OrderListWaitingPayment
+              showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+              orderProduct={this.state.productOrderTabsFinish}
+              showDeleteConfirm={this.showDeleteConfirm}
+              tabsFinish={4}
+            />
+          } />
         <CustomTabPane
           key={"5"}
           tab={<span
@@ -278,19 +249,13 @@ class CustomerOderNavigation extends Component {
             this.state.stateCancelOrder.length < 1 ?
               (<NoOrderHistory />)
               :
-              (this.state.isShowOrderDetailsDashboard === false ?
-                (<OrderListWaitingPayment
-                  showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                  orderProduct={this.state.stateCancelOrder}
-                  showDeleteConfirm={this.showDeleteConfirm}
-                  index={5}
-                />) : (
-                  <OrderDetailsDashboard
-                    showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                    orderDetailsId={this.state.orderDetailsId}
-                    index={5} />
-                )
-              )}
+              (<OrderListWaitingPayment
+                showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                orderProduct={this.state.stateCancelOrder}
+                showDeleteConfirm={this.showDeleteConfirm}
+                tabsCancel={5}
+              />)
+          }
         />
       </Tabs>
     );

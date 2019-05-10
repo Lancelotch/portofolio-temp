@@ -5,9 +5,7 @@ import { Row, Col } from 'antd';
 import strings from '../../localization/localization';
 
 const PaymentInfo = props => {
-    const { shipping, payment, totalAmount, productQuantity, price, index } = props;
-    console.log('paymentinffffoo', props);
-
+    const { shipping, payment, totalAmount, productQuantity, price } = props;
     return (
         <React.Fragment>
         {shipping !== undefined  | shipping ?

@@ -36,19 +36,12 @@ class OrderDetailsDashboard extends Component {
   }
 
   productOrderDetailDashboard = async () => {
-    // let orderDetailsId = '';
-    // this.props.orderDetailsId.map((orderId) => {
-    //   orderDetailsId = orderId.orderId
-    //   return orderDetailsId
-    // })
-    // console.log('orderDetailsId',this.props.orderDetailsId);
-
+    const orderId = this.props.orderId;
     try {
       //const response = await dummyOrderDetailsDashboard;
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + "b7865bf5-d4d6-4cbd-9e78-c924223966f8");
-      console.log('ini dashboard detaila', this.state.id);
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
       const itemProductOrder = {
-        id : response.data.data.id,
+        id: response.data.data.id,
         invoiceNumber: response.data.data.invoiceNumber,
         estimateShippingDate: response.data.data.estimateShippingDate,
         bank: response.data.data.bank,
@@ -60,7 +53,6 @@ class OrderDetailsDashboard extends Component {
         indexes: response.data.data.indexes,
         orderDate: response.data.data.orderDate
       };
-      console.log('ini iiiid form dashboard order details', itemProductOrder);
       this.setState({
         ...itemProductOrder
       });
@@ -69,43 +61,20 @@ class OrderDetailsDashboard extends Component {
     }
   };
   render() {
-    console.log('log-detail-dashboard-inedexs', this.state.indexes);
     return (
       <React.Fragment>
         {this.state.indexes.map(order => {
           return (
             <div key={order.productId}>
               <div style={{ paddingBottom: 50 }}>
-                {this.props.index === 1 &&
                   <h2
                     style={{
                       float: "left",
                       color: "#4A4A4A",
                       fontSize: 24
                     }}>
-                    Belum Bayar
+                    {this.props.labelTabDetails}
                 </h2>
-                }
-                {this.props.index === 2 &&
-                  <h2
-                    style={{
-                      float: "left",
-                      color: "#4A4A4A",
-                      fontSize: 24
-                    }}>
-                    Belum Dikirim
-                </h2>
-                }
-                {this.props.index === 3 &&
-                  <h2
-                    style={{
-                      float: "left",
-                      color: "#4A4A4A",
-                      fontSize: 24
-                    }}>
-                    Dalam Pengiriman
-                  </h2>
-                }
                 <Affix offsetTop={this.state.top}>
                   <button
                     style={{ float: "right" }}
@@ -116,9 +85,10 @@ class OrderDetailsDashboard extends Component {
                   </button>
                 </Affix>
               </div>
-              {this.props.index === 1 &&
+              {this.props.tabsNotPay === 1 &&
                 <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} />
+                  <OrderStatusStep  
+                  orderDate={this.state.orderDate} />
                   <ProductOrder
                     label="Detail Pesanan"
                     key={order.id}
@@ -150,9 +120,12 @@ class OrderDetailsDashboard extends Component {
                   />
                 </React.Fragment>
               }
-              {this.props.index === 2 &&
+              {this.props.tabsNotSent === 2 &&
                 <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} index={2} />
+                  <OrderStatusStep
+                    orderDate={this.state.orderDate}
+                    tabsNotSent={2}
+                  />
                   <ProductOrder
                     label="Detail Pesanan"
                     noInvoice={"No Invoice"}
@@ -181,12 +154,11 @@ class OrderDetailsDashboard extends Component {
                   />
                 </React.Fragment>
               }
-              {this.props.index === 3 &&
+              {this.props.tabsInDelivery === 3 &&
                 <React.Fragment>
                   <OrderStatusStep
                     orderDate={this.state.orderDate}
-                    indexPesanDikirim={3}
-                    index={2} />
+                    tabsInDelivery={this.props.tabsInDelivery}/>
                   <ProductOrder
                     label="Detail Pesanan"
                     noInvoice={"No Invoice"}
@@ -216,13 +188,11 @@ class OrderDetailsDashboard extends Component {
                   />
                 </React.Fragment>
               }
-              {this.props.index === 4 &&
+              {this.props.tabsFinish === 4 &&
                 <React.Fragment>
                   <OrderStatusStep
                     orderDate={this.state.orderDate}
-                    indexPesanDiterima={4}
-                    indexPesanDikirim={3}
-                    index={2}
+                    tabsFinish={this.props.tabsFinish}
                   />
                   <ProductOrder
                     label="Detail Pesanan"
@@ -253,7 +223,7 @@ class OrderDetailsDashboard extends Component {
                   />
                 </React.Fragment>
               }
-              {this.props.index === 5 &&
+              {this.props.tabsCancel === 5 &&
                 <React.Fragment>
                   <OrderStatusCancel orderDate={this.state.orderDate} />
                   <ProductOrder

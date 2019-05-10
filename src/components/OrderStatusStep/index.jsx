@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, Icon } from 'antd';
+import { Steps, Icon, Popover } from 'antd';
 import { receivedOrderIcon, paymentOrder, deliveryOrderIcon } from '../../library/iconTracking';
 import "./style.sass"
 import convertTimesTime from '../../library/convertTimestime';
@@ -7,9 +7,18 @@ import convertTimesTime from '../../library/convertTimestime';
 
 const Step = Steps.Step;
 
+const customDot = (dot, { status, index }) => (
+  <Popover content={<span>step {index} status: {status}</span>}>
+    {dot}
+  </Popover>
+);
 
-const OrderStatusStep = props => {
-  const { orderDate, index, indexPesanDikirim, indexPesanDiterima } = props
+
+
+const OrderStatusStep = (props) => {
+  const { orderDate, tabsNotSent, tabsInDelivery, tabsFinish } = props;
+  console.log('statuuus trakig',orderDate);
+  
   return (
     <div className="stepOrderStatus" style={{ padding: 15 }}>
       <Steps size="small" labelPlacement="vertical">
@@ -21,25 +30,25 @@ const OrderStatusStep = props => {
             component={receivedOrderIcon} />}>
         </Step>
         <Step
-          status={index === 2 ? "finish" : ""}
-          description={index === 2 ? convertTimesTime.millisecond(orderDate):""}
+          status={tabsNotSent === "2" ? "finish" : ""}
+          description={tabsNotSent === "2" ? convertTimesTime.millisecond(orderDate) : ""}
           title="Pesanan Dibayarkan"
-          icon={<Icon className={index === 2 ? "iconOrderStatusStepActive" : ""}
+          icon={<Icon className={tabsNotSent === "2" ? "iconOrderStatusStepActive" : ""}
             component={paymentOrder} />}
         />
         <Step
-          status={indexPesanDikirim === 3 && index === 2 ? "finish" : ""}
-          description={indexPesanDikirim === 3 && index === 2 ? convertTimesTime.millisecond(orderDate):""}
+          status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
+          description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
           title="Pesan Dikirim"
-          icon={<Icon className={indexPesanDikirim === 3 && index === 2 ? "iconOrderStatusStepActive" : ""}
+          icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
             component={deliveryOrderIcon} />}
         />
         <Step
-          status={indexPesanDiterima === 4 && index === 2 && indexPesanDikirim === 3 ? "finish" : ""}
-          description={indexPesanDiterima === 4 && index === 2 && indexPesanDikirim === 3 ? convertTimesTime.millisecond(orderDate):""}
+          status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
+          description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(orderDate) : ""}
           title="Pesanan Diterima"
           icon={<Icon component={receivedOrderIcon}
-            className={indexPesanDiterima === 4 && index === 2 && indexPesanDikirim === 3 ? 
+            className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?
               "iconOrderStatusStepActive" : ""} />}
         />
       </Steps>
