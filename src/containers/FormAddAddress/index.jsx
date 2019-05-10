@@ -156,7 +156,7 @@ class FormAddAddress extends Component {
             latitude: 0,
             longitude: 0
           },
-          isDefault: false
+          isDefault: !this.props.isAddressAvailable
         };
         this.props.onSubmit(payload);
         this.props.form.resetFields();

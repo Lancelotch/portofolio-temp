@@ -9,6 +9,12 @@ export const registerWithGoogle = (history, request) => async dispatch => {
   try {
     const responseLoginGoogle = await authentication.loginWithGoogle(request);
     dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
+    const token = responseLoginGoogle.data.access_token;
+    const expiredToken = responseLoginGoogle.data.refresh_token
+    localStorage.setItem('accessToken', token)
+    localStorage.setItem('refreshToken', expiredToken)
+    const dataCustomer = await customer.customerDetail()
+    dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push('/');
   } catch (error) {
     console.log("ini error di registerWithGoogle actions",error);
@@ -19,7 +25,12 @@ export const loginWithGoogle = (path, response) => async dispatch => {
   try {
     const responseLoginGoogle = await authentication.loginWithGoogle(response);
     dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
-    console.log("ini history di login action google",responseLoginGoogle)
+    const token = responseLoginGoogle.data.access_token;
+    const expiredToken = responseLoginGoogle.data.refresh_token
+    localStorage.setItem('accessToken', token)
+    localStorage.setItem('refreshToken', expiredToken)
+    const dataCustomer = await customer.customerDetail()
+    dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push(path)
   } catch (error) {
     console.log("ini error di login with google",error);
@@ -41,8 +52,8 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     await dispatch(dispatchType.loginWithForm(responseLoginForm))
     const token = responseLoginForm.data.access_token;
     const expiredToken = responseLoginForm.data.refresh_token
-    await localStorage.setItem('accessToken', token)
-    await localStorage.setItem('refreshToken', expiredToken)
+    localStorage.setItem('accessToken', token)
+    localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
     console.log("ini response login", responseLoginForm)
     // console.log("ini customer",dataCustomer.data.name)
@@ -50,19 +61,19 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     
     history.push(path)
   } catch (error) {
-    // if(error.data.errors){
-    //   const msg = error.data.errors[0].defaultMessage
-    //   dispatch(dispatchType.loginFailed(msg))
-    //   setTimeout(() => {
-    //     dispatch(dispatchType.logout());
-    //   }, 4000)
-    // }else{
-    //   const msg = error.data.message
-    //   dispatch(dispatchType.loginFailed(msg))
-    //   setTimeout(() => {
-    //     dispatch(dispatchType.logout());
-    //   }, 4000)
-    // }
+    if(error.data.errors){
+      const msg = error.data.errors[0].defaultMessage
+      dispatch(dispatchType.loginFailed(msg))
+      setTimeout(() => {
+        dispatch(dispatchType.logout());
+      }, 4000)
+    }else{
+      const msg = error.data.message
+      dispatch(dispatchType.loginFailed(msg))
+      setTimeout(() => {
+        dispatch(dispatchType.logout());
+      }, 4000)
+    }
     console.log(error)
   }
 }
@@ -91,6 +102,8 @@ export const registerForm = (history, request, path) => async dispatch => {
     const expiredToken = responseRegisterForm.data.refresh_token
     localStorage.setItem('accessToken', token)
     localStorage.setItem('refreshToken', expiredToken)
+    const dataCustomer = await customer.customerDetail()
+    dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push(path);
   } catch (error) {
     console.log(error.data.message)

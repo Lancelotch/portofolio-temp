@@ -33,31 +33,21 @@ export const dummyServiceLogin = axios.create({
   // }
 });
 
-export const dummyService = axios.create({
+export const dummyService = (token = getToken()) => axios.create({
   // baseURL: "http://65795874.ngrok.io/api/v1/",
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {
-    "Content-Type": `application/json`,
-    Authorization: `Bearer ${tokenDummy}`
+    // "Content-Type": `application/json`,
+    Authorization: "Bearer " + token
   }
 });
 
-export const dummyServiceWithToken = axios.create({
+export const serviceDummyWithToken = (token = getToken()) => axios.create({
   baseURL: REACT_APP_API_DUMMY_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {
-    Authorization: "Bearer " + getToken()
-  }
-});
-
-
-export const serviceDummyWithToken = axios.create({
-  baseURL: REACT_APP_API_DUMMY_SERVICE,
-  timeout: 60 * 4 * 1000,
-  headers: {
-    "Content-Type": `application/json`,
-    Authorization: `Bearer ${tokenDummy}`
+    Authorization: "Bearer " + token
   }
 });
 
