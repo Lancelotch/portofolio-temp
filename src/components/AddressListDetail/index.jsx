@@ -25,9 +25,9 @@ const AddressListDetail = props => {
     isDefault
   } = props.address;
   return (
-    // <Fragment>
+    <Fragment>
       <Row>
-        <Col xl={14} lg={14} md={14}>
+        <Col md={12}>
           <b
             style={{
               color: "#4D4D4D",
@@ -36,7 +36,7 @@ const AddressListDetail = props => {
           >
             {labelName}
           </b>
-          <br />
+
           <b
             style={{
               color: "#4D4D4D",
@@ -44,7 +44,13 @@ const AddressListDetail = props => {
             }}
           >{`${receiverName} - ${phoneNumber}`}
           </b>
-          <br />
+        </Col>
+        <Col md={12}>
+        <StatusAddress isDefault={isDefault} />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={24}>
           <p
             style={{
               color: "#888888",
@@ -55,15 +61,13 @@ const AddressListDetail = props => {
             {fullAddress}
           </p>
         </Col>
-        <Col xl={10} lg={10} md={10}>
-          <StatusAddress isDefault={isDefault} />
-          <br/>
-          <br />
-            <Radio value={id}  style={{ float: "right" }} ></Radio>
-            {/* <Radio value={id} defaultChecked={true} style={{ float: "right" }} ></Radio> */}
+        <Col>
+          <Radio value={id}  style={{ float: "right" }} ></Radio>
+          {/* <Radio value={id} defaultChecked={true} style={{ float: "right" }} ></Radio> */}
         </Col>
       </Row>
-    // </Fragment>
+      <br />
+    </Fragment>
   );
 };
 
