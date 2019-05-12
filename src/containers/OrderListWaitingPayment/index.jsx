@@ -56,16 +56,15 @@ class OrderListWaitingPayment extends Component {
       tabsNotSent } = this.props
     const { toggleIsHowToShowModalOpen } =
       { toggleIsHowToShowModalOpen: this.toggleIsHowToShowModalOpen };
-    return (
+    return (  
       <React.Fragment>
-
         {orderProduct ?
           (<React.Fragment>
             {orderProduct.map((order, i) => {
               return (
                 <div className="waitingPayment__list" key={i}>
                   <DashboardOrder
-                    //showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                    showOrderDetailsDashboard={() => this.props.showOrderDetailsDashboard()}
                     // isShowOrderDetailsDashboard={isShowOrderDetailsDashboard}
                     labelTabDetails={labelTabDetails}
                     showDeleteConfirm={showDeleteConfirm}
@@ -82,7 +81,7 @@ class OrderListWaitingPayment extends Component {
             })}
           </React.Fragment>)
           :
-          (<NoOrderHistory />)
+          (<NoOrderHistory/>)
         }
       </React.Fragment>
     );

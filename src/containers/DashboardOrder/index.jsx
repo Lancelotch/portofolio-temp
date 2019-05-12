@@ -7,6 +7,7 @@ import Cancel from "../../components/ButtonDashboard/Cancel"
 import strings from "../../localization/localization";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import OrderDetailsDashboard from "..//OrderDetailsDashboard";
+import OrderListWaitingWrapper from '../OrderListWaitingWrapper';
 
 class DashboardOrder extends Component {
     constructor(props) {
@@ -63,112 +64,48 @@ class DashboardOrder extends Component {
                             key={order.id}
                             indexes={order.indexes} />
                         {tabsNotPay === 1 &&
-                            <React.Fragment>
-                                <WaitingPayment
-                                    label={strings.before_pay}
-                                    index={1}
-                                    key={order.id}
-                                    endDatePay={order.endDatePay}
-                                    indexes={order.indexes}
-                                    pay={order.payment}
-                                    isHowToShowModalOpen={isHowToShowModalOpen}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                />
-                                <Pay
-                                    productId={order.indexes}
-                                    index={1}
-                                    showDeleteConfirm={showDeleteConfirm}
-                                    orderProduct={orderProduct}
-                                    i={order.orderId}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                    order={order}
-                                    showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard(order)}
-                                />
-                            </React.Fragment>}
+                            <OrderListWaitingWrapper
+                                order={order}
+                                tabsNotPay={1}
+                                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                                showDeleteConfirm={showDeleteConfirm}
+                                orderProduct={orderProduct}
+                                toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                                isHowToShowModalOpen={isHowToShowModalOpen}
+                            />
+                        }
                         {tabsNotSent === 2 &&
-                            <React.Fragment>
-                                <WaitingPayment
-                                    indexDalamPengiriman={2}
-                                    index={2}
-                                    labelPengiriman="Dalam Proses Pengiriman"
-                                    key={order.id}
-                                    endDatePay={order.endDatePay}
-                                    indexes={order.indexes}
-                                    pay={order.payment}
-                                    isHowToShowModalOpen={isHowToShowModalOpen}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                />
-                                <Pay
-                                    indexes={order.indexes}
-                                    indexButton={2}
-                                    showDeleteConfirm={showDeleteConfirm}
-                                    orderProduct={orderProduct}
-                                    i={order.id}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                    order={order}
-                                    showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard(order)}
-                                />
-                            </React.Fragment>
+                            <OrderListWaitingWrapper
+                                tabsNotSent={2}
+                                order={order}
+                                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                                showDeleteConfirm={showDeleteConfirm}
+                                orderProduct={orderProduct}
+                                toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                                isHowToShowModalOpen={isHowToShowModalOpen}
+                            />
                         }
                         {tabsInDelivery === 3 &&
-                            <React.Fragment>
-                                <WaitingPayment
-                                    indexDalamPengiriman={3}
-                                    labelPengiriman="Perkiraan Barang Diterima"
-                                    index={3}
-                                    key={order.id}
-                                    estimateShippingDate={order.estimateShippingDate}
-                                    endDatePay={order.endDatePay}
-                                    indexes={order.indexes}
-                                    pay={order.payment}
-                                    isHowToShowModalOpen={isHowToShowModalOpen}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                />
-                                <Pay
-                                    indexes={order.indexes}
-                                    indexButton={3}
-                                    showDeleteConfirm={showDeleteConfirm}
-                                    orderProduct={orderProduct}
-                                    i={order.id}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                    order={order}
-                                    showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard(order)}
-                                />
-                            </React.Fragment>
+                            <OrderListWaitingWrapper
+                                tabsInDelivery={3}
+                                order={order}
+                                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                                showDeleteConfirm={showDeleteConfirm}
+                                orderProduct={orderProduct}
+                                toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                                isHowToShowModalOpen={isHowToShowModalOpen}
+                            />
                         }
                         {tabsFinish === 4 &&
-                            <React.Fragment>
-                                <WaitingPayment
-                                    indexDalamPengiriman={4}
-                                    label="Pesanan Diterima"
-                                    index={4}
-                                    key={order.id}
-                                    estimateShippingDate={order.estimateShippingDate}
-                                    endDatePay={order.receivedDate}
-                                    indexes={order.indexes}
-                                    pay={order.payment}
-                                    isHowToShowModalOpen={isHowToShowModalOpen}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                />
-                                <Pay
-                                    indexButton={4}
-                                    indexes={order.indexes}
-                                    showDeleteConfirm={showDeleteConfirm}
-                                    orderProduct={orderProduct}
-                                    i={order.id}
-                                    toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
-                                    order={order}
-                                    showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard(order)}
-                                />
-                            </React.Fragment>
-                        }
-                        {tabsCancel === 5 &&
-                            <React.Fragment>
-                                <Cancel
-                                    indexes={order.indexes}
-                                    showOrderDetailsDashboard={this.props.showOrderDetailsDashboard}
-                                />
-                            </React.Fragment>
+                            <OrderListWaitingWrapper
+                                tabsFinish={4}
+                                order={order}
+                                showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                                showDeleteConfirm={showDeleteConfirm}
+                                orderProduct={orderProduct}
+                                toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
+                                isHowToShowModalOpen={isHowToShowModalOpen}
+                            />
                         }
                         {selectedOrder && (
                             <ModalHowToPay

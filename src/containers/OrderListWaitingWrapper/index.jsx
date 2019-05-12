@@ -24,8 +24,16 @@ class OrderListWaitingWrapper extends Component {
         return (
             <div>
                 <WaitingPayment
+                    labelBelumDikirim={"Dalam Proses Pengiriman"}
+                    labelDalamPengiriman={"Perkiraan Barang Direrima"}
+                    labelSelesai={"Pesan Diterima"}
+                    indexSelesai={tabsFinish}
+                    indexBelumDikirim={tabsNotSent}
+                    estimateShippingDate={order.estimateShippingDate}
+                    receivedDate={order.receivedDate}
+                    indexDalamPengiriman={tabsInDelivery}
                     label={strings.before_pay}
-                    index={1}
+                    index={tabsNotPay}
                     key={order.id}
                     endDatePay={order.endDatePay}
                     indexes={order.indexes}
@@ -35,13 +43,16 @@ class OrderListWaitingWrapper extends Component {
                 />
                 <Pay
                     productId={order.indexes}
-                    index={1}
+                    tabsFinish={tabsFinish}
+                    index={tabsNotPay}
+                    tabsInDelivery={tabsInDelivery}
+                    indexButton={tabsNotSent}
                     showDeleteConfirm={showDeleteConfirm}
                     orderProduct={orderProduct}
                     i={order.orderId}
                     toggleIsHowToShowModalOpen={toggleIsHowToShowModalOpen}
                     order={order}
-                    showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard(order)}
+                    showOrderDetailsDashboard={() => this.props.showOrderDetailsDashboard()}
                 />
             </div>
         );

@@ -12,21 +12,26 @@ const WaitingPayment = props => {
     label,
     index,
     indexDalamPengiriman,
-    labelPengiriman,
-    estimateShippingDate
+    indexBelumDikirim,
+    indexSelesai,
+    labelBelumDikirim,
+    labelDalamPengiriman,
+    labelSelesai,
+    estimateShippingDate,
+    receivedDate
   } = props;
   return (
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
-          {indexDalamPengiriman === 2 &&
+          {indexBelumDikirim === 2 &&
             <Col md={12}>
               <p
                 className="dalamProsesPengiriman"
                 style={{
                   paddingLeft: 15
                 }}>
-                {labelPengiriman}
+                {labelBelumDikirim}
               </p>
             </Col>
           }
@@ -34,10 +39,9 @@ const WaitingPayment = props => {
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15,
-                  color: "#777777"
+                  paddingLeft: 15
                 }}>
-                {labelPengiriman}
+                {labelDalamPengiriman}
               </p>
               <p style={{
                 color: " #BBBBBB",
@@ -45,6 +49,23 @@ const WaitingPayment = props => {
                 marginLeft: 15
               }}>
                 {estimateShippingDate}
+              </p>
+            </Col>
+          }
+          {indexSelesai === 4 &&
+            <Col md={12}>
+              <p
+                style={{
+                  paddingLeft: 15
+                }}>
+                {labelSelesai}
+              </p>
+              <p style={{
+                color: " #BBBBBB",
+                fontSize: 16,
+                marginLeft: 15
+              }}>
+                {convertTimesTime.millisecond(receivedDate)}
               </p>
             </Col>
           }

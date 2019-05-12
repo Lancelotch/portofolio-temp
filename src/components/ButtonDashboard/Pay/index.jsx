@@ -14,7 +14,8 @@ const Pay = (props) => {
     showOrderDetailsDashboard,
     index,
     indexButton,
-    productId
+    tabsFinish,
+    tabsInDelivery
   } = props
  
   console.log('tombol detail pesanan by iiiid',props);
@@ -64,7 +65,7 @@ const Pay = (props) => {
           </Button>
         </div>
       )}
-      {indexButton === 4 && (
+      {tabsFinish === 4 && (
         <div
           style={{
             display: "flex",
@@ -84,7 +85,7 @@ const Pay = (props) => {
           </Button>
         </div>
       )}
-      {indexButton === 3 && (
+      {tabsInDelivery === 3 && (
         <div
           style={{
             display: "flex",

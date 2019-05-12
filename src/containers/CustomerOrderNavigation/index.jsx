@@ -8,6 +8,9 @@ import NoOrderHistory from "../../components/NoOrderHistory";
 import OrderDetailsCancel from "../OrderDetailsCancel";
 import { apiGetWithToken, patchService } from "../../api/services";
 import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
+import OrderDetails from "../OrderDetailsDashboard/OrderDetails";
+import OrderDetailsId from "../OrderDetailsDashboard/OrderDetailsId";
+import OrderDetailsIdWrapping from "../OrderDetailsDashboard/OrderDetailsIdWrapping";
 
 const confirm = Modal.confirm;
 
@@ -57,6 +60,8 @@ class CustomerOderNavigation extends Component {
   productOrderTabsNotYetSent = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
+      console.log('ini responssssssssse',response);
+      
       const productOrderTabsNotYetSent = {
         productOrderNotYetSent: response.data.data
       };
@@ -99,21 +104,21 @@ class CustomerOderNavigation extends Component {
     }
   }
 
-  // productOrderTabsCancel = async () => {
-  //   try {
-  //     const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_CANCEL);
-  //     console.log('ini message555', response);
-  //     const productOrderTabsCancel = {
-  //       productOrderTabsCancel: response.data.data
-  //     };
-  //     this.setState({
-  //       ...productOrderTabsCancel,
-  //       isProductAvailable: true
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  productOrderTabsCancel = async () => {
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_CANCEL);
+      console.log('ini message555', response);
+      const productOrderTabsCancel = {
+        productOrderTabsCancel: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsCancel,
+        isProductAvailable: true
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   actionCancelConfirm = async (orderId, index) => {
     try {
@@ -152,16 +157,19 @@ class CustomerOderNavigation extends Component {
     });
   };
 
-  actionShowOrderDetailsDashboard = (order) => {
+  actionShowOrderDetailsDashboard = (orderId) => {
     this.actionShowOrderListWaitingPayment();
     this.setState({
-      orderDetailsId: order
+      orderDetailsId: orderId
     });
-    console.log(order);
+    console.log('iniiiiiiiiiii order', orderId);
 
   };
 
   render() {
+
+
+
     return (
       <Tabs defaultActiveKey="1">
         <CustomTabPane
@@ -175,16 +183,14 @@ class CustomerOderNavigation extends Component {
               }
             >{"Belum Bayar"}</span>}
           my_prop={
-
-            <OrderListWaitingPayment
-              isProductAvailable={this.state.isProductAvailable}
-              // showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
-              orderProduct={this.state.productOrderNotYetPay}
-              showDeleteConfirm={this.showDeleteConfirm}
-              tabsNotPay={1}
-              labelTabDetails={"Belum Bayar"}
-            />
-
+              <OrderListWaitingPayment
+                isProductAvailable={this.state.isProductAvailable}
+                //showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+                orderProduct={this.state.productOrderNotYetPay}
+                showDeleteConfirm={this.showDeleteConfirm}
+                tabsNotPay={1}
+                labelTabDetails={"Belum Bayar"}
+              />     
           }
         />
         <CustomTabPane
@@ -201,8 +207,8 @@ class CustomerOderNavigation extends Component {
               orderProduct={this.state.productOrderNotYetSent}
               showDeleteConfirm={this.showDeleteConfirm}
               labelTabDetails={"Belum Dikirim"}
-              tabsNotSent={2} 
-              />} />
+              tabsNotSent={2}
+            />} />
         <CustomTabPane
           key={"3"}
           tab={<span
