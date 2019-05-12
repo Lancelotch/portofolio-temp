@@ -30,12 +30,14 @@ export const AddressCheckout = props => {
             onEdit={onEditAddress}
           />
           <div className="addressCheckout">
+          {isAddressAvailable &&
             <Button
               onClick={onSelectListAddress}
               size="large"
               className="addressCheckout__button">
               Kirim ke Alamat Lain
           </Button>
+          }
             <Button
               size="large"
               className="addressCheckout__button"

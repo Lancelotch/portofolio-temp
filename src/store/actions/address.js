@@ -3,10 +3,10 @@ import dispatchType from "./dispatchType";
 
 export const addressDefault = () => async dispatch => {
   try {
-    const response = await getAddressDefault(); 
-    const lengthObject = Object.keys(response.data).length;
+    const response = await getAddressDefault();
+    console.log(response);
     let payload=null;
-    if(lengthObject > 0){
+    if(response.code == 200){
         payload = {isAddressAvailable: true, addressDefault: response.data} 
     }else{
         payload = {isAddressAvailable: false, addressDefault: response.data} 

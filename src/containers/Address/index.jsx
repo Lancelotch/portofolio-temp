@@ -39,6 +39,7 @@ class AddressContainer extends Component {
             isAddressAvailable={isAddressAvailable}
           />
           <div style={{ float: "right", paddingBottom: 24, paddingTop: 12 }}>
+          {this.props.isAddressAvailable &&
             <Button
               type="primary"
               onClick={}
@@ -46,6 +47,7 @@ class AddressContainer extends Component {
             >
               Kirim ke Alamat Lain
             </Button>
+          }
             <Button type="primary" onClick={}>
               Tambah Alamat
             </Button>

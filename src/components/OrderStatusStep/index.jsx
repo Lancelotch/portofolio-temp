@@ -30,17 +30,17 @@ const OrderStatusStep = (props) => {
             component={receivedOrderIcon} />}>
         </Step>
         <Step
-          status={tabsNotSent === "2" ? "finish" : ""}
-          description={tabsNotSent === "2" ? convertTimesTime.millisecond(orderDate) : ""}
+          status={tabsNotSent === 2 ? "finish" : ""}
+          description={tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
           title="Pesanan Dibayarkan"
-          icon={<Icon className={tabsNotSent === "2" ? "iconOrderStatusStepActive" : ""}
+          icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
             component={paymentOrder} />}
         />
         <Step
           status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
           description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
           title="Pesan Dikirim"
-          icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
+          icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2? "iconOrderStatusStepActive" : ""}
             component={deliveryOrderIcon} />}
         />
         <Step

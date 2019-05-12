@@ -1,18 +1,21 @@
 import {
     // mainService
-    // , dummyService,
-     dummyServiceWithToken
+    // , dummyService
+     serviceDummyWithToken
 } from './httpClient';
 import {
     PATH_CUSTOMER
 } from '../path'
-
+const token = localStorage.getItem("accessToken");
 const customerDetail = () => {
     return new Promise((resolve, reject) => {
-        dummyServiceWithToken
+        serviceDummyWithToken()
             .request({
                 method: 'GET',
-                url: PATH_CUSTOMER.CUSTOMER
+                url: PATH_CUSTOMER.CUSTOMER,
+                // headers: {
+                //     Authorization: "Bearer " + token
+                //   }
             })
             .then(response => {
                 resolve(response.data)

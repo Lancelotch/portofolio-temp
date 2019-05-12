@@ -36,7 +36,7 @@ class App extends Component {
       );
 
     return (
-      <Router history={history}>
+      <Router history={history} check={"check"}>
         <Switch>
           {routeComponents}
         </Switch>

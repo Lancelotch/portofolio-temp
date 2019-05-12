@@ -33,8 +33,6 @@ class DashboardOrder extends Component {
         });
     };
 
-
-
     toggleIsHowToShowModalOpen = order => {
         this.setState({
             isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
@@ -58,7 +56,7 @@ class DashboardOrder extends Component {
         console.log('dashboaaaaaard', isShowOrderDetailsDashboard)
         return (
             <div>
-                {isShowOrderDetailsDashboard === false ? (
+                {this.state.isShowOrderDetailsDashboard === false ? (
                     <React.Fragment>
                         <ProductOrder
                             key={order.id}
@@ -118,20 +116,13 @@ class DashboardOrder extends Component {
                                 close={toggleIsHowToShowModalOpen}
                             />
                         )}
-                    </React.Fragment>
-                ) : (
+                    </React.Fragment>)
+                    : (
                         <OrderDetailsDashboard
-                            orderId={order.orderId}
-                            labelTabDetails={labelTabDetails}
-                            showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment}
-                            tabsNotPay={1}
-                            tabsNotSent={2}
-                            tabsInDelivery={3}
-                            tabsFinish={4}
-                            tabsCancel={5}
-                        />
-                    )
-                }
+                        tabsNotSent={2}
+                        orderId={order.orderId}
+                        showOrderListWaitingPayment={this.actionShowOrderListWaitingPayment} />
+                    )}
             </div>
         );
     }

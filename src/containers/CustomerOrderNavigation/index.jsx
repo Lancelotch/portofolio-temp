@@ -8,9 +8,6 @@ import NoOrderHistory from "../../components/NoOrderHistory";
 import OrderDetailsCancel from "../OrderDetailsCancel";
 import { apiGetWithToken, patchService } from "../../api/services";
 import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
-import OrderDetails from "../OrderDetailsDashboard/OrderDetails";
-import OrderDetailsId from "../OrderDetailsDashboard/OrderDetailsId";
-import OrderDetailsIdWrapping from "../OrderDetailsDashboard/OrderDetailsIdWrapping";
 
 const confirm = Modal.confirm;
 
@@ -30,7 +27,7 @@ class CustomerOderNavigation extends Component {
       productOrderTabsCancel: [],
       stateCancelOrder: [],
       message: "",
-      orderId: null
+      orderIdProduct: null
 
     };
   }
@@ -60,15 +57,16 @@ class CustomerOderNavigation extends Component {
   productOrderTabsNotYetSent = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
-      console.log('ini responssssssssse',response);
-      
+      const orderId = response.data.data.map(order => order.orderId)
       const productOrderTabsNotYetSent = {
         productOrderNotYetSent: response.data.data
       };
       this.setState({
         ...productOrderTabsNotYetSent,
-        isProductAvailable: true
+        isProductAvailable: true,
+        orderIdProduct: orderId
       });
+      console.log('ini responssssssssse', this.state.orderIdProduct);
     } catch (error) {
       console.log(error);
     }
@@ -183,14 +181,14 @@ class CustomerOderNavigation extends Component {
               }
             >{"Belum Bayar"}</span>}
           my_prop={
-              <OrderListWaitingPayment
-                isProductAvailable={this.state.isProductAvailable}
-                //showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
-                orderProduct={this.state.productOrderNotYetPay}
-                showDeleteConfirm={this.showDeleteConfirm}
-                tabsNotPay={1}
-                labelTabDetails={"Belum Bayar"}
-              />     
+            <OrderListWaitingPayment
+              isProductAvailable={this.state.isProductAvailable}
+              //showOrderDetailsDashboard={() => this.actionShowOrderDetailsDashboard()}
+              orderProduct={this.state.productOrderNotYetPay}
+              showDeleteConfirm={this.showDeleteConfirm}
+              tabsNotPay={1}
+              labelTabDetails={"Belum Bayar"}
+            />
           }
         />
         <CustomTabPane
@@ -202,13 +200,15 @@ class CustomerOderNavigation extends Component {
               })
             }>{"Belum Dikirim"}</span>}
           my_prop={
-            <OrderListWaitingPayment
-              isProductAvailable={this.state.isProductAvailable}
-              orderProduct={this.state.productOrderNotYetSent}
-              showDeleteConfirm={this.showDeleteConfirm}
-              labelTabDetails={"Belum Dikirim"}
-              tabsNotSent={2}
-            />} />
+              <OrderListWaitingPayment
+                showOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                isProductAvailable={this.state.isProductAvailable}
+                orderProduct={this.state.productOrderNotYetSent}
+                showDeleteConfirm={this.showDeleteConfirm}
+                labelTabDetails={"Belum Dikirim"}
+                tabsNotSent={2}
+              />}
+           />
         <CustomTabPane
           key={"3"}
           tab={<span

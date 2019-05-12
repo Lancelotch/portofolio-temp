@@ -12,16 +12,14 @@ import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
 import payloadProductDetail from "../../dummy/payloadProductDetail";
+import ModalSuccess from '../../modal/ModalRegisterSuccess'
+import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
 
 class Checkout extends Component {
   constructor() {
     super();
-    localStorage.setItem(
-      "payloadProductDetail",
-      JSON.stringify(payloadProductDetail)
-    );
     this.state = {
       visibleAddAddress: false,
       visibleEditAddress: false,
@@ -36,7 +34,7 @@ class Checkout extends Component {
       quantity: 1,
       note: "",
       isProductDetailAvailable: false,
-      selectedAddress: {}
+      textButton: "Lanjut Belanja"
     };
   }
 
@@ -45,6 +43,12 @@ class Checkout extends Component {
     this.getListAddress();
     this.getPayloadProductDetail();
     // this.getDefaultAddress()
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      customerAddress: props.dataAddressDefault
+    })
   }
 
   getDefaultAddress =() =>{
@@ -123,6 +127,7 @@ class Checkout extends Component {
         this.setState({
           customerAddress: request
         })
+        this.props.addressDefault();
         this.getListAddress();
         this.actionShowAddFormAddress();
       }
@@ -246,6 +251,7 @@ class Checkout extends Component {
                 visible={this.state.visibleAddAddress}
                 onSubmit={this.actionSubmitAddFormAddress}
                 onCancle={this.actionShowAddFormAddress}
+                isAddressAvailable={this.props.isAddressAvailable}
               />
               {isAddressAvailable && (
                 <FormEditAddress
@@ -280,6 +286,7 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
+          <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
         </div>
       </div>
     );
@@ -288,10 +295,13 @@ class Checkout extends Component {
 
 const mapStatetoProps = state => ({
   dataAddressDefault: state.address.addressDefault,
-  isAddressAvailable: state.address.isAddressAvailable
+  isAddressAvailable: state.address.isAddressAvailable,
+  statusModal: state.authentication.statusModal,
+  message: state.authentication.message
 });
 
 export default connect(
   mapStatetoProps,
-  { addressDefault }
+  { addressDefault, openModal }
 )(Checkout);
+
