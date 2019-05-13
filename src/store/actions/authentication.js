@@ -60,21 +60,15 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     console.log("ini response login", responseLoginForm)
     // console.log("ini customer",dataCustomer.data.name)
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    
+    console.log("====", path)
     history.push(path)
   } catch (error) {
     if(error.data.errors){
       const msg = error.data.errors[0].defaultMessage
       dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
     }else{
       const msg = error.data.message
       dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
     }
     console.log(error)
   }
@@ -114,6 +108,7 @@ export const registerForm = (history, request, path) => async dispatch => {
 }
 
 export const openModal = () => dispatch => {
+  console.log("jalan gk nich==")
   dispatch(dispatchType.openModal())
   // setTimeout(() => {
   //   dispatch(dispatchType.closeModal())

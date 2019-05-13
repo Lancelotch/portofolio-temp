@@ -45,7 +45,7 @@ class Login extends Component {
 
   getPath = (state) => {
     let path = ""
-    state ? path =`/${state}` : path = '/'
+    state === "checkout" ? path =`/${state}` : path = "/"
     return path
   }
 
@@ -58,12 +58,7 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault()
     const {history} = this.props
-    // let path = ""
-    // if(history.location.state){
-    //   path = `/${history.location.state.nextPage}`
-    // }else{
-    //   path = '/'
-    // } 
+
       const path = this.getPath(this.state.nextPage)
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
@@ -81,6 +76,7 @@ class Login extends Component {
   };
 
   render() {
+    console.log("xxxxxx",this.props.location)
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (

@@ -37,17 +37,17 @@ class RegisterPage extends Component {
     };
   }
 
-  openModal = () => {
-    this.setState({
-      modalStatus : true
-    })
-    setTimeout(() => {
-      this.setState({
-        modalStatus : false
-      })
-      history.push("/")
-    }, 3000)
-  }
+  // openModal = () => {
+  //   this.setState({
+  //     modalStatus : true
+  //   })
+  //   setTimeout(() => {
+  //     this.setState({
+  //       modalStatus : false
+  //     })
+  //     history.push("/")
+  //   }, 3000)
+  // }
 
   componentDidMount() {
     if (this.props.location.state !== undefined) {
