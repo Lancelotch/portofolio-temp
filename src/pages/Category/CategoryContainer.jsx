@@ -84,7 +84,6 @@ class CategoryPage extends Component {
   };
 
   handleCategoryNotFound = (error) => {
-    console.log("okesip", error);
     if (error.status !== 200) {
       this.props.history.push('/products');
       this.setState({
