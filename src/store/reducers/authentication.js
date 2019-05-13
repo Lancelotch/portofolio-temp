@@ -90,7 +90,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 statusModal: false
-            }    
+            }   
+        case TYPE.CLEAR_ERROR: 
+            return {
+                ...state,
+                messageError: ""
+            }
         default:
             return state
     }

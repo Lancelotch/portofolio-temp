@@ -104,6 +104,12 @@ export const getCustomerName = response => {
   }
 }
 
+export const clearError = response => {
+  return {
+    type: TYPE.CLEAR_ERROR
+  }
+}
+
 const dispatchType = {
   authFail: authFail,
   handleLoading: handleLoading,
@@ -119,7 +125,8 @@ const dispatchType = {
   registerFailed: registerFailed,
   openModal: openModal,
   closeModal: closeModal,
-  getCustomerName: getCustomerName
+  getCustomerName: getCustomerName,
+  clearError: clearError
 };
 
 export default dispatchType;

@@ -63,6 +63,7 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     console.log("====", path)
     history.push(path)
   } catch (error) {
+    console.log(error)
     if(error.data.errors){
       const msg = error.data.errors[0].defaultMessage
       dispatch(dispatchType.loginFailed(msg))
@@ -70,7 +71,6 @@ export const loginWithHome = (request,path,history) => async dispatch => {
       const msg = error.data.message
       dispatch(dispatchType.loginFailed(msg))
     }
-    console.log(error)
   }
 }
 
@@ -108,15 +108,15 @@ export const registerForm = (history, request, path) => async dispatch => {
 }
 
 export const openModal = () => dispatch => {
-  console.log("jalan gk nich==")
   dispatch(dispatchType.openModal())
-  // setTimeout(() => {
-  //   dispatch(dispatchType.closeModal())
-  // }, 3000)
 }
 
 export const closeModal = () => dispatch => {
   dispatch(dispatchType.closeModal())
+}
+
+export const clearError = () => dispatch => {
+  dispatch(dispatchType.clearError())
 }
 
 
