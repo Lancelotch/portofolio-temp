@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import HomePageContainer from '../../containers/Home'
+import ModalSuccess from '../../modal/ModalRegisterSuccess'
+import { connect } from "react-redux";
+import {openModal} from "../../store/actions/authentication"
 
 class HomePage extends Component {
     constructor(props) {
@@ -8,19 +11,31 @@ class HomePage extends Component {
             benefit: [],
             popularProduct: [],
             bestSellerProduct: [],
-            mostClickProduct: []
-         }
+            mostClickProduct: [],
+            modalStatus: false,
+            textButton: "Mulai Belanja"
+        }
     }
     render() {
         const {match} = this.props
+        console.log("ini home",this.props)
         return ( 
             <React.Fragment>
                 <HomePageContainer
                     match={match}
                 />
+                <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal}/>
             </React.Fragment>
          );
     }
 }
+
+const mapStateToProps = state => {
+    const { statusModal, message } = state.authentication;
+    return {
+        statusModal,
+        message
+    };
+  };
  
-export default HomePage;
+export default connect(mapStateToProps,{openModal})(HomePage);

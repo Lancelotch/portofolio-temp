@@ -12,6 +12,8 @@ import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
 import payloadProductDetail from "../../dummy/payloadProductDetail";
+import ModalSuccess from '../../modal/ModalRegisterSuccess'
+import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
 
@@ -35,7 +37,8 @@ class Checkout extends Component {
       productSkuId: "",
       quantity: 1,
       note: "",
-      isProductDetailAvailable: false
+      isProductDetailAvailable: false,
+      textButton: "Lanjut Belanja"
     };
   }
 
@@ -43,7 +46,20 @@ class Checkout extends Component {
     this.props.addressDefault();
     this.getListAddress();
     this.getPayloadProductDetail();
+    // this.getDefaultAddress()
   }
+
+  getDefaultAddress =() =>{
+    console.log("-===",this.state.addresses)
+    const addresses = this.state.addresses
+    const selectedAddress = addresses.find(address => address.isDefault === true)
+    console.log("....",selectedAddress)
+    this.setState({
+      selectedAddress : selectedAddress
+    })
+  }
+
+
 
   variantsRequest = variants => {
     const variantsRequest = [];
@@ -78,7 +94,7 @@ class Checkout extends Component {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
       this.setState({
         addresses: response.data.data
-      });
+      },() => this.getDefaultAddress());
     } catch (error) {
       console.log(error);
     }
@@ -242,11 +258,12 @@ class Checkout extends Component {
                 />
               )}
               <AddressList
-                addresses={addresses}
-                visible={this.state.visibleListAddress}
-                onCancle={this.actionShowListAddress}
-                onChangeAddress={this.actionChangeAddress}
-              />
+                  addresses={addresses}
+                  visible={this.state.visibleListAddress}
+                  onCancle={this.actionShowListAddress}
+                  onChangeAddress={this.actionChangeAddress}
+                  addressDefault={this.props.dataAddressDefault}
+                />
               {isProductDetailAvailable && (
                 <OrderDetailContainer
                   payloadProductDetail={payloadProductDetail}
@@ -265,6 +282,7 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
+          <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
         </div>
       </div>
     );
@@ -273,10 +291,12 @@ class Checkout extends Component {
 
 const mapStatetoProps = state => ({
   dataAddressDefault: state.address.addressDefault,
-  isAddressAvailable: state.address.isAddressAvailable
+  isAddressAvailable: state.address.isAddressAvailable,
+  statusModal: state.authentication.statusModal,
+  message: state.authentication.message
 });
 
 export default connect(
   mapStatetoProps,
-  { addressDefault }
+  { addressDefault, openModal }
 )(Checkout);

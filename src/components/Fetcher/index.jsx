@@ -12,7 +12,11 @@ class Fetcher extends Component {
     };
   }
   componentDidMount() {
+    this.mounted = true
     this.fetchData(this.props.path);
+  }
+  componentWillUnmount(){
+    this.mounted = false
   }
 
   fetchData = async path => {
@@ -21,10 +25,13 @@ class Fetcher extends Component {
     });
     try {
       const response = await getMethod(path);
-      this.setState({
-        data: response.data,
-        loading: false
-      });
+      if(this.mounted){
+        this.setState({
+          data: response.data,
+          loading: false
+        });
+      }
+      
     } catch (error) {
       this.setState({
         error: error,

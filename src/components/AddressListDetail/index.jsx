@@ -17,7 +17,7 @@ const StatusAddress = props => {
 
 const AddressListDetail = props => {
   const {
-    // id,
+    id,
     labelName,
     fullAddress,
     receiverName,
@@ -63,7 +63,8 @@ const AddressListDetail = props => {
           </p>
         </Col>
         <Col>
-          <Radio value={props} checked={isDefault} style={{ float: "right" }} ></Radio>
+          <Radio value={id}  style={{ float: "right" }} ></Radio>
+          {/* <Radio value={id} defaultChecked={true} style={{ float: "right" }} ></Radio> */}
         </Col>
       </Row>
       <br />

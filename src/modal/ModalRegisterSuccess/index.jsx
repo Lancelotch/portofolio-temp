@@ -1,19 +1,17 @@
 import React , {Component} from 'react'
-import {Modal, Row, Col, Icon, Layout} from 'antd'
+import {Modal, Row, Col, Icon, Button} from 'antd'
 import history from "../../routers/history"
 import "./style.sass";
+import {connect} from 'react-redux'
+import {closeModal} from "../../store/actions/authentication"
 
 
 class ModalRegister extends Component {
     constructor(props){
         super(props)
     }
-    closeRedirect = () =>{
-        history.push("/")
-    }   
-    render(){
-        const {Header , Content, Footer} = Layout
 
+    render(){
         return(
             <Modal
                 closable={false}
@@ -21,9 +19,9 @@ class ModalRegister extends Component {
                 bodyStyle={
                     {
                         height : "100%",
-                        // padding: 100
                     }
                 }
+                onCancel={this.props.closeModal}
                 centered
                 visible={this.props.modalStatus}
                 footer={null}
@@ -31,7 +29,7 @@ class ModalRegister extends Component {
                 <div className="confirmation">
                     <Row type="flex" justify="end">
                     <Col>
-                            <Icon onClick={() => this.closeRedirect()} style={{fontSize: 24}} type="close-circle" />
+                            <Icon onClick={() => this.props.closeModal()} style={{fontSize: 24}} type="close-circle" />
                         </Col>
                     </Row>
                     <div>
@@ -50,8 +48,13 @@ class ModalRegister extends Component {
                     </div>
                     <div className="confirmation__text">
                         <Row type="flex"  justify="center">
-                            <Col>
+                            <Col span={24}>
                                 <p>Kami telah mengirimkan email konfirmasi ke email anda <br/> silahkan ikuti instruksi selanjutnya untuk mengkonfirmasi akun </p>
+                            </Col>
+                            <Col span={24}>
+                                <Button onClick={() => this.props.closeModal()} className="color-button confirmation__text__button">
+                                    <div className="color-button confirmation__text__inside">{this.props.textButton}</div>
+                                </Button>
                             </Col>
                         </Row>
                     </div>
@@ -65,4 +68,4 @@ class ModalRegister extends Component {
 }
 
 
-export default ModalRegister
+export default connect(null,{closeModal})(ModalRegister)

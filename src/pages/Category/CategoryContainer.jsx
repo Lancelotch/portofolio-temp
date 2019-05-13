@@ -22,18 +22,36 @@ class CategoryPage extends Component {
       page: 0,
       isProductAvailable: false,
       loadingSkeleton: true,
-      query: this.props.match.params.categoryId,
+      query: "",
       isQueryAvailable: true,
       limit: 20,
       direction: "desc",
       sortBy: "createdDate",
       element: 0,
-      categoryId: this.props.match.params.categoryId
+      categoryId: ""
     };
   }
 
   componentDidMount() {
-    this.getProductList();
+    const params = this.props.match.params;
+    this.getCategoryId(params);
+  }
+
+  componentWillReceiveProps(props) {
+    const params = props.match.params;
+    this.getCategoryId(params);
+  }
+
+  getCategoryId = (params) => {
+    // console.log("tess");
+    const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
+    this.setState({
+      categoryId: categoryId,
+      isProductAvailable: false,
+      productList: [],
+      page: 0,
+      hasMore: true
+    }, () => this.getProductList());
   }
 
   getProductList = async () => {
@@ -66,7 +84,8 @@ class CategoryPage extends Component {
   };
 
   handleCategoryNotFound = (error) => {
-    if (error.status === 500) {
+    console.log("okesip", error);
+    if (error.status !== 200) {
       this.props.history.push('/products');
       this.setState({
         isQueryAvailable: false
@@ -101,11 +120,11 @@ class CategoryPage extends Component {
   };
 
   infiniteScroll = () => {
-    const { productList, hasMore, query, element } = this.state;
+    const { productList, hasMore, categoryId, element } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{query}</b>
+      <b style={{ color: "#FF416C" }}>{categoryId}</b>
     );
     return (
       <div style={{ marginTop: 15 }}>
