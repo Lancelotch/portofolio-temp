@@ -42,29 +42,23 @@ class Checkout extends Component {
   snap = window.snap;
 
   componentDidMount() {
-    this.props.addressDefault();
+    this.props.addressDefault();    
     this.getListAddress();
     this.getPayloadProductDetail();
-    // this.getDefaultAddress()
+    this.initCustomerAddress();
   }
 
   componentWillReceiveProps(props) {
-    this.setState({
-      customerAddress: props.dataAddressDefault
-    })
+    // this.setState({
+    //   customerAddress: props.dataAddressDefault
+    // })
   }
 
-  getDefaultAddress =() =>{
-    console.log("-===",this.state.addresses)
-    const addresses = this.state.addresses
-    const selectedAddress = addresses.find(address => address.isDefault === true)
-    console.log("....",selectedAddress)
+  initCustomerAddress = () => {
     this.setState({
-      selectedAddress : selectedAddress
+      customerAddress: this.props.dataAddressDefault
     })
   }
-
-
 
   variantsRequest = variants => {
     const variantsRequest = [];
@@ -83,7 +77,6 @@ class Checkout extends Component {
     );
     this.setState({
       isProductDetailAvailable: true,
-      customerAddress: this.props.dataAddressDefault,
       productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.sku.price,
       payloadProductDetail: { ...payloadProductDetail },
@@ -99,7 +92,7 @@ class Checkout extends Component {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
       this.setState({
         addresses: response.data.data
-      },() => this.getDefaultAddress());
+      });
     } catch (error) {
       console.log(error);
     }
@@ -127,11 +120,18 @@ class Checkout extends Component {
     try {
       const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
       if (response.data.data) {
+        const customerAddressId = response.data.data;
+        let customerAddress = {
+          ...request,
+          id: customerAddressId
+        };
         this.setState({
-          customerAddress: request
+          customerAddress: customerAddress
         })
-        this.props.addressDefault();
         this.getListAddress();
+        if(!this.isAddressAvailable) {
+          this.props.addressDefault();
+        }
         this.actionShowAddFormAddress();
       }
     } catch (error) {
@@ -283,7 +283,7 @@ class Checkout extends Component {
                   visible={this.state.visibleListAddress}
                   onCancle={this.actionShowListAddress}
                   onChangeAddress={this.actionChangeAddress}
-                  addressDefault={this.props.dataAddressDefault}
+                  customerAddress={customerAddress}
                 />
               {isProductDetailAvailable && (
                 <OrderDetailContainer
