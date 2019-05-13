@@ -99,7 +99,7 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <h4>{this.showCustomerName()}</h4>
+          <span>{this.showCustomerName()}</span>
         </li>
       </Dropdown>
     );
@@ -109,7 +109,7 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <h4>{strings.log_in}</h4>
+          <span>{strings.log_in}</span>
         </li>
       </Dropdown>
     );
@@ -140,9 +140,9 @@ class Header extends Component {
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (
-          <h3>{strings.header_greeting}!</h3>
+          <div>{strings.header_greeting}</div>
         ) : (
-          <h4>{strings.header_greeting_auth}</h4>
+          <div>{strings.header_greeting_auth}</div>
         )}
       </div>
     );
@@ -203,6 +203,7 @@ class Header extends Component {
                   <Link to="/" className="header__menu">
                     Bantuan
                   </Link>
+                  
                 </div>
               </Col>
               <Col md={4}>
@@ -216,6 +217,7 @@ class Header extends Component {
                     className="header__user-icon"
                   />
                   {this.showUserDropDown(isAuthenticated)}
+                  {/* <Icon style={{color: "#999999"}} type="down"></Icon> */}
                 </div>
               </Col>
           </div>

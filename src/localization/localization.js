@@ -20,7 +20,7 @@ const strings = new LocalizedStrings({
     stock_empty: 'Stock Kosong',
     before_pay: 'Bayar Sebelum',
     total_payment: 'Total Pembayaran',
-    log_in: 'Log In',
+    log_in: 'Login',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",

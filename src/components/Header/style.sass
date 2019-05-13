@@ -18,6 +18,7 @@
         border: 1px
         box-shadow: 0 2px 3px 0 rgba(0,0,0,0.12)
         background-color: #ffffff
+        padding-bottom: 15px
     &__logo
         padding-top: 49px
     &__search-box
@@ -30,20 +31,41 @@
     &__icon
         margin-left: 100px
     &__categories
-        font-size: 18px
+        // font-size: 18px
         display: flex
         flex-direction: row
         padding-top: 12px
     &__menus
-        font-size: 18px
         display: flex
         flex-direction: row
-        padding-top: 12px
+        padding-top: 12px 
     &__menu
-        color: #5D5D5D
+        color: #777777
+        font-size: 14px
+        // line-height: 16px
         margin-right: 20px 
+        height: 16px
+        display: inline-block
+    &__menu::after
+        content: ""
+        display: block
+        width: 0
+        height: 2px
+        background: #777777
+        transition: width .3s
+    &__menu:hover
+        color: #777777
+    &__menu:hover::after
+        width: 100%
+        transition: width .3s
     &__greeting
         padding-top: 12px
+        height: 16px
+        // width: 134px
+        color: #000000
+        font-family: "Helvetica Neue"
+        font-size: 14px
+        line-height: 16px
     &__greeting h3
         font-size: 18px
         color: $text-grey
@@ -52,19 +74,25 @@
         font-weight: 500
         color: $text-orange
     &__user-box
-        margin-top: -15px
-        margin-bottom: 5px
+        // margin-top: -15px
+        // margin-bottom: 5px
         display: flex
+        padding-top: 10px
     &__user-icon
-        padding-top: 27px
+        // padding-top: 27px
+        // margin-left:5px
         font-size: 18px
-    &__user-box h4
-        margin-left: 5px
-        margin-top: 5px
+    &__user-box span
+        height: 16px
+        width: 35px
+        color: #007E80
+        font-family: "Helvetica Neue"
+        font-size: 14px
+        line-height: 16px
+        padding-top: 12px
         cursor: pointer
-        font-size: 18px
-        color: $primary-color
-        padding-top: 21px
+        margin-left: 5px
+        margin-right: 3px
     &__arrow
         font-size: 20px
         margin-left: 5px
@@ -99,6 +127,18 @@
 
 .linkCategory 
     color: "black"  
+
+.category
+    height: 18px
+    width: 59px
+    color: #007E80
+    font-family: "Helvetica Neue"
+    font-size: 15px
+    font-weight: 500
+    line-height: 18px
+    vertical-align: text-top
+    margin-right: 2px
+
         
 
     
