@@ -71,7 +71,7 @@ class AddressList extends Component {
           </Button>
         ]}
       >
-        <RadioGroup onChange={this.onChange} value={this.state.customerAddress.id}>
+        <RadioGroup style={{width: '100%'}} onChange={this.onChange} value={this.state.customerAddress.id}>
           {this.address(this.props.addresses)}
         </RadioGroup>
       </Modal>

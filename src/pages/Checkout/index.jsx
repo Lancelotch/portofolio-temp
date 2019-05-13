@@ -121,8 +121,10 @@ class Checkout extends Component {
       const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
       if (response.data.data) {
         const customerAddressId = response.data.data;
-        let customerAddress = request;
-        customerAddress.id = customerAddressId;
+        let customerAddress = {
+          ...request,
+          id: customerAddressId
+        };
         this.setState({
           customerAddress: customerAddress
         })
