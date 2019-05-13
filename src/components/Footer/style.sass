@@ -7,43 +7,45 @@
     margin-top: 40px
 
 .footer
+    &__all-col
+        padding: 40px 42px
     &__left-col
-        padding-top: 40px
-        padding-left: 64px
+        // padding-left: 64px
     &__help
         font-size: 16px
         color: $primary-color
     &__menu-col
-        margin-top: 30px
+        margin-top: 32px
+        line-height: 16px
         font-size: 14px
         color: $text-grey
+    &__menu-col a
+        color: #5D5D5D
     &__right-col
-        padding-right: 64px
+        // padding-right: 64px
     &__invitation
-        padding-top: 16px
+        width: 100%
     &__invitation p
         color: #5D5D5D
     &__invitation Input
-        width: 348px
+        width: 85%
         height: 56px
-        border-bottom-left-radius: 8px
-        border-top-left-radius: 8px
-        border-bottom-right-radius: 0
-        border-top-right-radius: 0
+        border-radius: 8px 0 0 8px
+    &__invitation .ant-input-affix-wrapper
+        display: inline
     &__payment-box
-        padding-top: 25px
+        padding-top: 32px
     &__payment-box p
         font-size: 16px
         font-weight: bold
         color: $primary-color
     &__monggo
-        padding-top: 40px
         font-size: 16px
         color: $primary-color
     &__icon-box
-        margin-top: 16px
+        // margin-top: 16px
     &__icon-box img
-        padding-right: 18px
+        padding-right: 24px
     &__follow-us
         margin-top: 81px
     &__follow-us p
@@ -55,7 +57,7 @@
         height: 56px
     &__button
         height: 56px
-        width: 64px
+        width: 15%
         border-bottom-right-radius: 8px
         border-top-right-radius: 8px
         background-color: $primary-color
@@ -64,5 +66,13 @@
         // position: absolute
         // left: 310px
 
+.logo-bottom
+    height: 124px
+    width: 100%
+    display: flex
+    justify-content: center
 
+.logo-bottom img
+    margin-top: 52px
+    height: 32px
 

@@ -1,16 +1,16 @@
-import PATH_URL from './path'
-import Home from '../pages/Home'
-import Register from '../pages/Register'
-import Login from '../pages/Login'
-import ProductDetail from '../pages/ProductDetail'
-import Confirmation from '../pages/Confirmation'
-import Product from '../pages/Product'
-import Example from '../pages/Example'
-import CategoryContainer from '../pages/Category/CategoryContainer'
-import SearchContainer from '../pages/Search/SearchContainer'
-import Checkout from '../pages/Checkout'
-import CustomerNavigation from '../containers/CustomerNavigation'
-import requiredAuth from '../hoc/requiredAuth';
+import PATH_URL from "./path";
+import Home from "../pages/Home";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import ProductDetail from "../pages/ProductDetail";
+import Confirmation from "../pages/Confirmation";
+import Product from "../pages/Product";
+import Example from "../pages/Example";
+import CategoryContainer from "../pages/Category/CategoryContainer";
+import SearchContainer from "../pages/Search/SearchContainer";
+import Checkout from "../pages/Checkout";
+import CustomerNavigation from "../containers/CustomerNavigation";
+import requiredAuth from "../hoc/requiredAuth";
 import notRequiredAuth from "../hoc/notRequiredAuth";
 const routes = [{
         path: PATH_URL.HOME,
@@ -78,9 +78,8 @@ const routes = [{
     {
     path: '/customer-navigation',
     component: CustomerNavigation,
-    layoutName: 'customerLayout'
-}
-
-]
+    layoutName: "customerLayout"
+  }
+];
 
 export default routes;
