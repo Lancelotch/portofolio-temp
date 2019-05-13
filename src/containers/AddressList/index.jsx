@@ -9,9 +9,14 @@ class AddressList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customerAddress: this.props.addressDefault,
-      defaultAddressId: "" 
+      customerAddress: this.props.customerAddress
     };
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      customerAddress: props.customerAddress
+    })
   }
 
   onChange = (e) => {
