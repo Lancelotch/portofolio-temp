@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
         case TYPE.REGISTER_FAILED :
             return {
                 ...state,
-                message: action.payload,
+                messageError: action.payload,
                 isAuthenticated: false,
                 isLoading: false
             }
@@ -90,7 +90,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 statusModal: false
-            }    
+            }   
+        case TYPE.CLEAR_ERROR: 
+            return {
+                ...state,
+                messageError: ""
+            }
         default:
             return state
     }

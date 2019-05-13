@@ -27,7 +27,7 @@ const loginWithGoogle = request => {
 const loginWithFacebook = request => {
   const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_FACEBOOK
   return new Promise((resolve, reject) => {
-    dummyService()
+    serviceDummyWithoutToken
       .request({
         method: 'POST',
         url: url,

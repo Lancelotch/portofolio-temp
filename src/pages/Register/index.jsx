@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Affix, Alert } from "antd";
+import { Input, Form, Icon, Row, Col, Affix } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -11,17 +11,18 @@ import {
   registerForm,
   loading,
   loginWithGoogle,
-  openModal
+  openModal,
+  clearError,
+  loginWithFacebook
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
   rulesName,
   rulesEmail,
   rulesPassword,
-  RegistrationaAlert,
   RegistrationSubmitButton
 } from "./registerContainer";
-import history from "../../routers/history"
+// import history from "../../routers/history"
 
 const FormItem = Form.Item;
 
@@ -35,18 +36,6 @@ class RegisterPage extends Component {
       message: "",
       modalStatus: false
     };
-  }
-
-  openModal = () => {
-    this.setState({
-      modalStatus : true
-    })
-    setTimeout(() => {
-      this.setState({
-        modalStatus : false
-      })
-      history.push("/")
-    }, 3000)
   }
 
   componentDidMount() {
@@ -64,7 +53,7 @@ class RegisterPage extends Component {
       form.setFields({
         email: {
           value: values.email,
-          errors: [new Error(this.props.message)]
+          errors: [new Error("")]
         }
       })
     }
@@ -96,6 +85,10 @@ class RegisterPage extends Component {
     const path = this.getPath(this.state.nextPage)
     this.props.loginWithGoogle(path, request);
   };
+  handleFacebook = request => {
+    const path = this.getPath(this.state.nextPage)
+    this.props.loginWithFacebook(request, path)
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -139,6 +132,7 @@ class RegisterPage extends Component {
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
+                      onChange={this.props.clearError}
                       size={"large"}
                       prefix={<Icon type={"mail"} />}
                       placeholder={"Email"}
@@ -177,6 +171,9 @@ class RegisterPage extends Component {
                 <FormItem>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
                   {/* <button onClick={this.props.loading}>gonee</button> */}
+                  <div className='login-form__error-box'>
+                    {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
+                  </div>
                 </FormItem>
                 <Row
                   type="flex"
@@ -192,7 +189,7 @@ class RegisterPage extends Component {
                   <div className="register__form__socmed-box">
                     <ButtonFacebook
                       className="register__form__socmed-button"
-                      onSubmit={this.handleRegisterGoogle}
+                      onSubmit={this.handleFacebook}
                     >
                       {strings.facebook}
                     </ButtonFacebook>
@@ -230,16 +227,17 @@ class RegisterPage extends Component {
 const RegisterForm = Form.create({})(RegisterPage);
 
 const mapStateToProps = state => {
-  const { isAuthenticated, token, message, isLoading } = state.authentication;
+  const { isAuthenticated, token, message, isLoading, messageError } = state.authentication;
   return {
     isAuthenticated,
     token,
     message,
-    isLoading
+    isLoading,
+    messageError
   };
 };
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal, clearError,loginWithFacebook }
 )(RegisterForm);
