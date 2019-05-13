@@ -33,9 +33,6 @@ class Login extends Component {
   }
 
   clearTrigger = () => {
-    this.setState({
-      firstInput: false
-    })
     this.props.clearError()
   }
 
@@ -49,6 +46,9 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    this.setState({
+      firstInput: false
+    })
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           const login = await this.props.loginWithHome(values,'/',history)

@@ -11,7 +11,8 @@ import strings from "../../localization/localization";
 import {
   loginWithGoogle,
   loginWithForm,
-  loginWithHome
+  loginWithHome,
+  clearError
 } from "../../store/actions/authentication";
 import {
   rulesEmail,
@@ -31,7 +32,8 @@ class Login extends Component {
       isErorloaded: false,
       nextPage: "",
       status: null,
-      message: ""
+      message: "",
+      firstInput: true
     };
   }
 
@@ -41,6 +43,16 @@ class Login extends Component {
         nextPage: this.props.location.state.nextPage
       });
     }
+  }
+
+  clearErrorMessage = () => {
+    this.props.form.validateFields()
+    this.props.clearError()
+  }
+
+  clearTrigger = () => {
+    
+    this.props.clearError()
   }
 
   getPath = (state) => {
@@ -57,6 +69,9 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    this.setState({
+      firstInput: false
+    })
     const {history} = this.props
 
       const path = this.getPath(this.state.nextPage)
@@ -67,7 +82,11 @@ class Login extends Component {
             this.props.form.setFields({
               password: {
                 value: values.password,
-                errors: [new Error(this.props.messageError)]
+                errors: [new Error("")]
+              },
+              email: {
+                value: values.email,
+                errors: [new Error("")]
               }
             })
           }
@@ -109,6 +128,7 @@ class Login extends Component {
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
+                      onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                       size={"large"}
                       prefix={
                         <Icon
@@ -131,6 +151,7 @@ class Login extends Component {
                   })(
                     <Input
                       size={"large"}
+                      onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                       prefix={
                         <Icon
                           type={"lock"}
@@ -160,6 +181,9 @@ class Login extends Component {
                       {strings.login_enter}
                     </p>
                   </Button>
+                  <div className='login-form__error-box'>
+                    {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
+                  </div>
                 </FormItem>
                 <div className="login__separator">
                   <p>{strings.login_option}</p>
@@ -214,5 +238,5 @@ const mapStateToProps = state => ({
 const LoginForm = Form.create({})(Login);
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithForm, loginWithHome }
+  { loginWithGoogle, loginWithForm, loginWithHome, clearError }
 )(LoginForm);
