@@ -12,7 +12,8 @@ import {
   loading,
   loginWithGoogle,
   openModal,
-  clearError
+  clearError,
+  loginWithFacebook
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -85,6 +86,10 @@ class RegisterPage extends Component {
     const path = this.getPath(this.state.nextPage)
     this.props.loginWithGoogle(path, request);
   };
+  handleFacebook = request => {
+    const path = this.getPath(this.state.nextPage)
+    this.props.loginWithFacebook(request, path)
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -185,7 +190,7 @@ class RegisterPage extends Component {
                   <div className="register__form__socmed-box">
                     <ButtonFacebook
                       className="register__form__socmed-button"
-                      onSubmit={this.handleRegisterGoogle}
+                      onSubmit={this.handleFacebook}
                     >
                       {strings.facebook}
                     </ButtonFacebook>
@@ -235,5 +240,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal, clearError }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal, clearError,loginWithFacebook }
 )(RegisterForm);
