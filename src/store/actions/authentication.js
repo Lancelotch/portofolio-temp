@@ -22,18 +22,20 @@ export const registerWithGoogle = (history, request) => async dispatch => {
 };
 
 export const loginWithGoogle = (path, response) => async dispatch => {
-  try {
-    const responseLoginGoogle = await authentication.loginWithGoogle(response);
-    dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
-    const token = responseLoginGoogle.data.access_token;
-    const expiredToken = responseLoginGoogle.data.refresh_token
-    localStorage.setItem('accessToken', token)
-    localStorage.setItem('refreshToken', expiredToken)
-    const dataCustomer = await customer.customerDetail()
-    dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    history.push(path)
-  } catch (error) {
-    console.log("ini error di login with google",error);
+  if(response) {
+    try {
+      const responseLoginGoogle = await authentication.loginWithGoogle(response);
+      dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
+      const token = responseLoginGoogle.data.access_token;
+      const expiredToken = responseLoginGoogle.data.refresh_token
+      localStorage.setItem('accessToken', token)
+      localStorage.setItem('refreshToken', expiredToken)
+      const dataCustomer = await customer.customerDetail()
+      dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+      history.push(path)
+    } catch (error) {
+      console.log("ini error di login with google",error);
+    }
   }
 };
 
