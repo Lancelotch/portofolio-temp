@@ -1,11 +1,11 @@
-import {  dummyService } from './httpClient';
+import {  dummyService, serviceDummyWithoutToken } from './httpClient';
 import {PATH_CATEGORY, PATH_HOME} from '../path'
 // import { resolve, reject } from 'q';
 // import { request } from 'http';
 
 const categoryFeature = () => {
     return new Promise((resolve,reject) => {
-        dummyService
+        serviceDummyWithoutToken
             .request({
                 method: 'GET',
                 url: PATH_CATEGORY.CATEGORY_FEATURE
@@ -21,7 +21,7 @@ const categoryFeature = () => {
 
 const sliderHome = () => {
     return new Promise((resolve, reject) => {
-        dummyService
+        serviceDummyWithoutToken
             .request({
                 method: 'GET',
                 url: PATH_HOME.HOME_SLIDER
@@ -37,7 +37,7 @@ const sliderHome = () => {
 
 const benefit = () => {
     return new Promise((resolve, reject) => {
-        dummyService
+        serviceDummyWithoutToken
             .request({
                 method: 'GET',
                 url: PATH_HOME.HOME_BENEFIT

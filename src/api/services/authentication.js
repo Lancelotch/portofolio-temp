@@ -1,4 +1,4 @@
-import {dummyService, dummyServiceLogin } from './httpClient';
+import {dummyService, dummyServiceLogin, serviceDummyWithoutToken } from './httpClient';
 import {PATH_PUBLIC} from '../path'
 
 const loginWithGoogle = request => {
@@ -7,7 +7,7 @@ const loginWithGoogle = request => {
     // const data = request;
     //mainRequestPost(url, data);
     return new Promise((resolve, reject) => {
-      dummyService
+      serviceDummyWithoutToken
         .request({
           method: 'POST',
           url: url,
@@ -27,7 +27,7 @@ const loginWithGoogle = request => {
 const loginWithFacebook = request => {
   const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_FACEBOOK
   return new Promise((resolve, reject) => {
-    dummyService
+    dummyService()
       .request({
         method: 'POST',
         url: url,

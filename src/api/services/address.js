@@ -3,8 +3,8 @@ import { PATH_CUSTOMER } from "../path";
 
 const service = dummyService;
 
-export const getAddressDefault = () => {
-  return service
+export const getAddressDefault = async () => {
+  return await service()
     .request({
       method: "GET",
       url: PATH_CUSTOMER.ADDRESS_DEFAULT
@@ -18,7 +18,7 @@ export const getAddressDefault = () => {
 };
 
 export const addressService = (request) => {
-  return service
+  return service()
   .request(request)
   .then(response => {
     return response.data
@@ -29,7 +29,7 @@ export const addressService = (request) => {
 }
 
 export const patchDefaultAddress = request => {
-  return service
+  return service()
     .request({
       method: "PATCH",
       url: PATH_CUSTOMER.ADDRESS_DEFAULT,
@@ -44,7 +44,7 @@ export const patchDefaultAddress = request => {
 };
 
 export const postAddressForm = request => {
-  return service
+  return service()
     .request({
       method: "POST",
       url: PATH_CUSTOMER.ADDRESS,
@@ -59,7 +59,7 @@ export const postAddressForm = request => {
 };
 
 export const editAddressForm = request => {
-  return service
+  return service()
     .request({
       method: "PUT",
       url: PATH_CUSTOMER.ADDRESS,
@@ -74,7 +74,7 @@ export const editAddressForm = request => {
 };
 
 export const deleteAddress = id => {
-  return service
+  return service()
     .request({
       method: "DELETE",
       url: `${PATH_CUSTOMER.ADDRESS}/${"06fc0503-8f93-4195-a8e4-9751c7e2024f"}`

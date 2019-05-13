@@ -16,14 +16,11 @@ import ModalSuccess from '../../modal/ModalRegisterSuccess'
 import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
+import history from "../../routers/history";
 
 class Checkout extends Component {
   constructor() {
     super();
-    localStorage.setItem(
-      "payloadProductDetail",
-      JSON.stringify(payloadProductDetail)
-    );
     this.state = {
       visibleAddAddress: false,
       visibleEditAddress: false,
@@ -42,11 +39,19 @@ class Checkout extends Component {
     };
   }
 
+  snap = window.snap;
+
   componentDidMount() {
     this.props.addressDefault();
     this.getListAddress();
     this.getPayloadProductDetail();
     // this.getDefaultAddress()
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      customerAddress: props.dataAddressDefault
+    })
   }
 
   getDefaultAddress =() =>{
@@ -74,7 +79,7 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(
-      localStorage.getItem("payloadProductDetail")
+      localStorage.getItem("product")
     );
     this.setState({
       isProductDetailAvailable: true,
@@ -125,6 +130,7 @@ class Checkout extends Component {
         this.setState({
           customerAddress: request
         })
+        this.props.addressDefault();
         this.getListAddress();
         this.actionShowAddFormAddress();
       }
@@ -200,7 +206,21 @@ class Checkout extends Component {
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
       if (response.data.data) {
-        return null
+        const token = response.data.data.token;
+        this.snap.pay(token, {
+          onSuccess: function(result){
+            history.push("/");
+          },
+          onPending: function(result){
+            history.push("/");
+          },
+          onError: function(result){
+            console.log('error');console.log(result);
+          },
+          onClose: function(){
+            console.log('customer closed the popup without finishing the payment');
+          }
+        });
       }
     } catch (error) {
       console.log(error);
@@ -248,6 +268,7 @@ class Checkout extends Component {
                 visible={this.state.visibleAddAddress}
                 onSubmit={this.actionSubmitAddFormAddress}
                 onCancle={this.actionShowAddFormAddress}
+                isAddressAvailable={this.props.isAddressAvailable}
               />
               {isAddressAvailable && (
                 <FormEditAddress
@@ -300,3 +321,4 @@ export default connect(
   mapStatetoProps,
   { addressDefault, openModal }
 )(Checkout);
+

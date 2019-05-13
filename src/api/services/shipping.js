@@ -4,7 +4,7 @@ import { PATH_SHIPPING} from '../path'
 
 const getShipping = () => {  
     return new Promise((resolve,reject) => {
-        dummyService
+        dummyService()
             .request({
                 method: 'GET',
                 url: PATH_SHIPPING.SHIPPING
