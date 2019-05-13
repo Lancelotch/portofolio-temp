@@ -11,7 +11,8 @@ import {
   registerForm,
   loading,
   loginWithGoogle,
-  openModal
+  openModal,
+  clearError
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -37,18 +38,6 @@ class RegisterPage extends Component {
     };
   }
 
-  // openModal = () => {
-  //   this.setState({
-  //     modalStatus : true
-  //   })
-  //   setTimeout(() => {
-  //     this.setState({
-  //       modalStatus : false
-  //     })
-  //     history.push("/")
-  //   }, 3000)
-  // }
-
   componentDidMount() {
     if (this.props.location.state !== undefined) {
       this.setState({
@@ -64,7 +53,7 @@ class RegisterPage extends Component {
       form.setFields({
         email: {
           value: values.email,
-          errors: [new Error(this.props.message)]
+          errors: [new Error("")]
         }
       })
     }
@@ -139,6 +128,7 @@ class RegisterPage extends Component {
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
+                      onChange={this.props.clearError}
                       size={"large"}
                       prefix={<Icon type={"mail"} />}
                       placeholder={"Email"}
@@ -177,6 +167,9 @@ class RegisterPage extends Component {
                 <FormItem>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
                   {/* <button onClick={this.props.loading}>gonee</button> */}
+                  <div className='login-form__error-box'>
+                    {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
+                  </div>
                 </FormItem>
                 <Row
                   type="flex"
@@ -230,16 +223,17 @@ class RegisterPage extends Component {
 const RegisterForm = Form.create({})(RegisterPage);
 
 const mapStateToProps = state => {
-  const { isAuthenticated, token, message, isLoading } = state.authentication;
+  const { isAuthenticated, token, message, isLoading, messageError } = state.authentication;
   return {
     isAuthenticated,
     token,
     message,
-    isLoading
+    isLoading,
+    messageError
   };
 };
 
 export default connect(
   mapStateToProps,
-  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal }
+  { registerWithGoogle, registerForm, loading, loginWithGoogle, openModal, clearError }
 )(RegisterForm);

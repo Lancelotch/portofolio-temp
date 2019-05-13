@@ -60,7 +60,6 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     console.log("ini response login", responseLoginForm)
     // console.log("ini customer",dataCustomer.data.name)
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    console.log("====", path)
     history.push(path)
   } catch (error) {
     console.log(error)
