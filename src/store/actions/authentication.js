@@ -52,6 +52,7 @@ export const loginWithHome = (request,path,history) => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
     await dispatch(dispatchType.loginWithForm(responseLoginForm))
+    console.log("=====",responseLoginForm)
     const token = responseLoginForm.data.access_token;
     const expiredToken = responseLoginForm.data.refresh_token
     localStorage.setItem('accessToken', token)

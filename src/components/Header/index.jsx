@@ -99,7 +99,7 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <h4>{this.showCustomerName()}</h4>
+          {/* <h4>{this.showCustomerName()}</h4> */}
         </li>
       </Dropdown>
     );

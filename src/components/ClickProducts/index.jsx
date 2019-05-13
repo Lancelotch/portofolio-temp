@@ -15,16 +15,20 @@ const SampleNextArrow = props => {
         zIndex: "1",
         height: "60px",
         width: "60px",
-        opacity: "0.5",
-        backgroundColor: "#AAAAAA",
+        // opacity: "0.5",
+        backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         top: "145px",
-        right:"0px"
+        right: "0px"
       }}
       onClick={onClick}
     >
+      <Icon
+        type="right"
+        style={{ color: "white", fontSize: "30px" }}
+      />
     </div>
   );
 };
@@ -39,8 +43,8 @@ const SamplePrevArrow = props => {
         zIndex: "1",
         height: "60px",
         width: "60px",
-        opacity: "0.5",
-        backgroundColor: "#AAAAAA",
+        // opacity: "0.5",
+        backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -49,6 +53,10 @@ const SamplePrevArrow = props => {
       }}
       onClick={onClick}
     >
+      <Icon
+        type="left"
+        style={{ color: "white", fontSize: "30px" }}
+      />
     </div>
   );
 };
@@ -61,7 +69,7 @@ class ClickProducts extends Component {
 
   render() {
     const { data } = this.props;
-    const products = data.slice(0,10)
+    const products = data.slice(0, 10);
     const settings = {
       dots: true,
       autoplay: 5000,
@@ -75,7 +83,7 @@ class ClickProducts extends Component {
         <div
           style={{
             borderRadius: 10,
-            marginLeft:10
+            marginLeft: 10
           }}
         >
           <ul className="dots"> {dots} </ul>
@@ -83,7 +91,7 @@ class ClickProducts extends Component {
       )
     };
 
-    const slides = products.map((product,i) => {
+    const slides = products.map((product, i) => {
       return (
         <Link to={pageUrlProductDetail + product.id || "#"} key={i}>
           <Card
@@ -103,7 +111,7 @@ class ClickProducts extends Component {
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>
-          </Link>
+        </Link>
       );
     });
 
