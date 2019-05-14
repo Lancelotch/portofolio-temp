@@ -5,14 +5,13 @@ import "./style.sass";
 
 const ProductOrder = props => {
   const { indexes } = props;
-  console.log("ini di product order", props)
   return (
     <div className="productOrder">
       <Row>
         <Col md={2}>
           <img
             className="productOrder__image"
-            src={indexes[0].variants[0].imageUrl}
+            src={indexes[0].productImage}
             alt=""
           />
         </Col>

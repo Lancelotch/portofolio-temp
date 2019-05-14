@@ -9,8 +9,7 @@ export const addressDefault = () => async dispatch => {
         payload = {isAddressAvailable: true, addressDefault: response.data} 
     }else{
         payload = {isAddressAvailable: false, addressDefault: response.data} 
-    }
-    
+    }  
     dispatch(dispatchType.getAddressDefault(payload));
   } catch (error) {
     console.log(error);

@@ -90,9 +90,14 @@ class Header extends Component {
   }
 
   showCustomerName = () => {
-    const name = this.props.customerName
-    return name.substr(0, 8) + "...";
-    // return name
+    const name = this.props.customerName;
+    let resultName = name;
+    if(name) {
+      if(name.length > 8) {
+          resultName = name.substr(0, 8) + "...";
+      }  
+    }
+    return resultName;
   };
 
   renderAuthList = () => {
@@ -119,7 +124,7 @@ class Header extends Component {
     <Menu className="header__user-menu">
       <div className="header__user-menu-box">
         <li> {strings.my_account}</li>
-        <li> {strings.header_my_order}</li>
+        <li><Link to="/dashboard-customer" style={{color: "#5D5D5D"}}> {strings.header_my_order}</Link></li>
         <li onClick={() =>this.handleLogout()}>
           <button className="header__user-menu__button">
             {" "}

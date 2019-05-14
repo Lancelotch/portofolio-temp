@@ -52,7 +52,7 @@ class ProductPage extends Component {
         isProductAvailable: true
       });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -88,14 +88,20 @@ class ProductPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
-    const categoryTextResult = strings.formatString(
-      strings.category_text_result,
-      element,
-      <b>{query}</b>
-    );
+    // const categoryTextResult = strings.formatString(
+    //   strings.category_text_result,
+    //   element,
+    //   <b>{query}</b>
+    // );
     return (
-      <Fragment>
-        <SortListProduct onChange={this.onChangeSort} />
+      <div style={{ marginTop: 15 }}>
+        <div style={{ 
+          display: "flex", 
+          justifyContent: "flex-end", 
+          marginBottom: 15 
+        }}>
+          <SortListProduct onChange={this.onChangeSort} />
+        </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
@@ -111,7 +117,7 @@ class ProductPage extends Component {
             <Products productList={productList} />
           </Suspense>
         </InfiniteScroll>
-      </Fragment>
+      </div>
     );
   };
 
@@ -119,8 +125,8 @@ class ProductPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-      <SkeletonProduct count={20} />
-    );
+        <SkeletonProduct count={20} />
+      );
   };
 
   render() {
@@ -129,7 +135,7 @@ class ProductPage extends Component {
         <Row>
           <Col xs={24} md={24}>
             <div className="container">
-                {this.renderProducts()}
+              {this.renderProducts()}
             </div>
           </Col>
         </Row>

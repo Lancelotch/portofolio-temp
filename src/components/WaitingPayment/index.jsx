@@ -11,33 +11,39 @@ const WaitingPayment = props => {
     orderId,
     label,
     index,
-    indexDalamPengiriman,
-    labelPengiriman,
-    estimateShippingDate
+    tabsNotPay,
+    tabsInDelivery,
+    tabsNotSent,
+    tabsFinish,
+    labelBelumDikirim,
+    labelDalamPengiriman,
+    labelSelesai,
+    estimateShippingDate,
+    receivedDate
   } = props;
   return (
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
-          {indexDalamPengiriman === 2 &&
+          {tabsNotSent === 2 &&
             <Col md={12}>
               <p
                 className="dalamProsesPengiriman"
                 style={{
                   paddingLeft: 15
                 }}>
-                {labelPengiriman}
+                {labelBelumDikirim}
               </p>
             </Col>
           }
-          {indexDalamPengiriman === 3 &&
+          {tabsInDelivery === 3 &&
             <Col md={12}>
               <p
                 style={{
                   paddingLeft: 15,
-                  color: "#777777"
+                  marginBottom: 0
                 }}>
-                {labelPengiriman}
+                {labelDalamPengiriman}
               </p>
               <p style={{
                 color: " #BBBBBB",
@@ -48,7 +54,25 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {index === 1 &&
+          {tabsFinish === 4 &&
+            <Col md={12}>
+              <p
+                style={{
+                  paddingLeft: 15,
+                  marginBottom: 0
+                }}>
+                {labelSelesai}
+              </p>
+              <p style={{
+                color: " #BBBBBB",
+                fontSize: 16,
+                marginLeft: 15
+              }}>
+                {convertTimesTime.millisecond(receivedDate)}
+              </p>
+            </Col>
+          }
+          {tabsNotPay === 1 &&
             <Col md={12}>
               <b>{label}</b>
               <p className="waitingPayment__endDatePay">

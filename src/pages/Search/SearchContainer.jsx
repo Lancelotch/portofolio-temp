@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { BackTop} from "antd";
+import { BackTop, Col} from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
 import strings from "../../localization/localization";

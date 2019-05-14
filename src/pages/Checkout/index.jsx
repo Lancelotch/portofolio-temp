@@ -52,9 +52,11 @@ class Checkout extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // this.setState({
-    //   customerAddress: props.dataAddressDefault
-    // })
+    if(!this.isAddressAvailable) {
+      this.setState({
+        customerAddress: props.dataAddressDefault
+      })
+    }
   }
 
   getCities = async (id) => {
@@ -157,6 +159,7 @@ class Checkout extends Component {
         this.setState({
           customerAddress: customerAddress
         })
+        this.props.addressDefault();
         this.getListAddress();
         if(!this.isAddressAvailable) {
           this.props.addressDefault();
@@ -337,7 +340,9 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
-          <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
+          {this.props.message && 
+            <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
+          }
         </div>
       </div>
     );

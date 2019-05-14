@@ -3,13 +3,14 @@ import { Button } from 'antd'
 import "../../ProductOrder/style.sass"
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../../library/url"
+import strings from '../../../localization/localization';
 
 const Cancel = (props) => {
-  const { productDetail, viewOrderDetail } = props
+  const { indexes, showOrderDetailsDashboard } = props
   let id = ''
-  productDetail.forEach((p, i) => {
+  indexes.map((p, i) => {
     id = p.productId
-    // return id
+    return id
   })
   return (
     <div style={{
@@ -24,8 +25,8 @@ const Cancel = (props) => {
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
-        onClick={() => viewOrderDetail()}>
-        Detail Pembatalan
+        onClick={() => showOrderDetailsDashboard()}>
+        {strings.cancel_details}
         </Button>
     </div>
   )
