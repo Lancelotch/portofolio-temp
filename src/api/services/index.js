@@ -1,12 +1,7 @@
 import {
-  dummyService,
-  serviceDummyWithToken,
-  serviceDummyWithoutToken
+  serviceWithToken,
+  serviceWithoutToken
 } from "./httpClient";
-
-const service = dummyService;
-const serviceWithToken = serviceDummyWithToken;
-const serviceWithoutToken = serviceDummyWithoutToken;
 
 /** Service With Token */
 export const apiGetWithToken = (url, params) => {
@@ -54,7 +49,7 @@ export const apiDeleteWithoutToken = url => {
 
 export const getMethod = pathService => {
   return new Promise((resolve, reject) => {
-    serviceWithoutToken
+    serviceWithoutToken()
       .request({
         method: "GET",
         url: `${pathService}`
@@ -70,7 +65,7 @@ export const getMethod = pathService => {
 
 export const fetchDataService = request => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({ ...request })
       .then(response => {
         resolve(response.data);
@@ -83,7 +78,7 @@ export const fetchDataService = request => {
 
 export const getService = url => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({
         method: "GET",
         url: `${url}`
@@ -99,7 +94,7 @@ export const getService = url => {
 
 export const postService = (url, request) => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({
         method: "POST",
         url: url,
@@ -116,7 +111,7 @@ export const postService = (url, request) => {
 
 export const patchService = (url, request) => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({
         method: "PATCH",
         url: url,
@@ -133,7 +128,7 @@ export const patchService = (url, request) => {
 
 export const putService = (url, request) => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({
         method: "PUT",
         url: url,
@@ -150,7 +145,7 @@ export const putService = (url, request) => {
 
 export const deleteService = url => {
   return new Promise((resolve, reject) => {
-    service
+    serviceWithToken()
       .request({
         method: "DELETE",
         url: url
