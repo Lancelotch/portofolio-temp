@@ -90,9 +90,14 @@ class Header extends Component {
   }
 
   showCustomerName = () => {
-    const name = this.props.customerName
-    return name.substr(0, 8) + "...";
-    // return name
+    const name = this.props.customerName;
+    let resultName = name;
+    if(name) {
+      if(name.length > 8) {
+          resultName = name.substr(0, 8) + "...";
+      }  
+    }
+    return resultName;
   };
 
   renderAuthList = () => {
