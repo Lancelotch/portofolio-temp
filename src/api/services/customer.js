@@ -1,7 +1,5 @@
 import {
-    // mainService
-    // , dummyService
-     serviceDummyWithToken
+     serviceWithToken
 } from './httpClient';
 import {
     PATH_CUSTOMER
@@ -9,7 +7,7 @@ import {
 const token = localStorage.getItem("accessToken");
 const customerDetail = () => {
     return new Promise((resolve, reject) => {
-        serviceDummyWithToken()
+        serviceWithToken()
             .request({
                 method: 'GET',
                 url: PATH_CUSTOMER.CUSTOMER,

@@ -1,4 +1,4 @@
-import {dummyService, dummyServiceLogin, serviceDummyWithoutToken } from './httpClient';
+import {serviceWithToken, serviceWithoutToken } from './httpClient';
 import {PATH_PUBLIC} from '../path'
 
 const loginWithGoogle = request => {
@@ -7,7 +7,7 @@ const loginWithGoogle = request => {
     // const data = request;
     //mainRequestPost(url, data);
     return new Promise((resolve, reject) => {
-      serviceDummyWithoutToken
+      serviceWithoutToken()
         .request({
           method: 'POST',
           url: url,
@@ -27,7 +27,7 @@ const loginWithGoogle = request => {
 const loginWithFacebook = request => {
   const url = PATH_PUBLIC.PUBLIC_OAUTH_SOSIAL_MEDIA_FACEBOOK
   return new Promise((resolve, reject) => {
-    serviceDummyWithoutToken
+    serviceWithoutToken()
       .request({
         method: 'POST',
         url: url,
@@ -46,7 +46,7 @@ const loginWithFacebook = request => {
 
 const loginWithProductDetail = request => {
   return new Promise((resolve, reject) => {
-    dummyServiceLogin
+    serviceWithoutToken()
       .request({
         method: "POST",
         url: PATH_PUBLIC.PUBLIC_USER_LOGIN,
@@ -63,7 +63,7 @@ const loginWithProductDetail = request => {
 
 const loginWithForm = request => {
   return new Promise((resolve, reject) => {
-    dummyServiceLogin
+    serviceWithoutToken()
       .request({
         method: "POST",
         url: PATH_PUBLIC.PUBLIC_USER_LOGIN,
@@ -80,7 +80,7 @@ const loginWithForm = request => {
 
 const registerWithForm = request => {
   return new Promise((resolve,reject)=>{
-   dummyServiceLogin
+   serviceWithoutToken()
     .request({
      method: "POST",
      url: PATH_PUBLIC.PUBLIC_USER_REGISTER,
@@ -98,7 +98,7 @@ const registerWithForm = request => {
 
 const activatingUser = request =>{
   return new Promise((resolve, reject) => {
-    dummyService
+    serviceWithToken()
       .request({
         method: "GET",
         url: PATH_PUBLIC.PUBLIC_USER_ACTIVED + request

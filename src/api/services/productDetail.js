@@ -1,10 +1,10 @@
-import { dummyServiceLogin } from './httpClient';
+import { serviceWithoutToken } from './httpClient';
 import { PATH_PRODUCT} from '../path'
 
 
 const getProductDetail = productId => {  
     return new Promise((resolve,reject) => {
-        dummyServiceLogin
+        serviceWithoutToken()
             .request({
                 method: 'GET',
                 url: PATH_PRODUCT.PRODUCT_BY_ID+productId
