@@ -8,7 +8,7 @@ import "./style.sass";
 // import PATH_URL from "../../routers/path";
 import { pageUrlProductDetail } from "../../library/url";
 
-const { Meta } = Card;
+// const { Meta } = Card;
 
 const PopularProduct = props => {
   const { id, name, urlImage, price } = props.product;

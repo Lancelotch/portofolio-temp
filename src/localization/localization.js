@@ -54,6 +54,7 @@ const strings = new LocalizedStrings({
     //Dashboard Product Details
     notice_payment_administrasi :"Subtotal yang tercantum diatas udah termasuk  biaya bea masuk, pajak dan administrasi.",
     
+    virtual_account: "Virtual Account",
 
     //Best Seller
     best : "Best",
@@ -117,6 +118,11 @@ const strings = new LocalizedStrings({
     detail_product: "Detail Product",
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
+
+    //Payment Info
+    payment_info: "Info Pembayaran",
+    payment_total_amount: "Total Pembayaran",
+    payment_pay_before: "Bayar Sebelum",
 
     //footer
     footer_any_help: 'Apa yang bisa kami bantu?',

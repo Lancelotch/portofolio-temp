@@ -1,5 +1,5 @@
-import React, { Component, Suspense, Fragment } from "react";
-import { BackTop } from "antd";
+import React, { Component, Suspense } from "react";
+import {BackTop } from "antd";
 import { connect } from "react-redux";
 // import Header from "components/Header";
 import "sass/style.sass";
@@ -84,7 +84,6 @@ class CategoryPage extends Component {
   };
 
   handleCategoryNotFound = (error) => {
-    console.log("okesip", error);
     if (error.status !== 200) {
       this.props.history.push('/products');
       this.setState({

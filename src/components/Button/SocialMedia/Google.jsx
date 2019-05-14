@@ -7,12 +7,14 @@ const GOOGLE_APP_ID = "395205780758-1e4e7gm2hi6p6of87j82ar6petjf1u6t.apps.google
 
 class ButtonGoogle extends Component{
   handleSocialResponse = (user, err) => {
-    const token = user._token.idToken;
-    const request = {
-      token : token
+    if(user) {
+      const token = user._token.idToken;
+      const request = {
+        token : token
+      }
+      this.props.onSubmit(request);
+      console.log("====",user)  
     }
-    this.props.onSubmit(request);
-    console.log("====",user)
   }
 
   render(){

@@ -16,6 +16,7 @@ import ModalSuccess from '../../modal/ModalRegisterSuccess'
 import {openModal} from "../../store/actions/authentication"
 
 import "./style.sass";
+import history from "../../routers/history";
 
 class Checkout extends Component {
   constructor() {
@@ -38,30 +39,28 @@ class Checkout extends Component {
     };
   }
 
+  snap = window.snap;
+
   componentDidMount() {
-    this.props.addressDefault();
+    this.props.addressDefault();    
     this.getListAddress();
     this.getPayloadProductDetail();
-    // this.getDefaultAddress()
+    this.initCustomerAddress();
   }
 
   componentWillReceiveProps(props) {
-    this.setState({
-      customerAddress: props.dataAddressDefault
-    })
+    if(!this.isAddressAvailable) {
+      this.setState({
+        customerAddress: props.dataAddressDefault
+      })
+    }
   }
 
-  getDefaultAddress =() =>{
-    console.log("-===",this.state.addresses)
-    const addresses = this.state.addresses
-    const selectedAddress = addresses.find(address => address.isDefault === true)
-    console.log("....",selectedAddress)
+  initCustomerAddress = () => {
     this.setState({
-      selectedAddress : selectedAddress
+      customerAddress: this.props.dataAddressDefault
     })
   }
-
-
 
   variantsRequest = variants => {
     const variantsRequest = [];
@@ -80,7 +79,6 @@ class Checkout extends Component {
     );
     this.setState({
       isProductDetailAvailable: true,
-      customerAddress: this.props.dataAddressDefault,
       productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.sku.price,
       payloadProductDetail: { ...payloadProductDetail },
@@ -96,7 +94,7 @@ class Checkout extends Component {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
       this.setState({
         addresses: response.data.data
-      },() => this.getDefaultAddress());
+      });
     } catch (error) {
       console.log(error);
     }
@@ -124,11 +122,19 @@ class Checkout extends Component {
     try {
       const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
       if (response.data.data) {
+        const customerAddressId = response.data.data;
+        let customerAddress = {
+          ...request,
+          id: customerAddressId
+        };
         this.setState({
-          customerAddress: request
+          customerAddress: customerAddress
         })
         this.props.addressDefault();
         this.getListAddress();
+        if(!this.isAddressAvailable) {
+          this.props.addressDefault();
+        }
         this.actionShowAddFormAddress();
       }
     } catch (error) {
@@ -203,7 +209,21 @@ class Checkout extends Component {
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
       if (response.data.data) {
-        return null
+        const token = response.data.data.token;
+        this.snap.pay(token, {
+          onSuccess: function(result){
+            history.push("/");
+          },
+          onPending: function(result){
+            history.push("/");
+          },
+          onError: function(result){
+            console.log('error');console.log(result);
+          },
+          onClose: function(){
+            console.log('customer closed the popup without finishing the payment');
+          }
+        });
       }
     } catch (error) {
       console.log(error);
@@ -266,7 +286,7 @@ class Checkout extends Component {
                   visible={this.state.visibleListAddress}
                   onCancle={this.actionShowListAddress}
                   onChangeAddress={this.actionChangeAddress}
-                  addressDefault={this.props.dataAddressDefault}
+                  customerAddress={customerAddress}
                 />
               {isProductDetailAvailable && (
                 <OrderDetailContainer
@@ -286,7 +306,9 @@ class Checkout extends Component {
               />
             </Col>
           </Row>
-          <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
+          {this.props.message && 
+            <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
+          }
         </div>
       </div>
     );
