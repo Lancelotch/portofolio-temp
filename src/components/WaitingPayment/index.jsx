@@ -11,9 +11,10 @@ const WaitingPayment = props => {
     orderId,
     label,
     index,
-    indexDalamPengiriman,
-    indexBelumDikirim,
-    indexSelesai,
+    tabsNotPay,
+    tabsInDelivery,
+    tabsNotSent,
+    tabsFinish,
     labelBelumDikirim,
     labelDalamPengiriman,
     labelSelesai,
@@ -24,7 +25,7 @@ const WaitingPayment = props => {
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
-          {indexBelumDikirim === 2 &&
+          {tabsNotSent === 2 &&
             <Col md={12}>
               <p
                 className="dalamProsesPengiriman"
@@ -35,11 +36,12 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {indexDalamPengiriman === 3 &&
+          {tabsInDelivery === 3 &&
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15
+                  paddingLeft: 15,
+                  marginBottom: 0
                 }}>
                 {labelDalamPengiriman}
               </p>
@@ -52,11 +54,12 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {indexSelesai === 4 &&
+          {tabsFinish === 4 &&
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15
+                  paddingLeft: 15,
+                  marginBottom: 0
                 }}>
                 {labelSelesai}
               </p>
@@ -69,7 +72,7 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {index === 1 &&
+          {tabsNotPay === 1 &&
             <Col md={12}>
               <b>{label}</b>
               <p className="waitingPayment__endDatePay">

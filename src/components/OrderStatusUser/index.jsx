@@ -5,13 +5,14 @@ import "./style.sass";
 import strings from '../../localization/localization';
 
 const OrderStatusUser = props => {
-    const { label, customer, estimateShippingDate, index } = props;
+    const { label, customer, estimateShippingDate, tabsInDelivery, tabsFinish,estimateAccepted } = props;
     return (
         <React.Fragment>
             {customer !== undefined | customer &&
                 <div className="orderStatusUser"
                     style={{
                         marginTop: 10,
+                        marginBottom: 70,
                         padding: 15
                     }}>
                     <Row>
@@ -19,11 +20,11 @@ const OrderStatusUser = props => {
                             <h2>{label}</h2>
                         </Col>
                         <Col md={12}>
-                            {index === 3 && index === 4 &&
-                                <p className="perkiraanDiterima">
-                                    {strings.estimate_accepted} : &nbsp;
-                        {estimateShippingDate}
-                                </p>
+                            {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
+                                (<p className="perkiraanDiterima">
+                                    {estimateAccepted} : &nbsp;
+                                {estimateShippingDate}
+                                </p>)
                             }
                         </Col>
                     </Row>

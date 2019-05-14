@@ -55,9 +55,7 @@ class ProductDetail extends Component {
     this.setState({
       imageVariant: image
     })
-    console.log('actionupdateimagevariant', image);
-
-  }
+  };
 
   redirectLogin = () => {
     this.setState(prevState => ({

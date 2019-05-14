@@ -12,6 +12,7 @@ import Checkout from '../pages/Checkout'
 import CustomerNavigation from '../pages/CustomerNavigation'
 import requiredAuth from '../hoc/requiredAuth';
 import notRequiredAuth from "../hoc/notRequiredAuth";
+import ViewInvoice from '../pages/ViewInvoice';
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
@@ -63,6 +64,11 @@ const routes = [{
     //     path: '/category/fashion-pria/sepatu/:categoryId',
     //     component: CategoryContainer    
     // },
+    {
+        path: PATH_URL.VIEW_INVOICE,
+        component: ViewInvoice,
+        layoutName: 'fullLayout'
+    },
     {
         path: PATH_URL.SEARCH,
         component: SearchContainer      

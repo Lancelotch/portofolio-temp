@@ -12,9 +12,11 @@ const CATEGORY_LEVEL_3 = '/category/:categoryLevel1/:categoryLevel2/:categoryLev
 const CONFIRMATION = '/confirmation/:idConfirmation';
 const PRODUCTS = '/products';
 const EXAMPLE = '/example';
+const VIEW_INVOICE = '/invoice-customer/:invoiceId'
 const ORDER_SUMMARY = '/order-summary'
 
 const PATH_URL = {
+    VIEW_INVOICE : VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,
     PRODUCT_DETAIL: PRODUCT_DETAIL,

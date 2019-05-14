@@ -7,29 +7,29 @@ import strings from '../../../localization/localization';
 
 const Pay = (props) => {
   const { showDeleteConfirm,
-    orderProduct,
     i,
-    toggleIsHowToShowModalOpen,
+    showHowToModalPayment,
     order,
     showOrderDetailsDashboard,
     index,
     indexButton,
     tabsFinish,
-    tabsInDelivery
+    tabsInDelivery,
+    orderProduct
   } = props
- 
-  console.log('tombol detail pesanan by iiiid',props);
-  
+
+  console.log('tombol detail pesanan by iiiid', props);
+
   return (
-    <React.Fragment>
+    <div style={{ backgroundColor: "#FFFFFF", paddingBottom: 20 }}>
       {index === 1 && (
         <React.Fragment>
           <Button
             className="waitingPayment__button"
-            onClick={() => showDeleteConfirm(order, i)}
+            onClick={() => showDeleteConfirm(orderProduct, i)}
           >
             {strings.cancel_order}
-        </Button>
+          </Button>
           <div
             style={{
               float: "right",
@@ -37,16 +37,16 @@ const Pay = (props) => {
             }}>
             <Button
               className="waitingPayment__payNow"
-              onClick={toggleIsHowToShowModalOpen.bind(this, order)}
+              onClick={() => showHowToModalPayment(order)}
             >
               {strings.pay_now}
-          </Button>
+            </Button>
             <Button
               className="waitingPayment__detailPesanan"
               onClick={() => showOrderDetailsDashboard(order)}
             >
               {strings.order_details}
-          </Button>
+            </Button>
           </div>
         </React.Fragment>
       )}
@@ -103,7 +103,7 @@ const Pay = (props) => {
           </Button>
         </div>
       )}
-    </React.Fragment>
+    </div>
   )
 }
 
