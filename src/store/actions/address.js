@@ -4,7 +4,6 @@ import dispatchType from "./dispatchType";
 export const addressDefault = () => async dispatch => {
   try {
     const response = await getAddressDefault();
-    console.log(response);
     let payload=null;
     if(response.code == 200){
         payload = {isAddressAvailable: true, addressDefault: response.data} 

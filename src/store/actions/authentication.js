@@ -39,13 +39,23 @@ export const loginWithGoogle = (path, response) => async dispatch => {
   }
 };
 
-export const loginWithFacebook = (response) => async dispatch => {
-  try {
-    const responseLoginFacebook = await authentication.loginWithFacebook(response)
-    console.log("ini response facebook", responseLoginFacebook)
-  }catch(error){
-    console.log("ini error di facebook", error)
+export const loginWithFacebook = (response, path) => async dispatch => {
+  if(response){
+    try {
+      const responseLoginFacebook = await authentication.loginWithFacebook(response)
+      dispatch(dispatchType.loginWithGoogle(responseLoginFacebook));
+      const token = responseLoginFacebook.data.access_token;
+      const expiredToken = responseLoginFacebook.data.refresh_token
+      localStorage.setItem('accessToken', token)
+      localStorage.setItem('refreshToken', expiredToken)
+      const dataCustomer = await customer.customerDetail()
+      dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+      history.push(path)
+    }catch(error){
+      console.log("ini error di facebook", error)
+    }
   }
+
 }
 
 export const loginWithHome = (request,path,history) => async dispatch => {
@@ -61,23 +71,19 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     console.log("ini response login", responseLoginForm)
     // console.log("ini customer",dataCustomer.data.name)
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    
     history.push(path)
   } catch (error) {
-    if(error.data.errors){
-      const msg = error.data.errors[0].defaultMessage
-      dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
-    }else{
-      const msg = error.data.message
-      dispatch(dispatchType.loginFailed(msg))
-      setTimeout(() => {
-        dispatch(dispatchType.logout());
-      }, 4000)
-    }
     console.log(error)
+    if(error.data){
+      if(error.data.errors){
+        const msg = error.data.errors[0].defaultMessage
+        dispatch(dispatchType.loginFailed(msg))
+      }else{
+        const msg = error.data.message
+        dispatch(dispatchType.loginFailed(msg))
+      }
+    }
+    
   }
 }
 
@@ -116,13 +122,14 @@ export const registerForm = (history, request, path) => async dispatch => {
 
 export const openModal = () => dispatch => {
   dispatch(dispatchType.openModal())
-  // setTimeout(() => {
-  //   dispatch(dispatchType.closeModal())
-  // }, 3000)
 }
 
 export const closeModal = () => dispatch => {
   dispatch(dispatchType.closeModal())
+}
+
+export const clearError = () => dispatch => {
+  dispatch(dispatchType.clearError())
 }
 
 

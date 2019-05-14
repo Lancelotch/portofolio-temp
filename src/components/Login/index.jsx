@@ -10,11 +10,10 @@ import strings from '../../localization/localization'
 import {
   loginWithGoogle,
   loginWithHome,
-  loginWithFacebook
+  loginWithFacebook,
+  clearError
 } from '../../store/actions/authentication'
 import history from "../../routers/history"
-// import SnackBar from 'react-material-snackbar'   
-
 const FormItem = Form.Item
 
 class Login extends Component {
@@ -23,8 +22,18 @@ class Login extends Component {
     this.state = {
       isAuthenticated: this.props.isAuthenticated,
       errorMessage: null,
-      isErorloaded: false
+      isErorloaded: false,
+      firstInput: true
     }
+  }
+
+  clearErrorMessage = () => {
+    this.props.form.validateFields()
+    this.props.clearError()
+  }
+
+  clearTrigger = () => {
+    this.props.clearError()
   }
 
   handleRegisterGoogle = request => {
@@ -37,6 +46,9 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    this.setState({
+      firstInput: false
+    })
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           const login = await this.props.loginWithHome(values,'/',history)
@@ -44,7 +56,11 @@ class Login extends Component {
             this.props.form.setFields({
               password: {
                 value: values.password,
-                errors: [new Error(this.props.messageError)]
+                errors: [new Error("")]
+              },
+              email: {
+                value: values.email,
+                errors: [new Error("")]
               }
             })
           }
@@ -53,7 +69,6 @@ class Login extends Component {
   }
 
   render () {
-   
     const {  form } = this.props
     const { getFieldDecorator } = form
     return (
@@ -73,6 +88,7 @@ class Login extends Component {
                 })(
                   <Input
                     size={'large'}
+                    onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                     prefix={
                       <Icon
                         type={'user'}
@@ -94,6 +110,7 @@ class Login extends Component {
                 })(
                   <Input
                     size={'large'}
+                    onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                     prefix={
                       <Icon
                         type={'lock'}
@@ -122,7 +139,7 @@ class Login extends Component {
                   <h4>{strings.login_enter}</h4>
                 </Button>
                 <div className='login-form__error-box'>
-                  {/* {this.props.isError ? (<p className='login-form__error-notif'> {this.props.messageError}</p>): null} */}
+                  {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
                 </div>
                 </div>
                 <div className='login-form__separator'>
@@ -171,5 +188,5 @@ const mapStateToProps = state => ({
 const LoginForm = Form.create({})(Login)
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithHome, loginWithFacebook }
+  { loginWithGoogle, loginWithHome, loginWithFacebook, clearError }
 )(LoginForm)
