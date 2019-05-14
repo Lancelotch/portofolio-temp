@@ -35,7 +35,9 @@ class Checkout extends Component {
       quantity: 1,
       note: "",
       isProductDetailAvailable: false,
-      textButton: "Lanjut Belanja"
+      textButton: "Lanjut Belanja",
+      cities: [],
+      subdistricts: []
     };
   }
 
@@ -46,6 +48,7 @@ class Checkout extends Component {
     this.getListAddress();
     this.getPayloadProductDetail();
     this.initCustomerAddress();
+    // this.getSubdistrict()
   }
 
   componentWillReceiveProps(props) {
@@ -54,9 +57,35 @@ class Checkout extends Component {
     // })
   }
 
+  getCities = async (id) => {
+    const params = {
+      province : id
+    }
+    try {
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_CITY, params);
+      this.setState({ cities: response.data.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getSubdistrict = async (id) => {
+    const params = {
+      city: id
+    }
+    try {
+      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
+      this.setState({ subdistricts: response.data.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   initCustomerAddress = () => {
     this.setState({
       customerAddress: this.props.dataAddressDefault
+    },() => {
+      this.getCities(this.state.customerAddress.provinceId)
+      this.getSubdistrict(this.state.customerAddress.cityId)
     })
   }
 
@@ -176,8 +205,11 @@ class Checkout extends Component {
   actionChangeAddress = address => {
     this.setState(prevState => ({
       customerAddress: address,
-      visibleListAddress: !prevState.visibleListAddress
+      visibleListAddress: !prevState.visibleListAddress,
+      tempCities : this.getCities(address.provinceId),
+      tempSubdistrict: this.getSubdistrict(address.cityId)
     }));
+    // this.getCities()
   };
 
   actionSubmitOrder = async () => {
@@ -276,6 +308,8 @@ class Checkout extends Component {
                   address={customerAddress}
                   onSubmit={this.actionSubmitEditFormAddress}
                   onCancle={this.actionShowEditFormAddress}
+                  // cities={this.state.cities}
+                  // subdistricts={this.state.subdistricts}
                 />
               )}
               <AddressList
