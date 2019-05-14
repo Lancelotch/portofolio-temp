@@ -12,6 +12,8 @@ import Checkout from "../pages/Checkout";
 import CustomerNavigation from "../containers/CustomerNavigation";
 import requiredAuth from "../hoc/requiredAuth";
 import notRequiredAuth from "../hoc/notRequiredAuth";
+import PaymentInfoPage from "../pages/PaymentInfo";
+
 const routes = [{
         path: PATH_URL.HOME,
         breadcrumb: 'monggopesen',
@@ -74,6 +76,11 @@ const routes = [{
     {
         path: PATH_URL.EXAMPLE,
         component: Example
+    },
+    {
+        path: PATH_URL.PAYMENT_INFO,
+        component: PaymentInfoPage,
+        layoutName: 'fullLayout'
     },
     {
     path: '/customer-navigation',

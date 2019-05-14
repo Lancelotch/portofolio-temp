@@ -212,7 +212,7 @@ class Checkout extends Component {
             history.push("/");
           },
           onPending: function(result){
-            history.push("/");
+            history.push({pathname: "/payment-info", state: {detail: result}});console.log("...",result);
           },
           onError: function(result){
             console.log('error');console.log(result);

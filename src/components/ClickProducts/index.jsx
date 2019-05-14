@@ -82,8 +82,7 @@ class ClickProducts extends Component {
       appendDots: dots => (
         <div
           style={{
-            borderRadius: 10,
-            marginLeft: 10
+            borderRadius: 10
           }}
         >
           <ul className="dots"> {dots} </ul>

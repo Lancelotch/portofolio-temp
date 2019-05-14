@@ -41,6 +41,8 @@ const strings = new LocalizedStrings({
     most_searched: 'Paling Banyak Dicari',
     recommendation_product: 'Rekomendasi Produk',
     virtual_account: "Virtual Account",
+    copy: "Salin",
+    ok: "OK",
 
     //Best Seller
     best : "Best",
@@ -102,6 +104,7 @@ const strings = new LocalizedStrings({
     china: "China",
     delivery_to: "ke INDONESIA",
     detail_product: "Detail Product",
+
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
 
@@ -109,6 +112,11 @@ const strings = new LocalizedStrings({
     payment_info: "Info Pembayaran",
     payment_total_amount: "Total Pembayaran",
     payment_pay_before: "Bayar Sebelum",
+    payment_info_sentence: "Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000",
+    payment_check: "Cek Status Pembayaran",
+    payment_modal_ask: "Sudah selesai bayar?",
+    payment_modal_content: "Pembayaran akan terverifikasi secara otomatis dalam 10 menit setelah anda berhasil transfer",
+
 
     //footer
     footer_any_help: 'Apa yang bisa kami bantu?',

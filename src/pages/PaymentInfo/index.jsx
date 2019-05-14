@@ -5,18 +5,17 @@ import { Divider, Button, Modal } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
-import dummyInvoiceInstructions from "../../dummy/dummyInvoiceInstructions";
 import dummyInvoice from "../../dummy/dummyInvoice";
 
 class PaymentInfoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructions: dummyInvoiceInstructions.instructions,
-      grossAmount: dummyInvoice.data[0].payment.grossAmount,
-      endDatePay: dummyInvoice.data[0].endDatePay,
-      virtualAccount: dummyInvoice.data[0].payment.virtualAccount,
-      imageBank: dummyInvoice.data[0].bank.imageUrl,
+      instructions: dummyInvoice.paymentInstruction.instructions,
+      grossAmount: dummyInvoice.payment.grossAmount,
+      endDatePay: dummyInvoice.endDatePayment,
+      virtualAccount: dummyInvoice.payment.virtualAccount,
+      imageBank: dummyInvoice.bank.imageUrl,
       copied: false
     };
   }
@@ -26,23 +25,20 @@ class PaymentInfoPage extends Component {
 
   render() {
     const { grossAmount, endDatePay, virtualAccount, imageBank } = this.state;
-    const instruction = this.state.instructions.map(instruct => {
-      return <li>{instruct}</li>;
+    const instruction = this.state.instructions.map(list => {
+      return <li>{list}</li>;
     });
     const warning = () => {
       Modal.warning({
-        title: "Sudah selesai bayar?",
-        content:
-          "Pembayaran akan terverifikasi secara otomatis dalam 10 menit setelah anda berhasil transfer",
-        okText: <a href="/customer-navigation">OK</a>
+        title: strings.payment_modal_ask,
+        content: strings.payment_modal_content,
+        okText: <a href="/customer-navigation">{strings.ok}</a>
       });
     };
     return (
       <div className="container">
         <div className="top-header">
-          <span>
-            Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000
-          </span>
+          <span>{strings.payment_info_sentence}</span>
         </div>
         <div className="content">
           <div className="logo">
@@ -68,7 +64,7 @@ class PaymentInfoPage extends Component {
               </div>
               <div>
                 <Button className="info__button" onClick={warning}>
-                  <p>Cek Status Pembayaran</p>
+                  <p>{strings.payment_check}</p>
                 </Button>
               </div>
             </div>
