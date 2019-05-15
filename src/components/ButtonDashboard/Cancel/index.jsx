@@ -6,17 +6,15 @@ import { pageUrlProductDetail } from "../../../library/url"
 import strings from '../../../localization/localization';
 
 const Cancel = (props) => {
-  const { indexes, showOrderDetailsDashboard } = props
+  const { productDetail, showOrderDetailsDashboard,i } = props
   let id = ''
-  indexes.map((p, i) => {
+  productDetail.map(p => {
     id = p.productId
     return id
   })
   return (
     <div style={{
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: 15
+      display: "flex", justifyContent: "flex-end", padding: 15, backgroundColor: "#FFFFFF"
     }}>
       <Button
         className="waitingPayment__payNow"
@@ -25,9 +23,9 @@ const Cancel = (props) => {
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
-        onClick={() => showOrderDetailsDashboard()}>
+            onClick={() => showOrderDetailsDashboard(i)}>
         {strings.cancel_details}
-        </Button>
+      </Button>
     </div>
   )
 }

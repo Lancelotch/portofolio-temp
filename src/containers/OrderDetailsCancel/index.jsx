@@ -5,13 +5,22 @@ import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDik
 import OrderStatusCancel from "../../components/OrderStatusCancel";
 import ProductOrderCancel from "../../components/ProductOrderCancel";
 import PaymentCancelOrder from "../../components/PaymentCancelOrder";
+import { apiGetWithToken } from '../../api/services';
+import { PATH_ORDER } from '../../api/path';
+import ProductOrder from '../../components/ProductOrder';
+import Cancel from '../../components/ButtonDashboard/Cancel';
 
 class OrderDetailsCancel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderDetailsId: this.props.orderDetailsId,
-            indexes: []
+            isShowOrderDetailsCancel: false,
+            indexes: [],
+            orderDate: null,
+            cancelBy: null,
+            estimateShippingDate: null,
+            top: 10,
+            orderId: this.props.orderId
         }
     }
 
@@ -19,48 +28,32 @@ class OrderDetailsCancel extends Component {
         this.productOrderDetailDashboard();
     }
 
+
+
     productOrderDetailDashboard = async () => {
+        const orderId = this.state.orderId;
         try {
-            const response = await dummyOrderDetailsDashboard;
-            const dummyBelumDikirim = await dummyOrderDetailsBelumDikirim;
-            const itemProductOrder = {
-                invoiceNumber: dummyBelumDikirim.data.invoiceNumber,
-                estimateShippingDate: response.data.estimateShippingDate,
-                bank: response.data.bank,
-                endDatePay: response.data.endDatePay,
-                shipping: response.data.shipping,
-                payment: response.data.payment,
-                productorder: response.data,
-                orderAddress: response.data.orderAddress,
-                indexes: response.data.indexes,
-                orderDate: response.data.orderDate
+            const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
+            const itemProductOrderCancel = {
+                estimateShippingDate: response.data.data.estimateShippingDate,
+                indexes: response.data.data.indexes,
+                orderDate: response.data.data.orderDate,
+                cancelBy: response.data.data.cancelBy
             };
             this.setState({
-                ...itemProductOrder
+                ...itemProductOrderCancel
             });
         } catch (error) {
             console.log(error);
         }
     };
     render() {
-
         return (
             <React.Fragment>
-                <div style={{ marginBottom: 50 }}>
-                    <Affix offsetTop={this.state.top}>
-                        <button
-                            style={{ float: "right" }}
-                            className="buttonOrderDetails"
-                            onClick={() => this.props.showOrderDetailsDashboard()}>
-                            <Icon type="arrow-left" /> &nbsp;
-                            Kembali
-                 </button>
-                    </Affix>
-                </div>
                 {this.state.indexes.map(order => {
                     return (
                         <React.Fragment>
-                            <OrderStatusCancel orderDate={this.state.orderDate} />
+                            <OrderStatusCancel top={this.state.top} actionShowOrderListWaiting={this.props.actionShowOrderListWaiting} orderDate={this.state.orderDate} />
                             <ProductOrderCancel
                                 label="Detail Pesanan"
                                 key={order.id}
@@ -71,9 +64,9 @@ class OrderDetailsCancel extends Component {
                                 productQuantity={order.productQuantity}
                                 totalAmount={order.totalAmount}
                             />
-                            <PaymentCancelOrder 
-                            labelPembatalan="Pesanan dibatalkan oleh customer" 
-                            estimateShippingDate={this.state.estimateShippingDate} />
+                            <PaymentCancelOrder
+                                cancelBy={this.state.cancelBy}
+                                estimateShippingDate={this.state.estimateShippingDate} />
                         </React.Fragment>
                     )
                 })}
