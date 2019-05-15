@@ -13,7 +13,7 @@ const OrderStatusStep = (props) => {
     orderDate,
     tabsNotSent,
     tabsInDelivery,
-    actionShowOrderListWaitingPayment,
+    actionShowOrderListWaiting,
     labelTabDetails,
     top,
     tabsFinish } = props;
@@ -37,7 +37,7 @@ const OrderStatusStep = (props) => {
           <button
             style={{ float: "right" }}
             className="buttonOrderDetails"
-            onClick={() => actionShowOrderListWaitingPayment()}>
+            onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali
     </button>
