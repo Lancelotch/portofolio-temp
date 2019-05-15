@@ -4,8 +4,8 @@ import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
 import { Modal, Spin } from "antd";
-import { apiGetWithToken } from "../../api/services";
-import { PATH_DASHBOARD_TAB } from "../../api/path";
+import { apiGetWithToken, patchService } from "../../api/services";
+import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
@@ -29,7 +29,7 @@ class OrderListWaitingPayment extends Component {
   }
 
   productOrderTabsNotYetPay = async () => {
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
       const productOrderTabsNotYetPay = {
@@ -38,28 +38,23 @@ class OrderListWaitingPayment extends Component {
       this.setState({
         ...productOrderTabsNotYetPay
       });
+      console.log("xxxxxxx",response)
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });
     }
   };
 
-  // actionCancelConfirm = async (orderId, index) => {
-  //   try {
-  //     const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
-  //     console.log('tessss', response);
-  //     const cancelOrder = orderId.splice(index, 1)
-  //     const newOrder = [...orderId]
-  //     this.setState({
-  //       productOrderNotYetPay: newOrder,
-  //       productOrderTabsCancel: [...this.state.productOrderTabsCancel, ...cancelOrder]
-  //     })
-  //     console.log('ini order id customer order navigation', this.state.id);
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  actionCancelConfirm = async (index) => {
+    try {
+      const orderId = {
+        orderId : index
+      }
+      const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   componentWillUnmount() {
     this.setState({
@@ -67,7 +62,7 @@ class OrderListWaitingPayment extends Component {
     });
   };
 
-  showDeleteConfirm = (order, index) => {
+  showDeleteConfirm = (allOrder, index) => {
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
       title: "Anda yakin ingin membatalkan pesanan?",
@@ -76,14 +71,14 @@ class OrderListWaitingPayment extends Component {
       okType: "danger",
       cancelText: "Kembali",
       onOk: () => {
-        const cancelOrder = order.splice(index, 1)
-        const newOrder = [...order]
+        const cancelOrder = allOrder.splice(index, 1)
+        const newOrder = [...allOrder]
         this.setState({
           productorder: newOrder,
           stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
         })
-
-        // this.actionCancelConfirm(order.orderId, index);
+        console.log(index)
+        this.actionCancelConfirm(index);
       },
     });
   }
@@ -134,7 +129,7 @@ class OrderListWaitingPayment extends Component {
                       showDeleteConfirm={this.showDeleteConfirm}
                       orderProduct={this.state.productOrderNotYetPay}
                       i={order.orderId}
-                      showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
+                      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
                       order={order}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
@@ -149,7 +144,7 @@ class OrderListWaitingPayment extends Component {
                   pay={this.state.selectedOrder.payment}
                   indexes={this.state.selectedOrder.indexes}
                   visible={this.state.isHowToShowModalOpen}
-                  close={() => this.toggleIsHowToShowModalOpen()}
+                  close={this.toggleIsHowToShowModalOpen}
                 />
               )}
             </React.Fragment>
