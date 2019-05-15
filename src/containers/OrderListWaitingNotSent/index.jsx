@@ -34,7 +34,6 @@ class OrderListWaitingNotSent extends Component {
     this.setState({ loading: true });
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
-      const orderId = response.data.data.map(order => order.orderId)
       const productOrderTabsNotYetSent = {
         productOrderNotYetSent: response.data.data
       };
@@ -42,7 +41,6 @@ class OrderListWaitingNotSent extends Component {
         ...productOrderTabsNotYetSent,
         productOrderNotYetSent: response.data.data
       });
-      console.log('ini responssssssssse', this.state.orderIdProduct);
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });

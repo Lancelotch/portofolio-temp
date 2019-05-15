@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
-import OrderListWaitingWrapper from '../OrderListWaitingWrapper';
 import "../../components/ProductOrder/style.sass";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
-import strings from "../../localization/localization";
 
 
 class OrderListWaitingFinish extends Component {
@@ -47,8 +45,6 @@ class OrderListWaitingFinish extends Component {
   }
   render() {
     const {
-      orderProduct,
-      showDeleteConfirm,
       tabsFinish,
       tabsNotPay,
       tabsInDelivery,

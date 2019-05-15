@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
-import OrderListWaitingWrapper from '../OrderListWaitingWrapper';
 import "../../components/ProductOrder/style.sass";
 import { Modal, Spin } from "antd";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
-import strings from "../../localization/localization";
 
 
 const confirm = Modal.confirm;
@@ -34,7 +32,6 @@ class OrderListWaitingPayment extends Component {
     this.setState({ loading: true });
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
-      //const response = await dummyProductOrder;
       const productOrderTabsNotYetPay = {
         productOrderNotYetPay: response.data.data
       };
