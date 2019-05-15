@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.13",
-    "antd": "^3.12.3",
+    "antd": "^3.18.1",
     "axios": "^0.18.0",
     "currency-formatter": "^1.5.3",
     "lodash": "^4.17.11",
