@@ -236,6 +236,7 @@ class FormEditAddress extends Component {
   };
 
   render() {
+
     const { getFieldDecorator } = this.props.form;
     const {
       cities,

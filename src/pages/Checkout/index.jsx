@@ -82,6 +82,23 @@ class Checkout extends Component {
     }
   };
 
+  splitValue = value => {
+    const splitValue = value.split("|");
+    return splitValue;
+  };
+
+  handleChangeCity = value => {
+    const city = this.splitValue(value);
+    this.setState(
+      {
+        cityId: city[0],
+        city: city[1]
+      },
+       () => this.getSubdistrict(city[0])
+    );
+    console.log("handle change city di checkout",value)
+  };
+
   initCustomerAddress = () => {
     this.setState({
       customerAddress: this.props.dataAddressDefault
@@ -311,8 +328,9 @@ class Checkout extends Component {
                   address={customerAddress}
                   onSubmit={this.actionSubmitEditFormAddress}
                   onCancle={this.actionShowEditFormAddress}
-                  // cities={this.state.cities}
-                  // subdistricts={this.state.subdistricts}
+                  cities={this.state.cities}
+                  subdistricts={this.state.subdistricts}
+                  handleChangeCity={this.handleChangeCity}
                 />
               )}
               <AddressList
