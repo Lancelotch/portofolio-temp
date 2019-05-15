@@ -9,15 +9,14 @@ const WaitingPayment = props => {
     endDatePay,
     indexes,
     orderId,
-    label,
-    index,
+    labelNotPay,
     tabsNotPay,
     tabsInDelivery,
     tabsNotSent,
     tabsFinish,
-    labelBelumDikirim,
-    labelDalamPengiriman,
-    labelSelesai,
+    labelNotSent,
+    labelInDelivery,
+    labelFinish,
     estimateShippingDate,
     receivedDate
   } = props;
@@ -25,6 +24,14 @@ const WaitingPayment = props => {
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
+          {tabsNotPay === 1 &&
+            <Col md={12}>
+              <b>{labelNotPay}</b>
+              <p className="waitingPayment__endDatePay">
+                {convertTimesTime.millisecond(endDatePay)}
+              </p>
+            </Col>
+          }
           {tabsNotSent === 2 &&
             <Col md={12}>
               <p
@@ -32,7 +39,7 @@ const WaitingPayment = props => {
                 style={{
                   paddingLeft: 15
                 }}>
-                {labelBelumDikirim}
+                {labelNotSent}
               </p>
             </Col>
           }
@@ -43,7 +50,7 @@ const WaitingPayment = props => {
                   paddingLeft: 15,
                   marginBottom: 0
                 }}>
-                {labelDalamPengiriman}
+                {labelInDelivery}
               </p>
               <p style={{
                 color: " #BBBBBB",
@@ -61,7 +68,7 @@ const WaitingPayment = props => {
                   paddingLeft: 15,
                   marginBottom: 0
                 }}>
-                {labelSelesai}
+                {labelFinish}
               </p>
               <p style={{
                 color: " #BBBBBB",
@@ -69,28 +76,6 @@ const WaitingPayment = props => {
                 marginLeft: 15
               }}>
                 {convertTimesTime.millisecond(receivedDate)}
-              </p>
-            </Col>
-          }
-          {tabsNotPay === 1 &&
-            <Col md={12}>
-              <b>{label}</b>
-              <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
-              </p>
-            </Col>
-          }
-          {index === 4 &&
-            <Col md={12}>
-              <p
-                style={{
-                  paddingLeft: 15,
-                  color: "#777777",
-                  fontSize: 16
-                }}>{label}
-              </p>
-              <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
               </p>
             </Col>
           }

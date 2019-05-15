@@ -5,12 +5,12 @@ import "./style.sass";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 
 
-
 class CustomerNavigation extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
 
   render() {
     return (
@@ -29,7 +29,7 @@ class CustomerNavigation extends Component {
               </React.Fragment>
             }
             className={"customerOrderNavigation"}
-            my_prop={<CustomerOderNavigation />}
+            my_prop={<CustomerOderNavigation/>}
           />
         </Tabs>
       </div>

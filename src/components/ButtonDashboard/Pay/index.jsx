@@ -11,18 +11,15 @@ const Pay = (props) => {
     showHowToModalPayment,
     order,
     showOrderDetailsDashboard,
-    index,
-    indexButton,
+    tabsNotPay,
+    tabsNotSent,
     tabsFinish,
     tabsInDelivery,
     orderProduct
   } = props
-
-  console.log('tombol detail pesanan by iiiid', props);
-
   return (
     <div style={{ backgroundColor: "#FFFFFF", paddingBottom: 20 }}>
-      {index === 1 && (
+      {tabsNotPay === 1 && (
         <React.Fragment>
           <Button
             className="waitingPayment__button"
@@ -50,7 +47,7 @@ const Pay = (props) => {
           </div>
         </React.Fragment>
       )}
-      {indexButton === 2 && (
+      {tabsNotSent === 2 && (
         <div
           style={{
             display: "flex",
@@ -59,7 +56,25 @@ const Pay = (props) => {
           }}>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order)}
+            onClick={() => showOrderDetailsDashboard(i)}
+          >
+            {strings.order_details}
+          </Button>
+        </div>
+      )}
+      {tabsInDelivery === 3 && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: 15
+          }}>
+          <Button className="waitingPayment__payNow">
+            Pesanan Detirma
+          </Button>
+          <Button
+            className="waitingPayment__detailPesanan"
+            onClick={() => showOrderDetailsDashboard()}
           >
             {strings.order_details}
           </Button>
@@ -76,24 +91,6 @@ const Pay = (props) => {
             className="waitingPayment__payNow"
           >
             <Link to={pageUrlProductDetail + "productDetailId"}>Beli Lagi</Link>
-          </Button>
-          <Button
-            className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard()}
-          >
-            {strings.order_details}
-          </Button>
-        </div>
-      )}
-      {tabsInDelivery === 3 && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            padding: 15
-          }}>
-          <Button className="waitingPayment__payNow">
-            Pesanan Detirma
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
