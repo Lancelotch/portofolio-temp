@@ -94,7 +94,6 @@ class OrderListWaitingFinish extends Component {
                 )
               })}
             </React.Fragment>)}
-        }
     </React.Fragment>
     );
   }

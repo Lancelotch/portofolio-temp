@@ -95,7 +95,6 @@ class OrderListWaitingNotSent extends Component {
                 )
               })}
             </React.Fragment>)}
-        }
     </React.Fragment>
     );
   }

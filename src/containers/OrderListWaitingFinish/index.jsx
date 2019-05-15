@@ -96,7 +96,6 @@ class OrderListWaitingInDelivery extends Component {
                 )
               })}
             </React.Fragment>)}
-        }
     </React.Fragment>
     );
   }
