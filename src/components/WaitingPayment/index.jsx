@@ -14,11 +14,15 @@ const WaitingPayment = props => {
     tabsInDelivery,
     tabsNotSent,
     tabsFinish,
+    tabsCancel,
+    cancelBy,
     labelNotSent,
+    labelCancel,
     labelInDelivery,
     labelFinish,
     estimateShippingDate,
-    receivedDate
+    receivedDate,
+    cancelDate
   } = props;
   return (
     <React.Fragment>
@@ -76,6 +80,24 @@ const WaitingPayment = props => {
                 marginLeft: 15
               }}>
                 {convertTimesTime.millisecond(receivedDate)}
+              </p>
+            </Col>
+          }
+          {tabsCancel === 5 &&
+            <Col md={12}>
+              <p
+                style={{
+                  paddingLeft: 15,
+                  marginBottom: 0
+                }}>
+                {labelCancel} {cancelBy}
+              </p>
+              <p style={{
+                color: " #BBBBBB",
+                fontSize: 16,
+                marginLeft: 15
+              }}>
+                {convertTimesTime.millisecond(cancelDate)}
               </p>
             </Col>
           }

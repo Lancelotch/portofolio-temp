@@ -21,7 +21,9 @@ class OrderListWaitingPayment extends Component {
       orderId: null,
       loading: false,
       selectedOrder: null,
-      productOrderNotYetPay: []
+      productOrderNotYetPay: [],
+      bank: null,
+      paymentInstruction: null
     };
   }
   componentDidMount() {
@@ -33,7 +35,9 @@ class OrderListWaitingPayment extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
       const productOrderTabsNotYetPay = {
-        productOrderNotYetPay: response.data.data
+        bank: response.data.data,
+        productOrderNotYetPay: response.data.data,
+        paymentInstruction: response.data.data
       };
       this.setState({
         ...productOrderTabsNotYetPay
@@ -89,13 +93,17 @@ class OrderListWaitingPayment extends Component {
   }
 
   toggleIsHowToShowModalOpen = order => {
+    console.log('iniiiiiiii modal show',order);
+    
     this.setState({
       isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
       selectedOrder: order ? order : null
     });
   };
 
+
   render() {
+    const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
       tabsFinish,
       tabsNotPay,
@@ -134,22 +142,23 @@ class OrderListWaitingPayment extends Component {
                       showDeleteConfirm={this.showDeleteConfirm}
                       orderProduct={this.state.productOrderNotYetPay}
                       i={order.orderId}
-                      showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
+                      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
                       order={order}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
                   </div>
                 )
               })}
-              {this.state.selectedOrder && (
-                <ModalHowToPay
-                  payBank={this.state.selectedOrder.bank}
-                  key={this.state.selectedOrder.orderId}
-                  endDatePay={this.state.selectedOrder.endDatePay}
-                  pay={this.state.selectedOrder.payment}
-                  indexes={this.state.selectedOrder.indexes}
-                  visible={this.state.isHowToShowModalOpen}
-                  close={() => this.toggleIsHowToShowModalOpen()}
+              {selectedOrder && (
+                <ModalHowToPay     
+                  payBank={selectedOrder.bank}
+                  key={selectedOrder.orderId}
+                  endDatePay={selectedOrder.endDatePay}
+                  pay={selectedOrder.payment}
+                  indexes={selectedOrder.indexes}
+                  paymentInstruction={selectedOrder.paymentInstruction}
+                  visible={isHowToShowModalOpen}
+                  close={this.toggleIsHowToShowModalOpen}
                 />
               )}
             </React.Fragment>

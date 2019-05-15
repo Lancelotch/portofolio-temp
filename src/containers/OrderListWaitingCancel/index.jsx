@@ -6,6 +6,7 @@ import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
+import WaitingPayment from "../../components/WaitingPayment";
 
 class OrderListingCancel extends Component {
   constructor(props) {
@@ -30,13 +31,11 @@ class OrderListingCancel extends Component {
     this.setState({ loading: true });
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_CANCEL);
-      const orderCancelId = response.data.data.map(order => order.orderId)
       const productOrderTabsCancel = {
         productOrderCancel: response.data.data
       };
       this.setState({
-        ...productOrderTabsCancel,
-        orderIdCancel: orderCancelId
+        ...productOrderTabsCancel
       });
     } catch (error) {
       console.log(error);
@@ -57,8 +56,18 @@ class OrderListingCancel extends Component {
             <React.Fragment>
               {this.state.productOrderCancel.map((order, i) => {
                 return (
-                  <div style={{ marginBottom: 33 }} key={i}>
+                  <div className="waitingPayment__list" style={{ marginBottom: 33 }} key={i}>
                     <ProductOrder key={order.id} indexes={order.indexes} />
+                    <WaitingPayment
+                      labelCancel={"Pesanan dibatalkan oleh"}
+                      estimateShippingDate={order.estimateShippingDate}
+                      cancelDate={order.cancelDate}
+                      cancelBy={order.cancelBy}
+                      tabsCancel={5}
+                      key={order.id}
+                      indexes={order.indexes}
+                      pay={order.payment}
+                    />
                     <Cancel
                       i={order.orderId}
                       productDetail={order.indexes}

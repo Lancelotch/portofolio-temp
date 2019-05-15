@@ -18,7 +18,11 @@ const Pay = (props) => {
     orderProduct
   } = props
   return (
-    <div style={{ backgroundColor: "#FFFFFF", paddingBottom: 20 }}>
+    <div 
+    style={{ 
+      backgroundColor: "#FFFFFF", 
+      paddingBottom: 20 
+    }}>
       {tabsNotPay === 1 && (
         <React.Fragment>
           <Button
@@ -34,7 +38,7 @@ const Pay = (props) => {
             }}>
             <Button
               className="waitingPayment__payNow"
-              onClick={() => showHowToModalPayment(order)}
+              onClick={showHowToModalPayment.bind(this, order)}
             >
               {strings.pay_now}
             </Button>
