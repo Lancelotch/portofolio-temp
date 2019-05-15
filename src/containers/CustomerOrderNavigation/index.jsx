@@ -54,6 +54,7 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               (<OrderListWaitingNotPay
+                actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                 tabsNotPay={1}
               />) : (
                 <OrderDetailsDashboard orderId={this.state.orderId}

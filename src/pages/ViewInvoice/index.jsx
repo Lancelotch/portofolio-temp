@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { PATH_ORDER } from "../../api/path";
 import { apiGetWithToken } from "../../api/services";
-import convertTimesTime from '../../library/convertTimestime';
+import TableInvoicePayment from '../../components/InvoiceDetailDashboard/TableInvoicePayment';
 import ReactToPrint from 'react-to-print';
+import TableInvoiceDetailDashboard from '../../components/InvoiceDetailDashboard/TableInvoiceDetail';
 
 class ViewInvoice extends Component {
     constructor(props) {
@@ -58,8 +59,7 @@ class ViewInvoice extends Component {
     };
 
     render() {
-        console.log('AAAAAAAAAAA', this.state.bank.name);
-
+       const filterNote = this.state.indexes.map(index=> index.note);
         return (
             <React.Fragment>
                 <ReactToPrint
@@ -71,8 +71,21 @@ class ViewInvoice extends Component {
                     <p>Hai Ahyar Afal I,
 
                     Terimakasih sudah berbelanja di monggopesen.com, ini adalah bukti dari transaksi anda.</p>
-                    {this.state.invoiceNumber}
-                    {convertTimesTime.millisecond(this.state.orderDate)}
+                    <TableInvoiceDetailDashboard
+                    note={filterNote}
+                        address={this.state.address}
+                        orderDate={this.state.orderDate}
+                        invoice={this.state.invoiceNumber}
+                    />
+                    {this.state.indexes.map(index =>
+                        <TableInvoicePayment 
+                        productName={index.productName} 
+                        variants={index.variants}
+                        productQuantity={index.productQuantity}
+                        totalAmount={index.totalAmount}
+                        shipping={this.state.shipping}
+                         />
+                    )}
                 </div>
             </React.Fragment>
         );
