@@ -7,6 +7,8 @@ import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
+import WaitingPayment from "../../components/WaitingPayment";
+import strings from "../../localization/localization";
 
 
 class OrderListWaitingFinish extends Component {
@@ -65,12 +67,15 @@ class OrderListWaitingFinish extends Component {
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
-
-                    <OrderListWaitingWrapper
+                    <WaitingPayment
+                      labelInDelivery={"Dalam Proses Pengiriman"}
+                      estimateShippingDate={order.estimateShippingDate}
+                      receivedDate={order.receivedDate}
                       tabsInDelivery={3}
-                      order={order}
-                      showDeleteConfirm={showDeleteConfirm}
-                      orderProduct={orderProduct}
+                      key={order.id}
+                      endDatePay={order.endDatePay}
+                      indexes={order.indexes}
+                      pay={order.payment}
                     />
                     <Pay
                       productId={order.indexes}
@@ -78,8 +83,8 @@ class OrderListWaitingFinish extends Component {
                       tabsNotPay={tabsNotPay}
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
-                      showDeleteConfirm={showDeleteConfirm}
-                      orderProduct={orderProduct}
+                      showDeleteConfirm={this.showDeleteConfirm}
+                      orderProduct={this.state.productOrderInDelivery}
                       i={order.orderId}
                       showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       order={order}

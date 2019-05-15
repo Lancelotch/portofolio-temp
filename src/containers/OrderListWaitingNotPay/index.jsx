@@ -4,10 +4,12 @@ import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import OrderListWaitingWrapper from '../OrderListWaitingWrapper';
 import "../../components/ProductOrder/style.sass";
-import {  Modal, Spin } from "antd";
+import { Modal, Spin } from "antd";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
+import WaitingPayment from "../../components/WaitingPayment";
+import strings from "../../localization/localization";
 
 
 const confirm = Modal.confirm;
@@ -21,7 +23,7 @@ class OrderListWaitingPayment extends Component {
       orderId: null,
       loading: false,
       selectedOrder: null,
-      productOrderNotYetPay:[]
+      productOrderNotYetPay: []
     };
   }
   componentDidMount() {
@@ -45,7 +47,7 @@ class OrderListWaitingPayment extends Component {
     }
   };
 
-    // actionCancelConfirm = async (orderId, index) => {
+  // actionCancelConfirm = async (orderId, index) => {
   //   try {
   //     const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
   //     console.log('tessss', response);
@@ -98,8 +100,6 @@ class OrderListWaitingPayment extends Component {
 
   render() {
     const {
-      orderProduct,
-      showDeleteConfirm,
       tabsFinish,
       tabsNotPay,
       tabsInDelivery,
@@ -107,52 +107,56 @@ class OrderListWaitingPayment extends Component {
       tabsNotSent } = this.props;
     return (
       <React.Fragment>
-      {this.state.productOrderNotYetPay.length < 1 ?
-        (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
-          <NoOrderHistory /></Spin>
-        ) : (
-          <React.Fragment>
-          {this.state.productOrderNotYetPay.map((order, i) => {
-            return (
-              <div className="waitingPayment__list" key={i}>
-              <ProductOrder
-                  key={order.id}
-                  indexes={order.indexes} />
-                  <OrderListWaitingWrapper
-                      order={order}
+        {this.state.productOrderNotYetPay.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+            <NoOrderHistory /></Spin>
+          ) : (
+            <React.Fragment>
+              {this.state.productOrderNotYetPay.map((order, i) => {
+                return (
+                  <div className="waitingPayment__list" key={i}>
+                    <ProductOrder
+                      key={order.id}
+                      indexes={order.indexes} />
+                    <WaitingPayment
+                      labelNotPay={"Bayar Sebelum"}
+                      estimateShippingDate={order.estimateShippingDate}
+                      receivedDate={order.receivedDate}
                       tabsNotPay={1}
-                      showDeleteConfirm={showDeleteConfirm}
-                      orderProduct={orderProduct}
-                  />
-              <Pay
-                  productId={order.indexes}
-                  tabsFinish={tabsFinish}
-                  tabsNotPay={tabsNotPay}
-                  tabsInDelivery={tabsInDelivery}
-                  tabsNotSent={tabsNotSent}
-                  showDeleteConfirm={showDeleteConfirm}
-                  orderProduct={orderProduct}
-                  i={order.orderId}
-                  showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
-                  order={order}
-                  showOrderDetailsDashboard={()=> actionShowOrderDetailsDashboard(order.orderId)}
-              />
-          </div>
-            )
-          })}
-          {this.state.selectedOrder && (
-            <ModalHowToPay
-                payBank={this.state.selectedOrder.bank}
-                key={this.state.selectedOrder.orderId}
-                endDatePay={this.state.selectedOrder.endDatePay}
-                pay={this.state.selectedOrder.payment}
-                indexes={this.state.selectedOrder.indexes}
-                visible={this.state.isHowToShowModalOpen}
-                close={() => this.toggleIsHowToShowModalOpen()}
-            />
-        )}
-          </React.Fragment>
-        )}
+                      key={order.id}
+                      endDatePay={order.endDatePay}
+                      indexes={order.indexes}
+                      pay={order.payment}
+                    />
+                    <Pay
+                      productId={order.indexes}
+                      tabsFinish={tabsFinish}
+                      tabsNotPay={tabsNotPay}
+                      tabsInDelivery={tabsInDelivery}
+                      tabsNotSent={tabsNotSent}
+                      showDeleteConfirm={this.showDeleteConfirm}
+                      orderProduct={this.state.productOrderNotYetPay}
+                      i={order.orderId}
+                      showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
+                      order={order}
+                      showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                    />
+                  </div>
+                )
+              })}
+              {this.state.selectedOrder && (
+                <ModalHowToPay
+                  payBank={this.state.selectedOrder.bank}
+                  key={this.state.selectedOrder.orderId}
+                  endDatePay={this.state.selectedOrder.endDatePay}
+                  pay={this.state.selectedOrder.payment}
+                  indexes={this.state.selectedOrder.indexes}
+                  visible={this.state.isHowToShowModalOpen}
+                  close={() => this.toggleIsHowToShowModalOpen()}
+                />
+              )}
+            </React.Fragment>
+          )}
       </React.Fragment>
     );
   }

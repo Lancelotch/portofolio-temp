@@ -8,6 +8,8 @@ import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
+import WaitingPayment from "../../components/WaitingPayment";
+import strings from "../../localization/localization";
 
 
 
@@ -16,7 +18,7 @@ class OrderListWaitingInDelivery extends Component {
     super(props);
     this.state = {
       productOrderFinish: [],
-      loading : false
+      loading: false
     };
   }
 
@@ -49,8 +51,6 @@ class OrderListWaitingInDelivery extends Component {
 
   render() {
     const {
-      orderProduct,
-      showDeleteConfirm,
       tabsFinish,
       tabsNotPay,
       tabsInDelivery,
@@ -69,11 +69,15 @@ class OrderListWaitingInDelivery extends Component {
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
-                    <OrderListWaitingWrapper
+                    <WaitingPayment
+                      labelFinish={"Pesanan Diterima"}
+                      estimateShippingDate={order.estimateShippingDate}
+                      receivedDate={order.receivedDate}
                       tabsFinish={4}
-                      order={order}
-                      showDeleteConfirm={showDeleteConfirm}
-                      orderProduct={orderProduct}
+                      key={order.id}
+                      endDatePay={order.endDatePay}
+                      indexes={order.indexes}
+                      pay={order.payment}
                     />
                     <Pay
                       productId={order.indexes}
@@ -81,8 +85,8 @@ class OrderListWaitingInDelivery extends Component {
                       tabsNotPay={tabsNotPay}
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
-                      showDeleteConfirm={showDeleteConfirm}
-                      orderProduct={orderProduct}
+                      showDeleteConfirm={this.showDeleteConfirm}
+                      orderProduct={this.state.productOrderFinish}
                       i={order.orderId}
                       showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       order={order}
