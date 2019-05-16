@@ -12,6 +12,8 @@ import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
 import CategoryMenu from "../CategoryMenu";
 import {Link} from "react-router-dom"
+import maskot from "../../assets/img/mascot_monggodesignheroes_2.png"
+import PATH from "../../routers/path"
 
 class Header extends Component {
   constructor(props) {
@@ -122,7 +124,7 @@ class Header extends Component {
 
   userMenu = () => (
     <Menu className="header__user-menu">
-      <div className="header__user-menu-box">
+      {/* <div className="header__user-menu-box">
         <li> {strings.my_account}</li>
         <li><Link to="/dashboard-customer" style={{color: "#5D5D5D"}}> {strings.header_my_order}</Link></li>
         <li onClick={() =>this.handleLogout()}>
@@ -131,8 +133,31 @@ class Header extends Component {
             {strings.log_out}{" "}
           </button>{" "}
         </li>
+      </div> */}
+      <div >
+        <Menu.Item key="0" style={{padding: "10px 16px 10px 16px"}}>
+          <Row type="flex" align="middle">
+            <Col span={5}>
+              <img src={maskot} width="50%" alt=""/>
+            </Col>
+            <Col span={19}>
+              <div className="header__user-profile">Profile</div>
+            </Col>
+          </Row>
+        </Menu.Item>  
+        <hr className="header__user-divider"></hr>
+        <div className="header__user-logout">
+          <Menu.Item  key="3"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesanan Saya</Link></Menu.Item>
+          <Menu.Item  key="3"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
+          <Menu.Item  key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
+          <Menu.Item  key="3">
+            <div onClick={() =>this.handleLogout()} className="header__user-li">Log Out</div>
+          </Menu.Item>
+        </div>
       </div>
-    </Menu>
+      
+  </Menu>
+
   );
 
   showUserDropDown = isAuthenticated =>

@@ -82,7 +82,7 @@ const routes = [{
         component: Example
     },
     {
-    path: '/dashboard-customer',
+    path: PATH_URL.DASHBOARD_CUSTOMER,
     component: requiredAuth(CustomerNavigation),
     layoutName: 'customerLayout'
 }
