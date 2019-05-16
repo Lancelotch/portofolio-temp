@@ -23,7 +23,7 @@ const strings = new LocalizedStrings({
     pay_now : 'Bayar Sekarang',
     cancel_details: 'Detail Pembatalan',
     total_payment: 'Total Pembayaran',
-    log_in: 'Log In',
+    log_in: 'Login',
     log_out: 'Log Out',
     monggoPesen: "MonggoPesen",
     add_to_cart: "Tambah Ke Keranjang",
@@ -49,6 +49,12 @@ const strings = new LocalizedStrings({
     pay_to: "Bayar Ke",
     giyarto: "PT. Giyarto Manunggal Sejati",
     estimate_accepted:"Perkiraan Diterima",
+
+
+
+    //Invoice
+    text_thanks_invoice: ' Terimakasih sudah berbelanja di monggopesen.com,ini adalah bukti dari transaksi anda',
+
 
 
     //Dashboard Product Details

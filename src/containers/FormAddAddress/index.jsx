@@ -294,7 +294,7 @@ class FormAddAddress extends Component {
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {subdistricts && this.optionsSubdistrict(subdistricts)}
+                    {this.props.subdistricts && this.optionsSubdistrict(this.props.subdistricts)}
                   </Select>
                 )}
               </Form.Item>

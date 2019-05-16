@@ -66,7 +66,13 @@ class FormEditAddress extends Component {
       geolocation: { ...geolocation },
       subdistrictId: subdistrictId,
       subdistrict: subdistrict,
-      isDefault: isDefault
+      isDefault: isDefault,
+      // cities: nextProps.cities,
+      // subdistricts: nextProps.subdistricts
+    }, () => {
+        this.getCities()
+        // this.getSubdistrict()
+        this.getSubdistrict()
     })
   }
 
@@ -91,10 +97,13 @@ class FormEditAddress extends Component {
     }
   };
 
-  getSubdistrict = async () => {
+  getSubdistrict = async (id) => {
     const params = {
       city: this.state.cityId
     }
+    // const params= {
+    //   city : id
+    // }
     try {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
       this.setState({ subdistricts: response.data.data });
@@ -142,12 +151,13 @@ class FormEditAddress extends Component {
         cityId: city[0],
         city: city[1]
       },
-      this.getSubdistrict
+       () => this.getSubdistrict()
     );
   };
 
   optionsCity = cities => {
     const options = [];
+    // console.log("ini cities",cities)
     cities.forEach(city => {
       options.push(
         <Option value={`${city.city_id}|${city.city_name}`} key={city.city_id}>
@@ -226,6 +236,7 @@ class FormEditAddress extends Component {
   };
 
   render() {
+
     const { getFieldDecorator } = this.props.form;
     const {
       cities,
@@ -251,7 +262,7 @@ class FormEditAddress extends Component {
     );
     return (
       <Modal
-        title="Rubah Alamat Lama"
+        title="Ubah Alamat Lama"
         visible={this.props.visible}
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}

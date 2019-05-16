@@ -11,7 +11,6 @@ class CustomerNavigation extends Component {
     this.state = {};
   }
 
-
   render() {
     return (
       <div className="dashboardUser" style={{ marginTop: 20 }}>
