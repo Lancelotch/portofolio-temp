@@ -5,6 +5,7 @@ const dummyOrderDetailsDashboard = {
     "message": "OK",
     "data": {
         "id": "58b63138-c592-4f20-96be-0a5c7a5c5906",
+        "invoiceNumber": "INV19043",
         "endDatePay": 1556090300548,
         "description": "PENDING",
         "orderDate": 1555925314872,

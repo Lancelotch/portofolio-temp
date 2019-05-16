@@ -9,35 +9,52 @@ const WaitingPayment = props => {
     endDatePay,
     indexes,
     orderId,
-    label,
-    index,
-    indexDalamPengiriman,
-    labelPengiriman,
-    estimateShippingDate
+    labelNotPay,
+    tabsNotPay,
+    tabsInDelivery,
+    tabsNotSent,
+    tabsFinish,
+    tabsCancel,
+    cancelBy,
+    labelNotSent,
+    labelCancel,
+    labelInDelivery,
+    labelFinish,
+    estimateShippingDate,
+    receivedDate,
+    cancelDate
   } = props;
   return (
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
-          {indexDalamPengiriman === 2 &&
+          {tabsNotPay === 1 &&
+            <Col md={12}>
+              <b>{labelNotPay}</b>
+              <p className="waitingPayment__endDatePay">
+                {convertTimesTime.millisecond(endDatePay)}
+              </p>
+            </Col>
+          }
+          {tabsNotSent === 2 &&
             <Col md={12}>
               <p
                 className="dalamProsesPengiriman"
                 style={{
                   paddingLeft: 15
                 }}>
-                {labelPengiriman}
+                {labelNotSent}
               </p>
             </Col>
           }
-          {indexDalamPengiriman === 3 &&
+          {tabsInDelivery === 3 &&
             <Col md={12}>
               <p
                 style={{
                   paddingLeft: 15,
-                  color: "#777777"
+                  marginBottom: 0
                 }}>
-                {labelPengiriman}
+                {labelInDelivery}
               </p>
               <p style={{
                 color: " #BBBBBB",
@@ -48,25 +65,39 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {index === 1 &&
-            <Col md={12}>
-              <b>{label}</b>
-              <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
-              </p>
-            </Col>
-          }
-          {index === 4 &&
+          {tabsFinish === 4 &&
             <Col md={12}>
               <p
                 style={{
                   paddingLeft: 15,
-                  color: "#777777",
-                  fontSize: 16
-                }}>{label}
+                  marginBottom: 0
+                }}>
+                {labelFinish}
               </p>
-              <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
+              <p style={{
+                color: " #BBBBBB",
+                fontSize: 16,
+                marginLeft: 15
+              }}>
+                {convertTimesTime.millisecond(receivedDate)}
+              </p>
+            </Col>
+          }
+          {tabsCancel === 5 &&
+            <Col md={12}>
+              <p
+                style={{
+                  paddingLeft: 15,
+                  marginBottom: 0
+                }}>
+                {labelCancel} {cancelBy}
+              </p>
+              <p style={{
+                color: " #BBBBBB",
+                fontSize: 16,
+                marginLeft: 15
+              }}>
+                {convertTimesTime.millisecond(cancelDate)}
               </p>
             </Col>
           }

@@ -3,19 +3,18 @@ import { Button } from 'antd'
 import "../../ProductOrder/style.sass"
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../../library/url"
+import strings from '../../../localization/localization';
 
 const Cancel = (props) => {
-  const { productDetail, viewOrderDetail } = props
+  const { productDetail, showOrderDetailsDashboard,i } = props
   let id = ''
-  productDetail.forEach((p, i) => {
+  productDetail.map(p => {
     id = p.productId
-    // return id
+    return id
   })
   return (
     <div style={{
-      display: "flex",
-      justifyContent: "flex-end",
-      padding: 15
+      display: "flex", justifyContent: "flex-end", padding: 15, backgroundColor: "#FFFFFF"
     }}>
       <Button
         className="waitingPayment__payNow"
@@ -24,9 +23,9 @@ const Cancel = (props) => {
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
-        onClick={() => viewOrderDetail()}>
-        Detail Pembatalan
-        </Button>
+            onClick={() => showOrderDetailsDashboard(i)}>
+        {strings.cancel_details}
+      </Button>
     </div>
   )
 }

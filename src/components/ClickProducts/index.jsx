@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import currencyRupiah from "../../library/currency";
 import { Card, Icon, Carousel } from "antd";
-// import Slider from "react-slick";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
