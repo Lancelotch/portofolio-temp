@@ -12,36 +12,51 @@ const OrderSummary = props => {
 
   return (
     <Card title={strings.order_summary} className="card__Style">
-    <Row className="card__Content">
+      <Row className="card__Content">
         <Col md={12}>
-          <p>{"Harga Product"}</p>
-          <p>{`Pcs`}</p>
-          <p>{"Sub Total"}</p>
-          <p>Pengiriman International</p>
-          <p>{viaRoute.via}</p>
+          <div className="price-pcs">
+            <p>{"Harga Product"}</p>
+            <p>{`Pcs`}</p>
+          </div>
+          <div className="sub-total">
+            <p>{"Sub Total"}</p>
+          </div>
+          <div className="international-shipping">
+            <p>Pengiriman International</p>
+            <p className="p-color">{viaRoute.via}</p>
+          </div>
         </Col>
         <Col md={12} className="card__ColumnLeft">
-          <p className="price">{currencyRupiah(priceProduct)}</p>
-          <p>{`x ${quantity}`}</p>
-          <p>{currencyRupiah(subTotal)}</p>
-          <p></p>
-          <p>{viaRoute.via === "Laut" ? "Ongkir Sudah Termasuk" : currencyRupiah(viaRoute.price)}</p>
+          <div className="price-pcs">
+            <p className="price">{currencyRupiah(priceProduct)}</p>
+            <p>{`x ${quantity}`}</p>
+          </div>
+          <div className="sub-total">
+            <p>{currencyRupiah(subTotal)}</p>
+          </div>
+          <div className="international-shipping-price">
+            <p className="p-color">
+              {viaRoute.via === "Laut"
+                ? "Ongkir Sudah Termasuk"
+                : currencyRupiah(viaRoute.price)}
+            </p>
+          </div>
         </Col>
       </Row>
-      <Divider/>
+      <Divider />
       <Row className="rowUnderDivider">
         <Col md={12}>
-          <b>{strings.sub_total}</b>
+          <b>{strings.real_total}</b>
         </Col>
         <Col md={12} className="card__ColumnLeft">
-          <p className="price">{currencyRupiah(total)}</p>
+          <b className="price">{currencyRupiah(total)}</b>
         </Col>
         <Col md={24}>
-        <div className="ordersummary">
-          <Button className="card__Button" onClick={props.onOrder}>
-            {strings.choose_payment_methods}
-          </Button>
-        </div>
+          <div className="ordersummary">
+            <Button className="card__Button" onClick={props.onOrder}>
+              {strings.choose_payment_methods}
+            </Button>
+          </div>
         </Col>
       </Row>
     </Card>

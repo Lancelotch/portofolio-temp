@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import productDetail from "../../api/services/productDetail";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import SkuContainer from "../../containers/Sku";
+<<<<<<< HEAD
+=======
+// import dummyProductDetail from "../../dummy/dummyProductDetail";
+>>>>>>> 266a28005b47e4e2b5de9cf7c8d5a2f42ca9318b
 import { Redirect } from "react-router-dom";
 import ButtonQuantityContainer from "../../containers/ButtonQuantity";
 import { Row, Col, Card } from "antd";
@@ -138,6 +142,7 @@ class ProductDetail extends Component {
                       actionUpdateImageVariant={this.actionUpdateImageVariant}
                       defaultValueSku={this.state.data.sku}
                     />
+                    <p>Jumlah</p>
                     <ButtonQuantityContainer
                       stock={this.state.data.sku.stock}
                       quantity={this.state.data.quantity}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col } from "antd";
+import { Col, Row } from "antd";
 import "./style.sass";
 import currencyRupiah from "../../library/currency";
 import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
@@ -21,7 +21,7 @@ export const SelectShipping = props => {
               }
               onClick={onChangeSelected.bind(this, ship)}
             >
-              <Col md={24} style={{ padding: 10 }}>
+              <Row style={{padding:"10px"}}>
                 <Col md={4}>
                   <img
                     src={ship.via === "Laut" ? Laut : Udara}
@@ -36,16 +36,17 @@ export const SelectShipping = props => {
                       ship.estimation.substring(1)}
                   </p>
                   <p className="price-selected">
-                    {ship.via === "Laut" ? "Ongkir Termasuk" : currencyRupiah(ship.price)}
+                    {ship.via === "Laut"
+                      ? "Ongkir Termasuk"
+                      : currencyRupiah(ship.price)}
                   </p>
                 </Col>
                 {/* <p className="price">{ ship.via ===  'Laut' ?  'Harga sudah termasuk' : currencyRupiah(ship.price) }</p> */}
-              </Col>
+              </Row>
             </div>
           ))}
         </div>
       )}
     </React.Fragment>
   );
-}
-
+};

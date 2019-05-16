@@ -29,13 +29,14 @@ const strings = new LocalizedStrings({
     add_to_cart: "Tambah Ke Keranjang",
     order_now : "Pesan Sekarang",
     action_delete: "Hapus",
-    checkout: "Checkout",
+    checkout: "Check Out",
     total_price_product: "Total Harga Barang",
     failed: "Gagal",
     pay: "Bayar",
     total: "Jumlah",
     note: "Catatan",
     sub_total: "Sub Total",
+    real_total: "Total",
     price_product: "Harga Product",
     price_courier: "Ongkos Kirim",
     pcs: "pcs",
@@ -61,6 +62,8 @@ const strings = new LocalizedStrings({
     notice_payment_administrasi :"Subtotal yang tercantum diatas udah termasuk  biaya bea masuk, pajak dan administrasi.",
     
     virtual_account: "Virtual Account",
+    copy: "Salin",
+    ok: "OK",
 
     //Best Seller
     best : "Best",
@@ -122,6 +125,7 @@ const strings = new LocalizedStrings({
     china: "China",
     delivery_to: "ke INDONESIA",
     detail_product: "Detail Product",
+
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
 
@@ -129,6 +133,11 @@ const strings = new LocalizedStrings({
     payment_info: "Info Pembayaran",
     payment_total_amount: "Total Pembayaran",
     payment_pay_before: "Bayar Sebelum",
+    payment_info_sentence: "Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000",
+    payment_check: "Cek Status Pembayaran",
+    payment_modal_ask: "Sudah selesai bayar?",
+    payment_modal_content: "Pembayaran akan terverifikasi secara otomatis dalam 10 menit setelah anda berhasil transfer",
+
 
     //footer
     footer_any_help: 'Apa yang bisa kami bantu?',

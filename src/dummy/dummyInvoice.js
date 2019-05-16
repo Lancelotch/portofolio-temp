@@ -1,112 +1,40 @@
 const dummyInvoice = {
-  "code": "200",
-  "message": "OK",
-  "data": [
-      {
-          "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
-          "indexes": [
-              {
-                  "productId": "5c736c8ec0267d16d00014f8",
-                  "productName": "Sepatu Nike Snekkers173000000",
-                  "productQuantity": "5",
-                  "note": "",
-                  "price": 520000, 
-                  "totalAmount": 2660000,
-                  "dimension": 
-                   {
-                      "height": 20,
-                      "length": 20,
-                      "width": 20
-                    },
-                    "variants": [
-                      {
-                        "name": "warna",
-                        "value": "biru",
-                        "description": "warna biru",
-                        "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-                      },
-                      {
-                        "name": "ukuran",
-                        "value": "25",
-                        "description": "ukuran 25",
-                        "imageUrl": ""
-                      }
-                    ]
-              }
-          ],
-          "payment": {
-              "transactionTime": "2019-04-08T08:10:29.000+0000",
-              "transactionStatus": "expire",
-              "transactionId": "79002b82-3f29-48e0-9402-82ffbe592f31",
-              "statusMessage": "midtrans payment notification",
-              "paymentType": "bank_transfer",
-              "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
-              "grossAmount": 2660000,
-              "virtualAccount": "443220825744067",
-              "bankName": "BCA"
-          },
-          "bank": {
-              "code": "bca",
-              "name": "BANK BCA",
-              "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-          },
-          "endDatePay": 1554956861068,
-          "description": "PENDING"
-      },
-       {
-          "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
-          "indexes": [
-              {
-                  "productId": "5c736c8ec0267d16d00014f8",
-                  "productName": "Sepatu Nike Snekkers173000000",
-                  "productQuantity": "5",
-                  "note": "",
-                  "price": 520000,
-                  "totalAmount": 2660000,
-                  "dimension": 
-                   {
-                      "height": 20,
-                      "length": 20,
-                      "width": 20
-                    },
-                    "variants": [
-                      {
-                        "name": "warna",
-                        "value": "biru",
-                        "description": "warna biru",
-                        "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:11:15.430Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-                      },
-                      {
-                        "name": "ukuran",
-                        "value": "25",
-                        "description": "ukuran 25",
-                        "imageUrl": ""
-                      }
-                    ]
-              }
-          ],
-          "payment": {
-              "transactionTime": "2019-04-08T08:10:29.000+0000",
-              "transactionStatus": "expire",
-              "transactionId": "79002b82-3f29-48e0-9402-82ffbe592f31",
-              "statusMessage": "midtrans payment notification",
-              "paymentType": "bank_transfer",
-              "orderId": "30e2e734-100d-4830-8c3c-762ac7991c18",
-              "grossAmount": 2660000,
-              "virtualAccount": "443220825744067",
-              "bankName": "BCA"
-          },
-          "bank": {
-              "code": "bca",
-              "name": "BANK BCA",
-              "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-02-14T03:12:28.265Z_dc5958cc-0336-402f-bbaa-00628b4fdd20"
-          },
-          "endDatePay": 1554956861068,
-          "description": "PENDING"
-      }
-      
-  ],
-  "responseTime": 105
+  "endDatePayment": 1557375180,
+  "payment": {
+    "transactionTime": "2019-05-13T02:50:45.000+0000",
+    "transactionStatus": "pending",
+    "transactionId": "7f7c3165-d6f5-4b5c-9cb1-6136ff79640c",
+    "statusMessage": "midtrans payment notification",
+    "paymentType": "bank_transfer",
+    "orderId": "30f0c5ce-066a-44ba-a472-6382e9229a61",
+    "grossAmount": 12060000,
+    "currency": "IDR",
+    "virtualAccount": "443220825378008",
+    "bankName": "BCA"
+  },
+  "bank": {
+    "code": "bca",
+    "name": "BCA",
+    "imageUrl": "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-05-02T04:38:24.398Z_548bda77-87ca-4bdd-915f-858c865451a8"
+  },
+  "paymentInstruction": {
+    "bank": {
+      "code": "bca",
+      "name": "BCA"
+    },
+    "instructions": [
+      " Pilih pembayaran melalui Mandiri Bill Payment.",
+      " Catat kode pembayaran yang Anda dapat.",
+      " Gunakan ATM mandiri untuk menyelesaikan pembayaran.",
+      " Masukkan PIN Anda.",
+      " Pilih ‘Bayar/Beli’, lalu pilih ‘Lainnya’.",
+      " Pilih ‘Multi Payment’.",
+      " Masukkan ‘70012’ sebagai kode perusahaan Midtrans.",
+      " Masukkan kode pembayaran yang Anda dapat sebelumnya, lalu pilih ‘Benar’.",
+      " Pastikan detail pembayaran Anda benar & masukkan item pembayaran yang akan dibayar, lalu pilih ‘Ya’.",
+      " Pembayaran Anda dengan Mandiri Bill Payment selesai."
+    ]
+  }
 }
 
 export default dummyInvoice;
