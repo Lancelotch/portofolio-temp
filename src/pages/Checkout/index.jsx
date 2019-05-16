@@ -52,7 +52,7 @@ class Checkout extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if(!this.isAddressAvailable) {
+    if(!props.isAddressAvailable) {
       this.setState({
         customerAddress: props.dataAddressDefault
       })
