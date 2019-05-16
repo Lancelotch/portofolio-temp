@@ -47,7 +47,7 @@ class SliderProductDetailContainer extends Component {
       <Magnifier
         zoomImgSrc={item.large}
         src={item.original}
-        zoomFactor={1.0}
+        zoomFactor={0.5}
         mgShape={'square'}
         mgBorderWidth={1}
       />      

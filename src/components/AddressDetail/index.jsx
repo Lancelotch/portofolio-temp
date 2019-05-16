@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Icon } from "antd";
-import "./style.sass"
+import "./style.sass";
 
 const AddressAvailable = props => {
   const {
@@ -15,24 +15,14 @@ const AddressAvailable = props => {
   return (
     <div>
       <Row>
-        <Col md={12}>
-          <p
-            style={{
-              color: "#4D4D4D",
-              fontSize: 17
-            }}
-          >
-            {labelName}
-          </p>
+        <Col md={12} className="address__name">
+          <p>{labelName}</p>
         </Col>
-        <Col md={12}>
+        <Col md={12} className="address__icon-edit">
           <Icon
             type="edit"
             style={{
-              fontSize: "18px",
-              color: "#007E80",
-              float: "right",
-              cursor: "pointer"
+              float: "right"
             }}
             onClick={() => props.onEdit("EDIT")}
             className={"icon"}
@@ -40,23 +30,9 @@ const AddressAvailable = props => {
         </Col>
       </Row>
       <Row>
-        <Col md={24}>
-          <p
-            style={{
-              color: "#4D4D4D",
-              fontSize: 17,
-              marginBottom: 5
-            }}>
-            {`${receiverName} - ${phoneNumber}`}
-          </p>
-          <span
-            style={{
-              display: "block",
-              fontSize: 15,
-              color: "#777777"
-            }}>
-            {`${fullAddress},${city},${province}${zipcode}`}
-          </span>
+        <Col md={24} className="address__detail-info">
+          <p>{`${receiverName} - ${phoneNumber}`}</p>
+          <span>{`${fullAddress},${city},${province}${zipcode}`}</span>
         </Col>
       </Row>
     </div>
@@ -67,10 +43,9 @@ const AddressUnAvailable = () => {
   return (
     <div>
       <Row>
-        <Col>
+        <Col className="address__icon-exclamation">
           <center>
             <Icon
-              style={{ fontSize: "32px" }}
               type="exclamation-circle"
               theme="twoTone"
               twoToneColor="#FB6900"
@@ -79,14 +54,8 @@ const AddressUnAvailable = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
-          <p
-            style={{
-              color: "rgba(0,0,0,0.65)",
-              fontSize: 14,
-              textAlign: "center"
-            }}
-          >
+        <Col className="address__empty">
+          <p>
             Alamat pengiriman masih kosong, lengkapi alamat pengiriman untuk
             melanjutkan pembelian produk.
           </p>
@@ -100,8 +69,8 @@ const AddressDetail = props => {
   return props.isAddressAvailable ? (
     <AddressAvailable data={props.addressDefault} onEdit={props.onEdit} />
   ) : (
-      <AddressUnAvailable />
-    );
+    <AddressUnAvailable />
+  );
 };
 
 export default AddressDetail;

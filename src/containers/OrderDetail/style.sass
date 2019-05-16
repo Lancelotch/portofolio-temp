@@ -1,46 +1,47 @@
-.detailPesanan 
-    padding: 10px
-    font-weight: 500
-    color: #222222
-    &__inline
-        box-sizing: border-box
-        height: 1px
+.card
+    &__row .ant-card-body
+        padding: 0
+    &__order-detail
         border: 1px solid #DDDDDD
-        width: 100%
-    &__label
-        margin-bottom: 10px
-        font-size: 16px
-    &__nameProduct
+        border-radius: 4px
+        background-color: #FFFFFF
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.21)
+
+.detail
+    width: 100%
+    &__order
+        padding: 24px 40px 0 40px
+    &__product-name
         font-size: 16px
         margin-bottom: 0px
-    &__price
-        font-size: 16px  
-    &__variant
+    &__product-variant
+        margin-top: 12px
         font-size: 14px
-        font-weight: 300 
-        margin-bottom: 0px
+        font-weight: 300
+        line-height: 17px
+    &__product-variant p
+        line-height: 8px
+    &__price
+        font-size: 16px
+        text-align: end
     &__alert
-        width: 575px
+        width: 100%
         margin-top: 20px
         margin-bottom: 20px
         padding: 10px
         border: 2px solid #DDDDDD
         border-radius: 4px  
-        border-style: dashed 
-    &__iconAlert
-        margin-top: 5px
-        padding-left: 10px
-        margin-right: 20px
-        color: #b21f1f
-        height: 16px
-        width: 16px 
-    &__textAlert
-        display: inline
-        color: #222222
+        border-style: dashed
+        line-height: 24px
+    &__alert-icon
+        color: #b21f1f !important
+        font-size: 16px
+        text-align: center
+    &__alert-text
+        color: #777777
         font-size: 14px
-        line-height: 24px  
-    &__textParagraph
-        color: #888888
-        margin-left: 33px
-        font-size: 14px
-        line-height: 22px       
+
+.shipping
+    padding: 12px 40px
+    &__note
+        margin-top: 24.26px

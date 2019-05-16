@@ -12,7 +12,7 @@ class NotedLimit extends Component {
   }
   render() {
     return (
-      <div style={{ padding: 10 }}>
+      <div>
         <TextArea
           onChange={e =>
             this.setState(
@@ -22,6 +22,7 @@ class NotedLimit extends Component {
           }
           maxLength={255}
           rows={4}
+          placeholder="Contoh : warna, ukuran, dll."
         />
         <p
           style={{

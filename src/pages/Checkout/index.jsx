@@ -3,7 +3,11 @@ import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import FormAddAddress from "../../containers/FormAddAddress";
 import { addressDefault } from "../../store/actions/address";
-import { apiPostWithToken, apiGetWithToken, apiPutWithToken } from "../../api/services";
+import {
+  apiPostWithToken,
+  apiGetWithToken,
+  apiPutWithToken
+} from "../../api/services";
 import { PATH_CUSTOMER, PATH_ORDER } from "../../api/path";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import FormEditAddress from "../../containers/FormEditAddress";
@@ -12,8 +16,8 @@ import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
 import payloadProductDetail from "../../dummy/payloadProductDetail";
-import ModalSuccess from '../../modal/ModalRegisterSuccess'
-import {openModal} from "../../store/actions/authentication"
+import ModalSuccess from "../../modal/ModalRegisterSuccess";
+import { openModal } from "../../store/actions/authentication";
 
 import "./style.sass";
 import history from "../../routers/history";
@@ -44,7 +48,7 @@ class Checkout extends Component {
   snap = window.snap;
 
   componentDidMount() {
-    this.props.addressDefault();    
+    this.props.addressDefault();
     this.getListAddress();
     this.getPayloadProductDetail();
     this.initCustomerAddress();
@@ -52,30 +56,36 @@ class Checkout extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if(!props.isAddressAvailable) {
+    if (!props.isAddressAvailable) {
       this.setState({
         customerAddress: props.dataAddressDefault
-      })
+      });
     }
   }
 
-  getCities = async (id) => {
+  getCities = async id => {
     const params = {
-      province : id
-    }
+      province: id
+    };
     try {
-      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_CITY, params);
+      const response = await apiGetWithToken(
+        PATH_CUSTOMER.ADDRESS_CITY,
+        params
+      );
       this.setState({ cities: response.data.data });
     } catch (error) {
       console.log(error);
     }
   };
-  getSubdistrict = async (id) => {
+  getSubdistrict = async id => {
     const params = {
       city: id
-    }
+    };
     try {
-      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
+      const response = await apiGetWithToken(
+        PATH_CUSTOMER.ADDRESS_SUBDISTRICT,
+        params
+      );
       this.setState({ subdistricts: response.data.data });
     } catch (error) {
       console.log(error);
@@ -94,19 +104,22 @@ class Checkout extends Component {
         cityId: city[0],
         city: city[1]
       },
-       () => this.getSubdistrict(city[0])
+      () => this.getSubdistrict(city[0])
     );
-    console.log("handle change city di checkout",value)
+    console.log("handle change city di checkout", value);
   };
 
   initCustomerAddress = () => {
-    this.setState({
-      customerAddress: this.props.dataAddressDefault
-    },() => {
-      this.getCities(this.state.customerAddress.provinceId)
-      this.getSubdistrict(this.state.customerAddress.cityId)
-    })
-  }
+    this.setState(
+      {
+        customerAddress: this.props.dataAddressDefault
+      },
+      () => {
+        this.getCities(this.state.customerAddress.provinceId);
+        this.getSubdistrict(this.state.customerAddress.cityId);
+      }
+    );
+  };
 
   variantsRequest = variants => {
     const variantsRequest = [];
@@ -120,9 +133,7 @@ class Checkout extends Component {
   };
 
   getPayloadProductDetail = () => {
-    const payloadProductDetail = JSON.parse(
-      localStorage.getItem("product")
-    );
+    const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
@@ -175,10 +186,10 @@ class Checkout extends Component {
         };
         this.setState({
           customerAddress: customerAddress
-        })
+        });
         this.props.addressDefault();
         this.getListAddress();
-        if(!this.isAddressAvailable) {
+        if (!this.isAddressAvailable) {
           this.props.addressDefault();
         }
         this.actionShowAddFormAddress();
@@ -192,12 +203,15 @@ class Checkout extends Component {
     try {
       const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
       if (response.data.data) {
-        this.setState({
-          customerAddress: request
-        }, () => {
-          this.getListAddress();
-          this.actionShowEditFormAddress();
-        })
+        this.setState(
+          {
+            customerAddress: request
+          },
+          () => {
+            this.getListAddress();
+            this.actionShowEditFormAddress();
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -226,7 +240,7 @@ class Checkout extends Component {
     this.setState(prevState => ({
       customerAddress: address,
       visibleListAddress: !prevState.visibleListAddress,
-      tempCities : this.getCities(address.provinceId),
+      tempCities: this.getCities(address.provinceId),
       tempSubdistrict: this.getSubdistrict(address.cityId)
     }));
     // this.getCities()
@@ -260,17 +274,24 @@ class Checkout extends Component {
       if (response.data.data) {
         const token = response.data.data.token;
         this.snap.pay(token, {
-          onSuccess: function(result){
+          onSuccess: function(result) {
             history.push("/");
           },
-          onPending: function(result){
-            history.push("/");
+          onPending: function(result) {
+            history.push({
+              pathname: "/payment-info",
+              state: { detail: result }
+            });
+            console.log("...", result);
           },
-          onError: function(result){
-            console.log('error');console.log(result);
+          onError: function(result) {
+            console.log("error");
+            console.log(result);
           },
-          onClose: function(){
-            console.log('customer closed the popup without finishing the payment');
+          onClose: function() {
+            console.log(
+              "customer closed the popup without finishing the payment"
+            );
           }
         });
       }
@@ -307,60 +328,71 @@ class Checkout extends Component {
               <p className="checkout__text">{strings.checkout}</p>
             </Col>
           </Row>
-          <Row>
-            <Col md={15} style={{ marginTop: 25 }}>
-              <AddressCheckout
-                customerAddress={customerAddress}
-                isAddressAvailable={isAddressAvailable}
-                onEditAddress={this.actionShowEditFormAddress}
-                onSelectListAddress={this.actionShowListAddress}
-                onAddAddress={this.actionShowAddFormAddress}
-              />
-              <FormAddAddress
-                visible={this.state.visibleAddAddress}
-                onSubmit={this.actionSubmitAddFormAddress}
-                onCancle={this.actionShowAddFormAddress}
-                isAddressAvailable={this.props.isAddressAvailable}
-              />
-              {isAddressAvailable && (
-                <FormEditAddress
-                  visible={this.state.visibleEditAddress}
-                  address={customerAddress}
-                  onSubmit={this.actionSubmitEditFormAddress}
-                  onCancle={this.actionShowEditFormAddress}
-                  cities={this.state.cities}
-                  subdistricts={this.state.subdistricts}
-                  handleChangeCity={this.handleChangeCity}
+          <div className="checkout__content">
+            <Row>
+              <Col md={15} style={{ marginTop: 25 }}>
+                <AddressCheckout
+                  customerAddress={customerAddress}
+                  isAddressAvailable={isAddressAvailable}
+                  onEditAddress={this.actionShowEditFormAddress}
+                  onSelectListAddress={this.actionShowListAddress}
+                  onAddAddress={this.actionShowAddFormAddress}
                 />
-              )}
-              <AddressList
+                <FormAddAddress
+                  visible={this.state.visibleAddAddress}
+                  onSubmit={this.actionSubmitAddFormAddress}
+                  onCancle={this.actionShowAddFormAddress}
+                  isAddressAvailable={this.props.isAddressAvailable}
+                />
+                {isAddressAvailable && (
+                  <FormEditAddress
+                    visible={this.state.visibleEditAddress}
+                    address={customerAddress}
+                    onSubmit={this.actionSubmitEditFormAddress}
+                    onCancle={this.actionShowEditFormAddress}
+                    cities={this.state.cities}
+                    subdistricts={this.state.subdistricts}
+                    handleChangeCity={this.handleChangeCity}
+                  />
+                )}
+                <AddressList
                   addresses={addresses}
                   visible={this.state.visibleListAddress}
                   onCancle={this.actionShowListAddress}
                   onChangeAddress={this.actionChangeAddress}
                   customerAddress={customerAddress}
                 />
-              {isProductDetailAvailable && (
-                <OrderDetailContainer
-                  payloadProductDetail={payloadProductDetail}
-                  onChangeShipping={this.actionChangeShipping}
-                  onChangeQuantity={this.actionChangeQuantity}
-                  onChangeNote={this.actionChangeNote}
+                {isProductDetailAvailable && (
+                  <OrderDetailContainer
+                    payloadProductDetail={payloadProductDetail}
+                    onChangeShipping={this.actionChangeShipping}
+                    onChangeQuantity={this.actionChangeQuantity}
+                    quantity={quantity}
+                    onChangeNote={this.actionChangeNote}
+                  />
+                )}
+              </Col>
+              <Col md={9}>
+                <OrderSummary
+                  quantity={quantity}
+                  priceProduct={priceProduct}
+                  viaRoute={shipping}
+                  onOrder={() =>
+                    isAddressAvailable
+                      ? this.actionSubmitOrder()
+                      : this.actionShowAddFormAddress()
+                  }
                 />
-              )}
-            </Col>
-            <Col md={9}>
-              <OrderSummary
-                quantity={quantity}
-                priceProduct={priceProduct}
-                viaRoute={shipping}
-                onOrder={()=>isAddressAvailable ? this.actionSubmitOrder() : this.actionShowAddFormAddress()}
+              </Col>
+            </Row>
+            {this.props.message && (
+              <ModalSuccess
+                textButton={this.state.textButton}
+                modalStatus={this.props.statusModal}
+                email={this.props.message.email}
               />
-            </Col>
-          </Row>
-          {this.props.message && 
-            <ModalSuccess textButton={this.state.textButton} modalStatus={this.props.statusModal} email={this.props.message.email}/>
-          }
+            )}
+          </div>
         </div>
       </div>
     );
@@ -378,4 +410,3 @@ export default connect(
   mapStatetoProps,
   { addressDefault, openModal }
 )(Checkout);
-

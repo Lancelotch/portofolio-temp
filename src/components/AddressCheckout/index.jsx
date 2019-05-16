@@ -1,6 +1,6 @@
 import React from "react";
 import AddressDetail from "../AddressDetail";
-import { Card, Button } from "antd";
+import { Card, Button, Icon } from "antd";
 import "./style.sass";
 
 export const AddressCheckout = props => {
@@ -14,11 +14,11 @@ export const AddressCheckout = props => {
   return (
     <div style={{ marginBottom: 15 }}>
       <Card
+      className="card-address"
         size="default"
         title={
           <div
             style={{
-              paddingLeft: 12,
               fontSize: 18
             }}>Alamat Pengiriman</div>
         }
@@ -42,7 +42,7 @@ export const AddressCheckout = props => {
               size="large"
               className="addressCheckout__button"
               onClick={onAddAddress}>
-              Tambah Alamat &nbsp; +
+              Tambah Alamat <Icon type="plus" />
           </Button>
           </div>
         </div>
