@@ -6,7 +6,7 @@ import currencyRupiah from "../../../library/currency";
 const { Text } = Typography;
 
 const TableInvoicePayment = props => {
-    const { productName, variants, productQuantity, totalAmount,shipping } = props;
+    const { productName, variants, productQuantity, totalAmount, shipping } = props;
     return (
         <Row>
             <Col md={24}>
@@ -32,8 +32,17 @@ const TableInvoicePayment = props => {
                                 </td>
                             </tr>
                             <tr>
-                            <td><Text>Biaya Kirim</Text><Text>{shipping.via}</Text></td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim</Text>
+                                    <Text className="viaShippingTableInvoice" type="danger">
+                                        {shipping.via}</Text>
+                                </td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>Ongkir Sudah Termasuk</Text></td>
                             </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+
                         </tbody>
                     </table>
                 </div>

@@ -21,7 +21,9 @@ class OrderListWaitingPayment extends Component {
       orderId: null,
       loading: false,
       selectedOrder: null,
-      productOrderNotYetPay: []
+      productOrderNotYetPay: [],
+      bank: null,
+      paymentInstruction: null
     };
   }
   componentDidMount() {
@@ -33,7 +35,9 @@ class OrderListWaitingPayment extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
       const productOrderTabsNotYetPay = {
-        productOrderNotYetPay: response.data.data
+        bank: response.data.data,
+        productOrderNotYetPay: response.data.data,
+        paymentInstruction: response.data.data
       };
       this.setState({
         ...productOrderTabsNotYetPay
@@ -90,7 +94,9 @@ class OrderListWaitingPayment extends Component {
     });
   };
 
+
   render() {
+    const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
       tabsFinish,
       tabsNotPay,
@@ -136,14 +142,15 @@ class OrderListWaitingPayment extends Component {
                   </div>
                 )
               })}
-              {this.state.selectedOrder && (
-                <ModalHowToPay
-                  payBank={this.state.selectedOrder.bank}
-                  key={this.state.selectedOrder.orderId}
-                  endDatePay={this.state.selectedOrder.endDatePay}
-                  pay={this.state.selectedOrder.payment}
-                  indexes={this.state.selectedOrder.indexes}
-                  visible={this.state.isHowToShowModalOpen}
+              {selectedOrder && (
+                <ModalHowToPay     
+                  payBank={selectedOrder.bank}
+                  key={selectedOrder.orderId}
+                  endDatePay={selectedOrder.endDatePay}
+                  pay={selectedOrder.payment}
+                  indexes={selectedOrder.indexes}
+                  paymentInstruction={selectedOrder.paymentInstruction}
+                  visible={isHowToShowModalOpen}
                   close={this.toggleIsHowToShowModalOpen}
                 />
               )}

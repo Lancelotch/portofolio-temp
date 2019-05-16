@@ -1,26 +1,35 @@
+@import '../../../sass/variable.sass'
+
 .tableInvoicePayment td, .tableInvoicePayment th 
-  border: 1px solid #dddddd
+  border: 1px solid $border-color
   padding: 5px
+
+span.viaShippingTableInvoice
+    margin-left: 100px      
 
 .tableInvoicePayment
     margin-top: 55px
-    border: 1px solid #dddddd
+    border: 1px solid $border-color
     &__invoicePayment
-        border-left: 1px solid #dddddd
+        border-left: 1px solid $border-color
         width: 20%
         background-color: #007E80
-        color: #ffffff
+        color: $white-font-color
     &__invoicePaymentnNameOrder
-        background-color: #007E80 
-        color: #ffffff
+        background-color: $green-table
+        color: $white-font-color
     &__invoicePaymentVariant 
-        background-color: #007E80 
-        color: #ffffff      
+        background-color: $green-table
+        color: $white-font-color      
     &__invoicePaymentPrice
-        background-color: #007E80 
-        color: #ffffff  
+        background-color: $green-table
+        color: $white-font-color  
     &__invoicePaymentTotal
-        background-color: #007E80 
-        color: #ffffff
+        background-color: $green-table
+        color: $white-font-color
     &__invoiceRightPayment
         background-color: #EEEEEE 
+    &__shippingTabel
+        width: 75%
+    &__shippingPayment 
+        text-align: right      

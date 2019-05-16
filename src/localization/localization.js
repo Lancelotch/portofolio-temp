@@ -51,6 +51,12 @@ const strings = new LocalizedStrings({
     estimate_accepted:"Perkiraan Diterima",
 
 
+
+    //Invoice
+    text_thanks_invoice: ' Terimakasih sudah berbelanja di monggopesen.com,ini adalah bukti dari transaksi anda',
+
+
+
     //Dashboard Product Details
     notice_payment_administrasi :"Subtotal yang tercantum diatas udah termasuk  biaya bea masuk, pajak dan administrasi.",
     

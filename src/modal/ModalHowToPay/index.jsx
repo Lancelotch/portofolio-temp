@@ -5,7 +5,7 @@ import currencyRupiah from "../../library/currency";
 import "./style.sass";
 import strings from "../../localization/localization";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { caraBayarBankBni } from "../../library/dataBank";
+
 
 class ModalHowToPay extends Component {
   constructor(props) {
@@ -26,14 +26,16 @@ class ModalHowToPay extends Component {
 
   render() {
     const Panel = Collapse.Panel;
-    const { endDatePay, pay, payBank } = this.props;
+    const { endDatePay, pay, payBank, paymentInstruction } = this.props;
+    const instructions = paymentInstruction.instructions
+    console.log("payment =====", paymentInstruction.instructions)
     return (
       <React.Fragment >
         {pay !== undefined && pay &&
           <Modal
             title="Cara Bayar"
             visible={this.props.visible}
-            centered
+            centered={true}
             // onOk={ this.handleOk }
             onCancel={this.props.close.bind(this, null)}
             footer={
@@ -93,7 +95,13 @@ class ModalHowToPay extends Component {
               <Col md={24}>
                 <Collapse defaultActiveKey={['1']} onChange={this.callback}>
                   <Panel header="Cara Bayar" key="1">
-                    {caraBayarBankBni}
+                    <ol>
+                      {
+                        instructions.map((ins,i) => {
+                          return <li key={i}>{ins}</li>
+                        })
+                      }
+                    </ol>
                   </Panel>
                 </Collapse>
               </Col>
