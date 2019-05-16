@@ -9,7 +9,7 @@ export const serviceWithToken = (token = getToken()) => axios.create({
   baseURL: REACT_APP_API_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {
-    Authorization: "Bearer " + getToken()
+    Authorization: "Bearer " + token
   }
 });
 
