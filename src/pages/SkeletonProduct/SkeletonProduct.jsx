@@ -7,9 +7,14 @@ const loopSkeleton = count => {
   let skeletons = [];
   for (let i = 0; i <= count; i++) {
     skeletons.push(
-      <Col span={4} key={i} style={{ marginLeft: 15 }}>
-        <Skeleton height={250} width={200} />
-        <Skeleton count={2} width={200} />
+      <Col md={4}
+        key={i}
+        style={{
+          paddingLeft: 13,
+          paddingRight: 13
+        }}>
+        <Skeleton height={200} />
+        <Skeleton count={2} />
       </Col>
     );
   }
@@ -20,10 +25,10 @@ const SkeletonProduct = props => {
   const count = props.count;
   return (
     <React.Fragment>
-      <Row align="middle" justify="center">
-        {/* <LoopSkeleton count={count} /> */}
-        {loopSkeleton(count)}
-      </Row>
+
+      {/* <LoopSkeleton count={count} /> */}
+      {loopSkeleton(count)}
+
     </React.Fragment>
   );
 };

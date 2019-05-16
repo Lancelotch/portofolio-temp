@@ -46,6 +46,7 @@ class ProductDetail extends Component {
     this.setState({ data });
   };
 
+
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
     this.setState({ data });
@@ -55,9 +56,7 @@ class ProductDetail extends Component {
     this.setState({
       imageVariant: image
     })
-    console.log('actionupdateimagevariant', image);
-
-  }
+  };
 
   redirectLogin = () => {
     this.setState(prevState => ({
@@ -151,7 +150,7 @@ class ProductDetail extends Component {
                       className="productDetail__addCart"
                       onClick={this.actionSubmitToCheckout}
                     >
-                      {strings.pay_now}
+                      {strings.order_now}
                     </button>
                   </div>
                 </Col>

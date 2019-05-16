@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Tabs, Icon } from "antd";
-import CustomerOderNavigation from "../CustomerOrderNavigation";
+import CustomerOderNavigation from "../../containers/CustomerOrderNavigation";
 import "./style.sass";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
-
 
 
 class CustomerNavigation extends Component {
@@ -20,12 +19,16 @@ class CustomerNavigation extends Component {
             key={"1"}
             tab={
               <React.Fragment>
-                <Icon type="rocket" style={{ fontSize: 20, color: "#999999" }} />
+                <Icon type="rocket" 
+                style={{ 
+                  fontSize: 20, 
+                  color: "#999999" 
+                }}/>
                 <span>{"Pesanan Saya"}</span>
               </React.Fragment>
             }
             className={"customerOrderNavigation"}
-            my_prop={<CustomerOderNavigation />}
+            my_prop={<CustomerOderNavigation/>}
           />
         </Tabs>
       </div>

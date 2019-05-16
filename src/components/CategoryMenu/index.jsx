@@ -95,7 +95,8 @@ const menu = props => {
 const CategoryMenu = props => (
   <Dropdown overlay={menu(props)} trigger={['click']}>
     <a className="ant-dropdown-link" href="/#">
-      <b style={{ color: "#007E80" }}>Kategori</b><Icon type="down" style={{ color: "#999999" }} />
+      {/* <b style={{ color: "#007E80" }}>Kategori</b><Icon type="down" style={{ color: "#999999" }} /> */}
+      <span className="category">Kategori</span><Icon style={{color: "#999999"}} type="down"></Icon>
     </a>
   </Dropdown>
 );

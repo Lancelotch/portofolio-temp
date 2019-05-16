@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 
 const PaymentCancelOrder = props => {
   const {
-    labelPembatalan,
+    cancelBy,
     estimateShippingDate
   } = props;
   return (
@@ -15,7 +15,7 @@ const PaymentCancelOrder = props => {
         <Row>
           <Col md={24}>
             <p className="paymentCancelOrder__label">
-              {labelPembatalan}
+             Dibatalan Oleh {cancelBy}
             </p>
             <p className="paymentCancelOrder__labelEstimate">
               {estimateShippingDate}

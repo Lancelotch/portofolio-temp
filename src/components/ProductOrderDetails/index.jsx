@@ -1,9 +1,11 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import "./style.sass";
+import { pageUrlViewInvoiceDashboard } from "../../library/url";
+import { Link } from "react-router-dom";
+import strings from "../../localization/localization";
 
-
-const ProductOrder = props => {
+const ProductOrderDetails = props => {
   const
     { productImage,
       productName,
@@ -11,7 +13,11 @@ const ProductOrder = props => {
       productQuantity,
       label,
       invoiceNumber,
-      noInvoice
+      noInvoice,
+      tabsInDelivery,
+      tabsNotSent,
+      tabsFinish,
+      orderId
     } = props;
   return (
     <div className="productOrder">
@@ -21,16 +27,23 @@ const ProductOrder = props => {
           justifyContent: "space-between"
         }}>
         <h2>{label}</h2>
-        <label
-          style={{
-            fontSize: 20,
-            color: "#777777"
-          }}>
-          {noInvoice} &nbsp;
+        {((tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
+          <label
+            style={{
+              fontSize: 20,
+              color: "#777777"
+            }}>
+            {noInvoice} &nbsp;
         <font style={{ color: "#007E80" }}>
-            {invoiceNumber}
-          </font>
-        </label>
+              {invoiceNumber}
+            </font> &nbsp;
+         <Link
+              style={{ cursor: "pointer" }}
+              to={pageUrlViewInvoiceDashboard + orderId}
+              target="_blank">Lihat
+         </Link>
+          </label>
+        }
       </div>
       <hr className="productOrder__inline" />
       <Row>
@@ -47,18 +60,16 @@ const ProductOrder = props => {
             Varian :
              {variants[0].name.charAt(0).toUpperCase() +
               variants[0].name.substring(1)} : {variants[0].value},
-               &nbsp;
+         &nbsp;
              {variants[1].name.charAt(0).toUpperCase() +
               variants[1].name.substring(1)} : {variants[1].value}
           </p>
-          <p className="productOrder__quantity">Jumlah : {productQuantity}</p>
+          <p className="productOrder__quantity">{strings.total} : {productQuantity}</p>
         </Col>
-        <Col md={5} style={{ marginTop: 60 }}>
-          <p className="productOrder__totalPrice" />
-        </Col>
+        <Col md={5} style={{ marginTop: 60 }} />
       </Row>
     </div>
   );
 };
 
-export default ProductOrder;
+export default ProductOrderDetails;

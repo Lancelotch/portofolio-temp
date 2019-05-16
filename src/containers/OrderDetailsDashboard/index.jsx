@@ -1,212 +1,175 @@
-import React, { Component } from "react";
-import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
-import ProductOrder from "../../components/ProductOrderDetails";
-import PaymentInfo from "../../components/PaymentInfo";
+import React, { Component } from 'react';
+import OrderStatusStep from '../../components/OrderStatusStep';
+import { apiGetWithToken } from "../../api/services";
 import PaymentDateInfo from "../../components/PaymentDateInfo";
 import OrderStatusUser from "../../components/OrderStatusUser";
-import { Affix, Icon } from "antd";
-import "./style.sass"
-import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDikirim";
-import OrderStatusStep from "../../components/OrderStatusStep";
+import { PATH_ORDER } from "../../api/path";
+import PaymentInfo from "../../components/PaymentInfo";
+import ProductOrderDetails from "../../components/ProductOrderDetails";
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 
 class OrderDetailsDashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productorder: {},
-      payment: {},
-      shipping: {},
-      bank: {},
-      orderAddress: {},
-      indexes: [],
-      orderDetailsId: this.props.orderDetailsId,
-      endDatePay: 0,
-      invoiceNumber: "",
-      estimateShippingDate: "",
-      orderDate: 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            isShowOrderDetailsDashboard: false,
+            productorder: {},
+            payment: {},
+            shipping: {},
+            bank: {},
+            address: {},
+            indexes: [],
+            id: "",
+            endDatePay: 0,
+            invoiceNumber: "",
+            estimateShippingDate: "",
+            orderDate: 0,
+            selectedOrder: null,
+            orderId :this.props.orderId
+        }
     };
-  }
 
-  componentDidMount() {
-    this.productOrderDetailDashboard();
-  }
-
-  productOrderDetailDashboard = async () => {
-    try {
-      const response = await dummyOrderDetailsDashboard;
-      const dummyBelumDikirim = await dummyOrderDetailsBelumDikirim;
-      const itemProductOrder = {
-        invoiceNumber: dummyBelumDikirim.data.invoiceNumber,
-        estimateShippingDate: response.data.estimateShippingDate,
-        bank: response.data.bank,
-        endDatePay: response.data.endDatePay,
-        shipping: response.data.shipping,
-        payment: response.data.payment,
-        productorder: response.data,
-        orderAddress: response.data.orderAddress,
-        indexes: response.data.indexes,
-        orderDate: response.data.orderDate
-      };
-      this.setState({
-        ...itemProductOrder
-      });
-    } catch (error) {
-      console.log(error);
+    componentDidMount() {
+        this.productOrderDetailDashboard();
     }
-  };
-  render() {
-    return (
-      <React.Fragment>
-        {this.state.indexes.map(order => {
-          return (
-            <React.Fragment key={order.id}>
-              <div style={{ marginBottom: 50 }}>
-                {this.props.index === 1 &&
-                  <h2
-                    style={{
-                      float: "left",
-                      color: "#4A4A4A",
-                      fontSize: 24
-                    }}>
-                    Belum Bayar
-                </h2>
-                }
-                {this.props.index === 2 &&
-                  <h2
-                    style={{
-                      float: "left",
-                      color: "#4A4A4A",
-                      fontSize: 24
-                    }}>
-                    Belum Dikirim
-                </h2>
-                }
-                {this.props.index === 3 &&
-                  <h2
-                    style={{
-                      float: "left",
-                      color: "#4A4A4A",
-                      fontSize: 24
-                    }}>
-                    Dalam Pengiriman
-                  </h2>
-                }
-                <Affix offsetTop={this.state.top}>
-                  <button
-                    style={{ float: "right" }}
-                    className="buttonOrderDetails"
-                    onClick={() => this.props.showOrderDetailsDashboard()}>
-                    <Icon type="arrow-left" /> &nbsp;
-                    Kembali
-                  </button>
-                </Affix>
-              </div>
-              {this.props.index === 1 &&
-                <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} />
-                  <ProductOrder
-                    label="Detail Pesanan"
-                    key={order.id}
-                    productImage={order.productImage}
-                    variants={order.variants}
-                    productName={order.productName}
-                    productQuantity={order.productQuantity}
-                    totalAmount={order.totalAmount}
-                  />
-                </React.Fragment>
-              }
 
-              {this.props.index === 2 &&
-                <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} index={2} />
-                  <ProductOrder
-                    label="Detail Pesanan"
-                    noInvoice={"No Invoice"}
-                    invoiceNumber={this.state.invoiceNumber}
-                    key={order.id}
-                    productImage={order.productImage}
-                    variants={order.variants}
-                    productName={order.productName}
-                    productQuantity={order.productQuantity}
-                    totalAmount={order.totalAmount}
-                  />
-                </React.Fragment>
-              }
-              {this.props.index === 3 &&
-                <React.Fragment>
-                  <OrderStatusStep orderDate={this.state.orderDate} indexPesanDikirim={3} index={2} />
-                  <ProductOrder
-                    label="Detail Pesanan"
-                    noInvoice={"No Invoice"}
-                    invoiceNumber={this.state.invoiceNumber}
-                    key={order.id}
-                    productImage={order.productImage}
-                    variants={order.variants}
-                    productName={order.productName}
-                    productQuantity={order.productQuantity}
-                    totalAmount={order.totalAmount}
-                  />
-                </React.Fragment>
-              }
-              {this.props.index === 4 &&
-                <React.Fragment>
-                  <OrderStatusStep
-                    orderDate={this.state.orderDate}
-                    indexPesanDiterima={4}
-                    indexPesanDikirim={3}
-                    index={2}
-                  />
-                  <ProductOrder
-                    label="Detail Pesanan"
-                    noInvoice={"No Invoice"}
-                    invoiceNumber={this.state.invoiceNumber}
-                    key={order.id}
-                    productImage={order.productImage}
-                    variants={order.variants}
-                    productName={order.productName}
-                    productQuantity={order.productQuantity}
-                    totalAmount={order.totalAmount}
-                  />
-                </React.Fragment>
-              }
-              <PaymentInfo
-                key={order.id}
-                productName={order.productName}
-                totalAmount={order.totalAmount}
-                transport={this.state.shipping}
-                price={order.price}
-                productQuantity={order.productQuantity}
-                typePayment={this.state.payment}
-              />
-              {this.props.index === 1 &&
-                <PaymentDateInfo
-                  endDatePay={this.state.endDatePay}
-                  typePayment={this.state.payment}
-                  bank={this.state.bank}
-                />}
-              {this.props.index === 1 &&
-                <OrderStatusUser
-                  label="Pengiriman"
-                  customer={this.state.orderAddress}
-                />}
-              {this.props.index === 2 &&
-                <OrderStatusUser
-                  label="Pengiriman"
-                  customer={this.state.orderAddress}
-                />}
-              {this.props.index === 3 &&
-                <OrderStatusUser
-                  index={3}
-                  label="Pengiriman"
-                  estimateShippingDate={this.state.estimateShippingDate}
-                  customer={this.state.orderAddress}
-                />}
+
+    productOrderDetailDashboard = async () => {
+        const orderId = this.state.orderId;
+        console.log(orderId);
+        try {
+            //const response = await dummyOrderDetailsDashboard;
+            const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
+            const itemProductOrder = {
+                id: response.data.data.id,
+                invoiceNumber: response.data.data.invoiceNumber,
+                estimateShippingDate: response.data.data.estimateShippingDate,
+                bank: response.data.data.bank,
+                endDatePay: response.data.data.endDatePay,
+                shipping: response.data.data.shipping,
+                payment: response.data.data.payment,
+                productorder: response.data.data,
+                address: response.data.data.address,
+                indexes: response.data.data.indexes,
+                orderDate: response.data.data.orderDate
+            };
+            this.setState({
+                ...itemProductOrder
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    render() {
+        const {
+            tabsNotPay,
+            tabsInDelivery,
+            tabsNotSent,
+            tabsFinish,
+            actionShowOrderListWaiting
+        } = this.props
+        console.log('ini tes indexes', this.state.indexes);
+
+        return (
+            <React.Fragment>
+            <ScrollToTopOnMount />
+                {tabsNotPay === 1 &&
+                    <OrderStatusStep
+                        actionShowOrderListWaiting={actionShowOrderListWaiting}
+                        top={10}
+                        labelTabDetails={"Belum Bayar"}
+                        orderDate={this.state.orderDate} />
+                }
+                {tabsNotSent === 2 &&
+                    <OrderStatusStep
+                        actionShowOrderListWaiting={actionShowOrderListWaiting}
+                        top={10}
+                        labelTabDetails={"Belum Dikirim"}
+                        tabsNotSent={2}
+                        orderDate={this.state.orderDate} />
+                }
+                {tabsInDelivery === 3 &&
+                    <OrderStatusStep
+                        actionShowOrderListWaiting={actionShowOrderListWaiting}
+                        top={10}
+                        labelTabDetails={"Dalam Pengiriman"}
+                        tabsNotSent={2}
+                        tabsInDelivery={3}
+                        orderDate={this.state.orderDate} />}
+                {tabsFinish === 4 &&
+                    <OrderStatusStep
+                        actionShowOrderListWaiting={actionShowOrderListWaiting}
+                        top={10}
+                        labelTabDetails={"Selesai"}
+                        tabsNotSent={2}
+                        tabsInDelivery={3}
+                        tabsFinish={4}
+                        orderDate={this.state.orderDate} />}
+                {this.state.indexes &&
+                    <React.Fragment>
+                        {this.state.indexes.map(index => {
+                            return (
+                                <div key={index.productId}>
+                                    <ProductOrderDetails
+                                        invoiceNumber={this.state.invoiceNumber}
+                                        label="Detail Pesanan"
+                                        key={index.id}
+                                        orderId={this.state.orderId}
+                                        tabsNotSent={tabsNotSent}
+                                        noInvoice={"No. Invoice"}
+                                        productImage={index.productImage}
+                                        variants={index.variants}
+                                        productName={index.productName}
+                                        productQuantity={index.productQuantity}
+                                        totalAmount={index.totalAmount}
+                                    />
+                                    <PaymentInfo
+                                        key={index.id}
+                                        index={1}
+                                        productName={index.productName}
+                                        totalAmount={index.totalAmount}
+                                        shipping={this.state.shipping}
+                                        price={index.price}
+                                        productQuantity={index.productQuantity}
+                                        payment={this.state.payment}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </React.Fragment>
+                }
+                {tabsNotPay === 1 &&
+                    <PaymentDateInfo
+                        endDatePay={this.state.endDatePay}
+                        typePayment={this.state.payment}
+                        bank={this.state.bank}
+                    />}
+                {((tabsNotPay === 1) || (tabsNotSent === 2)) &&
+                    (<OrderStatusUser
+                        label="Pengiriman"
+                        customer={this.state.address}
+                        estimateShippingDate={this.state.estimateShippingDate} />)}
+                {tabsInDelivery === 3 &&
+                    <OrderStatusUser
+                        estimateAccepted={"Perkiraan Diterima"}
+                        label="Pengiriman"
+                        customer={this.state.address}
+                        estimateShippingDate={this.state.estimateShippingDate}
+                        tabsInDelivery={3} />
+                }
+                {tabsFinish === 4 &&
+                    <OrderStatusUser
+                        estimateAccepted={"Pesanan Diterima"}
+                        label="Pengiriman"
+                        customer={this.state.address}
+                        estimateShippingDate={this.state.estimateShippingDate}
+                        tabsFinish={4} />
+                }
             </React.Fragment>
-          );
-        })}
-      </React.Fragment>
-    );
-  }
+        );
+    }
 }
 
 export default OrderDetailsDashboard;
