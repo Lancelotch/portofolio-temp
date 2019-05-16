@@ -1,8 +1,7 @@
 import React from "react";
-import convertTimesTime from "../../library/convertTimestime";
 import "./style.sass";
 import { Row, Col } from "antd";
-import currencyRupiah from "../../library/currency";
+
 
 const PaymentCancelOrder = props => {
   const {

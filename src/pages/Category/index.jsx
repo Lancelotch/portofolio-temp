@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import "sass/style.sass";
 import "./style.sass";
 
-const Products = React.lazy(() => import("../../components/Products"));
+// const Products = React.lazy(() => import("../../components/Products"));
 
 class CategoryPage extends Component {
   render() {
-    const { match } = this.props;
+    // const { match } = this.props;
     return (
       <React.Fragment>
         <Row>

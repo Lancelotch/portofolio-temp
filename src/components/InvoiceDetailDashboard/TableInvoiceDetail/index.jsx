@@ -7,7 +7,7 @@ const { Text } = Typography;
 
 
 const TableInvoiceDetailDashboard = (props) => {
-    const { invoice, orderDate, address, note } = props;
+    const { invoice, orderDate, address, note,customerName} = props;
     return (
         <Row>
             <Col md={24}>
@@ -25,7 +25,7 @@ const TableInvoiceDetailDashboard = (props) => {
                         <td>
                             <Text type="secondary">Pembeli</Text>
                         </td>
-                        <td><Text strong>Ahyar Rifai Siraid</Text></td>
+                        <td><Text strong>{customerName.name}</Text></td>
                     </tr>
                     <tr>
                         <td><Text type="secondary">Tujuan Pengiriman</Text></td>

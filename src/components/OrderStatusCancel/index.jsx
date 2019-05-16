@@ -1,6 +1,6 @@
 import React from 'react';
 import { Steps, Icon, Affix } from 'antd';
-import { receivedOrderIcon, paymentOrder, deliveryOrderIcon } from '../../library/iconTracking';
+import { receivedOrderIcon, paymentOrder } from '../../library/iconTracking';
 import "../../components/OrderStatusStep/style.sass"
 import convertTimesTime from '../../library/convertTimestime';
 

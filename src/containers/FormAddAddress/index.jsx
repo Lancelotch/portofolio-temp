@@ -174,8 +174,7 @@ class FormAddAddress extends Component {
     const { getFieldDecorator } = this.props.form;
     const {
       cities,
-      provinces,
-      subdistricts
+      provinces
     } = this.state;
 
     const prefixSelector = getFieldDecorator("prefix", {

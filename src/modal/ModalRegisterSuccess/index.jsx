@@ -1,15 +1,12 @@
 import React , {Component} from 'react'
 import {Modal, Row, Col, Icon, Button} from 'antd'
-import history from "../../routers/history"
 import "./style.sass";
 import {connect} from 'react-redux'
 import {closeModal} from "../../store/actions/authentication"
 
 
 class ModalRegister extends Component {
-    constructor(props){
-        super(props)
-    }
+
 
     render(){
         return(

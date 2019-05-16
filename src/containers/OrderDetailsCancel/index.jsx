@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import { Affix, Icon } from 'antd';
-import dummyOrderDetailsDashboard from "../../dummy/dummyOrderDetailsDashboard";
-import dummyOrderDetailsBelumDikirim from "../../dummy/dummyOrderDetailsBelumDikirim";
 import OrderStatusCancel from "../../components/OrderStatusCancel";
 import ProductOrderCancel from "../../components/ProductOrderCancel";
 import PaymentCancelOrder from "../../components/PaymentCancelOrder";
 import { apiGetWithToken } from '../../api/services';
 import { PATH_ORDER } from '../../api/path';
-import ProductOrder from '../../components/ProductOrder';
-import Cancel from '../../components/ButtonDashboard/Cancel';
 
 class OrderDetailsCancel extends Component {
     constructor(props) {
