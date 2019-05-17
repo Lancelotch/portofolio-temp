@@ -15,14 +15,21 @@ const Pay = (props) => {
     tabsNotSent,
     tabsFinish,
     tabsInDelivery,
-    orderProduct
+    orderProduct,
+    productId
   } = props
+  let id = ""
+  productId.map(p => {
+    id = p.productId
+    return id
+  })
+  console.log('productidpay', id);
   return (
-    <div 
-    style={{ 
-      backgroundColor: "#FFFFFF", 
-      paddingBottom: 20 
-    }}>
+    <div
+      style={{
+        backgroundColor: "#FFFFFF",
+        paddingBottom: 20
+      }}>
       {tabsNotPay === 1 && (
         <React.Fragment>
           <Button
@@ -94,7 +101,7 @@ const Pay = (props) => {
           <Button
             className="waitingPayment__payNow"
           >
-            <Link to={pageUrlProductDetail + "productDetailId"}>Beli Lagi</Link>
+            <Link to={pageUrlProductDetail + id}>Beli Lagi</Link>
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
