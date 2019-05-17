@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./style.sass";
 
 const BestSeller = props => {
-  const { id, name, urlImage, price } = props.product;
+  const {  name, urlImage, price } = props.product;
 
   const priceRp = currencyRupiah(price);
   return (

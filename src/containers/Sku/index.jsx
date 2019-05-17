@@ -84,15 +84,16 @@ class SkuContainer extends Component {
         let skuId = "";
         let id = ""
         let arr = []
-        this.state.sku.variants.map(variant => {
+        this.state.sku.variants.forEach(variant => {
             if (variantId === variant.variantId) {
                 variant.value = value
             }
             skuId += variant.variantId + variant.value.id;
             id = variant.variantId + variant.value.id;
             arr.push(id)
+        
         });
-        this.props.product.sku.map(sku => {
+        this.props.product.sku.forEach(sku => {
             if (skuId === sku.id) {
                 const skuTmp = { ...this.state.sku };
                 skuTmp.price = sku.price;

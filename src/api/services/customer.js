@@ -4,7 +4,7 @@ import {
 import {
     PATH_CUSTOMER
 } from '../path'
-const token = localStorage.getItem("accessToken");
+//const token = localStorage.getItem("accessToken");
 const customerDetail = () => {
     return new Promise((resolve, reject) => {
         serviceWithToken()

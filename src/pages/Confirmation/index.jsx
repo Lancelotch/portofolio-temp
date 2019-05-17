@@ -29,7 +29,6 @@ class ConfirmationEmail extends Component {
   }
 
   render() {
-    const {match} = this.props;
     return (
       <React.Fragment>
         <div className="container">
