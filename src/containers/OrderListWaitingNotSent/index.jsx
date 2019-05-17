@@ -8,9 +8,6 @@ import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
-
-
-
 class OrderListWaitingNotSent extends Component {
   constructor(props) {
     super(props);
