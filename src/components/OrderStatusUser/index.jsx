@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import NumberFormat from 'react-number-format';
 import "./style.sass";
-import strings from '../../localization/localization';
 
 const OrderStatusUser = props => {
     const { label, customer, estimateShippingDate, tabsInDelivery, tabsFinish,estimateAccepted } = props;
