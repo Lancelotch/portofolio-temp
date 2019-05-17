@@ -6,7 +6,7 @@ import strings from '../../localization/localization';
 
 
 const PaymentDateInfo = props => {
-    const { bank, endDatePay, typePayment} = props
+    const { bank, endDatePay, typePayment } = props
     return (
         <React.Fragment>
             {typePayment !== undefined | typePayment ?
@@ -25,9 +25,9 @@ const PaymentDateInfo = props => {
                             </div>
                         </Col>
                         <Col md={12}>
-                            <div className="wrapperRight">
-                                <img src={bank.imageUrl} alt="" style={{ height: 18, width: 59 }} />
-                                &nbsp;
+                            <div className="wrapperRight dateInfoPayment">
+                                <img src={bank.imageUrl} alt="" style={{ maxHeight: 18, maxWidth: 59 }} />
+                                &nbsp;&nbsp;
                         <font className="virtualAccount">{typePayment.virtualAccount}</font>
                             </div>
                         </Col>
