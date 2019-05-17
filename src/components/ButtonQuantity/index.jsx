@@ -6,7 +6,7 @@ const ButtonQuantity = props => {
   const disable = props.quantity <= 1 ? true : false;
   return (
     <React.Fragment>
-      <Row>
+      <Row className="row-quantity">
         <Col md={2}>
           <button
             className="button_quantity"
