@@ -29,14 +29,14 @@ const renderCategorySub = (idCategory, categorySub, url) =>
       className="spanRender__subMenu"
       key={id}
       title={
-        // <span >
-        //   <Link
-        //     // className="renderCategory"
-        //     to={`${url}/${idCategory}/${id}`}>
-        //     {name}
-        //   </Link>
-        // </span>
-        <span>{name}</span>
+        <span >
+          <Link
+            // className="renderCategory"
+            to={`${url}/${idCategory}/${id}`}>
+            {name}
+          </Link>
+        </span>
+        // <span>{name}</span>
       }
       mode="vertical"
     >
@@ -51,17 +51,16 @@ const renderCategory = (dataSource, url) =>
       style={{ width: 200 }}
       key={id}
       title={
-        // <span >
-        //   <Link
-        //     className="renderCategory"
-        //     to={`${url}/${id}`}>
-        //     {name}
-        //   </Link>
-        // </span>
-          <span>
-
+        <span >
+          <Link
+            className="renderCategory"
+            to={`${url}/${id}`}>
             {name}
-          </span>
+          </Link>
+        </span>
+          // <span>
+          //   {name}
+          // </span>
         }
       mode="vertical">
       {renderCategorySub(id, categorySub, url)}

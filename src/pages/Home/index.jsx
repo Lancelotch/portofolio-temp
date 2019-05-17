@@ -18,7 +18,6 @@ class HomePage extends Component {
     }
     render() {
         const {match} = this.props
-        console.log("ini home",this.props)
         return ( 
             <React.Fragment>
                 <HomePageContainer
