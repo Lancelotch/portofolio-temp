@@ -15,14 +15,8 @@ import AddressList from "../../containers/AddressList";
 import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
-<<<<<<< HEAD
 import ModalSuccess from '../../modal/ModalRegisterSuccess'
 import {openModal} from "../../store/actions/authentication"
-=======
-import payloadProductDetail from "../../dummy/payloadProductDetail";
-import ModalSuccess from "../../modal/ModalRegisterSuccess";
-import { openModal } from "../../store/actions/authentication";
->>>>>>> 266a28005b47e4e2b5de9cf7c8d5a2f42ca9318b
 
 import "./style.sass";
 import history from "../../routers/history";
