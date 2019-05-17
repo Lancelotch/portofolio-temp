@@ -19,7 +19,7 @@ import {
   rulesEmail,
   // rulesPassword,
   // AlertLogin,
-  RegistrationaAlert
+  // RegistrationaAlert
 } from "../Register/registerContainer";
 // import HomePage from "../Home";
 

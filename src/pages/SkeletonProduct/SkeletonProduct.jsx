@@ -1,6 +1,6 @@
 import React from 'react';
 import Skeleton from "react-loading-skeleton";
-import { Row, Col } from "antd";
+import { Col } from "antd";
 import PropTypes from 'prop-types';
 
 const loopSkeleton = count => {

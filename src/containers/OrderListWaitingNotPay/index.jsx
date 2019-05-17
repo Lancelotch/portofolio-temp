@@ -31,7 +31,7 @@ class OrderListWaitingPayment extends Component {
   }
 
   productOrderTabsNotYetPay = async () => {
-    // this.setState({ loading: true });
+    this.setState({ loading: true });
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
       const productOrderTabsNotYetPay = {

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import productDetail from "../../api/services/productDetail";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import SkuContainer from "../../containers/Sku";
-// import dummyProductDetail from "../../dummy/dummyProductDetail";
 import { Redirect } from "react-router-dom";
 import ButtonQuantityContainer from "../../containers/ButtonQuantity";
 import { Row, Col, Card } from "antd";

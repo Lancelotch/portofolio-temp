@@ -6,6 +6,7 @@ import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
 import dummyInvoice from "../../dummy/dummyInvoice";
+import history from "../../routers/history";
 
 class PaymentInfoPage extends Component {
   constructor(props) {
@@ -23,6 +24,10 @@ class PaymentInfoPage extends Component {
     this.setState({ copied: true });
   };
 
+  actionToDashboardCustomer = () => {
+   return history.push("/dashboard-customer");
+  }
+
   render() {
     const { grossAmount, endDatePay, virtualAccount, imageBank } = this.state;
     const instruction = this.state.instructions.map(list => {
@@ -32,7 +37,7 @@ class PaymentInfoPage extends Component {
       Modal.warning({
         title: strings.payment_modal_ask,
         content: strings.payment_modal_content,
-        okText: <a href="/customer-navigation">{strings.ok}</a>
+        onOk: this.actionToDashboardCustomer
       });
     };
     return (

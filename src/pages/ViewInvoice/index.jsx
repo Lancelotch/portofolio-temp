@@ -5,7 +5,7 @@ import TableInvoicePayment from '../../components/InvoiceDetailDashboard/TableIn
 import ReactToPrint from 'react-to-print';
 import TableInvoiceDetailDashboard from '../../components/InvoiceDetailDashboard/TableInvoiceDetail';
 import "./style.sass";
-import { Col, Row, Icon, Button } from 'antd';
+import { Icon, Button } from 'antd';
 import currencyRupiah from '../../library/currency';
 import logoMonggoPesen from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
 import Background from "../../assets/img/ic_background/ic_bg_info_pembayaran.png";
@@ -28,6 +28,7 @@ class ViewInvoice extends Component {
             invoiceNumber: "",
             estimateShippingDate: "",
             orderDate: 0,
+            customer: ""
         }
     }
 
@@ -51,7 +52,8 @@ class ViewInvoice extends Component {
                 productorder: response.data.data,
                 address: response.data.data.address,
                 indexes: response.data.data.indexes,
-                orderDate: response.data.data.orderDate
+                orderDate: response.data.data.orderDate,
+                customer: response.data.data.customer
             };
             this.setState({
                 ...itemInvoiceDashboard
@@ -60,6 +62,10 @@ class ViewInvoice extends Component {
             console.log(error);
         }
     };
+
+    componentDidUpdate() {
+        document.title = 'Invoice Customer'
+    }
 
 
     renderButton = () => {
@@ -84,7 +90,7 @@ class ViewInvoice extends Component {
                                     alt="login__logo"
                                 />
                             </div>
-                            <div style={{marginTop: -10}}>
+                            <div style={{ marginTop: -10 }}>
                                 <h2>No.&nbsp;<font style={{ color: "#007E80" }}>{
                                     this.state.invoiceNumber}</font>
                                 </h2>
@@ -99,7 +105,8 @@ class ViewInvoice extends Component {
                                 marginBottom: 15
                             }
                             }>
-                            <p>Hai Ahyar Afal I, <br />
+
+                            <p>Hai {this.state.customer.name}, <br />
                                 {strings.text_thanks_invoice}.</p>
                             <ReactToPrint
                                 trigger={this.renderButton}
@@ -111,13 +118,15 @@ class ViewInvoice extends Component {
                             />
                         </div>
                         <TableInvoiceDetailDashboard
+                            customerName={this.state.customer}
                             note={filterNote}
                             address={this.state.address}
                             orderDate={this.state.orderDate}
                             invoice={this.state.invoiceNumber}
                         />
-                        {this.state.indexes.map(index =>
+                        {this.state.indexes.map((index, i) =>
                             <TableInvoicePayment
+                                key={i}
                                 productName={index.productName}
                                 variants={index.variants}
                                 productQuantity={index.productQuantity}
