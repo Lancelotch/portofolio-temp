@@ -1,8 +1,8 @@
-import React, { Component, Suspense, Fragment } from "react";
+import React, { Component, Suspense } from "react";
 import { Row, Col, BackTop } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
-import strings from "../../localization/localization";
+// import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import "./style.sass";
@@ -87,7 +87,7 @@ class ProductPage extends Component {
   };
 
   infiniteScroll = () => {
-    const { productList, hasMore, query, element } = this.state;
+    const { productList, hasMore, } = this.state;
     // const categoryTextResult = strings.formatString(
     //   strings.category_text_result,
     //   element,

@@ -175,7 +175,7 @@ class FormAddAddress extends Component {
     const {
       cities,
       provinces,
-      subdistricts
+      // subdistricts
     } = this.state;
 
     const prefixSelector = getFieldDecorator("prefix", {
@@ -294,7 +294,7 @@ class FormAddAddress extends Component {
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {this.props.subdistricts && this.optionsSubdistrict(this.props.subdistricts)}
+                    {this.state.subdistricts && this.optionsSubdistrict(this.state.subdistricts)}
                   </Select>
                 )}
               </Form.Item>

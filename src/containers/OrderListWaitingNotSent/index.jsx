@@ -7,9 +7,6 @@ import { PATH_DASHBOARD_TAB } from "../../api/path";
 import { Spin } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
-import strings from "../../localization/localization";
-
-
 
 class OrderListWaitingNotSent extends Component {
   constructor(props) {

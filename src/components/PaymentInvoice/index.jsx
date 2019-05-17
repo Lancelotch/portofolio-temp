@@ -1,15 +1,14 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import strings from "../../localization/localization";
-import ic_bni from "../../assets/img/ic_bni.png";
 import { Row, Col, Button, message } from "antd";
 import currencyRupiah from "../../library/currency";
-import convertTimestime from "../../library/convertTimestime";
+import convertTimesTime from "../../library/convertTimestime";
 
 const PaymentInvoice = props => {
-  const { grossAmount, endDatePay, virtualAccount, onCopy } = props;
+  const { grossAmount, endDatePay, virtualAccount, onCopy, imageBank } = props;
   const success = () => {
-    message.success("Copied", 0.5);
+    message.success("Copied", 1);
   };
   return (
     <React.Fragment>
@@ -28,25 +27,25 @@ const PaymentInvoice = props => {
             {strings.payment_pay_before}
           </p>
           <p style={{ color: "#4A4A4A", fontSize: "24px" }}>
-            {convertTimestime.millisecond(endDatePay)}
+            {convertTimesTime.second(endDatePay)}
           </p>
         </Col>
       </Row>
       <Row type="flex" align="middle" className="info__bank">
         <Col md={4}>
-          <img src={ic_bni} alt="" className="info__bni" />
+          <img src={imageBank} alt="" className="info__bni" />
           <br />
-          <text style={{ color: "#9B9B9B", fontSize: "18px" }}>
+          <span style={{ color: "#9B9B9B", fontSize: "18px" }}>
             {strings.virtual_account}
-          </text>
+          </span>
         </Col>
         <Col md={16} style={{ textAlign: "center" }}>
-          <text className="virtualNumber">{virtualAccount}</text>
+          <span className="virtualNumber">{virtualAccount}</span>
         </Col>
         <Col md={4} style={{ textAlign: "end" }}>
           <CopyToClipboard text={virtualAccount} onCopy={onCopy}>
             <Button onClick={success} className="info__bankButton">
-              <p>Salin</p>
+              <p>{strings.copy}</p>
             </Button>
           </CopyToClipboard>
         </Col>

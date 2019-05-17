@@ -24,7 +24,7 @@ class Footer extends Component {
   }
 
   componentDidMount() {
-    this.handleSubmit();
+    // this.handleSubmit();
   }
 
   onChange = e => {
