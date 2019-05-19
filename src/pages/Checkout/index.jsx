@@ -47,7 +47,6 @@ class Checkout extends Component {
   snap = window.snap;
 
   componentDidMount() {
-    this.props.addressDefault();
     this.getListAddress();
     this.getPayloadProductDetail();
     this.initCustomerAddress();
@@ -108,7 +107,8 @@ class Checkout extends Component {
     console.log("handle change city di checkout", value);
   };
 
-  initCustomerAddress = () => {
+  initCustomerAddress = async () => {
+    await this.props.addressDefault();
     this.setState(
       {
         customerAddress: this.props.dataAddressDefault
