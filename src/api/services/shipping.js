@@ -1,10 +1,10 @@
-import { serviceWithToken } from './httpClient';
+import { serviceWithoutToken } from './httpClient';
 import { PATH_SHIPPING} from '../path'
 
 
 const getShipping = () => {  
     return new Promise((resolve,reject) => {
-        serviceWithToken()
+        serviceWithoutToken()
             .request({
                 method: 'GET',
                 url: PATH_SHIPPING.SHIPPING
