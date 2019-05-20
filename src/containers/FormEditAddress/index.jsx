@@ -31,49 +31,85 @@ class FormEditAddress extends Component {
   }
 
   componentDidMount() {
-    // const {
-    //   id,
-    //   labelName,
-    //   receiverName,
-    //   phoneNumber,
-    //   city,
-    //   fullAddress,
-    //   province,
-    //   provinceId,
-    //   cityId,
-    //   zipcode,
-    //   geolocation,
-    //   subdistrict,
-    //   subdistrictId,
-    //   isDefault
-    // } = this.props.address;
+    const {
+      id,
+      labelName,
+      receiverName,
+      phoneNumber,
+      city,
+      fullAddress,
+      province,
+      provinceId,
+      cityId,
+      zipcode,
+      geolocation,
+      subdistrict,
+      subdistrictId,
+      isDefault
+    } = this.props.address;
     
-    // this.setState({
-    //   id: id,
-    //   labelName: labelName,
-    //   receiverName: receiverName,
-    //   phoneNumber: phoneNumber,
-    //   city: city,
-    //   fullAddress: fullAddress,
-    //   province: province,
-    //   // provinceId: provinceId,
-    //   // cityId: cityId,
-    //   zipcode: zipcode,
-    //   geolocation: { ...geolocation },
-    //   // subdistrictId: subdistrictId,
-    //   subdistrict: subdistrict,
-    //   isDefault: isDefault,
-    //   // cities: nextProps.cities,
-    //   // subdistricts: nextProps.subdistricts
-    // }, () => {
-    //     // this.getCities()
-    //     // this.getSubdistrict()
-    //     // this.getSubdistrict()
-    // })
-    // this.getProvince();
+    this.setState({
+      id: id,
+      labelName: labelName,
+      receiverName: receiverName,
+      phoneNumber: phoneNumber,
+      city: city,
+      fullAddress: fullAddress,
+      province: province,
+      provinceId: provinceId,
+      cityId: cityId,
+      zipcode: zipcode,
+      geolocation: { ...geolocation },
+      subdistrictId: subdistrictId,
+      subdistrict: subdistrict,
+      isDefault: isDefault,
+    }, () => {
+        this.getProvince();
+        this.getCities();
+        this.getSubdistrict();
+    })
   }
 
   componentWillReceiveProps(props){
+    if(this.props.address.id !== props.address.id) {
+      const {
+        id,
+        labelName,
+        receiverName,
+        phoneNumber,
+        city,
+        fullAddress,
+        province,
+        provinceId,
+        cityId,
+        zipcode,
+        geolocation,
+        subdistrict,
+        subdistrictId,
+        isDefault
+      } = props.address;
+      
+      this.setState({
+        id: id,
+        labelName: labelName,
+        receiverName: receiverName,
+        phoneNumber: phoneNumber,
+        city: city,
+        fullAddress: fullAddress,
+        province: province,
+        provinceId: provinceId,
+        cityId: cityId,
+        zipcode: zipcode,
+        geolocation: { ...geolocation },
+        subdistrictId: subdistrictId,
+        subdistrict: subdistrict,
+        isDefault: isDefault,
+      }, () => {
+          this.getProvince();
+          this.getCities();
+          this.getSubdistrict();
+      })  
+    }
   }
 
   getProvince = async () => {
@@ -101,12 +137,8 @@ class FormEditAddress extends Component {
     const params = {
       city: this.state.cityId
     }
-    // const params= {
-    //   city : id
-    // }
     try {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
-      console.log("okesip", response);
       this.setState({ subdistricts: response.data.data });
     } catch (error) {
       console.log(error);
@@ -124,7 +156,10 @@ class FormEditAddress extends Component {
       {
         provinceId: province[0],
         province: province[1],
-        city: null
+        city: null,
+        cityId: null,
+        subdistrict: null,
+        subdistrictId: null
       },
       this.getCities
     );
@@ -148,12 +183,12 @@ class FormEditAddress extends Component {
 
   handleChangeCity = value => {
     const city = this.splitValue(value);
-    console.log(city);
     this.setState(
       {
         cityId: city[0],
         city: city[1],
-        subdistrict: null
+        subdistrict: null,
+        subdistrictId: null
       },
       this.getSubdistrict
     );
