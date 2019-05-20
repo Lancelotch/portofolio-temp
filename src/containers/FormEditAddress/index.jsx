@@ -10,19 +10,19 @@ class FormEditAddress extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
-      labelName: "",
-      receiverName: "",
-      phoneNumber: "",
-      city: "",
-      fullAddress: "",
-      province: "",
-      provinceId: "",
-      cityId: "",
-      zipcode: "zipcode",
+      id: null,
+      labelName: null,
+      receiverName: null,
+      phoneNumber: null,
+      city: null,
+      fullAddress: null,
+      province: null,
+      provinceId: null,
+      cityId: null,
+      zipcode: null,
       geolocation: {},
-      subdistrictId: "",
-      subdistrict: "",
+      subdistrictId: null,
+      subdistrict: null,
       provinces: [],
       cities: [],
       subdistricts: [],
@@ -31,49 +31,49 @@ class FormEditAddress extends Component {
   }
 
   componentDidMount() {
-    this.getProvince();
+    // const {
+    //   id,
+    //   labelName,
+    //   receiverName,
+    //   phoneNumber,
+    //   city,
+    //   fullAddress,
+    //   province,
+    //   provinceId,
+    //   cityId,
+    //   zipcode,
+    //   geolocation,
+    //   subdistrict,
+    //   subdistrictId,
+    //   isDefault
+    // } = this.props.address;
+    
+    // this.setState({
+    //   id: id,
+    //   labelName: labelName,
+    //   receiverName: receiverName,
+    //   phoneNumber: phoneNumber,
+    //   city: city,
+    //   fullAddress: fullAddress,
+    //   province: province,
+    //   // provinceId: provinceId,
+    //   // cityId: cityId,
+    //   zipcode: zipcode,
+    //   geolocation: { ...geolocation },
+    //   // subdistrictId: subdistrictId,
+    //   subdistrict: subdistrict,
+    //   isDefault: isDefault,
+    //   // cities: nextProps.cities,
+    //   // subdistricts: nextProps.subdistricts
+    // }, () => {
+    //     // this.getCities()
+    //     // this.getSubdistrict()
+    //     // this.getSubdistrict()
+    // })
+    // this.getProvince();
   }
 
-  componentWillReceiveProps(nextProps){
-    const {
-      id,
-      labelName,
-      receiverName,
-      phoneNumber,
-      city,
-      fullAddress,
-      province,
-      provinceId,
-      cityId,
-      zipcode,
-      geolocation,
-      subdistrict,
-      subdistrictId,
-      isDefault
-    } = nextProps.address;
-    
-    this.setState({
-      id: id,
-      labelName: labelName,
-      receiverName: receiverName,
-      phoneNumber: phoneNumber,
-      city: city,
-      fullAddress: fullAddress,
-      province: province,
-      provinceId: provinceId,
-      cityId: cityId,
-      zipcode: zipcode,
-      geolocation: { ...geolocation },
-      subdistrictId: subdistrictId,
-      subdistrict: subdistrict,
-      isDefault: isDefault,
-      // cities: nextProps.cities,
-      // subdistricts: nextProps.subdistricts
-    }, () => {
-        this.getCities()
-        // this.getSubdistrict()
-        this.getSubdistrict()
-    })
+  componentWillReceiveProps(props){
   }
 
   getProvince = async () => {
@@ -106,6 +106,7 @@ class FormEditAddress extends Component {
     // }
     try {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_SUBDISTRICT, params);
+      console.log("okesip", response);
       this.setState({ subdistricts: response.data.data });
     } catch (error) {
       console.log(error);
@@ -122,7 +123,8 @@ class FormEditAddress extends Component {
     this.setState(
       {
         provinceId: province[0],
-        province: province[1]
+        province: province[1],
+        city: null
       },
       this.getCities
     );
@@ -146,12 +148,14 @@ class FormEditAddress extends Component {
 
   handleChangeCity = value => {
     const city = this.splitValue(value);
+    console.log(city);
     this.setState(
       {
         cityId: city[0],
-        city: city[1]
+        city: city[1],
+        subdistrict: null
       },
-       () => this.getSubdistrict()
+      this.getSubdistrict
     );
   };
 
