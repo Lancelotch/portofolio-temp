@@ -6,7 +6,9 @@ import currencyRupiah from "../../library/currency";
 import convertTimesTime from "../../library/convertTimestime";
 
 const PaymentInvoice = props => {
-  const { grossAmount, endDatePay, virtualAccount, onCopy, imageBank } = props;
+  const { payment, endDatePay, virtualAccount, onCopy, bank } = props;
+  console.log(payment.paymentType);
+
   const success = () => {
     message.success("Copied", 1);
   };
@@ -18,7 +20,7 @@ const PaymentInvoice = props => {
             {strings.payment_total_amount}
           </p>
           <p style={{ color: "#004853", fontSize: "36px" }}>
-            {currencyRupiah(grossAmount)}
+            {currencyRupiah(payment.grossAmount)}
           </p>
           <br />
         </Col>
@@ -33,17 +35,17 @@ const PaymentInvoice = props => {
       </Row>
       <Row type="flex" align="middle" className="info__bank">
         <Col md={4}>
-          <img src={imageBank} alt="" className="info__bni" />
+          <img src={bank.imageUrl} alt="" style={{ maxWidth: 250, maxHeight: 50 }} />
           <br />
           <span style={{ color: "#9B9B9B", fontSize: "18px" }}>
             {strings.virtual_account}
           </span>
         </Col>
         <Col md={16} style={{ textAlign: "center" }}>
-          <span className="virtualNumber">{virtualAccount}</span>
+          <span className="virtualNumber">{payment.virtualAccount}</span>
         </Col>
         <Col md={4} style={{ textAlign: "end" }}>
-          <CopyToClipboard text={virtualAccount} onCopy={onCopy}>
+          <CopyToClipboard text={payment.virtualAccount} onCopy={onCopy}>
             <Button onClick={success} className="info__bankButton">
               <p>{strings.copy}</p>
             </Button>

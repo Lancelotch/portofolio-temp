@@ -39,9 +39,10 @@ class CustomerOderNavigation extends Component {
     })
   };
 
+
   render() {
     return (
-      <Tabs defaultActiveKey="1">
+      <Tabs defaultActiveKey="1" >
         <CustomTabPane
           key={"1"}
           tab={
@@ -57,7 +58,8 @@ class CustomerOderNavigation extends Component {
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                 tabsNotPay={1}
               />) : (
-                <OrderDetailsDashboard orderId={this.state.orderId}
+                <OrderDetailsDashboard 
+                  orderId={this.state.orderId}
                   actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                   tabsNotPay={1}
                 />)

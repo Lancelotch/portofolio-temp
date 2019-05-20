@@ -14,7 +14,7 @@ const PRODUCTS = '/products';
 const EXAMPLE = '/example';
 const VIEW_INVOICE = '/invoice-customer/:invoiceId'
 const ORDER_SUMMARY = '/order-summary';
-const PAYMENT_INFO = '/payment-info'
+const PAYMENT_INFO = '/payment-info/:paymentId';
 
 const PATH_URL = {
     VIEW_INVOICE : VIEW_INVOICE,
