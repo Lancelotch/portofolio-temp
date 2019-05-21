@@ -26,12 +26,19 @@ class FormAddAddress extends Component {
       subdistrict: null,
       provinces: [],
       cities: [],
-      subdistricts: []
+      subdistricts: [],
+      length: 0
     };
   }
 
   componentDidMount() {
     this.getProvince();
+  }
+
+  onChangeFullAddress = (e) => {
+    this.setState({
+      length : e.target.value.length
+    })
   }
 
   getProvince = async () => {
@@ -214,7 +221,7 @@ class FormAddAddress extends Component {
         ]}
       >
         <Form onSubmit={this.handleSubmit}>
-          <Form.Item label="Nama Alamat">
+          <Form.Item label="Nama Alamat" help="Contoh: Rumah, Kantor, Kost dll">
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat")
@@ -226,7 +233,7 @@ class FormAddAddress extends Component {
               this.rules(true, "Silahkan isi nama penerima")
             )(<Input placeholder="Atas Nama" />)}
           </Form.Item>
-          <Form.Item label="Phone Number">
+          <Form.Item label="No. Telepon">
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu")
@@ -253,7 +260,7 @@ class FormAddAddress extends Component {
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Kota">
+          <Form.Item label="Kota / Kabupaten">
             {getFieldDecorator(
               "city",
               this.rules(true, "Silahkan pilih alamat kota kamu")
@@ -312,10 +319,24 @@ class FormAddAddress extends Component {
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu")
             )(
-              <TextArea
+              <React.Fragment>
+                 <TextArea
                 placeholder="Alamat Lengkap"
                 autosize={{ minRows: 3, maxRows: 6 }}
+                onChange={this.onChangeFullAddress}
               />
+              <p
+                style={{
+                  fontSize: 14,
+                  lineHeight: 1.5,
+                  opacity: 0.5,
+                  float: "right"
+                  }}
+                >
+                {this.state.length}/400
+                </p>
+              </React.Fragment>
+             
             )}
           </Form.Item>
         </Form>

@@ -18,7 +18,6 @@ import { PATH_PRODUCT } from "../../api/path";
 
 class HomePageContainer extends Component {
   render() {
-    console.log("ini container", this.props)
     const {
       bestSellerProduct,
       mostClickProduct

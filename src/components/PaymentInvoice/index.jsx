@@ -8,7 +8,7 @@ import convertTimesTime from "../../library/convertTimestime";
 const PaymentInvoice = props => {
   const { grossAmount, endDatePay, virtualAccount, onCopy, imageBank } = props;
   const success = () => {
-    message.success("Copied", 1);
+    // message.success("Copied", 1);
   };
   return (
     <React.Fragment>
@@ -48,6 +48,7 @@ const PaymentInvoice = props => {
               <p>{strings.copy}</p>
             </Button>
           </CopyToClipboard>
+          
         </Col>
       </Row>
     </React.Fragment>

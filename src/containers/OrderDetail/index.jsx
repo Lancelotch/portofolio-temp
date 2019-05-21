@@ -27,15 +27,30 @@ class OrderDetailContainer extends Component {
     this.props.onChangeNote(note);
   };
 
+  // variants = variants => {
+  //   return variants.map(variant => (
+  //     <div key={variant.variantId} className="detail__product-variant">
+  //       <p>
+  //         {`${variant.variantName} : ${variant.value.name}`}
+  //       </p>
+  //     </div>
+  //   ));
+  // };
   variants = variants => {
-    return variants.map(variant => (
-      <div key={variant.variantId} className="detail__product-variant">
-        <p>
-          {`${variant.variantName} : ${variant.value.name}`}
-        </p>
-      </div>
-    ));
-  };
+    return variants.map((variant,index)=> {
+      if(index === variants.length -1){
+        return (
+          <Col className="detail__variant" key={index} span={3}>{variant.value.name}</Col>
+        )
+      }else{
+        return (
+          <Col className="detail__variant" key={index} span={3}>{variant.value.name},</Col>
+        )
+      }
+      
+    })
+  }
+  
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
@@ -66,7 +81,19 @@ class OrderDetailContainer extends Component {
                   </Col>
                   <Col md={14}>
                     <h2 className="detail__product-name">{name}</h2>
-                    {this.variants(sku.variants)}
+                    {/* <Row>
+                      <Col span={6}>Variant</Col>
+                      <Col md={12}>{this.variants(sku.variants)}</Col>
+                    </Row> */}
+                      <Row>
+                        <Col className="detail__variant" span={5}>
+                          Variant
+                        </Col>
+                        <Col className="detail__variant" span={1}>
+                          :
+                        </Col>
+                        {this.variants(sku.variants)}
+                      </Row>
                   </Col>
                   <Col md={5}>
                     <h2 className="detail__price">

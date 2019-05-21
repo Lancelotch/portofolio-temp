@@ -314,6 +314,9 @@ class Checkout extends Component {
       <div className="checkout">
         <div className="container">
           <Row>
+            <Col md={24}>
+              <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
+            </Col>
             <Col md={5}>
               <a href="/">
                 <img

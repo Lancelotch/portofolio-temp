@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import dataSource from "./dataSource";
 import "./style.sass"
 
+
 const SubMenu = Menu.SubMenu;
 
 const isUrlIsCategory = url => {
@@ -18,20 +19,20 @@ const renderCategorySubChild = (idCategory, subCategoryId, categorySubChild, url
       key={id}
       mode="vertical">
       <span>
-        <Link className="renderCategory"
+        <Link className="default"
           to={`${url}/${idCategory}/${subCategoryId}/${id}`}>{name}</Link></span>
     </Menu.Item>
   ));
 
 const renderCategorySub = (idCategory, categorySub, url) =>
-  categorySub.map(({ id, name, categorySubChild }) => (
+  categorySub.map(({ id, name, categorySubChildResponses }) => (
     <SubMenu
-      className="spanRender__subMenu"
+      className="spanRender"
       key={id}
       title={
         <span >
           <Link
-            // className="renderCategory"
+            className="default"
             to={`${url}/${idCategory}/${id}`}>
             {name}
           </Link>
@@ -40,12 +41,16 @@ const renderCategorySub = (idCategory, categorySub, url) =>
       }
       mode="vertical"
     >
-      {renderCategorySubChild(idCategory, id, categorySubChild, url)}
+      {categorySubChildResponses && renderCategorySubChild(idCategory, id, categorySubChildResponses, url)}
     </SubMenu>
   ));
 
+const addActiveClass = (value) => {
+  // return (value === )
+}  
+
 const renderCategory = (dataSource, url) =>
-  dataSource.map(({ id, name, categorySub }) => (
+  dataSource.map(({ id, name, categorySubResponses }) => (
     <SubMenu
       className="spanRender"
       style={{ width: 200 }}
@@ -53,17 +58,14 @@ const renderCategory = (dataSource, url) =>
       title={
         <span >
           <Link
-            className="renderCategory"
+            className="default"
             to={`${url}/${id}`}>
             {name}
           </Link>
         </span>
-          // <span>
-          //   {name}
-          // </span>
         }
       mode="vertical">
-      {renderCategorySub(id, categorySub, url)}
+      {categorySubResponses && renderCategorySub(id, categorySubResponses, url)}
     </SubMenu>
   ));
 
@@ -71,10 +73,10 @@ const menu = props => {
   const { match } = props;
   const url = isUrlIsCategory(match.url);
   return <Menu
-    // inlineCollapsed
     style={{ width: 200 }}
+    forceSubMenuRender
     mode="vertical">
-    {renderCategory(dataSource, url)}
+    {props.allCategory && renderCategory(props.allCategory, url)}
   </Menu>;
 };
 

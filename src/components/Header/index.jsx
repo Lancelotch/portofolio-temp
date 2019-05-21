@@ -14,6 +14,7 @@ import CategoryMenu from "../CategoryMenu";
 import {Link} from "react-router-dom"
 import maskot from "../../assets/img/mascot_monggodesignheroes_2.png"
 import PATH from "../../routers/path"
+import {getMethod} from "../../api/services"
 
 class Header extends Component {
   constructor(props) {
@@ -26,12 +27,26 @@ class Header extends Component {
       sumProduct: 0,
       keyword: this.props.keyword,
       isAuthenticated: this.props.isAuthenticated,
-      dropdownShow: null
+      dropdownShow: null,
+      allCategory: []
     };
   }
 
   componentDidMount(){
     // this.getCustomerDetail()
+    this.getAllCategory()
+  }
+
+  getAllCategory = async() => {
+    try{
+      const response = await getMethod(PATH.GET_CATEGORY)
+      console.log("ini category", response)
+      this.setState({
+        allCategory : [...this.state.allCategory,...response.data]
+      })
+    }catch(error){
+      console.log(error)
+    }
   }
 
  
@@ -81,12 +96,16 @@ class Header extends Component {
   };
 
   handleVisibleChange = (flag) => {
-    this.setState({ openModalLogin: flag });
+    this.setState({ 
+      openModalLogin: flag,
+      openModalLogout: false
+     });
   }
 
   handleVisibleLogout = (flag) => {
     this.setState({
-      openModalLogout: flag
+      openModalLogout: flag,
+      openModalLogin: false
     })
   }
 
@@ -94,7 +113,7 @@ class Header extends Component {
     const name = this.props.customerName;
     let resultName = name;
     if(name) {
-      if(name.length > 8) {
+      if(name.length > 20) {
           resultName = name.substr(0, 8) + "...";
       }  
     }
@@ -105,7 +124,7 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <span>{this.showCustomerName()}</span>
+          <span>{this.showCustomerName()}</span><Icon style={{color: "#999999"}} type="down"></Icon>
         </li>
       </Dropdown>
     );
@@ -115,11 +134,13 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <span>{strings.log_in}</span>
+          <span>{strings.log_in}</span><Icon style={{color: "#999999"}} type="down"></Icon>
         </li>
       </Dropdown>
     );
   };
+
+ 
 
   userMenu = () => (
     <Menu className="header__user-menu">
@@ -149,6 +170,7 @@ class Header extends Component {
   render() {
     const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
+    console.log("ini match ==", match)
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (
@@ -169,13 +191,13 @@ class Header extends Component {
           </Col>
           <div className="header">
             <Col md={5}>
-              <a href="/">
+              <Link to="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="header__logo"
                   alt=""
                 />
-              </a>
+              </Link>
             </Col>
             <Col md={13} className="header__search-box">
               <form action="/search">
@@ -189,7 +211,7 @@ class Header extends Component {
                 />
               </form>
             </Col>
-            <Col md={6}>
+            <Col md={6} style={{display: "flex", justifyContent: "flex-end"}}>
               <img
                 src={require("assets/img/icon_header.png")}
                 alt="header_icon"
@@ -198,10 +220,10 @@ class Header extends Component {
             </Col>
               <Col md={2}>
                 <div className="header__categories">
-                  <CategoryMenu match={match} />
+                  <CategoryMenu match={match} allCategory={this.state.allCategory} />
                 </div>
               </Col>
-              <Col md={16}>
+              <Col md={14}>
                 <div className="header__menus">
                   <Link to="/" className="header__menu">
                     Lacak Pengiriman
@@ -221,7 +243,7 @@ class Header extends Component {
               <Col md={4}>
                 <React.Fragment>{greeting}</React.Fragment>
               </Col>
-              <Col md={2}>
+              <Col md={4} style={{display: "flex", justifyContent: "flex-end"}}>
                 <div className="header__user-box">
                   <Icon
                     type="user"
@@ -229,7 +251,6 @@ class Header extends Component {
                     className="header__user-icon"
                   />
                   {this.showUserDropDown(isAuthenticated)}
-                  {/* <Icon style={{color: "#999999"}} type="down"></Icon> */}
                 </div>
               </Col>
           </div>

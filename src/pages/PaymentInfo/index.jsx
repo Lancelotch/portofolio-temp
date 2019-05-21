@@ -17,11 +17,20 @@ class PaymentInfoPage extends Component {
       endDatePay: dummyInvoice.endDatePayment,
       virtualAccount: dummyInvoice.payment.virtualAccount,
       imageBank: dummyInvoice.bank.imageUrl,
-      copied: false
+      copied: false,
+      messageCopy: ""
     };
   }
   onCopy = () => {
-    this.setState({ copied: true });
+    this.setState({ 
+      // copied: true,
+      messageCopy: "Berhasil di Copy"
+    });
+    setTimeout(() =>{
+      this.setState({
+        messageCopy: ""
+      })
+    },6000)
   };
 
   actionToDashboardCustomer = () => {
@@ -63,7 +72,9 @@ class PaymentInfoPage extends Component {
                 virtualAccount={virtualAccount}
                 imageBank={imageBank}
                 onCopy={this.onCopy}
+                messageCopy={this.state.messageCopy}
               />
+              <p style={{ textAlign: "center" }}>{this.state.messageCopy ? <span style={{ color: 'red' }}>Berhasil di Copy.</span> : ""}</p>
               <div className="info__dropdownMethod">
                 <PaymentInstructions instruction={instruction} />
               </div>

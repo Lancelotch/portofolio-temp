@@ -42,7 +42,6 @@ class OrderListWaitingPayment extends Component {
       this.setState({
         ...productOrderTabsNotYetPay
       });
-      console.log("xxxxxxx",response)
     } catch (error) {
       console.log(error);
       this.setState({ loading: false });

@@ -14,7 +14,8 @@ const PRODUCTS = '/products';
 const EXAMPLE = '/example';
 const VIEW_INVOICE = '/invoice-customer/:invoiceId'
 const ORDER_SUMMARY = '/order-summary';
-const PAYMENT_INFO = '/payment-info'
+const PAYMENT_INFO = '/payment-info';
+const GET_CATEGORY = '/category'
 
 const PATH_URL = {
     VIEW_INVOICE : VIEW_INVOICE,
@@ -33,7 +34,8 @@ const PATH_URL = {
     PRODUCTS: PRODUCTS,
     EXAMPLE: EXAMPLE,
     ORDER_SUMMARY: ORDER_SUMMARY,
-    PAYMENT_INFO: PAYMENT_INFO
+    PAYMENT_INFO: PAYMENT_INFO,
+    GET_CATEGORY: GET_CATEGORY
 }
 
 export default PATH_URL;
