@@ -21,24 +21,25 @@ export const SelectShipping = props => {
               }
               onClick={onChangeSelected.bind(this, ship)}
             >
-              <Row style={{padding:"10px"}}>
-                <Col md={4}>
+              <Row>
+                <Col md={6} className="shipping-img">
                   <img
                     src={ship.via === "Laut" ? Laut : Udara}
                     alt=""
                     style={{ maxWidth: "100%" }}
                   />
                 </Col>
-                <Col md={20} style={{ padding: 5 }}>
+                <Col md={16} className="shipping-text">
                   {/* {ship.id} */}
-                  <p>
+                  <p className="text-selected">
                     {ship.estimation.charAt(0).toUpperCase() +
                       ship.estimation.substring(1)}
-                  </p>
-                  <p className="price-selected">
-                    {ship.via === "Laut"
-                      ? "Ongkir Termasuk"
-                      : currencyRupiah(ship.price)}
+                      <br/>
+                    <span className="price-selected">
+                      {ship.via === "Laut"
+                        ? "Ongkir Termasuk"
+                        : currencyRupiah(ship.price)}
+                    </span>
                   </p>
                 </Col>
                 {/* <p className="price">{ ship.via ===  'Laut' ?  'Harga sudah termasuk' : currencyRupiah(ship.price) }</p> */}

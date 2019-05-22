@@ -11,7 +11,7 @@ class Shipping extends Component {
     };
   }
 
-   componentDidMount() {
+  componentDidMount() {
     this.shipping();
   }
 
@@ -28,7 +28,10 @@ class Shipping extends Component {
   };
   render() {
     return (
-      <div style={{ marginTop: 22}}>
+      <div>
+        <span style={{ fontSize: "18px", color:"#4a4a4a" }}>
+          Pengiriman dari : <b style={{ color: "#F63700" }}>China</b>
+        </span>
         <Shippings shipping={this.state.shipping} />
       </div>
     );

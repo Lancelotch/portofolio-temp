@@ -97,17 +97,17 @@ class OrderDetailContainer extends Component {
                 </Row>
               </div>
               <Divider />
-              <Row className="shipping">
+              <Row className="shipping-checkout">
                 <Col md={5}>
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
                   <Shipping onChangeShipping={this.actionChangeShipping} />
                 </Col>
-                <Col md={5} className="shipping__note">
+                <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>
                 </Col>
-                <Col md={19} className="shipping__note">
+                <Col md={19} className="shipping-checkout__note">
                   <NotedLimit onChange={this.actionChangeNote} />
                 </Col>
               </Row>

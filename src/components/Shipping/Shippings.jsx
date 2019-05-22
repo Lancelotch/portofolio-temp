@@ -13,30 +13,30 @@ const Shippings = props => {
       {shipping && shipping.length > 0 ? (
         <div className="container-row-shipping">
           <div className="shipping">
-            <Row style={{ width: "100%" }}>
-              <Col md={12}>
-                <Col md={4}>
+            <Row className="shipping__content-row">
+              <Col md={10} className="shipping__content-col">
+                <div className="space">
                   <img src={Laut} alt="" style={{ maxWidth: "100%" }} />
-                </Col>
-                <Col md={20}>
+                </div>
+                <div>
                   <p>
                     {shipping[1].estimation.charAt(0).toUpperCase() +
                       shipping[1].estimation.substring(1)}
                   </p>
-                  <p className="price">Harga sudah termasuk</p>
-                </Col>
+                  <p className="price">Ongkir sudah termasuk</p>
+                </div>
               </Col>
-              <Col md={12}>
-                <Col md={4}>
+              <Col md={10} offset={1} className="shipping__content-col">
+                <div className="space">
                   <img src={Udara} alt="" style={{ maxWidth: "100%" }} />
-                </Col>
-                <Col md={20}>
+                </div>
+                <div>
                   <p>
                     {shipping[0].estimation.charAt(0).toUpperCase() +
                       shipping[0].estimation.substring(1)}
                   </p>
                   <p className="price">{currencyRupiah(shipping[0].price)}</p>
-                </Col>
+                </div>
               </Col>
             </Row>
           </div>

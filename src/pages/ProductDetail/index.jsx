@@ -123,10 +123,10 @@ class ProductDetail extends Component {
             <div className="container productDetail">
               <Row>
                 <Col md={10}>
-                  <h2>{this.state.name}</h2>
+                  <p className="productDetail__product-name">{this.state.name}</p>
                   <SliderProductDetailContainer images={this.state.images} imageVariant={this.state.imageVariant} />
                 </Col>
-                <Col md={12} offset={2}>
+                <Col md={12} offset={1}>
                   <div style={{}}>
                     <p className="productDetail__price">
                       {currencyRupiah(this.state.data.sku.price > 1 || null ?
@@ -138,7 +138,7 @@ class ProductDetail extends Component {
                       actionUpdateImageVariant={this.actionUpdateImageVariant}
                       defaultValueSku={this.state.data.sku}
                     />
-                    <p>Jumlah</p>
+                    <span style={{fontSize:"18px", color:"#5d5d5d"}}>Jumlah</span>
                     <ButtonQuantityContainer
                       stock={this.state.data.sku.stock}
                       quantity={this.state.data.quantity}
@@ -156,8 +156,8 @@ class ProductDetail extends Component {
               </Row>
               <Row>
                 <Col md={24} style={{ marginTop: 50 }}>
-                  <Card>
-                    <h2 style={{ padding: 12 }}>{strings.detail_product}</h2>
+                  <Card className="product-description">
+                    <h2>{strings.detail_product}</h2>
                     <ProductAttibutes
                       product={this.state.details}
                     />

@@ -33,7 +33,7 @@ class SliderProductDetailContainer extends Component {
       images.unshift(imageVariant);
       isImageVariantExist = true;
     }
-    let isShowNav = images.length > 7 ? true : false;
+    let isShowNav = images.length > 4 ? true : false;
     this.setState({
       images: images,
       isShowNav: isShowNav,
@@ -49,7 +49,7 @@ class SliderProductDetailContainer extends Component {
         src={item.original}
         zoomFactor={0.5}
         mgShape={'square'}
-        mgBorderWidth={1}
+        mgBorderWidth={0}
       />      
     );
   }

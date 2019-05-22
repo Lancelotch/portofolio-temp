@@ -1,5 +1,5 @@
 .container-row-shipping 
-    margin-top: 12px
+    // margin-top: 12px
 
 .container-row-shipping p
 	color: #5D5D5D
@@ -10,10 +10,15 @@
 	color: #004853
 
 .container-row-shipping img
-	margin: 6px 12px 0 0
+	margin: 6px 0 0 0
 	height: 31.97px
 
 .shipping
-	width: 100%
-	display: flex
-	justify-content: space-between
+	padding: 8px 0 !important
+	&__content-row
+		display: flex
+		width: 100%
+	&__content-col
+		display: flex !important
+	&__content-col .space
+		margin-right: 10px
