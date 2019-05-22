@@ -17,6 +17,7 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    cancel_order_by : 'Pesenan dibatalan oleh',
     buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
     before_pay: 'Bayar Sebelum',
@@ -50,6 +51,7 @@ const strings = new LocalizedStrings({
     pay_to: "Bayar Ke",
     giyarto: "PT. Giyarto Manunggal Sejati",
     estimate_accepted:"Perkiraan Diterima",
+    riwayat_order: " Tidak ada Riwayat Pesenan",
 
 
 
@@ -60,7 +62,8 @@ const strings = new LocalizedStrings({
 
     //Dashboard Product Details
     notice_payment_administrasi :"Subtotal yang tercantum diatas udah termasuk  biaya bea masuk, pajak dan administrasi.",
-    
+    cancel_order_dashboard: "Batalkan Pesenan",
+
     virtual_account: "Virtual Account",
     copy: "Salin",
     ok: "OK",
@@ -74,7 +77,7 @@ const strings = new LocalizedStrings({
     checkout_shopping_summary : "Ringkasan Belanja",
     checkout_alert_fill_courier : "isi dulu semua courier pada setiap product",
     order_summary: 'Ringkasan Pesenan',
-    order_details: 'Detail Pesanan',
+    order_details: 'Detail Pesenan',
     international_shipping: 'Pengiriman International',
     checkout_total: 'Total',
     choose_payment_methods: 'Pilih Metode Pembayaran',

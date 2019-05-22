@@ -37,6 +37,7 @@ class OrderDetailContainer extends Component {
   //   ));
   // };
   variants = variants => {
+<<<<<<< HEAD
     return variants.map((variant,index)=> {
       if(index === variants.length -1){
         return (
@@ -51,6 +52,16 @@ class OrderDetailContainer extends Component {
     })
   }
   
+=======
+    return variants.map((variant,i) => (
+      <div key={i} className="detail__product-variant">
+        <p>
+          {`${variant.variantName} : ${variant.value.name}`}
+        </p>
+      </div>
+    ));
+  };
+>>>>>>> development
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;

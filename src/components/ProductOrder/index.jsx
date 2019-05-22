@@ -8,14 +8,14 @@ const ProductOrder = props => {
   return (
     <div className="productOrder">
       <Row>
-        <Col md={2}>
+        <Col md={3} style={{paddingLeft: 32, paddingRight: 72}}>
           <img
             className="productOrder__image"
             src={indexes[0].productImage}
             alt=""
           />
         </Col>
-        <Col md={17}>
+        <Col md={21}>
           <h2> {indexes[0].productName} </h2>
           <p className="productOrder__variant">
             Varian : {indexes[0].variants[0].name.charAt(0).toUpperCase() +
@@ -23,17 +23,16 @@ const ProductOrder = props => {
              {indexes[0].variants[1].name.charAt(0).toUpperCase() +
               indexes[0].variants[1].name.substring(1)} : {indexes[0].variants[1].value}
           </p>
-          <p className="productOrder__quantity">
-            Jumlah : {indexes[0].productQuantity}
+          <p className="productOrder__variant">
+            Jumlah : {indexes[0].productQuantity} pcs
           </p>
         </Col>
-        <Col md={5} style={{ marginTop: 60 }}>
-          {/*<p className="productOrder__totalPrice">
+     {/*<Col md={5} style={{ marginTop: 60 }}>
+          <p className="productOrder__totalPrice">
            {currencyRupiah(indexes[0].totalAmount)} x {indexes[0].productQuantity}
-             </p>*/}
-        </Col>
+             </p>
+      </Col>*/}
       </Row>
-      <hr className="productOrder__inline" />
     </div>
   );
 };

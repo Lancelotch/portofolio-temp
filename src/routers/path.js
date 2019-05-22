@@ -14,8 +14,12 @@ const PRODUCTS = '/products';
 const EXAMPLE = '/example';
 const VIEW_INVOICE = '/invoice-customer/:invoiceId'
 const ORDER_SUMMARY = '/order-summary';
+<<<<<<< HEAD
 const PAYMENT_INFO = '/payment-info';
 const GET_CATEGORY = '/category'
+=======
+const PAYMENT_INFO = '/payment-info/:paymentId';
+>>>>>>> development
 
 const PATH_URL = {
     VIEW_INVOICE : VIEW_INVOICE,
