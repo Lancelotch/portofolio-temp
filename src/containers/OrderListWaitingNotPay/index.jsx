@@ -3,10 +3,9 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Modal, Spin, Card } from "antd";
+import { Modal,Card } from "antd";
 import { patchService } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
-import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
 

@@ -4,8 +4,7 @@ import ProductOrder from "../../components/ProductOrder";
 import "../../components/ProductOrder/style.sass";
 // import { apiGetWithToken } from "../../api/services";
 // import { PATH_DASHBOARD_TAB } from "../../api/path";
-import { Spin, Card } from "antd";
-import NoOrderHistory from "../../components/NoOrderHistory";
+import {Card } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 
 

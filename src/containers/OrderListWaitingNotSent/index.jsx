@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import "../../components/ProductOrder/style.sass";
-import { Spin, Card } from "antd";
-import NoOrderHistory from "../../components/NoOrderHistory";
+import { Card } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 
 class OrderListWaitingNotSent extends Component {
