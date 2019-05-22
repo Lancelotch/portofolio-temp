@@ -18,7 +18,7 @@ class Fetcher extends Component {
   componentWillUnmount(){
     this.mounted = false
   }
-
+  
   fetchData = async path => {
     this.setState({
       loading: true
