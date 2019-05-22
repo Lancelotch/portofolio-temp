@@ -30,25 +30,6 @@ class OrderListWaitingPayment extends Component {
   //   this.productOrderTabsNotYetPay();
   // }
 
-<<<<<<< HEAD
-  productOrderTabsNotYetPay = async () => {
-    this.setState({ loading: true });
-    try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
-      const productOrderTabsNotYetPay = {
-        bank: response.data.data,
-        productOrderNotYetPay: response.data.data,
-        paymentInstruction: response.data.data
-      };
-      this.setState({
-        ...productOrderTabsNotYetPay
-      });
-    } catch (error) {
-      console.log(error);
-      this.setState({ loading: false });
-    }
-  };
-=======
   // productOrderTabsNotYetPay = async () => {
   //   this.setState({ loading: true });
   //   try {
@@ -66,7 +47,6 @@ class OrderListWaitingPayment extends Component {
   //     this.setState({ loading: false });
   //   }
   // };
->>>>>>> development
 
   actionCancelConfirm = async (index) => {
     console.log('actioncancelconfirm', index);

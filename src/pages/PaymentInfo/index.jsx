@@ -14,21 +14,12 @@ class PaymentInfoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      instructions: dummyInvoice.paymentInstruction.instructions,
-      grossAmount: dummyInvoice.payment.grossAmount,
-      endDatePay: dummyInvoice.endDatePayment,
-      virtualAccount: dummyInvoice.payment.virtualAccount,
-      imageBank: dummyInvoice.bank.imageUrl,
-      copied: false,
-      messageCopy: ""
-=======
+      messageCopy: "",
       paymentInstruction: {},
       payment: null,
       endDatePayment: null,
       bank: {},
       copied: false
->>>>>>> development
     };
   }
 
@@ -100,26 +91,15 @@ class PaymentInfoPage extends Component {
               <Divider />
             </div>
             <div className="info__content">
-<<<<<<< HEAD
-              <PaymentInvoice
-                grossAmount={grossAmount}
-                endDatePay={endDatePay}
-                virtualAccount={virtualAccount}
-                imageBank={imageBank}
-                onCopy={this.onCopy}
-                messageCopy={this.state.messageCopy}
-              />
-              <p style={{ textAlign: "center" }}>{this.state.messageCopy ? <span style={{ color: 'red' }}>Berhasil di Copy.</span> : ""}</p>
-=======
               {payment &&
                 <PaymentInvoice
                   payment={payment}
                   endDatePay={endDatePayment}
                   bank={bank}
                   onCopy={this.onCopy}
+                  messageCopy={this.state.messageCopy}
                 />
               }
->>>>>>> development
               <div className="info__dropdownMethod">
                 {paymentInstruction &&
                   <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
