@@ -169,13 +169,13 @@ class Header extends Component {
           </Col>
           <div className="header">
             <Col md={5}>
-              <a href="/">
+              <Link to="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="header__logo"
                   alt=""
                 />
-              </a>
+              </Link>
             </Col>
             <Col md={13} className="header__search-box">
               <form action="/search">

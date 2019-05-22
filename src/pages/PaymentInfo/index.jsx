@@ -8,6 +8,7 @@ import PaymentInvoice from "../../components/PaymentInvoice/index";
 import history from "../../routers/history";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
+import { Link } from "react-router-dom";
 
 class PaymentInfoPage extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class PaymentInfoPage extends Component {
   render() {
     console.log(this.state.paymentInstruction);
 
-    const { payment, endDatePayment, bank,paymentInstruction } = this.state;
+    const { payment, endDatePayment, bank, paymentInstruction } = this.state;
 
     const warning = () => {
       Modal.warning({
@@ -71,9 +72,9 @@ class PaymentInfoPage extends Component {
         </div>
         <div className="content">
           <div className="logo">
-            <a href="/#">
+            <Link to="/#">
               <img src={monggopesen_logo} alt="" />
-            </a>
+            </Link>
           </div>
           <div className="info__style">
             <div className="info__title">
@@ -90,9 +91,9 @@ class PaymentInfoPage extends Component {
                 />
               }
               <div className="info__dropdownMethod">
-              {paymentInstruction &&
-                <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
-              }
+                {paymentInstruction &&
+                  <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
+                }
               </div>
               <div>
                 <Button className="info__button" onClick={warning}>

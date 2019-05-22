@@ -20,6 +20,7 @@ import { openModal } from "../../store/actions/authentication"
 import { pageUrlPaymentInfo } from "../../library/url"
 import "./style.sass";
 import history from "../../routers/history";
+import { Link } from "react-router-dom";
 
 class Checkout extends Component {
   constructor() {
@@ -317,13 +318,13 @@ class Checkout extends Component {
         <div className="container">
           <Row>
             <Col md={5}>
-              <a href="/">
+              <Link to="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="header__logo"
                   alt=""
                 />
-              </a>
+              </Link>
             </Col>
             <Col md={15}>
               <p className="checkout__text">{strings.checkout}</p>
