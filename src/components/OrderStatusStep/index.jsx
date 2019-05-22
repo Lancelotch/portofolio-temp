@@ -35,7 +35,7 @@ const OrderStatusStep = (props) => {
         </h2>
         <Affix offsetTop={top}>
           <button
-            style={{ float: "right", marginRight: 20 }}
+            style={{ float: "right", marginRight: 20, cursor: "pointer" }}
             className="buttonOrderDetails"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
@@ -44,40 +44,40 @@ const OrderStatusStep = (props) => {
         </Affix>
       </div>
       <Card>
-      <div className="stepOrderStatus">
-        <Steps size="small" labelPlacement="vertical">
-          <Step
-            status="finish"
-            title="Pesenan Dibuat"
-            description={convertTimesTime.millisecond(orderDate)}
-            icon={<Icon style={{ color: "#004853" }}
-              component={boxOrder} />}>
-          </Step>
-          <Step
-            status={tabsNotSent === 2 ? "finish" : ""}
-            description={tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
-            title="Pesenan Dibayarkan"
-            icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
-              component={paymentOrder} />}
-          />
-          {
+        <div className="stepOrderStatus">
+          <Steps size="small" labelPlacement="vertical">
             <Step
-              status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
-              description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
-              title="Pesenan Dikirim"
-              icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
-                component={deliveryOrderIcon} />}
-            />}
-          <Step
-            status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
-            description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(orderDate) : ""}
-            title="Pesenan Diterima"
-            icon={<Icon component={receivedOrderIcon}
-              className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?
-                "iconOrderStatusStepActive" : ""} />}
-          />
-        </Steps>
-      </div>
+              status="finish"
+              title="Pesenan Dibuat"
+              description={convertTimesTime.millisecond(orderDate)}
+              icon={<Icon style={{ color: "#004853" }}
+                component={boxOrder} />}>
+            </Step>
+            <Step
+              status={tabsNotSent === 2 ? "finish" : ""}
+              description={tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
+              title="Pesenan Dibayarkan"
+              icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
+                component={paymentOrder} />}
+            />
+            {
+              <Step
+                status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
+                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
+                title="Pesenan Dikirim"
+                icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
+                  component={deliveryOrderIcon} />}
+              />}
+            <Step
+              status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
+              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(orderDate) : ""}
+              title="Pesenan Diterima"
+              icon={<Icon component={receivedOrderIcon}
+                className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?
+                  "iconOrderStatusStepActive" : ""} />}
+            />
+          </Steps>
+        </div>
       </Card>
     </React.Fragment>
   );
