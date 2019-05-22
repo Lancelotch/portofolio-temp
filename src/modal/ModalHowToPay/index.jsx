@@ -40,7 +40,7 @@ class ModalHowToPay extends Component {
             // onOk={ this.handleOk }
             onCancel={this.props.close.bind(this, null)}
             footer={
-              <Button key="submit" className="okCaraBayar" type="primary" onClick={this.handleOk}>
+              <Button key="submit" className="okCaraBayar" type="primary" style={{ borderColor: "unset" }} onClick={this.handleOk}>
                 Ok
             </Button>
             }
@@ -92,7 +92,7 @@ class ModalHowToPay extends Component {
                         bottom: 19,
                         marginLeft: "80%",
                         top: 2
-                    }
+                      }
                       } className="buttonModalVirtualAccount">Salin</p>
                     </CopyToClipboard>
                   </div>
