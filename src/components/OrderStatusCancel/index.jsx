@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, Icon, Affix } from 'antd';
+import { Steps, Icon, Affix, Card } from 'antd';
 import { receivedOrderIcon, paymentOrder } from '../../library/iconTracking';
 import "../../components/OrderStatusStep/style.sass"
 import convertTimesTime from '../../library/convertTimestime';
@@ -19,42 +19,44 @@ const OrderStatusStep = props => {
           paddingLeft: 15
         }}>
         <h2
-          style={{
+        style={{
             float: "left",
             color: "#4A4A4A",
             fontSize: 24
-          }}>
+        }}>
           Batal
        </h2>
         <Affix offsetTop={top}>
           <button
-            style={{ float: "right" }}
+            style={{ float: "right", marginRight: 15 }}
             className="buttonOrderDetails"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali
-</button>
+          </button>
         </Affix>
       </div>
-      <div className="stepOrderStatusCancel stepOrderStatus" style={{ padding: 15 }}>
-        <Steps size="small" labelPlacement="vertical">
-          <Step
-            status="finish"
-            title="Pesanan Dibuat"
-            description={convertTimesTime.millisecond(orderDate)}
-            icon={<Icon style={{ color: "#004853" }}
-              component={receivedOrderIcon} />}>
-          </Step>
-          <Step
-            status={"finish"}
-            description={convertTimesTime.millisecond(orderDate)}
-            title="Pesanan Dibatalkan"
-            icon={<Icon className={"iconOrderStatusStepActive"}
-              component={paymentOrder} />}
-          />
+      <Card>
+        <div className="stepOrderStatusCancel stepOrderStatus">
+          <Steps size="small" labelPlacement="vertical">
+            <Step
+              status="finish"
+              title="Pesenan Dibuat"
+              description={convertTimesTime.millisecond(orderDate)}
+              icon={<Icon style={{ color: "#004853" }}
+                component={receivedOrderIcon} />}>
+            </Step>
+            <Step
+              status={"finish"}
+              description={convertTimesTime.millisecond(orderDate)}
+              title="Pesenan Dibatalkan"
+              icon={<Icon className={"iconOrderStatusStepActive"}
+                component={paymentOrder} />}
+            />
 
-        </Steps>
-      </div>
+          </Steps>
+        </div>
+      </Card>
     </React.Fragment>
   );
 };

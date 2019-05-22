@@ -3,9 +3,9 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Modal, Spin } from "antd";
-import { apiGetWithToken, patchService } from "../../api/services";
-import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
+import { Modal, Spin, Card } from "antd";
+import { patchService } from "../../api/services";
+import { PATH_ORDER } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
@@ -19,40 +19,41 @@ class OrderListWaitingPayment extends Component {
       isHowToShowModalOpen: false,
       stateCancelOrder: [],
       orderId: null,
-      loading: false,
+      loading: this.props.loading,
       selectedOrder: null,
-      productOrderNotYetPay: [],
-      bank: null,
-      paymentInstruction: null
+      // productOrderNotYetPay: [],
+      // bank: null,
+      // paymentInstruction: null
     };
   }
-  componentDidMount() {
-    this.productOrderTabsNotYetPay();
-  }
+  // componentDidMount() {
+  //   this.productOrderTabsNotYetPay();
+  // }
 
-  productOrderTabsNotYetPay = async () => {
-    this.setState({ loading: true });
-    try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
-      const productOrderTabsNotYetPay = {
-        bank: response.data.data,
-        productOrderNotYetPay: response.data.data,
-        paymentInstruction: response.data.data
-      };
-      this.setState({
-        ...productOrderTabsNotYetPay
-      });
-      console.log("xxxxxxx",response)
-    } catch (error) {
-      console.log(error);
-      this.setState({ loading: false });
-    }
-  };
+  // productOrderTabsNotYetPay = async () => {
+  //   this.setState({ loading: true });
+  //   try {
+  //     const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
+  //     const productOrderTabsNotYetPay = {
+  //       bank: response.data.data,
+  //       productOrderNotYetPay: response.data.data,
+  //       paymentInstruction: response.data.data
+  //     };
+  //     this.setState({
+  //       ...productOrderTabsNotYetPay
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.setState({ loading: false });
+  //   }
+  // };
 
   actionCancelConfirm = async (index) => {
+    console.log('actioncancelconfirm', index);
+
     try {
       const orderId = {
-        orderId : index
+        orderId: index
       }
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
     } catch (error) {
@@ -60,11 +61,11 @@ class OrderListWaitingPayment extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.setState({
-      loading: false
-    });
-  };
+  // componentWillUnmount() {
+  //   this.setState({
+  //     loading: false
+  //   });
+  // };
 
   showDeleteConfirm = (allOrder, index) => {
     confirm({
@@ -74,6 +75,7 @@ class OrderListWaitingPayment extends Component {
       okText: "Batalkan",
       okType: "danger",
       cancelText: "Kembali",
+      centered: true,
       onOk: () => {
         const cancelOrder = allOrder.splice(index, 1)
         const newOrder = [...allOrder]
@@ -85,7 +87,7 @@ class OrderListWaitingPayment extends Component {
         this.actionCancelConfirm(index);
       },
     });
-  }
+  };
 
   toggleIsHowToShowModalOpen = order => {
     this.setState({
@@ -102,20 +104,23 @@ class OrderListWaitingPayment extends Component {
       tabsNotPay,
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
-      tabsNotSent } = this.props;
+      tabsNotSent,
+      productOrderNotYetPay
+    } = this.props;
     return (
       <React.Fragment>
-        {this.state.productOrderNotYetPay.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+        {productOrderNotYetPay.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
             <NoOrderHistory /></Spin>
           ) : (
             <React.Fragment>
-              {this.state.productOrderNotYetPay.map((order, i) => {
+              {productOrderNotYetPay.map((order, i) => {
                 return (
-                  <div className="waitingPayment__list" key={i}>
+                  <Card style={{ marginBottom: 15 }} key={i}>
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
+                    <hr className="productOrder__inline" />
                     <WaitingPayment
                       labelNotPay={"Bayar Sebelum"}
                       estimateShippingDate={order.estimateShippingDate}
@@ -133,17 +138,17 @@ class OrderListWaitingPayment extends Component {
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
                       showDeleteConfirm={this.showDeleteConfirm}
-                      orderProduct={this.state.productOrderNotYetPay}
+                      orderProduct={productOrderNotYetPay}
                       i={order.orderId}
                       showHowToModalPayment={this.toggleIsHowToShowModalOpen}
                       order={order}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
-                  </div>
+                  </Card>
                 )
               })}
               {selectedOrder && (
-                <ModalHowToPay     
+                <ModalHowToPay
                   payBank={selectedOrder.bank}
                   key={selectedOrder.orderId}
                   endDatePay={selectedOrder.endDatePay}

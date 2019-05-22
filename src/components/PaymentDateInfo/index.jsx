@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import convertTimesTime from '../../library/convertTimestime';
 import "./style.sass";
 import strings from '../../localization/localization';
@@ -11,41 +11,47 @@ const PaymentDateInfo = props => {
         <React.Fragment>
             {typePayment !== undefined | typePayment ?
                 <div className="paymentDateInfo">
-                    <Row>
-                        <Col md={24}>
-                            <div className="wrapperLeft">
-                                <p className="nameCustomerText">{strings.before_pay}</p>
+                    <Card>
+                        <Row>
+                            <Col md={24}>
+                                <p className="nameCustomerText" style={{ marginBottom: 5, fontSize: 14 }}>{strings.before_pay}</p>
                                 <font className="paymentEndDate">{convertTimesTime.millisecond(endDatePay)}</font>
-                            </div>
-                        </Col>
-                        <Col md={12}>
-                            <div className="wrapperLeft">
-                                <p className="nameCustomerText">{strings.pay_to}</p>
-                                <h3 className="giyarto">{strings.giyarto}</h3>
-                            </div>
-                        </Col>
-                        <Col md={12}>
-                            <div className="wrapperRight dateInfoPayment">
-                                <img src={bank.imageUrl} alt="" style={{ maxHeight: 18, maxWidth: 59 }} />
-                                &nbsp;&nbsp;
-                        <font className="virtualAccount">{typePayment.virtualAccount}</font>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>
-                            <div className="wrapperLeft">
-                                <p className="nameCustomerText">{strings.payment_type}</p>
-                            </div>
-                        </Col>
-                        <Col md={12}>
-                            <div className="wrapperRight">
-                                <p className="nameCustomerText">{typePayment.paymentType}</p>
-                            </div>
-                        </Col>
-
-                    </Row>
-                </div> : null}
+                            </Col>
+                            <Col md={24} style={{ marginTop: 25 }}>
+                                <p className="nameCustomerText" style={{ marginBottom: 0, fontSize: 14 }}>
+                                    {strings.pay_to}
+                                </p>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h3 className="giyarto">{strings.giyarto}</h3>
+                                            </td>
+                                            <td>
+                                                <div className="dateInfoPayment">
+                                                    <img src={bank.imageUrl} alt="" style={{ maxHeight: 25, maxWidth: 69 }} />
+                                                    &nbsp;&nbsp;
+                                                    <font className="virtualAccount">
+                                                        {typePayment.virtualAccount}
+                                                    </font>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p className="nameCustomerText">{strings.payment_type}</p>
+                                            </td>
+                                            <td>
+                                                <p className="nameCustomerText" style={{ textAlign: "right" }}>{
+                                                    typePayment.paymentType}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </Col>
+                        </Row>
+                    </Card>  </div> : null}
 
         </React.Fragment>
     );

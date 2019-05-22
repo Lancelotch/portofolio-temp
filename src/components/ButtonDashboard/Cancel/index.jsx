@@ -14,7 +14,7 @@ const Cancel = (props) => {
   })
   return (
     <div style={{
-      display: "flex", justifyContent: "flex-end", padding: 15, backgroundColor: "#FFFFFF"
+      display: "flex", justifyContent: "flex-end"
     }}>
       <Button
         className="waitingPayment__payNow"

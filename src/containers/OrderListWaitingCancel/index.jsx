@@ -4,7 +4,7 @@ import "../../components/ProductOrder/style.sass";
 import Cancel from "../../components/ButtonDashboard/Cancel";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
-import { Spin } from "antd";
+import { Spin, Card } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
@@ -56,10 +56,11 @@ class OrderListingCancel extends Component {
             <React.Fragment>
               {this.state.productOrderCancel.map((order, i) => {
                 return (
-                  <div className="waitingPayment__list" style={{ marginBottom: 33 }} key={i}>
+                  <Card style={{ marginBottom: 15 }} key={i}>
                     <ProductOrder key={order.id} indexes={order.indexes} />
+                    <hr className="productOrder__inline" />
                     <WaitingPayment
-                      labelCancel={"Pesanan dibatalkan oleh"}
+                      labelCancel={"Pesenan dibatalkan oleh"}
                       estimateShippingDate={order.estimateShippingDate}
                       cancelDate={order.cancelDate}
                       cancelBy={order.cancelBy}
@@ -73,7 +74,7 @@ class OrderListingCancel extends Component {
                       productDetail={order.indexes}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
-                  </div>
+                  </Card>
                 );
               })}
             </React.Fragment>
