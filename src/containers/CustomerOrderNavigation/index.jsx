@@ -24,15 +24,17 @@ class CustomerOderNavigation extends Component {
       productOrderNotYetPay: [],
       productOrderNotYetSent: [],
       productOrderInDelivery: [],
-      productOrderFinish: []
+      productOrderFinish: [],
+      productOrderCancel: []
     };
   }
 
   componentDidMount() {
     this.productOrderTabsNotYetPay();
-    this.productOrderTabsNotYetSent();
-    this.productOrderTabsInDelivery();
-    this.productOrderTabsFinish();
+    // this.productOrderTabsNotYetSent();
+    // this.productOrderTabsInDelivery();
+    // this.productOrderTabsFinish();
+    // this.productOrderTabsCancel();
   }
 
 
@@ -121,6 +123,22 @@ class CustomerOderNavigation extends Component {
     }
   };
 
+  productOrderTabsCancel = async () => {
+    this.setState({ loading: true });
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_CANCEL);
+      const productOrderTabsCancel = {
+        productOrderCancel: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsCancel
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
+  };
+
   updateTabNotPay = () => {
     this.productOrderTabsNotYetPay();
   };
@@ -137,6 +155,10 @@ class CustomerOderNavigation extends Component {
     this.productOrderTabsFinish();
   };
 
+  updateTabCancel = () => {
+    this.productOrderTabsCancel();
+  };
+
 
   handleChange = (selectedkey) => {
     this.setState({ activeKey: selectedkey })
@@ -148,6 +170,8 @@ class CustomerOderNavigation extends Component {
       this.updateTabInDelivery();
     } else if (selectedkey === '4') {
       this.updateTabFinish();
+    } else if (selectedkey === '5'){
+      this.updateTabCancel();
     }
   };
 
@@ -256,6 +280,8 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               <OrderListWaitingCancel
+                loading={this.state.loading}
+                productOrderCancel={this.state.productOrderCancel}
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
               /> : (
                 <OrderDetailsCancel orderId={this.state.orderId}
