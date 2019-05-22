@@ -316,15 +316,18 @@ class FormEditAddress extends Component {
         footer={[
           <Button 
           key="back"
+          type="link"
           style={{
-            border: "unset",
+            border: "none",
             fontWeight: 555,
-            color: "black"
+            color: "#777777",
+            fontSize: "12px",
+            boxShadow: "none"
           }}
           size="large" 
           onClick={this.props.onCancle}
           >
-            Kembali
+            Batalkan
           </Button>,
           <Button
             key="submit"
@@ -332,7 +335,7 @@ class FormEditAddress extends Component {
             loading={false}
             onClick={this.handleSubmit}
           >
-            Ubah
+            <div className="buttonSimpan__text">Simpan</div>
           </Button>
         ]}
       >

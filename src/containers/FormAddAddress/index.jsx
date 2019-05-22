@@ -193,7 +193,7 @@ class FormAddAddress extends Component {
     );
     return (
       <Modal
-        title="Tambah Alamat Baru"
+        title="Tambah Alamat Pengiriman"
         visible={this.props.visible}
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
@@ -202,12 +202,14 @@ class FormAddAddress extends Component {
             key="back"
             size="large"
             style={{
-              border: "unset",
+              border: "none",
               fontWeight: 555,
-              color: "black"
+              color: "#777777",
+              fontSize: "12px",
+              boxShadow: "none"
             }}
             onClick={this.props.onCancle}>
-            Kembali
+            Batalkan
           </Button>,
           <Button
             size="large"
@@ -216,7 +218,7 @@ class FormAddAddress extends Component {
             loading={false}
             onClick={this.handleSubmit}
           >
-            Simpan
+            <div className="buttonSimpan__text">Simpan</div>
           </Button>
         ]}
       >

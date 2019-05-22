@@ -28,9 +28,16 @@ class Header extends Component {
       keyword: this.props.keyword,
       isAuthenticated: this.props.isAuthenticated,
       dropdownShow: null,
-      allCategory: []
+      allCategory: [],
+      // isHover: false
     };
   }
+
+  // handleHover = () => {
+  //   this.setState(prevState => ({
+  //     isHover: !prevState.isHover
+  //   }))
+  // }
 
   componentDidMount(){
     // this.getCustomerDetail()
@@ -170,7 +177,6 @@ class Header extends Component {
   render() {
     const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
-    console.log("ini match ==", match)
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (
@@ -220,7 +226,13 @@ class Header extends Component {
             </Col>
               <Col md={2}>
                 <div className="header__categories">
-                  <CategoryMenu match={match} allCategory={this.state.allCategory} />
+                  {
+                    this.state.allCategory &&
+                    <CategoryMenu
+                      match={match} 
+                      allCategory={this.state.allCategory}
+                      />
+                  }
                 </div>
               </Col>
               <Col md={14}>

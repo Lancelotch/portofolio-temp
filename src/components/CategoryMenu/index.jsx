@@ -15,7 +15,6 @@ const isUrlIsCategory = url => {
 const renderCategorySubChild = (idCategory, subCategoryId, categorySubChild, url) =>
   categorySubChild.map(({ id, name }) => (
     <Menu.Item
-      className="spanRender"
       key={id}
       mode="vertical">
       <span>
@@ -27,7 +26,6 @@ const renderCategorySubChild = (idCategory, subCategoryId, categorySubChild, url
 const renderCategorySub = (idCategory, categorySub, url) =>
   categorySub.map(({ id, name, categorySubChildResponses }) => (
     <SubMenu
-      className="spanRender"
       key={id}
       title={
         <span >
@@ -45,18 +43,15 @@ const renderCategorySub = (idCategory, categorySub, url) =>
     </SubMenu>
   ));
 
-const addActiveClass = (value) => {
-  // return (value === )
-}  
 
 const renderCategory = (dataSource, url) =>
   dataSource.map(({ id, name, categorySubResponses }) => (
     <SubMenu
-      className="spanRender"
+      
       style={{ width: 200 }}
       key={id}
       title={
-        <span >
+        <span>
           <Link
             className="default"
             to={`${url}/${id}`}>
@@ -70,13 +65,14 @@ const renderCategory = (dataSource, url) =>
   ));
 
 const menu = props => {
-  const { match } = props;
+  const { match,allCategory } = props;
   const url = isUrlIsCategory(match.url);
   return <Menu
-    style={{ width: 200 }}
+    style={{ width: 200, padding: "10px 0 10px"}}
+    className="spanRender"
     forceSubMenuRender
     mode="vertical">
-    {props.allCategory && renderCategory(props.allCategory, url)}
+    {props.allCategory && renderCategory(allCategory, url)}
   </Menu>;
 };
 
