@@ -10,13 +10,13 @@ import WaitingPayment from "../../components/WaitingPayment";
 
 
 class OrderListWaitingFinish extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // productOrderInDelivery: [],
-      loading: this.props.loading
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     // productOrderInDelivery: [],
+  //     loading: this.props.loading
+  //   };
+  // }
 
   // componentDidMount() {
   //   this.productOrderTabsInDelivery();
@@ -51,11 +51,6 @@ class OrderListWaitingFinish extends Component {
       actionShowOrderDetailsDashboard,
       tabsNotSent,productOrderInDelivery } = this.props;
     return (
-      <React.Fragment>
-        {productOrderInDelivery.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
-            <NoOrderHistory /></Spin>
-          ) : (
             <React.Fragment>
               {productOrderInDelivery.map((order, i) => {
                 return (
@@ -81,7 +76,7 @@ class OrderListWaitingFinish extends Component {
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
                       // showDeleteConfirm={this.showDeleteConfirm}
-                      orderProduct={this.state.productOrderInDelivery}
+                      orderProduct={productOrderInDelivery}
                       i={order.orderId}
                       showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       order={order}
@@ -90,8 +85,7 @@ class OrderListWaitingFinish extends Component {
                   </Card>
                 )
               })}
-            </React.Fragment>)}
-      </React.Fragment>
+            </React.Fragment>
     );
   }
 }

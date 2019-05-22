@@ -9,13 +9,13 @@ import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
 class OrderListingCancel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // productOrderCancel: [],
-      loading: this.props.loading
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     // productOrderCancel: [],
+  //     loading: this.props.loading
+  //   };
+  // }
 
   // componentDidMount() {
   //   this.productOrderTabsCancel();
@@ -48,11 +48,6 @@ class OrderListingCancel extends Component {
   render() {
     const { actionShowOrderDetailsDashboard,productOrderCancel } = this.props;
     return (
-      <React.Fragment>
-        {productOrderCancel.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
-            <NoOrderHistory /></Spin>
-          ) : (
             <React.Fragment>
               {productOrderCancel.map((order, i) => {
                 return (
@@ -78,8 +73,6 @@ class OrderListingCancel extends Component {
                 );
               })}
             </React.Fragment>
-          )}
-      </React.Fragment>
     );
   }
 }

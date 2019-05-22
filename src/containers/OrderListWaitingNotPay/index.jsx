@@ -19,7 +19,7 @@ class OrderListWaitingPayment extends Component {
       isHowToShowModalOpen: false,
       stateCancelOrder: [],
       orderId: null,
-      loading: this.props.loading,
+      // loading: this.props.loading,
       selectedOrder: null,
       // productOrderNotYetPay: [],
       // bank: null,
@@ -108,11 +108,6 @@ class OrderListWaitingPayment extends Component {
       productOrderNotYetPay
     } = this.props;
     return (
-      <React.Fragment>
-        {productOrderNotYetPay.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
-            <NoOrderHistory /></Spin>
-          ) : (
             <React.Fragment>
               {productOrderNotYetPay.map((order, i) => {
                 return (
@@ -160,8 +155,6 @@ class OrderListWaitingPayment extends Component {
                 />
               )}
             </React.Fragment>
-          )}
-      </React.Fragment>
     );
   }
 }
