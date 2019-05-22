@@ -123,7 +123,6 @@ class SkuContainer extends Component {
                         index={index}
                         onClick={this.updateVariant}  
                         />
-                       
                 ))}
             </Fragment>
         );

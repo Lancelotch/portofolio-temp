@@ -12,6 +12,8 @@ import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
 import CategoryMenu from "../CategoryMenu";
 import {Link} from "react-router-dom"
+import maskot from "../../assets/img/mascot_monggodesignheroes_2.png"
+import PATH from "../../routers/path"
 
 class Header extends Component {
   constructor(props) {
@@ -69,7 +71,6 @@ class Header extends Component {
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
-      console.log(payload)
       this.setState({
         name: payload.data.name
       });
@@ -122,16 +123,23 @@ class Header extends Component {
 
   userMenu = () => (
     <Menu className="header__user-menu">
-      <div className="header__user-menu-box">
-        <li> {strings.my_account}</li>
-        <li><Link to="/dashboard-customer" style={{color: "#5D5D5D"}}> {strings.header_my_order}</Link></li>
-        <li onClick={() =>this.handleLogout()}>
-          <button className="header__user-menu__button">
-            {" "}
-            {strings.log_out}{" "}
-          </button>{" "}
-        </li>
-      </div>
+      <Menu.Item key="0">
+        <Row type="flex" align="middle">
+          <Col span={5}>
+            <img src={maskot} width="50%" alt=""/>
+          </Col>
+          <Col span={19}>
+            <div className="header__user-profile">Profile</div>
+          </Col>
+        </Row>
+      </Menu.Item>
+      <hr className="header__user-divider"></hr>    
+        <Menu.Item  key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesanan Saya</Link></Menu.Item>
+        <Menu.Item  key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
+        <Menu.Item  key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
+        <Menu.Item  key="4">
+          <div onClick={() =>this.handleLogout()} className="header__user-li">Log Out</div>
+        </Menu.Item>
     </Menu>
   );
 
