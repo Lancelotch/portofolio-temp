@@ -7,7 +7,6 @@ import { PATH_ORDER } from "../../api/path";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
-import { Card } from 'antd';
 
 class OrderDetailsDashboard extends Component {
     constructor(props) {

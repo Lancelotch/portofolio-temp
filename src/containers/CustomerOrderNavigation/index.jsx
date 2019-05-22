@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Modal } from "antd";
+import { Tabs } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaitingInDelivery from "../OrderListWaitingInDelivery";
 import OrderListWaitingFinish from "../OrderListWaitingFinish";
@@ -8,10 +8,10 @@ import OrderListWaitingNotPay from "../OrderListWaitingNotPay";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
 import OrderDetailsCancel from "../OrderDetailsCancel";
 import OrderListWaitingCancel from "../OrderListWaitingCancel";
-import { apiGetWithToken, patchService } from "../../api/services";
-import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
+import { apiGetWithToken } from "../../api/services";
+import { PATH_DASHBOARD_TAB } from "../../api/path";
 
-const confirm = Modal.confirm;
+
 
 class CustomerOderNavigation extends Component {
   constructor(props) {
