@@ -14,6 +14,7 @@ class PaymentInfoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      messageCopy: "",
       paymentInstruction: {},
       payment: null,
       endDatePayment: null,
@@ -46,7 +47,15 @@ class PaymentInfoPage extends Component {
   };
 
   onCopy = () => {
-    this.setState({ copied: true });
+    this.setState({ 
+      // copied: true,
+      messageCopy: "Berhasil di Copy"
+    });
+    setTimeout(() =>{
+      this.setState({
+        messageCopy: ""
+      })
+    },6000)
   };
 
   actionToDashboardCustomer = () => {
@@ -88,6 +97,7 @@ class PaymentInfoPage extends Component {
                   endDatePay={endDatePayment}
                   bank={bank}
                   onCopy={this.onCopy}
+                  messageCopy={this.state.messageCopy}
                 />
               }
               <div className="info__dropdownMethod">
