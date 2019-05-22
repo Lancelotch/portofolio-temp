@@ -127,7 +127,15 @@ class CustomerOderNavigation extends Component {
 
   updateTabNotSent = () => {
     this.productOrderTabsNotYetSent();
-  }
+  };
+
+  updateTabInDelivery = () => {
+    this.productOrderTabsInDelivery();
+  };
+
+  updateTabFinish = () => {
+    this.productOrderTabsFinish();
+  };
 
 
   handleChange = (selectedkey) => {
@@ -136,6 +144,10 @@ class CustomerOderNavigation extends Component {
       this.updateTabNotPay();
     } else if (selectedkey === '2') {
       this.updateTabNotSent();
+    } else if (selectedkey === '3') {
+      this.updateTabInDelivery();
+    } else if (selectedkey === '4') {
+      this.updateTabFinish();
     }
   };
 
