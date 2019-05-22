@@ -141,7 +141,6 @@ class Header extends Component {
   render() {
     const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
-    console.log("ini customer di header", this.props.customerName)
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (

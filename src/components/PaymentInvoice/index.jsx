@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 import convertTimesTime from "../../library/convertTimestime";
 
 const PaymentInvoice = props => {
-  const { payment, endDatePay, virtualAccount, onCopy, bank } = props;
+  const { payment, endDatePay, onCopy, bank } = props;
   console.log(payment.paymentType);
 
   const success = () => {

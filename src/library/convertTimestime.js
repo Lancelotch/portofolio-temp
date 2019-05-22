@@ -8,9 +8,9 @@ const millisecond = datetimestamp => {
     var s = "0" + dt.getSeconds();
     return (
         date +
-        "/" +
+        "-" +
         month +
-        "/" +
+        "-" +
         year +
         " " +
         hr +
@@ -31,9 +31,9 @@ const second = datetimestamp => {
     var s = "0" + dt.getSeconds();
     return (
         date +
-        "/" +
+        "-" +
         month +
-        "/" +
+        "-" +
         year +
         " " +
         hr +

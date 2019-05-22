@@ -4,6 +4,7 @@ import ProductOrderCancel from "../../components/ProductOrderCancel";
 import PaymentCancelOrder from "../../components/PaymentCancelOrder";
 import { apiGetWithToken } from '../../api/services';
 import { PATH_ORDER } from '../../api/path';
+import { Card } from 'antd';
 
 class OrderDetailsCancel extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class OrderDetailsCancel extends Component {
             indexes: [],
             orderDate: null,
             cancelBy: null,
-            estimateShippingDate: null,
+            cancelDate: null,
             top: 10,
             orderId: this.props.orderId
         }
@@ -30,7 +31,7 @@ class OrderDetailsCancel extends Component {
         try {
             const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
             const itemProductOrderCancel = {
-                estimateShippingDate: response.data.data.estimateShippingDate,
+                cancelDate: response.data.data.cancelDate,
                 indexes: response.data.data.indexes,
                 orderDate: response.data.data.orderDate,
                 cancelBy: response.data.data.cancelBy
@@ -45,23 +46,25 @@ class OrderDetailsCancel extends Component {
     render() {
         return (
             <React.Fragment>
-                {this.state.indexes.map(order => {
+                {this.state.indexes.map((order, i) => {
                     return (
                         <React.Fragment>
                             <OrderStatusCancel top={this.state.top} actionShowOrderListWaiting={this.props.actionShowOrderListWaiting} orderDate={this.state.orderDate} />
-                            <ProductOrderCancel
-                                label="Detail Pesanan"
-                                key={order.id}
-                                productId={order.productId}
-                                productImage={order.productImage}
-                                variants={order.variants}
-                                productName={order.productName}
-                                productQuantity={order.productQuantity}
-                                totalAmount={order.totalAmount}
-                            />
-                            <PaymentCancelOrder
-                                cancelBy={this.state.cancelBy}
-                                estimateShippingDate={this.state.estimateShippingDate} />
+                            <Card style={{ marginTop: 15 }} key={i}>
+                                <ProductOrderCancel
+                                    label="Detail Pesenan"
+                                    key={order.id}
+                                    productId={order.productId}
+                                    productImage={order.productImage}
+                                    variants={order.variants}
+                                    productName={order.productName}
+                                    productQuantity={order.productQuantity}
+                                    totalAmount={order.totalAmount}
+                                />
+                                <PaymentCancelOrder
+                                    cancelBy={this.state.cancelBy}
+                                    cancelDate={this.state.cancelDate} />
+                            </Card>
                         </React.Fragment>
                     )
                 })}

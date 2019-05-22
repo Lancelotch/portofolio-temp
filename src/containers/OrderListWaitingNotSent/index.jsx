@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import "../../components/ProductOrder/style.sass";
-import { apiGetWithToken } from "../../api/services";
-import { PATH_DASHBOARD_TAB } from "../../api/path";
-import { Spin } from "antd";
+import { Spin, Card } from "antd";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import WaitingPayment from "../../components/WaitingPayment";
 
@@ -15,57 +13,52 @@ class OrderListWaitingNotSent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productOrderNotYetSent: [],
-      loading: false
+      // productOrderNotYetSent: [],
+      loading: this.props.loading
     };
   }
 
-  componentDidMount() {
-    this.productOrderTabsNotYetSent();
-  }
+  // componentDidMount() {
+  //   this.productOrderTabsNotYetSent();
+  // }
 
-  componentWillUnmount() {
-    this.setState({
-      loading: false
-    });
-  };
-
-  productOrderTabsNotYetSent = async () => {
-    this.setState({ loading: true });
-    try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
-      const productOrderTabsNotYetSent = {
-        productOrderNotYetSent: response.data.data
-      };
-      this.setState({
-        ...productOrderTabsNotYetSent,
-        productOrderNotYetSent: response.data.data
-      });
-    } catch (error) {
-      console.log(error);
-      this.setState({ loading: false });
-    }
-  }
+  // productOrderTabsNotYetSent = async () => {
+  //   this.setState({ loading: true });
+  //   try {
+  //     const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
+  //     const productOrderTabsNotYetSent = {
+  //       productOrderNotYetSent: response.data.data
+  //     };
+  //     this.setState({
+  //       ...productOrderTabsNotYetSent,
+  //       productOrderNotYetSent: response.data.data
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.setState({ loading: false });
+  //   }
+  // }
   render() {
     const {
       tabsFinish,
       tabsNotPay,
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
-      tabsNotSent } = this.props;
+      tabsNotSent,productOrderNotYetSent } = this.props;
     return (
       <React.Fragment>
-        {this.state.productOrderNotYetSent.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+        {productOrderNotYetSent.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
             <NoOrderHistory /></Spin>
           ) : (
             <React.Fragment>
-              {this.state.productOrderNotYetSent.map((order, i) => {
+              {productOrderNotYetSent.map((order, i) => {
                 return (
-                  <div className="waitingPayment__list" key={i}>
+                  <Card style={{ marginBottom: 15 }} key={i}>
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
+                      <hr className="productOrder__inline" />
                     <WaitingPayment
                       labelNotSent={"Dalam Proses Pengiriman"}
                       tabsNotSent={2}
@@ -82,14 +75,14 @@ class OrderListWaitingNotSent extends Component {
                       tabsNotPay={tabsNotPay}
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
-                      showDeleteConfirm={this.showDeleteConfirm}
+                      // showDeleteConfirm={this.showDeleteConfirm}
                       orderProduct={this.state.productOrderTabsNotYetSent}
                       i={order.orderId}
                       showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       order={order}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
-                  </div>
+                  </Card>
                 )
               })}
             </React.Fragment>)}

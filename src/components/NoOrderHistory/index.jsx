@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import EmptyOrderList from "../../assets/img/ic_background/ic_empty_orderlist.png";
+import strings from '../../localization/localization';
 
 const NoOrderHistory = () => {
     return (
@@ -14,7 +15,7 @@ const NoOrderHistory = () => {
                     fontSize: 14,
                     marginTop: 10
                 }}>
-                Tidak ada Riwayat Pesanan
+               {strings.riwayat_order}
                 </p>
             </Col>
         </Row>

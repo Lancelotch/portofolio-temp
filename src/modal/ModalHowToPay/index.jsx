@@ -30,10 +30,11 @@ class ModalHowToPay extends Component {
     const instructions = paymentInstruction.instructions
     console.log("payment =====", paymentInstruction.instructions)
     return (
-      <React.Fragment >
+      <div className="modalHowToPay" >
         {pay !== undefined && pay &&
           <Modal
             title="Cara Bayar"
+            wrapClassName="modalHowToPay"
             visible={this.props.visible}
             centered={true}
             // onOk={ this.handleOk }
@@ -58,8 +59,8 @@ class ModalHowToPay extends Component {
               <img
                 src={payBank.imageUrl}
                 style={{
-                  height: 15.84,
-                  width: 49
+                  maxHeight: 68.84,
+                  maxWidth: 68.84
                 }}
                 alt=""
               />
@@ -71,20 +72,30 @@ class ModalHowToPay extends Component {
                 borderRadius: 4
               }}>
               <Row>
-                <Col md={20}>
-                  <p style={{ textAlign: "center", fontSize: 24, color: "#004853" }}>
-                    {pay.virtualAccount}
-                  </p> </Col>&nbsp;
-              <Col md={4}>
+                <Col md={24}>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <p style={{
+                      textAlign: "center",
+                      fontSize: 24,
+                      color: "#004853",
+                      display: "unset",
+                      position: "absolute"
+                    }}>
+                      {pay.virtualAccount}
+                    </p>&nbsp;
                   <CopyToClipboard
-                    text={pay.virtualAccount}
-                    onCopy={() => this.setState({ copied: true })}>
-                    <span style={{
-                      cursor: "pointer",
-                      position: "relative",
-                      bottom: 19
-                    }} className="buttonModalVirtualAccount">Salin</span>
-                  </CopyToClipboard>
+                      text={pay.virtualAccount}
+                      onCopy={() => this.setState({ copied: true })}>
+                      <p style={{
+                        cursor: "pointer",
+                        position: "relative",
+                        bottom: 19,
+                        marginLeft: "80%",
+                        top: 2
+                    }
+                      } className="buttonModalVirtualAccount">Salin</p>
+                    </CopyToClipboard>
+                  </div>
                 </Col>
                 <Col md={24}>
                   <p style={{ textAlign: "center" }}>{this.state.copied ? <span style={{ color: 'red' }}>Berhasil di Copy.</span> : null}</p>
@@ -97,7 +108,7 @@ class ModalHowToPay extends Component {
                   <Panel header="Cara Bayar" key="1">
                     <ol>
                       {
-                        instructions.map((ins,i) => {
+                        instructions.map((ins, i) => {
                           return <li key={i}>{ins}</li>
                         })
                       }
@@ -108,7 +119,7 @@ class ModalHowToPay extends Component {
             </Row>
           </Modal >
         }
-      </React.Fragment >
+      </div>
     );
   }
 }

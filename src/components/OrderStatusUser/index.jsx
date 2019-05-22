@@ -1,51 +1,61 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
 import NumberFormat from 'react-number-format';
 import "./style.sass";
 
 const OrderStatusUser = props => {
-    const { label, customer, estimateShippingDate, tabsInDelivery, tabsFinish,estimateAccepted } = props;
+    const {
+        label,
+        customer,
+        estimateShippingDate,
+        tabsInDelivery,
+        tabsFinish,
+        estimateAccepted } = props;
+        let styleEstimateaAccepted = {
+            color: "#BBBBBB",
+            fontSize: 16,
+            textAlign: "right",
+            fontWeight: 500
+        }
     return (
         <React.Fragment>
             {customer !== undefined | customer &&
-                <div className="orderStatusUser"
-                    style={{
-                        marginTop: 10,
-                        marginBottom: 70,
-                        padding: 15
-                    }}>
-                    <Row>
-                        <Col md={12}>
-                            <h2>{label}</h2>
-                        </Col>
-                        <Col md={12}>
-                            {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
-                                (<p className="perkiraanDiterima">
-                                    {estimateAccepted} : &nbsp;
+                <div style={{ marginTop: 15 }}>
+                    <Card>
+                        <Row>
+                            <Col md={12}>
+                                <h2>{label}</h2>
+                            </Col>
+                            <Col md={12}>
+                                {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
+                                    (<p style={styleEstimateaAccepted}>
+                                        {estimateAccepted} : &nbsp;
                                 {estimateShippingDate}
-                                </p>)
-                            }
-                        </Col>
-                    </Row>
-                    <hr className="inline" />
-                    <Row>
-                        <Col md={9}>
-                            <div className="wrapperLeft borderRight">
-                                <b className="nameCustomer">{customer.receiverName}</b>
-                                <p className="nameCustomerText">
-                                    <NumberFormat
-                                        value={customer.phoneNumber}
-                                        displayType={'text'}
-                                        format="####-####-####"
-                                    />
-                                </p>
-                                <p className="nameCustomerText">{customer.fullAddress}{customer.zipcode}</p>
-                            </div>
-                        </Col>
-                        <Col md={15}>
-                            <div className="wrapperRight"></div>
-                        </Col>
-                    </Row>
+                                    </p>)
+                                }
+                            </Col>
+                        </Row>
+                        <hr className="productOrder__inline" />
+                        <Row>
+                            <Col md={9}>
+                                <div className="borderRight">
+                                    <b className="nameCustomer">{customer.receiverName}</b>
+                                    <p className="nameCustomerText"
+                                        style={{ marginTop: "1rem", marginBottom: 0 }}>
+                                        <NumberFormat
+                                            value={customer.phoneNumber}
+                                            displayType={'text'}
+                                            format="####-####-####"
+                                        />
+                                    </p>
+                                    <p className="nameCustomerText">{customer.fullAddress}{customer.zipcode}</p>
+                                </div>
+                            </Col>
+                            <Col md={15}>
+                                <div className="wrapperRight"></div>
+                            </Col>
+                        </Row>
+                    </Card>
                 </div>}
         </React.Fragment>
     );

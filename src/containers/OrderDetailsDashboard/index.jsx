@@ -7,6 +7,7 @@ import { PATH_ORDER } from "../../api/path";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
+import { Card } from 'antd';
 
 class OrderDetailsDashboard extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class OrderDetailsDashboard extends Component {
             estimateShippingDate: "",
             orderDate: 0,
             selectedOrder: null,
-            orderId :this.props.orderId
+            orderId: this.props.orderId
         }
     };
 
@@ -69,12 +70,10 @@ class OrderDetailsDashboard extends Component {
             tabsNotSent,
             tabsFinish,
             actionShowOrderListWaiting
-        } = this.props
-        console.log('ini tes indexes', this.state.indexes);
-
+        } = this.props;
         return (
             <React.Fragment>
-            <ScrollToTopOnMount />
+                <ScrollToTopOnMount />
                 {tabsNotPay === 1 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
@@ -111,13 +110,15 @@ class OrderDetailsDashboard extends Component {
                     <React.Fragment>
                         {this.state.indexes.map(index => {
                             return (
-                                <div key={index.productId}>
+                                <div key={index.productId} style={{ marginTop: 15 }}>
                                     <ProductOrderDetails
                                         invoiceNumber={this.state.invoiceNumber}
-                                        label="Detail Pesanan"
+                                        label="Detail Pesenan"
                                         key={index.id}
                                         orderId={this.state.orderId}
+                                        tabsInDelivery={tabsInDelivery}
                                         tabsNotSent={tabsNotSent}
+                                        tabsFinish={tabsFinish}
                                         noInvoice={"No. Invoice"}
                                         productImage={index.productImage}
                                         variants={index.variants}

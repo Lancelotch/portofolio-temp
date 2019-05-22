@@ -28,9 +28,9 @@ class OrderDetailContainer extends Component {
   };
 
   variants = variants => {
-    return variants.map(variant => (
-      <div className="detail__product-variant">
-        <p key={variant.variantId}>
+    return variants.map((variant,i) => (
+      <div key={i} className="detail__product-variant">
+        <p>
           {`${variant.variantName} : ${variant.value.name}`}
         </p>
       </div>

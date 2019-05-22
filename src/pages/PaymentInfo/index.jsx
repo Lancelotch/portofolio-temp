@@ -5,7 +5,6 @@ import { Divider, Button, Modal } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
-import dummyInvoice from "../../dummy/dummyInvoice";
 import history from "../../routers/history";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";

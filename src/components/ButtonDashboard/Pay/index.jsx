@@ -23,38 +23,36 @@ const Pay = (props) => {
     id = p.productId
     return id
   })
-  console.log('productidpay', id);
   return (
-    <div
-      style={{
-        backgroundColor: "#FFFFFF",
-        paddingBottom: 20
-      }}>
+    <React.Fragment>
       {tabsNotPay === 1 && (
         <React.Fragment>
-          <Button
-            className="waitingPayment__button"
-            onClick={() => showDeleteConfirm(orderProduct, i)}
-          >
-            {strings.cancel_order}
-          </Button>
           <div
             style={{
-              float: "right",
-              marginRight: 15
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center"
             }}>
-            <Button
-              className="waitingPayment__payNow"
-              onClick={showHowToModalPayment.bind(this, order)}
+            <p
+              className="waitingPayment__button"
+              onClick={() => showDeleteConfirm(orderProduct, i)}
             >
-              {strings.pay_now}
-            </Button>
-            <Button
-              className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboard(order)}
-            >
-              {strings.order_details}
-            </Button>
+              {strings.cancel_order_dashboard}
+            </p>
+            <div>
+              <Button
+                className="waitingPayment__payNow"
+                onClick={showHowToModalPayment.bind(this, order)}
+              >
+                {strings.pay_now}
+              </Button>
+              <Button
+                className="waitingPayment__detailPesanan"
+                onClick={() => showOrderDetailsDashboard(order)}
+              >
+                {strings.order_details}
+              </Button>
+            </div>
           </div>
         </React.Fragment>
       )}
@@ -62,10 +60,10 @@ const Pay = (props) => {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
-            padding: 15
+            justifyContent: "flex-end"
           }}>
           <Button
+            style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
             onClick={() => showOrderDetailsDashboard(i)}
           >
@@ -77,11 +75,10 @@ const Pay = (props) => {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
-            padding: 15
+            justifyContent: "flex-end"
           }}>
           <Button className="waitingPayment__payNow">
-            Pesanan Detirma
+            Pesanan Diterima
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
@@ -95,8 +92,7 @@ const Pay = (props) => {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
-            padding: 15
+            justifyContent: "flex-end"
           }}>
           <Button
             className="waitingPayment__payNow"
@@ -111,7 +107,7 @@ const Pay = (props) => {
           </Button>
         </div>
       )}
-    </div>
+    </React.Fragment>
   )
 }
 
