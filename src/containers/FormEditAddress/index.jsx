@@ -74,6 +74,7 @@ class FormEditAddress extends Component {
 
   componentWillReceiveProps(props){
     if(this.props.address.id !== props.address.id) {
+      this.props.form.resetFields();
       const {
         id,
         labelName,
@@ -269,11 +270,8 @@ class FormEditAddress extends Component {
           },
           isDefault
         };
-        this.props.form.setFieldsValue({
-          fullAddress : values.fullAddress
-        })
         this.props.onSubmit(payload);
-        this.props.form.resetFields();
+        
       }
     });
   };
@@ -436,19 +434,19 @@ class FormEditAddress extends Component {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="Alamat Lengkap" help={
-             <p
-             style={{
-               fontSize: 14,
-               lineHeight: 1.5,
-               opacity: 0.5,
-               float: "right"
-               }}
-             >
-             {this.state.length}/400
-             </p>
+          <Form.Item label="Alamat Lengkap" 
+          help={
+            <p
+            style={{
+              fontSize: 14,
+              lineHeight: 1.5,
+              opacity: 0.5,
+              float: "right"
+              }}
+            >
+            {this.state.length}/400
+            </p>
           }
-          
           >
             {getFieldDecorator(
               "fullAddress",
@@ -456,7 +454,6 @@ class FormEditAddress extends Component {
             )(
                 <TextArea
                 placeholder="Alamat Lengkap"
-                value={fullAddress}
                 onChange={this.onChangeFullAddress}
                 autosize={{ minRows: 3, maxRows: 6 }}
                 ></TextArea>
