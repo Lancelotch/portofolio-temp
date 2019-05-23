@@ -300,9 +300,9 @@ class FormEditAddress extends Component {
     } = this.state;
 
     const prefixSelector = getFieldDecorator("prefix", {
-      initialValue: "62"
+      initialValue: "62" 
     })(
-      <Select style={{ width: 70 }}>
+      <Select style={{ width: 70 }} disabled>
         <Option value="62">+62</Option>
       </Select>
     );
@@ -344,7 +344,7 @@ class FormEditAddress extends Component {
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat", labelName)
-            )(<Input placeholder="Atas Nama" />)}
+            )(<Input placeholder="Nama Alamat" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
             {getFieldDecorator(
@@ -356,7 +356,7 @@ class FormEditAddress extends Component {
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu", phoneNumber)
-            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} />)}
+            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(
@@ -445,7 +445,6 @@ class FormEditAddress extends Component {
                 onChange={this.onChangeFullAddress}
                 autosize={{ minRows: 3, maxRows: 6 }}
                 ></TextArea>
-                
               <p
                 style={{
                   fontSize: 14,

@@ -119,7 +119,7 @@ const strings = new LocalizedStrings({
     register_pattern_quote: "Nama hanya boleh berupa huruf, titik (.), underscore (_), dan spasi",
     register_policy: "Kebijakan Privasi",
     register_requirement: "Syarat & Ketentuan",
-    register_login: "Masuk Sekarang",
+    register_login: "Log in",
     register_agree: "Dengan melakukan pendaftaran, saya setuju dengan {0} dan {1} monggopesen.com",
 
     //product detail

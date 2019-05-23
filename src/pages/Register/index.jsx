@@ -39,7 +39,9 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props.location)
     if (this.props.location.state !== undefined) {
+      // console.log("masuk sini")
       this.setState({
         nextPage: this.props.location.state.nextPage
       });
@@ -62,7 +64,9 @@ class RegisterPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const {history} = this.props
-    const path = this.getPath(this.state.nextPage)
+    // const path = this.getPath(this.state.nextPage)
+    const path = this.state.nextPage
+    // console.log("ini path di register", path)
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         await this.props.registerForm(history, values, path);
@@ -75,11 +79,12 @@ class RegisterPage extends Component {
     });
   };
 
-  getPath = (state) => {
-    let path = ""
-    state ? path =`/${state}` : path = '/'
-    return path
-  }
+  // getPath = (state) => {
+  //   let path = ""
+  //   console.log("ini path di regis", state)
+  //   state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
+  //   return path
+  // }
 
   handleRegisterGoogle = request => {
     const path = this.getPath(this.state.nextPage)
@@ -125,6 +130,7 @@ class RegisterPage extends Component {
                       size={"large"}
                       prefix={<Icon type={"user"} />}
                       placeholder={"Name"}
+                      type="text"
                     />
                   )}
                 </FormItem>
@@ -207,10 +213,10 @@ class RegisterPage extends Component {
                       <Link
                         to={{
                           pathname: "/login",
-                          state: { nextPage: "/" }
+                          state: { nextPage: this.state.nextPage }
                         }}
                       >
-                        {strings.register_login}
+                        <span className="register__form__link-login">{strings.register_login}</span>
                       </Link>
                     )}
                   </center> 
