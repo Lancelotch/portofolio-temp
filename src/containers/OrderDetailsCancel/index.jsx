@@ -48,7 +48,7 @@ class OrderDetailsCancel extends Component {
             <React.Fragment>
                 {this.state.indexes.map((order, i) => {
                     return (
-                        <React.Fragment>
+                        <React.Fragment key={i}>
                             <OrderStatusCancel top={this.state.top} actionShowOrderListWaiting={this.props.actionShowOrderListWaiting} orderDate={this.state.orderDate} />
                             <Card style={{ marginTop: 15 }} key={i}>
                                 <ProductOrderCancel

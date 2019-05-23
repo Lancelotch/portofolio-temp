@@ -16,10 +16,12 @@ const VIEW_INVOICE = '/invoice-customer/:invoiceId'
 const ORDER_SUMMARY = '/order-summary';
 const GET_CATEGORY = '/category'
 const PAYMENT_INFO = '/payment-info/:paymentId';
+const NOT_FOUND_PAGE = '*';
 
 
 const PATH_URL = {
-    VIEW_INVOICE : VIEW_INVOICE,
+    NOT_FOUND_PAGE: NOT_FOUND_PAGE,
+    VIEW_INVOICE: VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,
     PRODUCT_DETAIL: PRODUCT_DETAIL,

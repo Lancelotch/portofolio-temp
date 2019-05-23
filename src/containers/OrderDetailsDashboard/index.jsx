@@ -36,7 +36,6 @@ class OrderDetailsDashboard extends Component {
 
     productOrderDetailDashboard = async () => {
         const orderId = this.state.orderId;
-        console.log(orderId);
         try {
             //const response = await dummyOrderDetailsDashboard;
             const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);

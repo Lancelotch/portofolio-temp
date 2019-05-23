@@ -14,6 +14,7 @@ import requiredAuth from "../hoc/requiredAuth";
 import notRequiredAuth from "../hoc/notRequiredAuth";
 import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
+import NotFoundPage from "../components/NotFoundPage";
 
 const routes = [
   {
@@ -90,9 +91,13 @@ const routes = [
     layoutName: "fullLayout"
   },
   {
-    path: "/dashboard-customer",
+    path: PATH_URL.DASHBOARD_CUSTOMER,
     component: requiredAuth(CustomerNavigation),
     layoutName: "customerLayout"
+  },
+  {
+    path: PATH_URL.NOT_FOUND_PAGE,
+    component: NotFoundPage
   }
 ];
 
