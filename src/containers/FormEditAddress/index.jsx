@@ -26,7 +26,8 @@ class FormEditAddress extends Component {
       provinces: [],
       cities: [],
       subdistricts: [],
-      isDefault: false
+      isDefault: false,
+      length : 0
     };
   }
 
@@ -63,6 +64,7 @@ class FormEditAddress extends Component {
       subdistrictId: subdistrictId,
       subdistrict: subdistrict,
       isDefault: isDefault,
+      length : fullAddress.length
     }, () => {
         this.getProvince();
         this.getCities();
@@ -110,6 +112,12 @@ class FormEditAddress extends Component {
           this.getSubdistrict();
       })  
     }
+  }
+
+  onChangeFullAddress = (e) => {
+    this.setState({
+      length : e.target.value.length
+    })
   }
 
   getProvince = async () => {
@@ -275,7 +283,6 @@ class FormEditAddress extends Component {
   };
 
   render() {
-
     const { getFieldDecorator } = this.props.form;
     const {
       cities,
@@ -293,13 +300,14 @@ class FormEditAddress extends Component {
     } = this.state;
 
     const prefixSelector = getFieldDecorator("prefix", {
-      initialValue: "62"
+      initialValue: "62" 
     })(
-      <Select style={{ width: 70 }}>
+      <Select style={{ width: 70 }} disabled>
         <Option value="62">+62</Option>
       </Select>
     );
     return (
+      
       <Modal
         title="Ubah Alamat Lama"
         visible={this.props.visible}
@@ -308,15 +316,18 @@ class FormEditAddress extends Component {
         footer={[
           <Button 
           key="back"
+          type="link"
           style={{
-            border: "unset",
+            border: "none",
             fontWeight: 555,
-            color: "black"
+            color: "#777777",
+            fontSize: "12px",
+            boxShadow: "none"
           }}
           size="large" 
           onClick={this.props.onCancle}
           >
-            Kembali
+            Batalkan
           </Button>,
           <Button
             key="submit"
@@ -324,16 +335,16 @@ class FormEditAddress extends Component {
             loading={false}
             onClick={this.handleSubmit}
           >
-            Rubah
+            <div className="buttonSimpan__text">Simpan</div>
           </Button>
         ]}
       >
         <Form onSubmit={this.handleSubmit}>
-          <Form.Item label="Nama Alamat">
+          <Form.Item label="Nama Alamat"  help="Contoh: Rumah, Kantor, Kost dll">
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat", labelName)
-            )(<Input placeholder="Atas Nama" />)}
+            )(<Input placeholder="Nama Alamat" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
             {getFieldDecorator(
@@ -341,11 +352,11 @@ class FormEditAddress extends Component {
               this.rules(true, "Silahkan isi nama penerima", receiverName)
             )(<Input placeholder="Atas Nama" />)}
           </Form.Item>
-          <Form.Item label="Phone Number">
+          <Form.Item label="No. Telepon">
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu", phoneNumber)
-            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} />)}
+            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(
@@ -368,7 +379,7 @@ class FormEditAddress extends Component {
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Kota">
+          <Form.Item label="Kota / Kabupaten">
             {getFieldDecorator(
               "city",
               this.rules(true, "Silahkan pilih alamat kota kamu", city)
@@ -427,10 +438,25 @@ class FormEditAddress extends Component {
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu", fullAddress)
             )(
-              <TextArea
+              <div>
+                <TextArea
                 placeholder="Alamat Lengkap"
+                defaultValue={fullAddress}
+                onChange={this.onChangeFullAddress}
                 autosize={{ minRows: 3, maxRows: 6 }}
-              />
+                ></TextArea>
+              <p
+                style={{
+                  fontSize: 14,
+                  lineHeight: 1.5,
+                  opacity: 0.5,
+                  float: "right"
+                  }}
+                >
+                {this.state.length}/400
+                </p>
+              </div>
+             
             )}
           </Form.Item>
         </Form>

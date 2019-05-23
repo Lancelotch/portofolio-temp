@@ -30,7 +30,13 @@ const WaitingPayment = props => {
         <Row>
           {tabsNotPay === 1 &&
             <Col md={12}>
-              <b>{labelNotPay}</b>
+              <p
+                style={{
+                  marginBottom: 0,
+                  fontSize: 16
+                }}>
+                {labelNotPay}
+              </p>
               <p className="waitingPayment__endDatePay">
                 {convertTimesTime.millisecond(endDatePay)}
               </p>
@@ -39,10 +45,7 @@ const WaitingPayment = props => {
           {tabsNotSent === 2 &&
             <Col md={12}>
               <p
-                className="dalamProsesPengiriman"
-                style={{
-                  paddingLeft: 15
-                }}>
+                className="dalamProsesPengiriman">
                 {labelNotSent}
               </p>
             </Col>
@@ -51,15 +54,14 @@ const WaitingPayment = props => {
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15,
-                  marginBottom: 0
+                  marginBottom: 0,
+                  fontSize: 16
                 }}>
                 {labelInDelivery}
               </p>
               <p style={{
                 color: " #BBBBBB",
-                fontSize: 16,
-                marginLeft: 15
+                fontSize: 16
               }}>
                 {estimateShippingDate}
               </p>
@@ -69,15 +71,14 @@ const WaitingPayment = props => {
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15,
-                  marginBottom: 0
+                  marginBottom: 0,
+                  fontSize: 16
                 }}>
                 {labelFinish}
               </p>
               <p style={{
                 color: " #BBBBBB",
-                fontSize: 16,
-                marginLeft: 15
+                fontSize: 16
               }}>
                 {convertTimesTime.millisecond(receivedDate)}
               </p>
@@ -87,23 +88,28 @@ const WaitingPayment = props => {
             <Col md={12}>
               <p
                 style={{
-                  paddingLeft: 15,
-                  marginBottom: 0
+                  marginBottom: 0,
+                  color: "black"
                 }}>
-                {labelCancel} {cancelBy}
+                {labelCancel} {cancelBy.toLowerCase()}
               </p>
               <p style={{
                 color: " #BBBBBB",
-                fontSize: 16,
-                marginLeft: 15
+                fontSize: 16
               }}>
                 {convertTimesTime.millisecond(cancelDate)}
               </p>
             </Col>
           }
           <Col md={12}>
-            <font className="waitingPayment__totalReceived">Total Pesenan : &nbsp;
-            <h4 style={{ display: "unset", fontSize: 20 }}>
+            <font className="waitingPayment__totalReceived"
+              style={{ color: "#777777" }}>
+              Total Pesenan : &nbsp;
+            <h4 style={{
+                display: "unset",
+                fontSize: 28,
+                color: "#4A4A4A"
+              }}>
                 {currencyRupiah(indexes[0].totalAmount)}
               </h4>
             </font>

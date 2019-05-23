@@ -5,34 +5,68 @@ import { Divider, Button, Modal } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
-import dummyInvoice from "../../dummy/dummyInvoice";
 import history from "../../routers/history";
+import { apiGetWithToken } from "../../api/services";
+import { PATH_ORDER } from "../../api/path";
+import { Link } from "react-router-dom";
 
 class PaymentInfoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      instructions: dummyInvoice.paymentInstruction.instructions,
-      grossAmount: dummyInvoice.payment.grossAmount,
-      endDatePay: dummyInvoice.endDatePayment,
-      virtualAccount: dummyInvoice.payment.virtualAccount,
-      imageBank: dummyInvoice.bank.imageUrl,
+      messageCopy: "",
+      paymentInstruction: {},
+      payment: null,
+      endDatePayment: null,
+      bank: {},
       copied: false
     };
   }
+
+
+  componentDidMount() {
+    this.getPaymentInfo();
+  }
+
+  getPaymentInfo = async () => {
+    const paymentId = this.props.match.params.paymentId;
+    try {
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)
+      console.log('paymeeent info', response);
+      const payment = response.data.data;
+      this.setState({
+        paymentInstruction: payment.paymentInstruction,
+        endDatePayment: payment.endDatePayment,
+        payment: payment.payment,
+        bank: payment.bank
+
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   onCopy = () => {
-    this.setState({ copied: true });
+    this.setState({ 
+      // copied: true,
+      messageCopy: "Berhasil di Copy"
+    });
+    setTimeout(() =>{
+      this.setState({
+        messageCopy: ""
+      })
+    },6000)
   };
 
   actionToDashboardCustomer = () => {
-   return history.push("/dashboard-customer");
+    return history.push("/dashboard-customer");
   }
 
   render() {
-    const { grossAmount, endDatePay, virtualAccount, imageBank } = this.state;
-    const instruction = this.state.instructions.map(list => {
-      return <li>{list}</li>;
-    });
+    console.log(this.state.paymentInstruction);
+
+    const { payment, endDatePayment, bank, paymentInstruction } = this.state;
+
     const warning = () => {
       Modal.warning({
         title: strings.payment_modal_ask,
@@ -47,9 +81,9 @@ class PaymentInfoPage extends Component {
         </div>
         <div className="content">
           <div className="logo">
-            <a href="/#">
+            <Link to="/#">
               <img src={monggopesen_logo} alt="" />
-            </a>
+            </Link>
           </div>
           <div className="info__style">
             <div className="info__title">
@@ -57,15 +91,19 @@ class PaymentInfoPage extends Component {
               <Divider />
             </div>
             <div className="info__content">
-              <PaymentInvoice
-                grossAmount={grossAmount}
-                endDatePay={endDatePay}
-                virtualAccount={virtualAccount}
-                imageBank={imageBank}
-                onCopy={this.onCopy}
-              />
+              {payment &&
+                <PaymentInvoice
+                  payment={payment}
+                  endDatePay={endDatePayment}
+                  bank={bank}
+                  onCopy={this.onCopy}
+                  messageCopy={this.state.messageCopy}
+                />
+              }
               <div className="info__dropdownMethod">
-                <PaymentInstructions instruction={instruction} />
+                {paymentInstruction &&
+                  <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
+                }
               </div>
               <div>
                 <Button className="info__button" onClick={warning}>

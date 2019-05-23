@@ -56,10 +56,11 @@ class AddressList extends Component {
             style={{
               border: "unset",
               fontWeight: 555,
-              color: "black"
+              color: "#4A4A4A",
+              fontSize: "14px"
             }}
             onClick={this.props.onCancle}>
-            Kembali
+            <div className="">Batal</div>
           </Button>,
           <Button
             size="large"
@@ -67,7 +68,7 @@ class AddressList extends Component {
             className="buttonSimpan"
             onClick={this.handleOk}
           >
-            Gunakan Alamat
+            <div className="buttonSimpan__chooseAddress">Gunakan Alamat</div>
           </Button>
         ]}
       >

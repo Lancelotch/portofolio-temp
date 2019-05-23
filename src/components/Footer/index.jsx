@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Input, Icon, notification } from "antd";
+import { Link } from "react-router-dom";
 import category from "../../api/services/category";
 import "./style.sass";
 import strings from "../../localization/localization";
@@ -83,35 +84,35 @@ class Footer extends Component {
                         <Col span={12}>
                           <div>
                             <p>
-                              <a href="/">{strings.how_to_shop}</a>
+                              <Link to="/">{strings.how_to_shop}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.delivery_time}</a>
+                              <Link to="/">{strings.delivery_time}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.how_to_pay}</a>
+                              <Link to="/">{strings.how_to_pay}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.track_the_delivery}</a>
+                              <Link to="/">{strings.track_the_delivery}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.contact_us}</a>
+                              <Link to="/">{strings.contact_us}</Link>
                             </p>
                           </div>
                         </Col>
                         <Col span={12}>
                           <div>
                             <p>
-                              <a href="/">{strings.about_us}</a>
+                              <Link to="/">{strings.about_us}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.career}</a>
+                              <Link to="/">{strings.career}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.terms_and_condition}</a>
+                              <Link to="/">{strings.terms_and_condition}</Link>
                             </p>
                             <p>
-                              <a href="/">{strings.privacy_policy}</a>
+                              <Link to="/">{strings.privacy_policy}</Link>
                             </p>
                           </div>
                         </Col>

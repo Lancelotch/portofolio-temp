@@ -113,9 +113,10 @@ export const registerForm = (history, request, path) => async dispatch => {
     localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+    console.log("ini path",path)
     history.push(path);
   } catch (error) {
-    console.log(error.data.message)
+    console.log(error)
     dispatch(dispatchType.registerFailed(error.data.message))
   }
 }

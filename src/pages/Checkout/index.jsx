@@ -16,10 +16,11 @@ import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
 import ModalSuccess from '../../modal/ModalRegisterSuccess'
-import {openModal} from "../../store/actions/authentication"
-
+import { openModal } from "../../store/actions/authentication"
+import { pageUrlPaymentInfo } from "../../library/url"
 import "./style.sass";
 import history from "../../routers/history";
+import { Link } from "react-router-dom";
 
 class Checkout extends Component {
   constructor() {
@@ -273,21 +274,23 @@ class Checkout extends Component {
       if (response.data.data) {
         const token = response.data.data.token;
         this.snap.pay(token, {
-          onSuccess: function(result) {
+          onSuccess: function (result) {
             history.push("/");
           },
-          onPending: function(result) {
+          onPending: function (result) {
+            let order = result.order_id
+            console.log(order);
+
             history.push({
-              pathname: "/payment-info",
+              pathname: pageUrlPaymentInfo + order,
               state: { detail: result }
             });
-            console.log("...", result);
           },
-          onError: function(result) {
+          onError: function (result) {
             console.log("error");
             console.log(result);
           },
-          onClose: function() {
+          onClose: function () {
             console.log(
               "customer closed the popup without finishing the payment"
             );
@@ -314,14 +317,17 @@ class Checkout extends Component {
       <div className="checkout">
         <div className="container">
           <Row>
+            <Col md={24}>
+              <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
+            </Col>
             <Col md={5}>
-              <a href="/">
+              <Link to="/">
                 <img
                   src={require("assets/img/monggopesen_logo.png")}
                   className="header__logo"
                   alt=""
                 />
-              </a>
+              </Link>
             </Col>
             <Col md={15}>
               <p className="checkout__text">{strings.checkout}</p>

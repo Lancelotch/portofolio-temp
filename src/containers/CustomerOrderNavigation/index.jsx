@@ -8,6 +8,9 @@ import OrderListWaitingNotPay from "../OrderListWaitingNotPay";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
 import OrderDetailsCancel from "../OrderDetailsCancel";
 import OrderListWaitingCancel from "../OrderListWaitingCancel";
+import { apiGetWithToken } from "../../api/services";
+import { PATH_DASHBOARD_TAB } from "../../api/path";
+
 
 
 class CustomerOderNavigation extends Component {
@@ -15,8 +18,21 @@ class CustomerOderNavigation extends Component {
     super(props);
     this.state = {
       isShowOrderDetailsDashboard: false,
-      orderId: null
+      orderId: null,
+      activeKey: "1",
+      loading: false,
+      productOrderNotYetPay: [],
+      productOrderNotYetSent: [],
+      productOrderInDelivery: [],
+      productOrderFinish: []
     };
+  }
+
+  componentDidMount() {
+    this.productOrderTabsNotYetPay();
+    this.productOrderTabsNotYetSent();
+    this.productOrderTabsInDelivery();
+    this.productOrderTabsFinish();
   }
 
 
@@ -39,9 +55,95 @@ class CustomerOderNavigation extends Component {
     })
   };
 
+
+
+  productOrderTabsNotYetPay = async () => {
+    this.setState({ loading: true });
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
+      const productOrderTabsNotYetPay = {
+        productOrderNotYetPay: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsNotYetPay
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
+  };
+
+  productOrderTabsNotYetSent = async () => {
+    this.setState({ loading: true });
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
+      const productOrderTabsNotYetSent = {
+        productOrderNotYetSent: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsNotYetSent
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
+  };
+
+  productOrderTabsInDelivery = async () => {
+    this.setState({ loading: true });
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_IN_DELIVERY);
+      const productOrderTabsInDelivery = {
+        productOrderInDelivery: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsInDelivery
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
+  };
+
+  productOrderTabsFinish = async () => {
+    this.setState({ loading: true });
+    try {
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_FINISH);
+      const productOrderTabsFinish = {
+        productOrderFinish: response.data.data
+      };
+      this.setState({
+        ...productOrderTabsFinish
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ loading: false });
+    }
+  };
+
+  updateTabNotPay = () => {
+    this.productOrderTabsNotYetPay();
+  };
+
+  updateTabNotSent = () => {
+    this.productOrderTabsNotYetSent();
+  }
+
+
+  handleChange = (selectedkey) => {
+    this.setState({ activeKey: selectedkey })
+    if (selectedkey === '1') {
+      this.updateTabNotPay();
+    } else if (selectedkey === '2') {
+      this.updateTabNotSent();
+    }
+  };
+
+
+
   render() {
     return (
-      <Tabs defaultActiveKey="1">
+      <Tabs onChange={this.handleChange}>
         <CustomTabPane
           key={"1"}
           tab={
@@ -54,10 +156,13 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               (<OrderListWaitingNotPay
+                loading={this.state.loading}
+                productOrderNotYetPay={this.state.productOrderNotYetPay}
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                 tabsNotPay={1}
               />) : (
-                <OrderDetailsDashboard orderId={this.state.orderId}
+                <OrderDetailsDashboard
+                  orderId={this.state.orderId}
                   actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                   tabsNotPay={1}
                 />)
@@ -69,11 +174,13 @@ class CustomerOderNavigation extends Component {
             onClick={() =>
               this.setState({
                 isShowOrderDetailsDashboard: false
-              })}>{"Belum Dikirim"}</span>}
+              })}>{"Sedang Diproses"}</span>}
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               <OrderListWaitingNotSent
+                loading={this.state.loading}
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                productOrderNotYetSent={this.state.productOrderNotYetSent}
                 tabsNotSent={2}
               /> : (
                 <OrderDetailsDashboard orderId={this.state.orderId}
@@ -95,6 +202,8 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               <OrderListWaitingInDelivery
+                loading={this.state.loading}
+                productOrderInDelivery={this.state.productOrderInDelivery}
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                 tabsInDelivery={3}
               /> : (
@@ -114,6 +223,8 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.isShowOrderDetailsDashboard === false ?
               <OrderListWaitingFinish
+                productOrderFinish={this.state.productOrderFinish}
+                loading={this.state.loading}
                 actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                 tabsFinish={4}
               /> : (
