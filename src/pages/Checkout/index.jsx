@@ -343,7 +343,7 @@ class Checkout extends Component {
                   onCancle={this.actionShowAddFormAddress}
                   isAddressAvailable={this.props.isAddressAvailable}
                 />
-                {isAddressAvailable && (
+                {customerAddress.id && (
                   <FormEditAddress
                     visible={this.state.visibleEditAddress}
                     address={customerAddress}

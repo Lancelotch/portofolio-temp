@@ -29,7 +29,7 @@ class ProductDetail extends Component {
       shippingInternationalId: null,
       data: {
         quantity: 1,
-        sku: 0,
+        sku: {},
         price: 0
       }
     };
@@ -81,6 +81,7 @@ class ProductDetail extends Component {
     const indexes = {
       image,
       name: name,
+      price: data.price,
       productId: id,
       quantity: data.quantity,
       sku: data.sku,

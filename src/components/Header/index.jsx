@@ -190,10 +190,12 @@ class Header extends Component {
               </form>
             </Col>
             <Col md={6} className="header__icon">
-              <img
+              <div>
+                <img
                 src={require("assets/img/icon_header.png")}
                 alt="header_icon"
-              />
+                />
+              </div>
             </Col>
               <Col md={2}>
                 <div className="header__categories">

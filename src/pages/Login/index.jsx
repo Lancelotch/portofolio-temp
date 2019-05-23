@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
-import logoMonggoPesen from "../../assets/img/logo_monggopesen.png";
+import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import "./style.sass";
 // import "../../sass/style.sass"
 import strings from "../../localization/localization";
@@ -123,7 +123,7 @@ class Login extends Component {
               <Link to="/">
                 <img
                   className="register__logo"
-                  src={logoMonggoPesen}
+                  src={monggopesen_logo}
                   alt="login__logo"
                 />
               </Link>
@@ -155,6 +155,7 @@ class Login extends Component {
                     ]
                   })(
                     <Input
+                      className="register__input"
                       size={"large"}
                       onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                       prefix={
@@ -174,13 +175,18 @@ class Login extends Component {
                     valuePropName: "checked",
                     initialValue: true
                   })(<Checkbox>{strings.login_remember_me}</Checkbox>)} */}
-                  <a className="login-form__forgot" href="/">
+                  <div
+                  type="flex"
+                  align="end"
+                  >
+                    <a className="login-form__forgot" href="/">
                     {strings.login_forgot_password}
-                  </a>
+                    </a>
+                  </div>
                   <Button
                     size={"large"}
                     htmlType="submit"
-                    className="register__form__button-register color-button"
+                    className="login__button-login color-button"
                   >
                     <p className="register__form__button-register-text">
                       {strings.login_enter}
@@ -190,7 +196,11 @@ class Login extends Component {
                     {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
                   </div>
                 </FormItem>
-                <div className="login__separator">
+                <div
+                type="flex"
+                align="middle"
+                className="login__separator"
+                >
                   <p>{strings.login_option}</p>
                 </div>
                 <Form.Item className="register__form__btn-socmed">
@@ -208,20 +218,20 @@ class Login extends Component {
                       {strings.google}
                     </ButtonGoogle>
                   </div>
-                  <center className="register__form__direct-login">
+                  <div className="register__form__direct-login">
                     {strings.formatString(
                       strings.login_quote,
                       <Link
+                      style={{color:"#F63700"}}
                         to={{
                           pathname: "/register",
                           state: { nextPage: "checkout" }
                         }}
                       >
-                        {/* <a href="/register" className="login-form__login"> */}
-                        {strings.login_register}{" "}
+                        <b>{strings.login_register}{" "}</b>
                       </Link>
                     )}
-                  </center>
+                  </div>
                 </Form.Item>
               </Form>
             </div>
