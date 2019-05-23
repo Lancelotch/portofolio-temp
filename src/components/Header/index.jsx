@@ -120,8 +120,8 @@ class Header extends Component {
     const name = this.props.customerName;
     let resultName = name;
     if(name) {
-      if(name.length > 20) {
-          resultName = name.substr(0, 8) + "...";
+      if(name.length > 10) {
+          resultName = name.substr(0, 10) + "...";
       }  
     }
     return resultName;
@@ -252,10 +252,10 @@ class Header extends Component {
                   
                 </div>
               </Col>
-              <Col md={4}>
+              <Col md={5} style={{display : "flex", justifyContent: "flex-end"}}>
                 <React.Fragment>{greeting}</React.Fragment>
               </Col>
-              <Col md={4} style={{display: "flex", justifyContent: "flex-end"}}>
+              <Col md={3} style={{display: "flex", justifyContent: "flex-end"}}>
                 <div className="header__user-box">
                   <Icon
                     type="user"

@@ -77,7 +77,7 @@ class RegisterPage extends Component {
 
   getPath = (state) => {
     let path = ""
-    state ? path =`/${state}` : path = '/'
+    state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
     return path
   }
 
@@ -125,6 +125,7 @@ class RegisterPage extends Component {
                       size={"large"}
                       prefix={<Icon type={"user"} />}
                       placeholder={"Name"}
+                      type="text"
                     />
                   )}
                 </FormItem>
@@ -207,10 +208,10 @@ class RegisterPage extends Component {
                       <Link
                         to={{
                           pathname: "/login",
-                          state: { nextPage: "/" }
+                          state: { nextPage: this.state.nextPage }
                         }}
                       >
-                        {strings.register_login}
+                        <span className="register__form__link-login">{strings.register_login}</span>
                       </Link>
                     )}
                   </center> 

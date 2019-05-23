@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Affix } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Affix,Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
@@ -58,7 +58,7 @@ class Login extends Component {
 
   getPath = (state) => {
     let path = ""
-    state === "checkout" ? path =`/${state}` : path = "/"
+    state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
     return path
   }
 
@@ -100,7 +100,7 @@ class Login extends Component {
   };
 
   render() {
-    console.log("xxxxxx",this.props.location)
+    console.log("ini login",this.state.nextPage)
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -214,11 +214,11 @@ class Login extends Component {
                       <Link
                         to={{
                           pathname: "/register",
-                          state: { nextPage: "checkout" }
+                          state: { nextPage: this.state.nextPage }
                         }}
                       >
                         {/* <a href="/register" className="login-form__login"> */}
-                        {strings.login_register}{" "}
+                        <span className="register__form__link-login">{strings.login_register}</span>
                       </Link>
                     )}
                   </center>

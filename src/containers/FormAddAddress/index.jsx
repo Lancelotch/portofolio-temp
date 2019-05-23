@@ -152,6 +152,7 @@ class FormAddAddress extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
+      console.log("ini values",values)
       if (!err) {
         const { province, provinceId, city, cityId, subdistrict, subdistrictId } = this.state;
         const payload = {
@@ -187,7 +188,7 @@ class FormAddAddress extends Component {
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
     })(
-      <Select style={{ width: 70 }}>
+      <Select style={{ width: 70 }} disabled>
         <Option value="62">+62</Option>
       </Select>
     );
@@ -227,7 +228,7 @@ class FormAddAddress extends Component {
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat")
-            )(<Input placeholder="Atas Nama" />)}
+            )(<Input placeholder="Nama Alamat" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
             {getFieldDecorator(
@@ -239,7 +240,7 @@ class FormAddAddress extends Component {
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu")
-            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} />)}
+            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(
@@ -321,24 +322,23 @@ class FormAddAddress extends Component {
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu")
             )(
-              <React.Fragment>
-                 <TextArea
+              <div>
+                <TextArea
                 placeholder="Alamat Lengkap"
                 autosize={{ minRows: 3, maxRows: 6 }}
                 onChange={this.onChangeFullAddress}
-              />
-              <p
-                style={{
-                  fontSize: 14,
-                  lineHeight: 1.5,
-                  opacity: 0.5,
-                  float: "right"
-                  }}
-                >
-                {this.state.length}/400
+                />
+                <p
+                  style={{
+                    fontSize: 14,
+                    lineHeight: 1.5,
+                    opacity: 0.5,
+                    float: "right"
+                    }}
+                  >
+                  {this.state.length}/400
                 </p>
-              </React.Fragment>
-             
+              </div>
             )}
           </Form.Item>
         </Form>
