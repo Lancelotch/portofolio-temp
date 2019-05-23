@@ -48,9 +48,9 @@ class CustomerOderNavigation extends Component {
 
   componentWillUnmount() {
     this.setState({
-      loading: false,
+      loading: false
     });
-  };
+  }
 
   actionShowOrderListWaiting = () => {
     this.setState({
@@ -267,17 +267,17 @@ class CustomerOderNavigation extends Component {
             this.state.productOrderFinish.length < 1 ?
               (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
                 <NoOrderHistory /></Spin>
-              ) :
-              (this.state.isShowOrderDetailsDashboard === false ?
-                <OrderListWaitingFinish
-                  productOrderFinish={this.state.productOrderFinish}
-                  actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                  tabsFinish={4}
-                /> : (
-                  <OrderDetailsDashboard orderId={this.state.orderId}
-                    actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+              ) : (
+                this.state.isShowOrderDetailsDashboard === false ?
+                  <OrderListWaitingFinish
+                    productOrderFinish={this.state.productOrderFinish}
+                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                     tabsFinish={4}
-                  />)
+                  /> : (
+                    <OrderDetailsDashboard orderId={this.state.orderId}
+                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                      tabsFinish={4}
+                    />)
               )
           } />
         <CustomTabPane
