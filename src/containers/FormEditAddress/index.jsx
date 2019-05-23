@@ -269,6 +269,9 @@ class FormEditAddress extends Component {
           },
           isDefault
         };
+        this.props.form.setFieldsValue({
+          fullAddress : values.fullAddress
+        })
         this.props.onSubmit(payload);
         this.props.form.resetFields();
       }
@@ -433,30 +436,30 @@ class FormEditAddress extends Component {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="Alamat Lengkap">
+          <Form.Item label="Alamat Lengkap" help={
+             <p
+             style={{
+               fontSize: 14,
+               lineHeight: 1.5,
+               opacity: 0.5,
+               float: "right"
+               }}
+             >
+             {this.state.length}/400
+             </p>
+          }
+          
+          >
             {getFieldDecorator(
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu", fullAddress)
             )(
-              <div>
                 <TextArea
                 placeholder="Alamat Lengkap"
-                defaultValue={fullAddress}
+                value={fullAddress}
                 onChange={this.onChangeFullAddress}
                 autosize={{ minRows: 3, maxRows: 6 }}
                 ></TextArea>
-              <p
-                style={{
-                  fontSize: 14,
-                  lineHeight: 1.5,
-                  opacity: 0.5,
-                  float: "right"
-                  }}
-                >
-                {this.state.length}/400
-                </p>
-              </div>
-             
             )}
           </Form.Item>
         </Form>
