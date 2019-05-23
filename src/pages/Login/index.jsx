@@ -39,6 +39,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props.location)
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -56,11 +57,11 @@ class Login extends Component {
     this.props.clearError()
   }
 
-  getPath = (state) => {
-    let path = ""
-    state === "checkout" ? path =`/${state}` : path = "/"
-    return path
-  }
+  // getPath = (state) => {
+  //   let path = ""
+  //   state === "checkout" ? path =`/${state}` : path = "/"
+  //   return path
+  // }
 
   handleloginGoogle = request => {
     const path = this.getPath(this.state.nextPage)
@@ -79,7 +80,8 @@ class Login extends Component {
     })
     const {history} = this.props
 
-      const path = this.getPath(this.state.nextPage)
+      // const path = this.getPath(this.state.nextPage)
+      const path = this.state.nextPage
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           const login = await this.props.loginWithHome(values, path, history)
@@ -100,7 +102,7 @@ class Login extends Component {
   };
 
   render() {
-    console.log("ini login",this.state.nextPage)
+    // console.log("ini login",this.state.nextPage)
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
