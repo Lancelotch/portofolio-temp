@@ -117,7 +117,7 @@ const PaymentInfo = props => {
                                                 <p
                                                     className="nameCustomerText"
                                                     style={{ marginBottom: 0, textAlign: "right" }}>
-                                                    {payment.paymentType}
+                                                    {payment.bankName} Virtual Account
                                                 </p>
                                             </td>
                                         </tr>

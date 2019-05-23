@@ -54,7 +54,14 @@ const strings = new LocalizedStrings({
     riwayat_order: " Tidak ada Riwayat Pesenan",
 
 
+    //NotFoundPage
+     not_found_text:' Maaf, halaman yang kamu tuju tidak ditemukan.',
+     not_found_number:'404',
+     not_found_back: 'Periksa kembali link yang ingin kamu tuju atau kembali ke',
 
+    //SearchContainer
+    paragraph_search: 'Gunakan kata pencarian lain untuk melakukan mencari produk yang anda maksudkan atau masuk ke halaman',
+    help_search: 'bantuan pencarian.',
     //Invoice
     text_thanks_invoice: ' Terimakasih sudah berbelanja di monggopesen.com,ini adalah bukti dari transaksi anda',
 

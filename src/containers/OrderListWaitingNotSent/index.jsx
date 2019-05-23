@@ -67,7 +67,7 @@ class OrderListWaitingNotSent extends Component {
                 tabsInDelivery={tabsInDelivery}
                 tabsNotSent={tabsNotSent}
                 // showDeleteConfirm={this.showDeleteConfirm}
-                orderProduct={this.state.productOrderTabsNotYetSent}
+                orderProduct={productOrderNotYetSent}
                 i={order.orderId}
                 showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                 order={order}

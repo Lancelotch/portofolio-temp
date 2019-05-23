@@ -13,6 +13,13 @@ import { PATH_DASHBOARD_TAB } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 
 
+const keyFnNames = {
+  '1': 'updateTabNotPay',
+  '2': 'updateTabNotSent',
+  '3': 'updateTabInDelivery',
+  '4': 'updateTabFinish',
+  '5': 'updateTabCancel'
+};
 
 class CustomerOderNavigation extends Component {
   constructor(props) {
@@ -36,14 +43,14 @@ class CustomerOderNavigation extends Component {
     // this.productOrderTabsInDelivery();
     // this.productOrderTabsFinish();
     // this.productOrderTabsCancel();
-  }
+  };
 
 
   componentWillUnmount() {
     this.setState({
-      loading: false
+      loading: false,
     });
-  }
+  };
 
   actionShowOrderListWaiting = () => {
     this.setState({
@@ -57,8 +64,6 @@ class CustomerOderNavigation extends Component {
       orderId: orderId
     })
   };
-
-
 
   productOrderTabsNotYetPay = async () => {
     try {
@@ -80,11 +85,11 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
       const productOrderTabsNotYetSent = {
-        productOrderNotYetSent: response.data.data
+        productOrderNotYetSent: response.data.data,
+        loading: true
       };
       this.setState({
-        ...productOrderTabsNotYetSent,
-        loading: true
+        ...productOrderTabsNotYetSent
       });
     } catch (error) {
       console.log(error);
@@ -160,27 +165,17 @@ class CustomerOderNavigation extends Component {
     this.productOrderTabsCancel();
   };
 
-
   handleChange = (selectedkey) => {
     this.setState({ activeKey: selectedkey })
-    if (selectedkey === '1') {
-      this.updateTabNotPay();
-    } else if (selectedkey === '2') {
-      this.updateTabNotSent();
-    } else if (selectedkey === '3') {
-      this.updateTabInDelivery();
-    } else if (selectedkey === '4') {
-      this.updateTabFinish();
-    } else if (selectedkey === '5') {
-      this.updateTabCancel();
+    const fnName = keyFnNames[selectedkey];
+    if (fnName) {
+      this[fnName]();
     }
   };
 
-
-
   render() {
     return (
-      <Tabs onChange={this.handleChange}>
+      <Tabs activeKey={this.state.activeKey} onChange={this.handleChange} >
         <CustomTabPane
           key={"1"}
           tab={
@@ -193,11 +188,11 @@ class CustomerOderNavigation extends Component {
           my_prop={
             this.state.productOrderNotYetPay.length < 1 ?
               (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
-                <NoOrderHistory /></Spin>
+                <NoOrderHistory />
+              </Spin>
               ) : (
                 this.state.isShowOrderDetailsDashboard === false ?
                   (<OrderListWaitingNotPay
-                    loading={this.state.loading}
                     productOrderNotYetPay={this.state.productOrderNotYetPay}
                     actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                     tabsNotPay={1}
@@ -224,7 +219,6 @@ class CustomerOderNavigation extends Component {
               ) : (
                 this.state.isShowOrderDetailsDashboard === false ?
                   <OrderListWaitingNotSent
-                    loading={this.state.loading}
                     actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                     productOrderNotYetSent={this.state.productOrderNotYetSent}
                     tabsNotSent={2}
@@ -252,7 +246,6 @@ class CustomerOderNavigation extends Component {
               ) : (
                 this.state.isShowOrderDetailsDashboard === false ?
                   <OrderListWaitingInDelivery
-                    loading={this.state.loading}
                     productOrderInDelivery={this.state.productOrderInDelivery}
                     actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                     tabsInDelivery={3}
@@ -274,18 +267,17 @@ class CustomerOderNavigation extends Component {
             this.state.productOrderFinish.length < 1 ?
               (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
                 <NoOrderHistory /></Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  <OrderListWaitingFinish
-                    productOrderFinish={this.state.productOrderFinish}
-                    loading={this.state.loading}
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+              ) :
+              (this.state.isShowOrderDetailsDashboard === false ?
+                <OrderListWaitingFinish
+                  productOrderFinish={this.state.productOrderFinish}
+                  actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                  tabsFinish={4}
+                /> : (
+                  <OrderDetailsDashboard orderId={this.state.orderId}
+                    actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                     tabsFinish={4}
-                  /> : (
-                    <OrderDetailsDashboard orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      tabsFinish={4}
-                    />)
+                  />)
               )
           } />
         <CustomTabPane
@@ -302,7 +294,6 @@ class CustomerOderNavigation extends Component {
               ) : (
                 this.state.isShowOrderDetailsDashboard === false ?
                   <OrderListWaitingCancel
-                    loading={this.state.loading}
                     productOrderCancel={this.state.productOrderCancel}
                     actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                   /> : (
