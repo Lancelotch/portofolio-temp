@@ -48,7 +48,7 @@ const Pay = (props) => {
               </Button>
               <Button
                 className="waitingPayment__detailPesanan"
-                onClick={() => showOrderDetailsDashboard(order)}
+                onClick={() => showOrderDetailsDashboard(i)}
               >
                 {strings.order_details}
               </Button>
@@ -82,7 +82,7 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard()}
+            onClick={() => showOrderDetailsDashboard(i)}
           >
             {strings.order_details}
           </Button>
@@ -101,7 +101,7 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard()}
+            onClick={() => showOrderDetailsDashboard(i)}
           >
             {strings.order_details}
           </Button>

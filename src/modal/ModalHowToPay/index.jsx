@@ -28,7 +28,13 @@ class ModalHowToPay extends Component {
     const Panel = Collapse.Panel;
     const { endDatePay, pay, payBank, paymentInstruction } = this.props;
     const instructions = paymentInstruction.instructions
-    console.log("payment =====", paymentInstruction.instructions)
+    const styleButtonCopy = {
+      cursor: "pointer",
+      position: "absolute",
+      bottom: 19,
+      right: 10,
+      top: 2,
+    }
     return (
       <div className="modalHowToPay" >
         {pay !== undefined && pay &&
@@ -74,26 +80,13 @@ class ModalHowToPay extends Component {
               <Row>
                 <Col md={24}>
                   <div style={{ display: "flex", justifyContent: "center" }}>
-                    <p style={{
-                      textAlign: "center",
-                      fontSize: 24,
-                      color: "#004853",
-                      display: "unset",
-                      position: "absolute"
-                    }}>
+                    <p className="virtualAccountType">
                       {pay.virtualAccount}
                     </p>&nbsp;
                   <CopyToClipboard
                       text={pay.virtualAccount}
                       onCopy={() => this.setState({ copied: true })}>
-                      <p style={{
-                        cursor: "pointer",
-                        position: "relative",
-                        bottom: 19,
-                        marginLeft: "80%",
-                        top: 2
-                      }
-                      } className="buttonModalVirtualAccount">Salin</p>
+                      <p className="buttonModalVirtualAccount" style={styleButtonCopy}>Salin</p>
                     </CopyToClipboard>
                   </div>
                 </Col>

@@ -1,7 +1,7 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import strings from "../../localization/localization";
-import { Row, Col, Button, message } from "antd";
+import { Row, Col, Button } from "antd";
 import currencyRupiah from "../../library/currency";
 import convertTimesTime from "../../library/convertTimestime";
 
