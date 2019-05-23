@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { BackTop} from "antd";
+import { BackTop } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
 import strings from "../../localization/localization";
@@ -11,6 +11,7 @@ import Spinner from "../../components/Spinner";
 import getParamUrl from "../../library/getParamUrl";
 import SortListProduct from "../../components/SortListProduct/";
 import Search from "./";
+import NoResultSearch from "../../components/NoResultSearch";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
@@ -140,9 +141,7 @@ class SearchPage extends Component {
   renderNotFound = () => {
     const { query } = this.state;
     return (
-      <p>
-        Oooopppss... <b>"{query}"</b> tidak ditemukan
-      </p>
+      <NoResultSearch query={query} />
     );
   };
 
