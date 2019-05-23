@@ -39,7 +39,9 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.location)
     if (this.props.location.state !== undefined) {
+      console.log("masuk sini")
       this.setState({
         nextPage: this.props.location.state.nextPage
       });
@@ -77,7 +79,7 @@ class RegisterPage extends Component {
 
   getPath = (state) => {
     let path = ""
-    state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
+    state === "checkout" ? path =`/${state}` : path = "/"
     return path
   }
 

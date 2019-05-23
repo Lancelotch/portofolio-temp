@@ -58,7 +58,7 @@ class Login extends Component {
 
   getPath = (state) => {
     let path = ""
-    state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
+    state === "checkout" ? path =`/${state}` : path = "/"
     return path
   }
 
