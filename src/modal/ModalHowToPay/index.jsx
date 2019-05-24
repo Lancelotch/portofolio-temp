@@ -71,7 +71,7 @@ class ModalHowToPay extends Component {
                 alt=""
               />
             </p>
-            <p className="paymenttype">{pay.paymentType}</p>
+            <p className="paymenttype">{/*{pay.bankName}*/}Virtual Account</p>
             <div className="virtualAccontCopy"
               style={{
                 height: 58.42,

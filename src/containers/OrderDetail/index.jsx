@@ -86,8 +86,8 @@ class OrderDetailContainer extends Component {
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
                       <Row>
-                        <Col className="detail__variant" span={5}>
-                          Variant
+                        <Col className="detail__variant" span={3}>
+                          Varian
                         </Col>
                         <Col className="detail__variant" span={1}>
                           :

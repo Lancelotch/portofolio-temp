@@ -19,9 +19,9 @@ const ProductOrder = props => {
           <h2> {indexes[0].productName} </h2>
           <p className="productOrder__variant">
             Varian : {indexes[0].variants[0].name.charAt(0).toUpperCase() +
-              indexes[0].variants[0].name.substring(1)} : {indexes[0].variants[0].value},&nbsp;
+              indexes[0].variants[0].name.substring(1)}  {indexes[0].variants[0].value},&nbsp;
              {indexes[0].variants[1].name.charAt(0).toUpperCase() +
-              indexes[0].variants[1].name.substring(1)} : {indexes[0].variants[1].value}
+              indexes[0].variants[1].name.substring(1)}  {indexes[0].variants[1].value}
           </p>
           <p className="productOrder__variant">
             Jumlah : {indexes[0].productQuantity} pcs

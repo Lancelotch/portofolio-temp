@@ -35,7 +35,7 @@ const OrderStatusStep = (props) => {
         </h2>
         <Affix offsetTop={top}>
           <button
-            style={{ float: "right", marginRight: 20, cursor: "pointer" }}
+            style={{ float: "right", marginRight: 20, cursor: "pointer", borderStyle: "unset" }}
             className="buttonOrderDetails"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;

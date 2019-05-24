@@ -64,12 +64,12 @@ class Login extends Component {
   // }
 
   handleloginGoogle = request => {
-    const path = this.getPath(this.state.nextPage)
+    const path = this.state.nextPage
     this.props.loginWithGoogle(path, request);
   };
 
   handleFacebook = request => {
-    const path = this.getPath(this.state.nextPage)
+    const path = this.state.nextPage
     this.props.loginWithFacebook(request,path)
   }
 
