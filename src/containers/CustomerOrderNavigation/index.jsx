@@ -37,23 +37,10 @@ class CustomerOderNavigation extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.productOrderTabsNotYetPay();
-    this.interval = setTimeout(() => {
-      this.setState(state => ({ 
-        productOrderNotYetPay: state.productOrderNotYetPay ,
-        loading : !state.loading}));
-    }, 5000);
   };
 
-
-
-  componentWillUnmount() {
-    clearTimeout(this.interval);
-    this.setState({
-      loading: false
-    });
-  }
 
   actionShowOrderListWaiting = () => {
     this.setState({
@@ -79,8 +66,10 @@ class CustomerOderNavigation extends Component {
         loading: true
       });
     } catch (error) {
-      console.log(error);
-      this.setState({ loading: false });
+      console.log();
+      if (error.message === 'Request failed with status code 404') {
+        this.setState({ loading: false });
+      }
     }
   };
 
@@ -189,13 +178,10 @@ class CustomerOderNavigation extends Component {
                 })}
             >{"Belum Bayar"}</span>}
           my_prop={
-            this.state.productOrderNotYetPay.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
-                <NoOrderHistory />
-              </Spin>
-              ) : (
+         
                 this.state.isShowOrderDetailsDashboard === false ?
                   (<OrderListWaitingNotPay
+                    loading={this.state.loading}
                     productOrderNotYetPay={this.state.productOrderNotYetPay}
                     actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                     tabsNotPay={1}
@@ -205,7 +191,7 @@ class CustomerOderNavigation extends Component {
                       actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                       tabsNotPay={1}
                     />)
-              )
+              
           }
         />
         <CustomTabPane
@@ -217,7 +203,7 @@ class CustomerOderNavigation extends Component {
               })}>{"Sedang Diproses"}</span>}
           my_prop={
             this.state.productOrderNotYetSent.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+              (<Spin tip="Loading..." spinning={this.state.loading} delay={100}>
                 <NoOrderHistory /></Spin>
               ) : (
                 this.state.isShowOrderDetailsDashboard === false ?
