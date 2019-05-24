@@ -167,6 +167,9 @@ class FormAddAddress extends Component {
           isDefault: !this.props.isAddressAvailable
         };
         this.props.onSubmit(payload);
+        this.setState({
+          length: 0
+        })
         this.props.form.resetFields();
       }
     });
@@ -317,17 +320,7 @@ class FormAddAddress extends Component {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="Alamat Lengkap">
-            {getFieldDecorator(
-              "fullAddress",
-              this.rules(true, "Silahkan alamat Lengkap kamu")
-            )(
-              <div>
-                <TextArea
-                placeholder="Alamat Lengkap"
-                autosize={{ minRows: 3, maxRows: 6 }}
-                onChange={this.onChangeFullAddress}
-                />
+          <Form.Item label="Alamat Lengkap" help={
                 <p
                   style={{
                     fontSize: 14,
@@ -335,10 +328,19 @@ class FormAddAddress extends Component {
                     opacity: 0.5,
                     float: "right"
                     }}
-                  >
+                >
                   {this.state.length}/400
                 </p>
-              </div>
+          }>
+            {getFieldDecorator(
+              "fullAddress",
+              this.rules(true, "Silahkan alamat Lengkap kamu")
+            )(
+                <TextArea
+                placeholder="Alamat Lengkap"
+                autosize={{ minRows: 3, maxRows: 6 }}
+                onChange={this.onChangeFullAddress}
+                />
             )}
           </Form.Item>
         </Form>
