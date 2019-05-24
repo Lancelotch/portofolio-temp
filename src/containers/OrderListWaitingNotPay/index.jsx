@@ -3,10 +3,11 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Modal,Card } from "antd";
+import { Modal, Card, Spin } from "antd";
 import { patchService } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
 import WaitingPayment from "../../components/WaitingPayment";
+import NoOrderHistory from "../../components/NoOrderHistory";
 
 
 const confirm = Modal.confirm;
@@ -18,16 +19,18 @@ class OrderListWaitingPayment extends Component {
       isHowToShowModalOpen: false,
       stateCancelOrder: [],
       orderId: null,
-      // loading: this.props.loading,
+      loading: this.props.loading,
       selectedOrder: null,
-      // productOrderNotYetPay: [],
+      productOrderNotYetPay: this.props.productOrderNotYetPay
       // bank: null,
       // paymentInstruction: null
-    };
+    };  
   }
   // componentDidMount() {
-  //   this.productOrderTabsNotYetPay();
-  // }
+  //    this.setState({
+  //      productOrderNotYetPay : this.state.productOrderNotYetPay
+  //    })
+  //  }
 
   // productOrderTabsNotYetPay = async () => {
   //   this.setState({ loading: true });
@@ -107,53 +110,61 @@ class OrderListWaitingPayment extends Component {
       productOrderNotYetPay
     } = this.props;
     return (
-            <React.Fragment>
-              {productOrderNotYetPay.map((order, i) => {
-                return (
-                  <Card style={{ marginBottom: 15 }} key={i}>
-                    <ProductOrder
-                      key={order.id}
-                      indexes={order.indexes} />
-                    <hr className="productOrder__inline" />
-                    <WaitingPayment
-                      labelNotPay={"Bayar Sebelum"}
-                      estimateShippingDate={order.estimateShippingDate}
-                      receivedDate={order.receivedDate}
-                      tabsNotPay={1}
-                      key={order.id}
-                      endDatePay={order.endDatePay}
-                      indexes={order.indexes}
-                      pay={order.payment}
-                    />
-                    <Pay
-                      productId={order.indexes}
-                      tabsFinish={tabsFinish}
-                      tabsNotPay={tabsNotPay}
-                      tabsInDelivery={tabsInDelivery}
-                      tabsNotSent={tabsNotSent}
-                      showDeleteConfirm={this.showDeleteConfirm}
-                      orderProduct={productOrderNotYetPay}
-                      i={order.orderId}
-                      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                      order={order}
-                      showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
-                    />
-                  </Card>
-                )
-              })}
-              {selectedOrder && (
-                <ModalHowToPay
-                  payBank={selectedOrder.bank}
-                  key={selectedOrder.orderId}
-                  endDatePay={selectedOrder.endDatePay}
-                  pay={selectedOrder.payment}
-                  indexes={selectedOrder.indexes}
-                  paymentInstruction={selectedOrder.paymentInstruction}
-                  visible={isHowToShowModalOpen}
-                  close={this.toggleIsHowToShowModalOpen}
-                />
-              )}
-            </React.Fragment>
+      <React.Fragment>
+        {productOrderNotYetPay.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+            <NoOrderHistory />
+          </Spin>
+          ) : (
+          <React.Fragment>
+            {productOrderNotYetPay.map((order, i) => {
+              return (
+                <Card style={{ marginBottom: 15 }} key={i}>
+                  <ProductOrder
+                    key={order.id}
+                    indexes={order.indexes} />
+                  <hr className="productOrder__inline" />
+                  <WaitingPayment
+                    labelNotPay={"Bayar Sebelum"}
+                    estimateShippingDate={order.estimateShippingDate}
+                    receivedDate={order.receivedDate}
+                    tabsNotPay={1}
+                    key={order.id}
+                    endDatePay={order.endDatePay}
+                    indexes={order.indexes}
+                    pay={order.payment}
+                  />
+                  <Pay
+                    productId={order.indexes}
+                    tabsFinish={tabsFinish}
+                    tabsNotPay={tabsNotPay}
+                    tabsInDelivery={tabsInDelivery}
+                    tabsNotSent={tabsNotSent}
+                    showDeleteConfirm={this.showDeleteConfirm}
+                    orderProduct={productOrderNotYetPay}
+                    i={order.orderId}
+                    showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                    order={order}
+                    showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                  />
+                </Card>
+              )
+            })}
+            {selectedOrder && (
+              <ModalHowToPay
+                payBank={selectedOrder.bank}
+                key={selectedOrder.orderId}
+                endDatePay={selectedOrder.endDatePay}
+                pay={selectedOrder.payment}
+                indexes={selectedOrder.indexes}
+                paymentInstruction={selectedOrder.paymentInstruction}
+                visible={isHowToShowModalOpen}
+                close={this.toggleIsHowToShowModalOpen}
+              />
+            )}
+          </React.Fragment>)
+        }
+      </React.Fragment>
     );
   }
 }
