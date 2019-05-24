@@ -6,7 +6,6 @@ const StatusAddress = props => {
     <span
       style={{
         float: "right",
-        fontFamily: "Helvetica Neue",
         fontSize: 17
       }}
     >
@@ -47,7 +46,6 @@ const AddressListDetail = props => {
           <p
             style={{
               color: "#888888",
-              fontFamily: "Helvetica Neue",
               fontSize: 14
             }}
           >

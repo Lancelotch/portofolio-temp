@@ -15,7 +15,7 @@
   background: linear-gradient(to right, #00B5B7, #007E80); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
 
 .register .ant-form-item 
-    width: 350px   
+    width: 360px   
 
 .register .has-error .ant-form-explain
     width: 350px
@@ -36,12 +36,11 @@
       margin-bottom: 32px
     &__input
       height: 48px
-    &__input:hover,
-    &__input:focus
-        border-color: #007E80 !important
-        border: 1px solid $primary-color !important
-        border-radius: 4px
-        box-shadow: 0 0 0 0 transparent !important
+    &__input .ant-input:hover,
+    &__input .ant-input:focus
+      border: 1px solid $primary-color !important
+      border-radius: 4px
+      box-shadow: 0 0 0 0 transparent !important
     &__form
       height: 48px
       &__note
@@ -55,11 +54,8 @@
         margin-top: 32px
         height: 48px !important
         width: 360px
-        background: $primary-color !important
-        border: $primary-color !important
       &__button-register:hover,
       &__button-register:focus
-        background: $primary-color-hover !important
         border: 1px solid $primary-color-hover !important
       &__button-register-text
         color: $text-white
@@ -71,8 +67,10 @@
         width: 30%
         background: gray
       &__option-text
-        margin-top: 40px
-        margin-bottom: 32px
+        margin-top: 32px
+        margin-bottom: 10px
+        color: #ADADAD
+        font-size: 16px
       &__socmed-box
         display: flex
         flex-direction: row
@@ -82,13 +80,15 @@
         // height: 48px
       &__direct-login
         color: $text-grey
+        text-align: center
+        font-size: 16px
+        margin: 24px 0 0 0
       &__link
         color: $link-color !important
       &__link-login
         height: 19px
         width: 224px
         color: #F63700
-        font-family: "Helvetica Neue"
         font-size: 16px
         font-weight: bold
         line-height: 19px

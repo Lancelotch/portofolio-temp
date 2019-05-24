@@ -9,9 +9,6 @@ const PaymentInvoice = props => {
   const { payment, endDatePay, onCopy, bank } = props;
   console.log(payment.paymentType);
 
-  const success = () => {
-    // message.success("Copied", 1);
-  };
   return (
     <React.Fragment>
       <Row className="info__payment">
@@ -29,7 +26,7 @@ const PaymentInvoice = props => {
             {strings.payment_pay_before}
           </p>
           <p style={{ color: "#4A4A4A", fontSize: "24px" }}>
-            {convertTimesTime.second(endDatePay)}
+            {convertTimesTime.millisecond(endDatePay)}
           </p>
         </Col>
       </Row>
@@ -46,11 +43,10 @@ const PaymentInvoice = props => {
         </Col>
         <Col md={4} style={{ textAlign: "end" }}>
           <CopyToClipboard text={payment.virtualAccount} onCopy={onCopy}>
-            <Button onClick={success} className="info__bankButton">
+            <Button className="info__bankButton">
               <p>{strings.copy}</p>
             </Button>
           </CopyToClipboard>
-          
         </Col>
       </Row>
     </React.Fragment>
