@@ -159,9 +159,10 @@ class CustomerOderNavigation extends Component {
 
   updateTabNotSent = () => {
     this.setState({
+      productOrderNotYetSent:this.state.productOrderNotYetSent,
       loading: false,
       isShowOrderDetailsDashboard: false
-    });
+    })
     this.productOrderTabsNotYetSent();
   };
 
