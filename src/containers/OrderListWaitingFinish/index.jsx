@@ -4,19 +4,20 @@ import ProductOrder from "../../components/ProductOrder";
 import "../../components/ProductOrder/style.sass";
 // import { apiGetWithToken } from "../../api/services";
 // import { PATH_DASHBOARD_TAB } from "../../api/path";
-import {Card } from "antd";
+import { Card, Spin } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
+import NoOrderHistory from "../../components/NoOrderHistory";
 
 
 
 class OrderListWaitingInDelivery extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     // productOrderFinish: [],
-  //     loading: this.props.loading
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      productOrderFinish: this.props.productOrderFinish,
+      loading: this.props.loading
+    };
+  }
 
   // componentDidMount() {
   //   this.productOrderTabsFinish();
@@ -51,8 +52,13 @@ class OrderListWaitingInDelivery extends Component {
       tabsNotPay,
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
-      tabsNotSent,productOrderFinish } = this.props;
+      tabsNotSent, productOrderFinish } = this.props;
     return (
+      <React.Fragment>
+        {this.state.productOrderFinish.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+            <NoOrderHistory /></Spin>
+          ) : (
             <React.Fragment>
               {productOrderFinish.map((order, i) => {
                 return (
@@ -60,7 +66,7 @@ class OrderListWaitingInDelivery extends Component {
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
-                      <hr className="productOrder__inline" />
+                    <hr className="productOrder__inline" />
                     <WaitingPayment
                       labelFinish={"Pesenan Diterima"}
                       estimateShippingDate={order.estimateShippingDate}
@@ -87,7 +93,9 @@ class OrderListWaitingInDelivery extends Component {
                   </Card>
                 )
               })}
-            </React.Fragment>
+            </React.Fragment>)
+        }
+      </React.Fragment>
     );
   }
 }
