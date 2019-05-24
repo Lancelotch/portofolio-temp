@@ -150,22 +150,37 @@ class CustomerOderNavigation extends Component {
   };
 
   updateTabNotPay = () => {
-    this.productOrderTabsNotYetPay();
+    this.setState({
+      productOrderNotYetPay: [],
+      loading: false
+    }, () => this.productOrderTabsNotYetPay())
   };
 
   updateTabNotSent = () => {
+    this.setState({
+      loading: false
+    });
     this.productOrderTabsNotYetSent();
   };
 
   updateTabInDelivery = () => {
+    this.setState({
+      loading: false
+    })
     this.productOrderTabsInDelivery();
   };
 
   updateTabFinish = () => {
+    this.setState({
+      loading: false
+    })
     this.productOrderTabsFinish();
   };
 
   updateTabCancel = () => {
+    this.setState({
+      loading: false
+    })
     this.productOrderTabsCancel();
   };
 
