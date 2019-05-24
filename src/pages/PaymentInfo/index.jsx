@@ -100,6 +100,7 @@ class PaymentInfoPage extends Component {
                   messageCopy={this.state.messageCopy}
                 />
               }
+              <center style={{color: "red"}}>{this.state.messageCopy}</center>
               <div className="info__dropdownMethod">
                 {paymentInstruction &&
                   <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
