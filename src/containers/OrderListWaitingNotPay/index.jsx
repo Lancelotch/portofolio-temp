@@ -3,7 +3,7 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Modal,Card } from "antd";
+import { Modal, Card } from "antd";
 import { patchService } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
 import WaitingPayment from "../../components/WaitingPayment";
@@ -107,53 +107,57 @@ class OrderListWaitingPayment extends Component {
       productOrderNotYetPay
     } = this.props;
     return (
-            <React.Fragment>
-              {productOrderNotYetPay.map((order, i) => {
-                return (
-                  <Card style={{ marginBottom: 15 }} key={i}>
-                    <ProductOrder
-                      key={order.id}
-                      indexes={order.indexes} />
-                    <hr className="productOrder__inline" />
-                    <WaitingPayment
-                      labelNotPay={"Bayar Sebelum"}
-                      estimateShippingDate={order.estimateShippingDate}
-                      receivedDate={order.receivedDate}
-                      tabsNotPay={1}
-                      key={order.id}
-                      endDatePay={order.endDatePay}
-                      indexes={order.indexes}
-                      pay={order.payment}
-                    />
-                    <Pay
-                      productId={order.indexes}
-                      tabsFinish={tabsFinish}
-                      tabsNotPay={tabsNotPay}
-                      tabsInDelivery={tabsInDelivery}
-                      tabsNotSent={tabsNotSent}
-                      showDeleteConfirm={this.showDeleteConfirm}
-                      orderProduct={productOrderNotYetPay}
-                      i={order.orderId}
-                      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                      order={order}
-                      showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
-                    />
-                  </Card>
-                )
-              })}
-              {selectedOrder && (
-                <ModalHowToPay
-                  payBank={selectedOrder.bank}
-                  key={selectedOrder.orderId}
-                  endDatePay={selectedOrder.endDatePay}
-                  pay={selectedOrder.payment}
-                  indexes={selectedOrder.indexes}
-                  paymentInstruction={selectedOrder.paymentInstruction}
-                  visible={isHowToShowModalOpen}
-                  close={this.toggleIsHowToShowModalOpen}
-                />
-              )}
-            </React.Fragment>
+      <React.Fragment>
+        {productOrderNotYetPay &&
+          <React.Fragment>
+            {productOrderNotYetPay.map((order, i) => {
+              return (
+                <Card style={{ marginBottom: 15 }} key={i}>
+                  <ProductOrder
+                    key={order.id}
+                    indexes={order.indexes} />
+                  <hr className="productOrder__inline" />
+                  <WaitingPayment
+                    labelNotPay={"Bayar Sebelum"}
+                    estimateShippingDate={order.estimateShippingDate}
+                    receivedDate={order.receivedDate}
+                    tabsNotPay={1}
+                    key={order.id}
+                    endDatePay={order.endDatePay}
+                    indexes={order.indexes}
+                    pay={order.payment}
+                  />
+                  <Pay
+                    productId={order.indexes}
+                    tabsFinish={tabsFinish}
+                    tabsNotPay={tabsNotPay}
+                    tabsInDelivery={tabsInDelivery}
+                    tabsNotSent={tabsNotSent}
+                    showDeleteConfirm={this.showDeleteConfirm}
+                    orderProduct={productOrderNotYetPay}
+                    i={order.orderId}
+                    showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                    order={order}
+                    showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                  />
+                </Card>
+              )
+            })}
+            {selectedOrder && (
+              <ModalHowToPay
+                payBank={selectedOrder.bank}
+                key={selectedOrder.orderId}
+                endDatePay={selectedOrder.endDatePay}
+                pay={selectedOrder.payment}
+                indexes={selectedOrder.indexes}
+                paymentInstruction={selectedOrder.paymentInstruction}
+                visible={isHowToShowModalOpen}
+                close={this.toggleIsHowToShowModalOpen}
+              />
+            )}
+          </React.Fragment>
+        }
+      </React.Fragment>
     );
   }
 }

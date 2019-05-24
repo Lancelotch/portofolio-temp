@@ -37,16 +37,19 @@ class CustomerOderNavigation extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.productOrderTabsNotYetPay();
-    //this.productOrderTabsNotYetSent();
-    // this.productOrderTabsInDelivery();
-    // this.productOrderTabsFinish();
-    // this.productOrderTabsCancel();
+    this.interval = setTimeout(() => {
+      this.setState(state => ({ 
+        productOrderNotYetPay: state.productOrderNotYetPay ,
+        loading : !state.loading}));
+    }, 5000);
   };
 
 
+
   componentWillUnmount() {
+    clearTimeout(this.interval);
     this.setState({
       loading: false
     });
