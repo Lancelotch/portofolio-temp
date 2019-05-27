@@ -41,6 +41,8 @@ class SearchPage extends Component {
     const { productList, page, limit, sortBy, direction } = this.state;
     const { location } = this.props;
     const { query } = getParamUrl(location);
+    console.log("ini props",this.props)
+    console.log("ini query", query)
     this.setState({
       query: query
     });
@@ -51,9 +53,9 @@ class SearchPage extends Component {
       direction: direction,
       query: query
     };
+    console.log("ini request",request)
     try {
       const nextProduct = await product.listProductSearch(request);
-
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,

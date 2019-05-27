@@ -15,6 +15,8 @@ import {Link} from "react-router-dom"
 import maskot from "../../assets/img/mascot_monggodesignheroes_2.png"
 import PATH from "../../routers/path"
 import {getMethod} from "../../api/services"
+import history from "../../routers/history"
+import getParamUrl from "../../library/getParamUrl";
 
 class Header extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class Header extends Component {
       openModalLogout: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
-      keyword: this.props.keyword,
+      keyword: "",
       isAuthenticated: this.props.isAuthenticated,
       dropdownShow: null,
       allCategory: [],
@@ -47,7 +49,6 @@ class Header extends Component {
   getAllCategory = async() => {
     try{
       const response = await getMethod(PATH.GET_CATEGORY)
-      console.log("ini category", response)
       this.setState({
         allCategory : [...this.state.allCategory,...response.data]
       })
@@ -147,6 +148,15 @@ class Header extends Component {
     );
   };
 
+  getValue = (value) => {
+    history.push(`/search?q=${value}`)
+  }
+
+  getParams = () => {
+    const {query} = getParamUrl(window.location)
+    return query
+  }
+
  
 
   userMenu = () => (
@@ -211,10 +221,12 @@ class Header extends Component {
                   placeholder={strings.search_place_holder}
                   id="filter"
                   name="q"
-                  value={keyword}
+                  defaultValue={this.getParams()}
+                  onSearch={this.getValue}
                   onChange={this.handleInputSearchChange.bind(this)}
                   className="header__search"
-                />
+                >
+                </Search>
               </form>
             </Col>
             <Col md={6} style={{display: "flex", justifyContent: "flex-end"}}>
