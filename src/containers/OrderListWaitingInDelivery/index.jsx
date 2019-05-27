@@ -4,18 +4,19 @@ import ProductOrder from "../../components/ProductOrder";
 import "../../components/ProductOrder/style.sass";
 // import { apiGetWithToken } from "../../api/services";
 // import { PATH_DASHBOARD_TAB } from "../../api/path";
-import {Card } from "antd";
+import { Card, Spin } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
+import NoOrderHistory from "../../components/NoOrderHistory";
 
 
 class OrderListWaitingFinish extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     // productOrderInDelivery: [],
-  //     loading: this.props.loading
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      productOrderInDelivery: this.props.productOrderInDelivery,
+      loading: this.props.loading
+    };
+  }
 
   // componentDidMount() {
   //   this.productOrderTabsInDelivery();
@@ -48,8 +49,13 @@ class OrderListWaitingFinish extends Component {
       tabsNotPay,
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
-      tabsNotSent,productOrderInDelivery } = this.props;
+      tabsNotSent, productOrderInDelivery } = this.props;
     return (
+      <React.Fragment>
+        {this.state.productOrderInDelivery.length < 1 ?
+          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
+            <NoOrderHistory /></Spin>
+          ) : (
             <React.Fragment>
               {productOrderInDelivery.map((order, i) => {
                 return (
@@ -57,7 +63,7 @@ class OrderListWaitingFinish extends Component {
                     <ProductOrder
                       key={order.id}
                       indexes={order.indexes} />
-                      <hr className="productOrder__inline" />
+                    <hr className="productOrder__inline" />
                     <WaitingPayment
                       labelInDelivery={"Perkiraan barang diterima"}
                       estimateShippingDate={order.estimateShippingDate}
@@ -84,7 +90,9 @@ class OrderListWaitingFinish extends Component {
                   </Card>
                 )
               })}
-            </React.Fragment>
+            </React.Fragment>)
+        }
+      </React.Fragment>
     );
   }
 }

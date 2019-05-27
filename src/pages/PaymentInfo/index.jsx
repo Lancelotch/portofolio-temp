@@ -69,6 +69,7 @@ class PaymentInfoPage extends Component {
 
     const warning = () => {
       Modal.warning({
+        className: "modal-check-status",
         title: strings.payment_modal_ask,
         content: strings.payment_modal_content,
         onOk: this.actionToDashboardCustomer
@@ -97,10 +98,10 @@ class PaymentInfoPage extends Component {
                   endDatePay={endDatePayment}
                   bank={bank}
                   onCopy={this.onCopy}
-                  messageCopy={this.state.messageCopy}
                 />
               }
-              <center style={{color: "red"}}>{this.state.messageCopy}</center>
+              <center style={{color:"red"}}>{this.state.messageCopy}</center>
+              
               <div className="info__dropdownMethod">
                 {paymentInstruction &&
                   <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />

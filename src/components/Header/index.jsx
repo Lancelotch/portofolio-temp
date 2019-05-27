@@ -229,12 +229,13 @@ class Header extends Component {
                 </Search>
               </form>
             </Col>
-            <Col md={6} style={{display: "flex", justifyContent: "flex-end"}}>
-              <img
+            <Col md={6} className="header__icon">
+              <div>
+                <img
                 src={require("assets/img/icon_header.png")}
                 alt="header_icon"
-                className="header__icon"
-              />
+                />
+              </div>
             </Col>
               <Col md={2}>
                 <div className="header__categories">

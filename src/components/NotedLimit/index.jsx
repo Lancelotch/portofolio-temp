@@ -22,8 +22,8 @@ class NotedLimit extends Component {
             )
           }
           maxLength={255}
-          rows={4}
           placeholder="Contoh : warna, ukuran, dll."
+          autosize={{minRows:4, maxRows:4}}
         />
         <p
           style={{
