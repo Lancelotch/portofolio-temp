@@ -165,7 +165,7 @@ class Login extends Component {
                 <p style={{ marginTop: '70px', textAlign:"center" }}>
                   {strings.formatString(
                     strings.login_quote,
-                    <Link to={{ pathname: "/register", state: { nextPage: "/" } }}  className='login-form__register'>
+                    <Link to={{ pathname: "/register", state: { nextPage: "/" } }} onClick={this.clearErrorMessage}  className='login-form__register'>
                       {strings.login_register}{' '}
                     </Link>
                   )}
