@@ -73,7 +73,6 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push(path)
   } catch (error) {
-    console.log(error)
     if(error.data){
       if(error.data.errors){
         const msg = error.data.errors[0].defaultMessage
@@ -97,7 +96,6 @@ export const loginWithForm = (history, request, nextPage = "/") => async dispatc
     localStorage.setItem('refreshToken', expiredToken)
     history.push(nextPage);
   } catch (error) {
-    console.log(error)
     dispatch(dispatchType.loginWithForm(error))
   }
 }
@@ -113,10 +111,8 @@ export const registerForm = (history, request, path) => async dispatch => {
     localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    console.log("ini path",path)
     history.push(path);
   } catch (error) {
-    console.log(error)
     dispatch(dispatchType.registerFailed(error.data.message))
   }
 }
