@@ -21,12 +21,14 @@ class ConfirmationEmail extends Component {
   componentDidMount() {
     const idConfirmation = this.props.match.params.idConfirmation;
     this.requestActivation(idConfirmation);
-    this.getCustomerName()
+    // this.getCustomerName()
   }
 
   requestActivation = async (idConfirmation) =>{
+    console.log(idConfirmation)
     try{
       const response = await this.props.activatingUser(idConfirmation)
+      console.log("===",response)
     }catch(error){
       console.log(error);
     }
