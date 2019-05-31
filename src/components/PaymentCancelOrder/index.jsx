@@ -10,8 +10,6 @@ const PaymentCancelOrder = props => {
     cancelBy,
     cancelDate
   } = props;
-  console.log('teeeeeeeescancel',props);
-  
   return (
     <React.Fragment>
       <div className="paymentCancelOrder" key={""}>

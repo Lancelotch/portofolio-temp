@@ -3,93 +3,20 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Modal, Card, Spin } from "antd";
-import { patchService } from "../../api/services";
-import { PATH_ORDER } from "../../api/path";
+import { Card } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
-import NoOrderHistory from "../../components/NoOrderHistory";
 
-
-const confirm = Modal.confirm;
 
 class OrderListWaitingPayment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isHowToShowModalOpen: false,
-      stateCancelOrder: [],
       orderId: null,
-      loading: this.props.loading,
-      selectedOrder: null,
-      productOrderNotYetPay: this.props.productOrderNotYetPay
-      // bank: null,
-      // paymentInstruction: null
-    };  
-  }
-  // componentDidMount() {
-  //    this.setState({
-  //      productOrderNotYetPay : this.state.productOrderNotYetPay
-  //    })
-  //  }
-
-  // productOrderTabsNotYetPay = async () => {
-  //   this.setState({ loading: true });
-  //   try {
-  //     const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
-  //     const productOrderTabsNotYetPay = {
-  //       bank: response.data.data,
-  //       productOrderNotYetPay: response.data.data,
-  //       paymentInstruction: response.data.data
-  //     };
-  //     this.setState({
-  //       ...productOrderTabsNotYetPay
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     this.setState({ loading: false });
-  //   }
-  // };
-
-  actionCancelConfirm = async (index) => {
-    console.log('actioncancelconfirm', index);
-
-    try {
-      const orderId = {
-        orderId: index
-      }
-      const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // componentWillUnmount() {
-  //   this.setState({
-  //     loading: false
-  //   });
-  // };
-
-  showDeleteConfirm = (allOrder, index) => {
-    confirm({
-      iconClassName: "iconWaitingPaymentCancel",
-      title: "Anda yakin ingin membatalkan pesanan?",
-      content: "Pesanan yang anda buat akan kami batalkan",
-      okText: "Batalkan",
-      okType: "danger",
-      cancelText: "Kembali",
-      centered: true,
-      onOk: () => {
-        const cancelOrder = allOrder.splice(index, 1)
-        const newOrder = [...allOrder]
-        this.setState({
-          productorder: newOrder,
-          stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
-        })
-        console.log(index)
-        this.actionCancelConfirm(index);
-      },
-    });
+      selectedOrder: null
+    }    
   };
+
 
   toggleIsHowToShowModalOpen = order => {
     this.setState({
@@ -107,15 +34,10 @@ class OrderListWaitingPayment extends Component {
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
       tabsNotSent,
-      productOrderNotYetPay
+      productOrderNotYetPay,
+      showDeleteConfirm
     } = this.props;
     return (
-      <React.Fragment>
-        {productOrderNotYetPay.length < 1 ?
-          (<Spin tip="Loading..." spinning={this.state.loading} delay={500}>
-            <NoOrderHistory />
-          </Spin>
-          ) : (
           <React.Fragment>
             {productOrderNotYetPay.map((order, i) => {
               return (
@@ -140,7 +62,7 @@ class OrderListWaitingPayment extends Component {
                     tabsNotPay={tabsNotPay}
                     tabsInDelivery={tabsInDelivery}
                     tabsNotSent={tabsNotSent}
-                    showDeleteConfirm={this.showDeleteConfirm}
+                    showDeleteConfirm={showDeleteConfirm}
                     orderProduct={productOrderNotYetPay}
                     i={order.orderId}
                     showHowToModalPayment={this.toggleIsHowToShowModalOpen}
@@ -162,9 +84,7 @@ class OrderListWaitingPayment extends Component {
                 close={this.toggleIsHowToShowModalOpen}
               />
             )}
-          </React.Fragment>)
-        }
-      </React.Fragment>
+          </React.Fragment>
     );
   }
 }

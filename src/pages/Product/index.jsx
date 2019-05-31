@@ -5,7 +5,7 @@ import "sass/style.sass";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import "./style.sass";
-import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
+import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct/";
 
@@ -94,10 +94,10 @@ class ProductPage extends Component {
     // );
     return (
       <div style={{ marginTop: 15 }}>
-        <div style={{ 
-          display: "flex", 
-          justifyContent: "flex-end", 
-          marginBottom: 15 
+        <div style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: 15
         }}>
           <SortListProduct onChange={this.onChangeSort} />
         </div>
@@ -112,9 +112,17 @@ class ProductPage extends Component {
             </div>
           }
         >
-          <Suspense fallback={<SkeletonProduct count={20} />}>
-            <Products productList={productList} />
-          </Suspense>
+          <div style={{ marginTop: 35 }}>
+            <Suspense fallback={
+              <SkeletonCustom
+                count={20}
+                height={300}
+                leftMargin={13}
+                topMargin={15}
+                rightMargin={13} />}>
+              <Products productList={productList} />
+            </Suspense>
+          </div>
         </InfiniteScroll>
       </div>
     );
@@ -124,7 +132,12 @@ class ProductPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-        <SkeletonProduct count={20} />
+        <SkeletonCustom
+          count={20}
+          height={300}
+          leftMargin={13}
+          topMargin={15}
+          rightMargin={13} />
       );
   };
 

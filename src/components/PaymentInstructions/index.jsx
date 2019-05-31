@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse } from "antd";
+import { Collapse, Spin } from "antd";
 
 const PaymentInstructions = props => {
   const { paymentInstruction } = props;

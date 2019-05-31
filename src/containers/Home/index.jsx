@@ -18,8 +18,6 @@ import { PATH_PRODUCT } from "../../api/path";
 
 
 class HomePageContainer extends Component {
-
-
   render() {
     return (
       <React.Fragment>
@@ -29,57 +27,31 @@ class HomePageContainer extends Component {
             <Row type="flex" justify="center">
               <Benefit />
             </Row>
-            <div>
-              <h1 style={{ marginLeft: "48px" }}>{strings.most_searched}</h1>
-              <Row
-                type="flex"
-                justify="center"
-                style={{ marginBottom: "24px" }}
-              >
-                <Fetcher path={PATH_PRODUCT.PRODUCT_POPULAR}>
-                  <PopularProducts {...this.props} maxNumber={4} />
-                </Fetcher>
-              </Row>
-            </div>
-            <Row>
-              <Col>
-                <div className="bestSellerBackground ">
-                  <Row>
-                    <Col md={3}>
-                      <div className="best__box">
-                        <span className="best__fontOne">{strings.best}</span>
-                        <span className="best__fontTwo">{strings.seller}</span>
-                        <button className="best__button">{strings.see_more}</button>
-                      </div>
-                    </Col>
-                    <Col md={20}>
-                      <div style={{ paddingLeft: "120px" }}>
-                        <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
-                          <BestSellers {...this.props} maxNumber={4}></BestSellers>
-                        </Fetcher>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
-            <Row >
-              <Link to='/'>
-                <img className='inspiration-box' src={Inspiration_1} alt="" />
-              </Link>
-            </Row>
+            <Fetcher path={PATH_PRODUCT.PRODUCT_POPULAR}>
+              <PopularProducts {...this.props} maxNumber={4} />
+            </Fetcher>
+            <Col md={24}>
+              <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
+                <BestSellers {...this.props} maxNumber={4}></BestSellers>
+              </Fetcher>
+            </Col>
+            <Link to='/'>
+              <img className='inspiration-box' src={Inspiration_1} alt="" />
+            </Link>
             <div className="recomendation-box">
-              <h1>{strings.recommendation_product}</h1>
+              <h2 style={{ marginLeft: 48, fontSize: 30 }}>
+                {strings.recommendation_product}
+              </h2>
               <Row type="flex" justify="center">
                 <div
                   style={{
-                    marginBottom: "20px",
-                    width: "1130px",
+                    marginBottom: 20,
+                    width: 1130,
                   }}
-                >  
-                    <Fetcher path={PATH_PRODUCT.PRODUCT_RECOMMENDATION}>
-                        <ClickProducts {...this.props} /> 
-                    </Fetcher>
+                >
+                  <Fetcher path={PATH_PRODUCT.PRODUCT_RECOMMENDATION}>
+                    <ClickProducts {...this.props} />
+                  </Fetcher>
                 </div>
               </Row>
             </div>
@@ -92,7 +64,7 @@ class HomePageContainer extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
-  checkError : state.authentication.checkError
+  checkError: state.authentication.checkError
 });
 
 export default connect(mapStateToProps)(HomePageContainer);

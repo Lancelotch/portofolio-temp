@@ -112,6 +112,7 @@ class OrderDetailsDashboard extends Component {
                                     <ProductOrderDetails
                                         invoiceNumber={this.state.invoiceNumber}
                                         label="Detail Pesenan"
+                                        note={index.note}
                                         key={index.id}
                                         orderId={this.state.orderId}
                                         tabsInDelivery={tabsInDelivery}

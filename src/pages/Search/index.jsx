@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import "sass/style.sass";
 import "./style.sass";
 
-//const Products = React.lazy(() => import("../../components/Products"));
+//const Products = React.lazy(() => import("../../components/Products")); 
 
 class SearchPage extends Component {
   render() {
+    console.log("ini props search",this.props)
     return (
       <React.Fragment>
             <Row>

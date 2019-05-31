@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Affix,Checkbox } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Affix } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
@@ -102,7 +102,6 @@ class Login extends Component {
   };
 
   render() {
-    // console.log("ini login",this.state.nextPage)
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -224,7 +223,8 @@ class Login extends Component {
                     {strings.formatString(
                       strings.login_quote,
                       <Link
-                      style={{color:"#F63700"}}
+                        style={{color:"#F63700"}}
+                        onClick={this.clearErrorMessage}
                         to={{
                           pathname: "/register",
                           state: { nextPage: this.state.nextPage }
