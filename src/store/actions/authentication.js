@@ -136,7 +136,7 @@ export const activatingUser = (request) => async dispatch => {
     console.log(url)
     // console.log(api)
     const responseActivatingUser = await apiGetWithoutToken(url);
-    console.log(responseActivatingUser)
+    console.log("xxx",responseActivatingUser)
     // dispatch(dispatchType.activationUser(responseActivatingUser));
     //history.push("/");
   } catch (error) {

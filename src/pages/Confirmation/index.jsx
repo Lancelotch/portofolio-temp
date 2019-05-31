@@ -6,29 +6,52 @@ import "../../sass/style.sass";
 import logo from "../../assets/img/monggopesen_logo.png"
 import ilustration from "../../assets/img/ic_background/illustration_pesenajadulu.png"
 import "./style.sass"
+import customer from "../../api/services/customer"
+import history from "../../routers/history"
 
 class ConfirmationEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEmailConfirmed: false
+      isEmailConfirmed: false,
+      customerName: ""
     };
   }
 
   componentDidMount() {
     const idConfirmation = this.props.match.params.idConfirmation;
     this.requestActivation(idConfirmation);
+    // this.getCustomerName()
   }
 
   requestActivation = async (idConfirmation) =>{
+    console.log(idConfirmation)
     try{
       const response = await this.props.activatingUser(idConfirmation)
+      console.log("===",response)
     }catch(error){
       console.log(error);
     }
   }
 
+  toHome = () => {
+    history.push("/")
+  }
+
+  getCustomerName = async() => {
+    try{
+      const dataCostumer = await customer.customerDetail()
+      const name = dataCostumer.data.name
+      this.setState({
+        customerName : name
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   render() {
+    const { customerName } = this.state
     return (
       <React.Fragment>
         <div className="container">
@@ -42,7 +65,7 @@ class ConfirmationEmail extends Component {
                   <Row>
                     <Col span={24}>
                       <div className="container__head">
-                        Hi, Smart People
+                        Hi, {customerName  ? customerName : ""}
                       </div>
                     </Col>
                     <br/>
@@ -73,7 +96,7 @@ class ConfirmationEmail extends Component {
               </Row>
               <Row>
                 <Col>
-                  <Button className="container__button color-button"><div className="container__textButton">Mulai Belanja</div></Button>
+                  <Button onClick={this.toHome} className="container__button color-button"><div className="container__textButton">Mulai Belanja</div></Button>
                 </Col>
               </Row>
             </div>

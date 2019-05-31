@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Input, Icon, notification } from "antd";
+import { Row, Col, Input, Icon, notification, Form } from "antd";
 import { Link } from "react-router-dom";
 import category from "../../api/services/category";
 import "./style.sass";
@@ -13,6 +13,10 @@ import instagram from "../../assets/img/ic_instagram.png";
 import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
 import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
+import {rulesEmail} from "../../pages/Register/registerContainer"
+import monggopesen_logo from "../../assets/img/monggopesen_logo.png"
+
+const FormItem = Form.Item;
 
 class Footer extends Component {
   constructor(props) {
@@ -34,32 +38,39 @@ class Footer extends Component {
     });
   };
 
-  handleSubmit = async e => {
-    const { email } = this.state;
-    try {
-      const response = await category.subscription({
-        email: email
-      });
-      this.setState({
-        SubsResponse: response.data,
-        showNotification: !this.state.showNotification
-      });
-      this.openNotification();
-      this.setState({
-        email: ""
-      });
-    } catch (error) {
-      // console.log(error);
-    }
+  handleSubmit =  e => {
+    e.preventDefault()
+    const {validateFields,resetFields} = this.props.form
+    validateFields(async(err,values) => {
+      if(!err){
+        try {
+          const response = await category.subscription({
+            email: values.email
+          });
+          this.setState({
+            SubsResponse: response.data,
+            showNotification: !this.state.showNotification
+          });
+          this.openNotification();
+          resetFields()
+          console.log("==",response)
+        }catch (error) {
+          console.log(error);
+        }
+      }
+    })
+    
+    
   };
 
   openNotification = async () => {
     const { SubsResponse, showNotification } = this.state;
     if (SubsResponse === true && showNotification === true) {
-      notification.open({
+      notification.success({
         message: "Selamat",
         description: "sekarang kamu bisa dapetin update dari kita",
-        icon: <Icon type="smile" style={{ color: "#108ee9" }} />
+        // icon: <Icon type="smile" style={{ color: "#108ee9" }} />
+        icon :<Icon type="check-circle" />
       });
     } else {
       return null;
@@ -67,7 +78,7 @@ class Footer extends Component {
   };
 
   render() {
-    const { email } = this.state;
+    const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
         <div className="backgroundFooter">
@@ -142,26 +153,39 @@ class Footer extends Component {
                     <Col md={24}>
                       <div className="footer__invitation">
                         <p>{strings.subscripton_invitation}</p>
-                        <Input
-                          className="footer__input"
-                          prefix={
-                            <Icon
-                              type={"mail"}
-                              style={{ color: "rgba(0,0,0,.25)" }}
-                            />
-                          }
-                          placeholder="Email"
-                          value={email}
-                          name="email"
-                          onChange={this.onChange}
-                        />
-                        <button
-                          className="footer__button"
-                          type="submit"
-                          onClick={this.handleSubmit}
-                        >
-                          {strings.send}
-                        </button>
+                        
+                        <Form onSubmit={this.handleSubmit}>
+                          <Row>
+                            <Col md={20}>
+                              <FormItem>
+                                {getFieldDecorator("email", rulesEmail())(
+                                  <Input
+                                  className="footer__input"
+                                  prefix={
+                                    <Icon
+                                      type={"mail"}
+                                      style={{ color: "rgba(0,0,0,.25)" }}
+                                    />
+                                  }
+                                  placeholder="Email"
+                                  name="email"
+                                  // onChange={this.onChange}
+                                  />
+                                )}
+                              </FormItem>
+                            </Col>
+                            <Col md={4}>
+                            <FormItem>
+                              <button
+                                className="footer__button"
+                                type="submit"
+                              >
+                                {strings.send}
+                               </button>
+                            </FormItem>
+                            </Col>
+                          </Row> 
+                        </Form>
                       </div>
                     </Col>
                     <Col md={24}>
@@ -190,4 +214,6 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+
+const FooterForm = Form.create({})(Footer);
+export default FooterForm;

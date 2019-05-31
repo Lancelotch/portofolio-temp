@@ -227,11 +227,11 @@ class FormAddAddress extends Component {
         ]}
       >
         <Form onSubmit={this.handleSubmit}>
-          <Form.Item label="Nama Alamat" help="Contoh: Rumah, Kantor, Kost dll">
+          <Form.Item label="Nama Alamat">
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat")
-            )(<Input placeholder="Nama Alamat" />)}
+            )(<Input placeholder="Contoh: Rumah, Kantor, Kost dll" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
             {getFieldDecorator(
@@ -243,7 +243,7 @@ class FormAddAddress extends Component {
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu")
-            )(<Input addonBefore={prefixSelector} style={{ width: "100%" }} placeholder="08xxx" />)}
+            )(<Input style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(

@@ -17,6 +17,7 @@ const ORDER_SUMMARY = '/order-summary';
 const GET_CATEGORY = '/category'
 const PAYMENT_INFO = '/payment-info/:paymentId';
 const NOT_FOUND_PAGE = '*';
+const CONFIRMATION_ERROR = '/confirmation';
 
 
 const PATH_URL = {
@@ -39,6 +40,7 @@ const PATH_URL = {
     ORDER_SUMMARY: ORDER_SUMMARY,
     PAYMENT_INFO: PAYMENT_INFO,
     GET_CATEGORY: GET_CATEGORY,
+    CONFIRMATION_ERROR: CONFIRMATION_ERROR
 }
 
 export default PATH_URL;
