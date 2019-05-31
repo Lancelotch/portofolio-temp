@@ -52,7 +52,7 @@ const benefit = () => {
 
 const subscription = request => {
     return new Promise((resolve, reject) => {
-        serviceWithToken()
+        serviceWithoutToken()
             .request({
                 method: 'POST',
                 url: PATH_HOME.HOME_SUBSCRIPTION,

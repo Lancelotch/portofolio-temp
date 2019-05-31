@@ -16,6 +16,7 @@ import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
+import ConfirmationError from "../pages/ConfirmationError";
 
 const routes = [
   {
@@ -99,12 +100,17 @@ const routes = [
   {
     path: PATH_URL.PAYMENT_FAILED,
     component: FailedPayment,
+  },
+  {
+    path: PATH_URL.CONFIRMATION_ERROR,
+    component: ConfirmationError,
     layoutName: "fullLayout"
   },
   {
     path: PATH_URL.NOT_FOUND_PAGE,
     component: NotFoundPage
   }
+    
 ];
 
 export default routes;
