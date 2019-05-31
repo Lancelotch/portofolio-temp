@@ -5,8 +5,22 @@ import currencyRupiah from "../../library/currency";
 import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
 import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 
+function compareShipping(a, b) {
+  if (a.via < b.via) {
+    return -1;
+  }
+  if (a.via > b.via) {
+    return 1;
+  }
+  return 0;
+}
+
 export const SelectShipping = props => {
   const { shipping, selected, onChangeSelected } = props;
+  shipping.sort(compareShipping);
+
+  console.log("ini select shipping", shipping);
+
   return (
     <React.Fragment>
       {shipping.length > 0 && (
@@ -30,19 +44,17 @@ export const SelectShipping = props => {
                   />
                 </Col>
                 <Col md={16} className="shipping-text">
-                  {/* {ship.id} */}
                   <p className="text-selected">
                     {ship.estimation.charAt(0).toUpperCase() +
                       ship.estimation.substring(1)}
-                      <br/>
+                    <br />
                     <span className="price-selected">
                       {ship.via === "Laut"
-                        ? "Ongkir Termasuk"
+                        ? "Ongkir Sudah Termasuk"
                         : currencyRupiah(ship.price)}
                     </span>
                   </p>
                 </Col>
-                {/* <p className="price">{ ship.via ===  'Laut' ?  'Harga sudah termasuk' : currencyRupiah(ship.price) }</p> */}
               </Row>
             </div>
           ))}
