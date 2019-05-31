@@ -137,10 +137,11 @@ export const activatingUser = (request) => async dispatch => {
     // console.log(api)
     const responseActivatingUser = await apiGetWithoutToken(url);
     console.log("xxx",responseActivatingUser)
-    // dispatch(dispatchType.activationUser(responseActivatingUser));
+    dispatch(dispatchType.activationUser(responseActivatingUser));
     //history.push("/");
   } catch (error) {
-    console.log("=====",error);
+    console.log("ini error di redux activatinguser",error);
+    dispatch(dispatchType.activationError(error))
   }
 };
 

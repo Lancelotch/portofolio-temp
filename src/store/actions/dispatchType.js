@@ -7,6 +7,12 @@ const activationUser = authData => {
   };
 };
 
+const activationError = () => {
+  return {
+    type : TYPE.ACTIVATION_ERROR
+  }
+}
+
 const registerWithForm = authData => {
   return {
     type: TYPE.REGISTER_WITH_FORM,
@@ -126,7 +132,8 @@ const dispatchType = {
   openModal: openModal,
   closeModal: closeModal,
   getCustomerName: getCustomerName,
-  clearError: clearError
+  clearError: clearError,
+  activationError: activationError
 };
 
 export default dispatchType;

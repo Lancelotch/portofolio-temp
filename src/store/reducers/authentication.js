@@ -9,7 +9,8 @@ const initialState = {
     isAuthenticated: false,
     messageError: '',
     statusModal: false,
-    customerName: ''
+    customerName: '',
+    activated: false
 }
 
 
@@ -79,7 +80,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 auth: action.payload,
-                isAuthenticated: true
+                isAuthenticated: true,
+                activated: true
+            }
+        case TYPE.ACTIVATION_ERROR: 
+            return {
+                ...state,
+                activated: false,
+                error : action.payload
             }
         case TYPE.OPEN_MODAL:
             return {
