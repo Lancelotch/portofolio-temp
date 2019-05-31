@@ -280,7 +280,6 @@ class Checkout extends Component {
           onPending: function (result) {
             let order = result.order_id
             console.log(order);
-
             history.push({
               pathname: pageUrlPaymentInfo + order,
               state: { detail: result }
@@ -288,7 +287,7 @@ class Checkout extends Component {
           },
           onError: function (result) {
             console.log("error");
-            console.log(result);
+            console.log('eeeeor snap',result);
           },
           onClose: function () {
             console.log(

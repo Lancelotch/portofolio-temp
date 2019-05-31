@@ -3,6 +3,7 @@ import category from '../../api/services/category'
 import { Carousel, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import './style.sass'
+import Skeleton from "react-loading-skeleton";
 
 class SliderHome extends Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class SliderHome extends Component {
           <Col md={24}>
             <div className="sliderHome" style={{ marginTop: 10 }}>
               <Carousel autoplay {...settings}>
-                {slides}
+                {this.state.sliderImages.length < 1 ? (<Skeleton width={"100%"} height={376}/>):(slides)}
               </Carousel>
             </div>
           </Col>

@@ -6,7 +6,7 @@ import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import "./style.sass";
-import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
+import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import getParamUrl from "../../library/getParamUrl";
 import SortListProduct from "../../components/SortListProduct/";
@@ -121,7 +121,12 @@ class SearchPage extends Component {
           }
         >
           <div style={{ marginTop: 35 }}>
-            <Suspense fallback={<SkeletonProduct count={20} />}>
+            <Suspense fallback={
+              <SkeletonCustom
+                count={20}
+                height={300}
+                leftMargin={13}
+                rightMargin={13} />}>
               <Products productList={productList} />
             </Suspense>
           </div>
@@ -134,7 +139,12 @@ class SearchPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-        <SkeletonProduct count={20} />
+        <SkeletonCustom
+          count={20}
+          height={300}
+          leftMargin={13}
+          topMargin={15}
+          rightMargin={13} />
       );
   };
 

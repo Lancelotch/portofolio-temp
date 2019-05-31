@@ -1,19 +1,19 @@
 const millisecond = datetimestamp => {
     var dt = new Date(datetimestamp * 1);
-    var date = dt.getDate();
-    var month = dt.getMonth();
+    var date = "0" + dt.getDate();
+    var month = "0" + dt.getMonth();
     var year = dt.getFullYear();
-    var hr = dt.getHours();
+    var hr = "0" + dt.getHours();
     var m = "0" + dt.getMinutes();
     var s = "0" + dt.getSeconds();
     return (
-        date +
+        date.substr(-2) +
         "-" +
-        month +
+        month.substr(-2) +
         "-" +
         year +
         " " +
-        hr +
+        hr.substr(-2) +
         ":" +
         m.substr(-2) +
         ":" +

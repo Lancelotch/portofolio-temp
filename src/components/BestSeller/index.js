@@ -7,7 +7,6 @@ import { pageUrlProductDetail } from "../../library/url";
 
 const BestSeller = props => {
   const {  name, urlImage, price,id } = props.product;
-
   const priceRp = currencyRupiah(price);
   return (
     <div className="best-card">

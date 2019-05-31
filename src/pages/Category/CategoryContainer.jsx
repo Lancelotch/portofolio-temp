@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import {BackTop } from "antd";
+import { BackTop } from "antd";
 import { connect } from "react-redux";
 // import Header from "components/Header";
 import "sass/style.sass";
@@ -7,7 +7,7 @@ import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import "./style.sass";
-import SkeletonProduct from "../SkeletonProduct/SkeletonProduct";
+import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct/";
 import Category from "./";
@@ -144,7 +144,13 @@ class CategoryPage extends Component {
           endMessage={<BackTop />}
         >
           <div style={{ marginTop: 35 }}>
-            <Suspense fallback={<SkeletonProduct count={20} />}>
+            <Suspense fallback={
+              <SkeletonCustom
+                count={20}
+                height={300}
+                leftMargin={13}
+                rightMargin={13}
+                topMargin={15} />}>
               <Products productList={productList} />
             </Suspense>
           </div>
@@ -157,7 +163,13 @@ class CategoryPage extends Component {
     return this.state.isProductAvailable ? (
       this.infiniteScroll()
     ) : (
-        <SkeletonProduct count={20} />
+        <SkeletonCustom
+          count={20}
+          height={300}
+          leftMargin={13}
+          topMargin={15}
+          rightMargin={13}
+        />
       );
   };
 

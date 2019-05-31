@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import { Divider, Button, Modal } from "antd";
+import { Divider, Button, Modal, Spin } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
@@ -19,7 +19,8 @@ class PaymentInfoPage extends Component {
       payment: null,
       endDatePayment: null,
       bank: {},
-      copied: false
+      copied: false,
+      isLoading: true
     };
   }
 
@@ -28,13 +29,14 @@ class PaymentInfoPage extends Component {
     this.getPaymentInfo();
   }
 
+
   getPaymentInfo = async () => {
     const paymentId = this.props.match.params.paymentId;
     try {
       const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)
-      console.log('paymeeent info', response);
       const payment = response.data.data;
       this.setState({
+        isLoading: false,
         paymentInstruction: payment.paymentInstruction,
         endDatePayment: payment.endDatePayment,
         payment: payment.payment,
@@ -43,6 +45,9 @@ class PaymentInfoPage extends Component {
       });
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: true
+      })
     }
   };
 
@@ -63,10 +68,7 @@ class PaymentInfoPage extends Component {
   }
 
   render() {
-    console.log(this.state.paymentInstruction);
-
-    const { payment, endDatePayment, bank, paymentInstruction } = this.state;
-
+    const { payment, endDatePayment, bank } = this.state;
     const warning = () => {
       Modal.warning({
         className: "modal-check-status",
@@ -77,6 +79,8 @@ class PaymentInfoPage extends Component {
     };
     return (
       <div className="container">
+      {this.state.isLoading ? (<Spin spinning={this.state.isLoading} tip="Loading..."/>) :
+      <React.Fragment>
         <div className="top-header">
           <span>{strings.payment_info_sentence}</span>
         </div>
@@ -101,11 +105,8 @@ class PaymentInfoPage extends Component {
                 />
               }
               <center style={{color:"red"}}>{this.state.messageCopy}</center>
-              
               <div className="info__dropdownMethod">
-                {paymentInstruction &&
-                  <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
-                }
+                  <PaymentInstructions paymentInstruction={this.state.paymentInstruction} /> 
               </div>
               <div>
                 <Button className="info__button" onClick={warning}>
@@ -115,6 +116,8 @@ class PaymentInfoPage extends Component {
             </div>
           </div>
         </div>
+        </React.Fragment>
+       }
       </div>
     );
   }

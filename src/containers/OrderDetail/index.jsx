@@ -79,7 +79,7 @@ class OrderDetailContainer extends Component {
                       />
                     </div>
                   </Col>
-                  <Col md={14}>
+                  <Col md={13}>
                     <h2 className="detail__product-name">{name}</h2>
                     {/* <Row>
                       <Col span={6}>Variant</Col>
@@ -95,7 +95,7 @@ class OrderDetailContainer extends Component {
                         {this.variants(sku.variants)}
                       </Row>
                   </Col>
-                  <Col md={5}>
+                  <Col md={6}>
                     <h2 className="detail__price">
                       {currencyRupiah(totalProductPrice)}
                     </h2>

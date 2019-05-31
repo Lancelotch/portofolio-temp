@@ -47,7 +47,6 @@ class Header extends Component {
   getAllCategory = async() => {
     try{
       const response = await getMethod(PATH.GET_CATEGORY)
-      console.log("ini category", response)
       this.setState({
         allCategory : [...this.state.allCategory,...response.data]
       })
