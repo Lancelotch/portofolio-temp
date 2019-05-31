@@ -7,7 +7,7 @@ import currencyRupiah from "../../library/currency";
 import convertTimestime from "../../library/convertTimestime";
 
 const PaymentInvoice = props => {
-  const { grossAmount, endDatePay, virtualAccount, imageBank, onCopy } = props;
+  const { grossAmount, endDatePay, virtualAccount, onCopy } = props;
   const success = () => {
     message.success("Copied", 0.5);
   };

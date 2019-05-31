@@ -17,7 +17,8 @@ const ProductOrderDetails = props => {
       tabsInDelivery,
       tabsNotSent,
       tabsFinish,
-      orderId
+      orderId,
+      note
     } = props;
   return (
     <Card>
@@ -55,20 +56,27 @@ const ProductOrderDetails = props => {
           />
         </Col>
         <Col md={17}>
-          <h2 style={{ marginBottom: 0 }}>{productName}</h2>
-          <p className="productOrder__variant">
-            Varian :
-             {variants[0].name.charAt(0).toUpperCase() +
-              variants[0].name.substring(1)} : {variants[0].value},
-            &nbsp;
-             {variants[1].name.charAt(0).toUpperCase() +
-              variants[1].name.substring(1)} : {variants[1].value}
+          <h2 style={{ marginBottom: 0 }}> {productName} </h2>
+          <p className="productOrder__variant" style={{ marginBottom: 10 }}>
+            {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
+           {variants[0].name.charAt(0).toUpperCase() +
+              variants[0].name.substring(1)}&nbsp;
+            {variants[0].value},&nbsp;
+           {variants[1].name.charAt(0).toUpperCase() +
+              variants[1].name.substring(1)}
+            {variants[1].value}
           </p>
-          <p className="productOrder__quantity">{strings.total} : {productQuantity} pcs</p>
+          {note &&
+            <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
+        {note.charAt(0).toUpperCase() + note.substring(1)}</p>
+          }
+          <p className="productOrder__quantity">
+            {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{productQuantity} pcs
+        </p>
         </Col>
         <Col md={5} style={{ marginTop: 60 }} />
       </Row>
-    </Card>
+    </Card >
   );
 };
 

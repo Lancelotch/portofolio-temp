@@ -4,6 +4,7 @@ import { Card, Icon, Carousel } from "antd";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
+import SkeletonCustom from "../Skeleton";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -63,7 +64,9 @@ const SamplePrevArrow = props => {
 class ClickProducts extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      products: this.props.products
+    };
   }
 
   render() {
@@ -113,9 +116,17 @@ class ClickProducts extends Component {
       );
     });
 
+
     return (
       <div className="sliderClickProducts">
-        <Carousel {...settings}>{slides}</Carousel>
+        {products.length < 1 ? (
+          <SkeletonCustom 
+          count={4}   
+          height={300} 
+          leftMargin={13} 
+          rightMargin={13}  />) :
+          (<Carousel {...settings}>{slides}</Carousel>)
+        }
       </div>
     );
   }

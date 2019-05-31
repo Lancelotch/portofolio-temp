@@ -17,6 +17,8 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    oh_no: 'Oh no!',
+    back: 'Kembali',
     cancel_order_by : 'Pesenan dibatalan oleh',
     buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
@@ -36,6 +38,7 @@ const strings = new LocalizedStrings({
     pay: "Bayar",
     total: "Jumlah",
     note: "Catatan",
+    varian: 'Varian',
     sub_total: "Sub Total",
     real_total: "Total",
     price_product: "Harga Product",
@@ -54,10 +57,14 @@ const strings = new LocalizedStrings({
     riwayat_order: " Tidak ada Riwayat Pesenan",
 
 
+    //FailedPaymentPage
+    text_failed_payment : 'Sepertinya ada kesalahan di dalam sistem kami, silahkan menunggu beberapa saat dan mencoba kembali.',
+    text_cancel_payment: 'Pembayaran anda telah dibatalkan.',
+
     //NotFoundPage
-     not_found_text:' Maaf, halaman yang kamu tuju tidak ditemukan.',
+     not_found_text:' Halaman Tidak Ditemukan',
      not_found_number:'404',
-     not_found_back: 'Periksa kembali link yang ingin kamu tuju atau kembali ke',
+     not_found_back: 'Maaf, kami tidak bisa menemukan halaman yang anda tuju.',
 
     //SearchContainer
     paragraph_search: 'Gunakan kata pencarian lain untuk melakukan mencari produk yang anda maksudkan atau masuk ke halaman',

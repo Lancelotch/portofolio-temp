@@ -15,6 +15,7 @@ import notRequiredAuth from "../hoc/notRequiredAuth";
 import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
+import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 
 const routes = [
@@ -95,6 +96,10 @@ const routes = [
     path: PATH_URL.DASHBOARD_CUSTOMER,
     component: requiredAuth(CustomerNavigation),
     layoutName: "customerLayout"
+  },
+  {
+    path: PATH_URL.PAYMENT_FAILED,
+    component: FailedPayment,
   },
   {
     path: PATH_URL.CONFIRMATION_ERROR,

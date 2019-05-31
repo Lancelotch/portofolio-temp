@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
 import "./style.sass";
 import strings from '../../localization/localization';
 import error_404 from '../../assets/img/ic_background/404.png'
