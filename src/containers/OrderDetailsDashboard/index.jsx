@@ -7,6 +7,7 @@ import { PATH_ORDER } from "../../api/path";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
+import { Spin } from 'antd';
 
 class OrderDetailsDashboard extends Component {
     constructor(props) {
@@ -39,6 +40,8 @@ class OrderDetailsDashboard extends Component {
         try {
             //const response = await dummyOrderDetailsDashboard;
             const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
+            console.log('ini respon show order details dashboard',response);
+            
             const itemProductOrder = {
                 id: response.data.data.id,
                 invoiceNumber: response.data.data.invoiceNumber,
@@ -104,7 +107,7 @@ class OrderDetailsDashboard extends Component {
                         tabsInDelivery={3}
                         tabsFinish={4}
                         orderDate={this.state.orderDate} />}
-                {this.state.indexes &&
+                {this.state.indexes.length < 1 ? <Spin/> :
                     <React.Fragment>
                         {this.state.indexes.map(index => {
                             return (

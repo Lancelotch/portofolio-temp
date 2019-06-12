@@ -6,16 +6,16 @@ import strings from '../../localization/localization';
 const NoOrderHistory = () => {
     return (
         <Row>
-            <Col md={24}>
+            <Col md={24} style={{ marginTop: 55, marginBottom: 55 }}>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <img src={EmptyOrderList} alt=""/>
+                    <img src={EmptyOrderList} alt="" />
                 </div>
                 <p style={{
                     textAlign: "center",
                     fontSize: 14,
                     marginTop: 10
                 }}>
-               {strings.riwayat_order}
+                    {strings.riwayat_order}
                 </p>
             </Col>
         </Row>

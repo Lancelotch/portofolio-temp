@@ -15,9 +15,7 @@ const millisecond = datetimestamp => {
         " " +
         hr.substr(-2) +
         ":" +
-        m.substr(-2) +
-        ":" +
-        s.substr(-2)
+        m.substr(-2) 
     );
 };
 

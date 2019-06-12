@@ -79,7 +79,6 @@ class PaymentInfoPage extends Component {
     };
     return (
       <div className="container">
-      {this.state.isLoading ? (<Spin spinning={this.state.isLoading} tip="Loading..."/>) :
       <React.Fragment>
         <div className="top-header">
           <span>{strings.payment_info_sentence}</span>
