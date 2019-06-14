@@ -40,11 +40,11 @@ class OrderDetailContainer extends Component {
     return variants.map((variant,index)=> {
       if(index === variants.length -1){
         return (
-          <Col className="detail__variant" key={index} span={3}>{variant.value.name}</Col>
+          <span className="detail__variant" key={index} >{variant.value.name}</span>
         )
       }else{
         return (
-          <Col className="detail__variant" key={index} span={3}>{variant.value.name},</Col>
+          <span className="detail__variant" key={index} >{variant.value.name},</span>
         )
       }
       
@@ -89,7 +89,7 @@ class OrderDetailContainer extends Component {
                         <Col className="detail__variant" span={3}>
                           Varian
                         </Col>
-                        <Col className="detail__variant" span={1}>
+                        <Col className="detail__variant" style={{textAlign:"end"}} span={1}>
                           :
                         </Col>
                         {this.variants(sku.variants)}
