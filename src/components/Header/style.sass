@@ -4,36 +4,35 @@
     display: flex
     justify-content: center
     align-items: center
-    height: 40px
     background: #fafafa
     width: 100%
-    padding-top: 10px
+    transform: translate3d(0, 0, 0)
+    transition: mdc-animation-exit-temporary(transform, 250ms)
+    will-change: transform
 
 .header
     width: 100%
+    height: auto
+    border: 1px
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.12)
     padding-left: 70px
     padding-right: 70px
-    margin-bottom: 100px !important
-    &__row
-        border: 1px
-        box-shadow: 0 2px 3px 0 rgba(0,0,0,0.12)
-        background-color: #ffffff
-        padding-bottom: 15px
+    padding-bottom: 20px
+    background-color: #ffffff
     &__logo
-        padding-top: 49px
-        width: 90%
+        padding-top: 40px
+        width: 100%
     &__search-box
-        padding-top: 32px
+        padding-top: 30px
+        text-align: center
     &__search 
         height: 48px
     &__search input
         background-color: #FAFAFA
     &__icon
-        display: flex !important
-        justify-content: flex-end
-        padding-left: 12px !important
-    &__icon img
+        display: block
         width: 100%
+        float: right
     &__categories
         // font-size: 18px
         display: flex

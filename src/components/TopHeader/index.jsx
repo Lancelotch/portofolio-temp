@@ -8,8 +8,8 @@ class TopHeader extends Component {
       <React.Fragment>
         <div className='topHeader-sentence'>
         {strings.formatString(
-          strings.topHeader_sentence,
-          <a className='topHeader-link'href='/'>{strings.topHeader_link}</a>
+          strings.topHeader_tittle
+          // <a className='topHeader-link'href='/'>{strings.topHeader_link}</a>
         )}
         </div>
       </React.Fragment>
