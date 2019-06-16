@@ -3,6 +3,7 @@ import { Menu, Dropdown, Icon } from "antd";
 import { Link } from "react-router-dom";
 //import dataSource from "./dataSource";
 import "./style.sass"
+import { Cascader } from "antd";
 
 
 const SubMenu = Menu.SubMenu;
@@ -11,6 +12,41 @@ const isUrlIsCategory = url => {
   if (url === "/category") return url;
   else return "/category";
 };
+
+const options = [
+  {
+    value: "zhejiang",
+    label: <a href="/">"Zhejiang"</a>,
+    children: [
+      {
+        value: "hangzhou",
+        label: "Hangzhou",
+        children: [
+          {
+            value: "hangzhou",
+            label: "Hangzhou",
+            children: [
+              {
+                value: "hangzhou",
+                label: "Hangzhou"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: "jiangsu",
+    label: "Jiangsu",
+    children: [
+      {
+        value: "nanjing",
+        label: "Nanjing"
+      }
+    ]
+  }
+];
 
 const renderCategorySubChild = (idCategory, subCategoryId, categorySubChild, url) =>
   categorySubChild.map(({ id, name }) => (
@@ -66,6 +102,8 @@ const renderCategory = (dataSource, url) =>
 
 const menu = props => {
   const { match,allCategory } = props;
+  console.log('category menu',props);
+  
   const url = isUrlIsCategory(match.url);
   return <Menu
     style={{ width: 200, padding: "10px 0 10px"}}
@@ -84,5 +122,14 @@ const CategoryMenu = props => (
     </a>
   </Dropdown>
 );
+
+export  const CategoryMenuPart = () => (
+  <Cascader options={options} expandTrigger={'hover'}	 >
+  <a href="#">Change city{}</a>
+</Cascader>
+);
+
+
+
 
 export default CategoryMenu;

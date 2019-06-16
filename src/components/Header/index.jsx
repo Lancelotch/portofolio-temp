@@ -10,7 +10,7 @@ import "./style.sass";
 import "sass/style.sass";
 import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
-import CategoryMenu from "../CategoryMenu";
+import CategoryMenu, { CategoryMenuPart } from "../CategoryMenu";
 import { Link } from "react-router-dom"
 import maskot from "../../assets/img/mascot_monggodesignheroes_2.png"
 import PATH from "../../routers/path"
@@ -261,6 +261,7 @@ class Header extends Component {
           </Col>
           <Col md={2}>
             <div className="header__categories">
+            <CategoryMenuPart/>
               {
                 this.state.allCategory &&
                 <CategoryMenu
