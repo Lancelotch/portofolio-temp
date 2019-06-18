@@ -30,13 +30,14 @@ const PaymentInvoice = props => {
           </p>
         </Col>
       </Row>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 35 }}>
+        <p style={{ color: "black", fontSize: 25,fontWeight:500 }}>
+          {strings.virtual_account}
+        </p>
+      </div>
       <Row type="flex" align="middle" className="info__bank">
         <Col md={4}>
           <img src={bank.imageUrl} alt="" style={{ maxWidth: 250, maxHeight: 50 }} />
-          <br />
-          <span style={{ color: "#9B9B9B", fontSize: "18px" }}>
-            {strings.virtual_account}
-          </span>
         </Col>
         <Col md={16} style={{ textAlign: "center" }}>
           <span className="virtualNumber">{payment.virtualAccount}</span>

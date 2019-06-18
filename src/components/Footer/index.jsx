@@ -14,7 +14,7 @@ import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
 import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
 import {rulesEmail} from "../../pages/Register/registerContainer"
-import monggopesen_logo from "../../assets/img/monggopesen_logo.png"
+
 
 const FormItem = Form.Item;
 

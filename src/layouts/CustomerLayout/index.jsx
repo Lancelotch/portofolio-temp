@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Headers from "components/Header";
+import Headers from "containers/Header";
 import Footer from "components/Footer";
 import "./style.sass";
 
