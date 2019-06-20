@@ -64,7 +64,7 @@ class SliderHome extends Component {
       <React.Fragment>
         <Row>
           <Col md={24}>
-            <div className="sliderHome" style={{ marginTop: 10 }}>
+            <div className="sliderHome" >
               <Carousel autoplay {...settings}>
                 {this.state.sliderImages.length < 1 ? (<Skeleton width={"100%"} height={376}/>):(slides)}
               </Carousel>

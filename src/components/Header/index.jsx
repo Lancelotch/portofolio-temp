@@ -198,7 +198,7 @@ class Header extends Component {
     );
 
     return (
-      <div>
+      <div className="header__great">
         <Row className="header__row">
           <Col md={24}>
             <div className="topHeader">
