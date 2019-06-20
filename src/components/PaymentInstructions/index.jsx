@@ -1,9 +1,8 @@
 import React from "react";
-import { Collapse, Spin } from "antd";
+import { Collapse } from "antd";
 
 const PaymentInstructions = props => {
   const { paymentInstruction } = props;
-  console.log(paymentInstruction);
   const instructions = paymentInstruction.instructions
   return (
     <React.Fragment>

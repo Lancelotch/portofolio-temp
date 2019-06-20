@@ -106,6 +106,7 @@ const routes = [
   {
     path: PATH_URL.PAYMENT_FAILED,
     component: FailedPayment,
+    layoutName: "fullLayout"
   },
   {
     path: PATH_URL.CONFIRMATION_ERROR,

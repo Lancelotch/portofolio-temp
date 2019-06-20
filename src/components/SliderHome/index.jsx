@@ -40,8 +40,8 @@ class SliderHome extends Component {
   render() {
     const { sliderImages } = this.state
     const settings = {
-      dots: true,
-      speed: 999,
+      dots: false,
+      speed: 2000,
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1

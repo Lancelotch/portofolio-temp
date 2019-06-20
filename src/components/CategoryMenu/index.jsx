@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./style.sass"
 
 
+
 const SubMenu = Menu.SubMenu;
 
 const isUrlIsCategory = url => {
@@ -66,6 +67,8 @@ const renderCategory = (dataSource, url) =>
 
 const menu = props => {
   const { match,allCategory } = props;
+  console.log('category menu',props);
+  
   const url = isUrlIsCategory(match.url);
   return <Menu
     style={{ width: 200, padding: "10px 0 10px"}}
@@ -84,5 +87,6 @@ const CategoryMenu = props => (
     </a>
   </Dropdown>
 );
+
 
 export default CategoryMenu;

@@ -5,7 +5,7 @@ const millisecond = datetimestamp => {
     var year = dt.getFullYear();
     var hr = "0" + dt.getHours();
     var m = "0" + dt.getMinutes();
-    var s = "0" + dt.getSeconds();
+    //var s = "0" + dt.getSeconds();
     return (
         date.substr(-2) +
         "-" +
@@ -15,9 +15,7 @@ const millisecond = datetimestamp => {
         " " +
         hr.substr(-2) +
         ":" +
-        m.substr(-2) +
-        ":" +
-        s.substr(-2)
+        m.substr(-2) 
     );
 };
 

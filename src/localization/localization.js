@@ -5,6 +5,7 @@ const strings = new LocalizedStrings({
     //topHeader
     topHeader_link: 'kesini',
     topHeader_sentence: 'Terbuka juga untuk pemesanan grosir dengan harga spesial, monggo mampir {0}',
+    topHeader_tittle : 'Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000',
 
     //Header
     search_place_holder: 'cari produk',

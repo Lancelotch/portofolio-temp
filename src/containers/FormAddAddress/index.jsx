@@ -188,13 +188,13 @@ class FormAddAddress extends Component {
       provinces
     } = this.state;
 
-    const prefixSelector = getFieldDecorator("prefix", {
-      initialValue: "62"
-    })(
-      <Select style={{ width: 70 }} disabled>
-        <Option value="62">+62</Option>
-      </Select>
-    );
+    // const prefixSelector = getFieldDecorator("prefix", {
+    //   initialValue: "62"
+    // })(
+    //   <Select style={{ width: 70 }} disabled>
+    //     <Option value="62">+62</Option>
+    //   </Select>
+    // );
     return (
       <Modal
         title="Tambah Alamat Pengiriman"
