@@ -17,8 +17,14 @@ import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
+import ForgetPassword from "../pages/ForgetPassword";
 
 const routes = [
+  {
+    path: PATH_URL.FORGET_PASSWORD,
+    component: ForgetPassword,
+    layoutName: "fullLayout"
+  },
   {
     path: PATH_URL.HOME,
     breadcrumb: "monggopesen",
