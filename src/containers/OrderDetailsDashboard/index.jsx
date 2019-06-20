@@ -7,7 +7,6 @@ import { PATH_ORDER } from "../../api/path";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
-import { Spin } from 'antd';
 
 class OrderDetailsDashboard extends Component {
     constructor(props) {
@@ -40,8 +39,8 @@ class OrderDetailsDashboard extends Component {
         try {
             //const response = await dummyOrderDetailsDashboard;
             const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + orderId);
-            console.log('ini respon show order details dashboard',response);
-            
+            console.log('ini respon show order details dashboard', response);
+
             const itemProductOrder = {
                 id: response.data.data.id,
                 invoiceNumber: response.data.data.invoiceNumber,
@@ -78,14 +77,12 @@ class OrderDetailsDashboard extends Component {
                 {tabsNotPay === 1 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        top={10}
                         labelTabDetails={"Belum Bayar"}
                         orderDate={this.state.orderDate} />
                 }
                 {tabsNotSent === 2 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        top={10}
                         labelTabDetails={"Belum Dikirim"}
                         tabsNotSent={2}
                         orderDate={this.state.orderDate} />
@@ -93,7 +90,6 @@ class OrderDetailsDashboard extends Component {
                 {tabsInDelivery === 3 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        top={10}
                         labelTabDetails={"Dalam Pengiriman"}
                         tabsNotSent={2}
                         tabsInDelivery={3}
@@ -101,47 +97,45 @@ class OrderDetailsDashboard extends Component {
                 {tabsFinish === 4 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        top={10}
                         labelTabDetails={"Selesai"}
                         tabsNotSent={2}
                         tabsInDelivery={3}
                         tabsFinish={4}
                         orderDate={this.state.orderDate} />}
-                {this.state.indexes.length < 1 ? <Spin/> :
-                    <React.Fragment>
-                        {this.state.indexes.map(index => {
-                            return (
-                                <div key={index.productId} style={{ marginTop: 15 }}>
-                                    <ProductOrderDetails
-                                        invoiceNumber={this.state.invoiceNumber}
-                                        label="Detail Pesenan"
-                                        note={index.note}
-                                        key={index.id}
-                                        orderId={this.state.orderId}
-                                        tabsInDelivery={tabsInDelivery}
-                                        tabsNotSent={tabsNotSent}
-                                        tabsFinish={tabsFinish}
-                                        noInvoice={"No. Invoice"}
-                                        productImage={index.productImage}
-                                        variants={index.variants}
-                                        productName={index.productName}
-                                        productQuantity={index.productQuantity}
-                                        totalAmount={index.totalAmount}
-                                    />
-                                    <PaymentInfo
-                                        key={index.id}
-                                        index={1}
-                                        productName={index.productName}
-                                        totalAmount={index.totalAmount}
-                                        shipping={this.state.shipping}
-                                        price={index.price}
-                                        productQuantity={index.productQuantity}
-                                        payment={this.state.payment}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </React.Fragment>
+                {this.state.indexes.map(index => {
+                    return (
+                        <div key={index.productId} style={{ marginTop: 15 }}>
+                            <ProductOrderDetails
+                                invoiceNumber={this.state.invoiceNumber}
+                                label="Detail Pesenan"
+                                note={index.note}
+                                key={index.id}
+                                productId={index.productId}
+                                orderId={this.state.orderId}
+                                tabsInDelivery={tabsInDelivery}
+                                tabsNotSent={tabsNotSent}
+                                tabsFinish={tabsFinish}
+                                noInvoice={"No. Invoice"}
+                                productImage={index.productImage}
+                                variants={index.variants}
+                                productName={index.productName}
+                                productQuantity={index.productQuantity}
+                                totalAmount={index.totalAmount}
+                            />
+                            <PaymentInfo
+                                key={index.id}
+                                index={1}
+                                productName={index.productName}
+                                totalAmount={index.totalAmount}
+                                shipping={this.state.shipping}
+                                price={index.price}
+                                productQuantity={index.productQuantity}
+                                payment={this.state.payment}
+                            />
+                        </div>
+                    );
+                })}
+
                 }
                 {tabsNotPay === 1 &&
                     <PaymentDateInfo
@@ -164,7 +158,7 @@ class OrderDetailsDashboard extends Component {
                 }
                 {tabsFinish === 4 &&
                     <OrderStatusUser
-                        estimateAccepted={"Pesanan Diterima"}
+                        estimateAccepted={"Pesenan Diterima"}
                         label="Pengiriman"
                         customer={this.state.address}
                         estimateShippingDate={this.state.estimateShippingDate}

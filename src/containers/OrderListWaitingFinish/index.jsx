@@ -34,16 +34,13 @@ class OrderListWaitingInDelivery extends Component {
                       pay={order.payment}
                     />
                     <Pay
-                      productId={order.indexes}
                       tabsFinish={tabsFinish}
                       tabsNotPay={tabsNotPay}
                       tabsInDelivery={tabsInDelivery}
                       tabsNotSent={tabsNotSent}
-                      // showDeleteConfirm={this.showDeleteConfirm}
                       orderProduct={productOrderFinish}
-                      i={order.orderId}
-                      showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       order={order}
+                      showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
                       showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
                     />
                   </Card>

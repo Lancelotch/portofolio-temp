@@ -126,7 +126,7 @@ class CategoryPage extends Component {
       <b style={{ color: "#FF416C" }}>{categoryId}</b>
     );
     return (
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 35 }}>
         <div
           style={{
             display: "flex",

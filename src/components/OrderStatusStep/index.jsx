@@ -15,27 +15,25 @@ const OrderStatusStep = (props) => {
     tabsInDelivery,
     actionShowOrderListWaiting,
     labelTabDetails,
-    top,
     tabsFinish } = props;
   return (
     <React.Fragment>
       <div
         style={{
-          paddingBottom: 50,
-          paddingTop: 30,
-          paddingLeft: 15
+          marginLeft: 15,
+          display: "flex",
+          justifyContent: "space-between"
         }}>
         <h2
           style={{
-            float: "left",
             color: "#4A4A4A",
             fontSize: 24
           }}>
           {labelTabDetails}
         </h2>
-        <Affix offsetTop={top}>
+        <Affix offsetTop={170}>
           <button
-            style={{ float: "right", marginRight: 20, cursor: "pointer", borderStyle: "unset" }}
+            style={{ marginRight: 15, cursor: "pointer" }}
             className="buttonOrderDetails"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;

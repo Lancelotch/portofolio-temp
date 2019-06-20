@@ -18,9 +18,10 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    cancel : 'Batalkan',
     oh_no: 'Oh no!',
     back: 'Kembali',
-    cancel_order_by : 'Pesenan dibatalan oleh',
+    cancel_order_by : 'Pesenan dibatalkan oleh',
     buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
     before_pay: 'Bayar Sebelum',
@@ -40,7 +41,7 @@ const strings = new LocalizedStrings({
     total: "Jumlah",
     note: "Catatan",
     varian: 'Varian',
-    sub_total: "Sub Total",
+    sub_total: "SubTotal",
     real_total: "Total",
     price_product: "Harga Product",
     price_courier: "Ongkos Kirim",
@@ -56,6 +57,10 @@ const strings = new LocalizedStrings({
     giyarto: "PT. Giyarto Manunggal Sejati",
     estimate_accepted:"Perkiraan Diterima",
     riwayat_order: " Tidak ada Riwayat Pesenan",
+
+    //Dashboard Tabs Belum Bayar
+    tabs_belum_bayar : 'Anda yakin ingin membatalkan pesenan?',
+    tabs_belum_bayar_pesan_batalkan : "Pesenan yang anda buat akan kami batalkan",
 
 
     //FailedPaymentPage

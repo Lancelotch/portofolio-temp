@@ -185,7 +185,7 @@ class Header extends Component {
         </Row>
       </Menu.Item>
       <hr className="header__user-divider"></hr>
-      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesanan Saya</Link></Menu.Item>
+      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesenan Saya</Link></Menu.Item>
       <Menu.Item key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
       <Menu.Item key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
       <Menu.Item key="4">

@@ -93,11 +93,10 @@ class ProductPage extends Component {
     //   <b>{query}</b>
     // );
     return (
-      <div style={{ marginTop: 15 }}>
+      <div style={{ marginTop: 35 }}>
         <div style={{
           display: "flex",
-          justifyContent: "flex-end",
-          marginBottom: 15
+          justifyContent: "flex-end"
         }}>
           <SortListProduct onChange={this.onChangeSort} />
         </div>

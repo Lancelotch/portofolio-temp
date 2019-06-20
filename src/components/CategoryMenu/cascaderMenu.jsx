@@ -70,8 +70,6 @@ const CategoryMenuCascader = props => {
         children: createChildren(category.categorySubResponses, category.id)
     }));
 
-    console.log("options", options);
-
     return (
         <React.Fragment>
             <Row>
