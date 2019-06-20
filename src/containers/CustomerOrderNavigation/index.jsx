@@ -11,6 +11,9 @@ import OrderListWaitingCancel from "../OrderListWaitingCancel";
 import { apiGetWithToken, patchService } from "../../api/services";
 import { PATH_DASHBOARD_TAB, PATH_ORDER } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
+import strings from "../../localization/localization";
+import { Offline, Online, Detector } from "react-detect-offline";
+
 
 const confirm = Modal.confirm;
 
@@ -20,6 +23,12 @@ const keyFnNames = {
   '3': 'updateTabInDelivery',
   '4': 'updateTabFinish',
   '5': 'updateTabCancel'
+};
+
+const polling = {
+  enabled: true,
+  interval: 2000,
+  timeout: 1000
 };
 
 class CustomerOderNavigation extends Component {
@@ -35,8 +44,16 @@ class CustomerOderNavigation extends Component {
       productOrderNotYetSent: [],
       productOrderInDelivery: [],
       productOrderFinish: [],
-      productOrderCancel: []
+      productOrderCancel: [],
+      error: "",
+      isShowImageEmpety: false
     };
+  }
+
+  componentWillMount() {
+    this.setState({
+      isLoading: true
+    })
   }
 
   componentDidMount() {
@@ -64,12 +81,11 @@ class CustomerOderNavigation extends Component {
         productOrderNotYetPay: response.data.data
       };
       this.setState({
-        ...productOrderTabsNotYetPay,
-        isLoading: false
+        ...productOrderTabsNotYetPay
       });
     } catch (error) {
       if (error.message) {
-        this.setState({ isLoading: false });
+        this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
   };
@@ -81,12 +97,11 @@ class CustomerOderNavigation extends Component {
         productOrderNotYetSent: response.data.data
       };
       this.setState({
-        ...productOrderTabsNotYetSent,
-        isLoading: false
+        ...productOrderTabsNotYetSent
       });
     } catch (error) {
       if (error.message) {
-        this.setState({ isLoading: false });
+        this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
   };
@@ -98,13 +113,12 @@ class CustomerOderNavigation extends Component {
         productOrderInDelivery: response.data.data
       };
       this.setState({
-        ...productOrderTabsInDelivery,
-        isLoading: false
+        ...productOrderTabsInDelivery
       });
     } catch (error) {
       console.log(error);
       if (error.message) {
-        this.setState({ isLoading: false });
+        this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
   };
@@ -116,13 +130,11 @@ class CustomerOderNavigation extends Component {
         productOrderFinish: response.data.data
       };
       this.setState({
-        ...productOrderTabsFinish,
-        isLoading: false
+        ...productOrderTabsFinish
       });
     } catch (error) {
-      console.log(error);
       if (error.message) {
-        this.setState({ isLoading: false });
+        this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
   };
@@ -134,12 +146,11 @@ class CustomerOderNavigation extends Component {
         productOrderCancel: response.data.data
       };
       this.setState({
-        ...productOrderTabsCancel,
-        isLoading: false
+        ...productOrderTabsCancel
       });
     } catch (error) {
       if (error.message) {
-        this.setState({ isLoading: false });
+        this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
   };
@@ -195,11 +206,11 @@ class CustomerOderNavigation extends Component {
   showDeleteConfirm = (allOrder, index) => {
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
-      title: "Anda yakin ingin membatalkan pesanan?",
-      content: "Pesanan yang anda buat akan kami batalkan",
-      okText: "Batalkan",
+      title: strings.tab_belum_bayar,
+      content: strings.tabs_belum_bayar_pesan_batalkan,
+      okText: strings.cancel,
       okType: "danger",
-      cancelText: "Kembali",
+      cancelText: strings.back,
       centered: true,
       onOk: () => {
         const cancelOrder = allOrder.splice(index, 1)
@@ -238,25 +249,36 @@ class CustomerOderNavigation extends Component {
                 })}
             >{"Belum Bayar"}</span>}
           my_prop={
-            this.state.productOrderNotYetPay.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                <NoOrderHistory />
-              </Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  (<OrderListWaitingNotPay
-                    showDeleteConfirm={this.showDeleteConfirm}
-                    productOrderNotYetPay={this.state.productOrderNotYetPay}
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                    tabsNotPay={1}
-                  />) : (
-                    <OrderDetailsDashboard
-                      orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      tabsNotPay={1}
-                    />)
-              )
-
+            <React.Fragment>
+              <Offline polling={polling}>
+                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+              </Offline>
+              <Detector
+                render={({ online }) => (
+                  <Online polling={polling}>
+                    {this.state.productOrderNotYetPay.length < 1 ?
+                      <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                          {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        </Spin>
+                      </div> :
+                      this.state.isShowOrderDetailsDashboard === false ?
+                        (<OrderListWaitingNotPay
+                          showDeleteConfirm={this.showDeleteConfirm}
+                          productOrderNotYetPay={this.state.productOrderNotYetPay}
+                          actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                          tabsNotPay={1}
+                        />) : (
+                          <OrderDetailsDashboard
+                            orderId={this.state.orderId}
+                            actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                            tabsNotPay={1}
+                          />)
+                    }
+                  </Online>
+                )}
+              />
+            </React.Fragment>
           }
         />
         <CustomTabPane
@@ -267,22 +289,36 @@ class CustomerOderNavigation extends Component {
                 isShowOrderDetailsDashboard: false
               })}>{"Sedang Diproses"}</span>}
           my_prop={
-            this.state.productOrderNotYetSent.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                <NoOrderHistory /></Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  <OrderListWaitingNotSent
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                    productOrderNotYetSent={this.state.productOrderNotYetSent}
-                    tabsNotSent={2}
-                  /> : (
-                    <OrderDetailsDashboard orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      tabsNotSent={2}
-                    />)
-              )
-
+            <React.Fragment>
+              <Offline polling={polling}>
+                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+            </Offline>
+              <Detector
+                render={({ online }) => (
+                  <Online polling={polling}>
+                    {this.state.productOrderNotYetSent.length < 1 ?
+                      (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                          {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        </Spin>
+                      </div>
+                      ) : (
+                        this.state.isShowOrderDetailsDashboard === false ?
+                          <OrderListWaitingNotSent
+                            actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                            productOrderNotYetSent={this.state.productOrderNotYetSent}
+                            tabsNotSent={2}
+                          /> : (
+                            <OrderDetailsDashboard orderId={this.state.orderId}
+                              actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                              tabsNotSent={2}
+                            />)
+                      )
+                    }
+                  </Online>
+                )}
+              />
+            </React.Fragment>
           }
         />
         <CustomTabPane
@@ -295,22 +331,38 @@ class CustomerOderNavigation extends Component {
             {"Dalam Pengiriman"}
           </span>}
           my_prop={
-            this.state.productOrderInDelivery.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                <NoOrderHistory /></Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  <OrderListWaitingInDelivery
-                    productOrderInDelivery={this.state.productOrderInDelivery}
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                    tabsInDelivery={3}
-                  /> : (
-                    <OrderDetailsDashboard orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      tabsInDelivery={3}
-                    />)
-              )
-          } />
+            <React.Fragment>
+              <Offline polling={polling}>
+                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+          </Offline>
+              <Detector
+                render={({ online }) => (
+                  <Online polling={polling}>
+                    {this.state.productOrderInDelivery.length < 1 ?
+                      (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                          {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        </Spin>
+                      </div>
+                      ) : (
+                        this.state.isShowOrderDetailsDashboard === false ?
+                          <OrderListWaitingInDelivery
+                            productOrderInDelivery={this.state.productOrderInDelivery}
+                            actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                            tabsInDelivery={3}
+                          /> : (
+                            <OrderDetailsDashboard orderId={this.state.orderId}
+                              actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                              tabsInDelivery={3}
+                            />)
+                      )
+                    }
+                  </Online>
+                )}
+              />
+            </React.Fragment>
+          }
+        />
         <CustomTabPane
           key={"4"}
           tab={<span
@@ -319,21 +371,36 @@ class CustomerOderNavigation extends Component {
                 isShowOrderDetailsDashboard: false
               })}>{"Selesai"}</span>}
           my_prop={
-            this.state.productOrderFinish.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                <NoOrderHistory /></Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  <OrderListWaitingFinish
-                    productOrderFinish={this.state.productOrderFinish}
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                    tabsFinish={4}
-                  /> : (
-                    <OrderDetailsDashboard orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      tabsFinish={4}
-                    />)
-              )
+            <React.Fragment>
+              <Offline polling={polling}>
+                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+          </Offline>
+              <Detector
+                render={({ online }) => (
+                  <Online polling={polling}>
+                    {this.state.productOrderFinish.length < 1 ?
+                      (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                          {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        </Spin>
+                      </div>
+                      ) : (
+                        this.state.isShowOrderDetailsDashboard === false ?
+                          <OrderListWaitingFinish
+                            productOrderFinish={this.state.productOrderFinish}
+                            actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                            tabsFinish={4}
+                          /> : (
+                            <OrderDetailsDashboard orderId={this.state.orderId}
+                              actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                              tabsFinish={4}
+                            />)
+                      )
+                    }
+                  </Online>
+                )}
+              />
+            </React.Fragment>
           } />
         <CustomTabPane
           key={"5"}
@@ -343,19 +410,36 @@ class CustomerOderNavigation extends Component {
                 isShowOrderDetailsDashboard: false
               })}>{"Batal"}</span>}
           my_prop={
-            this.state.productOrderCancel.length < 1 ?
-              (<Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                <NoOrderHistory /></Spin>
-              ) : (
-                this.state.isShowOrderDetailsDashboard === false ?
-                  <OrderListWaitingCancel
-                    productOrderCancel={this.state.productOrderCancel}
-                    actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                  /> : (
-                    <OrderDetailsCancel orderId={this.state.orderId}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                    />)
-              )
+            <React.Fragment>
+              <Offline polling={polling}>
+                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+              </Offline>
+              <Detector
+                render={({ online }) => (
+                  <Online polling={polling}>
+                    {
+                      this.state.productOrderCancel.length < 1 ?
+                        (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                          <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                            {this.state.isShowImageEmpety && <NoOrderHistory />}
+                          </Spin>
+                        </div>
+                        ) : (
+                          this.state.isShowOrderDetailsDashboard === false ?
+                            <OrderListWaitingCancel
+                              productOrderCancel={this.state.productOrderCancel}
+                              actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                            /> : (
+                              <OrderDetailsCancel orderId={this.state.orderId}
+                                actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                                tabsCancel={5}
+                              />)
+                        )
+                    }
+                  </Online>
+                )}
+              />
+            </React.Fragment>
           }
         />
       </Tabs>

@@ -18,9 +18,6 @@ function compareShipping(a, b) {
 export const SelectShipping = props => {
   const { shipping, selected, onChangeSelected } = props;
   shipping.sort(compareShipping);
-
-  console.log("ini select shipping", shipping);
-
   return (
     <React.Fragment>
       {shipping.length > 0 && (

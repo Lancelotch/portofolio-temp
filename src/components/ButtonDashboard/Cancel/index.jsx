@@ -19,7 +19,7 @@ const Cancel = (props) => {
       <Button
         className="waitingPayment__payNow"
       >
-        <Link to={pageUrlProductDetail + id}>Beli Lagi</Link>
+        <Link to={pageUrlProductDetail + id}>Pesen Lagi</Link>
       </Button>
       <Button
         className="waitingPayment__detailPesanan"
