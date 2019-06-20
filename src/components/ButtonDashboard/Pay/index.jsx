@@ -7,19 +7,17 @@ import strings from '../../../localization/localization';
 
 const Pay = (props) => {
   const { showDeleteConfirm,
-    i,
     showHowToModalPayment,
-    order,
     showOrderDetailsDashboard,
     tabsNotPay,
     tabsNotSent,
     tabsFinish,
     tabsInDelivery,
-    orderProduct,
-    productId
+    order,
+    orderProduct
   } = props
   let id = ""
-  productId.map(p => {
+  order.indexes.map(p => {
     id = p.productId
     return id
   })
@@ -35,7 +33,7 @@ const Pay = (props) => {
             }}>
             <p
               className="waitingPayment__button"
-              onClick={() => showDeleteConfirm(orderProduct, i)}
+              onClick={() => showDeleteConfirm(orderProduct, order.orderId)}
             >
               {strings.cancel_order_dashboard}
             </p>
@@ -48,7 +46,7 @@ const Pay = (props) => {
               </Button>
               <Button
                 className="waitingPayment__detailPesanan"
-                onClick={() => showOrderDetailsDashboard(i)}
+                onClick={() => showOrderDetailsDashboard(order.orderId)}
               >
                 {strings.order_details}
               </Button>
@@ -65,7 +63,7 @@ const Pay = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(i)}
+            onClick={() => showOrderDetailsDashboard(order.orderId)}
           >
             {strings.order_details}
           </Button>
@@ -82,7 +80,7 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(i)}
+            onClick={() => showOrderDetailsDashboard(order.orderId)}
           >
             {strings.order_details}
           </Button>
@@ -101,7 +99,7 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(i)}
+            onClick={() => showOrderDetailsDashboard(order.orderId)}
           >
             {strings.order_details}
           </Button>

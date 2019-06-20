@@ -1,43 +1,20 @@
 import React from 'react';
-import { Steps, Icon, Affix, Card } from 'antd';
-import { receivedOrderIcon, paymentOrder } from '../../library/iconTracking';
-import "../../components/OrderStatusStep/style.sass"
+import { Steps, Icon, Card } from 'antd';
+import { receivedOrderIcon, cancelOrderIcon, paymentOrder } from '../../library/iconTracking';
+import "./style.sass";
+import "./styleCustomer.sass";
 import convertTimesTime from '../../library/convertTimestime';
 
 
 const Step = Steps.Step;
 
 
-const OrderStatusStep = props => {
-  const { orderDate, actionShowOrderListWaiting, top } = props
+const OrderStatusCancel = props => {
+  const { orderDate, cancelBy } = props
   return (
     <React.Fragment>
-      <div
-        style={{
-          paddingBottom: 50,
-          paddingTop: 30,
-          paddingLeft: 15
-        }}>
-        <h2
-        style={{
-            float: "left",
-            color: "#4A4A4A",
-            fontSize: 24
-        }}>
-          Batal
-       </h2>
-        <Affix offsetTop={top}>
-          <button
-            style={{ float: "right", marginRight: 15 }}
-            className="buttonOrderDetails"
-            onClick={() => actionShowOrderListWaiting()}>
-            <Icon type="arrow-left" /> &nbsp;
-            Kembali
-          </button>
-        </Affix>
-      </div>
       <Card>
-        <div className="stepOrderStatusCancel stepOrderStatus">
+        <div className={cancelBy ===  "ADMIN" | cancelBy === "admin" |cancelBy ===  "SYSTEM" ? "stepOrderStatusCancelBySystem" : "stepOrderStatusCancel"}>
           <Steps size="small" labelPlacement="vertical">
             <Step
               status="finish"
@@ -46,6 +23,7 @@ const OrderStatusStep = props => {
               icon={<Icon style={{ color: "#004853" }}
                 component={receivedOrderIcon} />}>
             </Step>
+            {cancelBy ===  "ADMIN" | cancelBy === "admin" | cancelBy ===  "SYSTEM"  &&
             <Step
               status={"finish"}
               description={convertTimesTime.millisecond(orderDate)}
@@ -53,7 +31,14 @@ const OrderStatusStep = props => {
               icon={<Icon className={"iconOrderStatusStepActive"}
                 component={paymentOrder} />}
             />
-
+  }
+            <Step
+              status={"finish"}
+              description={convertTimesTime.millisecond(orderDate)}
+              title="Pesenan Dibatalkan"
+              icon={<Icon className={"iconOrderStatusStepActive"}
+                component={cancelOrderIcon} />}
+            />
           </Steps>
         </div>
       </Card>
@@ -61,5 +46,5 @@ const OrderStatusStep = props => {
   );
 };
 
-export default OrderStatusStep;
+export default OrderStatusCancel;
 
