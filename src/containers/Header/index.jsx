@@ -45,11 +45,7 @@ class Header extends Component {
   //   }))
   // }
 
-
-
-
   componentDidMount() {
-    // this.getCustomerDetail()
     this.getAllCategory()
     window.addEventListener("scroll", this.listenScrollEvent);
   }
@@ -57,8 +53,6 @@ class Header extends Component {
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
       this.setState({ display: "none" });
-    } else if (window.scrollY < 900) {
-      this.setState({ display: "" });
     }
   };
 

@@ -135,8 +135,6 @@ class OrderDetailsDashboard extends Component {
                         </div>
                     );
                 })}
-
-                }
                 {tabsNotPay === 1 &&
                     <PaymentDateInfo
                         endDatePay={this.state.endDatePay}

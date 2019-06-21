@@ -26,7 +26,7 @@ const keyFnNames = {
 };
 
 const polling = {
-  enabled: true,
+  enabled: false,
   interval: 2000,
   timeout: 1000
 };
@@ -238,7 +238,7 @@ class CustomerOderNavigation extends Component {
 
   render() {
     return (
-      <Tabs activeKey={this.state.activeKey} onChange={this.handleChange} >
+      <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
         <CustomTabPane
           key={"1"}
           tab={
@@ -251,33 +251,30 @@ class CustomerOderNavigation extends Component {
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+                <div style={{ backgroundColor: "red", padding: 15, color: "#FFFFFF", fontSize: 16 }}>
+                  Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+                </div>
               </Offline>
-              <Detector
-                render={({ online }) => (
-                  <Online polling={polling}>
-                    {this.state.productOrderNotYetPay.length < 1 ?
-                      <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
-                          {this.state.isShowImageEmpety && <NoOrderHistory />}
-                        </Spin>
-                      </div> :
-                      this.state.isShowOrderDetailsDashboard === false ?
-                        (<OrderListWaitingNotPay
-                          showDeleteConfirm={this.showDeleteConfirm}
-                          productOrderNotYetPay={this.state.productOrderNotYetPay}
-                          actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                          tabsNotPay={1}
-                        />) : (
-                          <OrderDetailsDashboard
-                            orderId={this.state.orderId}
-                            actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                            tabsNotPay={1}
-                          />)
-                    }
-                  </Online>
-                )}
-              />
+              <Online polling={polling}>
+                {this.state.productOrderNotYetPay.length < 1 ?
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                    <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}/>
+                      {this.state.isShowImageEmpety && <NoOrderHistory />}
+                  </div> :
+                  this.state.isShowOrderDetailsDashboard === false ?
+                    (<OrderListWaitingNotPay
+                      showDeleteConfirm={this.showDeleteConfirm}
+                      productOrderNotYetPay={this.state.productOrderNotYetPay}
+                      actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                      tabsNotPay={1}
+                    />) : (
+                      <OrderDetailsDashboard
+                        orderId={this.state.orderId}
+                        actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+                        tabsNotPay={1}
+                      />)
+                }
+              </Online>
             </React.Fragment>
           }
         />
@@ -291,31 +288,28 @@ class CustomerOderNavigation extends Component {
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
-            </Offline>
+                <div style={{ backgroundColor: "red", padding: 15, color: "#FFFFFF", fontSize: 16 }}>
+                  Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+                </div>
+              </Offline>
               <Detector
                 render={({ online }) => (
-                  <Online polling={polling}>
-                    {this.state.productOrderNotYetSent.length < 1 ?
-                      (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                    this.state.productOrderNotYetSent.length < 1 ?
+                      <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}/>
                           {this.state.isShowImageEmpety && <NoOrderHistory />}
-                        </Spin>
-                      </div>
-                      ) : (
-                        this.state.isShowOrderDetailsDashboard === false ?
-                          <OrderListWaitingNotSent
-                            actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                            productOrderNotYetSent={this.state.productOrderNotYetSent}
+                      </div> :
+                      this.state.isShowOrderDetailsDashboard === false ?
+                        <OrderListWaitingNotSent
+                          actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+                          productOrderNotYetSent={this.state.productOrderNotYetSent}
+                          tabsNotSent={2}
+                        /> : (
+                          <OrderDetailsDashboard orderId={this.state.orderId}
+                            actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                             tabsNotSent={2}
-                          /> : (
-                            <OrderDetailsDashboard orderId={this.state.orderId}
-                              actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                              tabsNotSent={2}
-                            />)
-                      )
-                    }
-                  </Online>
+                          />)
+                    
                 )}
               />
             </React.Fragment>
@@ -340,9 +334,8 @@ class CustomerOderNavigation extends Component {
                   <Online polling={polling}>
                     {this.state.productOrderInDelivery.length < 1 ?
                       (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}/>
                           {this.state.isShowImageEmpety && <NoOrderHistory />}
-                        </Spin>
                       </div>
                       ) : (
                         this.state.isShowOrderDetailsDashboard === false ?
@@ -380,9 +373,8 @@ class CustomerOderNavigation extends Component {
                   <Online polling={polling}>
                     {this.state.productOrderFinish.length < 1 ?
                       (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}/>
                           {this.state.isShowImageEmpety && <NoOrderHistory />}
-                        </Spin>
                       </div>
                       ) : (
                         this.state.isShowOrderDetailsDashboard === false ?
@@ -420,9 +412,8 @@ class CustomerOderNavigation extends Component {
                     {
                       this.state.productOrderCancel.length < 1 ?
                         (<div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                          <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}>
+                          <Spin tip="Loading..." spinning={this.state.isLoading} delay={500}/>
                             {this.state.isShowImageEmpety && <NoOrderHistory />}
-                          </Spin>
                         </div>
                         ) : (
                           this.state.isShowOrderDetailsDashboard === false ?
