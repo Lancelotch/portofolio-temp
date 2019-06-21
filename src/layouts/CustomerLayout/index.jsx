@@ -5,10 +5,9 @@ import "./style.sass";
 
 class CustomerLayout extends Component {
   render() {
-    const {match} = this.props
     return (
       <div className="customerLayout">
-          <Headers match={match} />
+          <Headers match={this.props} />
         <div className="container">{this.props.children}</div>
         <Footer />
       </div>
