@@ -146,7 +146,7 @@ const strings = new LocalizedStrings({
     delivery_from: "Pengiriman Dari",
     china: "China",
     delivery_to: "ke INDONESIA",
-    detail_product: "Detail Product",
+    detail_product: "Detail Produk",
 
     //Category
     category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
@@ -176,7 +176,7 @@ const strings = new LocalizedStrings({
     follow_us: 'Follow Us',
     monggo: 'Monggo...',
     subscripton_invitation:'Berlangganan sekarang untuk mendapatkan informasi seputar update, promo dan penawaran menarik lainnya',
-    send: 'SEND'
+    send: 'Send'
   }
 })
 

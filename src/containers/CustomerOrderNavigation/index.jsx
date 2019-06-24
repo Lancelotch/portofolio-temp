@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Spin, Modal, message, Alert } from "antd";
+import { Tabs, Spin, Modal, Alert } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaitingInDelivery from "../OrderListWaitingInDelivery";
 import OrderListWaitingFinish from "../OrderListWaitingFinish";
@@ -237,9 +237,6 @@ class CustomerOderNavigation extends Component {
   };
 
   render() {
-    const warning = () => {
-      message.warning('This is a warning message');
-    };
     return (
       <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
         <CustomTabPane

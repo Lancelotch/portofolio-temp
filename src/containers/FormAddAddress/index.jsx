@@ -226,24 +226,24 @@ class FormAddAddress extends Component {
           </Button>
         ]}
       >
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} className="addAddressForm">
           <Form.Item label="Nama Alamat">
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat")
-            )(<Input placeholder="Contoh: Rumah, Kantor, Kost dll" />)}
+            )(<Input className="addAddressInput" placeholder="Contoh: Rumah, Kantor, Kost dll" />)}
           </Form.Item>
           <Form.Item label="Atas Nama">
             {getFieldDecorator(
               "receiverName",
               this.rules(true, "Silahkan isi nama penerima")
-            )(<Input placeholder="Atas Nama" />)}
+            )(<Input className="addAddressInput" placeholder="Atas Nama" />)}
           </Form.Item>
           <Form.Item label="No. Telepon">
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu")
-            )(<Input style={{ width: "100%" }} placeholder="08xxx" />)}
+            )(<Input className="addAddressInput" style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(
@@ -316,7 +316,7 @@ class FormAddAddress extends Component {
                 {getFieldDecorator(
                   "zipcode",
                   this.rules(true, "Silahkan isi Kode POS kamu")
-                )(<Input />)}
+                )(<Input className="addAddressInput" />)}
               </Form.Item>
             </Col>
           </Row>
@@ -337,6 +337,7 @@ class FormAddAddress extends Component {
               this.rules(true, "Silahkan alamat Lengkap kamu")
             )(
                 <TextArea
+                className="addAddressInput"
                 placeholder="Alamat Lengkap"
                 autosize={{ minRows: 3, maxRows: 6 }}
                 onChange={this.onChangeFullAddress}

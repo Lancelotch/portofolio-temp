@@ -19,6 +19,7 @@ const PAYMENT_INFO = '/payment-info/:paymentId';
 const PAYMENT_FAILED = '/payment-failed';
 const NOT_FOUND_PAGE = '*';
 const CONFIRMATION_ERROR = '/confirmation';
+const FORGET_PASSWORD = '/forget-password';
 
 
 const PATH_URL = {
@@ -42,7 +43,8 @@ const PATH_URL = {
     PAYMENT_INFO: PAYMENT_INFO,
     GET_CATEGORY: GET_CATEGORY,
     PAYMENT_FAILED : PAYMENT_FAILED,
-    CONFIRMATION_ERROR: CONFIRMATION_ERROR
+    CONFIRMATION_ERROR: CONFIRMATION_ERROR,
+    FORGET_PASSWORD: FORGET_PASSWORD
 }
 
 export default PATH_URL;
