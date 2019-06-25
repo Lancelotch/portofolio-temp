@@ -145,7 +145,7 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} overlayStyle={{position:"fixed"}} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon>
         </li>
@@ -155,7 +155,7 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} overlayStyle={{position:"fixed"}} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           <span>{strings.log_in}</span><Icon style={{ color: "#999999" }} type="down"></Icon>
         </li>
@@ -241,7 +241,7 @@ class Header extends Component {
                 id="filter"
                 name="q"
                 defaultValue={this.getParams()}
-                onSearch={this.getValue}
+                enterButtononSearch={this.getValue}
                 onChange={this.handleInputSearchChange.bind(this)}
                 className="header__search"
               >

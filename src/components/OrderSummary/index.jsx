@@ -64,10 +64,10 @@ const OrderSummary = props => {
             </p>
           </div>
           <div className="shipping-price">
-            <p className="p-color">Rp. 9.000</p>
+            <p className="p-color-teal">Rp. 9.000</p>
           </div>
           <div className="jne-price">
-            <p className="p-color">Rp. 9.936</p>
+            <p>Rp. 9.936</p>
           </div>
         </Col>
       </Row>

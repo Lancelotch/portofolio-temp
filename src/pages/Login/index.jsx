@@ -16,7 +16,7 @@ import {
   loginWithFacebook
 } from "../../store/actions/authentication";
 import {
-  rulesEmail,
+  rulesEmail
   // rulesPassword,
   // AlertLogin,
   // RegistrationaAlert
@@ -48,14 +48,13 @@ class Login extends Component {
   }
 
   clearErrorMessage = () => {
-    this.props.form.validateFields()
-    this.props.clearError()
-  }
+    this.props.form.validateFields();
+    this.props.clearError();
+  };
 
   clearTrigger = () => {
-    
-    this.props.clearError()
-  }
+    this.props.clearError();
+  };
 
   // getPath = (state) => {
   //   let path = ""
@@ -64,41 +63,41 @@ class Login extends Component {
   // }
 
   handleloginGoogle = request => {
-    const path = this.state.nextPage
+    const path = this.state.nextPage;
     this.props.loginWithGoogle(path, request);
   };
 
   handleFacebook = request => {
-    const path = this.state.nextPage
-    this.props.loginWithFacebook(request,path)
-  }
+    const path = this.state.nextPage;
+    this.props.loginWithFacebook(request, path);
+  };
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       firstInput: false
-    })
-    const {history} = this.props
+    });
+    const { history } = this.props;
 
-      // const path = this.getPath(this.state.nextPage)
-      const path = this.state.nextPage
-      this.props.form.validateFields( async (err, values) => {
-        if (!err) {
-          const login = await this.props.loginWithHome(values, path, history)
-          if(this.props.isError ){
-            this.props.form.setFields({
-              password: {
-                value: values.password,
-                errors: [new Error("")]
-              },
-              email: {
-                value: values.email,
-                errors: [new Error("")]
-              }
-            })
-          }
+    // const path = this.getPath(this.state.nextPage)
+    const path = this.state.nextPage;
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        const login = await this.props.loginWithHome(values, path, history);
+        if (this.props.isError) {
+          this.props.form.setFields({
+            password: {
+              value: values.password,
+              errors: [new Error("")]
+            },
+            email: {
+              value: values.email,
+              errors: [new Error("")]
+            }
+          });
         }
-      })
+      }
+    });
   };
 
   render() {
@@ -134,7 +133,11 @@ class Login extends Component {
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
                       className="register__input"
-                      onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
+                      onChange={
+                        this.state.firstInput
+                          ? this.clearTrigger
+                          : this.clearErrorMessage
+                      }
                       size={"large"}
                       prefix={
                         <Icon
@@ -147,18 +150,22 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {getFieldDecorator("password",{
+                  {getFieldDecorator("password", {
                     rules: [
                       {
                         required: true,
-                        message: 'Please input your password!'
+                        message: "Please input your password!"
                       }
                     ]
                   })(
                     <Input
                       className="register__input"
                       size={"large"}
-                      onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
+                      onChange={
+                        this.state.firstInput
+                          ? this.clearTrigger
+                          : this.clearErrorMessage
+                      }
                       prefix={
                         <Icon
                           type={"lock"}
@@ -171,18 +178,22 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  
                   {/* {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true
                   })(<Checkbox>{strings.login_remember_me}</Checkbox>)} */}
-                  <div
-                  type="flex"
-                  align="end"
-                  >
-                    <a className="login-form__forgot" href="/">
-                    {strings.login_forgot_password}
-                    </a>
+                  <div type="flex" align="end">
+                    <Link
+                      style={{ color: "#F63700" }}
+                      onClick={this.clearErrorMessage}
+                      to={{
+                        pathname: "/forget-password",
+                        state: { nextPage: this.state.nextPage }
+                      }}
+                    >{strings.login_forgot_password}</Link>
+                    {/* <a className="login-form__forgot" href="/forget-password">
+                      {strings.login_forgot_password}
+                    </a> */}
                   </div>
                   <Button
                     size={"large"}
@@ -193,15 +204,15 @@ class Login extends Component {
                       {strings.login_enter}
                     </p>
                   </Button>
-                  <div className='login-form__error-box'>
-                    {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}
+                  <div className="login-form__error-box">
+                    {this.props.messageError ? (
+                      <p> {this.props.messageError}</p>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </FormItem>
-                <div
-                type="flex"
-                align="middle"
-                className="login__separator"
-                >
+                <div type="flex" align="middle" className="login__separator">
                   <p>{strings.login_option}</p>
                 </div>
                 <Form.Item className="register__form__btn-socmed">
@@ -223,14 +234,14 @@ class Login extends Component {
                     {strings.formatString(
                       strings.login_quote,
                       <Link
-                        style={{color:"#F63700"}}
+                        style={{ color: "#F63700" }}
                         onClick={this.clearErrorMessage}
                         to={{
                           pathname: "/register",
                           state: { nextPage: this.state.nextPage }
                         }}
                       >
-                        <b>{strings.login_register}{" "}</b>
+                        <b>{strings.login_register} </b>
                       </Link>
                     )}
                   </div>
@@ -249,11 +260,17 @@ const mapStateToProps = state => ({
   token: state.authentication.token,
   auth: state.authentication.auth,
   messageError: state.authentication.messageError,
-  isError : state.authentication.checkError
+  isError: state.authentication.checkError
 });
 
 const LoginForm = Form.create({})(Login);
 export default connect(
   mapStateToProps,
-  { loginWithGoogle, loginWithForm, loginWithHome, clearError, loginWithFacebook }
+  {
+    loginWithGoogle,
+    loginWithForm,
+    loginWithHome,
+    clearError,
+    loginWithFacebook
+  }
 )(LoginForm);

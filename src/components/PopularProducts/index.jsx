@@ -8,7 +8,7 @@ import SkeletonCustom from "../Skeleton";
 const PopularProducts = props => {
   const { data } = props;
   return (
-    <div style={{ marginTop: 33 }}>
+    <div>
       <h2 style={{
         marginLeft: 48,
         fontSize: 30

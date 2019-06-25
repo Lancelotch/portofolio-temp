@@ -30,7 +30,7 @@ class BestSellers extends React.Component {
                                     count={3} 
                                     height={300} 
                                     width={200} 
-                                    topMargin={70}
+                                    topMargin={64}
                                     rightMargin={70} 
                                     />
                                 </div>
@@ -51,7 +51,7 @@ class BestSellers extends React.Component {
                                         <div style={{ paddingLeft: "120px" }}>
                                             {data.map((product, i) => {
                                                 return (
-                                                    <Col md={4} style={{ marginTop: '70px', marginRight: '70px' }} key={i}>
+                                                    <Col md={4} style={{ marginTop: '64px', marginRight: '70px' }} key={i}>
                                                         <BestSeller
                                                             id={product.id}
                                                             key={i}
