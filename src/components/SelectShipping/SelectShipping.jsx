@@ -17,6 +17,8 @@ function compareShipping(a, b) {
 
 export const SelectShipping = props => {
   const { shipping, selected, onChangeSelected } = props;
+  console.log(props.selected);
+  
   shipping.sort(compareShipping);
   return (
     <React.Fragment>
