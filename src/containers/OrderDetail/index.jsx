@@ -37,20 +37,22 @@ class OrderDetailContainer extends Component {
   //   ));
   // };
   variants = variants => {
-    return variants.map((variant,index)=> {
-      if(index === variants.length -1){
+    return variants.map((variant, index) => {
+      if (index === variants.length - 1) {
         return (
-          <span className="detail__variant" key={index} >{variant.value.name}</span>
-        )
-      }else{
+          <span className="detail__variant" key={index}>
+            {variant.value.name}
+          </span>
+        );
+      } else {
         return (
-          <span className="detail__variant" key={index} >{variant.value.name},</span>
-        )
+          <span className="detail__variant" key={index}>
+            {variant.value.name},
+          </span>
+        );
       }
-      
-    })
-  }
-  
+    });
+  };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
@@ -60,14 +62,7 @@ class OrderDetailContainer extends Component {
       <Fragment>
         <Row>
           <Col md={24} className="card__row">
-            <Card
-              className="card__order-detail"
-              title={
-                <span style={{ fontSize: "17px" }}>
-                  {strings.order_details}
-                </span>
-              }
-            >
+            <Card className="card__order-detail" title={strings.order_details}>
               <div className="detail">
                 <Row className="detail__order">
                   <Col md={5} style={{ padding: "20px" }}>
@@ -85,15 +80,19 @@ class OrderDetailContainer extends Component {
                       <Col span={6}>Variant</Col>
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
-                      <Row>
-                        <Col className="detail__variant" span={3}>
-                          Varian
-                        </Col>
-                        <Col className="detail__variant" style={{textAlign:"end"}} span={1}>
-                          :
-                        </Col>
-                        {this.variants(sku.variants)}
-                      </Row>
+                    <Row>
+                      <Col className="detail__variant" span={3}>
+                        Varian
+                      </Col>
+                      <Col
+                        className="detail__variant"
+                        style={{ textAlign: "end" }}
+                        span={1}
+                      >
+                        :
+                      </Col>
+                      {this.variants(sku.variants)}
+                    </Row>
                   </Col>
                   <Col md={6}>
                     <h2 className="detail__price">

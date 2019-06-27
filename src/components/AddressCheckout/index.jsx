@@ -9,19 +9,14 @@ export const AddressCheckout = props => {
     isAddressAvailable,
     onEditAddress,
     onSelectListAddress,
-    onAddAddress }
-    = props;
+    onAddAddress
+  } = props;
   return (
     <div style={{ marginBottom: 15 }}>
       <Card
-      className="card-address"
+        className="card-address"
         size="default"
-        title={
-          <div
-            style={{
-              fontSize: 18
-            }}>Alamat Pengiriman</div>
-        }
+        title={<div>Alamat Pengiriman</div>}
       >
         <div style={{ padding: 15 }}>
           <AddressDetail
@@ -30,20 +25,22 @@ export const AddressCheckout = props => {
             onEdit={onEditAddress}
           />
           <div className="addressCheckout">
-          {isAddressAvailable &&
-            <Button
-              onClick={onSelectListAddress}
-              size="large"
-              className="addressCheckout__button">
-              Kirim ke Alamat Lain
-          </Button>
-          }
+            {isAddressAvailable && (
+              <Button
+                onClick={onSelectListAddress}
+                size="large"
+                className="addressCheckout__button"
+              >
+                Kirim ke Alamat Lain
+              </Button>
+            )}
             <Button
               size="large"
               className="addressCheckout__button"
-              onClick={onAddAddress}>
+              onClick={onAddAddress}
+            >
               Tambah Alamat <Icon type="plus" />
-          </Button>
+            </Button>
           </div>
         </div>
       </Card>

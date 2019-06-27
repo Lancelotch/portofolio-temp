@@ -41,7 +41,8 @@ class Checkout extends Component {
       isProductDetailAvailable: false,
       textButton: "Lanjut Belanja",
       cities: [],
-      subdistricts: []
+      subdistricts: [],
+      jneChecked: false
     };
   }
 
@@ -301,6 +302,10 @@ class Checkout extends Component {
     }
   };
 
+  handleChecked = () => {
+    this.setState({ jneChecked: !this.state.jneChecked });
+  }
+
   render() {
     const { isAddressAvailable } = this.props;
     const {
@@ -310,7 +315,8 @@ class Checkout extends Component {
       customerAddress,
       quantity,
       shipping,
-      priceProduct
+      priceProduct,
+      jneChecked
     } = this.state;
     return (
       <div className="checkout">
@@ -381,6 +387,8 @@ class Checkout extends Component {
                   quantity={quantity}
                   priceProduct={priceProduct}
                   viaRoute={shipping}
+                  checked={jneChecked}
+                  handleChecked={this.handleChecked}
                   onOrder={() =>
                     isAddressAvailable
                       ? this.actionSubmitOrder()

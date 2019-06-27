@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Affix } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Affix, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
@@ -178,11 +178,14 @@ class Login extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  {/* {getFieldDecorator("remember", {
+                  {getFieldDecorator("remember", {
                     valuePropName: "checked",
                     initialValue: true
-                  })(<Checkbox>{strings.login_remember_me}</Checkbox>)} */}
-                  <div type="flex" align="end">
+                  })(<Checkbox>{strings.login_remember_me}</Checkbox>)}
+                  <a className="login-form__forgot" href="/forget-password">
+                    {strings.login_forgot_password}
+                  </a>
+                  {/* <div type="flex" align="end">
                     <Link
                       style={{ color: "#F63700" }}
                       onClick={this.clearErrorMessage}
@@ -190,11 +193,10 @@ class Login extends Component {
                         pathname: "/forget-password",
                         state: { nextPage: this.state.nextPage }
                       }}
-                    >{strings.login_forgot_password}</Link>
-                    {/* <a className="login-form__forgot" href="/forget-password">
+                    >
                       {strings.login_forgot_password}
-                    </a> */}
-                  </div>
+                    </Link>
+                  </div> */}
                   <Button
                     size={"large"}
                     htmlType="submit"
@@ -230,22 +232,22 @@ class Login extends Component {
                       {strings.google}
                     </ButtonGoogle>
                   </div>
-                  <div className="register__form__direct-login">
-                    {strings.formatString(
-                      strings.login_quote,
-                      <Link
-                        style={{ color: "#F63700" }}
-                        onClick={this.clearErrorMessage}
-                        to={{
-                          pathname: "/register",
-                          state: { nextPage: this.state.nextPage }
-                        }}
-                      >
-                        <b>{strings.login_register} </b>
-                      </Link>
-                    )}
-                  </div>
                 </Form.Item>
+                <div className="register__form__direct-login">
+                  {strings.formatString(
+                    strings.login_quote,
+                    <Link
+                      style={{ color: "#F63700" }}
+                      onClick={this.clearErrorMessage}
+                      to={{
+                        pathname: "/register",
+                        state: { nextPage: this.state.nextPage }
+                      }}
+                    >
+                      <b>{strings.login_register} </b>
+                    </Link>
+                  )}
+                </div>
               </Form>
             </div>
           </Col>
