@@ -14,25 +14,14 @@ const checkVariant = (variantId, valueid, selectedId) => {
 
 
 const VariantText = props => {
-    let { /*infoStockEmpty,*/ selected } = {
-        selected: props.selected
-    }
-    if (!selected) {
-        const variantSize = props.variantItems.filter(
-            variant => variant.variantName === props.name
-        )[0];
-        selected = variantSize && variantSize.value;
-        variantSize && props.onClick(selected.id, selected);
-    }
     return (
         <React.Fragment>
             Size
     {props.variantItems.map(value => (
                 /* <Tooltip title={strings.stock_empty} visible={stockInfo(props, infoStockEmpty, value, selected)} key={value.id}>*/
-                <div
-                    onClick={
+                <div onClick={
                         /*stockInfo(props, infoStockEmpty, value, selected) ? null :*/
-                        () => props.onClick(props.id)
+                        () => props.onClick(value.id)
                     }
                     key={value.id}
                     // style={stockInfo(props, infoStockEmpty, value, selected) ? disabled : null}
@@ -51,28 +40,23 @@ const VariantText = props => {
     );
 };
 
+const onVariantSelected = props => {
+    this.props.onChangeVariant(props);
+  };
+
 const VariantImage = props => {
-    let selected = props.selected;
-    if (!selected) {
-        const variantWarna = props.variantItems.filter(
-            variant => variant.variantName === props.name
-        )[0];
-        selected = variantWarna && variantWarna.value;
-        variantWarna && props.onClick(selected.id, selected);
-    }
     return (
         <React.Fragment>
             Warna
     {props.variantItems.map(value => (
-                <div onClick={() => props.onClick(props.id)}
+                <div onClick={() => props.onClick(value.id)}
                     key={value.id}
                     className={
-                        props.selected &&
-                            checkVariant(props.id, value.id, selected)
+                        props.selected && value.id
                             ? "box-variant active"
                             : "box-variant"
                     }
-                >
+                >        {console.log('awlselected',props.selected) }
                     {value.image === undefined ? <p>{value.name}</p> :
                         <img className="variant_image" src={value.image.smallUrl} alt="" />
                     }
