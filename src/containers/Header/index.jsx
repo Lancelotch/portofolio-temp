@@ -53,6 +53,10 @@ class Header extends Component {
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
       this.setState({ display: "none" });
+    } else if (window.scrollY < 100){
+      this.setState({
+        display:""
+      })
     }
   };
 
@@ -234,6 +238,7 @@ class Header extends Component {
                 }}
                 id="filter"
                 name="q"
+                placeholder="Cari Produk"
                 defaultValue={this.getParams()}
                 onSearch={this.getValue}
                 onChange={this.handleInputSearchChange.bind(this)}

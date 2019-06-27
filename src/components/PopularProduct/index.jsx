@@ -23,17 +23,15 @@ const PopularProduct = props => {
             background: "linear-gradient(188.23deg, #FFFFFF 65%, #D5D5D5 100%)",
             width: 240,
             // height: 240
-
           }}
           cover={
             <div className="popular__image-cover">
               <img alt="example" src={urlImage} className="popular__image" />
             </div>
             // <img alt="example" src={urlImage}  />
-          }
-        >
+          }>
           <div className="popular__info">
-            <span className="popular__title">{name.substr(0, 8) + "..."}</span>
+            <span className="popular__title">{name.substr(0, 13)+"..."}</span>
             <br />
             <span className="popular__price">{priceRp} </span>
           </div>

@@ -9,16 +9,16 @@ const colStyle = {
 };
 
 const Products = props => {
-  return props.productList.map((product, index) => (
-    <Col key={index} md={4} style={colStyle}>
+  return(
+    <Col  md={4} style={colStyle}>
       <Product
-        id={product.id}
-        urlImage={product.urlImage}
-        name={product.name}
-        price={product.price}
+        id={props.id}
+        urlImage={props.defaultImage}
+        name={props.information}
+        price={props.price}
       />
     </Col>
-  ));
+  )
 };
 
 Products.propTypes = {

@@ -6,7 +6,7 @@ const listProductCategory = ({categoryId,page, sortBy, direction}) => {
     serviceWithoutToken()
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
+        url: `${PATH_PRODUCT.PRODUCT_CATEGORY_DRAFT}${categoryId}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
       })
       .then(response => {
         resolve(response.data);
@@ -33,17 +33,19 @@ const popularProduct = request => {
   })
 }
 
-const listProductSearch = ({query,page, sortBy, direction}) => {
+const listProductSearch = ({query,page,sortBy, direction}) => {
   return new Promise((resolve, reject) => {
     serviceWithoutToken()
       .request({
         method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_SEARCH}${query}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
+        url: `${PATH_PRODUCT.PRODUCT_SEARCH_DRAFT}${query}&limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
       })
       .then(response => {
         resolve(response.data);
       })
       .catch(error => {
+        console.log(error);
+        
         reject(error.response);
       });
   });

@@ -8,7 +8,6 @@ import convertTimesTime from '../../library/convertTimestime';
 const PaymentInfo = props => {
     const { shipping, payment, totalAmount, productQuantity, price, cancelBy, cancelDate, exspedisi } = props;
     return (
-        <React.Fragment>
             <Card>
                 <div className="paymentInfo">
                     <Row>
@@ -24,7 +23,11 @@ const PaymentInfo = props => {
                                         </td>
                                         <td>
                                             <p className="nameCustomerText"
-                                                style={{ marginBottom: 0, textAlign: "right", fontSize: 18 }}>
+                                                style={{
+                                                    marginBottom: 0,
+                                                    textAlign: "right",
+                                                    fontSize: 18
+                                                }}>
                                                 {currencyRupiah(price)}
                                             </p>
                                         </td>
@@ -64,100 +67,103 @@ const PaymentInfo = props => {
                                         </td>
                                     </tr>
                                     {shipping !== undefined | shipping ?
-                                        <React.Fragment>
-                                            <tr>
-                                                <td>
-                                                    <p className="nameCustomerText"
-                                                        style={{ marginBottom: 0, fontSize: 14 }}>
-                                                        {strings.international_shipping}
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className="customerVia"
-                                                        style={{ marginBottom: 0, marginTop: -20 }}>
-                                                        {shipping.via}
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p className="customerVia"
-                                                        style={{
-                                                            marginBottom: 0,
-                                                            textAlign: "right",
-                                                            marginTop: -20
-                                                        }}>
-                                                        {shipping.via === "Laut" && "laut" ?
-                                                            "Ongkir Sudah Termasuk " :
-                                                            currencyRupiah(shipping.internationalPrice)
-                                                        }
-                                                    </p>
-                                                </td>
-                                            </tr> </React.Fragment> : null}
-                                    {exspedisi !== undefined | exspedisi ?
-                                        <React.Fragment>
-                                            <tr>
-                                                <td>
-                                                    <p className="nameCustomerText"
-                                                        style={{ marginBottom: 0, fontSize: 14 }}>
-                                                        Pengiriman Lokal
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className="customerVia"
-                                                        style={{ marginBottom: 0, marginTop: -20 }}>
-                                                        {exspedisi.type}
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p className="customerVia"
-                                                        style={{
-                                                            marginBottom: 0,
-                                                            textAlign: "right",
-                                                            marginTop: -20
-                                                        }}>
-                                                        {
-                                                            currencyRupiah(exspedisi.expedisiPrice)
-                                                        }
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                            <tr>
+                                        <tr>
                                             <td>
-                                                    <p className="customerVia"
-                                                        style={{ marginBottom: 0, marginTop: -20 }}>
-                                                       Asuransi
+                                                <p className="nameCustomerText"
+                                                    style={{ marginBottom: 0, fontSize: 14 }}>
+                                                    {strings.international_shipping}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        : null}
+                                    {shipping !== undefined | shipping ?
+                                        <tr>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{ marginBottom: 0, marginTop: -20 }}>
+                                                    {shipping.via}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{
+                                                        marginBottom: 0,
+                                                        textAlign: "right",
+                                                        marginTop: -20
+                                                    }}>
+                                                    {shipping.via === "Laut" && "laut" ?
+                                                        "Ongkir Sudah Termasuk " :
+                                                        currencyRupiah(shipping.internationalPrice)
+                                                    }
+                                                </p>
+                                            </td>
+                                        </tr> : null}
+                                    {exspedisi !== undefined | exspedisi ?
+                                        <tr>
+                                            <td>
+                                                <p className="nameCustomerText"
+                                                    style={{ marginBottom: 0, fontSize: 14 }}>
+                                                    Pengiriman Lokal
                                                     </p>
-                                                </td>
-                                                <td>
-                                                    <p className="customerVia"
-                                                        style={{
-                                                            marginBottom: 0,
-                                                            textAlign: "right",
-                                                            marginTop: -20
-                                                        }}>
-                                                        {
-                                                            currencyRupiah(120000)
-                                                        }
+                                            </td>
+                                        </tr>
+                                        : null}
+                                    {exspedisi !== undefined | exspedisi ?
+                                        <tr>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{ marginBottom: 0, marginTop: -20 }}>
+                                                    {exspedisi.type}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{
+                                                        marginBottom: 0,
+                                                        textAlign: "right",
+                                                        marginTop: -20
+                                                    }}>
+                                                    {currencyRupiah(exspedisi.expedisiPrice)}
+                                                </p>
+                                            </td>
+                                        </tr> : null}
+                                    {exspedisi !== undefined | exspedisi ?
+                                        <tr>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{ marginBottom: 0, marginTop: -20 }}>
+                                                    Asuransi
                                                     </p>
-                                                </td></tr> </React.Fragment> : null}
-                                    <tr>
+                                            </td>
+                                            <td>
+                                                <p className="customerVia"
+                                                    style={{
+                                                        marginBottom: 0,
+                                                        textAlign: "right",
+                                                        marginTop: -20
+                                                    }}>
+                                                    {currencyRupiah(120000)}
+                                                </p>
+                                            </td>
+                                        </tr> : null}
+                                        <tr>
                                         <td>
                                             <p className="totalPesanan"
                                                 style={{ marginBottom: 0, marginTop: 24 }}
                                             >{strings.total_payment}</p>
                                         </td>
                                         <td>
-                                            <p
-                                                className="totalPesanan"
-                                                style={{ marginBottom: 0, textAlign: "right", marginTop: 24 }}>
+                                            <p className="totalPesanan"
+                                                style={{
+                                                    marginBottom: 0,
+                                                    textAlign: "right",
+                                                    marginTop: 24
+                                                }}>
                                                 {currencyRupiah(totalAmount)}
                                             </p>
                                         </td>
                                     </tr>
-                                    <tr>
+                                        <tr>
                                         <td>
                                             <p className="nameCustomerText"
                                                 style={{ marginBottom: 0 }}>
@@ -174,7 +180,7 @@ const PaymentInfo = props => {
                                             </td>
                                             : null}
                                     </tr>
-                                    <tr>
+                                        <tr>
                                         <td>
                                             <p style={{ marginTop: -20 }}>{strings.notice_payment_administrasi}</p>
                                         </td>
@@ -197,8 +203,8 @@ const PaymentInfo = props => {
                                 : null}
                         </Col>
                     </Row>
-                </div> </Card>
-        </React.Fragment>
+                </div>
+            </Card>
     );
 };
 

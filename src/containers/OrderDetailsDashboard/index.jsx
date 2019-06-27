@@ -62,46 +62,28 @@ class OrderDetailsDashboard extends Component {
         }
     };
 
-
     render() {
         const {
             tabsNotPay,
             tabsInDelivery,
             tabsNotSent,
             tabsFinish,
+            tabsInDeliveryOrderStatusUser,
+            tabsFinishOrderStatusUser,
+            estimateAccepted,
+            labelTabDetails,
             actionShowOrderListWaiting
         } = this.props;
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
-                {tabsNotPay === 1 &&
                     <OrderStatusStep
                         actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        labelTabDetails={"Belum Bayar"}
+                        labelTabDetails={labelTabDetails}
+                        tabsNotSent={tabsNotSent}
+                        tabsInDelivery={tabsInDelivery}
+                        tabsFinish={tabsFinish}
                         orderDate={this.state.orderDate} />
-                }
-                {tabsNotSent === 2 &&
-                    <OrderStatusStep
-                        actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        labelTabDetails={"Belum Dikirim"}
-                        tabsNotSent={2}
-                        orderDate={this.state.orderDate} />
-                }
-                {tabsInDelivery === 3 &&
-                    <OrderStatusStep
-                        actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        labelTabDetails={"Dalam Pengiriman"}
-                        tabsNotSent={2}
-                        tabsInDelivery={3}
-                        orderDate={this.state.orderDate} />}
-                {tabsFinish === 4 &&
-                    <OrderStatusStep
-                        actionShowOrderListWaiting={actionShowOrderListWaiting}
-                        labelTabDetails={"Selesai"}
-                        tabsNotSent={2}
-                        tabsInDelivery={3}
-                        tabsFinish={4}
-                        orderDate={this.state.orderDate} />}
                 {this.state.indexes.map(index => {
                     return (
                         <div key={index.productId} style={{ marginTop: 15 }}>
@@ -135,33 +117,19 @@ class OrderDetailsDashboard extends Component {
                         </div>
                     );
                 })}
-                {tabsNotPay === 1 &&
+               {tabsNotPay === 1 &&
                     <PaymentDateInfo
                         endDatePay={this.state.endDatePay}
                         typePayment={this.state.payment}
                         bank={this.state.bank}
-                    />}
-                {((tabsNotPay === 1) || (tabsNotSent === 2)) &&
-                    (<OrderStatusUser
+                    />}             
+                <OrderStatusUser
+                        tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+                        tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
+                        estimateAccepted={estimateAccepted}
                         label="Pengiriman"
                         customer={this.state.address}
-                        estimateShippingDate={this.state.estimateShippingDate} />)}
-                {tabsInDelivery === 3 &&
-                    <OrderStatusUser
-                        estimateAccepted={"Perkiraan Diterima"}
-                        label="Pengiriman"
-                        customer={this.state.address}
-                        estimateShippingDate={this.state.estimateShippingDate}
-                        tabsInDelivery={3} />
-                }
-                {tabsFinish === 4 &&
-                    <OrderStatusUser
-                        estimateAccepted={"Pesenan Diterima"}
-                        label="Pengiriman"
-                        customer={this.state.address}
-                        estimateShippingDate={this.state.estimateShippingDate}
-                        tabsFinish={4} />
-                }
+                        estimateShippingDate={this.state.estimateShippingDate} />
             </React.Fragment>
         );
     }

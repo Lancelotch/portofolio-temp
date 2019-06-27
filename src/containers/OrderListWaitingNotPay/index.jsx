@@ -3,9 +3,13 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Card } from "antd";
+import { Card,Modal } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
+import strings from "../../localization/localization";
+import { patchService } from "../../api/services";
+import { PATH_ORDER } from "../../api/path";
 
+const confirm = Modal.confirm;
 
 class OrderListWaitingPayment extends Component {
   constructor(props) {
@@ -13,7 +17,41 @@ class OrderListWaitingPayment extends Component {
     this.state = {
       isHowToShowModalOpen: false,
       orderId: null,
-      selectedOrder: null
+      selectedOrder: null,
+      stateCancelOrder: []
+    }
+  };
+
+  showDeleteConfirm = (allOrder, index) => {
+    confirm({
+      iconClassName: "iconWaitingPaymentCancel",
+      title: strings.tab_belum_bayar,
+      content: strings.tabs_belum_bayar_pesan_batalkan,
+      okText: strings.cancel,
+      okType: "danger",
+      cancelText: strings.back,
+      centered: true,
+      onOk: () => {
+        const cancelOrder = allOrder.splice(index, 1)
+        const newOrder = [...allOrder]
+        this.setState({
+          productorder: newOrder,
+          stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
+        })
+        console.log(index)
+        this.actionCancelConfirm(index);
+      },
+    });
+  };
+
+  actionCancelConfirm = async (index) => {
+    try {
+      const orderId = {
+        orderId: index
+      }
+      const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -34,9 +72,9 @@ class OrderListWaitingPayment extends Component {
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
       tabsNotSent,
-      productOrderNotYetPay,
-      showDeleteConfirm
+      productOrderNotYetPay
     } = this.props;
+
     return (
       <React.Fragment>
         {productOrderNotYetPay.map((order, i) => {
@@ -62,7 +100,7 @@ class OrderListWaitingPayment extends Component {
                 tabsNotPay={tabsNotPay}
                 tabsInDelivery={tabsInDelivery}
                 tabsNotSent={tabsNotSent}
-                showDeleteConfirm={showDeleteConfirm}
+                showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrderNotYetPay}
                 order={order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}

@@ -8,8 +8,8 @@ const OrderStatusUser = props => {
         label,
         customer,
         estimateShippingDate,
-        tabsInDelivery,
-        tabsFinish,
+        tabsInDeliveryOrderStatusUser,
+        tabsFinishOrderStatusUser,
         estimateAccepted } = props;
         let styleEstimateaAccepted = {
             color: "#BBBBBB",
@@ -27,7 +27,7 @@ const OrderStatusUser = props => {
                                 <h2>{label}</h2>
                             </Col>
                             <Col md={12}>
-                                {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
+                                {((tabsInDeliveryOrderStatusUser === 3) || (tabsFinishOrderStatusUser === 4)) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
                                 {estimateShippingDate}

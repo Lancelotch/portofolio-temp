@@ -7,7 +7,7 @@ import product from "../../api/services/product";
 import "./style.sass";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
-import SortListProduct from "../../components/SortListProduct/";
+import SortListProduct from "../../components/SortListProduct";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
@@ -98,7 +98,11 @@ class ProductPage extends Component {
           display: "flex",
           justifyContent: "flex-end"
         }}>
-          <SortListProduct onChange={this.onChangeSort} />
+        <SortListProduct
+        defaultValue={"createdDate|desc"}  
+        onChange={this.onChangeSort}
+        valueLow={"price.idr|asc"}
+        valueHigh={"price.idr|desc"} />
         </div>
         <InfiniteScroll
           dataLength={productList.length}
@@ -119,7 +123,15 @@ class ProductPage extends Component {
                 leftMargin={13}
                 topMargin={15}
                 rightMargin={13} />}>
-              <Products productList={productList} />
+                {productList.map((product,index) =>
+                  <Products
+                  key={index}
+                  id={product.id} 
+                  defaultImage={product.urlImage}
+                  information={product.name}
+                  price={product.price}
+                   />
+                )}
             </Suspense>
           </div>
         </InfiniteScroll>

@@ -119,7 +119,7 @@ class SkuContainer extends Component {
                         {...variant}
                         sku={this.state.sku}
                         key={variant.id}
-                        selected={this.state.selected}
+                        selected={this.state.selected.id === variant.id ? true : false}
                         index={index}
                         onClick={this.updateVariant}  
                         />

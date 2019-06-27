@@ -1,44 +1,52 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Variant from '../../components/Variant';
 
-class VariantsContainer extends Component {
+class Variants extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            variants: [],
+            selected: [],
+            arr: [],
+            name: ""
         }
     }
-    
-    checkSmallestPrice = (product) =>{
-         const listSku = product.sku;
-         const smallestPrice = listSku.reduce(this.skuSmallestPrice, listSku[0]);
-        //  console.log("pasti", smallestPrice);
-         return smallestPrice;
-    }
 
-    skuSmallestPrice = (smallest, sku)=>{
-        return (sku.price < smallest.price && sku.stock !== 0) ? sku : smallest
-    }
-
-
-    checkStock = (product) => {
+    updateVariant = (variantId,value,name) => {
+        let id = ""
+        let arr = []
+        this.state.variants.forEach(variant => {
+            if (variantId === variant.variantId) {
+                variant.value = value
+            }
+   
+            id = variant.variantId + variant.value.id;
+            arr.push(id)
         
-    }
-
-    componentDidMount(){
-        this.checkSmallestPrice(this.props.product)
+        });
+        this.setState({
+            selected:arr
+        })
     }
 
 
     render() {
-        const listSku = this.props.product.sku
+        console.log(this.props.product.variants);
+
         return (
-            <Fragment>
-                {this.props.product.variants.map((variant,index) => (
-                    <Variant {...variant} key={variant.id} index={index} sku={listSku} onClick={this.props.actionSelectVariants} />
-                ))}
-            </Fragment>
+            <React.Fragment>
+            {this.props.product.variants.map((variant, index) => (
+                <Variant
+                    {...variant}             
+                    key={variant.id}
+                    selected={this.state.selected.id === variant.id ? true : false}
+                    index={index}
+                    onClick={this.updateVariant}  
+                    />
+            ))}
+            </React.Fragment>
         );
     }
 }
 
-export default VariantsContainer;
+export default Variants;

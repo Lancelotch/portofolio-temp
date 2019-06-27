@@ -33,16 +33,22 @@ export const PATH_CUSTOMER = {
 //PRODUCT
 const PRODUCT = "product";
 const PRODUCT_BY_ID = 'product/';
+const PRODUCT_BY_ID_DRAFT = 'product-draft/'
 const PRODUCT_CATEGORY = "product/category/";
+const PRODUCT_CATEGORY_DRAFT = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
+const PRODUCT_SEARCH_DRAFT = "product-draft/search?keyword="
 const PRODUCT_BEST_SELLER = "product/best-seller?limit=4";
 const PRODUCT_POPULAR = "product/popular-categories?limit=4"
 const PRODUCT_RECOMMENDATION = "product/recommendations?limit=10"
 export const PATH_PRODUCT = {
     PRODUCT: PRODUCT,
     PRODUCT_BY_ID: PRODUCT_BY_ID,
+    PRODUCT_BY_ID_DRAFT:PRODUCT_BY_ID_DRAFT,
     PRODUCT_CATEGORY: PRODUCT_CATEGORY,
+    PRODUCT_CATEGORY_DRAFT : PRODUCT_CATEGORY_DRAFT,
     PRODUCT_SEARCH: PRODUCT_SEARCH,
+    PRODUCT_SEARCH_DRAFT:PRODUCT_SEARCH_DRAFT,
     PRODUCT_BEST_SELLER: PRODUCT_BEST_SELLER,
     PRODUCT_POPULAR,
     PRODUCT_RECOMMENDATION

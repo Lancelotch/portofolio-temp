@@ -16,43 +16,43 @@ const Pay = (props) => {
     order,
     orderProduct
   } = props
+
   let id = ""
   order.indexes.map(p => {
     id = p.productId
     return id
   })
+
   return (
     <React.Fragment>
       {tabsNotPay === 1 && (
-        <React.Fragment>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center"
-            }}>
-            <p
-              className="waitingPayment__button"
-              onClick={() => showDeleteConfirm(orderProduct, order.orderId)}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}>
+          <p
+            className="waitingPayment__button"
+            onClick={() => showDeleteConfirm(orderProduct)}
+          >
+            {strings.cancel_order_dashboard}
+          </p>
+          <div>
+            <Button
+              className="waitingPayment__payNow"
+              onClick={showHowToModalPayment.bind(this, order)}
             >
-              {strings.cancel_order_dashboard}
-            </p>
-            <div>
-              <Button
-                className="waitingPayment__payNow"
-                onClick={showHowToModalPayment.bind(this, order)}
-              >
-                {strings.pay_now}
-              </Button>
-              <Button
-                className="waitingPayment__detailPesanan"
-                onClick={() => showOrderDetailsDashboard(order.orderId)}
-              >
-                {strings.order_details}
-              </Button>
-            </div>
+              {strings.pay_now}
+            </Button>
+            <Button
+              className="waitingPayment__detailPesanan"
+              onClick={() => showOrderDetailsDashboard(order.orderId)}
+            >
+              {strings.order_details}
+            </Button>
           </div>
-        </React.Fragment>
+        </div>
       )}
       {tabsNotSent === 2 && (
         <div
