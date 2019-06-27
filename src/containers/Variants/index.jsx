@@ -5,19 +5,22 @@ class Variants extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: null,
-            variantSelected:[]
+            selected: [],
+            arr:[]
         }
     }
 
-    onChangeVariant = (selected) => {
-        console.log(selected)    
-        this.setState({
-            variantSelected: selected
+    updateVariant = (valueId,value,name) => {
+        let arr = []
+        console.log(value);
+        console.log(valueId);
+        console.log(name);
+        
+        arr.push(value)
+        this.setState({ 
+            selected: arr 
         })
-
     }
-
 
     render() {
         return (
@@ -26,9 +29,9 @@ class Variants extends Component {
                     <Variant
                         {...variant}
                         key={variant.id}
-                        selected={this.state.variantSelected.id === variant.id ? true : false}
+                        selected={this.state.selected}
                         index={index}
-                        onClick={this.onChangeVariant}
+                        onClick={this.updateVariant}
                     />
                 ))}
             </React.Fragment>
