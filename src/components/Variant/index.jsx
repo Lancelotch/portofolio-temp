@@ -1,67 +1,67 @@
 import React from "react";
-import { Col } from "antd";
+import { Col, Tooltip } from "antd";
 import "./Variant.sass";
 
 const VariantText = props => {
-    let selected = props.selected
-    if (!selected) {
-        const variantSize = props.variantItems.filter(
-            variant => variant.variantName === props.name
-        )[0];
-        selected = variantSize && variantSize.value;
-        variantSize && props.onClick(selected.id, selected);
-    }
+    functionSelectedDefaultVariant(props);
     return (
         <React.Fragment>
-            Size
-    {props.variantItems.map(value => (
-                /* <Tooltip title={strings.stock_empty} visible={stockInfo(props, infoStockEmpty, value, selected)} key={value.id}>*/
-                <div onClick={
-                    /*stockInfo(props, infoStockEmpty, value, selected) ? null :*/
-                    () => props.onClick(props.id, value, props.name)
-                }
+           {props.name}
+            {props.variantItems.map(value => (
+                <div onClick={() => props.onClick(props.id, value, props.name)}
                     key={value.id}
-                    // style={stockInfo(props, infoStockEmpty, value, selected) ? disabled : null}
                     className={
-                        selected &&
-                            (props.id, value.id)
-                            ? "box-variant-text active"
-                            : "box-variant-text"
+                        `box-variant-text 
+                        ${setActiveIndicator(props.selected, props.name, value.id)}`
                     }
                 >
                     <span>{value.name}</span>
                 </div>
-                // </Tooltip>
             ))}
         </React.Fragment>
     );
 };
 
+const setActiveIndicator = (selected, name, id) => {
+    if (selected.length > 0) {
+        const isActive = selected.filter(variants => {
+            return variants.variantItem.id === id
+        }).length > 0
+
+        if (isActive) {
+            return "active";
+        }
+    }
+    return;
+}
+
+
 
 const VariantImage = props => {
+    functionSelectedDefaultVariant(props);
     return (
         <React.Fragment>
-            Warna
+           {props.name}
            {props.variantItems.map(value => (
+            <Tooltip title={value.name} key={value.id}>
                 <div onClick={() => props.onClick(props.id, value, props.name)}
                     key={value.id}
-                    className={props.selected ===
-                        props.id
-                        ? "box-variant active"
-                        : "box-variant"
-                    }>
+                    className={value.image === undefined ?`box-variant-text 
+                    ${setActiveIndicator(props.selected, props.name, value.id)}` 
+                      : 
+                    `box-variant ${setActiveIndicator(props.selected, props.name, value.id)}`}>
                     {console.log('awlselected', props.selected)}
-                    {value.image === undefined ? <p>{value.name}</p> :
+                    {value.image === undefined ? <span>{value.name}</span> :
                         <img className="variant_image" src={value.image.smallUrl} alt="" />
                     }
                 </div>
+                </Tooltip>
             ))}
         </React.Fragment>
     );
 };
 
 const Variant = props => {
-    const variants = props.variantItems.sort((a, b) => a - b);
     return (
         <Col md={24}>
             <div className="variant">
@@ -77,3 +77,12 @@ const Variant = props => {
 };
 
 export default Variant;
+
+function functionSelectedDefaultVariant(props) {
+    let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
+    if (!isRegisteredVariant) {
+        const SelectedDefaultVariant = props.variantItems[0];
+        SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name);
+    }
+}
+

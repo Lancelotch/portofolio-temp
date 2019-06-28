@@ -32,7 +32,8 @@ class ProductDetail extends Component {
       details: [],
       note: null,
       shippingInternationalId: null,
-      quantity: 1
+      quantity: 1,
+      arr:[]
     };
   }
 
@@ -63,9 +64,11 @@ class ProductDetail extends Component {
     }
   };
 
-  actionUpdateSku = sku => {
-    const data = { ...this.state.data, sku };
+  actionUpdateSku = selected => {
+    console.log('sekeeee',selected);
+    const data = { ...this.state.data, selected };
     this.setState({ data });
+    
   };
 
 
@@ -84,18 +87,18 @@ class ProductDetail extends Component {
     const {
       id,
       note,
+      price,
       images,
-      data,
+      quantity,
       name
     } = this.state
     const image = images.find(image => image.isDefault === true).medium;
     const indexes = {
       image,
       name: name,
-      price: data.price,
+      price: price,
       productId: id,
-      quantity: data.quantity,
-      sku: data.sku,
+      quantity: quantity,
       note
     }
     const indexesToLocalstorage = JSON.stringify(indexes);
@@ -138,7 +141,7 @@ class ProductDetail extends Component {
                     <p className="productDetail__price">
                       {currencyRupiah(this.state.price.amount)}
                     </p>
-                    <Variants product={this.state.product}  />
+                    <Variants product={this.state.product} actionUpdateSku={this.actionUpdateSku}  />
                     {/*<SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
