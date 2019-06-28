@@ -7,6 +7,17 @@ import SkeletonCustom from "../Skeleton";
 
 const PopularProducts = props => {
   const { data } = props;
+  let counter = 0;
+  if ((!data || data.length < 1) && props.maxProductCount) {
+    for (var i = 0; i < props.maxProductCount; i++) {
+      data.push({
+        id: undefined,
+        image: {},
+        name: undefined,
+        price: undefined
+      });
+    }
+  }
   return (
     <div>
       <h2 style={{
@@ -22,23 +33,63 @@ const PopularProducts = props => {
           marginTop: 24,
           marginBottom: 24,
         }}>
-        {data.length < 1 ? 
-          (<SkeletonCustom 
-          count={4} 
-          height={300} 
-          leftMargin={13} 
-          rightMargin={13} 
-          />) : (
-          <React.Fragment>
-            {data.map((product, index) => {
-              return (
-                <Col style={{ margin: "18px" }} key={index}>
-                  <PopularProduct key={product.id} product={product} />
-                </Col>
-              );
-            })}
-          </React.Fragment>
-        )}
+        {data.map((product, index) => {
+          if (props.maxProductCount && counter < props.maxProductCount) {
+            if (props.maxProductCount !== null) {
+              counter += 1;
+            }
+            return (
+              <React.Fragment>
+                {data.length < 1 ?
+                  (<SkeletonCustom
+                    count={4}
+                    height={300}
+                    leftMargin={13}
+                    rightMargin={13}
+                  />) : (
+                    <React.Fragment>
+                      <Col style={{ margin: "18px" }} key={index}>
+                        <PopularProduct
+                          key={product.id}
+                          price={product.price}
+                          urlImage={product.image.smallUrl}
+                          name={product.name}
+                          id={product.id}
+                          product={product}
+                        />
+                      </Col>
+                    </React.Fragment>
+                  )}
+              </React.Fragment>
+            );
+          }
+          if (!props.maxProductCount) {
+            return (
+              <React.Fragment>
+                  {data.length < 1 ?
+                    (<SkeletonCustom
+                      count={4}
+                      height={300}
+                      leftMargin={13}
+                      rightMargin={13}
+                    />) : (
+                      <React.Fragment>
+                        <Col style={{ margin: "18px" }} key={index}>
+                          <PopularProduct
+                            key={product.id}
+                            price={product.price}
+                            urlImage={product.image.smallUrl}
+                            name={product.name}
+                            id={product.id}
+                            product={product}
+                          />
+                        </Col>
+                      </React.Fragment>
+                    )}
+              </React.Fragment>
+            )
+          }
+        })}
       </Row>
     </div>
   )

@@ -27,8 +27,8 @@ class HomePageContainer extends Component {
             <Row type="flex" justify="center">
               <Benefit />
             </Row>
-            <Fetcher path={PATH_PRODUCT.PRODUCT_POPULAR}>
-              <PopularProducts {...this.props} maxNumber={4} />
+            <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT}>
+              <PopularProducts {...this.props} maxProductCount={4} />
             </Fetcher>
             <Col md={24}>
               <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>

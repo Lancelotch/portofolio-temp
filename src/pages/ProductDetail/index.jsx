@@ -20,7 +20,7 @@ class ProductDetail extends Component {
       information: {},
       defaultImage: {},
       price: {},
-      variants:[],
+      variants: [],
       changeCheckout: false,
       open: false,
       id: "",
@@ -33,7 +33,7 @@ class ProductDetail extends Component {
       note: null,
       shippingInternationalId: null,
       quantity: 1,
-      arr:[]
+      arr: []
     };
   }
 
@@ -56,7 +56,7 @@ class ProductDetail extends Component {
         id: product.id,
         images: product.images,
         isProductAvailable: true,
-        product : product,
+        product: product,
         variants: product.variants
       });
     } catch (error) {
@@ -65,10 +65,10 @@ class ProductDetail extends Component {
   };
 
   actionUpdateSku = selected => {
-    console.log('sekeeee',selected);
+    console.log('sekeeee', selected);
     const data = { ...this.state.data, selected };
     this.setState({ data });
-    
+
   };
 
 
@@ -128,7 +128,7 @@ class ProductDetail extends Component {
 
     return (
       <React.Fragment>
-        {this.state.isProductAvailable &&  (
+        {this.state.isProductAvailable && (
           <React.Fragment>
             <div className="container productDetail">
               <Row>
@@ -141,14 +141,14 @@ class ProductDetail extends Component {
                     <p className="productDetail__price">
                       {currencyRupiah(this.state.price.amount)}
                     </p>
-                    <Variants product={this.state.product} actionUpdateSku={this.actionUpdateSku}  />
+                    <Variants product={this.state.product} actionUpdateSku={this.actionUpdateSku} />
                     {/*<SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
                       actionUpdateImageVariant={this.actionUpdateImageVariant}
                       defaultValueSku={this.state.data.sku}
                     />*/}
-                    <span style={{ fontSize: "18px", color: "#5d5d5d" }}>Jumlah</span>
+                    <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
                     <ButtonQuantityContainer
                       stock={this.state.information.maxOrder}
                       quantity={this.state.quantity}

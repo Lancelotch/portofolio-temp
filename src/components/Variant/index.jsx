@@ -67,7 +67,7 @@ const VariantImage = props => {
 
 const Variant = props => {
     return (
-        <Col md={24}>
+ 
             <div className="variant">
                 {props.name === "Warna" ? (
                     <VariantImage {...props} />
@@ -76,7 +76,7 @@ const Variant = props => {
                     )}
             </div>
 
-        </Col>
+      
     );
 };
 

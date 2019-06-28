@@ -11,10 +11,11 @@ import { pageUrlProductDetail } from "../../library/url";
 // const { Meta } = Card;
 
 const PopularProduct = props => {
-  const { id, name, urlImage, price } = props.product;
+  const { id, name, urlImage, price } = props;
   const priceRp = currencyRupiah(price);
   return (
     <div className="popular-wrapper">
+    {price &&
       <Link to={pageUrlProductDetail + id || "#"}>
         <Card
           bordered={false}
@@ -37,6 +38,7 @@ const PopularProduct = props => {
           </div>
         </Card>
       </Link>
+        }
     </div>
   );
 };

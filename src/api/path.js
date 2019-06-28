@@ -37,11 +37,13 @@ const PRODUCT_BY_ID_DRAFT = 'product-draft/'
 const PRODUCT_CATEGORY = "product/category/";
 const PRODUCT_CATEGORY_DRAFT = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
+const PRODUCT_ALL_DRAFT = "product-draft"
 const PRODUCT_SEARCH_DRAFT = "product-draft/search?keyword="
 const PRODUCT_BEST_SELLER = "product/best-seller?limit=4";
 const PRODUCT_POPULAR = "product/popular-categories?limit=4"
 const PRODUCT_RECOMMENDATION = "product/recommendations?limit=10"
 export const PATH_PRODUCT = {
+    PRODUCT_ALL_DRAFT : PRODUCT_ALL_DRAFT,
     PRODUCT: PRODUCT,
     PRODUCT_BY_ID: PRODUCT_BY_ID,
     PRODUCT_BY_ID_DRAFT:PRODUCT_BY_ID_DRAFT,
