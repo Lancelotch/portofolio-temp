@@ -6,7 +6,9 @@ const VariantText = props => {
     selectedDefaultVariant(props);
     return (
         <React.Fragment>
-           {props.name}
+            <p className="title-text">
+                {props.name}
+            </p>
             {props.variantItems.map(value => (
                 <div onClick={() => props.onClick(props.id, value, props.name)}
                     key={value.id}
@@ -41,20 +43,22 @@ const VariantImage = props => {
     selectedDefaultVariant(props);
     return (
         <React.Fragment>
-           {props.name}
-           {props.variantItems.map(value => (
-            <Tooltip title={value.name} key={value.id}>
-                <div onClick={() => props.onClick(props.id, value, props.name)}
-                    key={value.id}
-                    className={value.image === undefined ?`box-variant-text 
-                    ${setActiveIndicator(props.selected, props.name, value.id)}` 
-                      : 
-                    `box-variant ${setActiveIndicator(props.selected, props.name, value.id)}`}>
-                    {console.log('awlselected', props.selected)}
-                    {value.image === undefined ? <span>{value.name}</span> :
-                        <img className="variant_image" src={value.image.smallUrl} alt="" />
-                    }
-                </div>
+            <p className="title-text">
+                {props.name}
+            </p>
+            {props.variantItems.map(value => (
+                <Tooltip title={value.name} key={value.id}>
+                    <div onClick={() => props.onClick(props.id, value, props.name)}
+                        key={value.id}
+                        className={value.image === undefined ? `box-variant-text 
+                    ${setActiveIndicator(props.selected, props.name, value.id)}`
+                            :
+                            `box-variant ${setActiveIndicator(props.selected, props.name, value.id)}`}>
+                        {console.log('awlselected', props.selected)}
+                        {value.image === undefined ? <span>{value.name}</span> :
+                            <img className="variant_image" src={value.image.smallUrl} alt="" />
+                        }
+                    </div>
                 </Tooltip>
             ))}
         </React.Fragment>

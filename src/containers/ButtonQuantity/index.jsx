@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import ButtonQuantity from "../../components/ButtonQuantity";
 import { Button, notification } from 'antd';
 import strings from "../../localization/localization";
-const openNotificationWithIcon = type => {
-  notification[type]({
-    message: 'Notification Title',
-    description:
-      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-  });
-};
+
+
+const categoryTextResult =(stock) => strings.formatString(
+  strings.product_detail_info_stock,
+  <b style={{ color: "#FF416C" }}> &nbsp;{stock}</b>
+);
 
 class ButtonQuantityContainer extends Component {
   constructor(props) {
@@ -17,8 +16,23 @@ class ButtonQuantityContainer extends Component {
       quantity: this.props.quantity,
       title: this.props.title,
       onChangeQuantity: this.props.quantity,
-      text:""
+      text: ""
     };
+  }
+
+  checkStockAvailability = (stock) => {
+    if (this.state.quantity >= this.props.stock) {
+      let notif = notification["info"]({
+        message: categoryTextResult(this.props.stock),
+        description:
+          "This is the content of the notification. This is the content of the notification. This is the content of the notification."
+      });
+      this.setState(prevState => ({
+        quantity: stock,
+        text: notif
+      })
+      )
+    }
   }
 
   incrementItem = () => {
@@ -27,22 +41,7 @@ class ButtonQuantityContainer extends Component {
     }), () => {
       this.props.onChange(this.state.quantity, true);
     });
-    const categoryTextResult = strings.formatString(
-      strings.product_detail_info_stock,
-      <b style={{ color: "#FF416C" }}> &nbsp;{this.props.stock}</b>
-    );
-    if (this.state.quantity >= this.props.stock) {
-      let notif = notification["info"]({
-        message: categoryTextResult,
-        description:
-          "This is the content of the notification. This is the content of the notification. This is the content of the notification."
-      });
-      this.setState(prevState => ({
-        quantity: this.props.stock,
-        text:notif
-      })
-      )
-    }
+    this.checkStockAvailability(this.props.stock);
   };
 
   decrementItem = () => {
