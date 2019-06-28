@@ -130,22 +130,23 @@ class Header extends Component {
     })
   }
 
-  showCustomerName = () => {
-    const name = this.props.customerName;
-    let resultName = name;
-    if (name) {
-      if (name.length > 10) {
-        resultName = name.substr(0, 10) + "...";
-      }
-    }
-    return resultName;
-  };
+  // showCustomerName = () => {
+  //   const name = this.props.customerName;
+  //   let resultName = name;
+  //   if (name) {
+  //     if (name.length > 10) {
+  //       resultName = name.substr(0, 10) + "...";
+  //     }
+  //   }
+  //   return resultName;
+  // };
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} overlayStyle={{position:"fixed"}} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon>
+          {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
+          <span className="header-user-name">{this.props.customerName}</span>
         </li>
       </Dropdown>
     );
@@ -153,9 +154,9 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-        <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
-          <span>{strings.log_in}</span><Icon style={{ color: "#999999" }} type="down"></Icon>
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} overlayStyle={{position:"fixed"}} trigger={["click"]}>
+        <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}>
+          <span>{strings.log_in}</span>
         </li>
       </Dropdown>
     );
@@ -278,10 +279,8 @@ class Header extends Component {
 
             </div>
           </Col>
-          <Col md={5} style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
             <React.Fragment>{greeting}</React.Fragment>
-          </Col>
-          <Col md={3} style={{ display: "flex", justifyContent: "flex-end" }}>
             <div className="header__user-box">
               <Icon
                 type="user"
@@ -289,6 +288,7 @@ class Header extends Component {
                 className="header__user-icon"
               />
               {this.showUserDropDown(isAuthenticated)}
+              <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon>
             </div>
           </Col>
         </Row>

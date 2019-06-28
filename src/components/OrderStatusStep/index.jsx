@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, Icon, Affix, Card } from 'antd';
+import { Steps, Icon, Affix, Card, Button } from 'antd';
 import { receivedOrderIcon, paymentOrder, deliveryOrderIcon, boxOrder } from '../../library/iconTracking';
 import "./style.sass"
 import convertTimesTime from '../../library/convertTimestime';
@@ -32,16 +32,16 @@ const OrderStatusStep = (props) => {
           {labelTabDetails}
         </h2>
         <Affix offsetTop={170}>
-          <button
-            style={{ marginRight: 15, cursor: "pointer" }}
-            className="buttonOrderDetails"
+          <div className="buttonOrderDetails">
+            <Button
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali
-    </button>
+          </Button>
+          </div>
         </Affix>
       </div>
-      <Card>
+      <Card className="card-step-container">
         <div className="stepOrderStatus">
           <Steps size="small" labelPlacement="vertical">
             <Step

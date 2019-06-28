@@ -11,6 +11,8 @@ class BestSellers extends React.Component {
 
     render() {
         const { data } = this.props
+        // console.log("best", data);
+        
         // let counter = 0
         return (
             <React.Fragment>
@@ -30,15 +32,14 @@ class BestSellers extends React.Component {
                                     count={3} 
                                     height={300} 
                                     width={200} 
-                                    topMargin={70}
+                                    topMargin={64}
                                     rightMargin={70} 
                                     />
                                 </div>
                             </Col>
-                        </Row>/>
+                        </Row>
                 </div>) : (
-                        <React.Fragment>
-                            <div className="bestSellerBackground ">
+                        <div className="bestSellerBackground ">
                                 <Row>
                                     <Col md={4}>
                                         <div className="best__box">
@@ -48,23 +49,20 @@ class BestSellers extends React.Component {
                                         </div>
                                     </Col>
                                     <Col md={20}>
-                                        <div style={{ paddingLeft: "120px" }}>
+                                        <div style={{
+                                            display:"flex",
+                                            margin:"64px 48px 0 70px"
+                                            }}
+                                        >
                                             {data.map((product, i) => {
                                                 return (
-                                                    <Col md={4} style={{ marginTop: '70px', marginRight: '70px' }} key={i}>
-                                                        <BestSeller
-                                                            id={product.id}
-                                                            key={i}
-                                                            product={product}
-                                                        />
-                                                    </Col>
+                                                    <BestSeller id={product.id} key={i} product={product} />
                                                 )
                                             })}
                                         </div>
                                     </Col>
                                 </Row>
-                            </div>
-                        </React.Fragment>)}
+                            </div>)}
 
             </React.Fragment>);
 

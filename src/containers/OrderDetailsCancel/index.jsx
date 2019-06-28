@@ -3,7 +3,7 @@ import OrderStatusCancel from "../../components/OrderStatusCancel";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import { apiGetWithToken } from '../../api/services';
 import { PATH_ORDER } from '../../api/path';
-import { Affix, Icon } from 'antd';
+import { Affix, Icon, Button } from 'antd';
 import PaymentInfo from '../../components/PaymentInfo';
 import OrderStatusUser from '../../components/OrderStatusUser';
 
@@ -97,13 +97,13 @@ class OrderDetailsCancel extends Component {
                                     Batal
                                 </h2>
                                 <Affix offsetTop={170}>
-                                    <button
-                                        style={{ marginRight: 15, cursor: "pointer" }}
-                                        className="buttonOrderDetails"
+                                    <div className="buttonOrderDetails">
+                                    <Button
                                         onClick={() => this.props.actionShowOrderListWaiting()}>
                                         <Icon type="arrow-left" /> &nbsp;
                                         Kembali
-                                    </button>
+                                    </Button>
+                                    </div>
                                 </Affix>
                             </div>
                             <OrderStatusCancel

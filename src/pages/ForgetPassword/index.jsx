@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./style.sass";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
-import { Input, Button, Row, Col, Form } from "antd";
+import { Input, Button, Row, Col, Form, Alert } from "antd";
 import history from "../../routers/history";
 
 class ForgetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isEmailSend: false,
       email: ""
     };
   }
@@ -17,17 +18,29 @@ class ForgetPassword extends Component {
   };
 
   handleSubmit = () => {
-    const email = this.state.email
+    const email = this.state.email;
     console.log(email);
-    return history.push("/");
+    this.setState({ isEmailSend: true });
+    return;
+  };
+
+  handleClose = () => {
+    console.log("close");
+    return history.push("/login");
   };
 
   render() {
     const isEnabled = this.state.email.length > 0;
-    const FormItem = Form.Item
+    const FormItem = Form.Item;
     return (
       <div className="forget-password">
-        <Row className="forget-password__box-forget">
+        <Row
+          className={
+            this.state.isEmailSend
+              ? "forget-password__box-forget-alert"
+              : "forget-password__box-forget"
+          }
+        >
           <Col
             style={{
               display: "flex",
@@ -38,30 +51,51 @@ class ForgetPassword extends Component {
             <img src={monggopesen_logo} alt="Monggopesen" />
           </Col>
           <Col>
-            <p className="forget-password__title">Lupa Kata Sandi</p>
-            <p className="forget-password__content">
-              Masukkan alamat email yang terdaftar, kami akan mengirimkan link
-              untuk mengatur ulang kata sandi.
-            </p>
-            <Form onSubmit={this.handleSubmit}>
-              <FormItem>
-                <Input
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                  className="forget-password__input-email"
+            {this.state.isEmailSend ? (
+              <div>
+                <Alert
+                  showIcon
+                  message="Email pengaturan kata sandi telah dikirim"
+                  type="success"
+                  style={{ marginTop: "120px" }}
+                  closable
+                  onClose={this.handleClose}
+                  description="Silahkan cek email yang sudah kami kirim, dan ikuti instruksi yang sudah kami sediakan 
+                  untuk pengaturan perubahan kata sandi."
                 />
-              </FormItem>
-              <FormItem>
-                <Button
-                  htmlType="submit"
-                  disabled={!isEnabled}
-                  className={isEnabled?"forget-password__button-submit":"forget-password__button-submit-disabled"}
-                >
-                  Kirim Link
-                </Button>
-              </FormItem>
-            </Form>
+              </div>
+            ) : (
+              <div>
+                <p className="forget-password__title">Lupa Kata Sandi</p>
+                <p className="forget-password__content">
+                  Masukkan alamat email yang terdaftar, kami akan mengirimkan
+                  link untuk mengatur ulang kata sandi.
+                </p>
+                <Form onSubmit={this.handleSubmit}>
+                  <FormItem>
+                    <Input
+                      placeholder="Email"
+                      value={this.state.email}
+                      onChange={this.handleEmailChange}
+                      className="forget-password__input-email"
+                    />
+                  </FormItem>
+                  <FormItem>
+                    <Button
+                      htmlType="submit"
+                      disabled={!isEnabled}
+                      className={
+                        isEnabled
+                          ? "forget-password__button-submit"
+                          : "forget-password__button-submit-disabled"
+                      }
+                    >
+                      Kirim Link
+                    </Button>
+                  </FormItem>
+                </Form>
+              </div>
+            )}
           </Col>
         </Row>
       </div>
