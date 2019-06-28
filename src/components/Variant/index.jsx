@@ -3,7 +3,7 @@ import { Col, Tooltip } from "antd";
 import "./Variant.sass";
 
 const VariantText = props => {
-    functionSelectedDefaultVariant(props);
+    selectedDefaultVariant(props);
     return (
         <React.Fragment>
            {props.name}
@@ -38,7 +38,7 @@ const setActiveIndicator = (selected, name, id) => {
 
 
 const VariantImage = props => {
-    functionSelectedDefaultVariant(props);
+    selectedDefaultVariant(props);
     return (
         <React.Fragment>
            {props.name}
@@ -78,7 +78,7 @@ const Variant = props => {
 
 export default Variant;
 
-function functionSelectedDefaultVariant(props) {
+function selectedDefaultVariant(props) {
     let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
     if (!isRegisteredVariant) {
         const SelectedDefaultVariant = props.variantItems[0];
