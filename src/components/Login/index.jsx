@@ -128,7 +128,7 @@ class Login extends Component {
                   valuePropName: 'checked',
                   initialValue: true
                 })(<Checkbox>{strings.login_remember_me}</Checkbox>)}
-                <a className='login-form__forgot' href='/'>
+                <a className='login-form__forgot' href='/forget-password'>
                   {strings.login_forgot_password}
                 </a>
                 <div>

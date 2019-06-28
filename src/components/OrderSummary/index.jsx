@@ -5,7 +5,7 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, viaRoute, priceProduct } = props;
+  const { quantity, viaRoute, priceProduct, checked, handleChecked } = props;
   const subTotal = priceProduct * quantity;
   const totalViaRoutePrice = viaRoute.price * quantity;
   const total = subTotal + totalViaRoutePrice;
@@ -23,27 +23,36 @@ const OrderSummary = props => {
           </div>
           <div className="international-shipping">
             <p>Pengiriman International</p>
-            <p className="p-color">{viaRoute.via}</p>
+            <p className="p-color-teal">{viaRoute.via}</p>
           </div>
           <div className="lokal-shipping">
             <p>Pengiriman Lokal</p>
-            <p className="p-color">JNE REG</p>
+            <p className="p-color-teal">JNE REG</p>
           </div>
           <div className="jne-assurance">
-            <Checkbox className="jne-checkbox">
-              Asuransi JNE{" "}
+            <Checkbox
+              checked={checked}
+              onClick={handleChecked}
+              className={checked ? "jne-checkbox-true" : "jne-checkbox"}
+            >
+              <span>Asuransi JNE </span>
               <Popover
                 content={
-                  <div style={{maxWidth:"300px"}}>
+                  <div style={{ maxWidth: "305px" }}>
                     <p>
-                      Penambahan asuransi sangat disarankan
+                      Penambahan asuransi sangat disarankan untuk menjaga produk
+                      barang pesanan Anda dari kerusakan / kehilangan selama
+                      pengiriman kurir lokal (JNE). Monggopesen tidak
+                      bertanggung jawab atas kerusakan / kehilangan barang
+                      selama pengiriman kurir lokal (JNE) apabila Anda tidak
+                      mengasuransikan barang yang Anda pesan.
                     </p>
                   </div>
                 }
                 title="Tentang Asuransi JNE"
                 trigger="click"
               >
-                <Icon type="info-circle" style={{color:"#FB6900"}}/>
+                <Icon type="info-circle" style={{ color: "#FB6900" }} />
               </Popover>
             </Checkbox>
           </div>
@@ -57,17 +66,17 @@ const OrderSummary = props => {
             <p>{currencyRupiah(subTotal)}</p>
           </div>
           <div className="shipping-price">
-            <p className="p-color">
+            <p className="p-color-teal">
               {viaRoute.via === "Laut"
                 ? "Ongkir Sudah Termasuk"
                 : currencyRupiah(viaRoute.price)}
             </p>
           </div>
           <div className="shipping-price">
-            <p className="p-color">Rp. 9.000</p>
+            <p className="p-color-teal">Rp. 9.000</p>
           </div>
-          <div className="jne-price">
-            <p className="p-color">Rp. 9.936</p>
+          <div className={checked ? "jne-price-true" : "jne-price"}>
+            <p>Rp. 9.936</p>
           </div>
         </Col>
       </Row>

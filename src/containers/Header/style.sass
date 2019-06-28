@@ -75,6 +75,7 @@
     &__user-box
         // margin-top: -15px
         // margin-bottom: 5px
+        margin-left: 64px
         display: flex
         padding-top: 10px
     &__user-icon
@@ -82,8 +83,6 @@
         // margin-left:5px
         font-size: 18px
     &__user-box span
-        height: 16px
-        width: 35px
         color: #007E80
         font-size: 14px
         line-height: 16px
@@ -91,6 +90,11 @@
         cursor: pointer
         margin-left: 5px
         margin-right: 3px
+    &__user-box .ant-dropdown-link
+        width: 90px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
     &__arrow
         font-size: 20px
         margin-left: 5px
@@ -143,6 +147,7 @@
     // &__user-menu li button:hover
     //     color: $secondary-color
     //     border-color: $secondary-color
+
 .box-flex
     display: flex
     justify-content: flex-end    

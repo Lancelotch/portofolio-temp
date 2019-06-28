@@ -136,7 +136,6 @@ class OrderDetailsDashboard extends Component {
                     );
                 })}
 
-                }
                 {tabsNotPay === 1 &&
                     <PaymentDateInfo
                         endDatePay={this.state.endDatePay}

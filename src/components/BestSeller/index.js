@@ -22,7 +22,7 @@ const BestSeller = props => {
             }
           >
             <div className="best__info">
-              <p className="best__title">{name}</p>
+                <p className="best__title">{name}</p>
               <p className="best__price">{priceRp} </p>
             </div>
           </Card>
