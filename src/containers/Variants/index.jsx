@@ -11,7 +11,10 @@ class Variants extends Component {
         }
     }
 
-    updateVariant = (valueId,value,name) => {
+    updateVariant = (valueId,value,name,variantTypeIsImage = false) => {
+        if(variantTypeIsImage) {
+            this.props.actionUpdateImageVariant(value.image);
+        }
         let arr = this.state.selected
         console.log(value);
         console.log(valueId);

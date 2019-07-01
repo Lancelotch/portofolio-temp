@@ -31,8 +31,8 @@ class HomePageContainer extends Component {
               <PopularProducts {...this.props} maxProductCount={4} />
             </Fetcher>
             <Col md={24}>
-              <Fetcher path={PATH_PRODUCT.PRODUCT_BEST_SELLER}>
-                <BestSellers {...this.props} maxNumber={4}></BestSellers>
+              <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT}>
+                <BestSellers {...this.props} maxProductCount={4}></BestSellers>
               </Fetcher>
             </Col>
             <Link to='/'>
@@ -49,7 +49,7 @@ class HomePageContainer extends Component {
                     width: 1130,
                   }}
                 >
-                  <Fetcher path={PATH_PRODUCT.PRODUCT_RECOMMENDATION}>
+                  <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT}>
                     <ClickProducts {...this.props} />
                   </Fetcher>
                 </div>

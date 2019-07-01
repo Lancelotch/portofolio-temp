@@ -135,12 +135,13 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
+    console.log('payloadProductDetail',payloadProductDetail.sku.variantItem);
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
-      priceProduct: payloadProductDetail.sku.price,
+      priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
-      variants: this.variantsRequest(payloadProductDetail.sku.variants),
+      //variants: this.variantsRequest(payloadProductDetail.sku.variantItem),
       productSkuId: payloadProductDetail.sku.id,
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note
@@ -288,7 +289,7 @@ class Checkout extends Component {
           },
           onError: function (result) {
             console.log("error");
-            console.log('eeeeor snap',result);
+            console.log('eeeeor snap', result);
           },
           onClose: function () {
             console.log(
@@ -374,6 +375,7 @@ class Checkout extends Component {
                 />
                 {isProductDetailAvailable && (
                   <OrderDetailContainer
+                    priceProduct={priceProduct}
                     payloadProductDetail={payloadProductDetail}
                     onChangeShipping={this.actionChangeShipping}
                     onChangeQuantity={this.actionChangeQuantity}

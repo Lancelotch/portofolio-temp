@@ -32,8 +32,11 @@ class ProductDetail extends Component {
       details: [],
       note: null,
       shippingInternationalId: null,
-      quantity: 1,
-      arr: []
+      arr: [],
+      data: {
+        quantity: 1,
+        sku: {}
+      }
     };
   }
 
@@ -64,9 +67,9 @@ class ProductDetail extends Component {
     }
   };
 
-  actionUpdateSku = selected => {
-    console.log('sekeeee', selected);
-    const data = { ...this.state.data, selected };
+  actionUpdateSku = sku => {
+    console.log('sekeeee', sku);
+    const data = { ...this.state.data, sku };
     this.setState({ data });
 
   };
@@ -90,17 +93,23 @@ class ProductDetail extends Component {
       price,
       images,
       quantity,
-      name
+      information,
+      data
     } = this.state
-    const image = images.find(image => image.isDefault === true).medium;
+    console.log('imaaaaaaaaagesss',this.state.images);
+    
+    const image = images.find(image => image.isDefault === true).defaultImage;
     const indexes = {
       image,
-      name: name,
-      price: price,
+      name: information.name,
+      price: price.amount,
       productId: id,
-      quantity: quantity,
-      note
+      quantity: data.quantity,
+      note,
+      sku: data.sku
     }
+    console.log('indexeeeeeeeeeees',indexes);
+    
     const indexesToLocalstorage = JSON.stringify(indexes);
     localStorage.setItem("product", indexesToLocalstorage);
     if (this.props.isAuthenticated !== false) {
@@ -134,14 +143,14 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={10}>
                   <p className="productDetail__product-name">{this.state.information.name}</p>
-                  <SliderProductDetailContainer images={this.state.images} imageVariant={this.state.defaultImage} />
+                  <SliderProductDetailContainer imagess={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />
                 </Col>
                 <Col md={12} offset={1}>
                   <div style={{}}>
                     <p className="productDetail__price">
                       {currencyRupiah(this.state.price.amount)}
                     </p>
-                    <Variants product={this.state.product} actionUpdateSku={this.actionUpdateSku} />
+                    <Variants product={this.state.product} actionUpdateImageVariant={this.actionUpdateImageVariant} actionUpdateSku={this.actionUpdateSku} />
                     {/*<SkuContainer
                       product={this.state.product}
                       actionUpdateSku={this.actionUpdateSku}
@@ -151,7 +160,7 @@ class ProductDetail extends Component {
                     <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
                     <ButtonQuantityContainer
                       stock={this.state.information.maxOrder}
-                      quantity={this.state.quantity}
+                      quantity={this.state.data.quantity}
                       onChange={this.actionUpdateQuantity}
                     />
                     <Shipping />

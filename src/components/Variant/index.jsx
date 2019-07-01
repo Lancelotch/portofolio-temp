@@ -48,10 +48,10 @@ const VariantImage = props => {
             </p>
             {props.variantItems.map(value => (
                 <Tooltip title={value.name} key={value.id}>
-                    <div onClick={() => props.onClick(props.id, value, props.name)}
+                    <div onClick={() => props.onClick(props.id, value, props.name, true)}
                         key={value.id}
-                        className={value.image === undefined ? `box-variant-text 
-                    ${setActiveIndicator(props.selected, props.name, value.id)}`
+                        className={value.image === undefined ?
+                            `box-variant-text ${setActiveIndicator(props.selected, props.name, value.id)}`
                             :
                             `box-variant ${setActiveIndicator(props.selected, props.name, value.id)}`}>
                         {console.log('awlselected', props.selected)}
@@ -67,16 +67,16 @@ const VariantImage = props => {
 
 const Variant = props => {
     return (
- 
-            <div className="variant">
-                {props.name === "Warna" ? (
-                    <VariantImage {...props} />
-                ) : (
-                        <VariantText {...props} />
-                    )}
-            </div>
 
-      
+        <div className="variant">
+            {props.name === "Warna" ? (
+                <VariantImage {...props} />
+            ) : (
+                    <VariantText {...props} />
+                )}
+        </div>
+
+
     );
 };
 
@@ -86,7 +86,7 @@ function selectedDefaultVariant(props) {
     let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
     if (!isRegisteredVariant) {
         const SelectedDefaultVariant = props.variantItems[0];
-        SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name);
+        SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
     }
 }
 

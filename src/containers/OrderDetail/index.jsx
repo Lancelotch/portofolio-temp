@@ -36,27 +36,29 @@ class OrderDetailContainer extends Component {
   //     </div>
   //   ));
   // };
-  variants = variants => {
-    return variants.map((variant, index) => {
-      if (index === variants.length - 1) {
-        return (
-          <span className="detail__variant" key={index}>
-            {variant.value.name}
-          </span>
-        );
-      } else {
-        return (
-          <span className="detail__variant" key={index}>
-            {variant.value.name},
-          </span>
-        );
-      }
-    });
-  };
+  // variants = variants => {
+  //   return variants.map((variant, index) => {
+  //     if (index === variants.length - 1) {
+  //       return (
+  //         <span className="detail__variant" key={index}>
+  //           {variant.value.name}
+  //         </span>
+  //       );
+  //     } else {
+  //       return (
+  //         <span className="detail__variant" key={index}>
+  //           {variant.value.name},
+  //         </span>
+  //       );
+  //     }
+  //   });
+  // };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
-    const totalProductPrice = this.props.quantity * sku.price;
+    const {priceProduct} = this.props;
+    const totalProductPrice = this.props.quantity * priceProduct;
+console.log('skuuuuuuuuuuuu',this.props.payloadProductDetail);
 
     return (
       <Fragment>
@@ -80,7 +82,7 @@ class OrderDetailContainer extends Component {
                       <Col span={6}>Variant</Col>
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
-                    <Row>
+               {  /*   <Row>
                       <Col className="detail__variant" span={3}>
                         Varian
                       </Col>
@@ -92,7 +94,7 @@ class OrderDetailContainer extends Component {
                         :
                       </Col>
                       {this.variants(sku.variants)}
-                    </Row>
+               </Row>*/}
                   </Col>
                   <Col md={6}>
                     <h2 className="detail__price">
