@@ -27,38 +27,39 @@ class OrderDetailContainer extends Component {
     this.props.onChangeNote(note);
   };
 
-  // variants = variants => {
-  //   return variants.map(variant => (
-  //     <div key={variant.variantId} className="detail__product-variant">
-  //       <p>
-  //         {`${variant.variantName} : ${variant.value.name}`}
-  //       </p>
-  //     </div>
-  //   ));
-  // };
-  // variants = variants => {
-  //   return variants.map((variant, index) => {
-  //     if (index === variants.length - 1) {
-  //       return (
-  //         <span className="detail__variant" key={index}>
-  //           {variant.value.name}
-  //         </span>
-  //       );
-  //     } else {
-  //       return (
-  //         <span className="detail__variant" key={index}>
-  //           {variant.value.name},
-  //         </span>
-  //       );
-  //     }
-  //   });
-  // };
+  variants = variants => {
+    console.log(variants);
+    return (
+      <div key={variants.id} className="detail__product-variant">
+        <p>
+          {`${variants.name} : ${variants.variantItem.name}`}
+        </p>
+      </div>
+    )
+  };
+  variants = variants => {
+  
+      if (variants === variants.length - 1) {
+        return (
+          <span className="detail__variant" key={variants}>
+            {variants.variantItem.name}
+          </span>
+        );
+      } else {
+        return (
+          <span className="detail__variant" key={variants}>
+            {variants.variantItem.name},
+          </span>
+        );
+      }
+
+  };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
-    const {priceProduct} = this.props;
+    const { priceProduct } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
-console.log('skuuuuuuuuuuuu',this.props.payloadProductDetail);
+    console.log('skuuuuuuuuuuuu', sku);
 
     return (
       <Fragment>
@@ -82,7 +83,7 @@ console.log('skuuuuuuuuuuuu',this.props.payloadProductDetail);
                       <Col span={6}>Variant</Col>
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
-               {  /*   <Row>
+                    <Row>
                       <Col className="detail__variant" span={3}>
                         Varian
                       </Col>
@@ -93,8 +94,8 @@ console.log('skuuuuuuuuuuuu',this.props.payloadProductDetail);
                       >
                         :
                       </Col>
-                      {this.variants(sku.variants)}
-               </Row>*/}
+                      {this.variants(sku)}
+                    </Row>
                   </Col>
                   <Col md={6}>
                     <h2 className="detail__price">

@@ -122,26 +122,17 @@ class Checkout extends Component {
     );
   };
 
-  variantsRequest = variants => {
-    const variantsRequest = [];
-    variants.forEach(variant => {
-      variantsRequest.push({
-        variantId: variant.variantId,
-        idValue: variant.value.id
-      });
-    });
-    return variantsRequest;
-  };
+ 
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
-    console.log('payloadProductDetail',payloadProductDetail.sku.variantItem);
+    console.log('payloadProductDetail',payloadProductDetail);
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
-      //variants: this.variantsRequest(payloadProductDetail.sku.variantItem),
+      variants: payloadProductDetail.sku.variantItem.id,
       productSkuId: payloadProductDetail.sku.id,
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note
