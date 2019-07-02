@@ -27,33 +27,27 @@ class OrderDetailContainer extends Component {
     this.props.onChangeNote(note);
   };
 
-  variants = variants => {
-    console.log(variants);
-    return (
-      <div key={variants.id} className="detail__product-variant">
-        <p>
-          {`${variants.name} : ${variants.variantItem.name}`}
-        </p>
-      </div>
-    )
-  };
-  variants = variants => {
-  
-      if (variants === variants.length - 1) {
-        return (
-          <span className="detail__variant" key={variants}>
-            {variants.variantItem.name}
-          </span>
-        );
-      } else {
-        return (
-          <span className="detail__variant" key={variants}>
-            {variants.variantItem.name},
-          </span>
-        );
-      }
-
-  };
+  // variants = variants => {
+  //   console.log(variants);
+  //   return (
+  //     <div key={variants.id} className="detail__product-variant">
+  //       <p>
+  //         {`${variants.name} : ${variants.variantItem.name}`}
+  //       </p>
+  //     </div>
+  //   )
+  // };
+  // variants = variants => {
+  //   console.log('order detail sku',variants);
+  //   variants.map(variant => {
+  //     return (
+  //       <span className="detail__variant" key={variant}>
+  //         {variant.name}
+  //         {variant.variantItem.name}
+  //       </span>
+  //     );
+  //   })
+  // };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;

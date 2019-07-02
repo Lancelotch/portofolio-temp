@@ -5,49 +5,45 @@ class Variants extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: [],
-            arr:[],
-            selectedColor: ""
+            selected: []
         }
     }
 
-    updateVariant = (valueId,value,name,variantTypeIsImage = false) => {
-        if(variantTypeIsImage) {
+    updateSku = () => {
+        this.props.actionUpdateSku(this.state.selected);
+    }
+
+    updateVariant = (valueId, value, name, variantTypeIsImage = false) => {
+        if (variantTypeIsImage) {
             this.props.actionUpdateImageVariant(value.image);
         }
         let arr = this.state.selected
-        console.log(value);
-        console.log(valueId);
-        console.log(name);
-        console.log(arr);  
         let newVariant = {
             id: valueId,
             name,
-            variantItem:value
+            variantItem: value
         }
-        this.props.actionUpdateSku(newVariant);
-        console.log(newVariant);
-        if(!arr.length > 0 ){
+        if (!arr.length > 0) {
             arr.push(newVariant)
-        }else{
+        } else {
             let newArr = arr.map((variant) => {
-                if(variant.name === name){
+                if (variant.name === name) {
                     return newVariant
                 }
                 return variant
             })
-            let isOldVariants = newArr.filter(e => {return e.name === name}).length > 0
-            if(!isOldVariants){
-               newArr.push(newVariant)
+            let isOldVariants = newArr.filter(e => { return e.name === name }).length > 0
+            if (!isOldVariants) {
+                newArr.push(newVariant)
             }
             arr = newArr
         }
-        this.setState({ 
+        this.setState({
             selected: arr
-        })
+        },this.updateSku)
     }
 
-    render() { 
+    render() {
         return (
             <React.Fragment>
                 {this.props.product.variants.map((variant, index) => (

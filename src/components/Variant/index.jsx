@@ -2,28 +2,6 @@ import React from "react";
 import { Col, Tooltip } from "antd";
 import "./Variant.sass";
 
-const VariantText = props => {
-    selectedDefaultVariant(props);
-    return (
-        <React.Fragment>
-            <p className="title-text">
-                {props.name}
-            </p>
-            {props.variantItems.map(value => (
-                <div onClick={() => props.onClick(props.id, value, props.name)}
-                    key={value.id}
-                    className={
-                        `box-variant-text 
-                        ${setActiveIndicator(props.selected, props.name, value.id)}`
-                    }
-                >
-                    <span>{value.name}</span>
-                </div>
-            ))}
-        </React.Fragment>
-    );
-};
-
 const setActiveIndicator = (selected, name, id) => {
     if (selected.length > 0) {
         const isActive = selected.filter(variants => {
@@ -37,7 +15,27 @@ const setActiveIndicator = (selected, name, id) => {
     return;
 }
 
-
+const VariantText = props => {
+    selectedDefaultVariant(props);
+    return (
+        <React.Fragment>
+            <p className="title-text">
+                {props.name}
+            </p>
+            {props.variantItems.map(value => (
+                <div onClick={() => props.onClick(props.id, value, props.name, true)}
+                    key={value.id}
+                    className={
+                        `box-variant-text 
+                        ${setActiveIndicator(props.selected, props.name, value.id)}`
+                    }
+                >
+                    <span>{value.name}</span>
+                </div>
+            ))}
+        </React.Fragment>
+    );
+};
 
 const VariantImage = props => {
     selectedDefaultVariant(props);
@@ -69,11 +67,11 @@ const Variant = props => {
     return (
 
         <div className="variant">
-            {props.name === "Warna" ? (
-                <VariantImage {...props} />
-            ) : (
-                    <VariantText {...props} />
-                )}
+            {props.name == "Warna" ?
+                (<VariantImage {...props} />)
+                :
+                (<VariantText {...props} />)
+            }
         </div>
 
 

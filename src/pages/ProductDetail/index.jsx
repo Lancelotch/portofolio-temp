@@ -68,7 +68,7 @@ class ProductDetail extends Component {
   };
 
   actionUpdateSku = sku => {
-    console.log('sekeeee', sku);
+    console.log('seekeeee', sku);
     const data = { ...this.state.data, sku };
     this.setState({ data });
 

@@ -122,17 +122,26 @@ class Checkout extends Component {
     );
   };
 
- 
+  variantsRequest = variants => {
+    const variantsRequest = [];
+    variants.forEach(variant => {
+      variantsRequest.push({
+        variantId: variant.id,
+        idVariant: variant.variantItem.id
+      });
+    });
+    return variantsRequest;
+  };
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
-    console.log('payloadProductDetail',payloadProductDetail);
+    console.log('payloadProductDetail',payloadProductDetail.sku);
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
-      variants: payloadProductDetail.sku.variantItem.id,
+      variants: this.variantsRequest(payloadProductDetail.sku),
       productSkuId: payloadProductDetail.sku.id,
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note
@@ -262,6 +271,8 @@ class Checkout extends Component {
         }
       ]
     };
+    console.log('submiiiiiit checkouuuut',request);
+    
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
       if (response.data.data) {
@@ -298,7 +309,11 @@ class Checkout extends Component {
     this.setState({ jneChecked: !this.state.jneChecked });
   }
 
+  
+
   render() {
+
+  console.log(this.state.variants);
     const { isAddressAvailable } = this.props;
     const {
       addresses,
