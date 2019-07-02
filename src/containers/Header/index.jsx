@@ -34,7 +34,8 @@ class Header extends Component {
       dropdownShow: null,
       allCategory: [],
       display: "",
-      top: 0
+      top: 0,
+      topDropdown: 0
       // isHover: false
     };
   }
@@ -56,11 +57,22 @@ class Header extends Component {
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none" });
-    } else if (window.scrollY < 900) {
-      this.setState({ display: "" });
+      this.setState({ display: "none"}, this.fixPositionDropdown(false));
+    } else {
+      this.setState({ display: ""}, this.fixPositionDropdown(true));
     }
   };
+
+  fixPositionDropdown = isTopHeaderShow => {
+    console.log("isShow", isTopHeaderShow);
+    
+    if (!isTopHeaderShow){
+      this.setState({ topDropdown: 70 })
+    } else {
+      this.setState({ topDropdown: 120 });
+    }
+    
+  }
 
   getAllCategory = async () => {
     try {
@@ -145,7 +157,7 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlay={this.userMenu()} overlayStyle={{position:"fixed"}} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={this.userMenu()} trigger={["click"]}>
         <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
           {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
           <span className="header-user-name">{this.props.customerName}</span>
@@ -156,12 +168,14 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlay={<Login closeModal={this.closeModal} />} overlayStyle={{position:"fixed"}} trigger={["click"]}>
-        <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}>
-          <span>{strings.log_in}</span>
-        </li>
-      </Dropdown>
-    );
+      
+        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
+          <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}>
+            <span>{strings.log_in}</span>
+          </li>
+        </Dropdown>
+      
+      );
   };
 
   getValue = (value) => {
@@ -260,7 +274,7 @@ class Header extends Component {
           </Col>
           <Col md={2}>
             <div className="header__categories" key={""}>
-              <CategoryMenuCascader key={"id"} match={match} allCategory={this.state.allCategory} />
+              <CategoryMenuCascader key={"id"} match={match} marginTop={this.state.topDropdown} allCategory={this.state.allCategory} />
             </div>
           </Col>
           <Col md={14}>
@@ -288,7 +302,9 @@ class Header extends Component {
                 onClick={() => this.openModal()}
                 className="header__user-icon"
               />
+              <div className="wrap-header-dropdown">
               {this.showUserDropDown(isAuthenticated)}
+              </div>
               <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon>
             </div>
           </Col>

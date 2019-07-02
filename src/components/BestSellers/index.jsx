@@ -51,7 +51,7 @@ class BestSellers extends React.Component {
                                     <Col md={20}>
                                         <div style={{
                                             display:"flex",
-                                            margin:"64px 48px 0 70px"
+                                            margin:"54px 48px 0 70px"
                                             }}
                                         >
                                             {data.map((product, i) => {
