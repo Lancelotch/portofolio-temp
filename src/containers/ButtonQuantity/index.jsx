@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ButtonQuantity from "../../components/ButtonQuantity";
-import { Button, notification } from 'antd';
+import {  notification } from 'antd';
 import strings from "../../localization/localization";
 
 
@@ -21,7 +21,7 @@ class ButtonQuantityContainer extends Component {
   }
 
   checkStockAvailability = (stock) => {
-    if (this.state.quantity >= this.props.stock) {
+    if (this.state.quantity > this.props.stock) {
       let notif = notification["info"]({
         message: categoryTextResult(this.props.stock),
         description:
@@ -68,15 +68,11 @@ class ButtonQuantityContainer extends Component {
       quantity: quantity
     }, () => {
       this.props.onChange(this.state.quantity, true);
-    }
+    }, this.checkStockAvailability(this.props.stock)
     );
   };
 
   render() {
-    console.log(this.state.quantity >= this.props.stock ? "2" : "1");
-    console.log(this.props.stock);
-    console.log(this.state.quantity);
-
     return (
       <div>
         <ButtonQuantity

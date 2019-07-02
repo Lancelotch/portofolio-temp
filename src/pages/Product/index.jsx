@@ -58,8 +58,6 @@ class ProductPage extends Component {
   fetchMoreData = () => {
     const { productList, element } = this.state;
     // , hasMore
-    console.log("element", element);
-
     if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
@@ -72,7 +70,6 @@ class ProductPage extends Component {
     const arraySort = sortValue.split("|");
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    console.log(sortBy);
     this.setState(
       {
         productList: [],

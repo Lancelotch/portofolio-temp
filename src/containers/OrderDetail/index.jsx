@@ -37,24 +37,23 @@ class OrderDetailContainer extends Component {
   //     </div>
   //   )
   // };
-  // variants = variants => {
-  //   console.log('order detail sku',variants);
-  //   variants.map(variant => {
-  //     return (
-  //       <span className="detail__variant" key={variant}>
-  //         {variant.name}
-  //         {variant.variantItem.name}
-  //       </span>
-  //     );
-  //   })
-  // };
+
+  variants = variants => {
+    return variants.map((variant, index) => {
+      let variantsss = variant.variantItem.name;
+      let variantss = variantsss.split(',');
+      return (
+        <span className="detail__variant" key={index}>
+          {variant.name}&nbsp;&nbsp;:&nbsp;{variantss}
+        </span>
+      )
+    });
+  };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
     const { priceProduct } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
-    console.log('skuuuuuuuuuuuu', sku);
-
     return (
       <Fragment>
         <Row>
@@ -78,17 +77,22 @@ class OrderDetailContainer extends Component {
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
                     <Row>
-                      <Col className="detail__variant" span={3}>
-                        Varian
+                      {sku &&
+                        <React.Fragment>
+                          <Col className="detail__variant" span={3}>
+                            Varian
                       </Col>
-                      <Col
-                        className="detail__variant"
-                        style={{ textAlign: "end" }}
-                        span={1}
-                      >
-                        :
-                      </Col>
-                      {this.variants(sku)}
+                          <Col
+                            className="detail__variant"
+                            style={{ textAlign: "end" }}
+                            span={1}
+                          >
+                            :
+                            {this.variants(sku)}
+                          </Col>
+                        </React.Fragment>
+                      }
+
                     </Row>
                   </Col>
                   <Col md={6}>

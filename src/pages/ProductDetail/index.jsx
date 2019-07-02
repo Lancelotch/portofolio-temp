@@ -51,7 +51,6 @@ class ProductDetail extends Component {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID_DRAFT + productId)
       //const response = dummyProductDetail;
       const product = response.data.data;
-      console.log(product);
       this.setState({
         information: product.information,
         price: product.price,
@@ -68,10 +67,8 @@ class ProductDetail extends Component {
   };
 
   actionUpdateSku = sku => {
-    console.log('seekeeee', sku);
     const data = { ...this.state.data, sku };
     this.setState({ data });
-
   };
 
 
@@ -87,34 +84,33 @@ class ProductDetail extends Component {
   };
 
   actionSubmitToCheckout = event => {
-    const {
-      id,
-      note,
-      price,
-      images,
-      quantity,
-      information,
-      data
-    } = this.state
-    console.log('imaaaaaaaaagesss',this.state.images);
-    
-    const image = images.find(image => image.isDefault === true).defaultImage;
-    const indexes = {
-      image,
-      name: information.name,
-      price: price.amount,
-      productId: id,
-      quantity: data.quantity,
-      note,
-      sku: data.sku
-    }
-    console.log('indexeeeeeeeeeees',indexes);
-    
-    const indexesToLocalstorage = JSON.stringify(indexes);
-    localStorage.setItem("product", indexesToLocalstorage);
     if (this.props.isAuthenticated !== false) {
+      if (this.state.data.quantity > this.state.information.maxOrder) {
+        return alert("adasd");
+      }
+      const {
+        id,
+        note,
+        price,
+        images,
+        information,
+        data
+      } = this.state
+      const image = images.find(image => image.isDefault === true).defaultImage;
+      const items = {
+        image,
+        name: information.name,
+        price: price.amount,
+        productId: id,
+        quantity: data.quantity,
+        note,
+        sku: data.sku
+      }
+      const indexesToLocalstorage = JSON.stringify(items);
+      localStorage.setItem("product", indexesToLocalstorage);
       this.redirectCheckout();
-    } else {
+    }
+    else {
       this.redirectLogin();
     }
   };
@@ -133,8 +129,6 @@ class ProductDetail extends Component {
 
 
   render() {
-    console.log(this.state.defaultImage);
-
     return (
       <React.Fragment>
         {this.state.isProductAvailable && (
@@ -151,12 +145,7 @@ class ProductDetail extends Component {
                       {currencyRupiah(this.state.price.amount)}
                     </p>
                     <Variants product={this.state.product} actionUpdateImageVariant={this.actionUpdateImageVariant} actionUpdateSku={this.actionUpdateSku} />
-                    {/*<SkuContainer
-                      product={this.state.product}
-                      actionUpdateSku={this.actionUpdateSku}
-                      actionUpdateImageVariant={this.actionUpdateImageVariant}
-                      defaultValueSku={this.state.data.sku}
-                    />*/}
+
                     <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
                     <ButtonQuantityContainer
                       stock={this.state.information.maxOrder}

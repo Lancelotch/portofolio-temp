@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import "./Variant.sass";
 
 const setActiveIndicator = (selected, name, id) => {
@@ -52,7 +52,6 @@ const VariantImage = props => {
                             `box-variant-text ${setActiveIndicator(props.selected, props.name, value.id)}`
                             :
                             `box-variant ${setActiveIndicator(props.selected, props.name, value.id)}`}>
-                        {console.log('awlselected', props.selected)}
                         {value.image === undefined ? <span>{value.name}</span> :
                             <img className="variant_image" src={value.image.smallUrl} alt="" />
                         }

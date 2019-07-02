@@ -42,7 +42,8 @@ class Checkout extends Component {
       textButton: "Lanjut Belanja",
       cities: [],
       subdistricts: [],
-      jneChecked: false
+      jneChecked: false,
+      totalAmount: 0
     };
   }
 
@@ -54,6 +55,7 @@ class Checkout extends Component {
     this.initCustomerAddress();
     // this.getSubdistrict()
   }
+
 
   componentWillReceiveProps(props) {
     if (!props.isAddressAvailable) {
@@ -112,37 +114,34 @@ class Checkout extends Component {
   initCustomerAddress = async () => {
     await this.props.addressDefault();
     this.setState(
-      {
-        customerAddress: this.props.dataAddressDefault
-      },
-      () => {
+      { customerAddress: this.props.dataAddressDefault }
+      , () => {
         this.getCities(this.state.customerAddress.provinceId);
         this.getSubdistrict(this.state.customerAddress.cityId);
       }
     );
   };
 
-  variantsRequest = variants => {
-    const variantsRequest = [];
-    variants.forEach(variant => {
-      variantsRequest.push({
-        variantId: variant.id,
-        idVariant: variant.variantItem.id
+
+  variantsRequest = variantsRequest => {
+    const variants = [];
+    variantsRequest.forEach(variant => {
+      variants.push({
+        id: variant.id,
+        variantItemId: variant.variantItem.id
       });
     });
-    return variantsRequest;
+    return variants;
   };
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
-    console.log('payloadProductDetail',payloadProductDetail.sku);
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
       variants: this.variantsRequest(payloadProductDetail.sku),
-      productSkuId: payloadProductDetail.sku.id,
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note
     });
@@ -248,6 +247,7 @@ class Checkout extends Component {
     // this.getCities()
   };
 
+
   actionSubmitOrder = async () => {
     const {
       variants,
@@ -255,26 +255,27 @@ class Checkout extends Component {
       shipping,
       quantity,
       note,
-      productSkuId,
-      productId
+      productId,
     } = this.state;
+    // const totalAmount = this.actionChangeTotalAmount().amounts
     const request = {
       customerAddressId: customerAddress.id,
-      indexes: [
+      amount: this.actionChangeTotalAmount(),
+      items: [
         {
           productId: productId,
-          shippingInternationalId: shipping.id,
+          shipment: shipping.via,
           variants: variants,
-          productSkuId: productSkuId,
           quantity: quantity,
           note: note
         }
       ]
     };
-    console.log('submiiiiiit checkouuuut',request);
-    
+    console.log(this.state.shipping.via);
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
+      console.log(response);
+      
       if (response.data.data) {
         const token = response.data.data.token;
         this.snap.pay(token, {
@@ -283,6 +284,8 @@ class Checkout extends Component {
           },
           onPending: function (result) {
             let order = result.order_id
+            console.log('ooooooooooorder',order);
+            
             console.log(order);
             history.push({
               pathname: pageUrlPaymentInfo + order,
@@ -309,11 +312,16 @@ class Checkout extends Component {
     this.setState({ jneChecked: !this.state.jneChecked });
   }
 
-  
+  actionChangeTotalAmount() {
+    const subTotal = this.state.priceProduct * this.state.quantity;
+    const totalViaRoutePrice = this.state.shipping.price * this.state.quantity;
+    const total = subTotal + totalViaRoutePrice;
+    return total;
+  }
+
 
   render() {
-
-  console.log(this.state.variants);
+    const total = this.actionChangeTotalAmount();
     const { isAddressAvailable } = this.props;
     const {
       addresses,
@@ -393,6 +401,7 @@ class Checkout extends Component {
               <Col md={9}>
                 <OrderSummary
                   quantity={quantity}
+                  total={total}
                   priceProduct={priceProduct}
                   viaRoute={shipping}
                   checked={jneChecked}
@@ -417,6 +426,7 @@ class Checkout extends Component {
       </div>
     );
   }
+
 }
 
 const mapStatetoProps = state => ({

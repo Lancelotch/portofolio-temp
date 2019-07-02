@@ -39,8 +39,6 @@ class SearchPage extends Component {
     const { productList, page, limit, sortBy, direction } = this.state;
     const { location } = this.props;
     const { query } = getParamUrl(location);
-    console.log("ini props", this.props)
-    console.log("ini query", query)
     this.setState({
       query: query
     });
@@ -53,7 +51,6 @@ class SearchPage extends Component {
     };
     try {
       const nextProduct = await product.listProductSearch(request);
-      console.log('nextproduct', nextProduct);
       this.setState({
         productList: productList.concat(nextProduct.data),
         page: page + 1,
@@ -97,14 +94,11 @@ class SearchPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
-
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
       <b style={{ color: "#FF416C" }}>{query}</b>
     );
-        console.log('iniiiiii queeeeeeeeeery',categoryTextResult);
-    
     return (
       <div style={{ marginTop: 15 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

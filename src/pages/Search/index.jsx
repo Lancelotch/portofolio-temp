@@ -8,7 +8,6 @@ import "./style.sass";
 
 class SearchPage extends Component {
   render() {
-    console.log("ini props search",this.props)
     return (
       <React.Fragment>
             <Row>

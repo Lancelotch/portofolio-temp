@@ -39,7 +39,7 @@ const PopularProducts = props => {
               counter += 1;
             }
             return (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 {data.length < 1 ?
                   (<SkeletonCustom
                     count={4}

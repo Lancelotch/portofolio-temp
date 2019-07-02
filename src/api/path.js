@@ -81,7 +81,7 @@ export const PATH_COURIER = {
 }
 
 //ORDER
-const ORDER = "order";
+const ORDER = "order-draft";
 const ORDER_BY_ID = "order/"
 const ORDER_PAYMENT_ID = "order/payment-info/"
 const ORDER_BY_CANCEL = "order/cancel"

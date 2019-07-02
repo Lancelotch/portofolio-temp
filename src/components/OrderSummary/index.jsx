@@ -5,10 +5,13 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, viaRoute, priceProduct, checked, handleChecked } = props;
-  const subTotal = priceProduct * quantity;
-  const totalViaRoutePrice = viaRoute.price * quantity;
-  const total = subTotal + totalViaRoutePrice;
+  const { quantity, viaRoute, priceProduct, checked, handleChecked, total } = props;
+
+
+  const totalAmount = amountTotal => {
+    return currencyRupiah(amountTotal)
+  };
+
 
   return (
     <Card title={strings.order_summary} className="card__Style">
@@ -63,7 +66,7 @@ const OrderSummary = props => {
             <p>{`x ${quantity}`}</p>
           </div>
           <div className="sub-total">
-            <p>{currencyRupiah(subTotal)}</p>
+            <p>{totalAmount(total)}</p>
           </div>
           <div className="shipping-price">
             <p className="p-color-teal">
