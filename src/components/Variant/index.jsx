@@ -85,5 +85,5 @@ function selectedDefaultVariant(props) {
         const SelectedDefaultVariant = props.variantItems[0];
         SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
     }
-}
+};
 

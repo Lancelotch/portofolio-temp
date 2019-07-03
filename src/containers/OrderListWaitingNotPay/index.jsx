@@ -57,6 +57,8 @@ class OrderListWaitingPayment extends Component {
 
 
   toggleIsHowToShowModalOpen = order => {
+    console.log(order);
+    
     this.setState({
       isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
       selectedOrder: order ? order : null
@@ -74,6 +76,7 @@ class OrderListWaitingPayment extends Component {
       tabsNotSent,
       productOrderNotYetPay
     } = this.props;
+console.log('adasdsadasd',productOrderNotYetPay);
 
     return (
       <React.Fragment>
@@ -82,7 +85,7 @@ class OrderListWaitingPayment extends Component {
             <Card style={{ marginBottom: 15 }} key={i}>
                 <ProductOrder
                   key={order.id}
-                  indexes={order.indexes}
+                  indexes={order.order.orderItems}
                 />
               <hr className="productOrder__inline" />
               <WaitingPayment
@@ -92,19 +95,19 @@ class OrderListWaitingPayment extends Component {
                 tabsNotPay={1}
                 key={order.id}
                 endDatePay={order.endDatePay}
-                indexes={order.indexes}
+                indexes={order.order}
                 pay={order.payment}
               />
-              <Pay
+               <Pay
                 tabsFinish={tabsFinish}
                 tabsNotPay={tabsNotPay}
                 tabsInDelivery={tabsInDelivery}
                 tabsNotSent={tabsNotSent}
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrderNotYetPay}
-                order={order}
+                order={order.order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order.id)}
               />
             </Card>
           )
@@ -121,6 +124,7 @@ class OrderListWaitingPayment extends Component {
             close={this.toggleIsHowToShowModalOpen}
           />
         )}
+      }
       </React.Fragment>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import currencyRupiah from "../../library/currency";
-import { Link } from "react-router-dom"    
+import { Link } from "react-router-dom"
 import { pageUrlProductDetail } from "../../library/url";
 import "./style.sass";
 
@@ -12,10 +12,9 @@ const cardStyle = {
 };
 
 let imageStyle = {
-  height: "150px",
-  display: "block",
-  margin: "auto",
-  objectFit: "scale-down"
+  maxWidth: "100 %",
+  maxHeight: "100 %",
+  margin: "auto"
 }
 
 const Product = props => {

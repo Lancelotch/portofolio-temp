@@ -1,56 +1,43 @@
 import React, { Component } from "react";
-import 
-// Shippings, 
-{ SelectShipping } from "./SelectShipping";
-import shipping from "../../api/services/shipping";
-// import dummyShipping from "../../dummy/dummyShipping";
+import { ShippingSelected } from "./ShippingSelected";
 
-class Shipping extends Component {
+class SelectShipping extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shipping: [],
+      shipping: [
+        {
+          "id": 1,
+          "estimation": "Via Laut 21 - 30 hari",
+          "shipment": "sea"
+        },
+        {
+          "id": 2,
+          "estimation": "Via Udara 7 - 11 hari",
+          "shipment": "air"
+        }
+      ],
       selected: [],
-      shippingSelected: null
+      shippingSelectedId: 1
     };
   }
 
-   componentDidMount() {
-    this.shipping();
-  }
-
-  onChangeShipping = selected => {
-    this.setState(
-      {
-        shippingSelected: selected.id
-      },
+  onChangeShipping = (selected) => {
+    this.setState({ shippingSelectedId: selected.id },
       this.props.onChangeShipping(selected)
     );
   };
 
-  shipping = async () => {
-    try {
-      const res = await shipping.getShipping();
-      this.setState(
-        {
-          shipping: res.data,
-          shippingSelected: res.data[1].id
-        },
-        this.props.onChangeShipping(res.data[1])
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
   render() {
     return (
-      <SelectShipping
+      <ShippingSelected
+        shipmentFee={this.props.shipmentFee}
         onChangeSelected={this.onChangeShipping}
         shipping={this.state.shipping}
-        selected={this.state.shippingSelected}
+        selected={this.state.shippingSelectedId}
       />
     );
   }
 }
 
-export default Shipping;
+export default SelectShipping;

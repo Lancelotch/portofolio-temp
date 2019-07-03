@@ -58,8 +58,10 @@ export const PATH_PRODUCT = {
 
 //SHIPPING
 const SHIPPING = "international-shipping";
+const JNE = "courier/fare/jne";
 export const PATH_SHIPPING = {
-    SHIPPING: SHIPPING
+    SHIPPING: SHIPPING,
+    JNE: JNE
 }
 
 //INVOICE
@@ -95,7 +97,7 @@ export const PATH_ORDER = {
 }
 
 //DASHBOARD TAB USER
-const ORDER_STATUS_NOT_YET_PAID = "order/status/1";
+const ORDER_STATUS_NOT_YET_PAID = "invoice-draft/tab/0";
 const ORDER_STATUS_NOT_YET_SENT = "order/status/2";
 const ORDER_STATUS_IN_DELIVERY = "order/status/3";
 const ORDER_STATUS_FINISH = "order/status/4";

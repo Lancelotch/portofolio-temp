@@ -42,6 +42,8 @@ class ButtonQuantityContainer extends Component {
       this.props.onChange(this.state.quantity, true);
     });
     this.checkStockAvailability(this.props.stock);
+    console.log(this.props.stock);
+    
   };
 
   decrementItem = () => {
@@ -68,8 +70,7 @@ class ButtonQuantityContainer extends Component {
       quantity: quantity
     }, () => {
       this.props.onChange(this.state.quantity, true);
-    }, this.checkStockAvailability(this.props.stock)
-    );
+    });
   };
 
   render() {

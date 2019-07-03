@@ -20,7 +20,7 @@ class SliderProductDetailContainer extends Component {
   componentWillReceiveProps(props) {
     this.slider.slideToIndex(0)
     this.setData(props.images, props.imageVariant);
-  }
+  };
 
   setData(imagesProps, imageVariantProps) {
     const images = [...imagesProps];
@@ -68,7 +68,7 @@ class SliderProductDetailContainer extends Component {
 
   render() {
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
-    const images = [];
+    const images = []
     this.state.images.forEach(image => {
       images.push({
         large: image.largeUrl,
@@ -85,7 +85,7 @@ class SliderProductDetailContainer extends Component {
             showFullscreenButton={false}
             showPlayButton={false}
             showNav={this.state.isShowNav}
-            // onSlide={this.changeSlide}
+            onSlide={this.changeSlide}
             lazyLoad={true}
             renderItem={this.imageHover}
             items={images}

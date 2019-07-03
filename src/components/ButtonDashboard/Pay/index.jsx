@@ -17,11 +17,11 @@ const Pay = (props) => {
     orderProduct
   } = props
 
-  let id = ""
-  order.indexes.map(p => {
-    id = p.productId
-    return id
-  })
+  // let id = ""
+  // order.indexes.map(p => {
+  //   id = p.productId
+  //   return id
+  // })
 
   return (
     <React.Fragment>
@@ -47,7 +47,7 @@ const Pay = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboard(order.orderId)}
+              onClick={() => showOrderDetailsDashboard(order.id)}
             >
               {strings.order_details}
             </Button>
@@ -95,7 +95,7 @@ const Pay = (props) => {
           <Button
             className="waitingPayment__payNow"
           >
-            <Link to={pageUrlProductDetail + id}>Beli Lagi</Link>
+            <Link to={pageUrlProductDetail}>Beli Lagi</Link>
           </Button>
           <Button
             className="waitingPayment__detailPesanan"

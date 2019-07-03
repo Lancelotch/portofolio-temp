@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { connect } from "react-redux";
 import "sass/style.sass";
-import "./style.sass";
 
 //const Products = React.lazy(() => import("../../components/Products")); 
 

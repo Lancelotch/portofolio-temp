@@ -3,7 +3,7 @@ import ButtonQuantity from "../ButtonQuantity";
 import "./style.sass";
 import { Row, Col, Card, Icon, Divider } from "antd";
 import NotedLimit from "../../components/NotedLimit";
-import Shipping from "../../components/SelectShipping";
+import SelectShipping from "../../components/SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
@@ -16,15 +16,15 @@ class OrderDetailContainer extends Component {
   }
 
   actionChangeQuantity = quantity => {
-    this.props.onChangeQuantity(quantity);
+    this.props.actionChangeQuantity(quantity);
   };
 
-  actionChangeShipping = shipping => {
-    this.props.onChangeShipping(shipping);
+  actionChangeShipping = (shipping) => {
+    this.props.actionChangeShipping(shipping);
   };
 
   actionChangeNote = note => {
-    this.props.onChangeNote(note);
+    this.props.actionChangeNote(note);
   };
 
   // variants = variants => {
@@ -79,15 +79,14 @@ class OrderDetailContainer extends Component {
                     <Row>
                       {sku &&
                         <React.Fragment>
-                          <Col className="detail__variant" span={3}>
+                          <Col className="detail__variant" md={4}>
                             Varian
                       </Col>
                           <Col
                             className="detail__variant"
-                            style={{ textAlign: "end" }}
-                            span={1}
-                          >
-                            :
+                            style={{ textAlign: "left" }}
+                            md={20}
+                          > :
                             {this.variants(sku)}
                           </Col>
                         </React.Fragment>
@@ -103,6 +102,7 @@ class OrderDetailContainer extends Component {
                   <Col md={19} offset={5}>
                     <div className="detail__button-quantity">
                       <ButtonQuantity
+                        stock={this.props.stock}
                         quantity={quantity}
                         onChange={this.actionChangeQuantity}
                       />
@@ -129,7 +129,7 @@ class OrderDetailContainer extends Component {
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
-                  <Shipping onChangeShipping={this.actionChangeShipping} />
+                  <SelectShipping shipmentFee={this.props.shipmentFee} onChangeShipping={this.actionChangeShipping} />
                 </Col>
                 <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>

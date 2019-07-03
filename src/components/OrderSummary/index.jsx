@@ -5,7 +5,7 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, viaRoute, priceProduct, checked, handleChecked, total } = props;
+  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee,priceJne } = props;
 
 
   const totalAmount = amountTotal => {
@@ -26,7 +26,9 @@ const OrderSummary = props => {
           </div>
           <div className="international-shipping">
             <p>Pengiriman International</p>
-            <p className="p-color-teal">{viaRoute.via}</p>
+            <p className="p-color-teal">{shipment === "sea"
+            ? "Laut"
+            : "Udara"}</p>
           </div>
           <div className="lokal-shipping">
             <p>Pengiriman Lokal</p>
@@ -70,13 +72,13 @@ const OrderSummary = props => {
           </div>
           <div className="shipping-price">
             <p className="p-color-teal">
-              {viaRoute.via === "Laut"
+              {shipment === "sea"
                 ? "Ongkir Sudah Termasuk"
-                : currencyRupiah(viaRoute.price)}
+                : currencyRupiah(shipmentFee.difference)}
             </p>
           </div>
           <div className="shipping-price">
-            <p className="p-color-teal">Rp. 9.000</p>
+            <p className="p-color-teal">{currencyRupiah(priceJne)}</p>
           </div>
           <div className={checked ? "jne-price-true" : "jne-price"}>
             <p>Rp. 9.936</p>

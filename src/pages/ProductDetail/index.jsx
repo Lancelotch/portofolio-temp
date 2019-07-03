@@ -13,6 +13,7 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 
+
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
@@ -49,6 +50,8 @@ class ProductDetail extends Component {
     const productId = this.props.match.params.productId;
     try {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID_DRAFT + productId)
+      console.log(response);
+      
       //const response = dummyProductDetail;
       const product = response.data.data;
       this.setState({
@@ -71,7 +74,6 @@ class ProductDetail extends Component {
     this.setState({ data });
   };
 
-
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
     this.setState({ data });
@@ -86,7 +88,7 @@ class ProductDetail extends Component {
   actionSubmitToCheckout = event => {
     if (this.props.isAuthenticated !== false) {
       if (this.state.data.quantity > this.state.information.maxOrder) {
-        return alert("adasd");
+        return alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
       }
       const {
         id,
@@ -94,17 +96,19 @@ class ProductDetail extends Component {
         price,
         images,
         information,
-        data
+        data,
       } = this.state
       const image = images.find(image => image.isDefault === true).defaultImage;
       const items = {
+        shipmentFee: price.fee.shipmentFee,
         image,
         name: information.name,
         price: price.amount,
         productId: id,
         quantity: data.quantity,
         note,
-        sku: data.sku
+        sku: data.sku,
+        maxOrder:information.maxOrder
       }
       const indexesToLocalstorage = JSON.stringify(items);
       localStorage.setItem("product", indexesToLocalstorage);
@@ -152,7 +156,7 @@ class ProductDetail extends Component {
                       quantity={this.state.data.quantity}
                       onChange={this.actionUpdateQuantity}
                     />
-                    <Shipping />
+                    <Shipping priceShippment={this.state.price.fee} />
                     <button
                       className="productDetail__addCart"
                       onClick={this.actionSubmitToCheckout}
