@@ -158,23 +158,23 @@ class Header extends Component {
   renderAuthList = () => {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={this.userMenu()} trigger={["click"]}>
-        <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}>
+        {/* <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}> */}
           {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
+          <div className="header-ellipsis">
           <span className="header-user-name">{this.props.customerName}</span>
-        </li>
+          </div>
+        {/* </li> */}
       </Dropdown>
     );
   };
 
   renderNotAuthList = () => {
     return (
-      
         <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}>
+          {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
             <span>{strings.log_in}</span>
-          </li>
+          {/* </li> */}
         </Dropdown>
-      
       );
   };
 

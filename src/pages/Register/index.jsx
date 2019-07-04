@@ -207,12 +207,6 @@ class RegisterPage extends Component {
                 </div>
                 <Form.Item className="register__form__btn-socmed">
                   <div className="register__form__socmed-box">
-                    <ButtonFacebook
-                      className="register__form__socmed-button"
-                      onSubmit={this.handleFacebook}
-                    >
-                      {strings.facebook}
-                    </ButtonFacebook>
                     <ButtonGoogle
                       className="register__form__socmed-button"
                       onSubmit={this.handleRegisterGoogle}
@@ -220,6 +214,12 @@ class RegisterPage extends Component {
                     >
                       {strings.google}
                     </ButtonGoogle>
+                    <ButtonFacebook
+                      className="register__form__socmed-button"
+                      onSubmit={this.handleFacebook}
+                    >
+                      {strings.facebook}
+                    </ButtonFacebook>
                   </div>
                   <div className="register__form__direct-login">
                     {strings.formatString(
