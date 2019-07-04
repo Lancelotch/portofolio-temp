@@ -32,7 +32,7 @@ class CustomerOderNavigation extends Component {
     super(props);
     this.state = {
       isShowOrderDetailsDashboard: false,
-      orderId: null,
+      order: [],
       activeKey: "1",
       isLoading: false,
       productOrderNotYetPay: [],
@@ -61,16 +61,16 @@ class CustomerOderNavigation extends Component {
     });
   };
 
-  actionShowOrderDetailsDashboard = (orderId) => {
+  actionShowOrderDetailsDashboard = (order) => {
     this.actionShowOrderListWaiting();
     this.setState({
-      orderId: orderId
+      order: order
     })
   };
 
   productOrderTabsNotYetPay = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_PAID);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD+0);
       this.setState({
         productOrderNotYetPay: response.data.data
       });
@@ -83,7 +83,9 @@ class CustomerOderNavigation extends Component {
 
   productOrderTabsNotYetSent = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_NOT_YET_SENT);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD+1);
+      console.log(response);
+      
       this.setState({
         productOrderNotYetSent: response.data.data
       });
@@ -207,7 +209,7 @@ class CustomerOderNavigation extends Component {
                       tabsNotPay={1}
                     /> :
                     <OrderDetailsDashboard
-                      orderId={this.state.orderId}
+                      order={this.state.order}
                       actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
                       labelTabDetails={"Belum Bayar"}
                       tabsNotPay={1}

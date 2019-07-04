@@ -14,7 +14,8 @@ const Pay = (props) => {
     tabsFinish,
     tabsInDelivery,
     order,
-    orderProduct
+    orderProduct,
+    index
   } = props
 
   // let id = ""
@@ -22,7 +23,6 @@ const Pay = (props) => {
   //   id = p.productId
   //   return id
   // })
-
   return (
     <React.Fragment>
       {tabsNotPay === 1 && (
@@ -34,7 +34,7 @@ const Pay = (props) => {
           }}>
           <p
             className="waitingPayment__button"
-            onClick={() => showDeleteConfirm(orderProduct)}
+            onClick={() => showDeleteConfirm(orderProduct, index, order.id)}
           >
             {strings.cancel_order_dashboard}
           </p>
@@ -47,7 +47,7 @@ const Pay = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboard(order.id)}
+              onClick={() => showOrderDetailsDashboard(order)}
             >
               {strings.order_details}
             </Button>

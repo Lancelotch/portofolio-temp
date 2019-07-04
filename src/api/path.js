@@ -86,7 +86,7 @@ export const PATH_COURIER = {
 const ORDER = "order-draft";
 const ORDER_BY_ID = "order/"
 const ORDER_PAYMENT_ID = "order/payment-info/"
-const ORDER_BY_CANCEL = "order/cancel"
+const ORDER_BY_CANCEL = "order-draft/cancel/"
 const ORDER_GENERATE = "order/generate/";
 export const PATH_ORDER = {
     ORDER: ORDER,
@@ -97,14 +97,12 @@ export const PATH_ORDER = {
 }
 
 //DASHBOARD TAB USER
-const ORDER_STATUS_NOT_YET_PAID = "invoice-draft/tab/0";
-const ORDER_STATUS_NOT_YET_SENT = "order/status/2";
+const ORDER_STATUS_TAB_DASHBOARD = "invoice-draft/tab/"
 const ORDER_STATUS_IN_DELIVERY = "order/status/3";
 const ORDER_STATUS_FINISH = "order/status/4";
 const ORDER_STATUS_CANCEL = "order/status/5";
 export const PATH_DASHBOARD_TAB = {
-    ORDER_STATUS_NOT_YET_PAID : ORDER_STATUS_NOT_YET_PAID,
-    ORDER_STATUS_NOT_YET_SENT : ORDER_STATUS_NOT_YET_SENT,
+    ORDER_STATUS_TAB_DASHBOARD : ORDER_STATUS_TAB_DASHBOARD,
     ORDER_STATUS_IN_DELIVERY : ORDER_STATUS_IN_DELIVERY,
     ORDER_STATUS_FINISH : ORDER_STATUS_FINISH,
     ORDER_STATUS_CANCEL : ORDER_STATUS_CANCEL

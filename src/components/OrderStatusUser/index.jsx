@@ -11,12 +11,14 @@ const OrderStatusUser = props => {
         tabsInDeliveryOrderStatusUser,
         tabsFinishOrderStatusUser,
         estimateAccepted } = props;
-        let styleEstimateaAccepted = {
-            color: "#BBBBBB",
-            fontSize: 16,
-            textAlign: "right",
-            fontWeight: 500
-        }
+
+    let styleEstimateaAccepted = {
+        color: "#BBBBBB",
+        fontSize: 16,
+        textAlign: "right",
+        fontWeight: 500
+    }
+
     return (
         <React.Fragment>
             {customer !== undefined | customer &&
@@ -48,7 +50,10 @@ const OrderStatusUser = props => {
                                             format="####-####-####"
                                         />
                                     </p>
-                                    <p className="nameCustomerText">{customer.fullAddress}{customer.zipcode}</p>
+                                    <p className="nameCustomerText">
+                                        {customer.fullAddress},&nbsp;{customer.city},&nbsp;
+                                        {customer.subdistrict},&nbsp;{customer.province},&nbsp;{customer.zipcode}
+                                    </p>
                                 </div>
                             </Col>
                             <Col md={15}>

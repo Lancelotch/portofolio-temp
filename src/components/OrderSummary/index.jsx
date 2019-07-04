@@ -7,6 +7,8 @@ import currencyRupiah from "../../library/currency";
 const OrderSummary = props => {
   const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee,priceJne } = props;
 
+  const totalQuantityProduct = priceProduct * quantity
+  const totalProduct = totalQuantityProduct
 
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
@@ -68,7 +70,7 @@ const OrderSummary = props => {
             <p>{`x ${quantity}`}</p>
           </div>
           <div className="sub-total">
-            <p>{totalAmount(total)}</p>
+            <p>{totalAmount(totalProduct)}</p>
           </div>
           <div className="shipping-price">
             <p className="p-color-teal">

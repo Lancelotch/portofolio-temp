@@ -24,10 +24,7 @@ const WaitingPayment = props => {
     receivedDate,
     cancelDate
   } = props;
-  console.log(indexes);
-  return (
-
-    
+  return (  
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>

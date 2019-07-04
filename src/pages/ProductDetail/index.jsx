@@ -37,7 +37,8 @@ class ProductDetail extends Component {
       data: {
         quantity: 1,
         sku: {}
-      }
+      },
+      variantIsVailable: false
     };
   }
 
@@ -51,7 +52,7 @@ class ProductDetail extends Component {
     try {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID_DRAFT + productId)
       console.log(response);
-      
+
       //const response = dummyProductDetail;
       const product = response.data.data;
       this.setState({
@@ -85,34 +86,44 @@ class ProductDetail extends Component {
     })
   };
 
-  actionSubmitToCheckout = event => {
+  actionSubmitToCheckout = () => {
+    console.log(this.state.data.sku);
     if (this.props.isAuthenticated !== false) {
       if (this.state.data.quantity > this.state.information.maxOrder) {
-        return alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
+         alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
       }
-      const {
-        id,
-        note,
-        price,
-        images,
-        information,
-        data,
-      } = this.state
-      const image = images.find(image => image.isDefault === true).defaultImage;
-      const items = {
-        shipmentFee: price.fee.shipmentFee,
-        image,
-        name: information.name,
-        price: price.amount,
-        productId: id,
-        quantity: data.quantity,
-        note,
-        sku: data.sku,
-        maxOrder:information.maxOrder
+      if (this.state.data.sku.length === undefined) {
+        alert('Pilih Variant Yang ada')
+      } if (this.state.data.sku.length < this.state.variants.length) {
+         alert('Variant Belum Dipilih Semua')
       }
-      const indexesToLocalstorage = JSON.stringify(items);
-      localStorage.setItem("product", indexesToLocalstorage);
-      this.redirectCheckout();
+      else {
+        if (this.state.data.sku.length === this.state.variants.length) {
+          const {
+            id,
+            note,
+            price,
+            images,
+            information,
+            data,
+          } = this.state
+          const image = images.find(image => image.isDefault === true).defaultImage;
+          const items = {
+            shipmentFee: price.fee.shipmentFee,
+            image,
+            name: information.name,
+            price: price.amount,
+            productId: id,
+            quantity: data.quantity,
+            note,
+            sku: data.sku,
+            maxOrder: information.maxOrder
+          }
+          const indexesToLocalstorage = JSON.stringify(items);
+          localStorage.setItem("product", indexesToLocalstorage);
+          this.redirectCheckout();
+        }
+      }
     }
     else {
       this.redirectLogin();
@@ -133,6 +144,8 @@ class ProductDetail extends Component {
 
 
   render() {
+    console.log(this.state.variants);
+
     return (
       <React.Fragment>
         {this.state.isProductAvailable && (

@@ -3,7 +3,7 @@ import Pay from "../../components/ButtonDashboard/Pay";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Card,Modal } from "antd";
+import { Card, Modal } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
@@ -22,7 +22,9 @@ class OrderListWaitingPayment extends Component {
     }
   };
 
-  showDeleteConfirm = (allOrder, index) => {
+  showDeleteConfirm = (allOrder, index, orderId) => {
+    console.log('allOrder', allOrder);
+    console.log('index', index);
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
       title: strings.tab_belum_bayar,
@@ -39,17 +41,16 @@ class OrderListWaitingPayment extends Component {
           stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
         })
         console.log(index)
-        this.actionCancelConfirm(index);
+        this.actionCancelConfirm(orderId);
       },
     });
   };
 
   actionCancelConfirm = async (index) => {
+    console.log('actionCancelConfirm', index);
     try {
-      const orderId = {
-        orderId: index
-      }
-      const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL, orderId);
+      const orderId = index
+      const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL + orderId);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +59,6 @@ class OrderListWaitingPayment extends Component {
 
   toggleIsHowToShowModalOpen = order => {
     console.log(order);
-    
     this.setState({
       isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
       selectedOrder: order ? order : null
@@ -76,17 +76,15 @@ class OrderListWaitingPayment extends Component {
       tabsNotSent,
       productOrderNotYetPay
     } = this.props;
-console.log('adasdsadasd',productOrderNotYetPay);
-
     return (
       <React.Fragment>
-        {productOrderNotYetPay.map((order, i) => {
+        {productOrderNotYetPay.map((order, index) => {
           return (
-            <Card style={{ marginBottom: 15 }} key={i}>
-                <ProductOrder
-                  key={order.id}
-                  indexes={order.order.orderItems}
-                />
+            <Card style={{ marginBottom: 15 }} key={index}>
+              <ProductOrder
+                key={order.id}
+                indexes={order.order.orderItems}
+              />
               <hr className="productOrder__inline" />
               <WaitingPayment
                 labelNotPay={"Bayar Sebelum"}
@@ -98,7 +96,8 @@ console.log('adasdsadasd',productOrderNotYetPay);
                 indexes={order.order}
                 pay={order.payment}
               />
-               <Pay
+              <Pay
+                index={index}
                 tabsFinish={tabsFinish}
                 tabsNotPay={tabsNotPay}
                 tabsInDelivery={tabsInDelivery}
@@ -107,7 +106,7 @@ console.log('adasdsadasd',productOrderNotYetPay);
                 orderProduct={productOrderNotYetPay}
                 order={order.order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order.id)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order)}
               />
             </Card>
           )
@@ -124,7 +123,6 @@ console.log('adasdsadasd',productOrderNotYetPay);
             close={this.toggleIsHowToShowModalOpen}
           />
         )}
-      }
       </React.Fragment>
     );
   }

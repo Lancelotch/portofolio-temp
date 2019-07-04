@@ -6,7 +6,9 @@ import strings from '../../localization/localization';
 import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
-    const { shipping, payment, totalAmount, productQuantity, price, cancelBy, cancelDate, exspedisi } = props;
+    const { shipment,productSnapshot, payment, amount, courier,totalAmount, price, cancelBy, cancelDate, exspedisi } = props;
+   console.log(productSnapshot);
+   
     return (
             <Card>
                 <div className="paymentInfo">
@@ -28,7 +30,7 @@ const PaymentInfo = props => {
                                                     textAlign: "right",
                                                     fontSize: 18
                                                 }}>
-                                                {currencyRupiah(price)}
+                                                {currencyRupiah(courier.price)}
                                             </p>
                                         </td>
                                     </tr>
@@ -49,7 +51,7 @@ const PaymentInfo = props => {
                                                     textAlign: "right",
                                                     marginTop: -20
                                                 }}>
-                                                X&nbsp;{productQuantity}
+                                                X&nbsp;{productSnapshot.quantity}
                                             </p>
                                         </td>
                                     </tr>
@@ -66,7 +68,7 @@ const PaymentInfo = props => {
                                             </p>
                                         </td>
                                     </tr>
-                                    {shipping !== undefined | shipping ?
+                                    {shipment !== undefined | shipment ?
                                         <tr>
                                             <td>
                                                 <p className="nameCustomerText"
@@ -76,12 +78,12 @@ const PaymentInfo = props => {
                                             </td>
                                         </tr>
                                         : null}
-                                    {shipping !== undefined | shipping ?
+                                    {shipment !== undefined | shipment ?
                                         <tr>
                                             <td>
                                                 <p className="customerVia"
                                                     style={{ marginBottom: 0, marginTop: -20 }}>
-                                                    {shipping.via}
+                                                    {shipment.via}
                                                 </p>
                                             </td>
                                             <td>
@@ -91,14 +93,14 @@ const PaymentInfo = props => {
                                                         textAlign: "right",
                                                         marginTop: -20
                                                     }}>
-                                                    {shipping.via === "Laut" && "laut" ?
+                                                    {shipment.via === "sea" && "sea" ?
                                                         "Ongkir Sudah Termasuk " :
-                                                        currencyRupiah(shipping.internationalPrice)
+                                                        currencyRupiah(shipment.price)
                                                     }
                                                 </p>
                                             </td>
                                         </tr> : null}
-                                    {exspedisi !== undefined | exspedisi ?
+                                    {courier !== undefined | courier ?
                                         <tr>
                                             <td>
                                                 <p className="nameCustomerText"
@@ -108,12 +110,12 @@ const PaymentInfo = props => {
                                             </td>
                                         </tr>
                                         : null}
-                                    {exspedisi !== undefined | exspedisi ?
+                                    {courier !== undefined | courier ?
                                         <tr>
                                             <td>
                                                 <p className="customerVia"
                                                     style={{ marginBottom: 0, marginTop: -20 }}>
-                                                    {exspedisi.type}
+                                                    {courier.name}
                                                 </p>
                                             </td>
                                             <td>
@@ -123,11 +125,11 @@ const PaymentInfo = props => {
                                                         textAlign: "right",
                                                         marginTop: -20
                                                     }}>
-                                                    {currencyRupiah(exspedisi.expedisiPrice)}
+                                                    {currencyRupiah(courier.price)}
                                                 </p>
                                             </td>
                                         </tr> : null}
-                                    {exspedisi !== undefined | exspedisi ?
+                                    {courier !== undefined | courier ?
                                         <tr>
                                             <td>
                                                 <p className="customerVia"
@@ -142,7 +144,7 @@ const PaymentInfo = props => {
                                                         textAlign: "right",
                                                         marginTop: -20
                                                     }}>
-                                                    {currencyRupiah(120000)}
+                                                    {currencyRupiah(9936)}
                                                 </p>
                                             </td>
                                         </tr> : null}
@@ -159,7 +161,7 @@ const PaymentInfo = props => {
                                                     textAlign: "right",
                                                     marginTop: 24
                                                 }}>
-                                                {currencyRupiah(totalAmount)}
+                                                {currencyRupiah(amount)}
                                             </p>
                                         </td>
                                     </tr>
@@ -175,7 +177,7 @@ const PaymentInfo = props => {
                                                 <p
                                                     className="nameCustomerText"
                                                     style={{ marginBottom: 0, textAlign: "right" }}>
-                                                    {payment.bankName} Virtual Account
+                                                    {payment.gateway.bankName} Virtual Account
                                                 </p>
                                             </td>
                                             : null}

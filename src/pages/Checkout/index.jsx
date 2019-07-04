@@ -337,16 +337,6 @@ class Checkout extends Component {
   }
 
   countTotalAmount = () => {
-    var ownKTP = false;
-    var ownSIM = true;
-
-    if (ownKTP === false) {
-      console.log(" saya bisa beli tiket ");
-    } else {
-      if (ownSIM) {
-        console.log(" saya bisa dbeli tiket ");
-      }
-    }
     const subTotal = this.state.quantity * this.state.priceProduct;
     let totalShippingPrice = 0;
     if (this.state.shipment === "air") {

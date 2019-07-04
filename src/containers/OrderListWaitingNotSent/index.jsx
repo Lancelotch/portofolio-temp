@@ -40,7 +40,7 @@ class OrderListWaitingNotSent extends Component {
                 order={order}
                 orderProduct={productOrderNotYetSent}
                 showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order)}
               />
             </Card>
           )

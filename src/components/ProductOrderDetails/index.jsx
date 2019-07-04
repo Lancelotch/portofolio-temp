@@ -8,7 +8,7 @@ import { Button } from "antd";
 
 const ProductOrderDetails = props => {
   const
-    { productImage,
+    { productSnapshot,
       productName,
       variants,
       productQuantity,
@@ -57,7 +57,7 @@ const ProductOrderDetails = props => {
             to={pageUrlProductDetail + productId}>
             <img
               className="productOrder__image"
-              src={productImage}
+              src={productSnapshot.image.defaultImage}
               alt=""
             />
           </Link>
@@ -67,21 +67,16 @@ const ProductOrderDetails = props => {
             className="default"
             style={{ cursor: "pointer" }}
             to={pageUrlProductDetail + productId}>
-            <h2 style={{ marginBottom: 0 }}> {productName} </h2>
+            <h2 style={{ marginBottom: 0 }}> {productSnapshot.name} </h2>
           </Link>
           <p className="productOrder__variant" style={{ marginBottom: 10 }}>
-            {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-           {variants[0].name.charAt(0).toUpperCase() +
-              variants[0].name.substring(1)}&nbsp;
-            {variants[0].value},&nbsp;
-           {variants[1].name.charAt(0).toUpperCase() +
-              variants[1].name.substring(1)}
-            {variants[1].value}
+          {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
+           {productSnapshot.variants}
           </p>
           <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
             {note && note.charAt(0).toUpperCase() + note.substring(1)}</p>
           <p className="productOrder__quantity">
-            {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{productQuantity} pcs
+            {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{productSnapshot.quantity} pcs
         </p>
         </Col>
         <Col md={5} style={{ marginTop: 60 }}>
@@ -101,7 +96,7 @@ const ProductOrderDetails = props => {
         </Col>
       </Row>
     </Card >
-  );
-};
+  )
+}
 
 export default ProductOrderDetails;
