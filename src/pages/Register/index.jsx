@@ -104,13 +104,13 @@ class RegisterPage extends Component {
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
-              ref={node => {
-                this.container = node;
-              }}
+              // ref={node => {
+              //   this.container = node;
+              // }}
             >
-              <Affix target={() => this.container}>
+              {/* <Affix> */}
                 <div className="register_Background" />
-              </Affix>
+              {/* </Affix> */}
             </div>
           </Col>
           <Col md={{ span: 10 }}>

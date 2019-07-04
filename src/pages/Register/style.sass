@@ -10,96 +10,98 @@
 .register_Background
   width: 100%
   background-image: url('../../assets/img/register_pict.png')
-  background-size: cover
-  background-position: center 
-  height: 100vh
- 
+  background-size: 65%
+  // background-position: -120px
+  background-attachment: fixed
+  background-repeat: no-repeat
+  height: 120vh
+
 .scrollable-container
   background: -webkit-linear-gradient(to right, #00B5B7, #007E80);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #00B5B7, #007E80); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+  background: linear-gradient(to right, #00B5B7, #007E80); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 .register .ant-form-item 
-    width: 360px   
+  width: 360px
 
 .register .has-error .ant-form-explain
-    width: 350px
+  width: 350px
 
 
 .register
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
-    // height: 100vh
-    &__logo
-      padding-top: 64px !important
-    &__title
-      color: $primary-color
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  // height: 100vh
+  &__logo
+    padding-top: 64px !important
+  &__title
+    color: $primary-color
+    margin-top: 32px
+    font-size: 20px
+    margin-bottom: 32px
+  &__input
+    height: 48px
+  &__input .ant-input:hover,
+  &__input .ant-input:focus
+    border: 1px solid $primary-color !important
+    border-radius: 4px
+    box-shadow: 0 0 0 0 transparent !important
+  &__form
+    height: 48px
+    &__note
+      display: block
+      width: 360px
+      line-height: 18px
+      text-align: justify
+      font-size: 16px
+      color: $text-grey
+    &__button-register
       margin-top: 32px
-      font-size: 20px
-      margin-bottom: 32px
-    &__input
-      height: 48px
-    &__input .ant-input:hover,
-    &__input .ant-input:focus
-      border: 1px solid $primary-color !important
-      border-radius: 4px
-      box-shadow: 0 0 0 0 transparent !important
-    &__form
-      height: 48px
-      &__note
-        display: block
-        width: 360px
-        line-height: 18px
-        text-align: justify
-        font-size: 16px
-        color: $text-grey
-      &__button-register
-        margin-top: 32px
-        height: 48px !important
-        width: 360px
-      &__button-register:hover,
-      &__button-register:focus
-        border: 1px solid $primary-color-hover !important
-      &__button-register-text
-        color: $text-white
-        padding-top: 11px
-        font-size: 18px
-        font-weight: 500
-      &__text-line
-        height: 1px
-        width: 30%
-        background: gray
-      &__option-text
-        margin-top: 32px
-        margin-bottom: 10px
-        color: #ADADAD
-        font-size: 16px
-      &__socmed-box
-        display: flex
-        flex-direction: row
-        margin-top: 10px
-      &__socmed-button
-        width: 100%
-        height: 100%
-        // height: 48px
-      &__direct-login
-        color: $text-grey
-        text-align: center
-        font-size: 16px
-        margin: 12px 0 0 0
-      &__link
-        color: $link-color !important
-      &__link-login
-        height: 19px
-        width: 224px
-        color: #F63700
-        font-size: 16px
-        font-weight: bold
-        line-height: 19px
-      &__link:hover,
-      &__link:focus
-        color: $primary-color !important
-      &__confirm
-        margin-top: 10px  
+      height: 48px !important
+      width: 360px
+    &__button-register:hover,
+    &__button-register:focus
+      border: 1px solid $primary-color-hover !important
+    &__button-register-text
+      color: $text-white
+      padding-top: 11px
+      font-size: 18px
+      font-weight: 500
+    &__text-line
+      height: 1px
+      width: 30%
+      background: gray
+    &__option-text
+      margin-top: 32px
+      margin-bottom: 10px
+      color: #ADADAD
+      font-size: 16px
+    &__socmed-box
+      display: flex
+      flex-direction: row
+      margin-top: 10px
+    &__socmed-button
+      width: 100%
+      height: 100%
+      // height: 48px
+    &__direct-login
+      color: $text-grey
+      text-align: center
+      font-size: 16px
+      margin: 12px 0 0 0
+    &__link
+      color: $link-color !important
+    &__link-login
+      height: 19px
+      width: 224px
+      color: #F63700
+      font-size: 16px
+      font-weight: bold
+      line-height: 19px
+    &__link:hover,
+    &__link:focus
+      color: $primary-color !important
+    &__confirm
+      margin-top: 10px  
 
