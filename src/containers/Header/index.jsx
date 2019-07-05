@@ -161,7 +161,7 @@ class Header extends Component {
         {/* <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}> */}
           {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
           <div className="header-ellipsis">
-          <span className="header-user-name">{this.props.customerName}</span>
+          <span className="header-user-name">{this.props.customerName}<Icon className="header__name-icon" type="down"/></span>
           </div>
         {/* </li> */}
       </Dropdown>
@@ -172,7 +172,7 @@ class Header extends Component {
     return (
         <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
           {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
-            <span>{strings.log_in}</span>
+            <span>{strings.log_in}<Icon className="header__name-icon" type="down"/></span>
           {/* </li> */}
         </Dropdown>
       );
@@ -305,7 +305,7 @@ class Header extends Component {
               <div className="wrap-header-dropdown">
               {this.showUserDropDown(isAuthenticated)}
               </div>
-              <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon>
+              {/* <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon> */}
             </div>
           </Col>
         </Row>

@@ -182,9 +182,19 @@ class Login extends Component {
                     valuePropName: "checked",
                     initialValue: true
                   })(<Checkbox>{strings.login_remember_me}</Checkbox>)}
-                  <a className="login-form__forgot" href="/forget-password">
+                  <Link
+                      className="login-form__forgot"
+                      onClick={this.clearErrorMessage}
+                      to={{
+                        pathname: "/forget-password",
+                        state: { nextPage: this.state.nextPage }
+                      }}
+                    >
+                      <b>{strings.login_forgot_password}</b>
+                    </Link>
+                  {/* <a className="login-form__forgot" href="/forget-password">
                     {strings.login_forgot_password}
-                  </a>
+                  </a> */}
                   {/* <div type="flex" align="end">
                     <Link
                       style={{ color: "#F63700" }}

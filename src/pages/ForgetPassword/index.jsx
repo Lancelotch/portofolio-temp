@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import "./style.sass";
-import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
+import { Link } from "react-router-dom";
 import { Input, Button, Row, Col, Form, Alert } from "antd";
-import history from "../../routers/history";
-// import category from "../../api/services/category";
-// import Axios from "axios";
-// import { rulesEmail } from "../Register/registerContainer";
+import "./style.sass";
 import authentication from "../../api/services/authentication";
+import history from "../../routers/history";
+import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 
 class ForgetPassword extends Component {
   constructor(props) {
@@ -141,13 +139,27 @@ class ForgetPassword extends Component {
                 <div className="forget-password__content-bottom">
                   Silahkan{" "}
                   <span className="forget-password__link-bottom">
-                    <a href="/login">Log In</a>
+                    <Link
+                      to={{
+                        pathname: "/login"
+                      }}
+                      style={{ color: "#F63700" }}
+                    >
+                      Login
+                    </Link>
                   </span>{" "}
                   jika kamu sudah punya akun,
                   <br />
                   atau{" "}
                   <span className="forget-password__link-bottom">
-                    <a href="/register">Daftar</a>
+                    <Link
+                      to={{
+                        pathname: "/register"
+                      }}
+                      style={{ color: "#F63700" }}
+                    >
+                      Register
+                    </Link>
                   </span>{" "}
                   untuk mulai belanja barang-barang kece.
                 </div>

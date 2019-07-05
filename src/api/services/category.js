@@ -1,5 +1,5 @@
 import { serviceWithoutToken } from './httpClient';
-import {PATH_CATEGORY, PATH_HOME, PATH_PUBLIC} from '../path'
+import {PATH_CATEGORY, PATH_HOME} from '../path'
 // import { resolve, reject } from 'q';
 // import { request } from 'http';
 
