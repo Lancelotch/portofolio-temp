@@ -8,7 +8,9 @@ import { Button } from "antd";
 
 const ProductOrderDetails = props => {
   const
-    { productSnapshot,
+    { 
+      product,
+      productSnapshot,
       productName,
       variants,
       productQuantity,
@@ -19,10 +21,12 @@ const ProductOrderDetails = props => {
       tabsNotSent,
       tabsFinish,
       tabsCancel,
-      orderId,
+      id,
       productId,
       note
-    } = props;
+    } = props;  
+    console.log('idviewinvoice',id);
+    
   return (
     <Card>
       <div
@@ -39,7 +43,7 @@ const ProductOrderDetails = props => {
             }}>
             <Link
               style={{ cursor: "pointer", color: "#FB6900" }}
-              to={pageUrlViewInvoiceDashboard + orderId}
+              to={pageUrlViewInvoiceDashboard + id}
               target="_blank"> Lihat
             </Link> |
             {noInvoice} &nbsp;
@@ -54,7 +58,7 @@ const ProductOrderDetails = props => {
         <Col md={2}>
           <Link
             style={{ cursor: "pointer" }}
-            to={pageUrlProductDetail + productId}>
+            to={pageUrlProductDetail + productSnapshot.productId}>
             <img
               className="productOrder__image"
               src={productSnapshot.image.defaultImage}

@@ -40,7 +40,9 @@ class CustomerOderNavigation extends Component {
       productOrderInDelivery: [],
       productOrderFinish: [],
       productOrderCancel: [],
-      isShowImageEmpety: false
+      isShowImageEmpety: false,
+      invoiceNumber: "",
+      id: ""
     };
   }
 
@@ -61,16 +63,18 @@ class CustomerOderNavigation extends Component {
     });
   };
 
-  actionShowOrderDetailsDashboard = (order) => {
+  actionShowOrderDetailsDashboard = (order, invoiceNumber, id) => {
     this.actionShowOrderListWaiting();
     this.setState({
-      order: order
+      order: order,
+      invoiceNumber: invoiceNumber,
+      id: id
     })
   };
 
   productOrderTabsNotYetPay = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD+0);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 0);
       this.setState({
         productOrderNotYetPay: response.data.data
       });
@@ -83,12 +87,12 @@ class CustomerOderNavigation extends Component {
 
   productOrderTabsNotYetSent = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD+1);
-      console.log(response);
-      
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 1);
       this.setState({
         productOrderNotYetSent: response.data.data
       });
+      console.log(this.state.productOrderNotYetSent);
+
     } catch (error) {
       if (error.message) {
         this.setState({ isShowImageEmpety: true, isLoading: false });
@@ -133,6 +137,22 @@ class CustomerOderNavigation extends Component {
         this.setState({ isShowImageEmpety: true, isLoading: false });
       }
     }
+  };
+
+  responseOrderDetailsDashboard = (labelTabDetails, estimateAccepted, tabsInDeliveryOrderStatusUser, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel) => {
+    return <OrderDetailsDashboard
+      invoiceNumber={this.state.invoiceNumber}
+      id={this.state.id}
+      order={this.state.order}
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+      labelTabDetails={labelTabDetails}
+      estimateAccepted={estimateAccepted}
+      tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+      tabsNotPay={tabsNotPay}
+      tabsNotSent={tabsNotSent}
+      tabsInDelivery={tabsInDelivery}
+      tabsFinish={tabsFinish}
+      tabsCancel={tabsCancel} />;
   };
 
   updateTabNotPay = () => {
@@ -200,7 +220,7 @@ class CustomerOderNavigation extends Component {
                 {this.state.productOrderNotYetPay.length < 1 ?
                   <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
                     <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                    {this.state.isShowImageEmpety && <NoOrderHistory />}
+                    {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
                   </div> :
                   this.state.isShowOrderDetailsDashboard === false ?
                     <OrderListWaitingNotPay
@@ -208,12 +228,7 @@ class CustomerOderNavigation extends Component {
                       actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
                       tabsNotPay={1}
                     /> :
-                    <OrderDetailsDashboard
-                      order={this.state.order}
-                      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                      labelTabDetails={"Belum Bayar"}
-                      tabsNotPay={1}
-                    />
+                    this.responseOrderDetailsDashboard("Belum Bayar", "", "", 1)
                 }
               </Online>
             </React.Fragment>
@@ -233,11 +248,11 @@ class CustomerOderNavigation extends Component {
                 />
               </Offline>
               <Detector
-                render={() => (
+                render={() =>
                   this.state.productOrderNotYetSent.length < 1 ?
                     <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
                       <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                      {this.state.isShowImageEmpety && <NoOrderHistory />}
+                      {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
                     </div> :
                     this.state.isShowOrderDetailsDashboard === false ?
                       <OrderListWaitingNotSent
@@ -245,11 +260,8 @@ class CustomerOderNavigation extends Component {
                         productOrderNotYetSent={this.state.productOrderNotYetSent}
                         tabsNotSent={2}
                       /> :
-                      <OrderDetailsDashboard orderId={this.state.orderId}
-                        actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                        labelTabDetails={"Belum Dikirim"}
-                        tabsNotSent={2}
-                      />)}
+                      this.responseOrderDetailsDashboard("Belum Dikirim", "", "", 1, 2)
+                }
               />
             </React.Fragment>
           }
@@ -268,7 +280,7 @@ class CustomerOderNavigation extends Component {
                     {this.state.productOrderInDelivery.length < 1 ?
                       <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
                         <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                        {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
                       </div>
                       :
                       this.state.isShowOrderDetailsDashboard === false ?
@@ -305,7 +317,7 @@ class CustomerOderNavigation extends Component {
                     {this.state.productOrderFinish.length < 1 ?
                       <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
                         <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                        {this.state.isShowImageEmpety && <NoOrderHistory />}
+                        {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
                       </div>
                       :
                       this.state.isShowOrderDetailsDashboard === false ?
@@ -345,7 +357,7 @@ class CustomerOderNavigation extends Component {
                       this.state.productOrderCancel.length < 1 ?
                         <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
                           <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                          {this.state.isShowImageEmpety && <NoOrderHistory />}
+                          {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
                         </div>
                         :
                         this.state.isShowOrderDetailsDashboard === false ?

@@ -90,12 +90,13 @@ class ProductDetail extends Component {
     console.log(this.state.data.sku);
     if (this.props.isAuthenticated !== false) {
       if (this.state.data.quantity > this.state.information.maxOrder) {
-         alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
+        alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
       }
       if (this.state.data.sku.length === undefined) {
         alert('Pilih Variant Yang ada')
-      } if (this.state.data.sku.length < this.state.variants.length) {
-         alert('Variant Belum Dipilih Semua')
+      }
+      if (this.state.data.sku.length < this.state.variants.length) {
+        alert('Variant Belum Dipilih Semua')
       }
       else {
         if (this.state.data.sku.length === this.state.variants.length) {

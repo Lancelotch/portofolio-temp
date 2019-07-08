@@ -6,7 +6,9 @@ import currencyRupiah from "../../../library/currency";
 const { Text } = Typography;
 
 const TableInvoicePayment = props => {
-    const { productName, variants, productQuantity, totalAmount, shipping } = props;
+    const { productSnapshot, shipment,courier } = props;
+    console.log(props);
+
     return (
         <Row>
             <Col md={24}>
@@ -20,23 +22,28 @@ const TableInvoicePayment = props => {
                                 <th className="tableInvoicePayment__invoicePaymentTotal">Harga</th>
                             </tr>
                             <tr>
-                                <td><Text strong>{productName}</Text> </td>
+                                <td><Text strong>{productSnapshot.name}</Text> </td>
                                 <td style={{ textAlign: "center" }}>
-                                    <Text type="secondary">{variants[0].value}, {variants[1].value}</Text>
+                                    <Text type="secondary">{productSnapshot.variants}</Text>
                                 </td>
                                 <td style={{ textAlign: "center" }}>
-                                    <Text type="secondary">{productQuantity}</Text>
+                                    <Text type="secondary">{productSnapshot.quantity}</Text>
                                 </td>
                                 <td style={{ textAlign: "right" }}>
-                                    <Text type="secondary">{currencyRupiah(totalAmount)}</Text>
+                                    <Text type="secondary">{currencyRupiah(productSnapshot.totalPrice)}</Text>
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim</Text>
+                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim Internasional</Text>
                                     <Text className="viaShippingTableInvoice" type="danger">
-                                        {shipping.via}</Text>
+                                      Pengiriman Internasional Via {shipment.via}</Text>
                                 </td>
-                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>Ongkir Sudah Termasuk</Text></td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>{shipment.via === "air" ? shipment.price : "Ongkir Sudah Termasuk"}</Text></td>
+                            </tr>
+                            <tr>
+                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim JNE &nbsp; {courier.service}</Text>
+                                </td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="default" style={{ fontSize: 14 }}>{courier.price}</Text></td>
                             </tr>
                         </tbody>
                     </table>

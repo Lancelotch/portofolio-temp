@@ -24,7 +24,7 @@ const WaitingPayment = props => {
     receivedDate,
     cancelDate
   } = props;
-  return (  
+  return (
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
@@ -38,7 +38,7 @@ const WaitingPayment = props => {
                 {labelNotPay}
               </p>
               <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
+                {convertTimesTime.millisecond(indexes.payment.gateway.expiredPaymentDate)}
               </p>
             </Col>
           }

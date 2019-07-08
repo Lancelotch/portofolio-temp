@@ -66,8 +66,10 @@ export const PATH_SHIPPING = {
 
 //INVOICE
 const INVOICE = "invoice/";
+const INVOICE_DRAFT_BY_ID = "invoice-draft/"
 export const PATH_INVOICE = {
-    INVOICE: INVOICE
+    INVOICE: INVOICE,
+    INVOICE_DRAFT_BY_ID : INVOICE_DRAFT_BY_ID
 }
 
 //CART

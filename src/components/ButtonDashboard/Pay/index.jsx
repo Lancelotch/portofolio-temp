@@ -15,7 +15,9 @@ const Pay = (props) => {
     tabsInDelivery,
     order,
     orderProduct,
-    index
+    invoiceNumber,
+    index,
+    id
   } = props
 
   // let id = ""
@@ -47,7 +49,7 @@ const Pay = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboard(order)}
+              onClick={() => showOrderDetailsDashboard(order,invoiceNumber,id)}
             >
               {strings.order_details}
             </Button>
@@ -63,7 +65,7 @@ const Pay = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order.orderId)}
+            onClick={() => showOrderDetailsDashboard(order,invoiceNumber,id)}
           >
             {strings.order_details}
           </Button>

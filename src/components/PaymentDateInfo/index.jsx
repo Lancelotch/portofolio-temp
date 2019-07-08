@@ -3,11 +3,11 @@ import { Row, Col, Card } from 'antd';
 import convertTimesTime from '../../library/convertTimestime';
 import "./style.sass";
 import strings from '../../localization/localization';
-import Moment from 'react-moment';
+
 
 const PaymentDateInfo = props => {
-    const { bank, endDatePay, typePayment } = props
-    console.log('paymentinfo',endDatePay);
+    const { bank, dateOrder, typePayment } = props
+    console.log('paymentinfo',dateOrder);
     
     return (
         <React.Fragment>
@@ -17,7 +17,7 @@ const PaymentDateInfo = props => {
                         <Row>
                             <Col md={24}>
                                 <p className="nameCustomerText" style={{ marginBottom: 5, fontSize: 14 }}>{strings.before_pay}</p>
-                                <font className="paymentEndDate"><Moment format="DD-MM-YYYY HH:mm">{endDatePay.orderDate}</Moment></font>
+                                <font className="paymentEndDate">{convertTimesTime.millisecond(dateOrder.orderDate)}</font>
                             </Col>
                             <Col md={24} style={{ marginTop: 25 }}>
                                 <p className="nameCustomerText" style={{ marginBottom: 0, fontSize: 14 }}>

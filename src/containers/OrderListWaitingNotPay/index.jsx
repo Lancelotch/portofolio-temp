@@ -76,6 +76,8 @@ class OrderListWaitingPayment extends Component {
       tabsNotSent,
       productOrderNotYetPay
     } = this.props;
+    console.log(this.state.selectedOrder);
+
     return (
       <React.Fragment>
         {productOrderNotYetPay.map((order, index) => {
@@ -101,24 +103,20 @@ class OrderListWaitingPayment extends Component {
                 tabsFinish={tabsFinish}
                 tabsNotPay={tabsNotPay}
                 tabsInDelivery={tabsInDelivery}
+                invoiceNumber={order.invoiceNumber}
                 tabsNotSent={tabsNotSent}
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrderNotYetPay}
                 order={order.order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber)}
               />
             </Card>
           )
         })}
         {selectedOrder && (
           <ModalHowToPay
-            payBank={selectedOrder.bank}
-            key={selectedOrder.orderId}
-            endDatePay={selectedOrder.endDatePay}
-            pay={selectedOrder.payment}
-            indexes={selectedOrder.indexes}
-            paymentInstruction={selectedOrder.paymentInstruction}
+            orderPayment={selectedOrder.payment}
             visible={isHowToShowModalOpen}
             close={this.toggleIsHowToShowModalOpen}
           />

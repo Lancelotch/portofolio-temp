@@ -16,8 +16,6 @@ class OrderDetailsDashboard extends Component {
             order: this.props.order
         };
     };
-
-
     render() {
         const {
             tabsNotPay,
@@ -28,10 +26,11 @@ class OrderDetailsDashboard extends Component {
             tabsFinishOrderStatusUser,
             estimateAccepted,
             labelTabDetails,
-            actionShowOrderListWaiting
+            actionShowOrderListWaiting,
+            invoiceNumber,
+            id
         } = this.props;
-        console.log();
-
+        console.log('dashboard-details', id);
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
@@ -41,18 +40,19 @@ class OrderDetailsDashboard extends Component {
                     tabsNotSent={tabsNotSent}
                     tabsInDelivery={tabsInDelivery}
                     tabsFinish={tabsFinish}
-                    orderDate={"this.state.orderDate"} />
-                {this.state.order.orderItems.map((product,index) => {
+                    dateOrder={this.state.order.orderActivityDate} />
+                {this.state.order.orderItems.map((product, index) => {
                     return (
                         <div key={index} style={{ marginTop: 15 }}>
                             <ProductOrderDetails
-                                invoiceNumber={this.state.invoiceNumber}
+                                product={product}
+                                invoiceNumber={invoiceNumber}
                                 label="Detail Pesenan"
                                 note={product.note}
                                 key={product.id}
                                 index={index}
                                 productId={product.productId}
-                                orderId={this.state.orderId}
+                                id={id}
                                 tabsInDelivery={tabsInDelivery}
                                 tabsNotSent={tabsNotSent}
                                 tabsFinish={tabsFinish}
@@ -81,7 +81,7 @@ class OrderDetailsDashboard extends Component {
                 })}
                 {tabsNotPay === 1 &&
                     <PaymentDateInfo
-                        endDatePay={this.state.order.orderActivityDate}
+                        dateOrder={this.state.order.orderActivityDate}
                         typePayment={this.state.order.payment}
                         bank={this.state.bank}
                     />}

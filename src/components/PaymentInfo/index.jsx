@@ -30,7 +30,7 @@ const PaymentInfo = props => {
                                                     textAlign: "right",
                                                     fontSize: 18
                                                 }}>
-                                                {currencyRupiah(courier.price)}
+                                                {currencyRupiah(productSnapshot.price)}
                                             </p>
                                         </td>
                                     </tr>
