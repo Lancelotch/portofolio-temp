@@ -149,20 +149,20 @@ class Login extends Component {
                   </p>
                 </div>
                 <div className='login-form__socmed-box'>
-                  <ButtonFacebook
-                    className='login-form__socmed-button'
-                    onSubmit={this.handleFacebook}
-                  >
-                    <p> {strings.facebook}</p>
-                  </ButtonFacebook>
                   <ButtonGoogle
                     className='login-form__socmed-button'
                     onSubmit={this.handleRegisterGoogle}
                   >
                     <p>{strings.google}</p>
                   </ButtonGoogle>
+                  <ButtonFacebook
+                    className='login-form__socmed-button'
+                    onSubmit={this.handleFacebook}
+                  >
+                    <p> {strings.facebook}</p>
+                  </ButtonFacebook>
                 </div>
-                <p style={{ marginTop: '70px', textAlign:"center" }}>
+                <p style={{ margin: '24px 0 0 0', textAlign:"center" }}>
                   {strings.formatString(
                     strings.login_quote,
                     <Link to={{ pathname: "/register", state: { nextPage: "/" } }} onClick={this.clearErrorMessage}  className='login-form__register'>

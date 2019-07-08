@@ -70,7 +70,7 @@ const category = {
     categoryFeature : categoryFeature,
     sliderHome: sliderHome,
     benefit: benefit,
-    subscription: subscription
+    subscription: subscription,
 }
 
 export default category;

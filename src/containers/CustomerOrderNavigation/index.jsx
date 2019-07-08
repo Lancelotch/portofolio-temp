@@ -260,7 +260,7 @@ class CustomerOderNavigation extends Component {
                         productOrderNotYetSent={this.state.productOrderNotYetSent}
                         tabsNotSent={2}
                       /> :
-                      this.responseOrderDetailsDashboard("Belum Dikirim", "", "", 1, 2)
+                      this.responseOrderDetailsDashboard("Belum Dikirim", "", "", "", 2)
                 }
               />
             </React.Fragment>

@@ -91,6 +91,7 @@ class OrderDetailsDashboard extends Component {
                     estimateAccepted={estimateAccepted}
                     label="Pengiriman"
                     customer={this.state.order.orderAddress}
+                    logOrderTransactions={this.state.order.logOrderTransactions}
                     estimateShippingDate={this.state.estimateShippingDate} />
             </React.Fragment>
         );
