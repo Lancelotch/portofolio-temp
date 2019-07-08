@@ -14,13 +14,13 @@ class SliderProductDetailContainer extends Component {
       isImageVariantExist: false,
       isShowNav: false,
       startIndex: 0
-    };
+    }
   }
 
   componentDidMount() {
    this.setData(this.props.images, this.props.imagess);
   }
-
+  
   componentWillReceiveProps(props) {
     this.slider.slideToIndex(0)
     this.setData(props.images, props.imageVariant);
@@ -45,8 +45,6 @@ class SliderProductDetailContainer extends Component {
         isImageVariantExist: isImageVariantExist,
         startIndex: 0
       });
-
-
   }
 
   imageHover(item) {

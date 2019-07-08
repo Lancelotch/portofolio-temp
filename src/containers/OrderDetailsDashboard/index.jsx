@@ -84,7 +84,8 @@ class OrderDetailsDashboard extends Component {
                         dateOrder={this.state.order.orderActivityDate}
                         typePayment={this.state.order.payment}
                         bank={this.state.bank}
-                    />}
+                    />
+                }
                 <OrderStatusUser
                     tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
                     tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
@@ -93,6 +94,17 @@ class OrderDetailsDashboard extends Component {
                     customer={this.state.order.orderAddress}
                     logOrderTransactions={this.state.order.logOrderTransactions}
                     estimateShippingDate={this.state.estimateShippingDate} />
+
+                { /*{((tabsNotSent === 2 )|| (tabsInDelivery === 3) ||( tabsFinish === 4)) &&
+                <OrderStatusUser
+                    tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+                    tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
+                    estimateAccepted={estimateAccepted}
+                    label="Pengiriman"
+                    customer={this.state.order.orderAddress}
+                    logOrderTransactions={this.state.order.logOrderActivities}
+                    estimateShippingDate={this.state.estimateShippingDate} />
+                }*/}
             </React.Fragment>
         );
     }
