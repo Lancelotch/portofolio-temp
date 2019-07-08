@@ -20,7 +20,7 @@ class SliderProductDetailContainer extends Component {
   componentDidMount() {
    this.setData(this.props.images, this.props.imagess);
   }
-
+  
   componentWillReceiveProps(props) {
     this.slider.slideToIndex(0)
     this.setData(props.images, props.imageVariant);

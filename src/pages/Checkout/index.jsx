@@ -142,7 +142,7 @@ class Checkout extends Component {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
     this.setState({
       isProductDetailAvailable: true,
-      productId: payloadProductDetail.productId,
+      productId: payloadProductDetail.id,
       priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
       variants: this.variantsRequest(payloadProductDetail.sku),
