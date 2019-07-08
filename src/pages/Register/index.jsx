@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Affix } from "antd";
+import { Input, Form, Icon, Row, Col } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -104,13 +104,11 @@ class RegisterPage extends Component {
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
-              ref={node => {
-                this.container = node;
-              }}
+              // ref={node => {
+              //   this.container = node;
+              // }}
             >
-              <Affix target={() => this.container}>
                 <div className="register_Background" />
-              </Affix>
             </div>
           </Col>
           <Col md={{ span: 10 }}>
@@ -188,13 +186,13 @@ class RegisterPage extends Component {
                 <FormItem>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
                   {/* <button onClick={this.props.loading}>gonee</button> */}
-                  <div className="login-form__error-box">
+                  {/* <div className="login-form__error-box">
                     {this.props.messageError ? (
                       <p> {this.props.messageError}</p>
                     ) : (
                       ""
                     )}
-                  </div>
+                  </div> */}
                 </FormItem>
                 <div
                   type="flex"
@@ -207,12 +205,6 @@ class RegisterPage extends Component {
                 </div>
                 <Form.Item className="register__form__btn-socmed">
                   <div className="register__form__socmed-box">
-                    <ButtonFacebook
-                      className="register__form__socmed-button"
-                      onSubmit={this.handleFacebook}
-                    >
-                      {strings.facebook}
-                    </ButtonFacebook>
                     <ButtonGoogle
                       className="register__form__socmed-button"
                       onSubmit={this.handleRegisterGoogle}
@@ -220,6 +212,12 @@ class RegisterPage extends Component {
                     >
                       {strings.google}
                     </ButtonGoogle>
+                    <ButtonFacebook
+                      className="register__form__socmed-button"
+                      onSubmit={this.handleFacebook}
+                    >
+                      {strings.facebook}
+                    </ButtonFacebook>
                   </div>
                   <div className="register__form__direct-login">
                     {strings.formatString(

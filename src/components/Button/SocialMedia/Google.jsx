@@ -24,7 +24,7 @@ class ButtonGoogle extends Component{
           appId={REACT_APP_GOOGLE_APP_ID}
           callback={this.handleSocialResponse}
         >
-          <GoogleButton onClick={onSubmit} className='button-socmed' iconSize={"2rem"} size={"4rem"} align={"center"}>
+          <GoogleButton onClick={onSubmit} style={{margin:"0 8px 0 0"}} size={"48px"} align={"center"}>
             {this.props.children}
           </GoogleButton>
         </SocialLogin>

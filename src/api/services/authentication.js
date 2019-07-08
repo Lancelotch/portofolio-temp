@@ -112,13 +112,28 @@ const activatingUser = request =>{
   });
 }
 
+const forgotPassword = async({email}) => {
+  return await serviceWithoutToken()
+    .request({
+      method: "GET",
+      url: `${PATH_PUBLIC.PUBLIC_FORGOT_PASSWORD}?email=${email}`,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return error.response;
+    });
+  }
+
 const authentication = {
   loginWithProductDetail : loginWithProductDetail,
   loginWithForm: loginWithForm,
   registerWithForm: registerWithForm,
   loginWithGoogle:  loginWithGoogle,
   activatingUser: activatingUser,
-  loginWithFacebook: loginWithFacebook
+  loginWithFacebook: loginWithFacebook,
+  forgotPassword: forgotPassword
 }
 
 export default authentication;
