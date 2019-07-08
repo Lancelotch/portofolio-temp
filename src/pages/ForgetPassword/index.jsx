@@ -48,7 +48,6 @@ class ForgetPassword extends Component {
   };
 
   handleClose = () => {
-    console.log("close");
     return history.push("/login");
   };
 

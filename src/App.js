@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Switch, Route, Router } from "react-router-dom";
 import routes from "./routers/routes";
 import history from "./routers/history";
-import MainLayout from "layouts/MainLayout";
-import FullLayout from "layouts/FullLayout";
+import MainLayout from "./layouts/MainLayout";
+import FullLayout from "./layouts/FullLayout";
 import CustomerLayout from "layouts/CustomerLayout";
 
 

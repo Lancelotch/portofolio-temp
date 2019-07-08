@@ -6,7 +6,9 @@ import strings from '../../localization/localization';
 
 
 const PaymentDateInfo = props => {
-    const { bank, endDatePay, typePayment } = props
+    const { bank, dateOrder, typePayment } = props
+    console.log('paymentinfo',dateOrder);
+    
     return (
         <React.Fragment>
             {typePayment !== undefined | typePayment ?
@@ -15,7 +17,7 @@ const PaymentDateInfo = props => {
                         <Row>
                             <Col md={24}>
                                 <p className="nameCustomerText" style={{ marginBottom: 5, fontSize: 14 }}>{strings.before_pay}</p>
-                                <font className="paymentEndDate">{convertTimesTime.millisecond(endDatePay)}</font>
+                                <font className="paymentEndDate">{convertTimesTime.millisecond(dateOrder.orderDate)}</font>
                             </Col>
                             <Col md={24} style={{ marginTop: 25 }}>
                                 <p className="nameCustomerText" style={{ marginBottom: 0, fontSize: 14 }}>
@@ -29,7 +31,7 @@ const PaymentDateInfo = props => {
                                             </td>
                                             <td>
                                                 <div className="dateInfoPayment">
-                                                    <img src={bank.imageUrl} alt="" style={{ maxHeight: 25, maxWidth: 69 }} />
+                                                 { /*  <img src={bank.imageUrl} alt="" style={{ maxHeight: 25, maxWidth: 69 }} />*/}
                                                     &nbsp;&nbsp;
                                                     <font className="virtualAccount">
                                                         {typePayment.virtualAccount}
@@ -43,7 +45,7 @@ const PaymentDateInfo = props => {
                                             </td>
                                             <td>
                                                 <p className="nameCustomerText" style={{ textAlign: "right" }}>{
-                                                    typePayment.bankName} Virtual Account
+                                                    typePayment.gateway.bankName} Virtual Account
                                                 </p>
                                             </td>
                                         </tr>

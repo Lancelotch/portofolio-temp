@@ -38,7 +38,7 @@ const WaitingPayment = props => {
                 {labelNotPay}
               </p>
               <p className="waitingPayment__endDatePay">
-                {convertTimesTime.millisecond(endDatePay)}
+                {convertTimesTime.millisecond(indexes.payment.gateway.expiredPaymentDate)}
               </p>
             </Col>
           }
@@ -110,7 +110,7 @@ const WaitingPayment = props => {
                 fontSize: 28,
                 color: "#4A4A4A"
               }}>
-                {currencyRupiah(indexes[0].totalAmount)}
+                {currencyRupiah(indexes.amount)}
               </h4>
             </font>
           </Col>

@@ -1,5 +1,14 @@
 @import "../../sass/variable.sass"
 
+.header__categoriess .ant-cascader-menu-item-expand 
+    width: 250px
+
+.header__categoriess .ant-cascader-menu:last-child 
+    width: 250px
+
+.header__categoriess .ant-cascader-menu
+    overflow: hidden !important
+    
 .topHeader
     display: flex
     justify-content: center
@@ -54,10 +63,10 @@
         background: #777777
         transition: width .3s
     &__menu:hover
-        color: #777777
-    &__menu:hover::after
-        width: 100%
-        transition: width .3s
+        color: $primary-color-hover
+    // &__menu:hover::after
+    //     width: 100%
+    //     transition: width .3s
     &__greeting
         padding-top: 12px
         height: 16px

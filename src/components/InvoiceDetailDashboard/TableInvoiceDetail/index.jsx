@@ -7,9 +7,12 @@ const { Text } = Typography;
 
 
 const TableInvoiceDetailDashboard = (props) => {
-    const { invoice, orderDate, address, note,customerName} = props;
+    const { invoice, orderDate, customerOrderAddress, note,customerOrder} = props;
+    console.log('tableeee',customerOrderAddress);
+    
     return (
         <Row>
+        {customerOrder && customerOrderAddress &&
             <Col md={24}>
                 <table className="tableInvoiceDetail">
                 <tbody>
@@ -19,19 +22,19 @@ const TableInvoiceDetailDashboard = (props) => {
                     </tr>
                     <tr>
                         <td><Text type="secondary">Waktu Transaksi</Text></td>
-                        <td><Text strong>{convertTimesTime.millisecond(orderDate)}</Text></td>
+                        <td><Text strong>{convertTimesTime.millisecond(orderDate.orderDate)}</Text></td>
                     </tr>
                     <tr>
                         <td>
                             <Text type="secondary">Pembeli</Text>
                         </td>
-                        <td><Text strong>{customerName.name}</Text></td>
+                        <td><Text strong>{customerOrder.name}</Text></td>
                     </tr>
                     <tr>
                         <td><Text type="secondary">Tujuan Pengiriman</Text></td>
                         <td>
-                            <Text>{address.receiverName}</Text> - <Text>{address.phoneNumber}</Text > <br />
-                            <Text type="secondary"> {address.fullAddress} {address.city} {address.province} {address.zipcode}</Text>
+                            <Text>{customerOrderAddress.receiverName}</Text> - <Text>{customerOrderAddress.phoneNumber}</Text > <br />
+                            <Text type="secondary"> {customerOrderAddress.fullAddress} {customerOrderAddress.city} {customerOrderAddress.province} {customerOrderAddress.zipcode}</Text>
                         </td>
                     </tr>
                     <tr>
@@ -41,6 +44,7 @@ const TableInvoiceDetailDashboard = (props) => {
                     </tbody>
                 </table>
             </Col>
+        }
         </Row>
     );
 };

@@ -2,21 +2,43 @@ import React from 'react';
 import { Row, Col, Card } from 'antd';
 import NumberFormat from 'react-number-format';
 import "./style.sass";
+import convertTimesTime from '../../library/convertTimestime';
+import { cps } from '@redux-saga/core/effects';
 
 const OrderStatusUser = props => {
     const {
         label,
         customer,
         estimateShippingDate,
-        tabsInDelivery,
-        tabsFinish,
-        estimateAccepted } = props;
-        let styleEstimateaAccepted = {
-            color: "#BBBBBB",
-            fontSize: 16,
-            textAlign: "right",
-            fontWeight: 500
+        tabsInDeliveryOrderStatusUser,
+        tabsFinishOrderStatusUser,
+        estimateAccepted,
+        logOrderTransactions
+    } = props;
+
+
+    let styleEstimateaAccepted = {
+        color: "#BBBBBB",
+        fontSize: 16,
+        textAlign: "right",
+        fontWeight: 500
+    }
+
+    const responseOrderLogTransactions = sortList(logOrderTransactions, "DESC")
+
+    function sortList(list, order) {
+        if (order == "ASC") {
+            return list.sort((a, b) => {
+                return parseFloat(a.createdDate) - parseFloat(b.createdDate);
+            })
         }
+        else {
+            return list.sort((a, b) => {
+                return parseFloat(b.createdDate) - parseFloat(a.createdDate);
+            });
+        }
+    }
+
     return (
         <React.Fragment>
             {customer !== undefined | customer &&
@@ -27,7 +49,7 @@ const OrderStatusUser = props => {
                                 <h2>{label}</h2>
                             </Col>
                             <Col md={12}>
-                                {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
+                                {((tabsInDeliveryOrderStatusUser === 3) || (tabsFinishOrderStatusUser === 4)) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
                                 {estimateShippingDate}
@@ -48,11 +70,29 @@ const OrderStatusUser = props => {
                                             format="####-####-####"
                                         />
                                     </p>
-                                    <p className="nameCustomerText">{customer.fullAddress}{customer.zipcode}</p>
+                                    <p className="nameCustomerText">
+                                        {customer.fullAddress},&nbsp;{customer.city},&nbsp;
+                                        {customer.subdistrict},&nbsp;{customer.province},&nbsp;{customer.zipcode}
+                                    </p>
                                 </div>
                             </Col>
                             <Col md={15}>
-                                <div className="wrapperRight"></div>
+                                <div className="wrapperRight">
+                                    {responseOrderLogTransactions.map(log => {
+                                        return (
+                                            <Row>
+                                                <Col md={24}>
+                                                    <div style={{ display: "flex", justifyContent: "flex-start", paddingLeft: 10 }}>
+                                                        <span className="dot" />
+                                                        <p className="dateTransaction" style={{ textAlign: "left" }}>
+                                                            {convertTimesTime.millisecond(log.createdDate)}&nbsp;{log.description}
+                                                        </p>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })}
+                                </div>
                             </Col>
                         </Row>
                     </Card>

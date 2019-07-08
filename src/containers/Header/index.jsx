@@ -46,11 +46,7 @@ class Header extends Component {
   //   }))
   // }
 
-
-
-
   componentDidMount() {
-    // this.getCustomerDetail()
     this.getAllCategory()
     window.addEventListener("scroll", this.listenScrollEvent);
   }
@@ -255,6 +251,7 @@ class Header extends Component {
                 }}
                 id="filter"
                 name="q"
+                placeholder="Cari Produk"
                 defaultValue={this.getParams()}
                 onSearch={this.getValue}
                 onChange={this.handleInputSearchChange.bind(this)}

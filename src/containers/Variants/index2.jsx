@@ -10,14 +10,18 @@ class Variants extends Component {
         }
     }
 
+    isNotByDefault = () => new Promise((resolve => this.setState({ isByDefault: false }, resolve)))
+
     updateSku = () => {
         this.props.actionUpdateSku(this.state.selected);
-    }
+    };
 
     updateVariant = async (valueId, value, name, variantTypeIsImage = false) => {
         if (variantTypeIsImage) {
-           this.props.actionUpdateImageVariant(value.image);
+            !this.state.isByDefault && this.props.actionUpdateImageVariant(value.image);
         }
+        console.log('naaaame',name);
+        
         let arr = this.state.selected
         let newVariant = {
             id: valueId,
@@ -39,9 +43,10 @@ class Variants extends Component {
             }
             arr = newArr
         }
+        this.state.isByDefault && await this.isNotByDefault()
         this.setState({
             selected: arr
-        },this.updateSku)
+        }, this.updateSku)
     }
 
     render() {

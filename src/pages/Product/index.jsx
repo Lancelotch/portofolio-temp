@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import "sass/style.sass";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
-import "./style.sass";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
-import SortListProduct from "../../components/SortListProduct/";
+import SortListProduct from "../../components/SortListProduct";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
@@ -58,8 +57,6 @@ class ProductPage extends Component {
   fetchMoreData = () => {
     const { productList, element } = this.state;
     // , hasMore
-    console.log("element", element);
-
     if (productList.length >= element) {
       this.setState({ hasMore: false });
       return;
@@ -72,7 +69,6 @@ class ProductPage extends Component {
     const arraySort = sortValue.split("|");
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    console.log(sortBy);
     this.setState(
       {
         productList: [],
@@ -98,13 +94,17 @@ class ProductPage extends Component {
           display: "flex",
           justifyContent: "flex-end"
         }}>
-          <SortListProduct onChange={this.onChangeSort} />
+          <SortListProduct
+            defaultValue={"createdDate|desc"}
+            onChange={this.onChangeSort}
+            valueLow={"price.idr|asc"}
+            valueHigh={"price.idr|desc"} />
         </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
-          loader={<Spinner size="large" />}
+          loader={productList.length < 20 ? false : <Spinner size="large" />}
           endMessage={
             <div>
               <BackTop />
@@ -119,7 +119,15 @@ class ProductPage extends Component {
                 leftMargin={13}
                 topMargin={15}
                 rightMargin={13} />}>
-              <Products productList={productList} />
+              {productList.map((product, index) =>
+                <Products
+                  key={index}
+                  id={product.id}
+                  defaultImage={product.image.mediumUrl}
+                  information={product.name}
+                  price={product.price}
+                />
+              )}
             </Suspense>
           </div>
         </InfiniteScroll>

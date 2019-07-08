@@ -16,6 +16,7 @@ const setActiveIndicator = (selected, name, id) => {
 }
 
 const VariantText = props => {
+    selectedDefaultVariant(props);
     return (
         <React.Fragment>
             <p className="title-text">
@@ -37,6 +38,7 @@ const VariantText = props => {
 };
 
 const VariantImage = props => {
+    selectedDefaultVariant(props);
     return (
         <React.Fragment>
             <p className="title-text">
@@ -83,5 +85,5 @@ function selectedDefaultVariant(props) {
         const SelectedDefaultVariant = props.variantItems[0];
         SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
     }
-}
+};
 

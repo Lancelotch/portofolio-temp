@@ -6,18 +6,63 @@ const ProductAttibutes = props => {
   const { product } = props
   return (
     <div className="card-description">
-      <Col md={3} className="card-description__title">
-        <p>Kategori</p>
-        <p>Berat</p>
-        <p>Dimension</p>
-        <p>Description</p>
-      </Col>
-      <Col md={21} className="card-description__text">
-        <p><span>: </span>{product.category}</p>
-        <p><span>: </span>{product.weight}</p>
-        <p><span>: </span>{product.dimension}</p>
-        <p><span>: </span>{product.description}</p>
-      </Col>
+      <table>
+        <tbody>
+          <tr>
+            <td style={{ width: "20%" }}>
+              <div className="card-description__text">
+                <p>Kategori</p>
+              </div>
+            </td>
+            <td>
+              <div className="card-description__title">
+                <p><span>: </span>{product.category.name}</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="card-description__text">
+                <p>Berat</p>
+              </div>
+            </td>
+            <td>
+              <div className="card-description__title">
+                <p><span>: </span>{product.measurement.weight}</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="card-description__text">
+                <p>Dimension</p>
+              </div>
+            </td>
+            <td>
+              <div className="card-description__title">
+                <p><span>: </span>
+                  {product.measurement.dimension.length}&nbsp;x&nbsp;
+             {product.measurement.dimension.width}&nbsp;x&nbsp;
+             {product.measurement.dimension.height}
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style={{ verticalAlign: "top" }}>
+              <div className="card-description__text">
+                <p>Description</p>
+              </div>
+            </td>
+            <td>
+              <div className="card-description__title">
+                <span>: </span>
+                <p dangerouslySetInnerHTML={{ __html: product.description }} />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
