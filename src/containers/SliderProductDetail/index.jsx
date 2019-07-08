@@ -14,7 +14,7 @@ class SliderProductDetailContainer extends Component {
       isImageVariantExist: false,
       isShowNav: false,
       startIndex: 0
-    };
+    }
   }
 
   componentDidMount() {
@@ -45,8 +45,6 @@ class SliderProductDetailContainer extends Component {
         isImageVariantExist: isImageVariantExist,
         startIndex: 0
       });
-
-
   }
 
   imageHover(item) {
