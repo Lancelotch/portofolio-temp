@@ -34,7 +34,8 @@ class RegisterPage extends Component {
       nextPage: "",
       status: null,
       message: "",
-      modalStatus: false
+      modalStatus: false,
+      heightImageBackground: 0
     };
   }
 
@@ -46,6 +47,21 @@ class RegisterPage extends Component {
         nextPage: this.props.location.state.nextPage
       });
     }
+    this.updateHeightImageBackground();
+    window.addEventListener('resize', this.updateHeightImageBackground);
+  }
+
+  updateHeightImageBackground = () => {
+    let heightContent = window.document.getElementById("root").offsetHeight;
+    let heightWindow = window.innerHeight;
+    let height = heightWindow >= heightContent ? heightWindow : heightContent;
+    this.setState({
+      heightImageBackground: height
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateHeightImageBackground);
   }
 
   validation(form, values) {
@@ -100,15 +116,16 @@ class RegisterPage extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        <Row className="heads">
+        <Row style={{display: "flex"}}>
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
-              // ref={node => {
-              //   this.container = node;
-              // }}
+              style={{height: "100%"}}
+              ref={node => {
+                this.container = node;
+              }}
             >
-                <div className="register_Background" />
+              <div className="register_Background" style={{height: this.state.heightImageBackground}} />
             </div>
           </Col>
           <Col md={{ span: 10 }}>
