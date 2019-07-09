@@ -1,17 +1,15 @@
 import React, { Component, Suspense } from "react";
 import { BackTop } from "antd";
 import { connect } from "react-redux";
-import "sass/style.sass";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
-import "./style.sass";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import getParamUrl from "../../library/getParamUrl";
-import SortListProduct from "../../components/SortListProduct/";
 import Search from "./";
 import NoResultSearch from "../../components/NoResultSearch";
+import SortListProduct from "../../components/SortListProduct";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
@@ -28,7 +26,7 @@ class SearchPage extends Component {
       isQueryAvailable: true,
       limit: 20,
       direction: "desc",
-      sortBy: "createdDate",
+      sortBy: "creationDate",
       element: 0
     };
   }
@@ -41,8 +39,6 @@ class SearchPage extends Component {
     const { productList, page, limit, sortBy, direction } = this.state;
     const { location } = this.props;
     const { query } = getParamUrl(location);
-    console.log("ini props",this.props)
-    console.log("ini query", query)
     this.setState({
       query: query
     });
@@ -53,7 +49,6 @@ class SearchPage extends Component {
       direction: direction,
       query: query
     };
-    console.log("ini request",request)
     try {
       const nextProduct = await product.listProductSearch(request);
       this.setState({
@@ -109,19 +104,18 @@ class SearchPage extends Component {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <span className="categoryTextResult">{categoryTextResult}</span>
           <span>Urutkan &nbsp;&nbsp;&nbsp;
-            <SortListProduct onChange={this.onChangeSort} /></span>
+            <SortListProduct
+              defaultValue={"creationDate|desc"}
+              onChange={this.onChangeSort}
+              valueLow={"price.amount|asc"}
+              valueHigh={"price.amount|desc"} /></span>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
-          loader={<Spinner size="large" />}
-          endMessage={
-            <div>
-              <BackTop />
-            </div>
-          }
-        >
+          loader={productList.length < 20 ? false : <Spinner size="large" />}
+          endMessage={<div><BackTop /></div>}>
           <div style={{ marginTop: 35 }}>
             <Suspense fallback={
               <SkeletonCustom
@@ -129,7 +123,15 @@ class SearchPage extends Component {
                 height={300}
                 leftMargin={13}
                 rightMargin={13} />}>
-              <Products productList={productList} />
+              {productList.map((product,index) =>
+                <Products
+                key={index}
+                id={product.id} 
+                defaultImage={product.defaultImage.defaultImage}
+                information={product.information.name}
+                price={product.price.amount}
+                 />
+              )}
             </Suspense>
           </div>
         </InfiniteScroll>

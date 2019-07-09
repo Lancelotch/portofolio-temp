@@ -24,7 +24,7 @@ class ButtonFacebook extends Component{
         appId={REACT_APP_FACEBOOK_APP_ID}
         callback={this.handleSocialResponse}
         >
-          <FacebookButton iconSize={"2rem"} size={"4rem"} align={"center"}>
+          <FacebookButton style={{margin:"0 0 0 8px"}} size={"48px"} align={"center"}>
             {this.props.children}
           </FacebookButton>
         </SocialLogin>

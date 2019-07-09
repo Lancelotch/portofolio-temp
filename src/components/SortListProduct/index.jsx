@@ -5,14 +5,14 @@ const { Option } = Select;
 
 const SortListProduct = props => {
   return (
-    <Select defaultValue="createdDate|desc" onChange={(value) => props.onChange(value)}>
-      <Option value="createdDate|desc">
+    <Select defaultValue={props.defaultValue} onChange={(value) => props.onChange(value)}>
+      <Option value={props.defaultValue}>
         <b style={{ fontWeight: 600 }}>Terbaru</b>
       </Option>
-      <Option value="price.idr|asc">
+      <Option value={props.valueLow}>
         <b style={{ fontWeight: 600 }}>Termurah</b>
       </Option>
-      <Option value="price.idr|desc">
+      <Option value={props.valueHigh}>
         <b style={{ fontWeight: 600 }}>Termahal</b>
       </Option>
     </Select>

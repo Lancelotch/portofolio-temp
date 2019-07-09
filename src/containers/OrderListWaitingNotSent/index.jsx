@@ -19,8 +19,8 @@ class OrderListWaitingNotSent extends Component {
           return (
             <Card style={{ marginBottom: 15 }} key={i}>
               <ProductOrder
-                key={order.id}
-                indexes={order.indexes} />
+                key={i}
+                indexes={order.order.orderItems} />
               <hr className="productOrder__inline" />
               <WaitingPayment
                 labelNotSent={"Dalam Proses Pengiriman"}
@@ -29,7 +29,7 @@ class OrderListWaitingNotSent extends Component {
                 receivedDate={order.receivedDate}
                 key={order.id}
                 endDatePay={order.endDatePay}
-                indexes={order.indexes}
+                indexes={order.order}
                 pay={order.payment}
               />
               <Pay
@@ -37,10 +37,11 @@ class OrderListWaitingNotSent extends Component {
                 tabsNotPay={tabsNotPay}
                 tabsInDelivery={tabsInDelivery}
                 tabsNotSent={tabsNotSent}
-                order={order}
+                id={order.id}
+                invoiceNumber={order.invoiceNumber}
+                order={order.order}
                 orderProduct={productOrderNotYetSent}
-                showHowToModalPayment={() => this.toggleIsHowToShowModalOpen()}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.orderId)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order,order.invoiceNumber,order.id)}
               />
             </Card>
           )

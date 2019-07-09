@@ -10,7 +10,7 @@ const Step = Steps.Step;
 
 const OrderStatusStep = (props) => {
   const {
-    orderDate,
+    dateOrder,
     tabsNotSent,
     tabsInDelivery,
     actionShowOrderListWaiting,
@@ -47,13 +47,13 @@ const OrderStatusStep = (props) => {
             <Step
               status="finish"
               title="Pesenan Dibuat"
-              description={convertTimesTime.millisecond(orderDate)}
+              description={convertTimesTime.millisecond(dateOrder.orderDate)}
               icon={<Icon style={{ color: "#004853" }}
                 component={boxOrder} />}>
             </Step>
             <Step
               status={tabsNotSent === 2 ? "finish" : ""}
-              description={tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
+              description={tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
               title="Pesenan Dibayarkan"
               icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
                 component={paymentOrder} />}
@@ -61,14 +61,14 @@ const OrderStatusStep = (props) => {
             {
               <Step
                 status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
-                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(orderDate) : ""}
+                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
                 title="Pesenan Dikirim"
                 icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
                   component={deliveryOrderIcon} />}
               />}
             <Step
               status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
-              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(orderDate) : ""}
+              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
               title="Pesenan Diterima"
               icon={<Icon component={receivedOrderIcon}
                 className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?

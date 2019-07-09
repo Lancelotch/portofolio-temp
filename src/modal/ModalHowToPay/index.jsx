@@ -26,8 +26,12 @@ class ModalHowToPay extends Component {
 
   render() {
     const Panel = Collapse.Panel;
-    const { endDatePay, pay, payBank, paymentInstruction } = this.props;
-    const instructions = paymentInstruction.instructions
+    const {orderPayment } = this.props;
+    console.log(orderPayment.gateway.bank);
+    
+    const instructions = orderPayment.gateway.bank.paymentInstructions
+    console.log(instructions);
+    
     const styleButtonCopy = {
       cursor: "pointer",
       position: "absolute",
@@ -37,7 +41,7 @@ class ModalHowToPay extends Component {
     }
     return (
       <div className="modalHowToPay" >
-        {pay !== undefined && pay &&
+        {orderPayment !== undefined && orderPayment &&
           <Modal
             title="Cara Bayar"
             wrapClassName="modalHowToPay"
@@ -54,16 +58,16 @@ class ModalHowToPay extends Component {
             <div className="contentPrice">
               <b>{strings.total_payment}</b>
               <p className="contentPrice__total">
-                {currencyRupiah(pay.grossAmount)}
+                {currencyRupiah(orderPayment.gateway.grossAmount)}
               </p>
               <b>{strings.before_pay}</b>
               <p className="contentPrice__datePay">
-                {convertTimesTime.millisecond(endDatePay)}
+                {convertTimesTime.millisecond(orderPayment.gateway.expiredPaymentDate)}
               </p>
             </div>
             <p>
               <img
-                src={payBank.imageUrl}
+                src={orderPayment.gateway.bank.imageUrl}
                 style={{
                   maxHeight: 68.84,
                   maxWidth: 68.84
@@ -81,10 +85,10 @@ class ModalHowToPay extends Component {
                 <Col md={24}>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <p className="virtualAccountType">
-                      {pay.virtualAccount}
+                      {orderPayment.gateway.virtualAccount}
                     </p>&nbsp;
                   <CopyToClipboard
-                      text={pay.virtualAccount}
+                      text={orderPayment.gateway.virtualAccount}
                       onCopy={() => this.setState({ copied: true })}>
                       <p className="buttonModalVirtualAccount" style={styleButtonCopy}>Salin</p>
                     </CopyToClipboard>
@@ -99,13 +103,10 @@ class ModalHowToPay extends Component {
               <Col md={24}>
                 <Collapse defaultActiveKey={['1']} onChange={this.callback}>
                   <Panel header="Cara Bayar" key="1">
-                    <ol>
-                      {
-                        instructions.map((ins, i) => {
-                          return <li key={i}>{ins}</li>
+                      {instructions.map((ins, i) => {
+                          return  <p dangerouslySetInnerHTML={{ __html: ins.instruction }} />
                         })
                       }
-                    </ol>
                   </Panel>
                 </Collapse>
               </Col>

@@ -21,18 +21,8 @@ class Variants extends Component {
       sizeId: this.props.sizeId,
       sku: this.props.sku,
       variantSelected: selected
-    };
-    let sku = this.props.sku;
-    this.stockInfo = {};
-    sku.map(item => {
-      return (this.stockInfo[item.id] = item.stock);
-    });
-
-    this.variantsRef = [];
-    this.state.values.map((item, index) => {
-      return (this.variantsRef[index] = React.createRef());
-    });
-  }
+    }
+  };
 
   changedInfo = (colorId, sizeId) => {
     this.setState({
@@ -76,38 +66,6 @@ class Variants extends Component {
   };
 
   loopVariantProduct = () => {
-    let { idSize, idColor } = { idSize: "002", idColor: "001" };
-    if (this.state.index === 1) {
-      let { notZeroIndex, temp_stockInfo, colorId } = {
-        notZeroIndex: 0,
-        temp_stockInfo: this.stockInfo,
-        colorId: this.state.colorId
-      };
-      forEach(this.state.values, function(value, i) {
-        if (temp_stockInfo[`${idColor}${colorId}${idSize}${value.id}`] !== 0) {
-          notZeroIndex = i;
-          return false;
-        }
-      });
-      return this.state.values.map((value, index) => (
-        <Variant
-          key={value.id}
-          id={value.id}
-          ref={this.variantsRef[index]}
-          image={value.image}
-          name={value.name}
-          onChangeVariant={this.onChangeVariant}
-          disabled={this.stockInfo[`${idColor}${this.state.colorId}${idSize}${value.id}`]}
-          selected={
-            (this.state.variantSelected.id === value.id &&
-              this.props.changed === 0) ||
-            (this.props.changed === 1 && index === notZeroIndex)
-              ? true
-              : false
-          }
-        />
-      ));
-    } else {
       return this.state.values.map((value, index) => (
         <Variant
           key={value.id}
@@ -120,19 +78,6 @@ class Variants extends Component {
           selected={this.state.variantSelected.id === value.id ? true : false}
         />
       ));
-    }
-  };
-
-  //variand default select price lowest and select variant
-  variantSelectDefault = (colorId, sizeId) => {
-    let selected = [];
-    let id = 0;
-    if (this.props.index === 0) id = colorId;
-    else id = sizeId;
-    mapKeys(this.props.values, function(value) {
-      if (value.id === id) selected = value;
-    });
-    return selected;
   };
 
   render() {

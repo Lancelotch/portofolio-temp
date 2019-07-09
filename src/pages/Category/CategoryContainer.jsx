@@ -1,16 +1,14 @@
 import React, { Component, Suspense } from "react";
 import { BackTop } from "antd";
 import { connect } from "react-redux";
-// import Header from "components/Header";
-import "sass/style.sass";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
-import "./style.sass";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
-import SortListProduct from "../../components/SortListProduct/";
+import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
+
 const Products = React.lazy(() => import("../../components/Products"));
 
 class CategoryPage extends Component {
@@ -43,8 +41,8 @@ class CategoryPage extends Component {
   }
 
   getCategoryId = (params) => {
-    // console.log("tess");
     const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
+    console.log("tess",categoryId);
     this.setState({
       categoryId: categoryId,
       isProductAvailable: false,
@@ -134,15 +132,18 @@ class CategoryPage extends Component {
           }}>
           <span className="categoryTextResult">{categoryTextResult}</span>
           <span>Urutkan &nbsp;&nbsp;&nbsp;
-            <SortListProduct onChange={this.onChangeSort} /></span>
+            <SortListProduct
+            defaultValue={"createdDate|desc"}  
+            onChange={this.onChangeSort}
+            valueLow={"price.idr|asc"}
+            valueHigh={"price.idr|desc"} /></span>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
           loader={<Spinner size="large" />}
-          endMessage={<BackTop />}
-        >
+          endMessage={<BackTop />}>
           <div style={{ marginTop: 35 }}>
             <Suspense fallback={
               <SkeletonCustom
@@ -151,7 +152,15 @@ class CategoryPage extends Component {
                 leftMargin={13}
                 rightMargin={13}
                 topMargin={15} />}>
-              <Products productList={productList} />
+                {productList.map((product,index) =>
+                  <Products
+                  key={index}
+                  id={product.id} 
+                  defaultImage={product.urlImage}
+                  information={product.name}
+                  price={product.price}
+                   />
+                )}
             </Suspense>
           </div>
         </InfiniteScroll>
