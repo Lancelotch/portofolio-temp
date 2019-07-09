@@ -32,6 +32,7 @@ class SearchPage extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getProductList();
   }
 
@@ -116,7 +117,7 @@ class SearchPage extends Component {
           hasMore={hasMore}
           loader={productList.length < 20 ? false : <Spinner size="large" />}
           endMessage={<div><BackTop /></div>}>
-          <div style={{ marginTop: 35 }}>
+          <div style={{ marginTop: 35, marginLeft: 8 }}>
             <Suspense fallback={
               <SkeletonCustom
                 count={20}
