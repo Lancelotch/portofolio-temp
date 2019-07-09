@@ -18,14 +18,14 @@ const ButtonQuantity = props => {
         </div>
         <div className="input-quantity">
           <Input
-            maxLength={4}
+            maxLength={props.quantity > props.stock ? props.stock : props.stock}
             defaultValue={1}
             value={props.quantity}
             onChange={props.onChangeQuantity}
           />
         </div>
         <div>
-          <button className="button_quantity" onClick={props.incrementItem}>
+          <button className="button_quantity" onClick={props.incrementItem} disabled={props.disable}>
             <Icon className="icon__quantity" type="plus" />
           </button>
         </div>

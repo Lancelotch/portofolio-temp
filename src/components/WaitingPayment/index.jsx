@@ -6,7 +6,6 @@ import currencyRupiah from "../../library/currency";
 
 const WaitingPayment = props => {
   const {
-    endDatePay,
     indexes,
     orderId,
     labelNotPay,

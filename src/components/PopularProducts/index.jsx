@@ -34,7 +34,7 @@ const PopularProducts = props => {
           marginBottom: 24,
         }}>
         {data.map((product, index) => {
-          if (props.maxProductCount && counter < props.maxProductCount) {
+          if (props.maxProductCount && counter <props.maxProductCount) {
             if (props.maxProductCount !== null) {
               counter += 1;
             }

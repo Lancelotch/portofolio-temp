@@ -51,6 +51,7 @@ class OrderListWaitingPayment extends Component {
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL + orderId);
+      console.log(response);    
     } catch (error) {
       console.log(error);
     }

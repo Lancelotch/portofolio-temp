@@ -38,7 +38,8 @@ class ProductDetail extends Component {
         quantity: 1,
         sku: {}
       },
-      variantIsVailable: false
+      variantIsVailable: false,
+      isUpdateImageVariant: false
     };
   }
 
@@ -77,22 +78,47 @@ class ProductDetail extends Component {
 
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
-    this.setState({ data });
+    this.setState({ 
+      data,
+      isUpdateImageVariant: false
+    });
   };
 
   actionUpdateImageVariant = image => {
     this.setState({
-      imageVariant: image
+      imageVariant: image,
+      isUpdateImageVariant: true
     })
   };
 
   actionSubmitToCheckout = () => {
-    console.log(this.state.data.sku);
+    const {
+      id,
+      note,
+      price,
+      images,
+      information,
+      data,
+    } = this.state
+    const image = images.find(image => image.isDefault === true).defaultImage;
+    const items = {
+      shipmentFee: price.fee.shipmentFee,
+      image,
+      name: information.name,
+      price: price.amount,
+      productId: id,
+      quantity: data.quantity,
+      note,
+      sku: data.sku,
+      maxOrder: information.maxOrder
+    }
+    const indexesToLocalstorage = JSON.stringify(items);
+    localStorage.setItem("product", indexesToLocalstorage);
     if (this.state.data.sku.length === undefined) {
       alert('Pilih Variant Yang ada')
     } else {
       if (this.state.data.sku.length < this.state.variants.length) {
-        return alert('Variant Belum Dipilih Semua')
+         alert('Variant Belum Dipilih Semua')
       } else {
         if (this.props.isAuthenticated !== false) {
           if (this.state.data.quantity > this.state.information.maxOrder) {
@@ -100,28 +126,6 @@ class ProductDetail extends Component {
           }
           else {
             if (this.state.data.sku.length === this.state.variants.length) {
-              const {
-                id,
-                note,
-                price,
-                images,
-                information,
-                data,
-              } = this.state
-              const image = images.find(image => image.isDefault === true).defaultImage;
-              const items = {
-                shipmentFee: price.fee.shipmentFee,
-                image,
-                name: information.name,
-                price: price.amount,
-                productId: id,
-                quantity: data.quantity,
-                note,
-                sku: data.sku,
-                maxOrder: information.maxOrder
-              }
-              const indexesToLocalstorage = JSON.stringify(items);
-              localStorage.setItem("product", indexesToLocalstorage);
               this.redirectCheckout();
             }
           }
@@ -157,7 +161,7 @@ class ProductDetail extends Component {
               <Row>
                 <Col md={10}>
                   <p className="productDetail__product-name">{this.state.information.name}</p>
-                  <SliderProductDetailContainer imagess={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />
+                  <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />
                 </Col>
                 <Col md={12} offset={1}>
                   <div style={{}}>
@@ -193,7 +197,7 @@ class ProductDetail extends Component {
               </Row>
             </div>
             {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
-            {this.state.changeCheckout === true && <Redirect to="/checkout" />}
+            {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}
           </React.Fragment>
         )}
       </React.Fragment>

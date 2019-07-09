@@ -53,21 +53,21 @@ class Header extends Component {
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none"}, this.fixPositionDropdown(false));
+      this.setState({ display: "none" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: ""}, this.fixPositionDropdown(true));
+      this.setState({ display: "" }, this.fixPositionDropdown(true));
     }
   };
 
   fixPositionDropdown = isTopHeaderShow => {
     console.log("isShow", isTopHeaderShow);
-    
-    if (!isTopHeaderShow){
+
+    if (!isTopHeaderShow) {
       this.setState({ topDropdown: 70 })
     } else {
       this.setState({ topDropdown: 120 });
     }
-    
+
   }
 
   getAllCategory = async () => {
@@ -153,12 +153,12 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={this.userMenu()} trigger={["click"]}>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{ position: "fixed", marginTop: this.state.topDropdown }} overlay={this.userMenu()} trigger={["click"]}>
         {/* <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}> */}
-          {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
-          <div className="header-ellipsis">
-          <span className="header-user-name">{this.props.customerName}<Icon className="header__name-icon" type="down"/></span>
-          </div>
+        {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
+        <div className="header-ellipsis">
+          <span className="header-user-name">{this.props.customerName}<Icon className="header__name-icon" type="down" /></span>
+        </div>
         {/* </li> */}
       </Dropdown>
     );
@@ -166,16 +166,21 @@ class Header extends Component {
 
   renderNotAuthList = () => {
     return (
-        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
-            <span>{strings.log_in}<Icon className="header__name-icon" type="down"/></span>
-          {/* </li> */}
-        </Dropdown>
-      );
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{ position: "fixed", marginTop: this.state.topDropdown }} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
+        {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
+        <span>{strings.log_in}<Icon className="header__name-icon" type="down" /></span>
+        {/* </li> */}
+      </Dropdown>
+    );
   };
 
+   isUrlIsCategory = value => {
+    if (value === history.push(`/search?q=${value}`)) return value;
+    else return history.push(`/search?q=${value}`);
+};
+
   getValue = (value) => {
-    history.push(`/search?q=${value}`)
+    return value ? this.isUrlIsCategory(value) : false
   }
 
   getParams = () => {
@@ -241,24 +246,20 @@ class Header extends Component {
             </Link>
           </Col>
           <Col md={15} className="header__search-box">
-            <form action="/search">
-              <Search
-                // placeholder={strings.search_place_holder}
-                style={{
-                  height: 35,
-                  fontSize: 17,
-                  width: 559
-                }}
-                id="filter"
-                name="q"
-                placeholder="Cari Produk"
-                defaultValue={this.getParams()}
-                onSearch={this.getValue}
-                onChange={this.handleInputSearchChange.bind(this)}
-                className="header__search"
-              >
-              </Search>
-            </form>
+            <Search
+              placeholder={strings.search_place_holder}
+              style={{
+                height: 35,
+                fontSize: 17,
+                width: 559
+              }}
+              id="filter"
+              enterButton
+              name="q"
+              defaultValue={this.getParams()}
+              onSearch={this.getValue}
+              onChange={this.handleInputSearchChange.bind(this)}
+              className="header__search"/>
           </Col>
           <Col md={4}>
             <div>
@@ -300,7 +301,7 @@ class Header extends Component {
                 className="header__user-icon"
               />
               <div className="wrap-header-dropdown">
-              {this.showUserDropDown(isAuthenticated)}
+                {this.showUserDropDown(isAuthenticated)}
               </div>
               {/* <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon> */}
             </div>

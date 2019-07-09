@@ -3,21 +3,18 @@ import { Collapse } from "antd";
 
 const PaymentInstructions = props => {
   const { paymentInstruction } = props;
-  const instructions = paymentInstruction.instructions
+  console.log(paymentInstruction);
+  
   return (
     <React.Fragment>
       {paymentInstruction &&
         <Collapse defaultActiveKey={["1"]} accordion>
           <Collapse.Panel showArrow={false} header="Cara Bayar" key="1">
-          {instructions &&
-            <ol>
               {
-                instructions.map((ins, i) => {
-                  return <li key={i}>{ins}</li>
+                paymentInstruction.paymentInstructions.map((ins, i) => {
+                  return <p dangerouslySetInnerHTML={{__html:ins.instruction}}/>
                 })
               }
-            </ol>
-      }
           </Collapse.Panel>
         </Collapse>
       }

@@ -9,11 +9,7 @@ import { Button } from "antd";
 const ProductOrderDetails = props => {
   const
     { 
-      product,
       productSnapshot,
-      productName,
-      variants,
-      productQuantity,
       label,
       invoiceNumber,
       noInvoice,
@@ -24,9 +20,7 @@ const ProductOrderDetails = props => {
       id,
       productId,
       note
-    } = props;  
-    console.log('idviewinvoice',id);
-    
+    } = props;    
   return (
     <Card>
       <div

@@ -3,7 +3,6 @@ import { Row, Col, Card } from 'antd';
 import NumberFormat from 'react-number-format';
 import "./style.sass";
 import convertTimesTime from '../../library/convertTimestime';
-import { cps } from '@redux-saga/core/effects';
 
 const OrderStatusUser = props => {
     const {

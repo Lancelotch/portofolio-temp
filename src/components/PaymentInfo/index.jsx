@@ -6,7 +6,7 @@ import strings from '../../localization/localization';
 import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
-    const { shipment,productSnapshot, payment, amount, courier,totalAmount, price, cancelBy, cancelDate, exspedisi } = props;
+    const { shipment,productSnapshot, payment, amount, courier,totalAmount,  cancelBy, cancelDate } = props;
    console.log(productSnapshot);
    
     return (

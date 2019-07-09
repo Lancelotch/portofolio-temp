@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import OrderStatusStep from '../../components/OrderStatusStep';
-import { apiGetWithToken } from "../../api/services";
 import PaymentDateInfo from "../../components/PaymentDateInfo";
 import OrderStatusUser from "../../components/OrderStatusUser";
-import { PATH_ORDER } from "../../api/path";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';

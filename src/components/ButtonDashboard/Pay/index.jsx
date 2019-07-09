@@ -82,7 +82,7 @@ const Pay = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order.orderId)}
+            onClick={() => showOrderDetailsDashboard(order)}
           >
             {strings.order_details}
           </Button>

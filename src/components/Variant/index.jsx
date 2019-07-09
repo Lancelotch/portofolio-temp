@@ -64,7 +64,7 @@ const Variant = props => {
     return (
 
         <div className="variant">
-            {props.name == "Warna" ?
+            {props.name == "Warna" || props.name == "Model" ?
                 (<VariantImage {...props} />)
                 :
                 (<VariantText {...props} />)
@@ -77,11 +77,11 @@ const Variant = props => {
 
 export default Variant;
 
-function selectedDefaultVariant(props) {
-    let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
-    if (!isRegisteredVariant) {
-        const SelectedDefaultVariant = props.variantItems[0];
-        SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
-    }
-}
+// function selectedDefaultVariant(props) {
+//     let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
+//     if (!isRegisteredVariant) {
+//         const SelectedDefaultVariant = props.variantItems[0];
+//         SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
+//     }
+// }
 

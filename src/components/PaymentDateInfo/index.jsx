@@ -6,7 +6,7 @@ import strings from '../../localization/localization';
 
 
 const PaymentDateInfo = props => {
-    const { bank, dateOrder, typePayment } = props
+    const {  dateOrder, typePayment } = props
     console.log('paymentinfo',dateOrder);
     
     return (

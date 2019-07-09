@@ -13,8 +13,7 @@ const cardStyle = {
 
 let imageStyle = {
   maxWidth: "100 %",
-  maxHeight: "100 %",
-  margin: "auto"
+  maxHeight: "100 %"
 }
 
 const Product = props => {
