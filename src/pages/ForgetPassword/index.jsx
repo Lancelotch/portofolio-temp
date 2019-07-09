@@ -5,6 +5,7 @@ import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
+import { rulesEmail } from "../Register/registerContainer";
 
 class ForgetPassword extends Component {
   constructor(props) {
@@ -17,6 +18,17 @@ class ForgetPassword extends Component {
       showMessage: false
     };
   }
+
+  submitForgotPassword = param => {
+    if (param.message === "OK") {
+      this.setState({ isEmailSend: true });
+    } else {
+      this.setState({
+        errorMessage: param.data.message,
+        showMessage: true
+      });
+    }
+  };
 
   handleEmailChange = e => {
     this.setState({ email: e.target.value });
@@ -31,17 +43,9 @@ class ForgetPassword extends Component {
           const response = await authentication.forgotPassword({
             email: values.email
           });
-          if (response.message === "OK") {
-            this.setState({ isEmailSend: true });
-          } else {
-            this.setState({
-              errorMessage: response.data.message,
-              showMessage: true
-            });
-          }
-          console.log(response);
+          this.submitForgotPassword(response);
         } catch (error) {
-          console.log(this.state.errorMessage);
+          console.log(error);
         }
       }
     });
@@ -103,7 +107,7 @@ class ForgetPassword extends Component {
                 <Form onSubmit={this.handleSubmit}>
                   {this.state.emailNotRegister}
                   <FormItem>
-                    {getFieldDecorator("email")(
+                    {getFieldDecorator("email", rulesEmail())(
                       <Input
                         placeholder="Email"
                         onChange={this.handleEmailChange}
@@ -137,31 +141,31 @@ class ForgetPassword extends Component {
                   </FormItem>
                 </Form>
                 <div className="forget-password__content-bottom">
-                  Silahkan{" "}
-                  <span className="forget-password__link-bottom">
+                  <span>
+                    Silahkan{" "}
                     <Link
+                      className="forget-password__link-bottom"
                       to={{
                         pathname: "/login"
                       }}
                       style={{ color: "#F63700" }}
                     >
                       Login
-                    </Link>
-                  </span>{" "}
-                  jika kamu sudah punya akun,
-                  <br />
-                  atau{" "}
-                  <span className="forget-password__link-bottom">
+                    </Link>{" "}
+                    jika kamu sudah punya akun,
+                    <br />
+                    atau{" "}
                     <Link
+                      className="forget-password__link-bottom"
                       to={{
                         pathname: "/register"
                       }}
                       style={{ color: "#F63700" }}
                     >
                       Register
-                    </Link>
-                  </span>{" "}
-                  untuk mulai belanja barang-barang kece.
+                    </Link>{" "}
+                    untuk mulai belanja barang-barang kece.
+                  </span>
                 </div>
               </div>
             )}

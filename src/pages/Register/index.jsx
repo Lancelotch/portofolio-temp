@@ -22,7 +22,6 @@ import {
   rulesPassword,
   RegistrationSubmitButton
 } from "./registerContainer";
-// import history from "../../routers/history"
 
 const FormItem = Form.Item;
 
@@ -39,9 +38,7 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.location)
     if (this.props.location.state !== undefined) {
-      // console.log("masuk sini")
       this.setState({
         nextPage: this.props.location.state.nextPage
       });
@@ -64,9 +61,7 @@ class RegisterPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const {history} = this.props
-    // const path = this.getPath(this.state.nextPage)
     const path = this.state.nextPage
-    // console.log("ini path di register", path)
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         await this.props.registerForm(history, values, path);
@@ -79,15 +74,8 @@ class RegisterPage extends Component {
     });
   };
 
-  // getPath = (state) => {
-  //   let path = ""
-  //   console.log("ini path di regis", state)
-  //   state === this.props.location.state.nextPage ? path =`/${state}` : path = "/"
-  //   return path
-  // }
 
-  handleRegisterGoogle = request => {
-    // const path = this.getPath(this.state.nextPage);
+  handleGoogle = request => {
     const path = this.state.nextPage
     this.props.loginWithGoogle(path, request);
   };
@@ -104,9 +92,6 @@ class RegisterPage extends Component {
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
-              // ref={node => {
-              //   this.container = node;
-              // }}
             >
                 <div className="register_Background" />
             </div>
@@ -185,29 +170,26 @@ class RegisterPage extends Component {
                 </div>
                 <FormItem>
                   <RegistrationSubmitButton isLoading={this.props.isLoading} />
-                  {/* <button onClick={this.props.loading}>gonee</button> */}
-                  {/* <div className="login-form__error-box">
+                  <div className="login-form__error-box">
                     {this.props.messageError ? (
                       <p> {this.props.messageError}</p>
                     ) : (
                       ""
                     )}
-                  </div> */}
+                  </div>
                 </FormItem>
                 <div
                   type="flex"
                   align="middle"
                   className="register__form__option-text"
                 >
-                  {/* <div className="register__form__text-line" /> */}
                   <span>{strings.register_option}</span>
-                  {/* <div className="register__form__text-line" /> */}
                 </div>
                 <Form.Item className="register__form__btn-socmed">
                   <div className="register__form__socmed-box">
                     <ButtonGoogle
                       className="register__form__socmed-button"
-                      onSubmit={this.handleRegisterGoogle}
+                      onSubmit={this.handleGoogle}
                       path={this.props.history}
                     >
                       {strings.google}
@@ -238,7 +220,6 @@ class RegisterPage extends Component {
             </div>
           </Col>
         </Row>
-        {/* <ModalSuccess modalStatus={this.state.modalStatus} email={this.props.message.email}/> */}
       </React.Fragment>
     );
   }

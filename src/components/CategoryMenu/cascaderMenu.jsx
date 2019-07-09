@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const CategoryMenuCascader = props => {
 
-    const { allCategory, match, marginTop } = props
+    const { allCategory, match, marginTopDropdown } = props
 
     // const build_menu = category => {
     //     let itemMenu = {
@@ -74,7 +74,7 @@ const CategoryMenuCascader = props => {
         <React.Fragment>
             <Row>
                 <Col md={24}>
-                    <Cascader key={"id"} popupClassName={marginTop == 120 ? "cascader-popup" : "cascader-popup-scroll"} options={options} expandTrigger={"hover"}>
+                    <Cascader key={"id"} popupClassName={marginTopDropdown == 120 ? "cascader-popup" : "cascader-popup-scroll"} options={options} expandTrigger={"hover"}>
                         <a className="ant-dropdown-link" href="/#">
                             <span className="category">Kategori</span>
                             <Icon style={{ color: "#999999" }} type="down" />
