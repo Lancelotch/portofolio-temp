@@ -117,12 +117,10 @@ class ProductDetail extends Component {
     if (this.state.variants.length > 0) {
       if (this.state.data.sku.length === undefined) {
         alert('Variant Belum Dipilih')
-      }
-      else {
+      } else {
         if (this.state.data.sku.length < this.state.variants.length) {
           alert('Variant Belum Dipilih Semua')
-        }
-        else {
+        } else {
           if (this.props.isAuthenticated !== false) {
             if (this.state.data.quantity > this.state.information.maxOrder) {
               alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
