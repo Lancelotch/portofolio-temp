@@ -1,17 +1,22 @@
 import React, { Component } from "react";
-import { Tabs, Spin, Alert } from "antd";
+import { Tabs, Spin, Alert, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
-import OrderListWaitingInDelivery from "../OrderListWaitingInDelivery";
-import OrderListWaitingFinish from "../OrderListWaitingFinish";
-import OrderListWaitingNotSent from "../OrderListWaitingNotSent";
-import OrderListWaitingNotPay from "../OrderListWaitingNotPay";
+// import OrderListWaitingInDelivery from "../OrderListWaitingInDelivery";
+// import OrderListWaitingFinish from "../OrderListWaitingFinish";
+// import OrderListWaitingNotSent from "../OrderListWaitingNotSent";
+import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
-import OrderDetailsCancel from "../OrderDetailsCancel";
-import OrderListWaitingCancel from "../OrderListWaitingCancel";
+// import OrderDetailsCancel from "../OrderDetailsCancel";
+// import OrderListWaitingCancel from "../OrderListWaitingCancel";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import { Offline, Online, Detector } from "react-detect-offline";
+import strings from "../../localization/localization";
+import { patchService } from "../../api/services";
+import { PATH_ORDER } from "../../api/path";
+
+const confirm = Modal.confirm;
 
 const keyFnNames = {
   '1': 'updateTabNotPay',
@@ -40,9 +45,10 @@ class CustomerOderNavigation extends Component {
       productOrderInDelivery: [],
       productOrderFinish: [],
       productOrderCancel: [],
-      isShowImageEmpety: false,
       invoiceNumber: "",
-      id: ""
+      id: "",
+      stateReceivedOrder: [],
+      index: 0
     };
   }
 
@@ -56,6 +62,40 @@ class CustomerOderNavigation extends Component {
     this.productOrderTabsNotYetPay();
   };
 
+  showReceivedConfirm = (allOrder, index, orderId) => {
+    console.log('allOrder', allOrder);
+    console.log('index', index);
+    confirm({
+      iconClassName: "iconWaitingPaymentCancel",
+      title: strings.tab_belum_bayar,
+      content: strings.tabs_belum_bayar_pesan_batalkan,
+      okText: strings.cancel,
+      okType: "danger",
+      cancelText: strings.back,
+      centered: true,
+      onOk: () => {
+        const receivedOrder = allOrder.splice(index, 1)
+        const newOrder = [...allOrder]
+        this.setState({
+          productorder: newOrder,
+          stateReceivedOrder: [...this.state.stateReceivedOrder, ...receivedOrder]
+        })
+        console.log(orderId)
+        this.actionReceivedConfirm(orderId);
+      },
+    });
+  };
+
+  actionReceivedConfirm = async (index) => {
+    console.log('actionCancelConfirm', index);
+    try {
+      const orderId = index
+      const response = await patchService(PATH_ORDER.ORDER_BY_RECEIVED + orderId);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   actionShowOrderListWaiting = () => {
     this.setState({
@@ -63,12 +103,13 @@ class CustomerOderNavigation extends Component {
     });
   };
 
-  actionShowOrderDetailsDashboard = (order, invoiceNumber, id) => {
+  actionShowOrderDetailsDashboard = (order, invoiceNumber, id, index) => {
     this.actionShowOrderListWaiting();
     this.setState({
       order: order,
       invoiceNumber: invoiceNumber,
-      id: id
+      id: id,
+      index: index
     })
   };
 
@@ -80,7 +121,7 @@ class CustomerOderNavigation extends Component {
       });
     } catch (error) {
       if (error.message) {
-        this.setState({ isShowImageEmpety: true, isLoading: false });
+        this.setState({ isLoading: false });
       }
     }
   };
@@ -89,70 +130,85 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 1);
       this.setState({
-        productOrderNotYetSent: response.data.data
+        productOrderNotYetSent: response.data.data,
+        isLoading: false
       });
-      console.log(this.state.productOrderNotYetSent);
-
     } catch (error) {
-      if (error.message) {
-        this.setState({ isShowImageEmpety: true, isLoading: false });
-      }
+      this.setState({ isLoading: false });
     }
   };
 
   productOrderTabsInDelivery = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_IN_DELIVERY);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 2);
       this.setState({
-        productOrderInDelivery: response.data.data
+        productOrderInDelivery: response.data.data,
+        isLoading: false
       });
     } catch (error) {
-      if (error.message) {
-        this.setState({ isShowImageEmpety: true, isLoading: false });
-      }
+      this.setState({ isLoading: false });
     }
   };
 
   productOrderTabsFinish = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_FINISH);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 3);
       this.setState({
         productOrderFinish: response.data.data
       });
     } catch (error) {
-      if (error.message) {
-        this.setState({ isShowImageEmpety: true, isLoading: false });
-      }
+      this.setState({ isLoading: false });
     }
   };
 
   productOrderTabsCancel = async () => {
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_CANCEL);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 4);
       this.setState({
         productOrderCancel: response.data.data
       });
     } catch (error) {
-      if (error.message) {
-        this.setState({ isShowImageEmpety: true, isLoading: false });
-      }
+      this.setState({ isLoading: false });
     }
   };
 
-  responseOrderDetailsDashboard = (labelTabDetails, estimateAccepted, tabsInDeliveryOrderStatusUser, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel) => {
-    return <OrderDetailsDashboard
-      invoiceNumber={this.state.invoiceNumber}
-      id={this.state.id}
-      order={this.state.order}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-      labelTabDetails={labelTabDetails}
-      estimateAccepted={estimateAccepted}
-      tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+  responseListWaiting(responseProductOrder, showReceivedConfirm, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel) {
+    return <OrderListWaiting
+      productOrderNotYetPay={responseProductOrder}
+      actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+      showReceivedConfirm={showReceivedConfirm}
       tabsNotPay={tabsNotPay}
       tabsNotSent={tabsNotSent}
       tabsInDelivery={tabsInDelivery}
       tabsFinish={tabsFinish}
-      tabsCancel={tabsCancel} />;
+      tabsCancel={tabsCancel}
+    />;
+  }
+
+  loadingItems() {
+    return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+      {this.state.isLoading === true ? <Spin tip="Loading..." spinning={this.state.isLoading} /> : <NoOrderHistory />}
+    </div>;
+  }
+
+  responseOrderDetailsDashboard = (labelTabDetails, labelEstimateAccepted, tabsInDeliveryOrderStatusUser, tabsFinishOrderStatusUser, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel) => {
+    return <OrderDetailsDashboard
+      invoiceNumber={this.state.invoiceNumber}
+      indexDetails={this.state.index}
+      id={this.state.id}
+      order={this.state.order}
+      showReceivedConfirm={this.showReceivedConfirm}
+      productOrderInDelivery={this.state.productOrderInDelivery}
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+      labelTabDetails={labelTabDetails}
+      estimateAccepted={labelEstimateAccepted}
+      tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+      tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
+      tabsNotPay={tabsNotPay}
+      tabsNotSent={tabsNotSent}
+      tabsInDelivery={tabsInDelivery}
+      tabsFinish={tabsFinish}
+      tabsCancel={tabsCancel} />
   };
 
   updateTabNotPay = () => {
@@ -203,6 +259,15 @@ class CustomerOderNavigation extends Component {
     }
   };
 
+  alertOffline = () => {
+    return <Alert
+      message="Error"
+      description="Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?"
+      type="error"
+      showIcon
+    />
+  }
+
   render() {
     return (
       <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
@@ -212,170 +277,98 @@ class CustomerOderNavigation extends Component {
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                <div style={{ backgroundColor: "red", padding: 15, color: "#FFFFFF", fontSize: 16 }}>
-                  Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
-                </div>
+                {this.alertOffline()}
               </Offline>
               <Online polling={polling}>
                 {this.state.productOrderNotYetPay.length < 1 ?
-                  <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                    <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                    {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
-                  </div> :
+                  this.loadingItems()
+                  :
                   this.state.isShowOrderDetailsDashboard === false ?
-                    <OrderListWaitingNotPay
-                      productOrderNotYetPay={this.state.productOrderNotYetPay}
-                      actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                      tabsNotPay={1}
-                    /> :
-                    this.responseOrderDetailsDashboard("Belum Bayar", "", "", 1)
+                    this.responseListWaiting(this.state.productOrderNotYetPay, "", 1) :
+                    this.responseOrderDetailsDashboard("Belum Bayar", "", "", "", 1)
                 }
               </Online>
-            </React.Fragment>
-          }
-        />
+            </React.Fragment>} />
         <CustomTabPane
           key={"2"}
           tab={<span>{"Sedang Diproses"}</span>}
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                <Alert
-                  message="Error"
-                  description="Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?"
-                  type="error"
-                  showIcon
-                />
+                {this.alertOffline()}
               </Offline>
               <Detector
                 render={() =>
                   this.state.productOrderNotYetSent.length < 1 ?
-                    <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                      <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                      {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
-                    </div> :
+                    this.loadingItems()
+                    :
                     this.state.isShowOrderDetailsDashboard === false ?
-                      <OrderListWaitingNotSent
-                        actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                        productOrderNotYetSent={this.state.productOrderNotYetSent}
-                        tabsNotSent={2}
-                      /> :
-                      this.responseOrderDetailsDashboard("Belum Dikirim", "", "", "", 2)
-                }
-              />
-            </React.Fragment>
-          }
-        />
+                      this.responseListWaiting(this.state.productOrderNotYetSent, "", "", 2)
+                      :
+                      this.responseOrderDetailsDashboard("Belum Dikirim", "", "", "", "", 2)} />
+            </React.Fragment>} />
         <CustomTabPane
           key={"3"}
           tab={<span>{"Dalam Pengiriman"}</span>}
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
-          </Offline>
+                {this.alertOffline()}
+              </Offline>
               <Detector
                 render={() => (
                   <Online polling={polling}>
                     {this.state.productOrderInDelivery.length < 1 ?
-                      <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                        {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
-                      </div>
+                      this.loadingItems()
                       :
                       this.state.isShowOrderDetailsDashboard === false ?
-                        <OrderListWaitingInDelivery
-                          productOrderInDelivery={this.state.productOrderInDelivery}
-                          actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                          tabsInDelivery={3}
-                        /> :
-                        <OrderDetailsDashboard orderId={this.state.orderId}
-                          actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                          labelTabDetails={"Dalam Pengiriman"}
-                          estimateAccepted={"Perkiraan Diterima"}
-                          tabsInDeliveryOrderStatusUser={3}
-                          tabsNotSent={2}
-                          tabsInDelivery={3}
-                        />}
-                  </Online>
-                )}
-              />
-            </React.Fragment>
-          }
-        />
+                        this.responseListWaiting(this.state.productOrderInDelivery, this.showReceivedConfirm, "", "", 3)
+                        :
+                        this.responseOrderDetailsDashboard("Dalam Pengiriman", "Perkiraan Diterima", "", 3, "", 2, 3)}
+                  </Online>)} />
+            </React.Fragment>} />
         <CustomTabPane
           key={"4"}
           tab={<span>{"Selesai"}</span>}
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
-          </Offline>
+                {this.alertOffline()}
+              </Offline>
               <Detector
                 render={() => (
                   <Online polling={polling}>
                     {this.state.productOrderFinish.length < 1 ?
-                      <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                        <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                        {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
-                      </div>
+                      this.loadingItems()
                       :
                       this.state.isShowOrderDetailsDashboard === false ?
-                        <OrderListWaitingFinish
-                          productOrderFinish={this.state.productOrderFinish}
-                          actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                          tabsFinish={4}
-                        /> :
-                        <OrderDetailsDashboard orderId={this.state.orderId}
-                          actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                          labelTabDetails={"Finish"}
-                          estimateAccepted={"Pesenan Diterima"}
-                          tabsFinishOrderStatusUser={4}
-                          tabsNotSent={2}
-                          tabsInDelivery={3}
-                          tabsFinish={4}
-                        />
-
-                    }
+                        this.responseListWaiting(this.state.productOrderFinish, "", "", "", "", 4)
+                        :
+                        this.responseOrderDetailsDashboard("Finish", "Pesenan Diterima", "", 4, "", 2, 3, 4)}
                   </Online>
                 )}
               />
-            </React.Fragment>
-          } />
+            </React.Fragment>} />
         <CustomTabPane
           key={"5"}
           tab={<span>{"Batal"}</span>}
           my_prop={
             <React.Fragment>
               <Offline polling={polling}>
-                Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?
+                {this.alertOffline()}
               </Offline>
               <Detector
                 render={() => (
                   <Online polling={polling}>
-                    {
-                      this.state.productOrderCancel.length < 1 ?
-                        <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-                          <Spin tip="Loading..." spinning={this.state.isLoading} delay={500} />
-                          {this.state.isLoading === true ? "" : this.state.isShowImageEmpety && <NoOrderHistory />}
-                        </div>
+                    {this.state.productOrderCancel.length < 1 ?
+                      this.loadingItems()
+                      :
+                      this.state.isShowOrderDetailsDashboard === false ?
+                        this.responseListWaiting(this.state.productOrderCancel, "", "", "", "", "", 5)
                         :
-                        this.state.isShowOrderDetailsDashboard === false ?
-                          <OrderListWaitingCancel
-                            productOrderCancel={this.state.productOrderCancel}
-                            actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
-                          /> :
-                          <OrderDetailsCancel orderId={this.state.orderId}
-                            actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-                            tabsCancel={5}
-                          />
-                    }
-                  </Online>
-                )}
-              />
-            </React.Fragment>
-          }
-        />
+                        this.responseOrderDetailsDashboard("Batal", "Pesenan Diterima", "", "", "", "", "", "", 5)}
+                  </Online>)} />
+            </React.Fragment>} />
       </Tabs>
     );
   }

@@ -18,7 +18,7 @@ const ButtonQuantity = props => {
         </div>
         <div className="input-quantity">
           <Input
-            maxLength={props.quantity > props.stock ? props.stock : props.stock}
+            //maxLength={4}
             defaultValue={1}
             value={props.quantity}
             onChange={props.onChangeQuantity}

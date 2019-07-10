@@ -38,6 +38,7 @@ class OrderDetailContainer extends Component {
   //   )
   // };
 
+
   variants = variants => {
     return variants.map((variant, index) => {
       let variantsss = variant.variantItem.name;
@@ -49,6 +50,7 @@ class OrderDetailContainer extends Component {
       )
     });
   };
+
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
@@ -87,7 +89,7 @@ class OrderDetailContainer extends Component {
                             style={{ textAlign: "left" }}
                             md={20}
                           > :
-                            {this.variants(sku)}
+                            {sku.length > 0 && this.variants(sku)}
                           </Col>
                         </React.Fragment>
                       }

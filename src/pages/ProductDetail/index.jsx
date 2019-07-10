@@ -78,7 +78,7 @@ class ProductDetail extends Component {
 
   actionUpdateQuantity = quantity => {
     const data = { ...this.state.data, quantity };
-    this.setState({ 
+    this.setState({
       data,
       isUpdateImageVariant: false
     });
@@ -114,25 +114,31 @@ class ProductDetail extends Component {
     }
     const indexesToLocalstorage = JSON.stringify(items);
     localStorage.setItem("product", indexesToLocalstorage);
-    if (this.state.data.sku.length === undefined) {
-      alert('Pilih Variant Yang ada')
-    } else {
-      if (this.state.data.sku.length < this.state.variants.length) {
-         alert('Variant Belum Dipilih Semua')
-      } else {
-        if (this.props.isAuthenticated !== false) {
-          if (this.state.data.quantity > this.state.information.maxOrder) {
-            alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
-          }
-          else {
-            if (this.state.data.sku.length === this.state.variants.length) {
-              this.redirectCheckout();
-            }
-          }
+    if (this.state.variants.length > 0) {
+      if (this.state.data.sku.length === undefined) {
+        alert('Variant Belum Dipilih')
+      }
+      else {
+        if (this.state.data.sku.length < this.state.variants.length) {
+          alert('Variant Belum Dipilih Semua')
         }
         else {
-          this.redirectLogin();
+          if (this.props.isAuthenticated !== false) {
+            if (this.state.data.quantity > this.state.information.maxOrder) {
+              alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
+            } else {
+              this.redirectCheckout();
+            }
+          } else {
+            this.redirectLogin();
+          }
         }
+      }
+    } else if (this.state.variants.length < 1) {
+      if (this.props.isAuthenticated !== false) {
+        this.redirectCheckout();
+      } else {
+        this.redirectLogin();
       }
     }
   };

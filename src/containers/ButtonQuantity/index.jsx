@@ -15,7 +15,6 @@ class ButtonQuantityContainer extends Component {
     this.state = {
       quantity: this.props.quantity,
       title: this.props.title,
-      onChangeQuantity: this.props.quantity,
       text: ""
     };
   }
@@ -72,9 +71,8 @@ class ButtonQuantityContainer extends Component {
   checkTypingQuantity = (event) => (
     isNaN(event.target.value) === true ||
       event.target.value === "0" ||
-      event.target.value === ""
-      ? 1
-      : parseInt(event.target.value)
+      event.target.value === "" 
+      ? 1 : parseInt(event.target.value)
   )
 
   onChangeQuantity = event => {

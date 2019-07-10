@@ -14,14 +14,10 @@ const WaitingPayment = props => {
     tabsNotSent,
     tabsFinish,
     tabsCancel,
-    cancelBy,
     labelNotSent,
     labelCancel,
     labelInDelivery,
-    labelFinish,
-    estimateShippingDate,
-    receivedDate,
-    cancelDate
+    labelFinish
   } = props;
   return (
     <React.Fragment>
@@ -62,7 +58,7 @@ const WaitingPayment = props => {
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {estimateShippingDate}
+                {convertTimesTime.millisecond(indexes.orderActivityDate.receivedDate)}
               </p>
             </Col>
           }
@@ -79,7 +75,7 @@ const WaitingPayment = props => {
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {convertTimesTime.millisecond(receivedDate)}
+                {convertTimesTime.millisecond(indexes.orderActivityDate.receivedDate)}
               </p>
             </Col>
           }
@@ -90,13 +86,13 @@ const WaitingPayment = props => {
                   marginBottom: 0,
                   color: "black"
                 }}>
-                {labelCancel} {cancelBy.toLowerCase()}
+                {labelCancel} {"Admin"}
               </p>
               <p style={{
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {convertTimesTime.millisecond(cancelDate)}
+                {convertTimesTime.millisecond(indexes.orderDraftCancel && indexes.orderDraftCancel.createdDate)}
               </p>
             </Col>
           }

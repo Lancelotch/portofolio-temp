@@ -1,18 +1,20 @@
 import React from 'react'
-import "../../ProductOrder/style.sass"
+import "../ProductOrder/style.sass"
 import { Button } from 'antd'
 import { Link } from "react-router-dom";
-import { pageUrlProductDetail } from "../../../library/url"
-import strings from '../../../localization/localization';
+import { pageUrlProductDetail } from "../../library/url"
+import strings from '../../localization/localization';
 
-const Pay = (props) => {
+const ButtonDashboard = (props) => {
   const { showDeleteConfirm,
+    showReceivedConfirm,
     showHowToModalPayment,
     showOrderDetailsDashboard,
     tabsNotPay,
     tabsNotSent,
     tabsFinish,
     tabsInDelivery,
+    tabsCancel,
     order,
     orderProduct,
     invoiceNumber,
@@ -20,14 +22,14 @@ const Pay = (props) => {
     id
   } = props
 
-  // let id = ""
-  // order.indexes.map(p => {
-  //   id = p.productId
-  //   return id
-  // })
+  let productId = ""
+   order.orderItems.map(orders =>{
+     productId = orders.productSnapshot.productId
+     return productId;
+   })
   return (
     <React.Fragment>
-      {tabsNotPay === 1 && (
+      {tabsNotPay === 1 &&
         <div
           style={{
             display: "flex",
@@ -49,14 +51,13 @@ const Pay = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboard(order,invoiceNumber,id)}
+              onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id)}
             >
               {strings.order_details}
             </Button>
           </div>
-        </div>
-      )}
-      {tabsNotSent === 2 && (
+        </div>}
+      {tabsNotSent === 2 &&
         <div
           style={{
             display: "flex",
@@ -65,30 +66,29 @@ const Pay = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order,invoiceNumber,id)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id)}
           >
             {strings.order_details}
           </Button>
-        </div>
-      )}
-      {tabsInDelivery === 3 && (
+        </div>}
+      {tabsInDelivery === 3 &&
         <div
           style={{
             display: "flex",
             justifyContent: "flex-end"
           }}>
-          <Button className="waitingPayment__payNow">
+          <Button onClick={() => showReceivedConfirm(orderProduct, index, order.id)}
+            className="waitingPayment__payNow">
             Pesanan Diterima
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
-        </div>
-      )}
-      {tabsFinish === 4 && (
+        </div>}
+      {tabsFinish === 4 &&
         <div
           style={{
             display: "flex",
@@ -97,18 +97,33 @@ const Pay = (props) => {
           <Button
             className="waitingPayment__payNow"
           >
-            <Link to={pageUrlProductDetail}>Beli Lagi</Link>
+            <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboard(order.orderId)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id)}
           >
             {strings.order_details}
           </Button>
-        </div>
-      )}
+        </div>}
+      {tabsCancel === 5 &&
+        <div
+          style={{
+            display: "flex", justifyContent: "flex-end"
+          }}>
+          <Button
+            className="waitingPayment__payNow"
+          >
+            <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
+          </Button>
+          <Button
+            className="waitingPayment__detailPesanan"
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}>
+            {strings.cancel_details}
+          </Button>
+        </div>}
     </React.Fragment>
   )
 }
 
-export default Pay
+export default ButtonDashboard;

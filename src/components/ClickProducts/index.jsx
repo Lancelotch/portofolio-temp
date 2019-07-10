@@ -74,11 +74,15 @@ class ClickProducts extends Component {
     const products = data.slice(0, 10);
     const settings = {
       dots: true,
-      autoplay: 5000,
+      lazyLoad: true,
+      infinite: true,
+      speed: 1000,
+      autoplay: true,
       arrows: true,
       slidesToShow: 5,
-      slidesToScroll: 5,
+      slidesToScroll: 1,
       swipeToSlide: true,
+      pauseOnHover: true,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
       appendDots: dots => (
@@ -120,11 +124,11 @@ class ClickProducts extends Component {
     return (
       <div className="sliderClickProducts">
         {products.length < 1 ? (
-          <SkeletonCustom 
-          count={4}   
-          height={300} 
-          leftMargin={13} 
-          rightMargin={13}  />) :
+          <SkeletonCustom
+            count={4}
+            height={300}
+            leftMargin={13}
+            rightMargin={13} />) :
           (<Carousel {...settings}>{slides}</Carousel>)
         }
       </div>

@@ -6,7 +6,7 @@ import { Card } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 
 
-class OrderListWaitingInDelivery extends Component {
+class OrderListWaitingFinsih extends Component {
   render() {
     const {
       tabsFinish,
@@ -51,4 +51,4 @@ class OrderListWaitingInDelivery extends Component {
   }
 }
 
-export default OrderListWaitingInDelivery;
+export default OrderListWaitingFinsih;

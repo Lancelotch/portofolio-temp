@@ -129,6 +129,7 @@ class Checkout extends Component {
 
   variantsRequest = variantsRequest => {
     const variants = [];
+    variantsRequest.length < 1 && 
     variantsRequest.forEach(variant => {
       variants.push({
         id: variant.id,
@@ -292,16 +293,17 @@ class Checkout extends Component {
       ]
     };
     try {
-      this.setState({ isLoading: true })
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
       console.log('response scheckout', response);
       if (this.state.quantity > this.state.maxOrder) {
         alert('adasd')
+        this.setState({ isLoading: false })
       } else {
+        this.setState({ isLoading: true })
         if (response.data.data) {
           setTimeout(() => {
             this.setState({ isLoading: false })
-          }, 100)
+          }, 700)
           const token = response.data.data.token;
           this.snap.pay(token, {
             onSuccess: function (result) {
