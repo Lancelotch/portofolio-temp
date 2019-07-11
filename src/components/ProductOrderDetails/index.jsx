@@ -8,12 +8,10 @@ import { Button } from "antd";
 
 const ProductOrderDetails = props => {
   const
-    { 
-      product,
+    {
+      productOrderInDelivery,
+      actionReceivedConfirm,
       productSnapshot,
-      productName,
-      variants,
-      productQuantity,
       label,
       invoiceNumber,
       noInvoice,
@@ -22,15 +20,13 @@ const ProductOrderDetails = props => {
       tabsFinish,
       tabsCancel,
       id,
-      productId,
-      note
-    } = props;  
-    console.log('idviewinvoice',id);
-    
+      note,
+      index,
+      idOrder
+    } = props;
   return (
     <Card>
-      <div
-        style={{
+      <div style={{
           display: "flex",
           justifyContent: "space-between"
         }}>
@@ -50,8 +46,7 @@ const ProductOrderDetails = props => {
         <font style={{ color: "#000000" }}>
               {invoiceNumber}
             </font> &nbsp;
-          </label>
-        }
+          </label>}
       </div>
       <hr className="productOrder__inline" />
       <Row style={{ marginTop: 25 }}>
@@ -70,11 +65,11 @@ const ProductOrderDetails = props => {
           <Link
             className="default"
             style={{ cursor: "pointer" }}
-            to={pageUrlProductDetail + productId}>
+            to={pageUrlProductDetail + productSnapshot.productId}>
             <h2 style={{ marginBottom: 0 }}> {productSnapshot.name} </h2>
           </Link>
           <p className="productOrder__variant" style={{ marginBottom: 10 }}>
-          {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
+            {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
            {productSnapshot.variants}
           </p>
           <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
@@ -83,7 +78,12 @@ const ProductOrderDetails = props => {
             {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{productSnapshot.quantity} pcs
         </p>
         </Col>
-        <Col md={5} style={{ marginTop: 60 }}>
+        <Col md={5}>
+          {tabsInDelivery === 3 &&
+            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, index, idOrder)}
+              className="waitingPayment__payNow">
+              Pesanan Diterima
+        </Button>}
           {tabsCancel === 5 &&
             <div style={{
               display: "flex",
@@ -93,7 +93,7 @@ const ProductOrderDetails = props => {
               <Button
                 className="waitingPayment__payNow"
               >
-                <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
+                <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
               </Button>
             </div>
           }

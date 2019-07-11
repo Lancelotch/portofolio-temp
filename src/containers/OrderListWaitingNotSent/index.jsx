@@ -25,12 +25,8 @@ class OrderListWaitingNotSent extends Component {
               <WaitingPayment
                 labelNotSent={"Dalam Proses Pengiriman"}
                 tabsNotSent={2}
-                estimateShippingDate={order.estimateShippingDate}
-                receivedDate={order.receivedDate}
                 key={order.id}
-                endDatePay={order.endDatePay}
                 indexes={order.order}
-                pay={order.payment}
               />
               <Pay
                 tabsFinish={tabsFinish}

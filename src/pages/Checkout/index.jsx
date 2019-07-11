@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Spin } from "antd";
 import { connect } from "react-redux";
 import FormAddAddress from "../../containers/FormAddAddress";
 import { addressDefault } from "../../store/actions/address";
@@ -46,7 +46,8 @@ class Checkout extends Component {
       totalAmount: 0,
       maxOrder: 0,
       shipmentFee: {},
-      priceJne: 0
+      priceJne: 0,
+      isLoading: false
     };
   }
 
@@ -59,7 +60,6 @@ class Checkout extends Component {
     this.getFareExpedisi();
     // this.getSubdistrict()
   }
-
 
   componentWillReceiveProps(props) {
     if (!props.isAddressAvailable) {
@@ -129,6 +129,7 @@ class Checkout extends Component {
 
   variantsRequest = variantsRequest => {
     const variants = [];
+    variantsRequest.length < 1 && 
     variantsRequest.forEach(variant => {
       variants.push({
         id: variant.id,
@@ -142,7 +143,7 @@ class Checkout extends Component {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
     this.setState({
       isProductDetailAvailable: true,
-      productId: payloadProductDetail.id,
+      productId: payloadProductDetail.productId,
       priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
       variants: this.variantsRequest(payloadProductDetail.sku),
@@ -291,23 +292,28 @@ class Checkout extends Component {
         }
       ]
     };
-    console.log(request);
-
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
+      console.log('response scheckout', response);
       if (this.state.quantity > this.state.maxOrder) {
         alert('adasd')
+        this.setState({ isLoading: false })
       } else {
+        this.setState({ isLoading: true })
         if (response.data.data) {
+          setTimeout(() => {
+            this.setState({ isLoading: false })
+          }, 700)
           const token = response.data.data.token;
           this.snap.pay(token, {
             onSuccess: function (result) {
               history.push("/");
             },
             onPending: function (result) {
+              console.log('iniiiii resul',result);
+              
               let order = result.order_id
               console.log('ooooooooooorder', order);
-
               console.log(order);
               history.push({
                 pathname: pageUrlPaymentInfo + order,
@@ -315,6 +321,7 @@ class Checkout extends Component {
               });
             },
             onError: function (result) {
+              history.push("/payment-failed")
               console.log("error");
               console.log('eeeeor snap', result);
             },
@@ -328,6 +335,9 @@ class Checkout extends Component {
       }
     }
     catch (error) {
+      setTimeout(() => {
+        this.setState({ isLoading: true })
+      })
       console.log(error);
     }
   };
@@ -350,8 +360,6 @@ class Checkout extends Component {
 
   render() {
     const total = this.countTotalAmount();
-    console.log(total);
-
     const { isAddressAvailable } = this.props;
     const {
       addresses,
@@ -364,100 +372,103 @@ class Checkout extends Component {
       jneChecked
     } = this.state;
     return (
-      <div className="checkout">
-        <div className="container">
-          <Row>
-            <Col md={24}>
-              <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
-            </Col>
-            <Col md={5}>
-              <Link to="/">
-                <img
-                  src={require("assets/img/monggopesen_logo.png")}
-                  className="header__logo"
-                  alt=""
-                />
-              </Link>
-            </Col>
-            <Col md={15}>
-              <p className="checkout__text">{strings.checkout}</p>
-            </Col>
-          </Row>
-          <div className="checkout__content">
+      <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
+        <div className="checkout">
+          <div className="container">
             <Row>
-              <Col md={15} style={{ marginTop: 25 }}>
-                <AddressCheckout
-                  customerAddress={customerAddress}
-                  isAddressAvailable={isAddressAvailable}
-                  onEditAddress={this.actionShowEditFormAddress}
-                  onSelectListAddress={this.actionShowListAddress}
-                  onAddAddress={this.actionShowAddFormAddress}
-                />
-                <FormAddAddress
-                  visible={this.state.visibleAddAddress}
-                  onSubmit={this.actionSubmitAddFormAddress}
-                  onCancle={this.actionShowAddFormAddress}
-                  isAddressAvailable={this.props.isAddressAvailable}
-                />
-                {customerAddress.id && (
-                  <FormEditAddress
-                    visible={this.state.visibleEditAddress}
-                    address={customerAddress}
-                    onSubmit={this.actionSubmitEditFormAddress}
-                    onCancle={this.actionShowEditFormAddress}
-                    cities={this.state.cities}
-                    subdistricts={this.state.subdistricts}
-                    handleChangeCity={this.handleChangeCity}
-                  />
-                )}
-                <AddressList
-                  addresses={addresses}
-                  visible={this.state.visibleListAddress}
-                  onCancle={this.actionShowListAddress}
-                  onChangeAddress={this.actionChangeAddress}
-                  customerAddress={customerAddress}
-                />
-                {isProductDetailAvailable && (
-                  <OrderDetailContainer
-                    shipmentFee={this.state.shipmentFee}
-                    stock={this.state.maxOrder}
-                    priceProduct={priceProduct}
-                    payloadProductDetail={payloadProductDetail}
-                    actionChangeShipping={this.actionChangeShipping}
-                    actionChangeQuantity={this.actionChangeQuantity}
-                    quantity={quantity}
-                    actionChangeNote={this.actionChangeNote}
-                  />
-                )}
+              <Col md={24}>
+                <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
               </Col>
-              <Col md={9}>
-                <OrderSummary
-                  priceJne={this.state.priceJne}
-                  shipmentFee={this.state.shipmentFee}
-                  quantity={quantity}
-                  total={total}
-                  priceProduct={priceProduct}
-                  shipment={shipment}
-                  checked={jneChecked}
-                  handleChecked={this.handleChecked}
-                  onOrder={() =>
-                    isAddressAvailable
-                      ? this.actionSubmitOrder()
-                      : this.actionShowAddFormAddress()
-                  }
-                />
+              <Col md={5}>
+                <Link to="/">
+                  <img
+                    src={require("assets/img/monggopesen_logo.png")}
+                    className="header__logo"
+                    alt=""
+                  />
+                </Link>
+              </Col>
+              <Col md={15}>
+                <p className="checkout__text">{strings.checkout}</p>
               </Col>
             </Row>
-            {this.props.message && (
-              <ModalSuccess
-                textButton={this.state.textButton}
-                modalStatus={this.props.statusModal}
-                email={this.props.message.email}
-              />
-            )}
+            <div className="checkout__content">
+              <Row>
+                <Col md={15} style={{ marginTop: 25 }}>
+                  <AddressCheckout
+                    customerAddress={customerAddress}
+                    isAddressAvailable={isAddressAvailable}
+                    onEditAddress={this.actionShowEditFormAddress}
+                    onSelectListAddress={this.actionShowListAddress}
+                    onAddAddress={this.actionShowAddFormAddress}
+                  />
+                  <FormAddAddress
+                    visible={this.state.visibleAddAddress}
+                    onSubmit={this.actionSubmitAddFormAddress}
+                    onCancle={this.actionShowAddFormAddress}
+                    isAddressAvailable={this.props.isAddressAvailable}
+                  />
+                  {customerAddress.id && (
+                    <FormEditAddress
+                      visible={this.state.visibleEditAddress}
+                      address={customerAddress}
+                      onSubmit={this.actionSubmitEditFormAddress}
+                      onCancle={this.actionShowEditFormAddress}
+                      cities={this.state.cities}
+                      subdistricts={this.state.subdistricts}
+                      handleChangeCity={this.handleChangeCity}
+                    />
+                  )}
+                  <AddressList
+                    addresses={addresses}
+                    visible={this.state.visibleListAddress}
+                    onCancle={this.actionShowListAddress}
+                    onChangeAddress={this.actionChangeAddress}
+                    customerAddress={customerAddress}
+                  />
+                  {isProductDetailAvailable && (
+                    <OrderDetailContainer
+                      shipmentFee={this.state.shipmentFee}
+                      stock={this.state.maxOrder}
+                      priceProduct={priceProduct}
+                      payloadProductDetail={payloadProductDetail}
+                      actionChangeShipping={this.actionChangeShipping}
+                      actionChangeQuantity={this.actionChangeQuantity}
+                      quantity={quantity}
+                      actionChangeNote={this.actionChangeNote}
+                    />
+                  )}
+                </Col>
+                <Col md={9}>
+                  <OrderSummary
+                    isLoading={this.state.isLoading}
+                    priceJne={this.state.priceJne}
+                    shipmentFee={this.state.shipmentFee}
+                    quantity={quantity}
+                    total={total}
+                    priceProduct={priceProduct}
+                    shipment={shipment}
+                    checked={jneChecked}
+                    handleChecked={this.handleChecked}
+                    onOrder={() =>
+                      isAddressAvailable
+                        ? this.actionSubmitOrder()
+                        : this.actionShowAddFormAddress()
+                    }
+                  />
+                </Col>
+              </Row>
+              {this.props.message && (
+                <ModalSuccess
+                  textButton={this.state.textButton}
+                  modalStatus={this.props.statusModal}
+                  email={this.props.message.email}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </Spin>
     );
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import { Divider, Button, Modal, Row, Col,  Collapse } from "antd";
+import { Divider, Button, Modal, Row, Col, Collapse } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
@@ -16,12 +16,10 @@ class PaymentInfoPage extends Component {
     super(props);
     this.state = {
       messageCopy: "",
-      paymentInstruction: {},
-      payment: null,
-      endDatePayment: null,
-      bank: {},
+      amount: null,
       copied: false,
-      isLoading: true
+      isLoading: true,
+      gateway: {}
     };
   }
 
@@ -38,10 +36,8 @@ class PaymentInfoPage extends Component {
       const payment = response.data.data;
       this.setState({
         isLoading: false,
-        paymentInstruction: payment.paymentInstruction,
-        endDatePayment: payment.endDatePayment,
-        payment: payment.payment,
-        bank: payment.bank
+        amount: payment.amount,
+        gateway: payment.gateway
 
       });
     } catch (error) {
@@ -69,7 +65,9 @@ class PaymentInfoPage extends Component {
   }
 
   render() {
-    const { payment, endDatePayment, bank } = this.state;
+    console.log(this.state.gateway.bank &&this.state.gateway.bank.paymentInstructions);
+
+    const { gateway, amount} = this.state;
     const warning = () => {
       Modal.warning({
         className: "modal-check-status",
@@ -96,38 +94,31 @@ class PaymentInfoPage extends Component {
                 <Divider />
               </div>
               <div className="info__content">
-                {payment === null ?
+                {amount === null ?
                   <Row type="flex" align="middle" style={{ marginTop: 40 }} className="info__bank">
-                    <Col md={4} />
-                    <Col md={16} />
-                    <Col md={4} style={{ textAlign: "end" }}>
-                      <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
-                    </Col>
-                  </Row>
-                  :
-                  payment &&
-                  <PaymentInvoice
-                    payment={payment}
-                    endDatePay={endDatePayment}
-                    bank={bank}
-                    onCopy={this.onCopy}
-                  />
-
-                }
-                <center style={{ color: "red" }}>{this.state.messageCopy}</center>
+                  <Col md={4} />
+                  <Col md={16} />
+                  <Col md={4} style={{ textAlign: "end" }}>
+                    <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
+                  </Col>
+                </Row>
+                :
+                <PaymentInvoice
+                  gateway={gateway}
+                  onCopy={this.onCopy}
+                />}
+              <center style={{ color: "red" }}>{this.state.messageCopy}</center>
                 <div className="info__dropdownMethod">
-                  {payment === null ?
-                    <React.Fragment>
+                  {amount === null ?
                       <Collapse defaultActiveKey={["1"]} accordion>
-                        <Collapse.Panel showArrow={false} className="collapse_null" key="1"/>
+                        <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
                       </Collapse>
-                    </React.Fragment>
                     :
-                    <PaymentInstructions paymentInstruction={this.state.paymentInstruction} />
+                    <PaymentInstructions paymentInstruction={this.state.gateway.bank &&this.state.gateway.bank} />
                   }
                 </div>
                 <div>
-                  {payment === null ?
+                  {amount === null ?
                     <SkeletonCustom width={975} topMargin={10} height={48} color={"#BBBBBB"} count={0} />
                     :
                     <Button className="info__button" onClick={warning}>

@@ -20,8 +20,8 @@ const Shippings = props => {
                 </div>
                 <div>
                   <p>
-                    {shipping[1].estimation.charAt(0).toUpperCase() +
-                      shipping[1].estimation.substring(1)}
+                    {shipping[0].estimation.charAt(0).toUpperCase() +
+                      shipping[0].estimation.substring(1)}
                   </p>
                   <p className="price">Ongkir sudah termasuk</p>
                 </div>
@@ -32,8 +32,8 @@ const Shippings = props => {
                 </div>
                 <div>
                   <p>
-                    {shipping[0].estimation.charAt(0).toUpperCase() +
-                      shipping[0].estimation.substring(1)}
+                    {shipping[1].estimation.charAt(0).toUpperCase() +
+                      shipping[1].estimation.substring(1)}
                   </p>
                   <p className="price">{currencyRupiah(priceShippment.shipmentFee.difference)}</p>
                 </div>

@@ -3,7 +3,6 @@ import { Row, Col, Card } from 'antd';
 import NumberFormat from 'react-number-format';
 import "./style.sass";
 import convertTimesTime from '../../library/convertTimestime';
-import { cps } from '@redux-saga/core/effects';
 
 const OrderStatusUser = props => {
     const {
@@ -52,7 +51,7 @@ const OrderStatusUser = props => {
                                 {((tabsInDeliveryOrderStatusUser === 3) || (tabsFinishOrderStatusUser === 4)) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
-                                {estimateShippingDate}
+                                {convertTimesTime.millisecond(estimateShippingDate && estimateShippingDate.receivedDate)}
                                     </p>)
                                 }
                             </Col>
@@ -78,9 +77,9 @@ const OrderStatusUser = props => {
                             </Col>
                             <Col md={15}>
                                 <div className="wrapperRight">
-                                    {responseOrderLogTransactions.map(log => {
+                                    {responseOrderLogTransactions.map((log,index) => {
                                         return (
-                                            <Row>
+                                            <Row key={index}>
                                                 <Col md={24}>
                                                     <div style={{ display: "flex", justifyContent: "flex-start", paddingLeft: 10 }}>
                                                         <span className="dot" />

@@ -43,7 +43,7 @@ class CategoryPage extends Component {
 
   getCategoryId = (params) => {
     const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
-    console.log("tess",categoryId);
+    console.log("tess", categoryId);
     this.setState({
       categoryId: categoryId,
       isProductAvailable: false,
@@ -134,16 +134,16 @@ class CategoryPage extends Component {
           <span className="categoryTextResult">{categoryTextResult}</span>
           <span>Urutkan &nbsp;&nbsp;&nbsp;
             <SortListProduct
-            defaultValue={"createdDate|desc"}  
-            onChange={this.onChangeSort}
-            valueLow={"price.idr|asc"}
-            valueHigh={"price.idr|desc"} /></span>
+              defaultValue={"createdDate|desc"}
+              onChange={this.onChangeSort}
+              valueLow={"price.idr|asc"}
+              valueHigh={"price.idr|desc"} /></span>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={this.fetchMoreData}
           hasMore={hasMore}
-          loader={<Spinner size="large" />}
+          loader={productList.length < 20 ? "" : <Spinner size="large" />}
           endMessage={<BackTop />}>
           <div style={{ marginTop: 35 }}>
             <Suspense fallback={
@@ -153,15 +153,15 @@ class CategoryPage extends Component {
                 leftMargin={13}
                 rightMargin={13}
                 topMargin={15} />}>
-                {productList.map((product,index) =>
-                  <Products
+              {productList.map((product, index) =>
+                <Products
                   key={index}
-                  id={product.id} 
+                  id={product.id}
                   defaultImage={product.image.mediumUrl}
                   information={product.name}
                   price={product.price}
-                   />
-                )}
+                />
+              )}
             </Suspense>
           </div>
         </InfiniteScroll>

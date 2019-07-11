@@ -5,7 +5,7 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee,priceJne } = props;
+  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne, isLoading } = props;
 
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
@@ -13,7 +13,7 @@ const OrderSummary = props => {
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
   };
-
+  console.log(isLoading);
 
   return (
     <Card title={strings.order_summary} className="card__Style">
@@ -21,16 +21,16 @@ const OrderSummary = props => {
         <Col md={12}>
           <div className="price-pcs">
             <p>{"Harga Product"}</p>
-            <p>{`Pcs`}</p>
+            {/*<p>{`Pcs`}</p>*/}
           </div>
-          <div className="sub-total">
+          {/* <div className="sub-total">
             <p>{"Sub Total"}</p>
-          </div>
+          </div>*/}
           <div className="international-shipping">
             <p>Pengiriman International</p>
             <p className="p-color-teal">{shipment === "sea"
-            ? "Laut"
-            : "Udara"}</p>
+              ? "Laut"
+              : "Udara"}</p>
           </div>
           <div className="lokal-shipping">
             <p>Pengiriman Lokal</p>
@@ -66,12 +66,12 @@ const OrderSummary = props => {
         </Col>
         <Col md={12} className="card__ColumnLeft">
           <div className="price-pcs">
-            <p className="price">{currencyRupiah(priceProduct)}</p>
-            <p>{`x ${quantity}`}</p>
+            <p className="price">{totalAmount(totalProduct)}</p>
+            { /*<p>{`x ${quantity}`}</p>*/}
           </div>
-          <div className="sub-total">
-            <p>{totalAmount(totalProduct)}</p>
-          </div>
+          {/*<div className="sub-total">
+            <p>{currencyRupiah(priceProduct)}</p>
+            </div>*/}
           <div className="shipping-price">
             <p className="p-color-teal">
               {shipment === "sea"
