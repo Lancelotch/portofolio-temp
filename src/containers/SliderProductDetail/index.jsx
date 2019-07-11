@@ -10,7 +10,8 @@ class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: [],
+      imagesToShow: [],      
+      imagesWithDefault: [],
       isImageVariantExist: false,
       isShowNav: false,
       startIndex: 0
@@ -18,29 +19,58 @@ class SliderProductDetailContainer extends Component {
   }
 
   componentDidMount() {
-   this.setData(this.props.images, this.props.imagess);
+    let imageDefault = this.props.imageDefault;
+    let imagesProps = this.props.images;
+    let imagesWithDefault = [];
+    imagesProps.forEach( image => {
+      if(image.isDefault !== true) {
+        imagesWithDefault.unshift(image);
+      }
+    });
+    imagesWithDefault.unshift(imageDefault);
+
+    this.setState({
+      imagesWithDefault: [...imagesWithDefault],
+      imagesToShow: [...imagesWithDefault]
+    })
   }
   
   componentWillReceiveProps(props) {
-    this.slider.slideToIndex(0)
-    this.setData(props.images, props.imageVariant);
+    if(props.isUpdateImageVariant) {
+      this.showImages(props.imageVariant);
+    }
   }
 
-  setData(imagesProps, imageVariantProps) {
-    let images = [this.props.imagess, ...imagesProps]
-    if(imageVariantProps !== undefined) {
-      const isImageVariantEmpty = !Object.keys(this.props.imageVariant).length > 0
-      images = isImageVariantEmpty ? [...imagesProps] : [imageVariantProps, ...imagesProps];
-    }
+
+  // showImages(imagesProps, imageVariantProps) {
+  //   const images = [...imagesProps];
+  //   let isImageVariantExist = false;
+  //   const imageVariant = { ...imageVariantProps };
+  //   if (imageVariant.largeUrl !== undefined) {
+  //     images.unshift(imageVariant);
+  //     isImageVariantExist = true;
+  //   } 
+  //   let isShowNav = images.length > 4 ? true : false;
+  //   this.setState({
+  //     images: images,
+  //     isShowNav: isShowNav,
+  //     isImageVariantExist: isImageVariantExist,
+  //     startIndex: 0
+  //   });
+  // }
+
+  showImages(imageVariantProps = "") {
+    let imagesToShow = [...this.state.imagesWithDefault];
       let isImageVariantExist = false;
       const imageVariant = { ...imageVariantProps };
       if (imageVariant.largeUrl !== undefined) {
-        images.unshift(imageVariant);
+        this.slider.slideToIndex(0)
+        imagesToShow.unshift(imageVariant);
         isImageVariantExist = true;
       }
-      let isShowNav = images.length > 4 ? true : false;
+      let isShowNav = imagesToShow.length > 4 ? true : false;
       this.setState({
-        images: images,
+        imagesToShow: imagesToShow,
         isShowNav: isShowNav,
         isImageVariantExist: isImageVariantExist,
         startIndex: 0
@@ -60,10 +90,11 @@ class SliderProductDetailContainer extends Component {
   }
 
   removeThumbnailImageVariant = () => {
-    const images = this.state.images;
+    const imagesToShow = this.state.imagesToShow;
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
-    const lenImagesWihoutVariant = images.length - 1;
-    if (thumbnailDom.length > lenImagesWihoutVariant) {
+    const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
+    console.log("inii ", thumbnailDom.length, " ", lenImagesToShowWihoutVariant);
+    if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
       thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
     }
   }
@@ -76,9 +107,9 @@ class SliderProductDetailContainer extends Component {
 
   render() {
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
-    const images = [];
-    this.state.images.forEach(image => {
-      images.push({
+    const imagesToShow = [];
+    this.state.imagesToShow.forEach(image => {
+      imagesToShow.push({
         large: image.largeUrl,
         original: image.mediumUrl,
         thumbnail: image.smallUrl
@@ -96,7 +127,7 @@ class SliderProductDetailContainer extends Component {
             // onSlide={this.changeSlide}
             lazyLoad={true}
             renderItem={this.imageHover}
-            items={images}
+            items={imagesToShow}
             disableArrowKeys={true}
           />
         </Col>
@@ -107,7 +138,8 @@ class SliderProductDetailContainer extends Component {
 
 SliderProductDetailContainer.propTypes = {
   images: PropTypes.arrayOf(Object),
-  imageVariant: PropTypes.object
+  imageVariant: PropTypes.object,
+  imageDefault: PropTypes.object
 };
 
 export default SliderProductDetailContainer;

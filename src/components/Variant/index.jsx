@@ -42,6 +42,7 @@ const VariantImage = props => {
             <p className="title-text">
                 {props.name}
             </p>
+            <div style={{display:"flex",alignItems:"center"}}>
             {props.variantItems.map(value => (
                 <Tooltip title={value.name} key={value.id}>
                     <div onClick={() => props.onClick(props.id, value, props.name, true)}
@@ -56,15 +57,17 @@ const VariantImage = props => {
                     </div>
                 </Tooltip>
             ))}
+            </div>
         </React.Fragment>
     );
 };
 
 const Variant = props => {
+    const variantItem = props.variantItems.map(variant => variant.image)
     return (
 
         <div className="variant">
-            {props.name == "Warna" ?
+            {variantItem !== undefined ?
                 (<VariantImage {...props} />)
                 :
                 (<VariantText {...props} />)
@@ -77,11 +80,11 @@ const Variant = props => {
 
 export default Variant;
 
-function selectedDefaultVariant(props) {
-    let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
-    if (!isRegisteredVariant) {
-        const SelectedDefaultVariant = props.variantItems[0];
-        SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
-    }
-}
+// function selectedDefaultVariant(props) {
+//     let isRegisteredVariant = props.selected.filter(variant => variant.name === props.name).length > 0;
+//     if (!isRegisteredVariant) {
+//         const SelectedDefaultVariant = props.variantItems[0];
+//         SelectedDefaultVariant && props.onClick(props.id, SelectedDefaultVariant, props.name, true);
+//     }
+// }
 

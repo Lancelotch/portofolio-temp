@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PATH_ORDER, PATH_INVOICE } from "../../api/path";
+import { PATH_INVOICE } from "../../api/path";
 import { apiGetWithToken } from "../../api/services";
 import TableInvoicePayment from '../../components/InvoiceDetailDashboard/TableInvoicePayment';
 import ReactToPrint from 'react-to-print';

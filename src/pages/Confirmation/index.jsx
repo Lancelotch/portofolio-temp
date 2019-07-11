@@ -27,6 +27,8 @@ class ConfirmationEmail extends Component {
   requestActivation = async (idConfirmation) =>{
     try{
       const response = await this.props.activatingUser(idConfirmation)
+      console.log(response);
+      
     }catch(error){
       console.log("error from confirmation page");
     }

@@ -53,6 +53,7 @@ class Login extends Component {
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
           const login = await this.props.loginWithHome(values,'/',history)
+          console.log(login);         
           if(this.props.isError ){
             this.props.form.setFields({
               password: {

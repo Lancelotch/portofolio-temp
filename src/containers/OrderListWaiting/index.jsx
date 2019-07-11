@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Pay from "../../components/ButtonDashboard/Pay";
+import ButtonDashboard from "../../components/ButtonDashboard";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
@@ -51,6 +51,7 @@ class OrderListWaitingPayment extends Component {
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL + orderId);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +75,9 @@ class OrderListWaitingPayment extends Component {
       tabsInDelivery,
       actionShowOrderDetailsDashboard,
       tabsNotSent,
-      productOrderNotYetPay
+      tabsCancel,
+      productOrderNotYetPay,
+      showReceivedConfirm
     } = this.props;
     console.log(this.state.selectedOrder);
 
@@ -90,29 +93,34 @@ class OrderListWaitingPayment extends Component {
               <hr className="productOrder__inline" />
               <WaitingPayment
                 labelNotPay={"Bayar Sebelum"}
-                estimateShippingDate={order.estimateShippingDate}
-                receivedDate={order.receivedDate}
-                tabsNotPay={1}
-                key={order.id}
-                endDatePay={order.endDatePay}
-                indexes={order.order}
-                pay={order.payment}
-              />
-              <Pay
-                index={index}
-                tabsFinish={tabsFinish}
+                labelNotSent={"Dalam Proses Pengiriman"}
+                labelFinish={"Pesenan Diterima"}
+                labelInDelivery={"Perkiraan barang diterima"}
+                labelCancel={"Pesenan dibatalkan oleh"}
                 tabsNotPay={tabsNotPay}
-                tabsInDelivery={tabsInDelivery}
-                invoiceNumber={order.invoiceNumber}
                 tabsNotSent={tabsNotSent}
-                showDeleteConfirm={this.showDeleteConfirm}
-                orderProduct={productOrderNotYetPay}
-                order={order.order}
-                showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber)}
+                tabsInDelivery={tabsInDelivery}
+                tabsFinish={tabsFinish}
+                tabsCancel={tabsCancel}
+                id={order.id}
+                indexes={order.order}
               />
-            </Card>
-          )
+                <ButtonDashboard
+                  index={index}
+                  tabsFinish={tabsFinish}
+                  tabsNotPay={tabsNotPay}
+                  tabsInDelivery={tabsInDelivery}
+                  invoiceNumber={order.invoiceNumber}
+                  tabsNotSent={tabsNotSent}
+                  tabsCancel={tabsCancel}
+                  showReceivedConfirm={showReceivedConfirm}
+                  showDeleteConfirm={this.showDeleteConfirm}
+                  orderProduct={productOrderNotYetPay}
+                  order={order.order}
+                  showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                  showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index)}
+                />
+            </Card>)
         })}
         {selectedOrder && (
           <ModalHowToPay

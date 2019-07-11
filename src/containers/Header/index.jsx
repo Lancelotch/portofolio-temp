@@ -45,9 +45,9 @@ class Header extends Component {
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none"}, this.fixPositionDropdown(false));
+      this.setState({ display: "none" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: ""}, this.fixPositionDropdown(true));
+      this.setState({ display: "" }, this.fixPositionDropdown(true));
     }
   };
 
@@ -59,7 +59,7 @@ class Header extends Component {
     } else {
       this.setState({ marginTopDropdown: 120 });
     }
-    
+
   }
 
   getAllCategory = async () => {
@@ -156,8 +156,13 @@ class Header extends Component {
       );
   };
 
+  isUrlIsCategory = value => {
+    if (value === window.location.reload(history.push(`/search?q=${value}`))) return value;
+    else return window.location.reload(history.push(`/search?q=${value}`));
+  }
+
   getValue = (value) => {
-    history.push(`/search?q=${value}`)
+    return value ? this.isUrlIsCategory(value) : false
   }
 
   getParams = () => {
@@ -222,22 +227,20 @@ class Header extends Component {
             </Link>
           </Col>
           <Col md={15} className="header__search-box">
-            <form action="/search">
-              <Search
-                style={{
-                  height: 35,
-                  fontSize: 17,
-                  width: 559
-                }}
-                id="filter"
-                name="q"
-                defaultValue={this.getParams()}
-                onSearch={this.getValue}
-                onChange={this.handleInputSearchChange.bind(this)}
-                className="header__search"
-              >
-              </Search>
-            </form>
+            <Search
+              placeholder={strings.search_place_holder}
+              style={{
+                height: 35,
+                fontSize: 17,
+                width: 559
+              }}
+              id="filter"
+             // enterButton
+              name="q"
+              defaultValue={this.getParams()}
+              onSearch={this.getValue}
+              onChange={this.handleInputSearchChange.bind(this)}
+              className="header__search" />
           </Col>
           <Col md={4}>
             <div>
@@ -279,7 +282,7 @@ class Header extends Component {
                 className="header__user-icon"
               />
               <div className="wrap-header-dropdown">
-              {this.showUserDropDown(isAuthenticated)}
+                {this.showUserDropDown(isAuthenticated)}
               </div>
             </div>
           </Col>

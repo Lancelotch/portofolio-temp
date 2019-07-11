@@ -1,6 +1,5 @@
 import React from "react";
 import './style.sass'
-import { Col } from "antd";
 
 const ProductAttibutes = props => {
   const { product } = props
