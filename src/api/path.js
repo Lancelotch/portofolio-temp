@@ -35,7 +35,7 @@ const PRODUCT = "product";
 const PRODUCT_BY_ID = 'product/';
 const PRODUCT_BY_ID_DRAFT = 'product-draft/'
 const PRODUCT_CATEGORY = "product/category/";
-const PRODUCT_CATEGORY_DRAFT = "product/category/";
+const PRODUCT_CATEGORY_DRAFT = "product-draft/category/";
 const PRODUCT_SEARCH = "product/search/";
 const PRODUCT_ALL_DRAFT = "product-draft"
 const PRODUCT_SEARCH_DRAFT = "product-draft/search?keyword="

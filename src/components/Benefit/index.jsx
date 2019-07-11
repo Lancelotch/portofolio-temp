@@ -6,7 +6,7 @@ import SkeletonCustom from "../Skeleton";
 
 const Benefit = ({ data, error, loading }) => {
   const showBenefit = data.map((benefit,index) => (
-      <div style={{margin:"0 21px"}} key={index}>
+      <div style={{margin:"0 20px"}} key={index}>
           <img className="benefitImage" alt="" src={benefit.imageUrl} />
       </div>
   ));

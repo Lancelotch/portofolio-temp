@@ -14,6 +14,7 @@ import {
   clearError
 } from '../../store/actions/authentication'
 import history from "../../routers/history"
+import { rulesEmail } from '../../pages/Register/registerContainer';
 const FormItem = Form.Item
 
 class Login extends Component {
@@ -79,15 +80,7 @@ class Login extends Component {
           <div className='login-content'>
             <Form onSubmit={this.handleSubmit} className='login-form'>
               <FormItem className='login-form__input-text'>
-                {getFieldDecorator('email', {
-                  rules: [
-                    {
-                      type: 'email',
-                      required: true,
-                      message: 'Please input your email!'
-                    }
-                  ]
-                })(
+                {getFieldDecorator('email', rulesEmail())(
                   <Input
                     size={'large'}
                     onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
@@ -106,7 +99,7 @@ class Login extends Component {
                   rules: [
                     {
                       required: true,
-                      message: 'Please input your password!'
+                      message: "Password harus diisi"
                     }
                   ]
                 })(

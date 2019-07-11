@@ -22,7 +22,9 @@ const PopularProducts = props => {
     <div>
       <h2 style={{
         marginLeft: 48,
-        fontSize: 30
+        fontSize: 30,
+        marginTop: 64,
+        marginBottom: 0
       }}>
         {strings.most_searched}
       </h2>
@@ -30,8 +32,7 @@ const PopularProducts = props => {
         type="flex"
         justify="center"
         style={{
-          marginTop: 24,
-          marginBottom: 24,
+          marginBottom: 48,
         }}>
         {data.map((product, index) => {
           if (props.maxProductCount && counter <props.maxProductCount) {
@@ -48,7 +49,7 @@ const PopularProducts = props => {
                     rightMargin={13}
                   />) : (
                     <React.Fragment>
-                      <Col style={{ margin: "18px" }} key={index}>
+                      <Col style={{ margin: "0 20px" }} key={index}>
                         <PopularProduct
                           key={product.id}
                           price={product.price}

@@ -34,7 +34,8 @@ class Login extends Component {
       nextPage: "",
       status: null,
       message: "",
-      firstInput: true
+      firstInput: true,
+      heightImageBackground: 0
     };
   }
 
@@ -45,6 +46,21 @@ class Login extends Component {
         nextPage: this.props.location.state.nextPage
       });
     }
+    this.updateHeightImageBackground();
+    window.addEventListener('resize', this.updateHeightImageBackground);
+  }
+
+  updateHeightImageBackground = () => {
+    let heightContent = window.document.getElementById("root").offsetHeight;
+    let heightWindow = window.innerHeight;
+    let height = heightWindow >= heightContent ? heightWindow : heightContent;
+    this.setState({
+      heightImageBackground: height
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateHeightImageBackground);
   }
 
   clearErrorMessage = () => {
@@ -106,17 +122,16 @@ class Login extends Component {
     const { getFieldDecorator } = form;
     return (
       <React.Fragment>
-        <Row>
+        <Row style={{display: "flex"}}>
           <Col md={{ span: 14 }}>
             <div
               className="scrollable-container"
+              style={{height: "100%"}}
               ref={node => {
                 this.container = node;
               }}
             >
-              <Affix target={() => this.container}>
-                <div className="register_Background" />
-              </Affix>
+              <div className="register_Background" style={{height: this.state.heightImageBackground}} />
             </div>
           </Col>
           <Col md={{ span: 10 }}>
@@ -155,7 +170,7 @@ class Login extends Component {
                     rules: [
                       {
                         required: true,
-                        message: "Please input your password!"
+                        message: "Password harus diisi"
                       }
                     ]
                   })(
@@ -193,21 +208,6 @@ class Login extends Component {
                     >
                       <b>{strings.login_forgot_password}</b>
                     </Link>
-                  {/* <a className="login-form__forgot" href="/forget-password">
-                    {strings.login_forgot_password}
-                  </a> */}
-                  {/* <div type="flex" align="end">
-                    <Link
-                      style={{ color: "#F63700" }}
-                      onClick={this.clearErrorMessage}
-                      to={{
-                        pathname: "/forget-password",
-                        state: { nextPage: this.state.nextPage }
-                      }}
-                    >
-                      {strings.login_forgot_password}
-                    </Link>
-                  </div> */}
                   <Button
                     size={"large"}
                     htmlType="submit"
