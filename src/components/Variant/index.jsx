@@ -61,10 +61,11 @@ const VariantImage = props => {
 };
 
 const Variant = props => {
+    const variantItem = props.variantItems.map(variant => variant.image)
     return (
 
         <div className="variant">
-            {props.name == "Warna" || props.name == "Model" ?
+            {variantItem !== undefined ?
                 (<VariantImage {...props} />)
                 :
                 (<VariantText {...props} />)
