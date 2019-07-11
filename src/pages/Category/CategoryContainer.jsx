@@ -33,6 +33,7 @@ class CategoryPage extends Component {
   componentDidMount() {
     const params = this.props.match.params;
     this.getCategoryId(params);
+    window.scrollTo(0, 0);
   }
 
   componentWillReceiveProps(props) {
@@ -124,7 +125,7 @@ class CategoryPage extends Component {
       <b style={{ color: "#FF416C" }}>{categoryId}</b>
     );
     return (
-      <div style={{ marginTop: 35 }}>
+      <div style={{ marginTop: 35, marginLeft: 8 }}>
         <div
           style={{
             display: "flex",
