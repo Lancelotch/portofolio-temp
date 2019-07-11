@@ -3,7 +3,7 @@ import ButtonQuantity from "../ButtonQuantity";
 import "./style.sass";
 import { Row, Col, Card, Icon, Divider } from "antd";
 import NotedLimit from "../../components/NotedLimit";
-import Shipping from "../../components/SelectShipping";
+import SelectShipping from "../../components/SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
@@ -16,48 +16,44 @@ class OrderDetailContainer extends Component {
   }
 
   actionChangeQuantity = quantity => {
-    this.props.onChangeQuantity(quantity);
+    this.props.actionChangeQuantity(quantity);
   };
 
-  actionChangeShipping = shipping => {
-    this.props.onChangeShipping(shipping);
+  actionChangeShipping = (shipping) => {
+    this.props.actionChangeShipping(shipping);
   };
 
   actionChangeNote = note => {
-    this.props.onChangeNote(note);
+    this.props.actionChangeNote(note);
   };
 
   // variants = variants => {
-  //   return variants.map(variant => (
-  //     <div key={variant.variantId} className="detail__product-variant">
+  //   console.log(variants);
+  //   return (
+  //     <div key={variants.id} className="detail__product-variant">
   //       <p>
-  //         {`${variant.variantName} : ${variant.value.name}`}
+  //         {`${variants.name} : ${variants.variantItem.name}`}
   //       </p>
   //     </div>
-  //   ));
+  //   )
   // };
+
   variants = variants => {
     return variants.map((variant, index) => {
-      if (index === variants.length - 1) {
-        return (
-          <span className="detail__variant" key={index}>
-            {variant.value.name}
-          </span>
-        );
-      } else {
-        return (
-          <span className="detail__variant" key={index}>
-            {variant.value.name},
-          </span>
-        );
-      }
+      let variantsss = variant.variantItem.name;
+      let variantss = variantsss.split(',');
+      return (
+        <span className="detail__variant" key={index}>
+          {variant.name}&nbsp;&nbsp;:&nbsp;{variantss}
+        </span>
+      )
     });
   };
 
   render() {
     const { image, name, sku, quantity } = this.props.payloadProductDetail;
-    const totalProductPrice = this.props.quantity * sku.price;
-
+    const { priceProduct } = this.props;
+    const totalProductPrice = this.props.quantity * priceProduct;
     return (
       <Fragment>
         <Row>
@@ -81,17 +77,21 @@ class OrderDetailContainer extends Component {
                       <Col md={12}>{this.variants(sku.variants)}</Col>
                     </Row> */}
                     <Row>
-                      <Col className="detail__variant" span={3}>
-                        Varian
+                      {sku &&
+                        <React.Fragment>
+                          <Col className="detail__variant" md={4}>
+                            Varian
                       </Col>
-                      <Col
-                        className="detail__variant"
-                        style={{ textAlign: "end" }}
-                        span={1}
-                      >
-                        :
-                      </Col>
-                      {this.variants(sku.variants)}
+                          <Col
+                            className="detail__variant"
+                            style={{ textAlign: "left" }}
+                            md={20}
+                          > :
+                            {this.variants(sku)}
+                          </Col>
+                        </React.Fragment>
+                      }
+
                     </Row>
                   </Col>
                   <Col md={6}>
@@ -102,6 +102,7 @@ class OrderDetailContainer extends Component {
                   <Col md={19} offset={5}>
                     <div className="detail__button-quantity">
                       <ButtonQuantity
+                        stock={this.props.stock}
                         quantity={quantity}
                         onChange={this.actionChangeQuantity}
                       />
@@ -128,7 +129,7 @@ class OrderDetailContainer extends Component {
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
-                  <Shipping onChangeShipping={this.actionChangeShipping} />
+                  <SelectShipping shipmentFee={this.props.shipmentFee} onChangeShipping={this.actionChangeShipping} />
                 </Col>
                 <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>

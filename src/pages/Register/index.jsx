@@ -60,8 +60,8 @@ class RegisterPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const {history} = this.props
-    const path = this.state.nextPage
+    const { history } = this.props;
+    const path = this.state.nextPage;
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         await this.props.registerForm(history, values, path);
@@ -74,14 +74,19 @@ class RegisterPage extends Component {
     });
   };
 
-
   handleGoogle = request => {
-    const path = this.state.nextPage
+    const path = this.state.nextPage;
     this.props.loginWithGoogle(path, request);
   };
   handleFacebook = request => {
     const path = this.state.nextPage;
     this.props.loginWithFacebook(request, path);
+  };
+
+  
+  clearErrorMessage = () => {
+    this.props.form.validateFields();
+    this.props.clearError();
   };
 
   render() {
@@ -90,10 +95,8 @@ class RegisterPage extends Component {
       <React.Fragment>
         <Row className="heads">
           <Col md={{ span: 14 }}>
-            <div
-              className="scrollable-container"
-            >
-                <div className="register_Background" />
+            <div className="scrollable-container">
+              <div className="register_Background" />
             </div>
           </Col>
           <Col md={{ span: 10 }}>
@@ -209,9 +212,12 @@ class RegisterPage extends Component {
                           pathname: "/login",
                           state: { nextPage: this.state.nextPage }
                         }}
-                        style={{color:"#F63700"}}
+                        onClick={this.clearErrorMessage}
+                        style={{ color: "#F63700" }}
                       >
-                        <span className="register__form__link-login">{strings.register_login}</span>
+                        <span className="register__form__link-login">
+                          {strings.register_login}
+                        </span>
                       </Link>
                     )}
                   </div>

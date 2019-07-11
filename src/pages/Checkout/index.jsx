@@ -8,7 +8,7 @@ import {
   apiGetWithToken,
   apiPutWithToken
 } from "../../api/services";
-import { PATH_CUSTOMER, PATH_ORDER } from "../../api/path";
+import { PATH_CUSTOMER, PATH_ORDER, PATH_SHIPPING } from "../../api/path";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import FormEditAddress from "../../containers/FormEditAddress";
 import AddressList from "../../containers/AddressList";
@@ -33,7 +33,7 @@ class Checkout extends Component {
       customerAddress: {},
       productId: "",
       priceProduct: 0,
-      shipping: {},
+      shipment: "sea",
       variants: [],
       productSkuId: "",
       quantity: 1,
@@ -42,7 +42,11 @@ class Checkout extends Component {
       textButton: "Lanjut Belanja",
       cities: [],
       subdistricts: [],
-      jneChecked: false
+      jneChecked: false,
+      totalAmount: 0,
+      maxOrder: 0,
+      shipmentFee: {},
+      priceJne: 0
     };
   }
 
@@ -52,8 +56,10 @@ class Checkout extends Component {
     this.getListAddress();
     this.getPayloadProductDetail();
     this.initCustomerAddress();
+    this.getFareExpedisi();
     // this.getSubdistrict()
   }
+
 
   componentWillReceiveProps(props) {
     if (!props.isAddressAvailable) {
@@ -112,40 +118,54 @@ class Checkout extends Component {
   initCustomerAddress = async () => {
     await this.props.addressDefault();
     this.setState(
-      {
-        customerAddress: this.props.dataAddressDefault
-      },
-      () => {
+      { customerAddress: this.props.dataAddressDefault }
+      , () => {
         this.getCities(this.state.customerAddress.provinceId);
         this.getSubdistrict(this.state.customerAddress.cityId);
       }
     );
   };
 
-  variantsRequest = variants => {
-    const variantsRequest = [];
-    variants.forEach(variant => {
-      variantsRequest.push({
-        variantId: variant.variantId,
-        idValue: variant.value.id
+
+  variantsRequest = variantsRequest => {
+    const variants = [];
+    variantsRequest.forEach(variant => {
+      variants.push({
+        id: variant.id,
+        variantItemId: variant.variantItem.id
       });
     });
-    return variantsRequest;
+    return variants;
   };
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
     this.setState({
       isProductDetailAvailable: true,
-      productId: payloadProductDetail.productId,
-      priceProduct: payloadProductDetail.sku.price,
+      productId: payloadProductDetail.id,
+      priceProduct: payloadProductDetail.price,
       payloadProductDetail: { ...payloadProductDetail },
-      variants: this.variantsRequest(payloadProductDetail.sku.variants),
-      productSkuId: payloadProductDetail.sku.id,
+      variants: this.variantsRequest(payloadProductDetail.sku),
       quantity: payloadProductDetail.quantity,
-      note: payloadProductDetail.note
+      note: payloadProductDetail.note,
+      maxOrder: payloadProductDetail.maxOrder,
+      shipmentFee: payloadProductDetail.shipmentFee
     });
   };
+
+
+  getFareExpedisi = async () => {
+    try {
+      const response = await apiPostWithToken(PATH_SHIPPING.JNE, {})
+      console.log(response);
+      this.setState({
+        priceJne: response.data.data.price
+      })
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
 
   getListAddress = async () => {
     try {
@@ -219,8 +239,9 @@ class Checkout extends Component {
     }
   };
 
-  actionChangeShipping = shipping => {
+  actionChangeShipping = (shipping) => {
     this.setState({
+      shipment: shipping.shipment,
       shipping: shipping
     });
   };
@@ -247,57 +268,66 @@ class Checkout extends Component {
     // this.getCities()
   };
 
+
   actionSubmitOrder = async () => {
     const {
       variants,
       customerAddress,
-      shipping,
+      shipment,
       quantity,
       note,
-      productSkuId,
-      productId
+      productId,
     } = this.state;
     const request = {
       customerAddressId: customerAddress.id,
-      indexes: [
+      amount: this.countTotalAmount(),
+      items: [
         {
           productId: productId,
-          shippingInternationalId: shipping.id,
+          shipment: shipment,
           variants: variants,
-          productSkuId: productSkuId,
           quantity: quantity,
           note: note
         }
       ]
     };
+    console.log(request);
+
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
-      if (response.data.data) {
-        const token = response.data.data.token;
-        this.snap.pay(token, {
-          onSuccess: function (result) {
-            history.push("/");
-          },
-          onPending: function (result) {
-            let order = result.order_id
-            console.log(order);
-            history.push({
-              pathname: pageUrlPaymentInfo + order,
-              state: { detail: result }
-            });
-          },
-          onError: function (result) {
-            console.log("error");
-            console.log('eeeeor snap',result);
-          },
-          onClose: function () {
-            console.log(
-              "customer closed the popup without finishing the payment"
-            );
-          }
-        });
+      if (this.state.quantity > this.state.maxOrder) {
+        alert('adasd')
+      } else {
+        if (response.data.data) {
+          const token = response.data.data.token;
+          this.snap.pay(token, {
+            onSuccess: function (result) {
+              history.push("/");
+            },
+            onPending: function (result) {
+              let order = result.order_id
+              console.log('ooooooooooorder', order);
+
+              console.log(order);
+              history.push({
+                pathname: pageUrlPaymentInfo + order,
+                state: { detail: result }
+              });
+            },
+            onError: function (result) {
+              console.log("error");
+              console.log('eeeeor snap', result);
+            },
+            onClose: function () {
+              console.log(
+                "customer closed the popup without finishing the payment"
+              );
+            }
+          });
+        }
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
   };
@@ -306,7 +336,22 @@ class Checkout extends Component {
     this.setState({ jneChecked: !this.state.jneChecked });
   }
 
+  countTotalAmount = () => {
+    const subTotal = this.state.quantity * this.state.priceProduct;
+    let totalShippingPrice = 0;
+    if (this.state.shipment === "air") {
+      totalShippingPrice = this.state.shipmentFee.difference * this.state.quantity;
+    };
+    const totalAmount = Number(this.state.priceJne)
+    const total = subTotal + totalShippingPrice + totalAmount
+    return total;
+  }
+
+
   render() {
+    const total = this.countTotalAmount();
+    console.log(total);
+
     const { isAddressAvailable } = this.props;
     const {
       addresses,
@@ -314,7 +359,7 @@ class Checkout extends Component {
       isProductDetailAvailable,
       customerAddress,
       quantity,
-      shipping,
+      shipment,
       priceProduct,
       jneChecked
     } = this.state;
@@ -374,19 +419,25 @@ class Checkout extends Component {
                 />
                 {isProductDetailAvailable && (
                   <OrderDetailContainer
+                    shipmentFee={this.state.shipmentFee}
+                    stock={this.state.maxOrder}
+                    priceProduct={priceProduct}
                     payloadProductDetail={payloadProductDetail}
-                    onChangeShipping={this.actionChangeShipping}
-                    onChangeQuantity={this.actionChangeQuantity}
+                    actionChangeShipping={this.actionChangeShipping}
+                    actionChangeQuantity={this.actionChangeQuantity}
                     quantity={quantity}
-                    onChangeNote={this.actionChangeNote}
+                    actionChangeNote={this.actionChangeNote}
                   />
                 )}
               </Col>
               <Col md={9}>
                 <OrderSummary
+                  priceJne={this.state.priceJne}
+                  shipmentFee={this.state.shipmentFee}
                   quantity={quantity}
+                  total={total}
                   priceProduct={priceProduct}
-                  viaRoute={shipping}
+                  shipment={shipment}
                   checked={jneChecked}
                   handleChecked={this.handleChecked}
                   onOrder={() =>
@@ -409,6 +460,7 @@ class Checkout extends Component {
       </div>
     );
   }
+
 }
 
 const mapStatetoProps = state => ({

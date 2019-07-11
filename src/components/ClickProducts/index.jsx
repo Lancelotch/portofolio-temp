@@ -101,14 +101,14 @@ class ClickProducts extends Component {
               <div className="card__image-cover">
                 <img
                   alt="example"
-                  src={product.urlImage}
+                  src={product.image.smallUrl}
                   className="card__image"
                 />
               </div>
             }
           >
             <div className="card__info">
-              <p className="card__title">{product.name}</p>
+              <p style={{display:"-webkit-box", WebkitBoxOrient:"vertical", WebkitLineClamp:"2", overflow:"hidden", color:"#000000"}}>{product.name}</p>
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>

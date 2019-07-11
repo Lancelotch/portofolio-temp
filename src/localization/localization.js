@@ -129,8 +129,8 @@ const strings = new LocalizedStrings({
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
     register_name: "Nama lengkap harus diisi",
-    register_email: "Pastikan e-mail kamu valid",
-    register_email_quote: "Pastikan e-mail kamu diisi",
+    register_email: "Email harus valid",
+    register_email_quote: "Email harus diisi",
     register_password: "Password harus diisi",
     register_password_quote: "Password harus 6 digit kombinasi angka dan huruf",
     register_password_placeholder: "Password",
@@ -147,9 +147,10 @@ const strings = new LocalizedStrings({
     china: "China",
     delivery_to: "ke INDONESIA",
     detail_product: "Detail Produk",
+    product_detail_info_stock: 'Mohon Maaf Saat Ini Hanya Tesedia{0}',
 
     //Category
-    category_text_result: "Menampilkan {0} produk untuk \"{1}\"",
+    category_text_result: "Menampilkan {0} produk untuk {1}",
 
     //Payment Info
     payment_info: "Info Pembayaran",

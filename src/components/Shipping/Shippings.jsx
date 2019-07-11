@@ -7,7 +7,7 @@ import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 import PropTypes from "prop-types";
 
 const Shippings = props => {
-  const { shipping } = props;
+  const { shipping, priceShippment } = props;
   return (
     <React.Fragment>
       {shipping && shipping.length > 0 ? (
@@ -35,7 +35,7 @@ const Shippings = props => {
                     {shipping[0].estimation.charAt(0).toUpperCase() +
                       shipping[0].estimation.substring(1)}
                   </p>
-                  <p className="price">{currencyRupiah(shipping[0].price)}</p>
+                  <p className="price">{currencyRupiah(priceShippment.shipmentFee.difference)}</p>
                 </div>
               </Col>
             </Row>

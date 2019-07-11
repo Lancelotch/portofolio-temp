@@ -1,5 +1,14 @@
 @import "../../sass/variable.sass"
 
+.header__categoriess .ant-cascader-menu-item-expand 
+    width: 250px
+
+.header__categoriess .ant-cascader-menu:last-child 
+    width: 250px
+
+.header__categoriess .ant-cascader-menu
+    overflow: hidden !important
+    
 .topHeader
     display: flex
     justify-content: center
@@ -54,10 +63,10 @@
         background: #777777
         transition: width .3s
     &__menu:hover
-        color: #777777
-    &__menu:hover::after
-        width: 100%
-        transition: width .3s
+        color: $primary-color-hover
+    // &__menu:hover::after
+    //     width: 100%
+    //     transition: width .3s
     &__greeting
         padding-top: 12px
         height: 16px
@@ -85,14 +94,14 @@
     &__user-box span
         color: #007E80
         font-size: 14px
-        line-height: 16px
-        padding-top: 12px
+        // line-height: 16px
+        // padding-top: 12px
         cursor: pointer
         margin-left: 5px
         margin-right: 3px
     &__name-icon
+        padding-top: 7px
         color: #999999 !important
-        font-size: 10px
     &__user-box .wrap-header-dropdown .header-ellipsis
         max-width: 90px !important
         white-space: nowrap

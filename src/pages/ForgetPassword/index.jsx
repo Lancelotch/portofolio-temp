@@ -52,7 +52,6 @@ class ForgetPassword extends Component {
   };
 
   handleClose = () => {
-    console.log("close");
     return history.push("/login");
   };
 
@@ -67,22 +66,21 @@ class ForgetPassword extends Component {
     const { getFieldDecorator } = form;
     return (
       <div className="forget-password">
-        <Row
+        <div
           className={
             this.state.isEmailSend
               ? "forget-password__box-forget-alert"
               : "forget-password__box-forget"
           }
         >
-          <Col
+          <div
             style={{
               display: "flex",
               justifyContent: "center"
             }}
           >
             <img src={monggopesen_logo} alt="Monggopesen" />
-          </Col>
-          <Col>
+          </div>
             {this.state.isEmailSend ? (
               <div>
                 <Alert
@@ -97,49 +95,51 @@ class ForgetPassword extends Component {
                 />
               </div>
             ) : (
-              <div>
-                <p className="forget-password__title">Lupa Kata Sandi</p>
-                <p className="forget-password__content">
-                  Masukkan alamat email yang terdaftar, kami akan
-                  <br />
-                  mengirimkan link untuk mengatur ulang kata sandi.
-                </p>
-                <Form onSubmit={this.handleSubmit}>
-                  {this.state.emailNotRegister}
-                  <FormItem>
-                    {getFieldDecorator("email", rulesEmail())(
-                      <Input
-                        placeholder="Email"
-                        onChange={this.handleEmailChange}
+              <div className="forget-password__box-forget-content">
+                <div>
+                  <p className="forget-password__title">Lupa Kata Sandi</p>
+                  <p className="forget-password__content">
+                    Masukkan alamat email yang terdaftar, kami akan
+                    <br />
+                    mengirimkan link untuk mengatur ulang kata sandi.
+                  </p>
+                  <Form onSubmit={this.handleSubmit}>
+                    {this.state.emailNotRegister}
+                    <FormItem>
+                      {getFieldDecorator("email", rulesEmail())(
+                        <Input
+                          placeholder="Email"
+                          onChange={this.handleEmailChange}
+                          className={
+                            this.state.showMessage
+                              ? "forget-password__input-email-error"
+                              : "forget-password__input-email"
+                          }
+                          name="email"
+                          onKeyUp={this.handleInvalidEmail}
+                        />
+                      )}
+                      {this.state.showMessage ? (
+                        <div className="forget-password__error-message">
+                          {this.state.errorMessage}
+                        </div>
+                      ) : null}
+                    </FormItem>
+                    <FormItem>
+                      <Button
+                        htmlType="submit"
+                        disabled={!isEnabled}
                         className={
-                          this.state.showMessage
-                            ? "forget-password__input-email-error"
-                            : "forget-password__input-email"
+                          isEnabled
+                            ? "forget-password__button-submit"
+                            : "forget-password__button-submit-disabled"
                         }
-                        name="email"
-                        onKeyUp={this.handleInvalidEmail}
-                      />
-                    )}
-                    {this.state.showMessage ? (
-                      <div className="forget-password__error-message">
-                        {this.state.errorMessage}
-                      </div>
-                    ) : null}
-                  </FormItem>
-                  <FormItem>
-                    <Button
-                      htmlType="submit"
-                      disabled={!isEnabled}
-                      className={
-                        isEnabled
-                          ? "forget-password__button-submit"
-                          : "forget-password__button-submit-disabled"
-                      }
-                    >
-                      Kirim Link
-                    </Button>
-                  </FormItem>
-                </Form>
+                      >
+                        Kirim Link
+                      </Button>
+                    </FormItem>
+                  </Form>
+                </div>
                 <div className="forget-password__content-bottom">
                   <span>
                     Silahkan{" "}
@@ -169,9 +169,8 @@ class ForgetPassword extends Component {
                 </div>
               </div>
             )}
-          </Col>
-          <Col />
-        </Row>
+          <div />
+        </div>
       </div>
     );
   }

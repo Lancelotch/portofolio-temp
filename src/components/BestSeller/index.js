@@ -6,7 +6,7 @@ import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 
 const BestSeller = props => {
-  const {  name, urlImage, price,id } = props.product;
+  const {  name, image, price,id } = props.product;
   const priceRp = currencyRupiah(price);
   return (
     <div className="best-card">
@@ -17,12 +17,12 @@ const BestSeller = props => {
             className="best__card"
             cover={
               <div className="best__image-cover">
-                <img alt="example" src={urlImage} className="best__image" />
+                <img alt="example" src={image.smallUrl} className="best__image" />
               </div>
             }
           >
             <div className="best__info">
-                <p className="best__title">{name}</p>
+                <p style={{display:"-webkit-box", WebkitBoxOrient:"vertical", WebkitLineClamp:"2", overflow:"hidden", color:"#000000"}}>{name}</p>
               <p className="best__price">{priceRp} </p>
             </div>
           </Card>

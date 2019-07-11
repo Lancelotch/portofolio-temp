@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PATH_ORDER } from "../../api/path";
+import { PATH_ORDER, PATH_INVOICE } from "../../api/path";
 import { apiGetWithToken } from "../../api/services";
 import TableInvoicePayment from '../../components/InvoiceDetailDashboard/TableInvoicePayment';
 import ReactToPrint from 'react-to-print';
@@ -17,18 +17,9 @@ class ViewInvoice extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productorder: {},
-            payment: {},
-            shipping: {},
-            bank: {},
-            address: {},
-            indexes: [],
+            order: {},
             id: "",
-            endDatePay: 0,
-            invoiceNumber: "",
-            estimateShippingDate: "",
-            orderDate: 0,
-            customer: ""
+            invoiceNumber: ""
         }
     }
 
@@ -40,20 +31,13 @@ class ViewInvoice extends Component {
     viewInvoiceDetailsDashboard = async () => {
         const invoiceId = this.props.match.params.invoiceId;
         try {
-            const response = await apiGetWithToken(PATH_ORDER.ORDER_BY_ID + invoiceId);
+            const response = await apiGetWithToken(PATH_INVOICE.INVOICE_DRAFT_BY_ID + invoiceId);
+            console.log(response);
+
             const itemInvoiceDashboard = {
                 id: response.data.data.id,
+                order: response.data.data.order,
                 invoiceNumber: response.data.data.invoiceNumber,
-                estimateShippingDate: response.data.data.estimateShippingDate,
-                bank: response.data.data.bank,
-                endDatePay: response.data.data.endDatePay,
-                shipping: response.data.data.shipping,
-                payment: response.data.data.payment,
-                productorder: response.data.data,
-                address: response.data.data.address,
-                indexes: response.data.data.indexes,
-                orderDate: response.data.data.orderDate,
-                customer: response.data.data.customer
             };
             this.setState({
                 ...itemInvoiceDashboard
@@ -73,19 +57,17 @@ class ViewInvoice extends Component {
     };
 
     render() {
-        const filterNote = this.state.indexes.map(index => index.note);
-        const filterTotalAmount = this.state.indexes.map(index => index.totalAmount);
+        const filterNote = this.state.order.orderItems && this.state.order.orderItems.map(items => items.note);
         return (
             <React.Fragment>
                 <div ref={el => (this.componentRef = el)}>
                     <div className="container viewInvoice">
                         <div className="viewInvoice__header">
                             <div>
-                                <img
-                                    style={{
-                                        maxWidth: 250,
-                                        maxHeight: 50
-                                    }}
+                                <img style={{
+                                    maxWidth: 250,
+                                    maxHeight: 50
+                                }}
                                     src={logoMonggoPesen}
                                     alt="login__logo"
                                 />
@@ -98,16 +80,15 @@ class ViewInvoice extends Component {
 
                         </div>
                         <h2 className="viewInvoice__heading">Bukti Pembayaran</h2>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                marginBottom: 15
-                            }
-                            }>
-
-                            <p>Hai {this.state.customer.name}, <br />
-                                {strings.text_thanks_invoice}.</p>
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: 15
+                        }}>
+                        {this.state.order.customer &&
+                            <p>Hai { this.state.order.customer.name}
+                        , <br />
+                                {strings.text_thanks_invoice}.</p>}
                             <ReactToPrint
                                 trigger={this.renderButton}
                                 content={() => this.componentRef}
@@ -117,28 +98,29 @@ class ViewInvoice extends Component {
                                 closeAfterPrint={false}
                             />
                         </div>
-                        <TableInvoiceDetailDashboard
-                            customerName={this.state.customer}
-                            note={filterNote}
-                            address={this.state.address}
-                            orderDate={this.state.orderDate}
-                            invoice={this.state.invoiceNumber}
-                        />
-                        {this.state.indexes.map((index, i) =>
+
+                        {this.state.order.customer &&
+                            <TableInvoiceDetailDashboard
+                                customerOrder={this.state.order.customer}
+                                note={filterNote}
+                                customerOrderAddress={this.state.order.orderAddress}
+                                orderDate={this.state.order.orderActivityDate}
+                                invoice={this.state.invoiceNumber}
+                            />
+                        }
+                        {this.state.order.courier && this.state.order.orderItems && this.state.order.orderItems.map((items, i) =>
                             <TableInvoicePayment
                                 key={i}
-                                productName={index.productName}
-                                variants={index.variants}
-                                productQuantity={index.productQuantity}
-                                totalAmount={index.totalAmount}
-                                shipping={this.state.shipping}
+                                productSnapshot={items.productSnapshot}
+                                shipment={items.shipment} 
+                                courier={this.state.order.courier}     
                             />
                         )}
                         <div className="viewInvoice__contentPayment">
                             <div className="totalInvoicePayment" style={{ backgroundImage: "url(" + Background + ")" }}>
                                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                                     <h3 style={{ display: "unset" }}>TOTAL </h3>
-                                    <p className="totalInvoicePayment__total">{currencyRupiah(filterTotalAmount)}</p>
+                                    <p className="totalInvoicePayment__total">{currencyRupiah(this.state.order.amount)}</p>
                                 </div>
                             </div>
                         </div>

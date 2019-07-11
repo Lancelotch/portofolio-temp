@@ -3,7 +3,6 @@ import { Row, Col, Icon, Menu, Dropdown, Affix } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
-// import Categories from "components/Categories"
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -36,21 +35,10 @@ class Header extends Component {
       display: "",
       top: 0,
       marginTopDropdown: 0
-      // isHover: false
     };
   }
 
-  // handleHover = () => {
-  //   this.setState(prevState => ({
-  //     isHover: !prevState.isHover
-  //   }))
-  // }
-
-
-
-
   componentDidMount() {
-    // this.getCustomerDetail()
     this.getAllCategory()
     window.addEventListener("scroll", this.listenScrollEvent);
   }
@@ -126,7 +114,7 @@ class Header extends Component {
       });
       this.render();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
@@ -144,26 +132,15 @@ class Header extends Component {
     })
   }
 
-  // showCustomerName = () => {
-  //   const name = this.props.customerName;
-  //   let resultName = name;
-  //   if (name) {
-  //     if (name.length > 10) {
-  //       resultName = name.substr(0, 10) + "...";
-  //     }
-  //   }
-  //   return resultName;
-  // };
-
   renderAuthList = () => {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.userMenu()} trigger={["click"]}>
-        {/* <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}> */}
-          {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
-          <div className="header-ellipsis">
-          <span className="header-user-name">{this.props.customerName}<Icon className="header__name-icon" type="down"/></span>
+          <div style={{display:"flex"}}>
+            <div className="header-ellipsis">
+              <span>{this.props.customerName}</span>
+            </div>
+            <Icon className="header__name-icon" type="down"/>
           </div>
-        {/* </li> */}
       </Dropdown>
     );
   };
@@ -171,9 +148,10 @@ class Header extends Component {
   renderNotAuthList = () => {
     return (
         <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
-            <span>{strings.log_in}<Icon className="header__name-icon" type="down"/></span>
-          {/* </li> */}
+          <div style={{display:"flex"}}>
+            <span>{strings.log_in}</span>
+            <Icon className="header__name-icon" type="down"/>
+          </div>
         </Dropdown>
       );
   };
@@ -213,7 +191,6 @@ class Header extends Component {
     isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
-    // const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
     const greeting = (
       <div className="header__greeting">
@@ -247,7 +224,6 @@ class Header extends Component {
           <Col md={15} className="header__search-box">
             <form action="/search">
               <Search
-                // placeholder={strings.search_place_holder}
                 style={{
                   height: 35,
                   fontSize: 17,
@@ -305,7 +281,6 @@ class Header extends Component {
               <div className="wrap-header-dropdown">
               {this.showUserDropDown(isAuthenticated)}
               </div>
-              {/* <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon> */}
             </div>
           </Col>
         </Row>
