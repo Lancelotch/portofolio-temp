@@ -5,6 +5,7 @@ import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
+import { rulesEmail } from "../Register/registerContainer";
 
 class ForgetPassword extends Component {
   constructor(props) {
@@ -17,6 +18,17 @@ class ForgetPassword extends Component {
       showMessage: false
     };
   }
+
+  submitForgotPassword = param => {
+    if (param.message === "OK") {
+      this.setState({ isEmailSend: true });
+    } else {
+      this.setState({
+        errorMessage: param.data.message,
+        showMessage: true
+      });
+    }
+  };
 
   handleEmailChange = e => {
     this.setState({ email: e.target.value });
@@ -31,17 +43,9 @@ class ForgetPassword extends Component {
           const response = await authentication.forgotPassword({
             email: values.email
           });
-          if (response.message === "OK") {
-            this.setState({ isEmailSend: true });
-          } else {
-            this.setState({
-              errorMessage: response.data.message,
-              showMessage: true
-            });
-          }
-          console.log(response);
+          this.submitForgotPassword(response);
         } catch (error) {
-          console.log(this.state.errorMessage);
+          console.log(error);
         }
       }
     });
@@ -62,22 +66,21 @@ class ForgetPassword extends Component {
     const { getFieldDecorator } = form;
     return (
       <div className="forget-password">
-        <Row
+        <div
           className={
             this.state.isEmailSend
               ? "forget-password__box-forget-alert"
               : "forget-password__box-forget"
           }
         >
-          <Col
+          <div
             style={{
               display: "flex",
               justifyContent: "center"
             }}
           >
             <img src={monggopesen_logo} alt="Monggopesen" />
-          </Col>
-          <Col>
+          </div>
             {this.state.isEmailSend ? (
               <div>
                 <Alert
@@ -92,81 +95,82 @@ class ForgetPassword extends Component {
                 />
               </div>
             ) : (
-              <div>
-                <p className="forget-password__title">Lupa Kata Sandi</p>
-                <p className="forget-password__content">
-                  Masukkan alamat email yang terdaftar, kami akan
-                  <br />
-                  mengirimkan link untuk mengatur ulang kata sandi.
-                </p>
-                <Form onSubmit={this.handleSubmit}>
-                  {this.state.emailNotRegister}
-                  <FormItem>
-                    {getFieldDecorator("email")(
-                      <Input
-                        placeholder="Email"
-                        onChange={this.handleEmailChange}
+              <div className="forget-password__box-forget-content">
+                <div>
+                  <p className="forget-password__title">Lupa Kata Sandi</p>
+                  <p className="forget-password__content">
+                    Masukkan alamat email yang terdaftar, kami akan
+                    <br />
+                    mengirimkan link untuk mengatur ulang kata sandi.
+                  </p>
+                  <Form onSubmit={this.handleSubmit}>
+                    {this.state.emailNotRegister}
+                    <FormItem>
+                      {getFieldDecorator("email", rulesEmail())(
+                        <Input
+                          placeholder="Email"
+                          onChange={this.handleEmailChange}
+                          className={
+                            this.state.showMessage
+                              ? "forget-password__input-email-error"
+                              : "forget-password__input-email"
+                          }
+                          name="email"
+                          onKeyUp={this.handleInvalidEmail}
+                        />
+                      )}
+                      {this.state.showMessage ? (
+                        <div className="forget-password__error-message">
+                          {this.state.errorMessage}
+                        </div>
+                      ) : null}
+                    </FormItem>
+                    <FormItem>
+                      <Button
+                        htmlType="submit"
+                        disabled={!isEnabled}
                         className={
-                          this.state.showMessage
-                            ? "forget-password__input-email-error"
-                            : "forget-password__input-email"
+                          isEnabled
+                            ? "forget-password__button-submit"
+                            : "forget-password__button-submit-disabled"
                         }
-                        name="email"
-                        onKeyUp={this.handleInvalidEmail}
-                      />
-                    )}
-                    {this.state.showMessage ? (
-                      <div className="forget-password__error-message">
-                        {this.state.errorMessage}
-                      </div>
-                    ) : null}
-                  </FormItem>
-                  <FormItem>
-                    <Button
-                      htmlType="submit"
-                      disabled={!isEnabled}
-                      className={
-                        isEnabled
-                          ? "forget-password__button-submit"
-                          : "forget-password__button-submit-disabled"
-                      }
-                    >
-                      Kirim Link
-                    </Button>
-                  </FormItem>
-                </Form>
+                      >
+                        Kirim Link
+                      </Button>
+                    </FormItem>
+                  </Form>
+                </div>
                 <div className="forget-password__content-bottom">
-                  Silahkan{" "}
-                  <span className="forget-password__link-bottom">
+                  <span>
+                    Silahkan{" "}
                     <Link
+                      className="forget-password__link-bottom"
                       to={{
                         pathname: "/login"
                       }}
                       style={{ color: "#F63700" }}
                     >
                       Login
-                    </Link>
-                  </span>{" "}
-                  jika kamu sudah punya akun,
-                  <br />
-                  atau{" "}
-                  <span className="forget-password__link-bottom">
+                    </Link>{" "}
+                    jika kamu sudah punya akun,
+                    <br />
+                    atau{" "}
                     <Link
+                      className="forget-password__link-bottom"
                       to={{
                         pathname: "/register"
                       }}
                       style={{ color: "#F63700" }}
                     >
                       Register
-                    </Link>
-                  </span>{" "}
-                  untuk mulai belanja barang-barang kece.
+                    </Link>{" "}
+                    untuk mulai belanja barang-barang kece.
+                  </span>
                 </div>
               </div>
             )}
-          </Col>
-          <Col />
-        </Row>
+          <div />
+        </div>
       </div>
     );
   }

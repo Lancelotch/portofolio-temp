@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const CategoryMenuCascader = props => {
 
-    const { allCategory, match, marginTop } = props
+    const { allCategory, match, marginTopDropdown } = props
 
     // const build_menu = category => {
     //     let itemMenu = {
@@ -42,7 +42,7 @@ const CategoryMenuCascader = props => {
                     label: <span> <Link
                         key={child.id}
                         className="default"
-                        to={`${url}/${idCategory}/${subCategoryId}/${child.id}`}>
+                        to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
                         {child.name}
                     </Link></span>
                 }))) || []
@@ -54,10 +54,10 @@ const CategoryMenuCascader = props => {
             children &&
             children.map(child => ({
                 value: child.id,
-                label: <span><Link key={child.id} className="default" to={`${url}/${idCategory}/${child.id}`}>
+                label: <span><Link key={child.id} className="default" to={`${url}/${idCategory}/${child.idName}`}>
                     {child.name}
                 </Link></span>,
-                children: createSubChildren(child.categorySubChildResponses, child.id, idCategory)
+                children: createSubChildren(child.categorySubChildResponses, child.idName, idCategory)
             }))
         );
     };
@@ -66,15 +66,15 @@ const CategoryMenuCascader = props => {
     // const options = allCategory.map(build_menu);
     const options = allCategory.map(category => ({
         value: category.id,
-        label: <span> <Link key={category.id} className="default" to={`${url}/${category.id}`}>{category.name}</Link></span>,
-        children: createChildren(category.categorySubResponses, category.id)
+        label: <span> <Link key={category.id} className="default" to={`${url}/${category.idName}`}>{category.name}</Link></span>,
+        children: createChildren(category.categorySubResponses, category.idName)
     }));
 
     return (
         <React.Fragment>
             <Row>
                 <Col md={24}>
-                    <Cascader key={"id"} popupClassName={marginTop == 120 ? "cascader-popup header__categoriess" : "header__categoriess cascader-popup-scroll"} options={options} expandTrigger={"hover"}>
+                    <Cascader key={"id"} popupClassName={marginTopDropdown == 120 ? "cascader-popup header__categoriess" : "cascader-popup-scroll header__categoriess"} options={options} expandTrigger={"hover"}>
                         <a className="ant-dropdown-link" href="/#">
                             <span className="category">Kategori</span>
                             <Icon style={{ color: "#999999" }} type="down" />

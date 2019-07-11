@@ -157,7 +157,7 @@ class CategoryPage extends Component {
                   <Products
                   key={index}
                   id={product.id} 
-                  defaultImage={product.urlImage}
+                  defaultImage={product.image.mediumUrl}
                   information={product.name}
                   price={product.price}
                    />

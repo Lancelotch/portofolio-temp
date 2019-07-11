@@ -169,7 +169,7 @@ class Login extends Component {
                     rules: [
                       {
                         required: true,
-                        message: "Please input your password!"
+                        message: "Password harus diisi"
                       }
                     ]
                   })(
@@ -207,21 +207,6 @@ class Login extends Component {
                     >
                       <b>{strings.login_forgot_password}</b>
                     </Link>
-                  {/* <a className="login-form__forgot" href="/forget-password">
-                    {strings.login_forgot_password}
-                  </a> */}
-                  {/* <div type="flex" align="end">
-                    <Link
-                      style={{ color: "#F63700" }}
-                      onClick={this.clearErrorMessage}
-                      to={{
-                        pathname: "/forget-password",
-                        state: { nextPage: this.state.nextPage }
-                      }}
-                    >
-                      {strings.login_forgot_password}
-                    </Link>
-                  </div> */}
                   <Button
                     size={"large"}
                     htmlType="submit"

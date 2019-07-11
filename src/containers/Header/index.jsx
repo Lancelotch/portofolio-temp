@@ -3,7 +3,6 @@ import { Row, Col, Icon, Menu, Dropdown, Affix } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
-// import Categories from "components/Categories"
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -35,16 +34,9 @@ class Header extends Component {
       allCategory: [],
       display: "",
       top: 0,
-      topDropdown: 0
-      // isHover: false
+      marginTopDropdown: 0
     };
   }
-
-  // handleHover = () => {
-  //   this.setState(prevState => ({
-  //     isHover: !prevState.isHover
-  //   }))
-  // }
 
   componentDidMount() {
     this.getAllCategory()
@@ -63,9 +55,9 @@ class Header extends Component {
     console.log("isShow", isTopHeaderShow);
     
     if (!isTopHeaderShow){
-      this.setState({ topDropdown: 70 })
+      this.setState({ marginTopDropdown: 70 })
     } else {
-      this.setState({ topDropdown: 120 });
+      this.setState({ marginTopDropdown: 120 });
     }
     
   }
@@ -122,7 +114,7 @@ class Header extends Component {
       });
       this.render();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
@@ -140,36 +132,26 @@ class Header extends Component {
     })
   }
 
-  // showCustomerName = () => {
-  //   const name = this.props.customerName;
-  //   let resultName = name;
-  //   if (name) {
-  //     if (name.length > 10) {
-  //       resultName = name.substr(0, 10) + "...";
-  //     }
-  //   }
-  //   return resultName;
-  // };
-
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={this.userMenu()} trigger={["click"]}>
-        {/* <li className="ant-dropdown-link" href="#" style={{ display: "unset" }}> */}
-          {/* <span>{this.showCustomerName()}</span><Icon style={{ color: "#999999" }} type="down"></Icon> */}
-          <div className="header-ellipsis">
-          <span className="header-user-name">{this.props.customerName}<Icon className="header__name-icon" type="down"/></span>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.userMenu()} trigger={["click"]}>
+          <div style={{display:"flex"}}>
+            <div className="header-ellipsis">
+              <span>{this.props.customerName}</span>
+            </div>
+            <Icon className="header__name-icon" type="down"/>
           </div>
-        {/* </li> */}
       </Dropdown>
     );
   };
 
   renderNotAuthList = () => {
     return (
-        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.topDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          {/* <li className="ant-dropdown-link-login" href="#" style={{ display: "unset" }}> */}
-            <span>{strings.log_in}<Icon className="header__name-icon" type="down"/></span>
-          {/* </li> */}
+        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
+          <div style={{display:"flex"}}>
+            <span>{strings.log_in}</span>
+            <Icon className="header__name-icon" type="down"/>
+          </div>
         </Dropdown>
       );
   };
@@ -209,7 +191,6 @@ class Header extends Component {
     isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
 
   render() {
-    // const { keyword } = this.state;
     const { isAuthenticated, match } = this.props;
     const greeting = (
       <div className="header__greeting">
@@ -243,7 +224,6 @@ class Header extends Component {
           <Col md={15} className="header__search-box">
             <form action="/search">
               <Search
-                // placeholder={strings.search_place_holder}
                 style={{
                   height: 35,
                   fontSize: 17,
@@ -251,7 +231,6 @@ class Header extends Component {
                 }}
                 id="filter"
                 name="q"
-                placeholder="Cari Produk"
                 defaultValue={this.getParams()}
                 onSearch={this.getValue}
                 onChange={this.handleInputSearchChange.bind(this)}
@@ -271,7 +250,7 @@ class Header extends Component {
           </Col>
           <Col md={2}>
             <div className="header__categories" key={""}>
-              <CategoryMenuCascader key={"id"} match={match} marginTop={this.state.topDropdown} allCategory={this.state.allCategory} />
+              <CategoryMenuCascader key={"id"} match={match} marginTopDropdown={this.state.marginTopDropdown} allCategory={this.state.allCategory} />
             </div>
           </Col>
           <Col md={14}>
@@ -302,7 +281,6 @@ class Header extends Component {
               <div className="wrap-header-dropdown">
               {this.showUserDropDown(isAuthenticated)}
               </div>
-              {/* <Icon style={{ color: "#999999", paddingTop: "6px", fontSize: "12px" }} type="down"></Icon> */}
             </div>
           </Col>
         </Row>
