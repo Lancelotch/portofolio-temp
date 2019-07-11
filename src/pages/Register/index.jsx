@@ -111,7 +111,7 @@ class RegisterPage extends Component {
         <Row style={{ display: "flex" }}>
           <Col md={{ span: 14 }}>
             <div className="scrollable-container">
-              <div className="register_Background" />
+              <div className="register_Background" style={{height: this.state.heightImageBackground}} />
             </div>
           </Col>
           <Col md={{ span: 10 }}>
