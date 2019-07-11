@@ -29,6 +29,7 @@ class ProductPage extends Component {
 
   componentDidMount() {
     this.getProductList();
+    window.scrollTo(0, 0);
   }
 
   getProductList = async () => {
@@ -111,7 +112,7 @@ class ProductPage extends Component {
             </div>
           }
         >
-          <div style={{ marginTop: 35 }}>
+          <div style={{ marginTop: 35, marginLeft: 8 }}>
             <Suspense fallback={
               <SkeletonCustom
                 count={20}
