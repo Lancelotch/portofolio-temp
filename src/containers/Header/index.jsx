@@ -174,10 +174,10 @@ class Header extends Component {
     );
   };
 
-   isUrlIsCategory = value => {
-    if (value === history.push(`/search?q=${value}`)) return value;
-    else return history.push(`/search?q=${value}`);
-};
+  isUrlIsCategory = value => {
+    if (value === window.location.reload(history.push(`/search?q=${value}`))) return value;
+    else return window.location.reload(history.push(`/search?q=${value}`));
+  };
 
   getValue = (value) => {
     return value ? this.isUrlIsCategory(value) : false
@@ -259,7 +259,7 @@ class Header extends Component {
               defaultValue={this.getParams()}
               onSearch={this.getValue}
               onChange={this.handleInputSearchChange.bind(this)}
-              className="header__search"/>
+              className="header__search" />
           </Col>
           <Col md={4}>
             <div>
