@@ -246,8 +246,6 @@ class ProductDetail extends Component {
     console.log(this.state.variants);
 
     return (
-      <React.Fragment>
-
         <React.Fragment>
           <div className="container productDetail">
             <Row>
@@ -299,21 +297,20 @@ class ProductDetail extends Component {
             </Row>
             <Row>
               <Col md={24} style={{ marginTop: 50 }}>
+              {this.state.isProductAvailable && 
                 <Card className="product-description">
                   <h2>{strings.detail_product}</h2>
-                  {this.state.isProductAvailable && (
+                
                     <ProductAttibutes
                       product={this.state.information}
-                    />)}
-                </Card>
+                    />
+                </Card>}
               </Col>
             </Row>
           </div>
           {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
           {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}
         </React.Fragment>
-        )}
-      </React.Fragment>
     );
   }
 }

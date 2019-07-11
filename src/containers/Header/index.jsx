@@ -235,7 +235,7 @@ class Header extends Component {
                 width: 559
               }}
               id="filter"
-              enterButton
+             // enterButton
               name="q"
               defaultValue={this.getParams()}
               onSearch={this.getValue}

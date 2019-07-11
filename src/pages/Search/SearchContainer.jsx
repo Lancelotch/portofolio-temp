@@ -95,6 +95,8 @@ class SearchPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
+    console.log('',this.state.productList);
+    
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
