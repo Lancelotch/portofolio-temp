@@ -42,6 +42,7 @@ class SliderHome extends Component {
     const settings = {
       dots: false,
       speed: 2000,
+      autoplaySpeed: 7000,
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1

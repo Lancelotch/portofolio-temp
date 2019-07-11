@@ -16,6 +16,28 @@ const OrderStatusStep = (props) => {
     actionShowOrderListWaiting,
     labelTabDetails,
     tabsFinish } = props;
+    const marginTopBackButton = 0;
+
+   
+      if (window.scrollY > 100) {
+   
+     console.log("atasss");
+     
+      } else {
+        console.log("bawah");
+ 
+      }
+    
+    // fixPositionDropdown = isTopHeaderShow => {
+    //   console.log("isShow", isTopHeaderShow);
+      
+    //   if (!isTopHeaderShow){
+    //     this.setState({ marginTopBackButton: 70 })
+    //   } else {
+    //     this.setState({ marginTopBackButton: 120 });
+    //   }
+  
+    // }
   return (
     <React.Fragment>
       <div

@@ -15,60 +15,17 @@ class ButtonQuantityContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: this.props.quantity,
       title: this.props.title,
       text: ""
     };
   }
 
-  checkStockAvailability = (stock) => {
-    if (this.state.quantity === this.props.stock) {
-      let notif = notification["info"]({
-        message: categoryTextResult(this.props.stock),
-        description:
-          "This is the content of the notification. This is the content of the notification. This is the content of the notification."
-      });
-      this.setState(prevState => ({
-        quantity: stock,
-        text: notif
-      })
-      )
-    }
-  }
-
   incrementItem = () => {
-    this.setState(prevState => ({
-      quantity: prevState.quantity + 1
-    }), () => {
-      this.props.onChange(this.state.quantity, true)
-      this.checkStockAvailability(this.props.stock);
-    });
-
+    this.props.actionUpdateQuantity(this.props.quantity + 1)   
   };
 
   decrementItem = () => {
-    if (this.props.quantity > this.props.stock) {
-      this.setState(prevState => ({
-        quantity: this.props.stock
-      }), () => {
-        this.props.onChange(this.state.quantity, false);
-      });
-    }
-    else {
-      this.setState(prevState => ({
-        quantity: prevState.quantity - 1
-      }), () => {
-        this.props.onChange(this.state.quantity, false);
-      });
-    }
-    // if (this.state.quantity > 1) {
-    //   this.setState(prevState => ({
-    //     quantity: prevState.quantity - 1
-    //   }), () => {
-    //     this.props.onChange(this.state.quantity, false);
-    //   });
-    //   this.checkStockAvailability(this.props.stock);
-    // }
+    this.props.actionUpdateQuantity(this.props.quantity - 1)   
   };
 
   checkTypingQuantity = (event) => (
@@ -94,6 +51,27 @@ class ButtonQuantityContainer extends Component {
   //   })
   // };
 
+  onChangeQuantityBlur = event => {
+    if(event.target.value < 1) {
+      this.props.actionUpdateQuantity(1);
+    }
+  }
+
+  onChangeQuantity = event => {
+    let stock = this.props.stock
+    let checkCount = 1
+    if (event.target.value > stock) {
+      checkCount = stock      
+      this.props.actionUpdateQuantity(event.target.value)
+      setTimeout(() => {
+        this.props.actionUpdateQuantity(stock)
+      }, 300)
+    } else {
+      checkCount = event.target.value
+      this.props.actionUpdateQuantity(checkCount)
+    }
+  };
+
 
 
   render() {
@@ -106,7 +84,7 @@ class ButtonQuantityContainer extends Component {
           <div>
             <button
               className="button_quantity"
-              onClick={this.props.decrementItem}
+              onClick={this.decrementItem}
               disabled={disabled}
             >
               <Icon className="icon__quantity" type="minus" />
@@ -120,11 +98,12 @@ class ButtonQuantityContainer extends Component {
               max={10}
               type="number"
               value={this.props.quantity}
-              onChange={(e) => this.props.onChangeQuantity(e)}
+              onChange={(e) => this.onChangeQuantity(e)}
+              onBlur={(e) => this.onChangeQuantityBlur(e)}
             />
           </div>
           <div>
-            <button className="button_quantity" onClick={this.props.incrementItem} disabled={Buttondisabled}>
+            <button className="button_quantity" onClick={this.incrementItem} disabled={Buttondisabled}>
               <Icon className="icon__quantity" type="plus" />
             </button>
           </div>
