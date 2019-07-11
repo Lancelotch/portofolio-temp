@@ -247,7 +247,7 @@ class Checkout extends Component {
     });
   };
 
-  actionChangeQuantity = quantity => {
+  actionUpdateQuantity = quantity => {
     this.setState({
       quantity: quantity
     });
@@ -271,6 +271,7 @@ class Checkout extends Component {
 
 
   actionSubmitOrder = async () => {
+    this.setState({ isLoading: true })
     const {
       variants,
       customerAddress,
@@ -299,7 +300,7 @@ class Checkout extends Component {
         alert('adasd')
         this.setState({ isLoading: false })
       } else {
-        this.setState({ isLoading: true })
+       
         if (response.data.data) {
           setTimeout(() => {
             this.setState({ isLoading: false })
@@ -433,7 +434,7 @@ class Checkout extends Component {
                       priceProduct={priceProduct}
                       payloadProductDetail={payloadProductDetail}
                       actionChangeShipping={this.actionChangeShipping}
-                      actionChangeQuantity={this.actionChangeQuantity}
+                      actionUpdateQuantity={this.actionUpdateQuantity}
                       quantity={quantity}
                       actionChangeNote={this.actionChangeNote}
                     />

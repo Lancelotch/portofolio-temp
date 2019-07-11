@@ -77,57 +77,6 @@ class ProductDetail extends Component {
     }
   }
 
-  incrementItem = () => {
-    this.setState(prevState => ({
-      quantity: Number(prevState.quantity) + 1
-    }));
-
-  };
-
-  decrementItem = () => {
-    this.setState(prevState => ({
-      quantity: Number(prevState.quantity) - 1
-    }));
-
-    // if (this.state.quantity > 1) {
-    //   this.setState(prevState => ({
-    //     quantity: prevState.quantity - 1
-    //   }), () => {
-    //     this.props.onChange(this.state.quantity, false);
-    //   });
-    //   this.checkStockAvailability(this.state.information.maxOrder);
-    // }
-  };
-
-  onChangeQuantity = event => {
-    let stock = this.state.information.maxOrder
-    console.log("event", event.target.value)
-    console.log("stock", stock)
-    let checkCount = 0
-    if (event.target.value > stock) {
-      checkCount = stock
-      console.log("masuk if gk nih")
-      this.setState({
-        quantity: event.target.value
-      }, () => {
-        setTimeout(() => {
-          this.setState({
-            quantity: stock
-          })
-        }, 300)
-      })
-    } else {
-      checkCount = event.target.value
-      this.setState({
-        quantity: checkCount
-      }, () => { this.checkStockQuantity() })
-    }
-    this.setState({
-      event: event.target.value
-    })
-
-  };
-
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
@@ -271,8 +220,7 @@ class ProductDetail extends Component {
                       <ButtonQuantityContainer
                         stock={this.state.information.maxOrder}
                         quantity={this.state.quantity}
-                        onChange={this.actionUpdateQuantity}
-                        onChangeQuantity={this.onChangeQuantity}
+                        actionUpdateQuantity={this.actionUpdateQuantity}
                         incrementItem={this.incrementItem}
                         decrementItem={this.decrementItem}
                         infoQuantity={this.state.infoQuantity}

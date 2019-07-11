@@ -187,7 +187,7 @@ class CustomerOderNavigation extends Component {
 
   loadingItems() {
     return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-      {this.state.isLoading === true ? <Spin tip="Loading..." spinning={this.state.isLoading} /> : <NoOrderHistory />}
+      {this.state.isLoading === true ? <Spin spinning={this.state.isLoading} /> : <NoOrderHistory />}
     </div>;
   }
 
