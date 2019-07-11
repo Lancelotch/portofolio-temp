@@ -45,7 +45,7 @@ class RegisterPage extends Component {
       });
     }
     this.updateHeightImageBackground();
-    window.addEventListener('resize', this.updateHeightImageBackground);
+    window.addEventListener("resize", this.updateHeightImageBackground);
   }
 
   updateHeightImageBackground = () => {
@@ -54,11 +54,11 @@ class RegisterPage extends Component {
     let height = heightWindow >= heightContent ? heightWindow : heightContent;
     this.setState({
       heightImageBackground: height
-    })
-  }
+    });
+  };
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateHeightImageBackground);
+    window.removeEventListener("resize", this.updateHeightImageBackground);
   }
 
   validation(form, values) {
@@ -99,7 +99,6 @@ class RegisterPage extends Component {
     this.props.loginWithFacebook(request, path);
   };
 
-  
   clearErrorMessage = () => {
     this.props.form.validateFields();
     this.props.clearError();
@@ -109,21 +108,10 @@ class RegisterPage extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        <Row style={{display: "flex"}}>
+        <Row style={{ display: "flex" }}>
           <Col md={{ span: 14 }}>
-<<<<<<< HEAD
             <div className="scrollable-container">
               <div className="register_Background" />
-=======
-            <div
-              className="scrollable-container"
-              style={{height: "100%"}}
-              ref={node => {
-                this.container = node;
-              }}
-            >
-              <div className="register_Background" style={{height: this.state.heightImageBackground}} />
->>>>>>> development
             </div>
           </Col>
           <Col md={{ span: 10 }}>
