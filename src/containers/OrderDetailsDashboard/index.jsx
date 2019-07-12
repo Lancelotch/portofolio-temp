@@ -15,7 +15,7 @@ class OrderDetailsDashboard extends Component {
         this.state = {
             isShowOrderDetailsDashboard: false,
             order: this.props.order,
-            marginTopDropdown: "5rem",
+            marginTopDropdown: "1rem",
             width: 1300,
             backgroundColor: ""
         };
@@ -46,7 +46,7 @@ class OrderDetailsDashboard extends Component {
             this.setState({ marginTopDropdown: "-5rem" })
         } else {
             console.log("else", isTopHeaderShow);
-            this.setState({ marginTopDropdown: "5rem" });
+            this.setState({ marginTopDropdown: "1rem" });
         }
     }
     render() {
