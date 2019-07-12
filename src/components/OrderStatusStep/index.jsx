@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, Icon, Affix, Card, Button } from 'antd';
+import { Steps, Icon, Card } from 'antd';
 import { receivedOrderIcon, paymentOrder, deliveryOrderIcon, boxOrder } from '../../library/iconTracking';
 import "./style.sass"
 import convertTimesTime from '../../library/convertTimestime';
@@ -13,20 +13,7 @@ const OrderStatusStep = (props) => {
     dateOrder,
     tabsNotSent,
     tabsInDelivery,
-    actionShowOrderListWaiting,
-    labelTabDetails,
     tabsFinish } = props;
-    const marginTopBackButton = 0;
-
-   
-      if (window.scrollY > 100) {
-   
-     console.log("atasss");
-     
-      } else {
-        console.log("bawah");
- 
-      }
     
     // fixPositionDropdown = isTopHeaderShow => {
     //   console.log("isShow", isTopHeaderShow);
@@ -40,30 +27,7 @@ const OrderStatusStep = (props) => {
     // }
   return (
     <React.Fragment>
-      <div
-        style={{
-          marginLeft: 15,
-          display: "flex",
-          justifyContent: "space-between"
-        }}>
-        <h2
-          style={{
-            color: "#4A4A4A",
-            fontSize: 24
-          }}>
-          {labelTabDetails}
-        </h2>
-        <Affix offsetTop={170}>
-          <div className="buttonOrderDetails">
-            <Button
-            onClick={() => actionShowOrderListWaiting()}>
-            <Icon type="arrow-left" /> &nbsp;
-            Kembali
-          </Button>
-          </div>
-        </Affix>
-      </div>
-      <Card className="card-step-container">
+      <Card className="card-step-container" style={{marginTop:10}}>
         <div className="stepOrderStatus">
           <Steps size="small" labelPlacement="vertical">
             <Step

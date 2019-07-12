@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, Icon, Card, Affix, Button } from 'antd';
+import { Steps, Icon, Card} from 'antd';
 import { receivedOrderIcon, cancelOrderIcon, paymentOrder } from '../../library/iconTracking';
 import "./style.sass";
 import "./styleCustomer.sass";
@@ -10,32 +10,9 @@ const Step = Steps.Step;
 
 
 const OrderStatusCancel = props => {
-  const { orderDate, cancelBy, orderDraftCancel, actionShowOrderListWaiting, labelTabDetails } = props
+  const { orderDate, cancelBy, orderDraftCancel } = props
   return (
-    <React.Fragment>
-      <div
-        style={{
-          marginLeft: 15,
-          display: "flex",
-          justifyContent: "space-between"
-        }}>
-        <h2
-          style={{
-            color: "#4A4A4A",
-            fontSize: 24
-          }}>
-          {labelTabDetails}
-        </h2>
-        <Affix offsetTop={170}>
-          <div className="buttonOrderDetails">
-            <Button
-              onClick={() => actionShowOrderListWaiting()}>
-              <Icon type="arrow-left" /> &nbsp;
-              Kembali
-      </Button>
-          </div>
-        </Affix>
-      </div>
+    <div style={{ marginTop: 30 }}>
       <Card>
         <div className={cancelBy === "ADMIN" | cancelBy === "admin" | cancelBy === "SYSTEM" ? "stepOrderStatusCancelBySystem" : "stepOrderStatusCancel"}>
           <Steps size="small" labelPlacement="vertical">
@@ -64,7 +41,7 @@ const OrderStatusCancel = props => {
           </Steps>
         </div>
       </Card>
-    </React.Fragment>
+    </div>
   );
 };
 

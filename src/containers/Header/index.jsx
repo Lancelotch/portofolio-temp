@@ -157,8 +157,8 @@ class Header extends Component {
   };
 
   isUrlIsCategory = value => {
-    if (value === window.location.reload(history.push(`/search?q=${value}`))) return value;
-    else return window.location.reload(history.push(`/search?q=${value}`));
+    if (value === (history.push(`/search?q=${value}`))) return value;
+    else return (history.push(`/search?q=${value}`));
   }
 
   getValue = (value) => {

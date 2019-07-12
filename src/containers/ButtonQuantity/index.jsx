@@ -1,15 +1,9 @@
 import React, { Component } from "react";
 import "../../components/ButtonQuantity/style.sass";
-import { notification, Input, Icon } from 'antd';
-import strings from "../../localization/localization";
+import {  Input, Icon } from 'antd';
 import { Typography } from 'antd';
 
 const { Text } = Typography;
-
-const categoryTextResult = (stock) => strings.formatString(
-  strings.product_detail_info_stock,
-  <b style={{ color: "#FF416C" }}> &nbsp;{stock}</b>
-);
 
 class ButtonQuantityContainer extends Component {
   constructor(props) {
@@ -21,11 +15,18 @@ class ButtonQuantityContainer extends Component {
   }
 
   incrementItem = () => {
-    this.props.actionUpdateQuantity(this.props.quantity + 1)   
+
+    if (this.props.quantity > this.props.stock) {
+      this.setState({
+        text: "Sudah Mencapai Jumlah Maksimum"
+      })
+    } else {
+      this.props.actionUpdateQuantity(this.props.quantity + 1)
+    }
   };
 
   decrementItem = () => {
-    this.props.actionUpdateQuantity(this.props.quantity - 1)   
+    this.props.actionUpdateQuantity(this.props.quantity - 1)
   };
 
   checkTypingQuantity = (event) => (
@@ -52,7 +53,7 @@ class ButtonQuantityContainer extends Component {
   // };
 
   onChangeQuantityBlur = event => {
-    if(event.target.value < 1) {
+    if (event.target.value < 1) {
       this.props.actionUpdateQuantity(1);
     }
   }
@@ -61,11 +62,17 @@ class ButtonQuantityContainer extends Component {
     let stock = this.props.stock
     let checkCount = 1
     if (event.target.value > stock) {
-      checkCount = stock      
+      this.setState({
+        text: "Sudah Mencapai Jumlah Maksimum, Stock hanya"  + stock
+      })
+      checkCount = stock
       this.props.actionUpdateQuantity(event.target.value)
       setTimeout(() => {
         this.props.actionUpdateQuantity(stock)
       }, 300)
+      setTimeout(() => { this.setState({
+        text: ""
+      })},3000)
     } else {
       checkCount = event.target.value
       this.props.actionUpdateQuantity(checkCount)
@@ -107,7 +114,7 @@ class ButtonQuantityContainer extends Component {
               <Icon className="icon__quantity" type="plus" />
             </button>
           </div>
-          <Text style={{ marginTop: "3 %"}} type="danger">{this.props.infoQuantity}</Text>
+          <Text style={{ marginTop: "3 %" }} type="danger">{this.state.text}</Text>
         </div>
       </React.Fragment>
     );

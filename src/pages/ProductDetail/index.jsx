@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 const categoryTextResult = (stock) => strings.formatString(
   strings.product_detail_info_stock,
   <b style={{ color: "#FF416C" }}> &nbsp;{stock}</b>
@@ -35,17 +35,12 @@ class ProductDetail extends Component {
       isProductAvailable: false,
       images: [],
       imageVariant: {},
-      details: [],
       note: null,
-      shippingInternationalId: null,
-      arr: [],
       data: {
         sku: {}
       },
       quantity: 1,
-      variantIsVailable: false,
-      isUpdateImageVariant: false,
-      infoQuantity: ""
+      isUpdateImageVariant: false
     };
   }
 
@@ -66,14 +61,6 @@ class ProductDetail extends Component {
         text: notif
       })
       )
-    }
-  }
-
-  checkStockQuantity = () => {
-    if (this.state.quantity === 0 || this.state.quantity === "") {
-      this.setState({
-        infoQuantity: "Quantity Jangan Kosong"
-      })
     }
   }
 
@@ -223,7 +210,6 @@ class ProductDetail extends Component {
                         actionUpdateQuantity={this.actionUpdateQuantity}
                         incrementItem={this.incrementItem}
                         decrementItem={this.decrementItem}
-                        infoQuantity={this.state.infoQuantity}
                       />
                     </React.Fragment>
                   }

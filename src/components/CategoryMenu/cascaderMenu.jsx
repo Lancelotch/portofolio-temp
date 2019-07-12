@@ -39,12 +39,13 @@ const CategoryMenuCascader = props => {
             (children &&
                 children.map(child => ({
                     value: child.id,
-                    label: <span> <Link
+                    label: <Link
+                    style={{ width: "100%", display: "block", height: "31px" }}
                         key={child.id}
                         className="default"
                         to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
                         {child.name}
-                    </Link></span>
+                    </Link>
                 }))) || []
         );
     };
@@ -54,9 +55,9 @@ const CategoryMenuCascader = props => {
             children &&
             children.map(child => ({
                 value: child.id,
-                label: <span><Link key={child.id} className="default" to={`${url}/${idCategory}/${child.idName}`}>
+                label: <Link key={child.id} style={{ width: "100%", display: "block", height: "31px" }} className="default" to={`${url}/${idCategory}/${child.idName}`}>
                     {child.name}
-                </Link></span>,
+                </Link>,
                 children: createSubChildren(child.categorySubChildResponses, child.idName, idCategory)
             }))
         );
@@ -66,7 +67,7 @@ const CategoryMenuCascader = props => {
     // const options = allCategory.map(build_menu);
     const options = allCategory.map(category => ({
         value: category.id,
-        label: <span> <Link key={category.id} className="default" to={`${url}/${category.idName}`}>{category.name}</Link></span>,
+        label: <Link key={category.id} style={{ width: "100%", display: "block", height: "31px" }} className="default" to={`${url}/${category.idName}`}>{category.name}</Link>,
         children: createChildren(category.categorySubResponses, category.idName)
     }));
 

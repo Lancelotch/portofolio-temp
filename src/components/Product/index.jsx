@@ -8,13 +8,8 @@ import "./style.sass";
 const { Meta } = Card;
 
 const cardStyle = {
-  width: "100%",
+  height:"300px"
 };
-
-let imageStyle = {
-  maxWidth: "100 %",
-  maxHeight: "100 %"
-}
 
 const Product = props => {
   const urlImage = props.urlImage;
@@ -28,7 +23,7 @@ const Product = props => {
           hoverable
           bordered={true}
           style={cardStyle}
-          cover={<img alt="example" src={urlImage} style={imageStyle} />}
+          cover={ <div className="popular__image-cover"><img alt="example" src={urlImage} className="popular__image" /></div>}
         >
           <Meta title={title} description={<span className="priceProduct">{price}</span>} />
         </Card>
