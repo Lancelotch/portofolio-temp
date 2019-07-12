@@ -5,7 +5,7 @@ import SliderHome from "../../components/SliderHome";
 // import category from "../../api/services/category";
 import Benefit from "../../components/Benefit";
 // import product from "../../api/services/product";
-import BestSellers from "../../components/BestSellers/index";
+import BestSellers from "../../components/BestSellers";
 import PopularProducts from "../../components/PopularProducts";
 import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
 import ClickProducts from "../../components/ClickProducts";

@@ -25,7 +25,7 @@ const AddressListDetail = props => {
   } = props.address;
   return (
     <Fragment>
-      <Row>
+      <Row style={{ marginBottom: 19 }}>
         <Col md={16}>
           <b
             style={{
@@ -58,10 +58,10 @@ const AddressListDetail = props => {
             <Fragment>
               <StatusAddress isDefault={isDefault} />
               <br />
-              <div style={{clear: "both"}}></div>
+              <div style={{ clear: "both" }}></div>
             </Fragment>
           )}
-          <Radio value={id}  style={{ float: "right" }} />
+          <Radio value={id} style={{ float: "right" }} />
         </Col>
       </Row>
     </Fragment>

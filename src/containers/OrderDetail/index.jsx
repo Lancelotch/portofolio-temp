@@ -42,19 +42,17 @@ class OrderDetailContainer extends Component {
 
   variants = variants => {
     return variants.map((variant, index) => {
-      let variantsss = variant.variantItem.name;
-      let variantss = variantsss.split(',');
       return (
         <span className="detail__variant" key={index}>
-          {variant.name}&nbsp;&nbsp;:&nbsp;{variantss}
+          {variant.name}&nbsp;&nbsp;:&nbsp;{variant.variantItem.name}
         </span>
       )
-    });
+    })
   };
 
 
   render() {
-    const { image, name, sku, quantity } = this.props.payloadProductDetail;
+    const { image, name, sku } = this.props.payloadProductDetail;
     const { priceProduct } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
     return (

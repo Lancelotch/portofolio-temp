@@ -36,6 +36,14 @@ class SearchPage extends Component {
     this.getProductList();
   }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.onRefresh()
+  }
+
+  onRefresh = () => {
+    this.setState({ productList: [], page: 0 }, () => this.getProductList())
+  }
+
   getProductList = async () => {
     const { productList, page, limit, sortBy, direction } = this.state;
     const { location } = this.props;
@@ -52,19 +60,26 @@ class SearchPage extends Component {
     };
     try {
       const nextProduct = await product.listProductSearch(request);
-      this.setState({
-        productList: productList.concat(nextProduct.data),
-        page: page + 1,
-        element: nextProduct.element,
-        isProductAvailable: true
-      });
-    } catch (error) {
-      if (error.status === 404) {
+      console.log('next product', nextProduct);
+      if (nextProduct.data === undefined) {
         this.setState({
           isQueryAvailable: false
         });
+      } else {
+        this.setState({
+          productList: productList.concat(nextProduct.data),
+          page: page + 1,
+          element: nextProduct.element,
+          isProductAvailable: true,
+          isQueryAvailable:true
+        });
       }
+    } catch (error) {
+      this.setState({
+        isQueryAvailable: false
+      });
     }
+
   };
 
   fetchMoreData = () => {
@@ -95,8 +110,8 @@ class SearchPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
-    console.log('',this.state.productList);
-    
+    console.log('ciwiiiii', productList);
+
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
@@ -126,14 +141,15 @@ class SearchPage extends Component {
                 height={300}
                 leftMargin={13}
                 rightMargin={13} />}>
-              {productList.map((product,index) =>
+              {productList.map((product, index) =>
+
                 <Products
-                key={index}
-                id={product.id} 
-                defaultImage={product.defaultImage.defaultImage}
-                information={product.information.name}
-                price={product.price.amount}
-                 />
+                  key={index}
+                  id={product.id}
+                  defaultImage={product.defaultImage.defaultImage}
+                  information={product.information.name}
+                  price={product.price.amount}
+                />
               )}
             </Suspense>
           </div>

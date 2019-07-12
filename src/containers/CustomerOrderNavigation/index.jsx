@@ -33,6 +33,7 @@ const polling = {
 };
 
 class CustomerOderNavigation extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -56,9 +57,11 @@ class CustomerOderNavigation extends Component {
     this.setState({
       isLoading: true
     })
+    this._isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.productOrderTabsNotYetPay();
   };
 
@@ -117,12 +120,11 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 0);
       this.setState({
-        productOrderNotYetPay: response.data.data
+        productOrderNotYetPay: response.data.data,
+        isLoading: false 
       });
     } catch (error) {
-      if (error.message) {
         this.setState({ isLoading: false });
-      }
     }
   };
 
@@ -131,7 +133,7 @@ class CustomerOderNavigation extends Component {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 1);
       this.setState({
         productOrderNotYetSent: response.data.data,
-        isLoading: false
+        isLoading: false 
       });
     } catch (error) {
       this.setState({ isLoading: false });
@@ -143,7 +145,7 @@ class CustomerOderNavigation extends Component {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 2);
       this.setState({
         productOrderInDelivery: response.data.data,
-        isLoading: false
+        isLoading: false 
       });
     } catch (error) {
       this.setState({ isLoading: false });
@@ -154,7 +156,8 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 3);
       this.setState({
-        productOrderFinish: response.data.data
+        productOrderFinish: response.data.data,
+        isLoading: false 
       });
     } catch (error) {
       this.setState({ isLoading: false });
@@ -165,7 +168,8 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 4);
       this.setState({
-        productOrderCancel: response.data.data
+        productOrderCancel: response.data.data,
+        isLoading: false 
       });
     } catch (error) {
       this.setState({ isLoading: false });
@@ -190,26 +194,6 @@ class CustomerOderNavigation extends Component {
       {this.state.isLoading === true ? <Spin spinning={this.state.isLoading} /> : <NoOrderHistory />}
     </div>;
   }
-
-  responseOrderDetailsDashboard = (labelTabDetails, labelEstimateAccepted, tabsInDeliveryOrderStatusUser, tabsFinishOrderStatusUser, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel) => {
-    return <OrderDetailsDashboard
-      invoiceNumber={this.state.invoiceNumber}
-      indexDetails={this.state.index}
-      id={this.state.id}
-      order={this.state.order}
-      showReceivedConfirm={this.showReceivedConfirm}
-      productOrderInDelivery={this.state.productOrderInDelivery}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
-      labelTabDetails={labelTabDetails}
-      estimateAccepted={labelEstimateAccepted}
-      tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
-      tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
-      tabsNotPay={tabsNotPay}
-      tabsNotSent={tabsNotSent}
-      tabsInDelivery={tabsInDelivery}
-      tabsFinish={tabsFinish}
-      tabsCancel={tabsCancel} />
-  };
 
   updateTabNotPay = () => {
     this.setState({
@@ -370,7 +354,26 @@ class CustomerOderNavigation extends Component {
                   </Online>)} />
             </React.Fragment>} />
       </Tabs>
-    );
+    ); 
+  }
+   responseOrderDetailsDashboard (labelTabDetails, labelEstimateAccepted, tabsInDeliveryOrderStatusUser, tabsFinishOrderStatusUser, tabsNotPay, tabsNotSent, tabsInDelivery, tabsFinish, tabsCancel)  {
+    return <OrderDetailsDashboard
+      invoiceNumber={this.state.invoiceNumber}
+      indexDetails={this.state.index}
+      id={this.state.id}
+      order={this.state.order}
+      showReceivedConfirm={this.showReceivedConfirm}
+      productOrderInDelivery={this.state.productOrderInDelivery}
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting()}
+      labelTabDetails={labelTabDetails}
+      estimateAccepted={labelEstimateAccepted}
+      tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
+      tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
+      tabsNotPay={tabsNotPay}
+      tabsNotSent={tabsNotSent}
+      tabsInDelivery={tabsInDelivery}
+      tabsFinish={tabsFinish}
+      tabsCancel={tabsCancel} />
   }
 }
 

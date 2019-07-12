@@ -4,6 +4,10 @@
     &__style
         background: #ffffff !important
         border: none !important
+        -webkit-transition:  box-shadow .6s ease-out
+    &__style:hover    
+        box-shadow: 1px 8px 20px #485563
+        -webkit-transition:  box-shadow .6s ease-in 
     &__image-cover
         width: 200px
         height: 200px
@@ -36,7 +40,7 @@
     width: 200px !important
     border-radius: 4px !important
     margin: 3px 13px
-    box-shadow: -1px 1px 10px 0 rgba(0,0,0,0.3)
+    box-shadow: 0px 1px 5px 0 rgba(0,0,0,0.3)
     overflow: hidden
 
 .sliderClickProducts .ant-carousel .slick-slide h3

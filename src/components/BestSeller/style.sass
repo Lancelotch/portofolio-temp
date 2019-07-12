@@ -3,13 +3,14 @@
 .best
     &__content
         width: 200px
-        height: auto
+        height: 290px
     &__card
-        height: 350px !important
+       // height: 350px !important
         width: 100%
         background: #ffffff
         border-radius: 5px !important
         box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3)
+        -webkit-transition:  box-shadow .6s ease-out
     &__image-cover
         height: 200px
         padding: 16px
@@ -47,6 +48,12 @@
 
 .best-card
     margin: 12px
+
+.best-card:hover
+    height: 300px
+    transform: scale(1.1)
+    box-shadow: 1px 8px 20px #485563
+    -webkit-transition:  box-shadow .6s ease-in  
 
 .best-card .ant-card-body
     padding: 1px !important

@@ -23,7 +23,7 @@ class BestSellers extends React.Component {
                                 <div className="best__box">
                                     <span className="best__fontOne">{strings.best}</span>
                                     <span className="best__fontTwo">{strings.seller}</span>
-                                    <button className="best__button">{strings.see_more}</button>
+                                    { /*<button className="best__button">{strings.see_more}</button>*/}
                                 </div>
                             </Col>
                             <Col md={20}>
@@ -39,19 +39,19 @@ class BestSellers extends React.Component {
                             </Col>
                         </Row>
                     </div>) : (
-                        <div className="bestSellerBackground ">
+                    <div className="bestSellerBackground ">
                             <Row>
                                 <Col md={4}>
                                     <div className="best__box">
                                         <span className="best__fontOne">{strings.best}</span>
                                         <span className="best__fontTwo">{strings.seller}</span>
-                                        <button className="best__button">{strings.see_more}</button>
+                                        {/*<button className="best__button">{strings.see_more}</button>*/}
                                     </div>
                                 </Col>
                                 <Col md={20}>
                                     <div style={{
                                         display: "flex",
-                                        overflow:"hidden",
+                                        overflow: "hidden",
                                         margin: "52px 0 0 70px"
                                     }}
                                     >
@@ -71,8 +71,7 @@ class BestSellers extends React.Component {
                                     </div>
                                 </Col>
                             </Row>
-                        </div>)}
-
+                    </div>)}
             </React.Fragment>);
 
     }

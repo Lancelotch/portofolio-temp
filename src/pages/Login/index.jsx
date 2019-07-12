@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Affix, Checkbox } from "antd";
+import { Input, Form, Button, Icon, Row, Col, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";

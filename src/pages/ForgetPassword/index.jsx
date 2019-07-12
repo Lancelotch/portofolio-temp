@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Input, Button, Row, Col, Form, Alert } from "antd";
+import { Input, Button,Form, Alert } from "antd";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";

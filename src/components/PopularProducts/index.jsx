@@ -8,23 +8,13 @@ import SkeletonCustom from "../Skeleton";
 const PopularProducts = props => {
   const { data } = props;
   let counter = 0;
-  if ((!data || data.length < 1) && props.maxProductCount) {
-    for (var i = 0; i < props.maxProductCount; i++) {
-      data.push({
-        id: undefined,
-        image: {},
-        name: undefined,
-        price: undefined
-      });
-    }
-  }
   return (
     <div>
       <h2 style={{
         marginLeft: 48,
         fontSize: 30,
         marginTop: 64,
-        marginBottom: 0
+        marginBottom: 25
       }}>
         {strings.most_searched}
       </h2>
@@ -53,7 +43,7 @@ const PopularProducts = props => {
                         <PopularProduct
                           key={product.id}
                           price={product.price}
-                          urlImage={product.image.smallUrl}
+                          urlImage={product.image && product.image.mediumUrl}
                           name={product.name}
                           id={product.id}
                           product={product}
@@ -79,7 +69,7 @@ const PopularProducts = props => {
                           <PopularProduct
                             key={product.id}
                             price={product.price}
-                            urlImage={product.image.smallUrl}
+                            urlImage={product.image && product.image.mediumUrl}
                             name={product.name}
                             id={product.id}
                             product={product}

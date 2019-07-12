@@ -103,18 +103,21 @@ class Login extends Component {
                     }
                   ]
                 })(
-                  <Input
-                    size={'large'}
-                    onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
-                    prefix={
-                      <Icon
-                        type={'lock'}
-                        style={{ color: 'rgba(0,0,0,.25)' }}
-                      />
-                    }
-                    placeholder={'Password'}
-                    type='password'
-                  />
+
+                  <Input.Password
+                  className="register__input"
+                  size={"large"}
+                  prefix={
+                    <Icon
+                      type={"lock"}
+                      style={{ color: "rgba(0,0,0,.25)" }}
+                    />
+                  }
+                  onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
+                  placeholder={strings.register_password_placeholder}
+                  type="password"
+                />
+               
                 )}
               </FormItem>
               <FormItem className='login-form__checkBox'>
