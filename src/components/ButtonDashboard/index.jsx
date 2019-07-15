@@ -55,7 +55,7 @@ const ButtonDashboard = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboardNotPay("",order, invoiceNumber, id, index)}
+              onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
             >
               {strings.order_details}
             </Button>
@@ -70,7 +70,7 @@ const ButtonDashboard = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotSent("",order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardNotSent(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -87,7 +87,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardInDelivery("",order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardInDelivery(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -105,7 +105,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardFinish("",order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardFinish(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -122,7 +122,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardCancel("",order, invoiceNumber, id, index)}>
+            onClick={() => showOrderDetailsDashboardCancel(order, invoiceNumber, id, index)}>
             {strings.cancel_details}
           </Button>
         </div>}
