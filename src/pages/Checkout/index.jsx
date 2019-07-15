@@ -47,7 +47,8 @@ class Checkout extends Component {
       maxOrder: 0,
       shipmentFee: {},
       priceJne: 0,
-      isLoading: false
+      isLoading: false,
+      totalShipping:0
     };
   }
 
@@ -141,6 +142,8 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
+    console.log(payloadProductDetail);
+    
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
@@ -150,7 +153,8 @@ class Checkout extends Component {
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note,
       maxOrder: payloadProductDetail.maxOrder,
-      shipmentFee: payloadProductDetail.shipmentFee
+      shipmentFee: payloadProductDetail.shipmentFee,
+      totalShipping: payloadProductDetail.totalShipping
     });
   };
 
@@ -348,16 +352,15 @@ class Checkout extends Component {
   }
 
   countTotalAmount = () => {
-    const subTotal = this.state.quantity * this.state.priceProduct;
+    const subTotal = Number(this.state.quantity) * Number(this.state.priceProduct);
     let totalShippingPrice = 0;
     if (this.state.shipment === "air") {
-      totalShippingPrice = this.state.shipmentFee.difference * this.state.quantity;
+      totalShippingPrice = Number(this.state.totalShipping) * Number(this.state.quantity);
     };
     const totalAmount = Number(this.state.priceJne)
     const total = subTotal + totalShippingPrice + totalAmount
     return total;
   }
-
 
   render() {
     const total = this.countTotalAmount();
@@ -372,6 +375,8 @@ class Checkout extends Component {
       priceProduct,
       jneChecked
     } = this.state;
+    console.log(this.state.quantity);
+    
     return (
       <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
         <div className="checkout">
@@ -429,7 +434,7 @@ class Checkout extends Component {
                   />
                   {isProductDetailAvailable && (
                     <OrderDetailContainer
-                      shipmentFee={this.state.shipmentFee}
+                      shipmentFee={this.state.totalShipping}
                       stock={this.state.maxOrder}
                       priceProduct={priceProduct}
                       payloadProductDetail={payloadProductDetail}
@@ -444,7 +449,7 @@ class Checkout extends Component {
                   <OrderSummary
                     isLoading={this.state.isLoading}
                     priceJne={this.state.priceJne}
-                    shipmentFee={this.state.shipmentFee}
+                    shipmentFee={this.state.totalShipping}
                     quantity={quantity}
                     total={total}
                     priceProduct={priceProduct}

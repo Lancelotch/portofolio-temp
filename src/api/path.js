@@ -37,13 +37,15 @@ const PRODUCT_BY_ID_DRAFT = 'product-draft/'
 const PRODUCT_CATEGORY = "product/category/";
 const PRODUCT_CATEGORY_DRAFT = "product-draft/category/";
 const PRODUCT_SEARCH = "product/search/";
-const PRODUCT_ALL_DRAFT = "product-draft"
+const PRODUCT_ALL_DRAFT = "product-draft?limit=4";
+const PRODUCT_ALL_DRAFT_CLICK_PRODUCTS = "product-draft";
 const PRODUCT_SEARCH_DRAFT = "product-draft/search?keyword="
 const PRODUCT_BEST_SELLER = "product/best-seller?limit=4";
 const PRODUCT_POPULAR = "product/popular-categories?limit=4"
 const PRODUCT_RECOMMENDATION = "product/recommendations?limit=10"
 export const PATH_PRODUCT = {
     PRODUCT_ALL_DRAFT : PRODUCT_ALL_DRAFT,
+    PRODUCT_ALL_DRAFT_CLICK_PRODUCTS :PRODUCT_ALL_DRAFT_CLICK_PRODUCTS,
     PRODUCT: PRODUCT,
     PRODUCT_BY_ID: PRODUCT_BY_ID,
     PRODUCT_BY_ID_DRAFT:PRODUCT_BY_ID_DRAFT,
@@ -104,14 +106,8 @@ export const PATH_ORDER = {
 
 //DASHBOARD TAB USER
 const ORDER_STATUS_TAB_DASHBOARD = "invoice-draft/tab/"
-const ORDER_STATUS_IN_DELIVERY = "order/status/3";
-const ORDER_STATUS_FINISH = "order/status/4";
-const ORDER_STATUS_CANCEL = "order/status/5";
 export const PATH_DASHBOARD_TAB = {
-    ORDER_STATUS_TAB_DASHBOARD : ORDER_STATUS_TAB_DASHBOARD,
-    ORDER_STATUS_IN_DELIVERY : ORDER_STATUS_IN_DELIVERY,
-    ORDER_STATUS_FINISH : ORDER_STATUS_FINISH,
-    ORDER_STATUS_CANCEL : ORDER_STATUS_CANCEL
+    ORDER_STATUS_TAB_DASHBOARD : ORDER_STATUS_TAB_DASHBOARD
 }
 
 //PAYMENT

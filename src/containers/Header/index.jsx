@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown, Affix } from "antd";
+import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
@@ -33,7 +33,6 @@ class Header extends Component {
       dropdownShow: null,
       allCategory: [],
       display: "",
-      top: 0,
       marginTopDropdown: 0
     };
   }
@@ -43,18 +42,19 @@ class Header extends Component {
     window.addEventListener("scroll", this.listenScrollEvent);
   }
 
+
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none" }, this.fixPositionDropdown(false));
+      this.setState({ display: "none", position: "fixed" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: "" }, this.fixPositionDropdown(true));
+      this.setState({ display: "", position: "" }, this.fixPositionDropdown(true));
     }
   };
 
   fixPositionDropdown = isTopHeaderShow => {
     console.log("isShow", isTopHeaderShow);
-    
-    if (!isTopHeaderShow){
+
+    if (!isTopHeaderShow) {
       this.setState({ marginTopDropdown: 70 })
     } else {
       this.setState({ marginTopDropdown: 120 });
@@ -134,26 +134,26 @@ class Header extends Component {
 
   renderAuthList = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.userMenu()} trigger={["click"]}>
-          <div style={{display:"flex"}}>
-            <div className="header-ellipsis">
-              <span>{this.props.customerName}</span>
-            </div>
-            <Icon className="header__name-icon" type="down"/>
+      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={this.userMenu()} trigger={["click"]}>
+        <div style={{ display: "flex" }}>
+          <div className="header-ellipsis">
+            <span>{this.props.customerName}</span>
           </div>
+          <Icon className="header__name-icon" type="down" />
+        </div>
       </Dropdown>
     );
   };
 
   renderNotAuthList = () => {
     return (
-        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          <div style={{display:"flex"}}>
-            <span>{strings.log_in}</span>
-            <Icon className="header__name-icon" type="down"/>
-          </div>
-        </Dropdown>
-      );
+      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
+        <div style={{ display: "flex" }}>
+          <span>{strings.log_in}</span>
+          <Icon className="header__name-icon" type="down" />
+        </div>
+      </Dropdown>
+    );
   };
 
   isUrlIsCategory = value => {
@@ -183,7 +183,7 @@ class Header extends Component {
         </Row>
       </Menu.Item>
       <hr className="header__user-divider"></hr>
-      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesenan Saya</Link></Menu.Item>
+      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} style={{ marginTop: 15 }} className="header__user-li">Pesenan Saya</Link></Menu.Item>
       <Menu.Item key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
       <Menu.Item key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
       <Menu.Item key="4">
@@ -206,9 +206,11 @@ class Header extends Component {
           )}
       </div>
     );
+console.log('openmodallogin',this.state.openModalLogin);
+console.log('openmodallogut',this.state.openModalLogout);
 
     return (
-      <Affix offsetTop={this.state.top}>
+      <div style={{ position: this.state.position, zIndex: 999, width: "100%", top: 0 }}>
         <Row className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
@@ -235,7 +237,7 @@ class Header extends Component {
                 width: 559
               }}
               id="filter"
-             // enterButton
+              // enterButton
               name="q"
               defaultValue={this.getParams()}
               onSearch={this.getValue}
@@ -287,7 +289,7 @@ class Header extends Component {
             </div>
           </Col>
         </Row>
-      </Affix>
+      </div>
     );
   }
 }

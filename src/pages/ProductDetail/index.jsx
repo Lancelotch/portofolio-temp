@@ -3,7 +3,7 @@ import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Card, notification } from "antd";
+import { Row, Col, Card } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
@@ -13,11 +13,6 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
-const categoryTextResult = (stock) => strings.formatString(
-  strings.product_detail_info_stock,
-  <b style={{ color: "#FF416C" }}> &nbsp;{stock}</b>
-);
-
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -40,6 +35,7 @@ class ProductDetail extends Component {
         sku: {}
       },
       quantity: 1,
+      priceShipping: 0,
       isUpdateImageVariant: false
     };
   }
@@ -47,21 +43,6 @@ class ProductDetail extends Component {
   componentDidMount() {
     window.scrollTo(0, 0)
     this.getProductDetail();
-  }
-
-  checkStockAvailability = (stock) => {
-    if (this.state.quantity === this.state.information.maxOrder) {
-      let notif = notification["info"]({
-        message: categoryTextResult(this.state.information.maxOrder),
-        description:
-          "This is the content of the notification. This is the content of the notification. This is the content of the notification."
-      });
-      this.setState(prevState => ({
-        quantity: stock,
-        text: notif
-      })
-      )
-    }
   }
 
   getProductDetail = async () => {
@@ -99,6 +80,12 @@ class ProductDetail extends Component {
     });
   };
 
+  countTotalAmount = () => {
+    const subTotal = this.state.price.fee && this.state.price.fee.shipmentFee.difference * this.state.quantity;
+    const total = subTotal
+    return total;
+  }
+
   actionUpdateImageVariant = image => {
     this.setState({
       imageVariant: image,
@@ -126,6 +113,7 @@ class ProductDetail extends Component {
       quantity: quantity,
       note,
       sku: data.sku,
+      totalShipping: this.countTotalAmount(),
       maxOrder: information.maxOrder
     }
     const indexesToLocalstorage = JSON.stringify(items);
@@ -179,72 +167,73 @@ class ProductDetail extends Component {
 
 
   render() {
-    console.log(this.state.variants);
-
+    console.log(this.countTotalAmount());
+  let totalShipping = this.countTotalAmount();
+  console.log(totalShipping);
+  
     return (
-        <React.Fragment>
-          <div className="container productDetail">
-            <Row>
-              <Col md={10}>
-                <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
-                {this.state.images.length < 1 ? <Skeleton height={300} /> :
-                  <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
-              </Col>
-              <Col md={12} offset={1}>
-                <div style={{}}>
-                  <p className="productDetail__price">
-                    {this.state.images.length < 1 ? <Skeleton height={25} /> : (currencyRupiah(this.state.price.amount))}
-                  </p>
-                  {this.state.images.length < 1 ? <Skeleton height={25} width={200} /> :
-                    <Variants product={this.state.product} actionUpdateImageVariant={this.actionUpdateImageVariant} actionUpdateSku={this.actionUpdateSku} />}
-                  {this.state.images.length < 1 ?
-                    <div style={{ marginTop: 10 }}>
-                      <Skeleton height={40} width={200} />
-                    </div>
-                    :
-                    <React.Fragment>
-                      <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
-                      <ButtonQuantityContainer
-                        stock={this.state.information.maxOrder}
-                        quantity={this.state.quantity}
-                        actionUpdateQuantity={this.actionUpdateQuantity}
-                        incrementItem={this.incrementItem}
-                        decrementItem={this.decrementItem}
-                      />
-                    </React.Fragment>
-                  }
-                  {this.state.isProductAvailable && (
-                    <Shipping priceShippment={this.state.price.fee} />)}
-                  {this.state.images.length < 1 ?
-                    <div style={{ marginTop: 55 }}>
-                      <Skeleton height={40} width={350} />
-                    </div> :
-                    <button
-                      className="productDetail__addCart"
-                      onClick={this.actionSubmitToCheckout}
-                    >
-                      {strings.order_now}
-                    </button>
-                  }
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={24} style={{ marginTop: 50 }}>
-              {this.state.isProductAvailable && 
+      <React.Fragment>
+        <div className="container productDetail">
+          <Row>
+            <Col md={10}>
+              <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
+              {this.state.images.length < 1 ? <Skeleton height={300} /> :
+                <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
+            </Col>
+            <Col md={12} offset={1}>
+              <div style={{}}>
+                <p className="productDetail__price">
+                  {this.state.images.length < 1 ? <Skeleton height={25} /> : (currencyRupiah(this.state.price.amount))}
+                </p>
+                {this.state.images.length < 1 ? <Skeleton height={25} width={200} /> :
+                  <Variants product={this.state.product} actionUpdateImageVariant={this.actionUpdateImageVariant} actionUpdateSku={this.actionUpdateSku} />}
+                {this.state.images.length < 1 ?
+                  <div style={{ marginTop: 10 }}>
+                    <Skeleton height={40} width={200} />
+                  </div>
+                  :
+                  <React.Fragment>
+                    <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
+                    <ButtonQuantityContainer
+                      stock={this.state.information.maxOrder}
+                      quantity={this.state.quantity}
+                      actionUpdateQuantity={this.actionUpdateQuantity}
+                      incrementItem={this.incrementItem}
+                      decrementItem={this.decrementItem}
+                    />
+                  </React.Fragment>
+                }
+                {this.state.isProductAvailable && (
+                  <Shipping totalShipping={totalShipping} actionUpdatePriceShipping={this.actionUpdatePriceShipping} priceShippment={this.state.price.fee} />)}
+                {this.state.images.length < 1 ?
+                  <div style={{ marginTop: 55 }}>
+                    <Skeleton height={40} width={350} />
+                  </div> :
+                  <button
+                    className="productDetail__addCart"
+                    onClick={this.actionSubmitToCheckout}
+                  >
+                    {strings.order_now}
+                  </button>
+                }
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={24} style={{ marginTop: 50 }}>
+              {this.state.isProductAvailable &&
                 <Card className="product-description">
                   <h2>{strings.detail_product}</h2>
-                
-                    <ProductAttibutes
-                      product={this.state.information}
-                    />
+                  <ProductAttibutes
+                    product={this.state.information}
+                  />
                 </Card>}
-              </Col>
-            </Row>
-          </div>
-          {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
-          {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}
-        </React.Fragment>
+            </Col>
+          </Row>
+        </div>
+        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
+        {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}
+      </React.Fragment>
     );
   }
 }

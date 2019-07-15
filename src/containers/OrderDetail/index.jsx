@@ -53,8 +53,9 @@ class OrderDetailContainer extends Component {
 
   render() {
     const { image, name, sku } = this.props.payloadProductDetail;
-    const { priceProduct } = this.props;
+    const { priceProduct,shipmentFee } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
+    const totalPriceShipping = this.props.quantity * shipmentFee
     return (
       <Fragment>
         <Row>
@@ -130,7 +131,7 @@ class OrderDetailContainer extends Component {
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
-                  <SelectShipping shipmentFee={this.props.shipmentFee} onChangeShipping={this.actionChangeShipping} />
+                  <SelectShipping quantity={this.props.quantity} shipmentFee={totalPriceShipping} onChangeShipping={this.actionChangeShipping} />
                 </Col>
                 <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>

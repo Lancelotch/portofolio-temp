@@ -3,7 +3,7 @@
 .best
     &__content
         width: 200px
-        height: 290px
+        height: 300px
     &__card
        // height: 350px !important
         width: 100%
@@ -11,6 +11,14 @@
         border-radius: 5px !important
         box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3)
         -webkit-transition:  box-shadow .6s ease-out
+    &__nameProduct
+        display: -webkit-box
+        height: 40.6px
+        -webkit-box-orient: vertical
+        -webkit-line-clamp: 2
+        text-overflow: ellipsis
+        overflow: hidden
+        color: #000000
     &__image-cover
         height: 200px
         padding: 16px
@@ -50,10 +58,9 @@
     margin: 12px
 
 .best-card:hover
-    height: 300px
-    transform: scale(1.1)
-    box-shadow: 1px 8px 20px #485563
-    -webkit-transition:  box-shadow .6s ease-in  
+    transform: scale3d(1.006, 1.006, 1)
+    box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.3);
+    -webkit-transition:  box-shadow .3s ease-in   
 
 .best-card .ant-card-body
     padding: 1px !important

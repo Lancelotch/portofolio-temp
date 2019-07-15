@@ -30,20 +30,18 @@ class OrderDetailsDashboard extends Component {
         this._isMounted = false;
     }
 
-
-
     listenScrollEvent = e => {
         if (window.scrollY) {
-            this.setState({ backgroundColor: "#bdc3c7",position:"fixed" }, this.fixPositionDropdown(false));
+            this.setState({ backgroundColor: "transparent", position: "fixed" }, this.fixPositionDropdown(false));
         } else {
-            this.setState({ backgroundColor: "",position:"" }, this.fixPositionDropdown(true));
+            this.setState({ backgroundColor: "", position: "" }, this.fixPositionDropdown(true));
         }
     };
 
     fixPositionDropdown = isTopHeaderShow => {
         if (!isTopHeaderShow) {
             console.log("if", isTopHeaderShow);
-            this.setState({ marginTopDropdown: "-5rem" })
+            this.setState({ marginTopDropdown: "10rem" })
         } else {
             console.log("else", isTopHeaderShow);
             this.setState({ marginTopDropdown: "1rem" });
@@ -58,9 +56,18 @@ class OrderDetailsDashboard extends Component {
             tabsCancel,
             tabsInDeliveryOrderStatusUser,
             tabsFinishOrderStatusUser,
+            buttonTabsNotPay,
+            buttonTabsNotSent,
+            buttonTabsInDelivery,
+            buttonTabsFinish,
+            buttonTabsCancel,
             estimateAccepted,
             labelTabDetails,
-            actionShowOrderListWaiting,
+            actionShowOrderListWaitingNotPay,
+            actionShowOrderListWaitingNotSent,
+            actionShowOrderListWaitingInDelivery,
+            actionShowOrderListWaitingFinish,
+            actionShowOrderListWaitingCancel,
             invoiceNumber,
             id,
             productOrderInDelivery,
@@ -70,23 +77,23 @@ class OrderDetailsDashboard extends Component {
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
-                <div className="container" style={{ maxWidth: 1300, overflow: "hidden", display: "block", margin: "auto" }}>
-                    <div style={{ width: "1000px", position: this.state.position, zIndex: 9999, marginTop: this.state.marginTopDropdown }}>
-                        <Button
-                            style={{
-                                float: "right",
-                                backgroundColor: this.state.backgroundColor,
-                                height:35
-                            }}
-                            onClick={() => actionShowOrderListWaiting()}>
-                            <Icon type="arrow-left" /> &nbsp;
-                            Kembali
-                  </Button>
+                <div style={{ maxWidth: 1350, overflow: "hidden", display: "block", margin: "auto" }}>
+                    <h2 style={{ position: "absolute", marginTop: 14 }}>{labelTabDetails}</h2>
+                    <div style={{ width: "1000px", position: this.state.position, display: "block", zIndex: 9999, marginTop: this.state.marginTopDropdown }}>
+                        {buttonTabsNotPay === "buttonTabsNotPay" &&
+                            this.buttonBack(actionShowOrderListWaitingNotPay)}
+                        {buttonTabsNotSent === "buttonTabsNotSent" &&
+                            this.buttonBack(actionShowOrderListWaitingNotSent)}
+                        {buttonTabsInDelivery === "buttonTabsInDelivery" &&
+                            this.buttonBack(actionShowOrderListWaitingInDelivery)}
+                        {buttonTabsFinish === "buttonTabsFinish" &&
+                            this.buttonBack(actionShowOrderListWaitingFinish)}
+                        {buttonTabsCancel === "buttonTabsCancel" &&
+                            this.buttonBack(actionShowOrderListWaitingCancel)}
                     </div>
                 </div>
                 {((tabsNotPay === 1) || (tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
                     <OrderStatusStep
-                        actionShowOrderListWaiting={actionShowOrderListWaiting}
                         labelTabDetails={labelTabDetails}
                         tabsNotSent={tabsNotSent}
                         tabsInDelivery={tabsInDelivery}
@@ -96,7 +103,6 @@ class OrderDetailsDashboard extends Component {
                     <OrderStatusCancel
                         cancelBy={this.state.cancelBy}
                         labelTabDetails={labelTabDetails}
-                        actionShowOrderListWaiting={actionShowOrderListWaiting}
                         orderDate={this.state.order.orderActivityDate}
                         orderDraftCancel={this.state.order.orderDraftCancel} />}
                 {this.state.order.orderItems.map((product, index) => {
@@ -104,7 +110,7 @@ class OrderDetailsDashboard extends Component {
                         <ProductOrderDetails
                             actionReceivedConfirm={showReceivedConfirm}
                             productOrderInDelivery={productOrderInDelivery}
-                            product={product}
+                            buttonTabsInDelivery={buttonTabsInDelivery}
                             invoiceNumber={invoiceNumber}
                             label="Detail Pesenan"
                             note={product.note}
@@ -154,6 +160,17 @@ class OrderDetailsDashboard extends Component {
                     estimateShippingDate={this.state.order.orderActivityDate} />
             </React.Fragment>
         );
+    }
+
+    buttonBack(actionShowOrderListWaiting) {
+        return <Button style={{
+            float: "right",
+            backgroundColor: this.state.backgroundColor,
+            height: 35
+        }} onClick={() => actionShowOrderListWaiting()}>
+            <Icon type="arrow-left" /> &nbsp;
+            Kembali
+        </Button>
     }
 }
 

@@ -10,6 +10,8 @@ const OrderSummary = props => {
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
 
+  const totalPriceShipping = quantity * shipmentFee
+
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
   };
@@ -76,7 +78,7 @@ const OrderSummary = props => {
             <p className="p-color-teal">
               {shipment === "sea"
                 ? "Ongkir Sudah Termasuk"
-                : currencyRupiah(shipmentFee.difference)}
+                : currencyRupiah(totalPriceShipping)}
             </p>
           </div>
           <div className="shipping-price">

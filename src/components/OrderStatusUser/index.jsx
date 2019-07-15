@@ -26,7 +26,7 @@ const OrderStatusUser = props => {
     const responseOrderLogTransactions = sortList(logOrderTransactions, "DESC")
 
     function sortList(list, order) {
-        if (order == "ASC") {
+        if (order === "ASC") {
             return list.sort((a, b) => {
                 return parseFloat(a.createdDate) - parseFloat(b.createdDate);
             })

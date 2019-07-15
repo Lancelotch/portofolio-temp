@@ -73,17 +73,21 @@ class OrderListWaitingPayment extends Component {
       tabsFinish,
       tabsNotPay,
       tabsInDelivery,
-      actionShowOrderDetailsDashboard,
+      actionShowOrderDetailsDashboardNotPay,
+      actionShowOrderDetailsDashboardNotSent,
+      actionShowOrderDetailsDashboardInDelivery,
+      actionShowOrderDetailsDashboardFinish,
+      actionShowOrderDetailsDashboardCancel,
       tabsNotSent,
       tabsCancel,
-      productOrderNotYetPay,
+      productOrder,
       showReceivedConfirm
     } = this.props;
     console.log(this.state.selectedOrder);
 
     return (
       <React.Fragment>
-        {productOrderNotYetPay.map((order, index) => {
+        {productOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>
               <ProductOrder
@@ -105,21 +109,25 @@ class OrderListWaitingPayment extends Component {
                 id={order.id}
                 indexes={order.order}
               />
-                <ButtonDashboard
-                  index={index}
-                  tabsFinish={tabsFinish}
-                  tabsNotPay={tabsNotPay}
-                  tabsInDelivery={tabsInDelivery}
-                  invoiceNumber={order.invoiceNumber}
-                  tabsNotSent={tabsNotSent}
-                  tabsCancel={tabsCancel}
-                  showReceivedConfirm={showReceivedConfirm}
-                  showDeleteConfirm={this.showDeleteConfirm}
-                  orderProduct={productOrderNotYetPay}
-                  order={order.order}
-                  showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                  showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index)}
-                />
+              <ButtonDashboard
+                index={index}
+                tabsFinish={tabsFinish}
+                tabsNotPay={tabsNotPay}
+                tabsInDelivery={tabsInDelivery}
+                invoiceNumber={order.invoiceNumber}
+                tabsNotSent={tabsNotSent}
+                tabsCancel={tabsCancel}
+                showReceivedConfirm={showReceivedConfirm}
+                showDeleteConfirm={this.showDeleteConfirm}
+                orderProduct={productOrder}
+                order={order.order}
+                showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                showOrderDetailsDashboardInDelivery={() => actionShowOrderDetailsDashboardInDelivery(order.order, order.invoiceNumber, order.id, index)}
+                showOrderDetailsDashboardNotPay={() => actionShowOrderDetailsDashboardNotPay(order.order, order.invoiceNumber, order.id, index)}
+                showOrderDetailsDashboardNotSent={() => actionShowOrderDetailsDashboardNotSent(order.order, order.invoiceNumber, order.id, index)}
+                showOrderDetailsDashboardFinish={() => actionShowOrderDetailsDashboardFinish(order.order, order.invoiceNumber, order.id, index)}
+                showOrderDetailsDashboardCancel={() => actionShowOrderDetailsDashboardCancel(order.order, order.invoiceNumber, order.id, index)}
+              />
             </Card>)
         })}
         {selectedOrder && (
