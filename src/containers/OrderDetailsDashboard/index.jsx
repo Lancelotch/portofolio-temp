@@ -77,9 +77,9 @@ class OrderDetailsDashboard extends Component {
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
-                <div style={{ maxWidth: 1350, overflow: "hidden", display: "block", margin: "auto" }}>
+                <div style={{ maxWidth: 1000, overflow: "hidden", display: "block", margin: "auto" }}>
                     <h2 style={{ position: "absolute", marginTop: 14 }}>{labelTabDetails}</h2>
-                    <div style={{ width: "1000px", position: this.state.position, display: "block", zIndex: 9999, marginTop: this.state.marginTopDropdown }}>
+                    <div style={{ width: 1000, position: this.state.position, display: "block", zIndex: 9999, marginTop: this.state.marginTopDropdown }}>
                         {buttonTabsNotPay === "buttonTabsNotPay" &&
                             this.buttonBack(actionShowOrderListWaitingNotPay)}
                         {buttonTabsNotSent === "buttonTabsNotSent" &&

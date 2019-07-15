@@ -101,58 +101,34 @@ class CustomerOderNavigation extends Component {
     }
   };
 
-  actionShowOrderListWaitingNotPay = () => {
+  actionShowOrderListWaiting = (listener) => {
     this.setState({
-      isShowOrderDetailsDashboardNotPay: !this.state.isShowOrderDetailsDashboardNotPay
-    })
-  }
-
-  actionShowOrderListWaitingNotSent = () => {
-    this.setState({
-      isShowOrderDetailsDashboardNotSent: !this.state.isShowOrderDetailsDashboardNotSent
-    })
-  }
-
-  actionShowOrderListWaitingInDelivery = () => {
-    this.setState({
-      isShowOrderDetailsDashboardInDelivery: !this.state.isShowOrderDetailsDashboardInDelivery
-    })
-  };
-
-  actionShowOrderListWaitingFinish = () => {
-    this.setState({
-      isShowOrderDetailsDashboardFinish: !this.state.isShowOrderDetailsDashboardFinish
-    })
-  }
-
-  actionShowOrderListWaitingCancel = () => {
-    this.setState({
-      isShowOrderDetailsDashboardCancel: !this.state.isShowOrderDetailsDashboardCancel
+      [listener]: !this.state[listener]
     })
   }
 
   actionShowOrderDetailsDashboardNotPay = (order, invoiceNumber, id, index) => {
-    this.actionShowOrderListWaitingNotPay();
+    this.actionShowOrderListWaiting("isShowOrderDetailsDashboardNotPay");
     this.responseDetailDashboard(order, invoiceNumber, id, index);
   };
 
   actionShowOrderDetailsDashboardNotSent = (order, invoiceNumber, id, index) => {
-    this.actionShowOrderListWaitingNotSent();
+    this.actionShowOrderListWaiting("isShowOrderDetailsDashboardNotSent");
     this.responseDetailDashboard(order, invoiceNumber, id, index);
   };
 
   actionShowOrderDetailsDashboardInDelivery = (order, invoiceNumber, id, index) => {
-    this.actionShowOrderListWaitingInDelivery()
+    this.actionShowOrderListWaiting("isShowOrderDetailsDashboardInDelivery")
     this.responseDetailDashboard(order, invoiceNumber, id, index);
   };
 
   actionShowOrderDetailsDashboardFinish = (order, invoiceNumber, id, index) => {
-    this.actionShowOrderListWaitingFinish()
+    this.actionShowOrderListWaiting("isShowOrderDetailsDashboardFinish")
     this.responseDetailDashboard(order, invoiceNumber, id, index);
   };
 
   actionShowOrderDetailsDashboardCancel = (order, invoiceNumber, id, index) => {
-    this.actionShowOrderListWaitingCancel()
+    this.actionShowOrderListWaiting("isShowOrderDetailsDashboardCancel")
     this.responseDetailDashboard(order, invoiceNumber, id, index);
   };
 
@@ -246,7 +222,8 @@ class CustomerOderNavigation extends Component {
       tabsInDelivery={tabsInDelivery}
       tabsFinish={tabsFinish}
       tabsCancel={tabsCancel}
-    />}
+    />
+  }
 
   responseOrderDetailsDashboard(
     labelTabDetails,
@@ -270,11 +247,11 @@ class CustomerOderNavigation extends Component {
       order={this.state.order}
       showReceivedConfirm={this.showReceivedConfirm}
       productOrderInDelivery={this.state.productOrderInDelivery}
-      actionShowOrderListWaitingNotPay={() => this.actionShowOrderListWaitingNotPay()}
-      actionShowOrderListWaitingNotSent={() => this.actionShowOrderListWaitingNotSent()}
-      actionShowOrderListWaitingInDelivery={() => this.actionShowOrderListWaitingInDelivery()}
-      actionShowOrderListWaitingFinish={() => this.actionShowOrderListWaitingFinish()}
-      actionShowOrderListWaitingCancel={() => this.actionShowOrderListWaitingCancel()}
+      actionShowOrderListWaitingNotPay={() => this.actionShowOrderListWaiting("isShowOrderDetailsDashboardNotPay")}
+      actionShowOrderListWaitingNotSent={() => this.actionShowOrderListWaiting("isShowOrderDetailsDashboardNotSent")}
+      actionShowOrderListWaitingInDelivery={() => this.actionShowOrderListWaiting("isShowOrderDetailsDashboardInDelivery")}
+      actionShowOrderListWaitingFinish={() => this.actionShowOrderListWaiting("isShowOrderDetailsDashboardFinish")}
+      actionShowOrderListWaitingCancel={() => this.actionShowOrderListWaiting("isShowOrderDetailsDashboardCancel")}
       labelTabDetails={labelTabDetails}
       estimateAccepted={labelEstimateAccepted}
       tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
@@ -309,7 +286,7 @@ class CustomerOderNavigation extends Component {
     this.setState({
       productOrderNotYetSent: [],
       isLoading: true,
-      isShowOrderDetailsDashboard: false
+      isShowOrderDetailsDashboardNotSent: false
     }, () => this.productOrderTabsNotYetSent());
   };
 
@@ -325,7 +302,7 @@ class CustomerOderNavigation extends Component {
     this.setState({
       productOrderFinish: [],
       isLoading: true,
-      isShowOrderDetailsDashboard: false
+      isShowOrderDetailsDashboardFinish: false
     }, () => this.productOrderTabsFinish());
   };
 
@@ -333,7 +310,7 @@ class CustomerOderNavigation extends Component {
     this.setState({
       productOrderCancel: [],
       isLoading: true,
-      isShowOrderDetailsDashboard: false
+      isShowOrderDetailsDashboardCancel: false
     }, () => this.productOrderTabsCancel());
   };
 
@@ -365,7 +342,7 @@ class CustomerOderNavigation extends Component {
     return (
       <React.Fragment>
         <ScrollToTopOnMount />
-        {isShowOrderDetailsDashboardNotPay === false &&
+         {isShowOrderDetailsDashboardNotPay === false &&
           isShowOrderDetailsDashboardInDelivery === false &&
           isShowOrderDetailsDashboardNotSent === false &&
           isShowOrderDetailsDashboardFinish === false &&
