@@ -33,6 +33,7 @@ class CustomerOderNavigation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isShowDetailDashboard: false,
       isShowOrderDetailsDashboardNotPay: false,
       isShowOrderDetailsDashboardInDelivery: false,
       isShowOrderDetailsDashboardNotSent: false,
@@ -103,7 +104,9 @@ class CustomerOderNavigation extends Component {
 
   actionShowOrderListWaiting = (listener) => {
     this.setState({
-      [listener]: !this.state[listener]
+      [listener]: !this.state[listener],
+      isShowDetailDashboard : !this.state.isShowDetailDashboard
+
     })
   }
 
@@ -333,6 +336,7 @@ class CustomerOderNavigation extends Component {
 
   render() {
     const {
+      isShowDetailDashboard,
       isShowOrderDetailsDashboardNotPay,
       isShowOrderDetailsDashboardInDelivery,
       isShowOrderDetailsDashboardNotSent,
@@ -342,11 +346,7 @@ class CustomerOderNavigation extends Component {
     return (
       <React.Fragment>
         <ScrollToTopOnMount />
-         {isShowOrderDetailsDashboardNotPay === false &&
-          isShowOrderDetailsDashboardInDelivery === false &&
-          isShowOrderDetailsDashboardNotSent === false &&
-          isShowOrderDetailsDashboardFinish === false &&
-          isShowOrderDetailsDashboardCancel === false ?
+         {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
             <CustomTabPane
               key={"1"}
