@@ -152,8 +152,7 @@ class Checkout extends Component {
       quantity: payloadProductDetail.quantity,
       note: payloadProductDetail.note,
       maxOrder: payloadProductDetail.maxOrder,
-      shipmentFee: payloadProductDetail.shipmentFee,
-      totalShipping: payloadProductDetail.totalShipping
+      shipmentFee: payloadProductDetail.shipmentFee
     });
   };
 

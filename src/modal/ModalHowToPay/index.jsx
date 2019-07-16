@@ -26,12 +26,12 @@ class ModalHowToPay extends Component {
 
   render() {
     const Panel = Collapse.Panel;
-    const {orderPayment } = this.props;
+    const { orderPayment } = this.props;
     console.log(orderPayment.gateway.bank);
-    
+
     const instructions = orderPayment.gateway.bank.paymentInstructions
     console.log(instructions);
-    
+
     const styleButtonCopy = {
       cursor: "pointer",
       position: "absolute",
@@ -103,10 +103,10 @@ class ModalHowToPay extends Component {
               <Col md={24}>
                 <Collapse defaultActiveKey={['1']} onChange={this.callback}>
                   <Panel header="Cara Bayar" key="1">
-                      {instructions.map((ins, i) => {
-                          return  <p dangerouslySetInnerHTML={{ __html: ins.instruction }} />
-                        })
-                      }
+                    {instructions.map((ins, i) => {
+                      return <div dangerouslySetInnerHTML={{ __html: ins.instruction }} />
+                    })
+                    }
                   </Panel>
                 </Collapse>
               </Col>

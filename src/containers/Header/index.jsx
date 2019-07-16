@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown } from "antd";
+import { Row, Col, Icon, Menu, Dropdown,Typography } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
@@ -17,7 +17,7 @@ import history from "../../routers/history"
 import getParamUrl from "../../library/getParamUrl";
 import CategoryMenuCascader from "../../components/CategoryMenu/cascaderMenu";
 
-
+const { Text } = Typography;
 
 class Header extends Component {
   constructor(props) {
@@ -137,7 +137,7 @@ class Header extends Component {
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={this.userMenu()} trigger={["click"]}>
         <div style={{ display: "flex" }}>
           <div className="header-ellipsis">
-            <span>{this.props.customerName}</span>
+            <Text>{this.props.customerName}</Text>
           </div>
           <Icon className="header__name-icon" type="down" />
         </div>
@@ -149,7 +149,7 @@ class Header extends Component {
     return (
       <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
         <div style={{ display: "flex" }}>
-          <span>{strings.log_in}</span>
+          <Text>{strings.log_in}</Text>
           <Icon className="header__name-icon" type="down" />
         </div>
       </Dropdown>

@@ -12,7 +12,7 @@ const PaymentInstructions = props => {
           <Collapse.Panel showArrow={false} header="Cara Bayar" key="1">
               {
                 paymentInstruction.paymentInstructions.map((ins, i) => {
-                  return <p dangerouslySetInnerHTML={{__html:ins.instruction}}/>
+                  return <div dangerouslySetInnerHTML={{__html:ins.instruction}}/>
                 })
               }
           </Collapse.Panel>

@@ -65,9 +65,9 @@ class PaymentInfoPage extends Component {
   }
 
   render() {
-    console.log(this.state.gateway.bank &&this.state.gateway.bank.paymentInstructions);
+    console.log(this.state.gateway.bank && this.state.gateway.bank.paymentInstructions);
 
-    const { gateway, amount} = this.state;
+    const { gateway, amount } = this.state;
     const warning = () => {
       Modal.warning({
         className: "modal-check-status",
@@ -96,25 +96,25 @@ class PaymentInfoPage extends Component {
               <div className="info__content">
                 {amount === null ?
                   <Row type="flex" align="middle" style={{ marginTop: 40 }} className="info__bank">
-                  <Col md={4} />
-                  <Col md={16} />
-                  <Col md={4} style={{ textAlign: "end" }}>
-                    <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
-                  </Col>
-                </Row>
-                :
-                <PaymentInvoice
-                  gateway={gateway}
-                  onCopy={this.onCopy}
-                />}
-              <center style={{ color: "red" }}>{this.state.messageCopy}</center>
+                    <Col md={4} />
+                    <Col md={16} />
+                    <Col md={4} style={{ textAlign: "end" }}>
+                      <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
+                    </Col>
+                  </Row>
+                  :
+                  <PaymentInvoice
+                    gateway={gateway}
+                    onCopy={this.onCopy}
+                  />}
+                <center style={{ color: "red" }}>{this.state.messageCopy}</center>
                 <div className="info__dropdownMethod">
                   {amount === null ?
-                      <Collapse defaultActiveKey={["1"]} accordion>
-                        <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
-                      </Collapse>
+                    <Collapse defaultActiveKey={["1"]} accordion>
+                      <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
+                    </Collapse>
                     :
-                    <PaymentInstructions paymentInstruction={this.state.gateway.bank &&this.state.gateway.bank} />
+                    <PaymentInstructions paymentInstruction={this.state.gateway.bank && this.state.gateway.bank} />
                   }
                 </div>
                 <div>
