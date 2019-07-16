@@ -206,9 +206,6 @@ class Header extends Component {
           )}
       </div>
     );
-console.log('openmodallogin',this.state.openModalLogin);
-console.log('openmodallogut',this.state.openModalLogout);
-
     return (
       <div style={{ position: this.state.position, zIndex: 999, width: "100%", top: 0 }}>
         <Row className="header__row">

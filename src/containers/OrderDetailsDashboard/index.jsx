@@ -6,7 +6,8 @@ import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import OrderStatusCancel from '../../components/OrderStatusCancel';
-import { Button, Icon } from 'antd';
+import { BackTop, Icon } from 'antd';
+import { Button } from 'antd/lib/radio';
 
 class OrderDetailsDashboard extends Component {
     _isMounted = false;
@@ -23,30 +24,39 @@ class OrderDetailsDashboard extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        window.addEventListener("scroll", this.listenScrollEvent);
+        //window.addEventListener("scroll", this.listenScrollEvent);
     }
 
     componentWillMount() {
         this._isMounted = false;
     }
 
-    listenScrollEvent = e => {
-        if (window.scrollY) {
-            this.setState({ backgroundColor: "transparent", position: "fixed" }, this.fixPositionDropdown(false));
-        } else {
-            this.setState({ backgroundColor: "", position: "" }, this.fixPositionDropdown(true));
-        }
-    };
+    // listenScrollEvent = e => {
+    //     if (window.scrollY) {
+    //         this.setState({ backgroundColor: "transparent", color: "#000000", position: "" }, this.fixPositionDropdown(false));
+    //     } else {
+    //         this.setState({ backgroundColor: "", position: "", color: "" }, this.fixPositionDropdown(true));
+    //     }
+    // };
 
-    fixPositionDropdown = isTopHeaderShow => {
-        if (!isTopHeaderShow) {
-            console.log("if", isTopHeaderShow);
-            this.setState({ marginTopDropdown: "10rem" })
-        } else {
-            console.log("else", isTopHeaderShow);
-            this.setState({ marginTopDropdown: "1rem" });
-        }
+    // fixPositionDropdown = isTopHeaderShow => {
+    //     if (!isTopHeaderShow) {
+    //         console.log("if", isTopHeaderShow);
+    //         this.setState({ marginTopDropdown: "10rem" })
+    //     } else {
+    //         console.log("else", isTopHeaderShow);
+    //         this.setState({ marginTopDropdown: "1rem" });
+    //     }
+    // }
+    buttonBack = (actionShowOrderListWaiting) => {
+        return <Button style={{
+            fontSize: 16
+        }} onClick={() => actionShowOrderListWaiting()}>
+            <Icon type="arrow-left" /> &nbsp;
+            Kembali
+        </Button>
     }
+
     render() {
         const {
             tabsNotPay,
@@ -77,20 +87,18 @@ class OrderDetailsDashboard extends Component {
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
-                <div style={{ maxWidth: 1000, overflow: "hidden", display: "block", margin: "auto" }}>
-                    <h2 style={{ position: "absolute", marginTop: 14 }}>{labelTabDetails}</h2>
-                    <div style={{ width: 1000, position: this.state.position, display: "block", zIndex: 9999, marginTop: this.state.marginTopDropdown }}>
-                        {buttonTabsNotPay === "buttonTabsNotPay" &&
-                            this.buttonBack(actionShowOrderListWaitingNotPay)}
-                        {buttonTabsNotSent === "buttonTabsNotSent" &&
-                            this.buttonBack(actionShowOrderListWaitingNotSent)}
-                        {buttonTabsInDelivery === "buttonTabsInDelivery" &&
-                            this.buttonBack(actionShowOrderListWaitingInDelivery)}
-                        {buttonTabsFinish === "buttonTabsFinish" &&
-                            this.buttonBack(actionShowOrderListWaitingFinish)}
-                        {buttonTabsCancel === "buttonTabsCancel" &&
-                            this.buttonBack(actionShowOrderListWaitingCancel)}
-                    </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <h2 style={{ fontSize: 24, color: "#4A4A4A" }}>{labelTabDetails}</h2>
+                    {buttonTabsNotPay === "buttonTabsNotPay" &&
+                        this.buttonBack(actionShowOrderListWaitingNotPay)}
+                    {buttonTabsNotSent === "buttonTabsNotSent" &&
+                        this.buttonBack(actionShowOrderListWaitingNotSent)}
+                    {buttonTabsInDelivery === "buttonTabsInDelivery" &&
+                        this.buttonBack(actionShowOrderListWaitingInDelivery)}
+                    {buttonTabsFinish === "buttonTabsFinish" &&
+                        this.buttonBack(actionShowOrderListWaitingFinish)}
+                    {buttonTabsCancel === "buttonTabsCancel" &&
+                        this.buttonBack(actionShowOrderListWaitingCancel)}
                 </div>
                 {((tabsNotPay === 1) || (tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
                     <OrderStatusStep
@@ -158,19 +166,9 @@ class OrderDetailsDashboard extends Component {
                     customer={this.state.order.orderAddress}
                     logOrderTransactions={this.state.order.logOrderTransactions}
                     estimateShippingDate={this.state.order.orderActivityDate} />
+                <BackTop />
             </React.Fragment>
         );
-    }
-
-    buttonBack(actionShowOrderListWaiting) {
-        return <Button style={{
-            float: "right",
-            backgroundColor: this.state.backgroundColor,
-            height: 35
-        }} onClick={() => actionShowOrderListWaiting()}>
-            <Icon type="arrow-left" /> &nbsp;
-            Kembali
-        </Button>
     }
 }
 

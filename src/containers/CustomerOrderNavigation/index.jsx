@@ -106,7 +106,6 @@ class CustomerOderNavigation extends Component {
     this.setState({
       [listener]: !this.state[listener],
       isShowDetailDashboard : !this.state.isShowDetailDashboard
-
     })
   }
 

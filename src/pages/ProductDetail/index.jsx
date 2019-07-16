@@ -113,7 +113,6 @@ class ProductDetail extends Component {
       quantity: quantity,
       note,
       sku: data.sku,
-      totalShipping: this.countTotalAmount(),
       maxOrder: information.maxOrder
     }
     const indexesToLocalstorage = JSON.stringify(items);
