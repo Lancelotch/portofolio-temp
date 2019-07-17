@@ -24,23 +24,46 @@ class Header extends Component {
     super(props);
     this.state = {
       name: this.props.customerName,
-      openModalLogin: false,
-      openModalLogout: false,
+      isShowUserMenu: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: "",
-      isAuthenticated: this.props.isAuthenticated,
+      isAuthenticated: false,
       dropdownShow: null,
       allCategory: [],
       display: "",
       top: 0,
-      marginTopDropdown: 0
+      marginTopDropdown: 0,
+      overlayUserMenu: <Login />
     };
+    this.listenWindowScroll = this.listenScrollEvent.bind(this);
   }
 
   componentDidMount() {
-    this.getAllCategory()
-    window.addEventListener("scroll", this.listenScrollEvent);
+    this.getAllCategory()    
+    window.addEventListener("scroll", this.listenWindowScroll);
+    this.setState({
+      isAuthenticated: this.props.isAuthenticated
+    }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.listenWindowScroll);
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.isAuthenticated !== this.state.isAuthenticated) {
+      this.setState({
+        isAuthenticated: props.isAuthenticated,
+        isShowUserMenu: false,
+      }, () => this.updateOverlayUserMenu(props.isAuthenticated));
+    }
+  }
+
+  updateOverlayUserMenu = (isAuthenticated) => {
+    this.setState({
+      overlayUserMenu: isAuthenticated === true ? this.userMenu() : <Login />
+    })
   }
 
   listenScrollEvent = e => {
@@ -52,8 +75,6 @@ class Header extends Component {
   };
 
   fixPositionDropdown = isTopHeaderShow => {
-    console.log("isShow", isTopHeaderShow);
-    
     if (!isTopHeaderShow){
       this.setState({ marginTopDropdown: 70 })
     } else {
@@ -79,33 +100,6 @@ class Header extends Component {
     });
   };
 
-  closeModal = () => {
-    this.setState({
-      openModalLogin: false
-    })
-  }
-
-  openModal = () => {
-    if (this.props.isAuthenticated) {
-      this.setState({
-        openModalLogout: true
-      })
-    } else {
-      this.setState({
-        openModalLogin: true
-      })
-    }
-
-  }
-
-  handleLogout = () => {
-    this.props.logout();
-    this.setState({
-      openModalLogout: false,
-      openModalLogin: false
-    })
-  };
-
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
@@ -118,42 +112,28 @@ class Header extends Component {
     }
   };
 
-  handleVisibleChange = (flag) => {
-    this.setState({
-      openModalLogin: flag,
-      openModalLogout: false
-    });
-  }
-
-  handleVisibleLogout = (flag) => {
-    this.setState({
-      openModalLogout: flag,
-      openModalLogin: false
-    })
-  }
-
-  renderAuthList = () => {
+  dropDownTriggerAuth = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.userMenu()} trigger={["click"]}>
-          <div style={{display:"flex"}}>
-            <div className="header-ellipsis">
-              <span>{this.props.customerName}</span>
-            </div>
-            <Icon className="header__name-icon" type="down"/>
-          </div>
-      </Dropdown>
+      <div style={{display:"flex"}}>
+        <div className="header-ellipsis">
+          <span>{this.props.customerName}</span>
+        </div>
+        <Icon className="header__name-icon" type="down"/>
+      </div>
     );
   };
 
-  renderNotAuthList = () => {
+  dropDownTriggerNotAuth = () => {
     return (
-        <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-          <div style={{display:"flex"}}>
-            <span>{strings.log_in}</span>
-            <Icon className="header__name-icon" type="down"/>
-          </div>
-        </Dropdown>
+        <div style={{display:"flex"}}>
+          <span>{strings.log_in}</span>
+          <Icon className="header__name-icon" type="down"/>
+        </div>
       );
+  };
+
+  handleLogout = () => {
+    this.props.logout();
   };
 
   isUrlIsCategory = value => {
@@ -192,8 +172,17 @@ class Header extends Component {
     </Menu>
   );
 
-  showUserDropDown = isAuthenticated =>
-    isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
+  showUserMenu = () => {
+    this.setState({
+      isShowUserMenu: true
+    });
+  }
+
+  hideUserMenu = () => {
+    this.setState({
+      isShowUserMenu: false
+    });
+  }
 
   render() {
     const { isAuthenticated, match } = this.props;
@@ -206,7 +195,7 @@ class Header extends Component {
           )}
       </div>
     );
-
+    const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
       <Affix offsetTop={this.state.top}>
         <Row className="header__row">
@@ -275,14 +264,15 @@ class Header extends Component {
           </Col>
           <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
             <React.Fragment>{greeting}</React.Fragment>
-            <div className="header__user-box">
+            <div onClick={this.showUserMenu} className="header__user-box">
               <Icon
-                type="user"
-                onClick={() => this.openModal()}
+                type="user"                
                 className="header__user-icon"
               />
               <div className="wrap-header-dropdown">
-                {this.showUserDropDown(isAuthenticated)}
+                <Dropdown onVisibleChange={this.hideUserMenu} visible={this.state.isShowUserMenu} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.state.overlayUserMenu} trigger={["click"]}>
+                  {dropdownTriggerUserMenu}
+                </Dropdown>  
               </div>
             </div>
           </Col>
