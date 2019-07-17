@@ -88,7 +88,7 @@ class PaymentInfoPage extends Component {
                 <img src={monggopesen_logo} alt="" />
               </Link>
             </div>
-            <div className="info__style">
+            <div className={amount === null ? "top-null":"info__style"}>
               <div className="info__title">
                 <p>{strings.payment_info}</p>
                 <Divider />

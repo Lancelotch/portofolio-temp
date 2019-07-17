@@ -8,6 +8,7 @@ import WaitingPayment from "../../components/WaitingPayment";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
+import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
 const confirm = Modal.confirm;
 
@@ -87,6 +88,7 @@ class OrderListWaitingPayment extends Component {
 
     return (
       <React.Fragment>
+      <ScrollToTopOnMount/>
         {productOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>

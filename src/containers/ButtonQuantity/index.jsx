@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "../../components/ButtonQuantity/style.sass";
-import {  Input, Icon } from 'antd';
-import { Typography } from 'antd';
-
-const { Text } = Typography;
+import ButtonQuantity from "../../components/ButtonQuantity";
 
 class ButtonQuantityContainer extends Component {
   constructor(props) {
@@ -63,16 +60,18 @@ class ButtonQuantityContainer extends Component {
     let checkCount = 1
     if (event.target.value > stock) {
       this.setState({
-        text: "Sudah Mencapai Jumlah Maksimum, Stock hanya"  + stock
+        text: "Sudah Mencapai Jumlah Maksimum, Stock hanya" + stock
       })
       checkCount = stock
       this.props.actionUpdateQuantity(event.target.value)
       setTimeout(() => {
         this.props.actionUpdateQuantity(stock)
       }, 300)
-      setTimeout(() => { this.setState({
-        text: ""
-      })},3000)
+      setTimeout(() => {
+        this.setState({
+          text: ""
+        })
+      }, 3000)
     } else {
       checkCount = event.target.value
       this.props.actionUpdateQuantity(checkCount)
@@ -82,40 +81,16 @@ class ButtonQuantityContainer extends Component {
 
 
   render() {
-    const Buttondisabled = this.props.quantity >= this.props.stock ? true : false
-    const disabled = this.props.quantity <= 1 ? true : false;
-    console.log("ini props", this.props)
     return (
       <React.Fragment>
-        <div className="row-quantity">
-          <div>
-            <button
-              className="button_quantity"
-              onClick={this.decrementItem}
-              disabled={disabled}
-            >
-              <Icon className="icon__quantity" type="minus" />
-            </button>
-          </div>
-          <div className="input-quantity">
-            <Input
-              //maxLength={4}
-              // defaultValue={1}
-              min={1}
-              max={10}
-              type="number"
-              value={this.props.quantity}
-              onChange={(e) => this.onChangeQuantity(e)}
-              onBlur={(e) => this.onChangeQuantityBlur(e)}
-            />
-          </div>
-          <div>
-            <button className="button_quantity" onClick={this.incrementItem} disabled={Buttondisabled}>
-              <Icon className="icon__quantity" type="plus" />
-            </button>
-          </div>
-          <Text style={{ marginTop: "3 %" }} type="danger">{this.state.text}</Text>
-        </div>
+        <ButtonQuantity
+          quantity={this.props.quantity}
+          stock={this.props.stock}
+          decrementItem={this.decrementItem}
+          incrementItem={this.incrementItem}
+          onChangeQuantity={(e) => this.onChangeQuantity(e)}
+          onChangeQuantityBlur={(e) => this.onChangeQuantityBlur(e)}
+          text={this.state.text} />
       </React.Fragment>
     );
   }

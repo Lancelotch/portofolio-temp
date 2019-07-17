@@ -38,10 +38,14 @@ const OrderStatusUser = props => {
         }
     }
 
+    console.log(responseOrderLogTransactions);
+
+
     return (
+
         <React.Fragment>
             {customer !== undefined | customer &&
-                <div style={{ marginTop: 15 }}>
+                <div className="orderStatusUser">
                     <Card>
                         <Row>
                             <Col md={12}>
@@ -57,43 +61,44 @@ const OrderStatusUser = props => {
                             </Col>
                         </Row>
                         <hr className="productOrder__inline" />
-                        <Row>
-                            <Col md={9}>
-                                <div className="borderRight">
-                                    <b className="nameCustomer">{customer.receiverName}</b>
-                                    <p className="nameCustomerText"
-                                        style={{ marginTop: "1rem", marginBottom: 0 }}>
-                                        <NumberFormat
-                                            value={customer.phoneNumber}
-                                            displayType={'text'}
-                                            format="####-####-####"
-                                        />
-                                    </p>
-                                    <p className="nameCustomerText">
-                                        {customer.fullAddress},&nbsp;{customer.city},&nbsp;
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div className="borderRight">
+                                            <label className="nameCustomer">{customer.receiverName}</label>
+                                            <p className="nameCustomerText"
+                                                style={{ marginBottom: 7 }}>
+                                                <NumberFormat
+                                                    value={customer.phoneNumber}
+                                                    displayType={'text'}
+                                                    format="####-####-####"
+                                                />
+                                            </p>
+                                            <p className="nameCustomerText">
+                                                {customer.fullAddress},&nbsp;{customer.city},&nbsp;
                                         {customer.subdistrict},&nbsp;{customer.province},&nbsp;{customer.zipcode}
-                                    </p>
-                                </div>
-                            </Col>
-                            <Col md={15}>
-                                <div className="wrapperRight">
-                                    {responseOrderLogTransactions.map((log,index) => {
-                                        return (
-                                            <Row key={index}>
-                                                <Col md={24}>
-                                                    <div style={{ display: "flex", justifyContent: "flex-start", paddingLeft: 10 }}>
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="wrapperRight">
+                                            {responseOrderLogTransactions.map((log, index) => {
+                                                let styleLog = index === 0 ? "parentDateTransaction dateTransaction logEnable" : "parentDateTransaction dateTransaction logDisabled"
+                                                return (
+                                                    <div key={index} className={styleLog}>
                                                         <span className="dot" />
-                                                        <p className="dateTransaction" style={{ textAlign: "left" }}>
+                                                        <p key={index} className={styleLog} style={{ textAlign: "left" }}>
                                                             {convertTimesTime.millisecond(log.createdDate)}&nbsp;{log.description}
                                                         </p>
                                                     </div>
-                                                </Col>
-                                            </Row>
-                                        )
-                                    })}
-                                </div>
-                            </Col>
-                        </Row>
+                                                )
+                                            })}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </Card>
                 </div>}
         </React.Fragment>

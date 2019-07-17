@@ -4,19 +4,20 @@ import { Collapse } from "antd";
 const PaymentInstructions = props => {
   const { paymentInstruction } = props;
   console.log(paymentInstruction);
-  
+
   return (
     <React.Fragment>
       {paymentInstruction &&
-        <Collapse defaultActiveKey={["1"]} accordion>
-          <Collapse.Panel showArrow={false} header="Cara Bayar" key="1">
-              {
-                paymentInstruction.paymentInstructions.map((ins, i) => {
-                  return <div dangerouslySetInnerHTML={{__html:ins.instruction}}/>
-                })
-              }
-          </Collapse.Panel>
-        </Collapse>
+        paymentInstruction.paymentInstructions.map((ins, i) => {
+          let index = i === 0 ? "1" : ""
+          return (
+            <Collapse defaultActiveKey={[index]} accordion style={{marginTop:15}}>
+              <Collapse.Panel  header="Cara Bayar" key={index}>
+                <div key={i} dangerouslySetInnerHTML={{ __html: ins.instruction }} />
+              </Collapse.Panel>
+            </Collapse>
+          )
+        })
       }
     </React.Fragment>
   );

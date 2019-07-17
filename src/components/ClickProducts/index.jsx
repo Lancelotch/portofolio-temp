@@ -112,7 +112,7 @@ class ClickProducts extends Component {
             }
           >
             <div className="card__info">
-              <p style={{display:"-webkit-box", WebkitBoxOrient:"vertical", WebkitLineClamp:"1", overflow:"hidden", color:"#000000"}}>{product.name}</p>
+              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000", fontSize: 16 }}>{product.name}</p>
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>

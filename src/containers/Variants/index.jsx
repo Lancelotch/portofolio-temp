@@ -14,7 +14,7 @@ class Variants extends Component {
         this.props.actionUpdateSku(this.state.selected);
     }
 
-    updateVariant = async (valueId, value, name, variantTypeIsImage = false) => {
+    updateVariant =  (valueId, value, name, variantTypeIsImage = false) => {
         if (variantTypeIsImage) {
            this.props.actionUpdateImageVariant(value.image);
         }

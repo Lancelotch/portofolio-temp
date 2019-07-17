@@ -33,13 +33,13 @@ export const PATH_CUSTOMER = {
 //PRODUCT
 const PRODUCT = "product";
 const PRODUCT_BY_ID = 'product/';
-const PRODUCT_BY_ID_DRAFT = 'product-draft/'
+const PRODUCT_BY_ID_DRAFT = 'product/'
 const PRODUCT_CATEGORY = "product/category/";
-const PRODUCT_CATEGORY_DRAFT = "product-draft/category/";
+const PRODUCT_CATEGORY_DRAFT = "product/category/";
 const PRODUCT_SEARCH = "product/search/";
-const PRODUCT_ALL_DRAFT = "product-draft?limit=4";
-const PRODUCT_ALL_DRAFT_CLICK_PRODUCTS = "product-draft";
-const PRODUCT_SEARCH_DRAFT = "product-draft/search?keyword="
+const PRODUCT_ALL_DRAFT = "product?limit=4";
+const PRODUCT_ALL_DRAFT_CLICK_PRODUCTS = "product";
+const PRODUCT_SEARCH_DRAFT = "product/search?keyword="
 const PRODUCT_BEST_SELLER = "product/best-seller?limit=4";
 const PRODUCT_POPULAR = "product/popular-categories?limit=4"
 const PRODUCT_RECOMMENDATION = "product/recommendations?limit=10"
@@ -68,7 +68,7 @@ export const PATH_SHIPPING = {
 
 //INVOICE
 const INVOICE = "invoice/";
-const INVOICE_DRAFT_BY_ID = "invoice-draft/"
+const INVOICE_DRAFT_BY_ID = "invoice/"
 export const PATH_INVOICE = {
     INVOICE: INVOICE,
     INVOICE_DRAFT_BY_ID : INVOICE_DRAFT_BY_ID
@@ -87,12 +87,12 @@ export const PATH_COURIER = {
 }
 
 //ORDER
-const ORDER = "order-draft";
+const ORDER = "order";
 const ORDER_BY_ID = "order/"
-const ORDER_DRAFT_PAYMENT_ID = "invoice-draft/"
-const ORDER_PAYMENT_ID = "order-draft/payment-info/"
-const ORDER_BY_CANCEL = "order-draft/cancel/"
-const ORDER_BY_RECEIVED = "order-draft/received/"
+const ORDER_DRAFT_PAYMENT_ID = "invoice/"
+const ORDER_PAYMENT_ID = "order/payment-info/"
+const ORDER_BY_CANCEL = "order/cancel/"
+const ORDER_BY_RECEIVED = "order/received/"
 const ORDER_GENERATE = "order/generate/";
 export const PATH_ORDER = {
     ORDER_DRAFT_PAYMENT_ID:ORDER_DRAFT_PAYMENT_ID,
@@ -105,7 +105,7 @@ export const PATH_ORDER = {
 }
 
 //DASHBOARD TAB USER
-const ORDER_STATUS_TAB_DASHBOARD = "invoice-draft/tab/"
+const ORDER_STATUS_TAB_DASHBOARD = "invoice/tab/"
 export const PATH_DASHBOARD_TAB = {
     ORDER_STATUS_TAB_DASHBOARD : ORDER_STATUS_TAB_DASHBOARD
 }

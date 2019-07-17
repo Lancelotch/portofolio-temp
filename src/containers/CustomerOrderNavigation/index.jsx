@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Spin, Alert, Modal } from "antd";
+import { Tabs, Spin, Alert, Modal, BackTop } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
@@ -51,7 +51,8 @@ class CustomerOderNavigation extends Component {
       id: "",
       stateReceivedOrder: [],
       index: 0,
-      display: ""
+      display: "",
+      isProductAlvailable : false
     };
   }
 
@@ -61,11 +62,6 @@ class CustomerOderNavigation extends Component {
     })
     this._isMounted = false;
   }
-
-  componentDidMount() {
-    this._isMounted = true;
-    this.productOrderTabsNotYetPay();
-  };
 
   showReceivedConfirm = (allOrder, index, orderId) => {
     console.log('allOrder', allOrder);
@@ -105,7 +101,7 @@ class CustomerOderNavigation extends Component {
   actionShowOrderListWaiting = (listener) => {
     this.setState({
       [listener]: !this.state[listener],
-      isShowDetailDashboard : !this.state.isShowDetailDashboard
+      isShowDetailDashboard: !this.state.isShowDetailDashboard
     })
   }
 
@@ -151,7 +147,7 @@ class CustomerOderNavigation extends Component {
         isLoading: false
       });
     } catch (error) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false,isProductAlvailable : true });
     }
   };
 
@@ -272,8 +268,8 @@ class CustomerOderNavigation extends Component {
 
   loadingItems() {
     return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-      {this.state.isLoading === true ? <Spin spinning={this.state.isLoading} /> : <NoOrderHistory />}
-    </div>;
+      {this.state.isLoading === true ? <Spin spinning={this.state.isLoading} /> :  <NoOrderHistory />}
+    </div>
   }
 
   updateTabNotPay = () => {
@@ -345,7 +341,7 @@ class CustomerOderNavigation extends Component {
     return (
       <React.Fragment>
         <ScrollToTopOnMount />
-         {isShowDetailDashboard === false ?
+        {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
             <CustomTabPane
               key={"1"}
@@ -422,14 +418,15 @@ class CustomerOderNavigation extends Component {
                           this.loadingItems() : this.responseListWaiting(this.state.productOrderCancel, "", "", "", "", "", 5)}
                       </Online>)} />
                 </React.Fragment>} />
+            <BackTop />
           </Tabs>
           :
           <React.Fragment>
-            {isShowOrderDetailsDashboardNotPay && this.responseOrderDetailsDashboard("Belum Bayar", "", "", "", 1, "", "", "", "", "buttonTabsNotPay")}
-            {isShowOrderDetailsDashboardNotSent && this.responseOrderDetailsDashboard("Belum Dikirim", "", "", "", "", "", 2, "", "", "", "buttonTabsNotSent")}
-            {isShowOrderDetailsDashboardInDelivery && this.responseOrderDetailsDashboard("Dalam Pengiriman", "Perkiraan Diterima", "", 3, "", 2, 3, "", "", "", "", "buttonTabsInDelivery")}
-            {isShowOrderDetailsDashboardFinish && this.responseOrderDetailsDashboard("Finish", "Pesenan Diterima", "", 4, "", 2, 3, 4, "", "", "", "", "buttonTabsFinish")}
-            {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboard("Batal", "Pesenan Diterima", "", "", "", "", "", "", 5, "", "", "", "", "buttonTabsCancel")}
+            {isShowOrderDetailsDashboardNotPay && this.responseOrderDetailsDashboard("Belum Bayar", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", 1, "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "buttonTabsNotPay")}
+            {isShowOrderDetailsDashboardNotSent && this.responseOrderDetailsDashboard("Belum Dikirim", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", "hiddentabsnotpay", 2, "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "buttonTabsNotSent")}
+            {isShowOrderDetailsDashboardInDelivery && this.responseOrderDetailsDashboard("Dalam Pengiriman", "Perkiraan Diterima", 3, "hiddenFinishOrderStatusUser", "hiddentabsnotpay", 2, 3, "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "hiddenbuttontabnotsent", "buttonTabsInDelivery")}
+            {isShowOrderDetailsDashboardFinish && this.responseOrderDetailsDashboard("Finish", "Pesenan Diterima", "hiddendeliveryhorderstatususer", 4, "hiddentabsnotpay", 2, 3, 4, "hiddentabscancel", "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "buttonTabsFinish")}
+            {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboard("Batal", "Pesenan Diterima", "hiddendeliveryhorderstatususer", "hiddenfinishorderstatususer", "hiddentabsnotpay", "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", 5, "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "hiddenbuttonfinish", "buttonTabsCancel")}
           </React.Fragment>
         }
       </React.Fragment>

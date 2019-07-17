@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown,Typography } from "antd";
+import { Row, Col, Icon, Menu, Dropdown, Typography } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
@@ -24,8 +24,8 @@ class Header extends Component {
     super(props);
     this.state = {
       name: this.props.customerName,
-      openModalLogin: false,
-      openModalLogout: false,
+      // openModalLogin: false,
+      //openModalLogout: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: "",
@@ -80,9 +80,9 @@ class Header extends Component {
   };
 
   closeModal = () => {
-    this.setState({
-      openModalLogin: false
-    })
+        this.setState({
+          openModalLogin: false
+        })
   }
 
   openModal = () => {
@@ -95,16 +95,30 @@ class Header extends Component {
         openModalLogin: true
       })
     }
-
   }
 
   handleLogout = () => {
-    this.props.logout();
+    this.props.logout()
     this.setState({
-      openModalLogout: false,
       openModalLogin: false
     })
   };
+
+
+  handleVisibleChange = (flag) => {
+    this.setState({
+      openModalLogin: flag,
+      openModalLogout: false
+    })
+  }
+
+  handleVisibleLogout = (flag) => {
+    this.setState({
+      openModalLogout: flag,
+      openModalLogin: false
+    })
+  }
+
 
   getCustomerDetail = async () => {
     try {
@@ -118,20 +132,6 @@ class Header extends Component {
     }
   };
 
-  handleVisibleChange = (flag) => {
-    this.setState({
-      openModalLogin: flag,
-      openModalLogout: false
-    });
-  }
-
-  handleVisibleLogout = (flag) => {
-    this.setState({
-      openModalLogout: flag,
-      openModalLogin: false
-    })
-  }
-
   renderAuthList = () => {
     return (
       <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={this.userMenu()} trigger={["click"]}>
@@ -144,6 +144,7 @@ class Header extends Component {
       </Dropdown>
     );
   };
+
 
   renderNotAuthList = () => {
     return (
@@ -225,21 +226,23 @@ class Header extends Component {
               />
             </Link>
           </Col>
-          <Col md={15} className="header__search-box">
-            <Search
-              placeholder={strings.search_place_holder}
-              style={{
-                height: 35,
-                fontSize: 17,
-                width: 559
-              }}
-              id="filter"
-              // enterButton
-              name="q"
-              defaultValue={this.getParams()}
-              onSearch={this.getValue}
-              onChange={this.handleInputSearchChange.bind(this)}
-              className="header__search" />
+          <Col md={15}>
+            <div className="header__search-box">
+              <Search
+                placeholder={strings.search_place_holder}
+                style={{
+                  height: 35,
+                  fontSize: 17,
+                  width: 559
+                }}
+                id="filter"
+                // enterButton
+                name="q"
+                defaultValue={this.getParams()}
+                onSearch={this.getValue}
+                onChange={this.handleInputSearchChange.bind(this)}
+                className="header__search" />
+            </div>
           </Col>
           <Col md={4}>
             <div>
@@ -272,16 +275,18 @@ class Header extends Component {
 
             </div>
           </Col>
-          <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
-            <React.Fragment>{greeting}</React.Fragment>
-            <div className="header__user-box">
-              <Icon
-                type="user"
-                onClick={() => this.openModal()}
-                className="header__user-icon"
-              />
-              <div className="wrap-header-dropdown">
-                {this.showUserDropDown(isAuthenticated)}
+          <Col md={8}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <React.Fragment>{greeting}</React.Fragment>
+              <div className="header__user-box">
+                <Icon
+                  type="user"
+                  onClick={() => this.openModal()}
+                  className="header__user-icon"
+                />
+                <div className="wrap-header-dropdown">
+                  {this.showUserDropDown(isAuthenticated)}
+                </div>
               </div>
             </div>
           </Col>
