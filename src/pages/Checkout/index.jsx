@@ -485,7 +485,4 @@ const mapStatetoProps = state => ({
   message: state.authentication.message
 });
 
-export default connect(
-  mapStatetoProps,
-  { addressDefault, openModal }
-)(Checkout);
+export default connect(mapStatetoProps,{ addressDefault, openModal })(Checkout);

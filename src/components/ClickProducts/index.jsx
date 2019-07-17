@@ -72,11 +72,12 @@ class ClickProducts extends Component {
   render() {
     const { data } = this.props;
     const products = data.slice(0, 10);
+    let sliderToClickLength = products.length <= 6 ? false : true
     const settings = {
-      slidesToShow: 3,
+      slidesToShow: 5,
       slidesToScroll: 1,
       dots: true,
-      infinite: true,
+      infinite: sliderToClickLength,
       speed: 1000,
       autoplaySpeed: 7000,
       autoplay: true,

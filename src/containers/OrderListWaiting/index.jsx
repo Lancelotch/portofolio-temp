@@ -84,8 +84,6 @@ class OrderListWaitingPayment extends Component {
       productOrder,
       showReceivedConfirm
     } = this.props;
-    console.log(this.state.selectedOrder);
-
     return (
       <React.Fragment>
       <ScrollToTopOnMount/>

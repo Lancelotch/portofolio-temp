@@ -16,7 +16,7 @@ class PaymentInfoPage extends Component {
     super(props);
     this.state = {
       messageCopy: "",
-      amount: null,
+      amount: 0,
       copied: false,
       isLoading: true,
       gateway: {}
@@ -32,7 +32,7 @@ class PaymentInfoPage extends Component {
   getPaymentInfo = async () => {
     const paymentId = this.props.match.params.paymentId;
     try {
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)     
       const payment = response.data.data;
       this.setState({
         isLoading: false,
@@ -76,6 +76,8 @@ class PaymentInfoPage extends Component {
         onOk: this.actionToDashboardCustomer
       });
     };
+    console.log(this.state.gateway);
+    
     return (
       <div className="container">
         <React.Fragment>
@@ -88,13 +90,13 @@ class PaymentInfoPage extends Component {
                 <img src={monggopesen_logo} alt="" />
               </Link>
             </div>
-            <div className={amount === null ? "top-null":"info__style"}>
+            <div className={gateway === undefined ? "top-null":"info__style"}>
               <div className="info__title">
                 <p>{strings.payment_info}</p>
                 <Divider />
               </div>
               <div className="info__content">
-                {amount === null ?
+                {amount === 0 ?
                   <Row type="flex" align="middle" style={{ marginTop: 40 }} className="info__bank">
                     <Col md={4} />
                     <Col md={16} />
@@ -109,7 +111,7 @@ class PaymentInfoPage extends Component {
                   />}
                 <center style={{ color: "red" }}>{this.state.messageCopy}</center>
                 <div className="info__dropdownMethod">
-                  {amount === null ?
+                  {amount === 0 ?
                     <Collapse defaultActiveKey={["1"]} accordion>
                       <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
                     </Collapse>
@@ -118,7 +120,7 @@ class PaymentInfoPage extends Component {
                   }
                 </div>
                 <div>
-                  {amount === null ?
+                  {amount === 0 ?
                     <SkeletonCustom width={975} topMargin={10} height={48} color={"#BBBBBB"} count={0} />
                     :
                     <Button className="info__button" onClick={warning}>

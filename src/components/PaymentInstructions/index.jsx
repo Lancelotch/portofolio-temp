@@ -11,7 +11,7 @@ const PaymentInstructions = props => {
         paymentInstruction.paymentInstructions.map((ins, i) => {
           let index = i === 0 ? "1" : ""
           return (
-            <Collapse defaultActiveKey={[index]} accordion style={{marginTop:15}}>
+            <Collapse key={i} defaultActiveKey={[index]} accordion style={{marginTop:15}}>
               <Collapse.Panel  header="Cara Bayar" key={index}>
                 <div key={i} dangerouslySetInnerHTML={{ __html: ins.instruction }} />
               </Collapse.Panel>

@@ -14,14 +14,6 @@ import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
 const confirm = Modal.confirm;
 
-const keyFnNames = {
-  '1': 'updateTabNotPay',
-  '2': 'updateTabNotSent',
-  '3': 'updateTabInDelivery',
-  '4': 'updateTabFinish',
-  '5': 'updateTabCancel'
-};
-
 const polling = {
   enabled: false,
   interval: 2000,
@@ -29,7 +21,6 @@ const polling = {
 };
 
 class CustomerOderNavigation extends Component {
-  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -52,21 +43,23 @@ class CustomerOderNavigation extends Component {
       stateReceivedOrder: [],
       index: 0,
       display: "",
-      isProductAlvailable : false
+      isProductAlvailable: false
     };
   }
 
-
-  componentDidMount(){
+  componentDidMount() {
     this.productOrderTabsNotYetPay();
   }
 
-  componentWillMount() {
-    this.setState({
-      isLoading: true
-    })
-    this._isMounted = false;
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevState);
+    
+  //   if (prevState.productOrderNotYetPay.length !== this.state.productOrderNotYetPay.length || 
+  //     prevState.productOrderInDelivery.length !== this.state.productOrderNotYetPay.length) {
+  //    this.productOrderTabsNotYetPay()
+  //    this.productOrderTabsInDelivery()
+  //   }  
+  // }
 
   showReceivedConfirm = (allOrder, index, orderId) => {
     console.log('allOrder', allOrder);
@@ -145,26 +138,33 @@ class CustomerOderNavigation extends Component {
   };
 
   productOrderTabsNotYetPay = async () => {
+    this.setState({ isLoading: true })
     try {
+      console.log("masukgetapipay");
+
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 0);
       this.setState({
-        productOrderNotYetPay: response.data.data,
-        isLoading: false
+        productOrderNotYetPay: response.data.data
       });
+      this.showProductNotAlvailavle(this.state.productOrderNotYetPay)
     } catch (error) {
-      this.setState({ isLoading: false,isProductAlvailable : true });
+      this.setState({ isLoading: false, isProductAlvailable: true });
     }
   };
 
   productOrderTabsNotYetSent = async () => {
     try {
+      console.log("masukgetapipay");
+
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 1);
       this.setState({
-        productOrderNotYetSent: response.data.data,
-        isLoading: false
+        productOrderNotYetSent: response.data.data
       });
+      this.showProductNotAlvailavle(this.state.productOrderNotYetSent)
     } catch (error) {
-      this.setState({ isLoading: false });
+      console.log("masukgetapipayerror");
+
+      this.setState({ isLoading: false, isProductAlvailable: true });
     }
   };
 
@@ -172,11 +172,11 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 2);
       this.setState({
-        productOrderInDelivery: response.data.data,
-        isLoading: false
+        productOrderInDelivery: response.data.data
       });
+      this.showProductNotAlvailavle(this.state.productOrderInDelivery)
     } catch (error) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, isProductAlvailable: true });
     }
   };
 
@@ -184,25 +184,41 @@ class CustomerOderNavigation extends Component {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 3);
       this.setState({
-        productOrderFinish: response.data.data,
-        isLoading: false
+        productOrderFinish: response.data.data
       });
+      this.showProductNotAlvailavle(this.state.productOrderFinish);
     } catch (error) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, isProductAlvailable: true });
     }
   };
 
   productOrderTabsCancel = async () => {
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + 4);
+      console.log(response);
+      
       this.setState({
         productOrderCancel: response.data.data,
-        isLoading: false
+        message: response.data.message,
+        isLoading: true
       });
+      this.showProductNotAlvailavle(this.state.productOrderCancel)
     } catch (error) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, isProductAlvailable: true });
     }
   };
+
+  showProductNotAlvailavle(orderRespon) {
+    if (orderRespon.length < 1) {
+      this.setState({
+        isProductAlvailable: true
+      })
+    } else if (orderRespon.length > 1) {
+      this.setState({
+        isProductAlvailable: false
+      })
+    }
+  }
 
   responseListWaiting(
     responseProductOrder,
@@ -273,7 +289,7 @@ class CustomerOderNavigation extends Component {
 
   loadingItems() {
     return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-      {this.state.isLoading === true ? <Spin spinning={this.state.isLoading} /> :  <NoOrderHistory />}
+      {this.state.isProductAlvailable === true ? <NoOrderHistory /> : <Spin spinning={this.state.isLoading} />}
     </div>
   }
 
@@ -317,13 +333,28 @@ class CustomerOderNavigation extends Component {
     }, () => this.productOrderTabsCancel());
   };
 
-  handleChange = (selectedkey) => {
-    this.setState({ activeKey: selectedkey })
-    const fnName = keyFnNames[selectedkey];
-    if (fnName) {
-      this[fnName]();
+  handleChange = (selectkey) => {
+    this.setState({ activeKey: selectkey })
+    switch (selectkey) {
+      case "1":
+        this.updateTabNotPay();
+        break;
+      case "2":
+        this.updateTabNotSent();
+        break;
+      case "3":
+        this.updateTabInDelivery();
+        break;
+      case "4":
+        this.updateTabFinish();
+        break;
+      case "5":
+        this.updateTabCancel();
+        break;
+      default:
+        console.log("error");
     }
-  };
+  }
 
   alertOffline = () => {
     return <Alert
