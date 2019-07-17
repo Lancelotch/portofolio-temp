@@ -73,16 +73,15 @@ class ClickProducts extends Component {
     const { data } = this.props;
     const products = data.slice(0, 10);
     const settings = {
+      slidesToShow: 3,
+      slidesToScroll: 1,
       dots: true,
-      lazyLoad: true,
       infinite: true,
       speed: 1000,
+      autoplaySpeed: 7000,
       autoplay: true,
       arrows: true,
-      slidesToShow: 5,
-      slidesToScroll: 1,
       swipeToSlide: true,
-      pauseOnHover: true,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
       appendDots: dots => (

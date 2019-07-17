@@ -48,7 +48,7 @@ class ProductDetail extends Component {
   getProductDetail = async () => {
     const productId = this.props.match.params.productId;
     try {
-      const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID_DRAFT + productId)
+      const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID + productId)
       console.log("ini respon", response);
 
       //const response = dummyProductDetail;

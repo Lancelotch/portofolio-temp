@@ -27,11 +27,11 @@ class HomePageContainer extends Component {
             <Row type="flex" justify="center">
               <Benefit />
             </Row>
-            <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT}>
+            <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_LIMIT}>
               <PopularProducts {...this.props} /*maxProductCount={4}*/ />
             </Fetcher>
             <Col md={24}>
-              <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT}>
+              <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_LIMIT}>
                 <BestSellers {...this.props} /*maxProductCount={4}*/></BestSellers>
               </Fetcher>
             </Col>
@@ -49,7 +49,7 @@ class HomePageContainer extends Component {
                     width: 1130,
                   }}
                 >
-                  <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_DRAFT_CLICK_PRODUCTS}>
+                  <Fetcher path={PATH_PRODUCT.PRODUCT}>
                     <ClickProducts {...this.props} />
                   </Fetcher>
                 </div>
