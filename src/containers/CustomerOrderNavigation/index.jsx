@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Spin, Alert, Modal, BackTop } from "antd";
+import { Tabs, Spin, Alert, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
@@ -54,6 +54,11 @@ class CustomerOderNavigation extends Component {
       display: "",
       isProductAlvailable : false
     };
+  }
+
+
+  componentDidMount(){
+    this.productOrderTabsNotYetPay();
   }
 
   componentWillMount() {
@@ -418,7 +423,6 @@ class CustomerOderNavigation extends Component {
                           this.loadingItems() : this.responseListWaiting(this.state.productOrderCancel, "", "", "", "", "", 5)}
                       </Online>)} />
                 </React.Fragment>} />
-            <BackTop />
           </Tabs>
           :
           <React.Fragment>

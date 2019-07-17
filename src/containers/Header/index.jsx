@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown, Typography } from "antd";
+import { Row, Col, Icon, Menu, Dropdown, Affix } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
@@ -17,44 +17,65 @@ import history from "../../routers/history"
 import getParamUrl from "../../library/getParamUrl";
 import CategoryMenuCascader from "../../components/CategoryMenu/cascaderMenu";
 
-const { Text } = Typography;
+
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: this.props.customerName,
-      // openModalLogin: false,
-      //openModalLogout: false,
+      isShowUserMenu: false,
       isDataCategoryFeatureLoaded: false,
       sumProduct: 0,
       keyword: "",
-      isAuthenticated: this.props.isAuthenticated,
+      isAuthenticated: false,
       dropdownShow: null,
       allCategory: [],
       display: "",
-      marginTopDropdown: 0
+      top: 0,
+      marginTopDropdown: 0,
+      overlayUserMenu: <Login />
     };
+    this.listenWindowScroll = this.listenScrollEvent.bind(this);
   }
 
   componentDidMount() {
-    this.getAllCategory()
-    window.addEventListener("scroll", this.listenScrollEvent);
+    this.getAllCategory()    
+    window.addEventListener("scroll", this.listenWindowScroll);
+    this.setState({
+      isAuthenticated: this.props.isAuthenticated
+    }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.listenWindowScroll);
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.isAuthenticated !== this.state.isAuthenticated) {
+      this.setState({
+        isAuthenticated: props.isAuthenticated,
+        isShowUserMenu: false,
+      }, () => this.updateOverlayUserMenu(props.isAuthenticated));
+    }
+  }
+
+  updateOverlayUserMenu = (isAuthenticated) => {
+    this.setState({
+      overlayUserMenu: isAuthenticated === true ? this.userMenu() : <Login />
+    })
+  }
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none", position: "fixed" }, this.fixPositionDropdown(false));
+      this.setState({ display: "none" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: "", position: "" }, this.fixPositionDropdown(true));
+      this.setState({ display: "" }, this.fixPositionDropdown(true));
     }
   };
 
   fixPositionDropdown = isTopHeaderShow => {
-    console.log("isShow", isTopHeaderShow);
-
-    if (!isTopHeaderShow) {
+    if (!isTopHeaderShow){
       this.setState({ marginTopDropdown: 70 })
     } else {
       this.setState({ marginTopDropdown: 120 });
@@ -79,47 +100,6 @@ class Header extends Component {
     });
   };
 
-  closeModal = () => {
-        this.setState({
-          openModalLogin: false
-        })
-  }
-
-  openModal = () => {
-    if (this.props.isAuthenticated) {
-      this.setState({
-        openModalLogout: true
-      })
-    } else {
-      this.setState({
-        openModalLogin: true
-      })
-    }
-  }
-
-  handleLogout = () => {
-    this.props.logout()
-    this.setState({
-      openModalLogin: false
-    })
-  };
-
-
-  handleVisibleChange = (flag) => {
-    this.setState({
-      openModalLogin: flag,
-      openModalLogout: false
-    })
-  }
-
-  handleVisibleLogout = (flag) => {
-    this.setState({
-      openModalLogout: flag,
-      openModalLogin: false
-    })
-  }
-
-
   getCustomerDetail = async () => {
     try {
       const payload = await customer.customerDetail();
@@ -132,29 +112,28 @@ class Header extends Component {
     }
   };
 
-  renderAuthList = () => {
+  dropDownTriggerAuth = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleLogout} visible={this.state.openModalLogout} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={this.userMenu()} trigger={["click"]}>
-        <div style={{ display: "flex" }}>
-          <div className="header-ellipsis">
-            <Text>{this.props.customerName}</Text>
-          </div>
-          <Icon className="header__name-icon" type="down" />
+      <div style={{display:"flex"}}>
+        <div className="header-ellipsis">
+          <span>{this.props.customerName}</span>
         </div>
-      </Dropdown>
+        <Icon className="header__name-icon" type="down"/>
+      </div>
     );
   };
 
-
-  renderNotAuthList = () => {
+  dropDownTriggerNotAuth = () => {
     return (
-      <Dropdown onVisibleChange={this.handleVisibleChange} visible={this.state.openModalLogin} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={<Login closeModal={this.closeModal} />} trigger={["click"]}>
-        <div style={{ display: "flex" }}>
-          <Text>{strings.log_in}</Text>
-          <Icon className="header__name-icon" type="down" />
+        <div style={{display:"flex"}}>
+          <span>{strings.log_in}</span>
+          <Icon className="header__name-icon" type="down"/>
         </div>
-      </Dropdown>
-    );
+      );
+  };
+
+  handleLogout = () => {
+    this.props.logout();
   };
 
   isUrlIsCategory = value => {
@@ -184,7 +163,7 @@ class Header extends Component {
         </Row>
       </Menu.Item>
       <hr className="header__user-divider"></hr>
-      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} style={{ marginTop: 15 }} className="header__user-li">Pesenan Saya</Link></Menu.Item>
+      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesenan Saya</Link></Menu.Item>
       <Menu.Item key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
       <Menu.Item key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
       <Menu.Item key="4">
@@ -193,8 +172,17 @@ class Header extends Component {
     </Menu>
   );
 
-  showUserDropDown = isAuthenticated =>
-    isAuthenticated === true ? this.renderAuthList() : this.renderNotAuthList();
+  showUserMenu = () => {
+    this.setState({
+      isShowUserMenu: true
+    });
+  }
+
+  hideUserMenu = () => {
+    this.setState({
+      isShowUserMenu: false
+    });
+  }
 
   render() {
     const { isAuthenticated, match } = this.props;
@@ -207,8 +195,9 @@ class Header extends Component {
           )}
       </div>
     );
+    const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
-      <div style={{ position: this.state.position, zIndex: 999, width: "100%", top: 0 }}>
+      <Affix offsetTop={this.state.top}>
         <Row className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
@@ -226,23 +215,21 @@ class Header extends Component {
               />
             </Link>
           </Col>
-          <Col md={15}>
-            <div className="header__search-box">
-              <Search
-                placeholder={strings.search_place_holder}
-                style={{
-                  height: 35,
-                  fontSize: 17,
-                  width: 559
-                }}
-                id="filter"
-                // enterButton
-                name="q"
-                defaultValue={this.getParams()}
-                onSearch={this.getValue}
-                onChange={this.handleInputSearchChange.bind(this)}
-                className="header__search" />
-            </div>
+          <Col md={15} className="header__search-box">
+            <Search
+              placeholder={strings.search_place_holder}
+              style={{
+                height: 35,
+                fontSize: 17,
+                width: 559
+              }}
+              id="filter"
+             // enterButton
+              name="q"
+              defaultValue={this.getParams()}
+              onSearch={this.getValue}
+              onChange={this.handleInputSearchChange.bind(this)}
+              className="header__search" />
           </Col>
           <Col md={4}>
             <div>
@@ -275,23 +262,22 @@ class Header extends Component {
 
             </div>
           </Col>
-          <Col md={8}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <React.Fragment>{greeting}</React.Fragment>
-              <div className="header__user-box">
-                <Icon
-                  type="user"
-                  onClick={() => this.openModal()}
-                  className="header__user-icon"
-                />
-                <div className="wrap-header-dropdown">
-                  {this.showUserDropDown(isAuthenticated)}
-                </div>
+          <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
+            <React.Fragment>{greeting}</React.Fragment>
+            <div onClick={this.showUserMenu} className="header__user-box">
+              <Icon
+                type="user"                
+                className="header__user-icon"
+              />
+              <div className="wrap-header-dropdown">
+                <Dropdown onVisibleChange={this.hideUserMenu} visible={this.state.isShowUserMenu} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.state.overlayUserMenu} trigger={["click"]}>
+                  {dropdownTriggerUserMenu}
+                </Dropdown>  
               </div>
             </div>
           </Col>
         </Row>
-      </div>
+      </Affix>
     );
   }
 }
