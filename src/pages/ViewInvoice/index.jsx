@@ -32,8 +32,6 @@ class ViewInvoice extends Component {
         const invoiceId = this.props.match.params.invoiceId;
         try {
             const response = await apiGetWithToken(PATH_INVOICE.INVOICE + invoiceId);
-            console.log(response);
-
             const itemInvoiceDashboard = {
                 id: response.data.data.id,
                 order: response.data.data.order,

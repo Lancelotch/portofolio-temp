@@ -3,7 +3,6 @@ import { Collapse } from "antd";
 
 const PaymentInstructions = props => {
   const { paymentInstruction } = props;
-  console.log(paymentInstruction);
 
   return (
     <React.Fragment>

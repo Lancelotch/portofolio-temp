@@ -112,7 +112,6 @@ class Checkout extends Component {
       },
       () => this.getSubdistrict(city[0])
     );
-    console.log("handle change city di checkout", value);
   };
 
   initCustomerAddress = async () => {
@@ -141,8 +140,6 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
-    console.log(payloadProductDetail);
-
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
@@ -160,7 +157,6 @@ class Checkout extends Component {
   getFareExpedisi = async () => {
     try {
       const response = await apiPostWithToken(PATH_SHIPPING.JNE, {})
-      console.log(response);
       this.setState({
         priceJne: response.data.data.price
       })
@@ -297,7 +293,6 @@ class Checkout extends Component {
     };
     try {
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
-      console.log('response scheckout', response);
       if (this.state.quantity > this.state.maxOrder) {
         alert('adasd')
         this.setState({ isLoading: false })
@@ -373,8 +368,6 @@ class Checkout extends Component {
       priceProduct,
       jneChecked
     } = this.state;
-    console.log(this.state.priceJne);
-
     return (
       <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
         <div className="checkout">

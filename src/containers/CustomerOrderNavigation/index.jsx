@@ -48,8 +48,6 @@ class CustomerOderNavigation extends Component {
   }
 
   showReceivedConfirm = (allOrder, index, orderId) => {
-    console.log('allOrder', allOrder);
-    console.log('index', index);
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
       title: strings.tab_belum_bayar,
@@ -65,7 +63,6 @@ class CustomerOderNavigation extends Component {
   };
 
   actionReceivedConfirm = async (index) => {
-    console.log('actionCancelConfirm', index);
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_RECEIVED + orderId);
@@ -122,15 +119,12 @@ class CustomerOderNavigation extends Component {
     this.setState({ isLoading: true })
     try {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + value);
-      console.log('productordertabsnotpay', response);
       if (response.data.data) {
         this.setState({
           productOrder: response.data.data,
           isLoading: false,
           isProductAlvailabel: false
-        });
-        console.log("masuk if",this.state.isLoading)
-        console.log('productOrder ====>', this.state.productOrder);
+        })
       }
         if (response.data.data.length < 1) {
           this.setState({
@@ -143,8 +137,6 @@ class CustomerOderNavigation extends Component {
   };
 
   loadingItems(value) {
-    console.log('valueeee', value);
-
     return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
       {value && <Spin spinning={value} />}
     </div>

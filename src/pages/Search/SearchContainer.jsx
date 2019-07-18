@@ -60,7 +60,6 @@ class SearchPage extends Component {
     };
     try {
       const nextProduct = await product.listProductSearch(request);
-      console.log('next product', nextProduct);
       if (nextProduct.data === undefined) {
         this.setState({
           isQueryAvailable: false
@@ -110,8 +109,6 @@ class SearchPage extends Component {
 
   infiniteScroll = () => {
     const { productList, hasMore, query, element } = this.state;
-    console.log('ciwiiiii', productList);
-
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,

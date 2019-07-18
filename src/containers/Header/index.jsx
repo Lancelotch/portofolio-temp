@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, Menu, Dropdown, Affix } from "antd";
+import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
 import TopHeader from "../../components/TopHeader";
@@ -68,9 +68,9 @@ class Header extends Component {
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none" }, this.fixPositionDropdown(false));
+      this.setState({ display: "none",position:"fixed" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: "" }, this.fixPositionDropdown(true));
+      this.setState({ display: "",position:"" }, this.fixPositionDropdown(true));
     }
   };
 
@@ -197,7 +197,7 @@ class Header extends Component {
     );
     const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
-      <Affix offsetTop={this.state.top}>
+      <div className="header-fixed" style={{ position: this.state.position }}>
         <Row className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
@@ -277,7 +277,7 @@ class Header extends Component {
             </div>
           </Col>
         </Row>
-      </Affix>
+      </div>
     );
   }
 }

@@ -152,7 +152,6 @@ class FormAddAddress extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      console.log("ini values",values)
       if (!err) {
         const { province, provinceId, city, cityId, subdistrict, subdistrictId } = this.state;
         const payload = {

@@ -36,9 +36,7 @@ class ProductListCategory extends Component {
   }
 
   fetchMoreData = () => {
-    const { products, limit, hasMore } = this.state;
-    console.log(products.length, hasMore, limit);
-    
+  const { products, limit /*hasMore*/ } = this.state;
     if (products.length >= limit) {
       this.setState({ hasMore: false });
       return;

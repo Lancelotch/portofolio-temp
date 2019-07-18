@@ -8,8 +8,6 @@ const { Text } = Typography;
 
 const TableInvoiceDetailDashboard = (props) => {
     const { invoice, orderDate, customerOrderAddress, note,customerOrder} = props;
-    console.log('tableeee',customerOrderAddress);
-    
     return (
         <Row>
         {customerOrder && customerOrderAddress &&

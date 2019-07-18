@@ -7,8 +7,6 @@ const { Text } = Typography;
 
 const TableInvoicePayment = props => {
     const { productSnapshot, shipment,courier } = props;
-    console.log(props);
-
     return (
         <Row>
             <Col md={24}>

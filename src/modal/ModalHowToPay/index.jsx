@@ -66,7 +66,7 @@ class ModalHowToPay extends Component {
               </p>
             </div>
 
-            <p className="paymenttype" style={{textAlign:"center"}}>{/*{pay.bankName}*/}Virtual Account</p>
+            <p className="paymenttype" style={{ textAlign: "center" }}>{/*{pay.bankName}*/}Virtual Account</p>
             <div className="virtualAccontCopy"
               style={{
                 height: 58.42,
@@ -75,15 +75,15 @@ class ModalHowToPay extends Component {
               <Row>
                 <Col md={24}>
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <img
-                  src={orderPayment.gateway.bank.imageUrl}
-                  style={{
-                    maxHeight: 24.84,
-                    maxWidth: 72.84,
-                    marginTop:5
-                  }}
-                  alt=""
-                />
+                    <img
+                      src={orderPayment.gateway.bank.imageUrl}
+                      style={{
+                        maxHeight: 24.84,
+                        maxWidth: 72.84,
+                        marginTop: 5
+                      }}
+                      alt=""
+                    />
                     <p className="virtualAccountType">
                       {orderPayment.gateway.virtualAccount}
                     </p>&nbsp;
@@ -101,14 +101,17 @@ class ModalHowToPay extends Component {
             </div>
             <Row>
               <Col md={24}>
-                <Collapse defaultActiveKey={['1']} onChange={this.callback}>
-                  <Panel header="Cara Bayar" key="1">
-                    {instructions.map((ins, i) => {
-                      return <div dangerouslySetInnerHTML={{ __html: ins.instruction }} />
-                    })
-                    }
-                  </Panel>
-                </Collapse>
+                {instructions.map((ins, i) => {
+                  let index = i === 0 ? "1" : ""
+                  return (
+                    <Collapse key={i} defaultActiveKey={[index]} onChange={this.callback} style={{marginTop:15}} >
+                      <Panel.Collapse header="Cara Bayar" key={index}>
+                        <div dangerouslySetInnerHTML={{ __html: ins.instruction }} />
+                      </Panel.Collapse>
+                    </Collapse>
+                  )
+                })
+                }
               </Col>
             </Row>
           </Modal >

@@ -49,9 +49,6 @@ class ProductDetail extends Component {
     const productId = this.props.match.params.productId;
     try {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID + productId)
-      console.log("ini respon", response);
-
-      //const response = dummyProductDetail;
       const product = response.data.data;
       this.setState({
         information: product.information,
@@ -166,10 +163,7 @@ class ProductDetail extends Component {
 
 
   render() {
-    console.log(this.countTotalAmount());
   let totalShipping = this.countTotalAmount();
-  console.log(totalShipping);
-  
     return (
       <React.Fragment>
         <div className="container productDetail">
