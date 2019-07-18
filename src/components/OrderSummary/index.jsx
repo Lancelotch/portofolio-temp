@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
   const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne, isLoading } = props;
-let checkPriceJne = priceJne === 0 ? true : false
+  let checkPriceJne = priceJne === 0 ? true : false
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
 
@@ -15,7 +15,7 @@ let checkPriceJne = priceJne === 0 ? true : false
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
   };
-  
+
 
 
   return (
