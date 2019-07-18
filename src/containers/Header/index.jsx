@@ -34,7 +34,8 @@ class Header extends Component {
       display: "",
       top: 0,
       marginTopDropdown: 0,
-      overlayUserMenu: <Login />
+      overlayUserMenu: <Login />,
+      topHeaderHeight: 0
     };
     this.listenWindowScroll = this.listenScrollEvent.bind(this);
   }
@@ -43,7 +44,8 @@ class Header extends Component {
     this.getAllCategory()    
     window.addEventListener("scroll", this.listenWindowScroll);
     this.setState({
-      isAuthenticated: this.props.isAuthenticated
+      isAuthenticated: this.props.isAuthenticated,
+      topHeaderHeight: document.getElementById("topHeader").offsetHeight
     }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
   }
 
@@ -68,9 +70,9 @@ class Header extends Component {
 
   listenScrollEvent = e => {
     if (window.scrollY > 100) {
-      this.setState({ display: "none",position:"fixed" }, this.fixPositionDropdown(false));
+      this.setState({ display: "none" }, this.fixPositionDropdown(false));
     } else {
-      this.setState({ display: "",position:"" }, this.fixPositionDropdown(true));
+      this.setState({ display: "" }, this.fixPositionDropdown(true));
     }
   };
 
@@ -197,7 +199,8 @@ class Header extends Component {
     );
     const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
-      <div className="header-fixed" style={{ position: this.state.position }}>
+      <React.Fragment>
+      <div id="topHeader" className="header-fixed" style={{ position: "fixed" }}>
         <Row className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
@@ -278,6 +281,8 @@ class Header extends Component {
           </Col>
         </Row>
       </div>
+      <div style={{height: this.state.topHeaderHeight}}></div>
+      </React.Fragment>
     );
   }
 }
