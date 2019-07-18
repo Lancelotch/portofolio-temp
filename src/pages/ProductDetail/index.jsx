@@ -70,9 +70,9 @@ class ProductDetail extends Component {
     }
   };
 
-  actionUpdateSku = (sku,variantAlert) => {
+  actionUpdateSku = (sku, variantAlert) => {
     const data = { ...this.state.data, sku };
-    this.setState({ data,blurAlertVariant : variantAlert });
+    this.setState({ data, blurAlertVariant: variantAlert });
   };
 
   actionUpdateQuantity = quantity => {
@@ -144,10 +144,10 @@ class ProductDetail extends Component {
 
   variantAlert = () => {
     if (this.state.data.sku.length === undefined) {
-      this.setState({ alertVariant: 'Variant Belum Dipilih',blurAlertVariant : true })
+      this.setState({ alertVariant: strings.product_detail_warning_variant_one_item, blurAlertVariant: true })
     } else {
       if (this.state.data.sku.length < this.state.variants.length) {
-        this.setState({ alertVariant: 'Variant Belum Dipilih Semua',blurAlertVariant: true })
+        this.setState({ alertVariant: strings.product_detail_warning_variant_two_item, blurAlertVariant: true })
       } else {
         if (this.props.isAuthenticated !== false) {
           this.redirectCheckout();
@@ -200,7 +200,7 @@ class ProductDetail extends Component {
                     <Skeleton height={40} width={350} />
                   </div> :
                   <div style={{ marginTop: 64 }}>
-                   {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text>: null}
+                    {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text> : null}
                     <button
                       className="productDetail__addCart"
                       onClick={this.actionSubmitToCheckout}
