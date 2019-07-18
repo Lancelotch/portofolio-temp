@@ -114,7 +114,7 @@ class ModalHowToPay extends Component {
                 }
               </Col>
             </Row>
-          </Modal >
+          </Modal>
         }
       </div>
     );
