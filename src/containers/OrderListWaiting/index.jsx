@@ -83,6 +83,7 @@ class OrderListWaitingPayment extends Component {
     } = this.props;
     return (
       <React.Fragment>
+      <ScrollToTopOnMount/>
         {productOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>
@@ -126,13 +127,13 @@ class OrderListWaitingPayment extends Component {
               />
             </Card>)
         })}
-        {selectedOrder && 
+        {selectedOrder && (
           <ModalHowToPay
             orderPayment={selectedOrder.payment}
             visible={isHowToShowModalOpen}
             close={this.toggleIsHowToShowModalOpen}
           />
-        }
+        )}
       </React.Fragment>
     );
   }
