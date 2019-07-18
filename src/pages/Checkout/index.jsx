@@ -373,7 +373,7 @@ class Checkout extends Component {
       priceProduct,
       jneChecked
     } = this.state;
-    console.log(this.state.shipmentFee.difference);
+    console.log(this.state.priceJne);
 
     return (
       <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>

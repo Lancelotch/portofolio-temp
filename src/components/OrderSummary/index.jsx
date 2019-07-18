@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
   const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne, isLoading } = props;
-
+let checkPriceJne = priceJne === 0 ? true : false
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
 
@@ -15,7 +15,8 @@ const OrderSummary = props => {
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
   };
-  console.log(isLoading);
+  
+
 
   return (
     <Card title={strings.order_summary} className="card__Style">
@@ -99,7 +100,7 @@ const OrderSummary = props => {
         </Col>
         <Col md={24}>
           <div className="ordersummary">
-            <Button className="card__Button" onClick={props.onOrder}>
+            <Button disabled={checkPriceJne} className="card__Button" onClick={props.onOrder}>
               {strings.choose_payment_methods}
             </Button>
           </div>
