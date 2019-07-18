@@ -14,6 +14,7 @@ class Shipping extends Component {
     this.shipping();
   }
 
+
   shipping = async () => {
     try {
       //const res = await shipping.getShipping();
@@ -26,12 +27,13 @@ class Shipping extends Component {
     }
   };
   render() {
+
     return (
       <div>
-        <span style={{ fontSize: "18px", color:"#4a4a4a" }}>
+        <span style={{ fontSize: "18px", color: "#4a4a4a" }}>
           Pengiriman dari : <b style={{ color: "#F63700" }}>China</b>
         </span>
-        <Shippings priceShippment={this.props.priceShippment} shipping={this.state.shipping} />
+        <Shippings  totalShipping={this.props.totalShipping} shipping={this.state.shipping} />
       </div>
     );
   }

@@ -5,15 +5,18 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne, isLoading } = props;
-
+  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;
+  let checkPriceJne = priceJne === 0 ? true : false
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
+
+  const totalPriceShipping = quantity * shipmentFee
 
   const totalAmount = amountTotal => {
     return currencyRupiah(amountTotal)
   };
-  console.log(isLoading);
+
+
 
   return (
     <Card title={strings.order_summary} className="card__Style">
@@ -76,7 +79,7 @@ const OrderSummary = props => {
             <p className="p-color-teal">
               {shipment === "sea"
                 ? "Ongkir Sudah Termasuk"
-                : currencyRupiah(shipmentFee.difference)}
+                : currencyRupiah(totalPriceShipping)}
             </p>
           </div>
           <div className="shipping-price">
@@ -97,7 +100,7 @@ const OrderSummary = props => {
         </Col>
         <Col md={24}>
           <div className="ordersummary">
-            <Button className="card__Button" onClick={props.onOrder}>
+            <Button disabled={checkPriceJne} className="card__Button" onClick={props.onOrder}>
               {strings.choose_payment_methods}
             </Button>
           </div>

@@ -10,10 +10,10 @@ class BestSellers extends React.Component {
     // }
 
     render() {
-        const { data, maxProductCount } = this.props
+        const { data, /*maxProductCount*/ } = this.props
         // console.log("best", data);
 
-        let counter = 0
+        //let counter = 0
         return (
             <React.Fragment>
                 {data.length < 1 ? (
@@ -56,17 +56,17 @@ class BestSellers extends React.Component {
                                     }}
                                     >
                                         {data.map((product, i) => {
-                                            if (maxProductCount && counter < maxProductCount) {
-                                                if (maxProductCount !== null) {
-                                                    counter += 1;
-                                                }
+                                            // if (maxProductCount && counter < maxProductCount) {
+                                            //     if (maxProductCount !== null) {
+                                            //         counter += 1;
+                                            //     }
                                                 return (
                                                     <BestSeller id={product.id} key={i} product={product} />
                                                 )
-                                            }
-                                            if (!maxProductCount) {
-                                                return (<BestSeller id={product.id} key={i} product={product} />)
-                                            }
+                                            // }
+                                            // if (!maxProductCount) {
+                                            //     return (<BestSeller id={product.id} key={i} product={product} />)
+                                            // }
                                         })}
                                     </div>
                                 </Col>

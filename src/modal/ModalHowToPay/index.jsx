@@ -26,12 +26,12 @@ class ModalHowToPay extends Component {
 
   render() {
     const Panel = Collapse.Panel;
-    const {orderPayment } = this.props;
+    const { orderPayment } = this.props;
     console.log(orderPayment.gateway.bank);
-    
+
     const instructions = orderPayment.gateway.bank.paymentInstructions
     console.log(instructions);
-    
+
     const styleButtonCopy = {
       cursor: "pointer",
       position: "absolute",
@@ -65,17 +65,8 @@ class ModalHowToPay extends Component {
                 {convertTimesTime.millisecond(orderPayment.gateway.expiredPaymentDate)}
               </p>
             </div>
-            <p>
-              <img
-                src={orderPayment.gateway.bank.imageUrl}
-                style={{
-                  maxHeight: 68.84,
-                  maxWidth: 68.84
-                }}
-                alt=""
-              />
-            </p>
-            <p className="paymenttype">{/*{pay.bankName}*/}Virtual Account</p>
+
+            <p className="paymenttype" style={{textAlign:"center"}}>{/*{pay.bankName}*/}Virtual Account</p>
             <div className="virtualAccontCopy"
               style={{
                 height: 58.42,
@@ -83,7 +74,16 @@ class ModalHowToPay extends Component {
               }}>
               <Row>
                 <Col md={24}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <img
+                  src={orderPayment.gateway.bank.imageUrl}
+                  style={{
+                    maxHeight: 24.84,
+                    maxWidth: 72.84,
+                    marginTop:5
+                  }}
+                  alt=""
+                />
                     <p className="virtualAccountType">
                       {orderPayment.gateway.virtualAccount}
                     </p>&nbsp;
@@ -103,10 +103,10 @@ class ModalHowToPay extends Component {
               <Col md={24}>
                 <Collapse defaultActiveKey={['1']} onChange={this.callback}>
                   <Panel header="Cara Bayar" key="1">
-                      {instructions.map((ins, i) => {
-                          return  <p dangerouslySetInnerHTML={{ __html: ins.instruction }} />
-                        })
-                      }
+                    {instructions.map((ins, i) => {
+                      return <div dangerouslySetInnerHTML={{ __html: ins.instruction }} />
+                    })
+                    }
                   </Panel>
                 </Collapse>
               </Col>

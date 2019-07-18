@@ -129,18 +129,20 @@ class Checkout extends Component {
 
   variantsRequest = variantsRequest => {
     const variants = [];
-    variantsRequest.length < 1 && 
-    variantsRequest.forEach(variant => {
-      variants.push({
-        id: variant.id,
-        variantItemId: variant.variantItem.id
+    variantsRequest.length < 1 &&
+      variantsRequest.forEach(variant => {
+        variants.push({
+          id: variant.id,
+          variantItemId: variant.variantItem.id
+        });
       });
-    });
     return variants;
   };
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
+    console.log(payloadProductDetail);
+
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
@@ -300,7 +302,7 @@ class Checkout extends Component {
         alert('adasd')
         this.setState({ isLoading: false })
       } else {
-       
+
         if (response.data.data) {
           setTimeout(() => {
             this.setState({ isLoading: false })
@@ -311,8 +313,8 @@ class Checkout extends Component {
               history.push("/");
             },
             onPending: function (result) {
-              console.log('iniiiii resul',result);
-              
+              console.log('iniiiii resul', result);
+
               let order = result.order_id
               console.log('ooooooooooorder', order);
               console.log(order);
@@ -348,16 +350,15 @@ class Checkout extends Component {
   }
 
   countTotalAmount = () => {
-    const subTotal = this.state.quantity * this.state.priceProduct;
+    const subTotal = Number(this.state.quantity) * Number(this.state.priceProduct);
     let totalShippingPrice = 0;
     if (this.state.shipment === "air") {
-      totalShippingPrice = this.state.shipmentFee.difference * this.state.quantity;
+      totalShippingPrice = Number(this.state.shipmentFee.difference) * Number(this.state.quantity);
     };
     const totalAmount = Number(this.state.priceJne)
     const total = subTotal + totalShippingPrice + totalAmount
     return total;
   }
-
 
   render() {
     const total = this.countTotalAmount();
@@ -372,6 +373,8 @@ class Checkout extends Component {
       priceProduct,
       jneChecked
     } = this.state;
+    console.log(this.state.priceJne);
+
     return (
       <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
         <div className="checkout">
@@ -429,7 +432,7 @@ class Checkout extends Component {
                   />
                   {isProductDetailAvailable && (
                     <OrderDetailContainer
-                      shipmentFee={this.state.shipmentFee}
+                      shipmentFee={this.state.shipmentFee.difference}
                       stock={this.state.maxOrder}
                       priceProduct={priceProduct}
                       payloadProductDetail={payloadProductDetail}
@@ -444,7 +447,7 @@ class Checkout extends Component {
                   <OrderSummary
                     isLoading={this.state.isLoading}
                     priceJne={this.state.priceJne}
-                    shipmentFee={this.state.shipmentFee}
+                    shipmentFee={this.state.shipmentFee.difference}
                     quantity={quantity}
                     total={total}
                     priceProduct={priceProduct}
@@ -482,7 +485,4 @@ const mapStatetoProps = state => ({
   message: state.authentication.message
 });
 
-export default connect(
-  mapStatetoProps,
-  { addressDefault, openModal }
-)(Checkout);
+export default connect(mapStatetoProps,{ addressDefault, openModal })(Checkout);

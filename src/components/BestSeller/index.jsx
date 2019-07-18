@@ -22,7 +22,7 @@ const BestSeller = props => {
             }
           >
             <div className="best__info">
-              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000" }}>{name}</p>
+              <p className="best__nameProduct" style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden" }}>{name}</p>
               <p className="best__price">{priceRp} </p>
             </div>
           </Card>

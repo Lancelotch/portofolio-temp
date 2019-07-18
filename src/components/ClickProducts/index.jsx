@@ -72,17 +72,17 @@ class ClickProducts extends Component {
   render() {
     const { data } = this.props;
     const products = data.slice(0, 10);
+    let sliderToClickLength = products.length <= 6 ? false : true
     const settings = {
-      dots: true,
-      lazyLoad: true,
-      infinite: true,
-      speed: 1000,
-      autoplay: true,
-      arrows: true,
       slidesToShow: 5,
       slidesToScroll: 1,
+      dots: true,
+      infinite: sliderToClickLength,
+      speed: 1000,
+      autoplaySpeed: 7000,
+      autoplay: true,
+      arrows: true,
       swipeToSlide: true,
-      pauseOnHover: true,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
       appendDots: dots => (
@@ -112,7 +112,7 @@ class ClickProducts extends Component {
             }
           >
             <div className="card__info">
-              <p style={{display:"-webkit-box", WebkitBoxOrient:"vertical", WebkitLineClamp:"1", overflow:"hidden", color:"#000000"}}>{product.name}</p>
+              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000", fontSize: 16 }}>{product.name}</p>
               <p className="card__price">{currencyRupiah(product.price)}</p>
             </div>
           </Card>

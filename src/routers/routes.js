@@ -18,6 +18,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
+import SidebarExample from "../pages/CustomerNavigation/prosesrefactor.jsx";
 
 const routes = [
   {
@@ -107,6 +108,11 @@ const routes = [
     path: PATH_URL.PAYMENT_FAILED,
     component: FailedPayment,
     layoutName: "fullLayout"
+  },
+  {
+    path : PATH_URL.PROSES_REFACTOR_DASHBOARD,
+    component: SidebarExample
+
   },
   {
     path: PATH_URL.CONFIRMATION_ERROR,

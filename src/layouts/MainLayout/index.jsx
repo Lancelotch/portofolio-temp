@@ -4,12 +4,6 @@ import Footer from 'components/Footer'
 import "./style.sass";
 
 class MainLayout extends Component {
-    componentDidMount() {
-        this._isMounted = true
-    }
-    componentWillMount(){
-        this._isMounted = false
-    }
     render() {
         return (
             <div>

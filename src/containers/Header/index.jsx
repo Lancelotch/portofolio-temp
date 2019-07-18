@@ -102,9 +102,9 @@ class Header extends Component {
 
   getCustomerDetail = async () => {
     try {
-      const payload = await customer.customerDetail();
+      const customerDetail = await customer.customerDetail();
       this.setState({
-        name: payload.data.name
+        name: customerDetail.data.name
       });
       this.render();
     } catch (error) {
@@ -264,7 +264,7 @@ class Header extends Component {
           </Col>
           <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
             <React.Fragment>{greeting}</React.Fragment>
-            <div onClick={this.showUserMenu} className="header__user-box">
+            <div onClick={this.showUserMenu} onDoubleClick={this.hideUserMenu} className="header__user-box">
               <Icon
                 type="user"                
                 className="header__user-icon"

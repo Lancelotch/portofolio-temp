@@ -7,7 +7,7 @@ import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 
 export const ShippingSelected = props => {
   const { shipping, selected, onChangeSelected, shipmentFee } = props; 
-  console.log('selected',selected);
+
   return (
     <React.Fragment>
       {shipping.length > 0 && (
@@ -38,7 +38,7 @@ export const ShippingSelected = props => {
                     <span className="price-selected">
                       {ship.shipment === "sea"
                         ? "Ongkir Sudah Termasuk"
-                        : currencyRupiah(shipmentFee.difference)}
+                        : currencyRupiah(shipmentFee)}
                     </span>
                   </p>
                 </Col>

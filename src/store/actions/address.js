@@ -5,7 +5,7 @@ export const addressDefault = () => async dispatch => {
   try {
     const response = await getAddressDefault();
     let payload=null;
-    if(response.code == 200){
+    if(response.code === 200 || response.code === "200" ){
         payload = {isAddressAvailable: true, addressDefault: response.data} 
     }else{
         payload = {isAddressAvailable: false, addressDefault: response.data} 
