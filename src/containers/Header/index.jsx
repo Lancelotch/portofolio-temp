@@ -102,9 +102,9 @@ class Header extends Component {
 
   getCustomerDetail = async () => {
     try {
-      const payload = await customer.customerDetail();
+      const customerDetail = await customer.customerDetail();
       this.setState({
-        name: payload.data.name
+        name: customerDetail.data.name
       });
       this.render();
     } catch (error) {

@@ -5,7 +5,7 @@ import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
 
 const OrderSummary = props => {
-  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne, isLoading } = props;
+  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;
   let checkPriceJne = priceJne === 0 ? true : false
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct

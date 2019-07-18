@@ -16,7 +16,7 @@ const confirm = Modal.confirm;
 
 const polling = {
   enabled: false,
-  interval: 2000,
+  interval: 30000,
   timeout: 1000
 };
 
@@ -47,19 +47,6 @@ class CustomerOderNavigation extends Component {
     this.productOrderTabs(0);
   }
 
-  // componentDidUpdate(prevProps, prevState,snapShot) {
-  //   console.log(prevState);
-
-  //   if (prevState.productOrderNotYetPay.length !== this.state.productOrderNotYetPay.length  
-  //    ) {
-  //    this.productOrderTabs()
-
-  //   }  
-  //   if ( prevState.productOrderInDelivery.length !== this.state.productOrderNotYetPay.length) {
-  //     this.productOrderTabsInDelivery()
-  //   }
-  // }
-
   showReceivedConfirm = (allOrder, index, orderId) => {
     console.log('allOrder', allOrder);
     console.log('index', index);
@@ -72,13 +59,6 @@ class CustomerOderNavigation extends Component {
       cancelText: strings.back,
       centered: true,
       onOk: () => {
-        const receivedOrder = allOrder.splice(index, 1)
-        const newOrder = [...allOrder]
-        this.setState({
-          productorder: newOrder,
-          stateReceivedOrder: [...this.state.stateReceivedOrder, ...receivedOrder]
-        })
-        console.log(orderId)
         this.actionReceivedConfirm(orderId);
       },
     });
@@ -89,7 +69,9 @@ class CustomerOderNavigation extends Component {
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_RECEIVED + orderId);
-      console.log(response);
+      if(response.code === 200 || response.code === "200") {
+        this.props.actionUpdateTab(2);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -142,23 +124,74 @@ class CustomerOderNavigation extends Component {
       const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + value);
       console.log('productordertabsnotpay', response);
       if (response.data.data) {
-        console.log("masuk if")
         this.setState({
           productOrder: response.data.data,
           isLoading: false,
           isProductAlvailabel: false
         });
+        console.log("masuk if",this.state.isLoading)
+        console.log('productOrder ====>', this.state.productOrder);
       }
-      if (response.data.data.length < 1) {
-        this.setState({
-          isProductAlvailabel: true
-        })
-      }
-
+        if (response.data.data.length < 1) {
+          this.setState({
+            isProductAlvailabel: true
+          })
+        }
     } catch (error) {
       this.setState({ isLoading: false, isProductAlvailabel: true });
     }
   };
+
+  loadingItems(value) {
+    console.log('valueeee', value);
+
+    return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+      {value && <Spin spinning={value} />}
+    </div>
+  }
+
+  updateTab = (functions) => {
+    this.setState({
+      productOrder: []
+    }, () => functions());
+  };
+
+  handleChange = (selectkey) => {
+    this.setState({ activeKey: selectkey })
+    switch (selectkey) {
+      case "1":
+        this.updateTab(() => this.productOrderTabs(0));
+        break;
+      case "2":
+        this.updateTab(() => this.productOrderTabs(1));
+        break;
+      case "3":
+        this.updateTab(() => this.productOrderTabs(2));
+        break;
+      case "4":
+        this.updateTab(() => this.productOrderTabs(3));
+        break;
+      case "5":
+        this.updateTab(() => this.productOrderTabs(4));;
+        break;
+      default:
+        console.log("error");
+    }
+  }
+
+  alertOffline = () => {
+    return <Alert
+      message="Error"
+      description="Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?"
+      type="error"
+      showIcon
+    />
+  }
+
+  actionUpdateTab = (tabPosition) => {
+    this.productOrderTabs(tabPosition);
+  }
+
 
   responseListWaiting(
     responseProductOrder,
@@ -170,6 +203,7 @@ class CustomerOderNavigation extends Component {
     tabsCancel) {
     return <OrderListWaiting
       productOrder={responseProductOrder}
+      actionUpdateTab={this.actionUpdateTab}
       actionShowOrderDetailsDashboardNotPay={this.actionShowOrderDetailsDashboardNotPay}
       actionShowOrderDetailsDashboardNotSent={this.actionShowOrderDetailsDashboardNotSent}
       actionShowOrderDetailsDashboardInDelivery={this.actionShowOrderDetailsDashboardInDelivery}
@@ -227,50 +261,6 @@ class CustomerOderNavigation extends Component {
       buttonTabsCancel={buttonTabsCancel} />
   }
 
-  loadingItems(value) {
-    return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-      {value && <Spin spinning={value} />}
-    </div>
-  }
-
-  updateTab = ( functions) => {
-    this.setState({
-      productOrder: []
-    }, () => functions());
-  };
-
-  handleChange = (selectkey) => {
-    this.setState({ activeKey: selectkey })
-    switch (selectkey) {
-      case "1":
-        this.updateTab( () => this.productOrderTabs(0));
-        break;
-      case "2":
-        this.updateTab( () => this.productOrderTabs(1));
-        break;
-      case "3":
-        this.updateTab( () => this.productOrderTabs(2));
-        break;
-      case "4":
-        this.updateTab( () => this.productOrderTabs(3));
-        break;
-      case "5":
-        this.updateTab( () => this.productOrderTabs(4));;
-        break;
-      default:
-        console.log("error");
-    }
-  }
-
-  alertOffline = () => {
-    return <Alert
-      message="Error"
-      description="Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?"
-      type="error"
-      showIcon
-    />
-  }
-
   render() {
     const {
       isShowDetailDashboard,
@@ -298,7 +288,7 @@ class CustomerOderNavigation extends Component {
                       this.loadingItems(this.state.isLoading) :
                       this.responseListWaiting(this.state.productOrder, "", 1)
                     }
-                    {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                    {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
                   </Online>
                 </React.Fragment>} />
             <CustomTabPane
@@ -314,7 +304,7 @@ class CustomerOderNavigation extends Component {
                       <React.Fragment>
                         {this.state.isLoading ?
                           this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", 2)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                        {this.state.isLoading === true ?false : this.state.isProductAlvailabel && <NoOrderHistory />}
                       </React.Fragment>
                     } />
                 </React.Fragment>} />
@@ -331,7 +321,7 @@ class CustomerOderNavigation extends Component {
                       <Online polling={polling}>
                         {this.state.isLoading ?
                           this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, this.showReceivedConfirm, "", "", 3)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
                       </Online>)} />
                 </React.Fragment>} />
             <CustomTabPane
@@ -347,7 +337,7 @@ class CustomerOderNavigation extends Component {
                       <Online polling={polling}>
                         {this.state.isLoading ?
                           this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", "", "", 4)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
                       </Online>
                     )}
                   />
@@ -365,7 +355,7 @@ class CustomerOderNavigation extends Component {
                       <Online polling={polling}>
                         {this.state.isLoading ?
                           this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", "", "", "", 5)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
                       </Online>)} />
                 </React.Fragment>} />
           </Tabs>

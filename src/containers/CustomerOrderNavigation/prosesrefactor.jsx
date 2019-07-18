@@ -5,8 +5,6 @@ import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
 import { apiGetWithToken } from "../../api/services";
 import { PATH_DASHBOARD_TAB } from "../../api/path";
-import NoOrderHistory from "../../components/NoOrderHistory";
-import { Offline, Online, Detector } from "react-detect-offline";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
@@ -14,11 +12,7 @@ import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
 const confirm = Modal.confirm;
 
-const polling = {
-  enabled: false,
-  interval: 2000,
-  timeout: 1000
-};
+
 
 class CustomerOderNavigation extends Component {
   constructor(props) {
@@ -309,12 +303,11 @@ class CustomerOderNavigation extends Component {
                 tab={<span>{list.name}</span>}
                 my_prop={
                   <React.Fragment>
+{console.log(list.content)}
 
-                    {this.state.isLoading ?
-                      this.loadingItems(this.state.isLoading) :
-                      list.content
-                    }
-                    {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
+                      {list.content}
+                    
+           
 
                   </React.Fragment>} />
             )
