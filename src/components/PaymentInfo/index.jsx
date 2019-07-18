@@ -7,8 +7,6 @@ import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
     const { shipment,productSnapshot, payment, amount, courier,totalAmount,  cancelBy, cancelDate } = props;
-   console.log(productSnapshot);
-   
     return (
             <Card>
                 <div className="paymentInfo">

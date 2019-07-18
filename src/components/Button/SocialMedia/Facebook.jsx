@@ -5,7 +5,6 @@ const REACT_APP_FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 
 class ButtonFacebook extends Component{
   handleSocialResponse = (user, err) => {
-    console.log("ini facebook", user)
     const profile = user._profile;
     //const provider = user._provider;
     const token = user._token.accessToken

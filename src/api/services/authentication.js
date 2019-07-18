@@ -14,11 +14,11 @@ const loginWithGoogle = request => {
           data: request
         })
         .then(response => {
-          console.log("ini respon",response)
+          //console.log("ini respon",response)
           resolve(response.data);
         })
         .catch(error => {
-          console.log("ini di services",error)
+          //console.log("ini di services",error)
           reject(error.response);
         });
     });
@@ -34,11 +34,11 @@ const loginWithFacebook = request => {
         data: request
       })
       .then(response => {
-        console.log("ini respon",response)
+        //console.log("ini respon",response)
         resolve(response.data);
       })
       .catch(error => {
-        console.log("ini di services",error)
+        //console.log("ini di services",error)
         reject(error.response);
       });
   });

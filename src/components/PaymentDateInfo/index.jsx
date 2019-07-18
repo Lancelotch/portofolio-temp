@@ -7,8 +7,6 @@ import strings from '../../localization/localization';
 
 const PaymentDateInfo = props => {
     const {  dateOrder, typePayment } = props
-    console.log('paymentinfo',dateOrder);
-    
     return (
         <React.Fragment>
             {typePayment !== undefined | typePayment ?

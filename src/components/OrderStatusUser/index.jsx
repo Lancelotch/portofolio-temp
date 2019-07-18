@@ -37,10 +37,6 @@ const OrderStatusUser = props => {
             });
         }
     }
-
-    console.log(responseOrderLogTransactions);
-
-
     return (
 
         <React.Fragment>

@@ -62,14 +62,11 @@ export const loginWithHome = (request,path,history) => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
     await dispatch(dispatchType.loginWithForm(responseLoginForm))
-    console.log("=====",responseLoginForm)
     const token = responseLoginForm.data.access_token;
     const expiredToken = responseLoginForm.data.refresh_token
     localStorage.setItem('accessToken', token)
     localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
-    console.log("ini response login", responseLoginForm)
-    // console.log("ini customer",dataCustomer.data.name)
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push(path)
   } catch (error) {
@@ -133,10 +130,8 @@ export const clearError = () => dispatch => {
 export const activatingUser = (request) => async dispatch => {
   try {
     const url = PATH_PUBLIC.PUBLIC_USER_ACTIVED + request
-    console.log(url)
     // console.log(api)
     const responseActivatingUser = await apiGetWithoutToken(url);
-    console.log("xxx",responseActivatingUser)
     dispatch(dispatchType.activationUser(responseActivatingUser));
     //history.push("/");
   } catch (error) {

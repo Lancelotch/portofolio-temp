@@ -16,9 +16,8 @@ class PaymentInfoPage extends Component {
     super(props);
     this.state = {
       messageCopy: "",
-      amount: 0,
       copied: false,
-      isLoading: true,
+      isLoading: false,
       gateway: {}
     };
   }
@@ -30,13 +29,13 @@ class PaymentInfoPage extends Component {
 
 
   getPaymentInfo = async () => {
+    this.setState({isLoading : true})
     const paymentId = this.props.match.params.paymentId;
     try {
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)     
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)   
       const payment = response.data.data;
       this.setState({
         isLoading: false,
-        amount: payment.amount,
         gateway: payment.gateway
 
       });
@@ -50,7 +49,7 @@ class PaymentInfoPage extends Component {
 
   onCopy = () => {
     this.setState({
-      // copied: true,
+      copied: true,
       messageCopy: "Berhasil di Copy"
     });
     setTimeout(() => {
@@ -65,9 +64,7 @@ class PaymentInfoPage extends Component {
   }
 
   render() {
-    console.log(this.state.gateway.bank && this.state.gateway.bank.paymentInstructions);
-
-    const { gateway, amount } = this.state;
+    const { gateway,isLoading } = this.state;
     const warning = () => {
       Modal.warning({
         className: "modal-check-status",
@@ -76,8 +73,7 @@ class PaymentInfoPage extends Component {
         onOk: this.actionToDashboardCustomer
       });
     };
-    console.log(this.state.gateway);
-    
+
     return (
       <div className="container">
         <React.Fragment>
@@ -90,13 +86,13 @@ class PaymentInfoPage extends Component {
                 <img src={monggopesen_logo} alt="" />
               </Link>
             </div>
-            <div className={gateway === undefined ? "top-null":"info__style"}>
+            <div className={isLoading === true ? "top-null":"info__style"}>
               <div className="info__title">
                 <p>{strings.payment_info}</p>
                 <Divider />
               </div>
               <div className="info__content">
-                {amount === 0 ?
+                {isLoading === true ?
                   <Row type="flex" align="middle" style={{ marginTop: 40 }} className="info__bank">
                     <Col md={4} />
                     <Col md={16} />
@@ -111,7 +107,7 @@ class PaymentInfoPage extends Component {
                   />}
                 <center style={{ color: "red" }}>{this.state.messageCopy}</center>
                 <div className="info__dropdownMethod">
-                  {amount === 0 ?
+                  {isLoading === true ?
                     <Collapse defaultActiveKey={["1"]} accordion>
                       <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
                     </Collapse>
@@ -120,7 +116,7 @@ class PaymentInfoPage extends Component {
                   }
                 </div>
                 <div>
-                  {amount === 0 ?
+                  {isLoading === true ?
                     <SkeletonCustom width={975} topMargin={10} height={48} color={"#BBBBBB"} count={0} />
                     :
                     <Button className="info__button" onClick={warning}>

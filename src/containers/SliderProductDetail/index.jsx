@@ -93,7 +93,6 @@ class SliderProductDetailContainer extends Component {
     const imagesToShow = this.state.imagesToShow;
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
     const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
-    console.log("inii ", thumbnailDom.length, " ", lenImagesToShowWihoutVariant);
     if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
       thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
     }

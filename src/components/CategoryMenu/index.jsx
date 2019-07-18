@@ -67,8 +67,6 @@ const renderCategory = (dataSource, url) =>
 
 const menu = props => {
   const { match,allCategory } = props;
-  console.log('category menu',props);
-  
   const url = isUrlIsCategory(match.url);
   return <Menu
     style={{ width: 200, padding: "10px 0 10px"}}

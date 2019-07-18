@@ -3,8 +3,6 @@ import { dummyService } from "./httpClient";
 const service = dummyService;
 
 export const AddOrder = response => {
-    console.log(response);
-    
   return service
     .request({
       method: "POST",

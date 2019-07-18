@@ -44,8 +44,6 @@ const listProductSearch = ({query,page,sortBy, direction}) => {
         resolve(response.data);
       })
       .catch(error => {
-        console.log(error);
-        
         reject(error.response);
       });
   });

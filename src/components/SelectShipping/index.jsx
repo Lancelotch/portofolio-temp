@@ -29,8 +29,6 @@ class SelectShipping extends Component {
   };
 
   render() {
-    console.log('qwwwqwqwqwqwq',this.props.totalShipping);
-    
     return (
       <ShippingSelected
         shipmentFee={this.props.shipmentFee}

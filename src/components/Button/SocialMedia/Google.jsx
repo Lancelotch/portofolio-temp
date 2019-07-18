@@ -11,7 +11,6 @@ class ButtonGoogle extends Component{
         token : token
       }
       this.props.onSubmit(request);
-      console.log("====",user)  
     }
   }
 

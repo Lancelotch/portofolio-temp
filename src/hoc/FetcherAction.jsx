@@ -64,7 +64,6 @@ class FetcherAction extends Component {
     try {
       const response = await fetchDataService(request);
       this.setState(this.responseMethod(method, response));
-      console.log(this.responseMethod(method, response));
     } catch (error) {
       this.setState({
         error: error,

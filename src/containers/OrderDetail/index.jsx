@@ -54,9 +54,6 @@ class OrderDetailContainer extends Component {
   render() {
     const { image, name, sku } = this.props.payloadProductDetail;
     const { priceProduct,shipmentFee } = this.props;
-    console.log(this.props.quantity);
-    console.log(this.props.shipmentFee);
-    
     const totalProductPrice = this.props.quantity * priceProduct;
     const totalPriceShipping = this.props.quantity * shipmentFee;
     const totalPriceShippings = totalPriceShipping 

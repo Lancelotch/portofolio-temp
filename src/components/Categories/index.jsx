@@ -27,7 +27,6 @@ class Categories extends Component {
             categoryList: categoryList.data,
             isCategoryLoaded: true
         })
-        console.log(categoryList)
       }catch(error){
         console.log(error);
         
@@ -45,10 +44,7 @@ class Categories extends Component {
 
 
   render () {
-    const {categoryList, isCategoryLoaded } = this.state
-    console.log(isCategoryLoaded)
-    console.log(categoryList)
-   
+    const {categoryList } = this.state
     const categoryMenu = (
       <React.Fragment>
         {categoryList.map(category => (

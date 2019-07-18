@@ -24,8 +24,6 @@ class OrderListWaitingPayment extends Component {
   };
 
   showDeleteConfirm = (allOrder, index, orderId) => {
-    console.log('allOrder', allOrder);
-    console.log('index', index);
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
       title: strings.tab_belum_bayar,
@@ -41,15 +39,12 @@ class OrderListWaitingPayment extends Component {
         //   productorder: newOrder,
         //   stateCancelOrder: [...this.state.stateCancelOrder, ...cancelOrder]
         // })
-        console.log(index)
         this.actionCancelConfirm(orderId);
       },
     });
   };
 
   actionCancelConfirm = async (index) => {
-    
-    console.log('actionCancelConfirm', index);
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL + orderId);
@@ -63,7 +58,6 @@ class OrderListWaitingPayment extends Component {
 
 
   toggleIsHowToShowModalOpen = order => {
-    console.log(order);
     this.setState({
       isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
       selectedOrder: order ? order : null

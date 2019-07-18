@@ -52,7 +52,6 @@ class Footer extends Component {
           });
           this.openNotification();
           resetFields()
-          console.log("==",response)
         }catch (error) {
           console.log(error);
         }

@@ -7,8 +7,6 @@ import convertTimesTime from "../../library/convertTimestime";
 
 const PaymentInvoice = props => {
   const { gateway, onCopy } = props;
-  console.log();
-
   return (
     <React.Fragment>
       <Row className="info__payment">
