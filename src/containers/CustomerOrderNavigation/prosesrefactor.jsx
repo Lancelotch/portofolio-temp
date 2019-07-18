@@ -303,12 +303,8 @@ class CustomerOderNavigation extends Component {
                 tab={<span>{list.name}</span>}
                 my_prop={
                   <React.Fragment>
-{console.log(list.content)}
-
-                      {list.content}
-                    
-           
-
+                    {console.log(list.content)}
+                    {list.content}
                   </React.Fragment>} />
             )
           })}
