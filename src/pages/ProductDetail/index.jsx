@@ -3,7 +3,7 @@ import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Typography } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
@@ -13,6 +13,9 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
+
+
+const { Text } = Typography
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -36,7 +39,9 @@ class ProductDetail extends Component {
       },
       quantity: 1,
       priceShipping: 0,
-      isUpdateImageVariant: false
+      alertVariant: "",
+      isUpdateImageVariant: false,
+      blurAlertVariant: false
     };
   }
 
@@ -65,9 +70,9 @@ class ProductDetail extends Component {
     }
   };
 
-  actionUpdateSku = sku => {
+  actionUpdateSku = (sku,variantAlert) => {
     const data = { ...this.state.data, sku };
-    this.setState({ data });
+    this.setState({ data,blurAlertVariant : variantAlert });
   };
 
   actionUpdateQuantity = quantity => {
@@ -115,34 +120,10 @@ class ProductDetail extends Component {
     const indexesToLocalstorage = JSON.stringify(items);
     localStorage.setItem("product", indexesToLocalstorage);
     if (this.state.variants.length > 0) {
-      if (this.state.data.sku.length === undefined) {
-        alert('Variant Belum Dipilih')
-      } else {
-        if (this.state.data.sku.length < this.state.variants.length) {
-          alert('Variant Belum Dipilih Semua')
-        } else {
-          if (this.props.isAuthenticated !== false) {
-            if (this.state.data.quantity > this.state.information.maxOrder) {
-              alert("Stock tidak cukup hanya " + this.state.information.maxOrder);
-            } else {
-              if (this.state.quantity === 0 || this.state.quantity === "") {
-                alert('quantity tidak boleh 0')
-              } else {
-                this.redirectCheckout();
-              }
-            }
-          } else {
-            this.redirectLogin();
-          }
-        }
-      }
+      this.variantAlert();
     } else if (this.state.variants.length < 1) {
       if (this.props.isAuthenticated !== false) {
-        if (this.state.quantity === 0 || this.state.quantity === "") {
-          alert('quantity tidak boleh 0')
-        } else {
-          this.redirectCheckout();
-        }
+        this.redirectCheckout();
       } else {
         this.redirectLogin();
       }
@@ -161,9 +142,25 @@ class ProductDetail extends Component {
     }));
   }
 
+  variantAlert = () => {
+    if (this.state.data.sku.length === undefined) {
+      this.setState({ alertVariant: 'Variant Belum Dipilih',blurAlertVariant : true })
+    } else {
+      if (this.state.data.sku.length < this.state.variants.length) {
+        this.setState({ alertVariant: 'Variant Belum Dipilih Semua',blurAlertVariant: true })
+      } else {
+        if (this.props.isAuthenticated !== false) {
+          this.redirectCheckout();
+        } else {
+          this.redirectLogin();
+        }
+      }
+    }
+  };
+
 
   render() {
-  let totalShipping = this.countTotalAmount();
+    let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
         <div className="container productDetail">
@@ -202,12 +199,15 @@ class ProductDetail extends Component {
                   <div style={{ marginTop: 55 }}>
                     <Skeleton height={40} width={350} />
                   </div> :
-                  <button
-                    className="productDetail__addCart"
-                    onClick={this.actionSubmitToCheckout}
-                  >
-                    {strings.order_now}
-                  </button>
+                  <div style={{ marginTop: 64 }}>
+                   {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text>: null}
+                    <button
+                      className="productDetail__addCart"
+                      onClick={this.actionSubmitToCheckout}
+                    >
+                      {strings.order_now}
+                    </button>
+                  </div>
                 }
               </div>
             </Col>

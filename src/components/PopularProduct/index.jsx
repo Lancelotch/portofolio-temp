@@ -16,7 +16,7 @@ const PopularProduct = props => {
             bordered={false}
             className="popular__card"
             style={{
-              background: "linear-gradient(188.23deg, #FFFFFF 65%, #D5D5D5 100%)",
+             // background: "linear-gradient(188.23deg, #FFFFFF 65%, #D5D5D5 100%)",
               width: 240,
             }}
             cover={

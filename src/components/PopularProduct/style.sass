@@ -2,6 +2,12 @@
 .popular
     &__card
         max-height: 300px !important
+    &__card:hover   
+        box-shadow: 0px 0px 16px 1px #eeeeee
+        height: 100%
+        width: 100%
+    &__card:focus
+        outline: unset !important 
     &__image-cover
         height: 200px
         padding: 26px
@@ -30,10 +36,5 @@
 
 .popular-wrapper .ant-card-body
     padding: 1px 
-
-.popular-wrapper:hover    
-    height: 300px
-    transform: scale3d(1.006, 1.006, 1)
-    -webkit-transition:  box-shadow .6s ease-in 
 
 
