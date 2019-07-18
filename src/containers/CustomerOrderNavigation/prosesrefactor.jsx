@@ -240,19 +240,19 @@ class CustomerOderNavigation extends Component {
   handleChange = (selectkey) => {
     this.setState({ activeKey: selectkey })
     switch (selectkey) {
-      case "0":
+      case 0:
         this.updateTab(() => this.productOrderTabs(0));
         break;
-      case "1":
+      case 1:
         this.updateTab(() => this.productOrderTabs(1));
         break;
-      case "2":
+      case 2:
         this.updateTab(() => this.productOrderTabs(2));
         break;
-      case "3":
+      case 3:
         this.updateTab(() => this.productOrderTabs(3));
         break;
-      case "4":
+      case 4:
         this.updateTab(() => this.productOrderTabs(4));;
         break;
       default:
@@ -295,11 +295,13 @@ class CustomerOderNavigation extends Component {
     return (
       <React.Fragment>
         <ScrollToTopOnMount />
-        <Tabs defaultActiveKey={"0"} onChange={this.handleChange}>
+        <Tabs defaultActiveKey={0} onChange={this.handleChange}>
           {listTabs.map((list, index) => {
+            console.log(index);
+            
             return (
               <CustomTabPane
-                key={index}
+                key={[index]}
                 tab={<span>{list.name}</span>}
                 my_prop={
                   <React.Fragment>
