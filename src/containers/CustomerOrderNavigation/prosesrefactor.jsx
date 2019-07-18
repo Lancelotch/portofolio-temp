@@ -34,6 +34,10 @@ class CustomerOderNavigation extends Component {
       activeKey: "1",
       isLoading: false,
       productOrder: [],
+      productOrderNotYetSent: [],
+      productOrderInDelivery: [],
+      productOrderFinish: [],
+      productOrderCancel: [],
       invoiceNumber: "",
       id: "",
       stateReceivedOrder: [],
@@ -233,7 +237,7 @@ class CustomerOderNavigation extends Component {
     </div>
   }
 
-  updateTab = ( functions) => {
+  updateTab = (functions) => {
     this.setState({
       productOrder: []
     }, () => functions());
@@ -242,20 +246,20 @@ class CustomerOderNavigation extends Component {
   handleChange = (selectkey) => {
     this.setState({ activeKey: selectkey })
     switch (selectkey) {
+      case "0":
+        this.updateTab(() => this.productOrderTabs(0));
+        break;
       case "1":
-        this.updateTab( () => this.productOrderTabs(0));
+        this.updateTab(() => this.productOrderTabs(1));
         break;
       case "2":
-        this.updateTab( () => this.productOrderTabs(1));
+        this.updateTab(() => this.productOrderTabs(2));
         break;
       case "3":
-        this.updateTab( () => this.productOrderTabs(2));
+        this.updateTab(() => this.productOrderTabs(3));
         break;
       case "4":
-        this.updateTab( () => this.productOrderTabs(3));
-        break;
-      case "5":
-        this.updateTab( () => this.productOrderTabs(4));;
+        this.updateTab(() => this.productOrderTabs(4));;
         break;
       default:
         console.log("error");
@@ -272,112 +276,50 @@ class CustomerOderNavigation extends Component {
   }
 
   render() {
-    const {
-      isShowDetailDashboard,
-      isShowOrderDetailsDashboardNotPay,
-      isShowOrderDetailsDashboardInDelivery,
-      isShowOrderDetailsDashboardNotSent,
-      isShowOrderDetailsDashboardFinish,
-      isShowOrderDetailsDashboardCancel
-    } = this.state
+    const listTabs = [
+      {
+        name: "Belum Bayar",
+        content: this.responseListWaiting(this.state.productOrder, "", 1)
+      },
+      {
+        name: "Sedang Diproses",
+        content: this.responseListWaiting(this.state.productOrder, "", "", 2)
+      },
+      {
+        name: "Dalam Pengiriman",
+        content: this.responseListWaiting(this.state.productOrder, this.showReceivedConfirm, "", "", 3)
+      },
+      {
+        name: "Selesai",
+        content: this.responseListWaiting(this.state.productOrder, "", "", "", "", 4)
+      },
+      {
+        name: "Finish",
+        contet: this.responseListWaiting(this.state.productOrder, "", "", "", "", "", 5)
+      }
+    ]
     return (
       <React.Fragment>
         <ScrollToTopOnMount />
-        {isShowDetailDashboard === false ?
-          <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
-            <CustomTabPane
-              key={"1"}
-              tab={<span>{"Belum Bayar"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Online polling={polling}>
+        <Tabs defaultActiveKey={"0"} onChange={this.handleChange}>
+          {listTabs.map((list, index) => {
+            return (
+              <CustomTabPane
+                key={index}
+                tab={<span>{list.name}</span>}
+                my_prop={
+                  <React.Fragment>
+
                     {this.state.isLoading ?
                       this.loadingItems(this.state.isLoading) :
-                      this.responseListWaiting(this.state.productOrder, "", 1)
+                      list.content
                     }
                     {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
-                  </Online>
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"2"}
-              tab={<span>{"Sedang Diproses"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() =>
-                      <React.Fragment>
-                        {this.state.isLoading ?
-                          this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", 2)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </React.Fragment>
-                    } />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"3"}
-              tab={<span>{"Dalam Pengiriman"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
-                      <Online polling={polling}>
-                        {this.state.isLoading ?
-                          this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, this.showReceivedConfirm, "", "", 3)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>)} />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"4"}
-              tab={<span>{"Selesai"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
-                      <Online polling={polling}>
-                        {this.state.isLoading ?
-                          this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", "", "", 4)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>
-                    )}
-                  />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"5"}
-              tab={<span>{"Batal"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
-                      <Online polling={polling}>
-                        {this.state.isLoading ?
-                          this.loadingItems(this.state.isLoading) : this.responseListWaiting(this.state.productOrder, "", "", "", "", "", 5)}
-                        {this.state.isLoading === true ? "" : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>)} />
-                </React.Fragment>} />
-          </Tabs>
-          :
-          <React.Fragment>
-            {isShowOrderDetailsDashboardNotPay && this.responseOrderDetailsDashboard("Belum Bayar", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", 1, "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "buttonTabsNotPay")}
-            {isShowOrderDetailsDashboardNotSent && this.responseOrderDetailsDashboard("Belum Dikirim", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", "hiddentabsnotpay", 2, "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "buttonTabsNotSent")}
-            {isShowOrderDetailsDashboardInDelivery && this.responseOrderDetailsDashboard("Dalam Pengiriman", "Perkiraan Diterima", 3, "hiddenFinishOrderStatusUser", "hiddentabsnotpay", 2, 3, "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "hiddenbuttontabnotsent", "buttonTabsInDelivery")}
-            {isShowOrderDetailsDashboardFinish && this.responseOrderDetailsDashboard("Finish", "Pesenan Diterima", "hiddendeliveryhorderstatususer", 4, "hiddentabsnotpay", 2, 3, 4, "hiddentabscancel", "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "buttonTabsFinish")}
-            {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboard("Batal", "Pesenan Diterima", "hiddendeliveryhorderstatususer", "hiddenfinishorderstatususer", "hiddentabsnotpay", "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", 5, "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "hiddenbuttonfinish", "buttonTabsCancel")}
-          </React.Fragment>
-        }
+
+                  </React.Fragment>} />
+            )
+          })}
+        </Tabs>
       </React.Fragment>
     );
   }

@@ -5,6 +5,7 @@ const LOGIN = '/login';
 const PRODUCT_DETAIL = '/product-detail/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER = '/dashboard-customer';
+const PROSES_REFACTOR_DASHBOARD = '/dashboard-refactor';
 const SEARCH = '/search';
 const CATEGORY_LEVEL_1 = '/category/:categoryLevel1';
 const CATEGORY_LEVEL_2 = '/category/:categoryLevel1/:categoryLevel2';
@@ -24,6 +25,7 @@ const FORGET_PASSWORD = '/forget-password';
 
 const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
+    PROSES_REFACTOR_DASHBOARD :PROSES_REFACTOR_DASHBOARD,
     VIEW_INVOICE: VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,
