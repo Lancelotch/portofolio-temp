@@ -75,7 +75,7 @@ class ClickProducts extends Component {
     let sliderToClickLength = products.length <= 6 ? false : true
     const settings = {
       slidesToShow: 5,
-      slidesToScroll: 1,
+      slidesToScroll: 2,
       dots: true,
       infinite: sliderToClickLength,
       speed: 1000,

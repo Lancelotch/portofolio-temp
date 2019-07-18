@@ -147,6 +147,8 @@ const strings = new LocalizedStrings({
     china: "China",
     delivery_to: "ke INDONESIA",
     detail_product: "Detail Produk",
+    product_detail_warning_variant_one_item: 'Variant Belum Dipilih',
+    product_detail_warning_variant_two_item:'Variant Belum Dipilih Semua',
     product_detail_info_stock: 'Mohon Maaf Saat Ini Hanya Tesedia{0}',
 
     //Category
