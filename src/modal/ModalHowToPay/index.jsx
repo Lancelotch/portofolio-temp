@@ -105,13 +105,12 @@ class ModalHowToPay extends Component {
                   let index = i === 0 ? "1" : ""
                   return (
                     <Collapse key={i} defaultActiveKey={[index]} onChange={this.callback} style={{marginTop:15}} >
-                      <Panel.Collapse header="Cara Bayar" key={index}>
+                      <Panel header="Cara Bayar" key={index}>
                         <div dangerouslySetInnerHTML={{ __html: ins.instruction }} />
-                      </Panel.Collapse>
+                      </Panel>
                     </Collapse>
                   )
-                })
-                }
+                })}
               </Col>
             </Row>
           </Modal>

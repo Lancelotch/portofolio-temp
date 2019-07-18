@@ -126,13 +126,13 @@ class OrderListWaitingPayment extends Component {
               />
             </Card>)
         })}
-        {selectedOrder && (
+        {selectedOrder && 
           <ModalHowToPay
             orderPayment={selectedOrder.payment}
             visible={isHowToShowModalOpen}
             close={this.toggleIsHowToShowModalOpen}
           />
-        )}
+        }
       </React.Fragment>
     );
   }
