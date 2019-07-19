@@ -35,22 +35,40 @@ class Header extends Component {
       top: 0,
       marginTopDropdown: 0,
       overlayUserMenu: <Login />,
-      topHeaderHeight: 0
+      isTopHeaderShow: true,
+      topHeaderHeight: 50,
+      headerHeight: 0,      
+      wrapHeaderPosition: "absolute"
     };
     this.listenWindowScroll = this.listenScrollEvent.bind(this);
+    this.listenWindowResize = this.listenResizeEvent.bind(this);
   }
 
   componentDidMount() {
-    this.getAllCategory()    
+    this.getAllCategory()
     window.addEventListener("scroll", this.listenWindowScroll);
+    window.addEventListener("resize", this.listenResizeEvent);
+    window.addEventListener("load", () => {
+      this.updateHeaderHeight();
+    })
+
+    this.updateHeaderHeight();
     this.setState({
       isAuthenticated: this.props.isAuthenticated,
-      topHeaderHeight: document.getElementById("topHeader").offsetHeight
     }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
+  }
+
+  updateHeaderHeight = () => {
+    let bottomHeaderHeight = document.getElementById("bottomHeader").scrollHeight;
+    let headerHeight = this.state.topHeaderHeight + bottomHeaderHeight;
+    this.setState({
+      headerHeight: headerHeight
+    })
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.listenWindowScroll);
+    window.removeEventListener("resize", this.listenResizeEvent);
   }
 
   componentWillReceiveProps(props) {
@@ -68,11 +86,15 @@ class Header extends Component {
     })
   }
 
+  listenResizeEvent = e => {
+    this.updateHeaderHeight();
+  }
+
   listenScrollEvent = e => {
-    if (window.scrollY > 100) {
-      this.setState({ display: "none" }, this.fixPositionDropdown(false));
-    } else {
-      this.setState({ display: "" }, this.fixPositionDropdown(true));
+    if (window.scrollY > this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "fixed") {
+      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false }, this.fixPositionDropdown(false));
+    } else if (window.scrollY < this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "absolute") {
+      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true }, this.fixPositionDropdown(true));
     }
   };
 
@@ -200,15 +222,15 @@ class Header extends Component {
     const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
       <React.Fragment>
-      <div id="topHeader" className="header-fixed" style={{ position: "fixed" }}>
-        <Row className="header__row">
+      <div className="header-fixed" style={{ position: this.state.wrapHeaderPosition }}>
+        <Row id="topHeader" className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
               <TopHeader />
             </div>
           </Col>
         </Row>
-        <Row className="header">
+        <Row id="bottomHeader" className="header">
           <Col md={5}>
             <Link to="/">
               <img
@@ -281,7 +303,7 @@ class Header extends Component {
           </Col>
         </Row>
       </div>
-      <div style={{height: this.state.topHeaderHeight}}></div>
+      <div style={{height: this.state.headerHeight}}></div>
       </React.Fragment>
     );
   }
