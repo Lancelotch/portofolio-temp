@@ -70,9 +70,9 @@ class ProductDetail extends Component {
     }
   };
 
-  actionUpdateSku = (sku, variantAlert) => {
+  actionUpdateSku = (sku) => {
     const data = { ...this.state.data, sku };
-    this.setState({ data, blurAlertVariant: variantAlert });
+    this.setState({ data });
   };
 
   actionUpdateQuantity = quantity => {

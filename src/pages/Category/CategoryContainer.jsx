@@ -9,6 +9,7 @@ import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
 
+
 const Products = React.lazy(() => import("../../components/Products"));
 
 class CategoryPage extends Component {
@@ -68,10 +69,13 @@ class CategoryPage extends Component {
       direction: direction,
       categoryId: categoryId
     };
+
     try {
+      //const nextProduct = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_CATEGORY + request)
       const nextProduct = await product.listProductCategory(request);
       this.setState({
         productList: productList.concat(nextProduct.data),
+        // productList: nextProduct.data.data,
         page: page + 1,
         element: nextProduct.element,
         isProductAvailable: true

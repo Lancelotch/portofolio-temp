@@ -34,16 +34,16 @@ const CategoryMenuCascader = props => {
         else return "/category";
     };
 
-    const createSubChildren = (children = [], idCategory, subCategoryId) => {
+    const createSubChildren = (children = [], subCategoryId, idCategory) => {
         return (
             (children &&
                 children.map(child => ({
                     value: child.id,
                     label: <Link
                     style={{ width: "100%", display: "block", height: "31px" }}
-                        key={child.id}
-                        className="default"
-                        to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
+                    key={child.id}
+                    className="default"
+                    to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
                         {child.name}
                     </Link>
                 }))) || []
@@ -62,6 +62,7 @@ const CategoryMenuCascader = props => {
             }))
         );
     };
+    
 
     const url = isUrlIsCategory(match.url);
     // const options = allCategory.map(build_menu);
