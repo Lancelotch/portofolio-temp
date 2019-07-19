@@ -128,7 +128,7 @@ class Checkout extends Component {
 
   variantsRequest = variantsRequest => {
     const variants = [];
-    variantsRequest.length < 1 &&
+    variantsRequest.length >= 1 &&
       variantsRequest.forEach(variant => {
         variants.push({
           id: variant.id,
@@ -140,6 +140,8 @@ class Checkout extends Component {
 
   getPayloadProductDetail = () => {
     const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
+    console.log(payloadProductDetail);
+    
     this.setState({
       isProductDetailAvailable: true,
       productId: payloadProductDetail.productId,
@@ -278,6 +280,8 @@ class Checkout extends Component {
       note,
       productId,
     } = this.state;
+    console.log(this.state.variants);
+    
     const request = {
       customerAddressId: customerAddress.id,
       amount: this.countTotalAmount(),
