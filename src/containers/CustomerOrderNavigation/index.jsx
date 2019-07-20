@@ -211,6 +211,7 @@ class CustomerOderNavigation extends Component {
   }
 
   responseOrderDetailsDashboard(
+    buttonTabs,
     labelTabDetails,
     labelEstimateAccepted,
     tabsInDeliveryOrderStatusUser,
@@ -219,12 +220,7 @@ class CustomerOderNavigation extends Component {
     tabsNotSent,
     tabsInDelivery,
     tabsFinish,
-    tabsCancel,
-    buttonTabsNotPay,
-    buttonTabsNotSent,
-    buttonTabsInDelivery,
-    buttonTabsFinish,
-    buttonTabsCancel) {
+    tabsCancel) {
     return <OrderDetailsDashboard
       invoiceNumber={this.state.invoiceNumber}
       indexDetails={this.state.index}
@@ -246,11 +242,7 @@ class CustomerOderNavigation extends Component {
       tabsInDelivery={tabsInDelivery}
       tabsFinish={tabsFinish}
       tabsCancel={tabsCancel}
-      buttonTabsNotPay={buttonTabsNotPay}
-      buttonTabsNotSent={buttonTabsNotSent}
-      buttonTabsInDelivery={buttonTabsInDelivery}
-      buttonTabsFinish={buttonTabsFinish}
-      buttonTabsCancel={buttonTabsCancel} />
+      buttonTabs={buttonTabs} />
   }
 
   render() {
@@ -353,11 +345,11 @@ class CustomerOderNavigation extends Component {
           </Tabs>
           :
           <React.Fragment>
-            {isShowOrderDetailsDashboardNotPay && this.responseOrderDetailsDashboard("Belum Bayar", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", 1, "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "buttonTabsNotPay")}
-            {isShowOrderDetailsDashboardNotSent && this.responseOrderDetailsDashboard("Belum Dikirim", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", "hiddentabsnotpay", 2, "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "buttonTabsNotSent")}
-            {isShowOrderDetailsDashboardInDelivery && this.responseOrderDetailsDashboard("Dalam Pengiriman", "Perkiraan Diterima", 3, "hiddenFinishOrderStatusUser", "hiddentabsnotpay", 2, 3, "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "hiddenbuttontabnotsent", "buttonTabsInDelivery")}
-            {isShowOrderDetailsDashboardFinish && this.responseOrderDetailsDashboard("Finish", "Pesenan Diterima", "hiddendeliveryhorderstatususer", 4, "hiddentabsnotpay", 2, 3, 4, "hiddentabscancel", "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "buttonTabsFinish")}
-            {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboard("Batal", "Pesenan Diterima", "hiddendeliveryhorderstatususer", "hiddenfinishorderstatususer", "hiddentabsnotpay", "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", 5, "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "hiddenbuttonfinish", "buttonTabsCancel")}
+            {isShowOrderDetailsDashboardNotPay && this.responseOrderDetailsDashboard("buttonTabsNotPay","Belum Bayar", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", 1, "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel")}
+            {isShowOrderDetailsDashboardNotSent && this.responseOrderDetailsDashboard("buttonTabsNotSent","Belum Dikirim", "", "hiddenDeliveryOrderStatusUser", "hiddenfinishorderuser", "hiddentabsnotpay", 2, "hiddentabsindelivery", "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "buttonTabsNotSent")}
+            {isShowOrderDetailsDashboardInDelivery && this.responseOrderDetailsDashboard("buttonTabsInDelivery","Dalam Pengiriman", "Perkiraan Diterima", 3, "hiddenFinishOrderStatusUser", "hiddentabsnotpay", 2, 3, "hiddentabsfinish", "hiddentabscancel", "hiddenbuttontabnotpay", "hiddenbuttontabnotsent", "buttonTabsInDelivery")}
+            {isShowOrderDetailsDashboardFinish && this.responseOrderDetailsDashboard("buttonTabsFinish", "Pesenan Diterima", "hiddendeliveryhorderstatususer", 4, "hiddentabsnotpay", 2, 3, 4, "hiddentabscancel", "hiddenbuttonnotpay", "hiddenbuttontabsnotsent", "hiddenbuttonindelivery", "buttonTabsFinish")}
+            {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboard("buttonTabsCancel","Batal", "Pesenan Dibatalkan", "hiddendeliveryhorderstatususer", "hiddenfinishorderstatususer", "hiddentabsnotpay", "hiddentabsnotsent", "hiddentabsindelivery", "hiddentabsfinish", 5)}
           </React.Fragment>
         }
       </React.Fragment>

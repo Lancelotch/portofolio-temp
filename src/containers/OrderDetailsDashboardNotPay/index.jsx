@@ -112,7 +112,7 @@ class OrderDetailsDashboard extends Component {
                         cancelBy={this.state.cancelBy}
                         labelTabDetails={labelTabDetails}
                         orderDate={this.state.order.orderActivityDate}
-                        orderDraftCancel={this.state.order.orderCancel} />}
+                        orderDraftCancel={this.state.order.orderDraftCancel} />}
                 {this.state.order.orderItems.map((product, index) => {
                     return (<div key={"index"} style={{ marginTop: 15 }}>
                         <ProductOrderDetails

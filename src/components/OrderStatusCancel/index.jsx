@@ -10,11 +10,11 @@ const Step = Steps.Step;
 
 
 const OrderStatusCancel = props => {
-  const { orderDate, cancelBy, orderDraftCancel } = props
+  const { orderDate, orderCancel } = props
   return (
     <div style={{ marginTop: 30 }}>
       <Card>
-        <div className={cancelBy === "ADMIN" | cancelBy === "admin" | cancelBy === "SYSTEM" ? "stepOrderStatusCancelBySystem" : "stepOrderStatusCancel"}>
+        <div className={orderCancel.cancelBy === "ADMIN" | orderCancel.cancelBy === "admin" | orderCancel.cancelBy === "SYSTEM" ? "stepOrderStatusorderCancel.cancelBySystem" : "stepOrderStatusCancel"}>
           <Steps size="small" labelPlacement="vertical">
             <Step
               status="finish"
@@ -23,17 +23,17 @@ const OrderStatusCancel = props => {
               icon={<Icon style={{ color: "#004853" }}
                 component={receivedOrderIcon} />}>
             </Step>
-            {cancelBy === "ADMIN" | cancelBy === "admin" | cancelBy === "SYSTEM" &&
+            {orderCancel.cancelBy === "ADMIN" | orderCancel.cancelBy === "admin" | orderCancel.cancelBy === "SYSTEM" &&
               <Step
                 status={"finish"}
-                description={convertTimesTime.millisecond(orderDraftCancel.createdDate)}
+                description={convertTimesTime.millisecond(orderCancel.createdDate)}
                 title="Pesenan Dibatalkan"
                 icon={<Icon className={"iconOrderStatusStepActive"}
                   component={paymentOrder} />}
               />}
             <Step
               status={"finish"}
-              description={convertTimesTime.millisecond(orderDraftCancel && orderDraftCancel.createdDate)}
+              description={convertTimesTime.millisecond(orderCancel && orderCancel.createdDate)}
               title="Pesenan Dibatalkan"
               icon={<Icon className={"iconOrderStatusStepActive"}
                 component={cancelOrderIcon} />}

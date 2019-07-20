@@ -264,7 +264,7 @@ class Header extends Component {
           </Col>
           <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
             <React.Fragment>{greeting}</React.Fragment>
-            <div onClick={this.showUserMenu} onDoubleClick={this.hideUserMenu} className="header__user-box">
+            <div onClick={this.showUserMenu} className="header__user-box">
               <Icon
                 type="user"                
                 className="header__user-icon"

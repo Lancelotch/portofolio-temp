@@ -111,7 +111,8 @@ const routes = [
   },
   {
     path : PATH_URL.PROSES_REFACTOR_DASHBOARD,
-    component: SidebarExample
+    component: SidebarExample,
+    layoutName:"customerLayout"
 
   },
   {

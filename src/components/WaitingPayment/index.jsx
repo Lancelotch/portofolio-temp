@@ -86,13 +86,13 @@ const WaitingPayment = props => {
                   marginBottom: 0,
                   color: "black"
                 }}>
-                {labelCancel} {"Admin"}
+                {labelCancel} {indexes.orderCancel && indexes.orderCancel.cancelBy}
               </p>
               <p style={{
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {convertTimesTime.millisecond(indexes.orderDraftCancel && indexes.orderDraftCancel.createdDate)}
+                {convertTimesTime.millisecond(indexes.orderCancel && indexes.orderCancel.createdDate)}
               </p>
             </Col>
           }
