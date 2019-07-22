@@ -68,16 +68,9 @@ class OrderListWaitingPayment extends Component {
   render() {
     const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
-      tabsFinish,
-      tabsNotPay,
-      tabsInDelivery,
+      tabsShowItem,
       actionShowOrderDetailsDashboardNotPay,
-      actionShowOrderDetailsDashboardNotSent,
-      actionShowOrderDetailsDashboardInDelivery,
-      actionShowOrderDetailsDashboardFinish,
-      actionShowOrderDetailsDashboardCancel,
-      tabsNotSent,
-      tabsCancel,
+      showOrderDetailsDashboardState,
       productOrder,
       showReceivedConfirm
     } = this.props;
@@ -98,32 +91,20 @@ class OrderListWaitingPayment extends Component {
                 labelFinish={"Pesenan Diterima"}
                 labelInDelivery={"Perkiraan barang diterima"}
                 labelCancel={"Pesenan dibatalkan oleh"}
-                tabsNotPay={tabsNotPay}
-                tabsNotSent={tabsNotSent}
-                tabsInDelivery={tabsInDelivery}
-                tabsFinish={tabsFinish}
-                tabsCancel={tabsCancel}
+                tabsShowItem={tabsShowItem}
                 id={order.id}
                 indexes={order.order}
               />
               <ButtonDashboard
                 index={index}
-                tabsFinish={tabsFinish}
-                tabsNotPay={tabsNotPay}
-                tabsInDelivery={tabsInDelivery}
                 invoiceNumber={order.invoiceNumber}
-                tabsNotSent={tabsNotSent}
-                tabsCancel={tabsCancel}
+                tabsShowItem={tabsShowItem}
                 showReceivedConfirm={showReceivedConfirm}
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrder}
                 order={order.order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboardInDelivery={() => actionShowOrderDetailsDashboardInDelivery(order.order, order.invoiceNumber, order.id, index)}
-                showOrderDetailsDashboardNotPay={() => actionShowOrderDetailsDashboardNotPay(order.order, order.invoiceNumber, order.id, index)}
-                showOrderDetailsDashboardNotSent={() => actionShowOrderDetailsDashboardNotSent(order.order, order.invoiceNumber, order.id, index)}
-                showOrderDetailsDashboardFinish={() => actionShowOrderDetailsDashboardFinish(order.order, order.invoiceNumber, order.id, index)}
-                showOrderDetailsDashboardCancel={() => actionShowOrderDetailsDashboardCancel(order.order, order.invoiceNumber, order.id, index)}
+                showOrderDetailsDashboardNotPay={() => actionShowOrderDetailsDashboardNotPay(order.order, order.invoiceNumber, order.id, index,showOrderDetailsDashboardState)}
               />
             </Card>)
         })}

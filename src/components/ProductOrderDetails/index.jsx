@@ -22,8 +22,7 @@ const ProductOrderDetails = props => {
       id,
       note,
       index,
-      idOrder,
-      buttonTabsInDelivery
+      idOrder
     } = props;
   return (
     <Card>
@@ -80,7 +79,7 @@ const ProductOrderDetails = props => {
         </p>
         </Col>
         <Col md={5}>
-          {buttonTabsInDelivery === "buttonTabsInDelivery" &&
+          {tabsInDelivery === 3 &&
             <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, index, idOrder)}
               className="waitingPayment__payNow">
               Pesanan Diterima

@@ -6,7 +6,6 @@ import MainLayout from "./layouts/MainLayout";
 import FullLayout from "./layouts/FullLayout";
 import CustomerLayout from "layouts/CustomerLayout";
 
-
 class App extends Component {
   render() {
     const RouteWithLayout = ({ component: Component, layout: Layout, ...rest }) => (
@@ -24,7 +23,7 @@ class App extends Component {
           layout = FullLayout;
         } else if (layoutName === "customerLayout") {
           layout = CustomerLayout;
-        }
+        } 
         return <RouteWithLayout
           key={key}
           exact

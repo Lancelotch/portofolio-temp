@@ -90,7 +90,7 @@ class FormAddAddress extends Component {
   optionsProvince = provinces => {
     const options = [];
     provinces.forEach(provinces => {
-      provinces.province_id === "6" &&
+      provinces.province_id  &&
         options.push(
           <Option
             value={`${provinces.province_id}|${provinces.province}`}

@@ -127,7 +127,7 @@ const PaymentInfo = props => {
                                                 </p>
                                             </td>
                                         </tr> : null}
-                                    {courier !== undefined | courier ?
+                                  { /* courier !== undefined | courier ?
                                         <tr>
                                             <td>
                                                 <p className="customerVia"
@@ -145,7 +145,7 @@ const PaymentInfo = props => {
                                                     {currencyRupiah(9936)}
                                                 </p>
                                             </td>
-                                        </tr> : null}
+                                                </tr> : null*/}
                                         <tr>
                                         <td>
                                             <p className="totalPesanan"

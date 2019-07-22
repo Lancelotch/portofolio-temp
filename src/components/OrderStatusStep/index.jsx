@@ -14,20 +14,20 @@ const OrderStatusStep = (props) => {
     tabsNotSent,
     tabsInDelivery,
     tabsFinish } = props;
-    
-    // fixPositionDropdown = isTopHeaderShow => {
-    //   console.log("isShow", isTopHeaderShow);
-      
-    //   if (!isTopHeaderShow){
-    //     this.setState({ marginTopBackButton: 70 })
-    //   } else {
-    //     this.setState({ marginTopBackButton: 120 });
-    //   }
-  
-    // }
+
+  // fixPositionDropdown = isTopHeaderShow => {
+  //   console.log("isShow", isTopHeaderShow);
+
+  //   if (!isTopHeaderShow){
+  //     this.setState({ marginTopBackButton: 70 })
+  //   } else {
+  //     this.setState({ marginTopBackButton: 120 });
+  //   }
+
+  // }
   return (
     <React.Fragment>
-      <Card className="card-step-container" style={{marginTop:10}}>
+      <Card className="card-step-container" style={{ marginTop: 10 }}>
         <div className="stepOrderStatus">
           <Steps size="small" labelPlacement="vertical">
             <Step

@@ -34,21 +34,41 @@ class Header extends Component {
       display: "",
       top: 0,
       marginTopDropdown: 0,
-      overlayUserMenu: <Login />
+      overlayUserMenu: <Login />,
+      isTopHeaderShow: true,
+      topHeaderHeight: 50,
+      headerHeight: 0,      
+      wrapHeaderPosition: "absolute"
     };
     this.listenWindowScroll = this.listenScrollEvent.bind(this);
+    this.listenWindowResize = this.listenResizeEvent.bind(this);
   }
 
   componentDidMount() {
-    this.getAllCategory()    
+    this.getAllCategory()
     window.addEventListener("scroll", this.listenWindowScroll);
+    window.addEventListener("resize", this.listenResizeEvent);
+    window.addEventListener("load", () => {
+      this.updateHeaderHeight();
+    })
+
+    this.updateHeaderHeight();
     this.setState({
-      isAuthenticated: this.props.isAuthenticated
+      isAuthenticated: this.props.isAuthenticated,
     }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
+  }
+
+  updateHeaderHeight = () => {
+    let bottomHeaderHeight = document.getElementById("bottomHeader").scrollHeight;
+    let headerHeight = this.state.topHeaderHeight + bottomHeaderHeight;
+    this.setState({
+      headerHeight: headerHeight
+    })
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.listenWindowScroll);
+    window.removeEventListener("resize", this.listenResizeEvent);
   }
 
   componentWillReceiveProps(props) {
@@ -66,11 +86,15 @@ class Header extends Component {
     })
   }
 
+  listenResizeEvent = e => {
+    this.updateHeaderHeight();
+  }
+
   listenScrollEvent = e => {
-    if (window.scrollY > 100) {
-      this.setState({ display: "none",position:"fixed" }, this.fixPositionDropdown(false));
-    } else {
-      this.setState({ display: "",position:"" }, this.fixPositionDropdown(true));
+    if (window.scrollY > this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "fixed") {
+      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false }, this.fixPositionDropdown(false));
+    } else if (window.scrollY < this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "absolute") {
+      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true }, this.fixPositionDropdown(true));
     }
   };
 
@@ -158,14 +182,14 @@ class Header extends Component {
             <img src={maskot} width="50%" alt="" />
           </Col>
           <Col span={19}>
-            <div className="header__user-profile">Profile</div>
+            <Link to={"dashboard-customer/pesanan-saya/akun-saya"} className="header__user-profile">Profile</Link>
           </Col>
         </Row>
       </Menu.Item>
       <hr className="header__user-divider"></hr>
-      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesenan Saya</Link></Menu.Item>
-      <Menu.Item key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
-      <Menu.Item key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
+      <Menu.Item key="1"><Link to={"/dashboard-customer/pesanan-saya"} className="header__user-li">Pesenan Saya</Link></Menu.Item>
+      <Menu.Item key="2"><Link to={"/"} className="header__user-li">Pengaturan Privasi</Link></Menu.Item>
+      <Menu.Item key="3"><Link to={"/"} className="header__user-li">Hubungi Kami</Link></Menu.Item>
       <Menu.Item key="4">
         <div onClick={() => this.handleLogout()} className="header__user-li">Log Out</div>
       </Menu.Item>
@@ -196,16 +220,18 @@ class Header extends Component {
       </div>
     );
     const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
-    return (
-      <div className="header-fixed" style={{ position: this.state.position }}>
-        <Row className="header__row">
+    return (     
+      <React.Fragment>
+      {console.log(this.state.headerHeight)}
+      <div className="header-fixed" style={{ position: this.state.wrapHeaderPosition }}>
+        <Row id="topHeader" className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
               <TopHeader />
             </div>
           </Col>
         </Row>
-        <Row className="header">
+        <Row id="bottomHeader" className="header">
           <Col md={5}>
             <Link to="/">
               <img
@@ -278,6 +304,8 @@ class Header extends Component {
           </Col>
         </Row>
       </div>
+      <div style={{height: this.state.headerHeight}}></div>
+      </React.Fragment>
     );
   }
 }
