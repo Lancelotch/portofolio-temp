@@ -9,11 +9,7 @@ const WaitingPayment = props => {
     indexes,
     orderId,
     labelNotPay,
-    tabsNotPay,
-    tabsInDelivery,
-    tabsNotSent,
-    tabsFinish,
-    tabsCancel,
+    tabsShowItem,
     labelNotSent,
     labelCancel,
     labelInDelivery,
@@ -23,7 +19,7 @@ const WaitingPayment = props => {
     <React.Fragment>
       <div className="waitingPayment" key={orderId}>
         <Row>
-          {tabsNotPay === 1 &&
+          {tabsShowItem === 1 &&
             <Col md={12}>
               <p
                 style={{
@@ -37,7 +33,7 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {tabsNotSent === 2 &&
+          {tabsShowItem === 2 &&
             <Col md={12}>
               <p
                 className="dalamProsesPengiriman">
@@ -45,7 +41,7 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {tabsInDelivery === 3 &&
+          {tabsShowItem === 3 &&
             <Col md={12}>
               <p
                 style={{
@@ -62,7 +58,7 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {tabsFinish === 4 &&
+          {tabsShowItem === 4 &&
             <Col md={12}>
               <p
                 style={{
@@ -79,20 +75,20 @@ const WaitingPayment = props => {
               </p>
             </Col>
           }
-          {tabsCancel === 5 &&
+          {tabsShowItem === 5 &&
             <Col md={12}>
               <p
                 style={{
                   marginBottom: 0,
                   color: "black"
                 }}>
-                {labelCancel} {"Admin"}
+                {labelCancel} {indexes.orderCancel && indexes.orderCancel.cancelBy}
               </p>
               <p style={{
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {convertTimesTime.millisecond(indexes.orderDraftCancel && indexes.orderDraftCancel.createdDate)}
+                {convertTimesTime.millisecond(indexes.orderCancel && indexes.orderCancel.createdDate)}
               </p>
             </Col>
           }

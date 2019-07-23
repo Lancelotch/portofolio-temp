@@ -21,9 +21,8 @@ const ProductOrderDetails = props => {
       tabsCancel,
       id,
       note,
-      index,
-      idOrder,
-      buttonTabsInDelivery
+      keyIndex,
+      idOrder
     } = props;
   return (
     <Card>
@@ -80,8 +79,8 @@ const ProductOrderDetails = props => {
         </p>
         </Col>
         <Col md={5}>
-          {buttonTabsInDelivery === "buttonTabsInDelivery" &&
-            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, index, idOrder)}
+          {tabsInDelivery === 3 &&
+            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, idOrder)}
               className="waitingPayment__payNow">
               Pesanan Diterima
         </Button>}

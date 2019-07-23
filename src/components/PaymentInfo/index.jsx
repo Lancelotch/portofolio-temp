@@ -6,7 +6,7 @@ import strings from '../../localization/localization';
 import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
-    const { shipment,productSnapshot, payment, amount, courier,totalAmount,  cancelBy, cancelDate } = props;
+    const { shipment,productSnapshot, payment, amount, courier,totalAmount,  cancelBy } = props;
     return (
             <Card>
                 <div className="paymentInfo">
@@ -127,7 +127,7 @@ const PaymentInfo = props => {
                                                 </p>
                                             </td>
                                         </tr> : null}
-                                    {courier !== undefined | courier ?
+                                  { /* courier !== undefined | courier ?
                                         <tr>
                                             <td>
                                                 <p className="customerVia"
@@ -145,7 +145,7 @@ const PaymentInfo = props => {
                                                     {currencyRupiah(9936)}
                                                 </p>
                                             </td>
-                                        </tr> : null}
+                                                </tr> : null*/}
                                         <tr>
                                         <td>
                                             <p className="totalPesanan"
@@ -192,10 +192,10 @@ const PaymentInfo = props => {
                                     <Row>
                                         <Col md={24}>
                                             <p className="paymentCancelOrder__label">
-                                                {strings.cancel_order_by} {cancelBy}
+                                                {strings.cancel_order_by} {cancelBy.cancelBy}
                                             </p>
                                             <p className="paymentCancelOrder__labelEstimate">
-                                                {convertTimesTime.millisecond(cancelDate)}
+                                                {convertTimesTime.millisecond(cancelBy.createdDate)}
                                             </p>
                                         </Col>
                                     </Row>

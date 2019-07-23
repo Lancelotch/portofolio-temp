@@ -51,6 +51,7 @@ class Header extends Component {
     window.addEventListener("load", () => {
       this.updateHeaderHeight();
     })
+    this.updateHeaderHeight();
     this.fixPosition();
     this.setState({
       isAuthenticated: this.props.isAuthenticated,
@@ -88,7 +89,7 @@ class Header extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if(props.isAuthenticated !== this.state.isAuthenticated) {
+    if (props.isAuthenticated !== this.state.isAuthenticated) {
       this.setState({
         isAuthenticated: props.isAuthenticated,
         isShowUserMenu: false,
@@ -133,22 +134,22 @@ class Header extends Component {
 
   dropDownTriggerAuth = () => {
     return (
-      <div style={{display:"flex"}}>
+      <div style={{ display: "flex" }}>
         <div className="header-ellipsis">
           <span>{this.props.customerName}</span>
         </div>
-        <Icon className="header__name-icon" type="down"/>
+        <Icon className="header__name-icon" type="down" />
       </div>
     );
   };
 
   dropDownTriggerNotAuth = () => {
     return (
-        <div style={{display:"flex"}}>
-          <span>{strings.log_in}</span>
-          <Icon className="header__name-icon" type="down"/>
-        </div>
-      );
+      <div style={{ display: "flex" }}>
+        <span>{strings.log_in}</span>
+        <Icon className="header__name-icon" type="down" />
+      </div>
+    );
   };
 
   handleLogout = () => {
@@ -169,27 +170,31 @@ class Header extends Component {
     return query
   }
 
-  userMenu = () => (
-    <Menu className="header__user-menu">
-      <Menu.Item key="0">
-        <Row type="flex" align="middle">
-          <Col span={5}>
-            <img src={maskot} width="50%" alt="" />
-          </Col>
-          <Col span={19}>
-            <div className="header__user-profile">Profile</div>
-          </Col>
-        </Row>
-      </Menu.Item>
-      <hr className="header__user-divider"></hr>
-      <Menu.Item key="1"><Link to={PATH.DASHBOARD_CUSTOMER} className="header__user-li">Pesenan Saya</Link></Menu.Item>
-      <Menu.Item key="2"><div className="header__user-li">Pengaturan Privasi</div></Menu.Item>
-      <Menu.Item key="3"><div className="header__user-li">Hubungi Kami</div></Menu.Item>
-      <Menu.Item key="4">
-        <div onClick={() => this.handleLogout()} className="header__user-li">Log Out</div>
-      </Menu.Item>
-    </Menu>
-  );
+
+  userMenu = () => {
+  
+    return (
+      <Menu className="header__user-menu">
+        <Menu.Item key="0">
+          <Row type="flex" align="middle">
+            <Col md={5}>
+              <img src={maskot} width="50%" alt="" />
+            </Col>
+            <Col md={19}>
+              <Link to={"/dashboard-customer/pesanan-saya/akun-saya"} replace className="header__user-profile">Profile</Link>
+            </Col>
+          </Row>
+        </Menu.Item>
+        <hr className="header__user-divider"></hr>
+        <Menu.Item key="1"><Link to={"/dashboard-customer/pesanan-saya"} replace className="header__user-li">Pesenan Saya</Link></Menu.Item>
+        <Menu.Item key="2"><Link to={"/"} className="header__user-li">Pengaturan Privasi</Link></Menu.Item>
+        <Menu.Item key="3"><Link to={"/"} className="header__user-li">Hubungi Kami</Link></Menu.Item>
+        <Menu.Item key="4">
+          <div onClick={() => this.handleLogout()} className="header__user-li">Log Out</div>
+        </Menu.Item>
+      </Menu>
+    )
+  };
 
   showUserMenu = () => {
     this.setState({
@@ -205,6 +210,8 @@ class Header extends Component {
 
   render() {
     const { isAuthenticated, match } = this.props;
+
+
     const greeting = (
       <div className="header__greeting">
         {isAuthenticated !== true ? (
@@ -270,14 +277,14 @@ class Header extends Component {
               <Link to="/" className="header__menu">
                 Lacak Pengiriman
                   </Link>
-              <Link to="/" className="header__menu">
-                Cara Belanja
+                <Link to="/" className="header__menu">
+                  Cara Belanja
                   </Link>
-              <Link to="/" className="header__menu">
-                Tentang Kami
+                <Link to="/" className="header__menu">
+                  Tentang Kami
                   </Link>
-              <Link to="/" className="header__menu">
-                Bantuan
+                <Link to="/" className="header__menu">
+                  Bantuan
                   </Link>
 
             </div>

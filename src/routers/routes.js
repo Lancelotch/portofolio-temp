@@ -18,7 +18,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
-import SidebarExample from "../pages/CustomerNavigation/prosesrefactor.jsx";
+
 
 const routes = [
   {
@@ -100,19 +100,19 @@ const routes = [
     layoutName: "fullLayout"
   },
   {
-    path: PATH_URL.DASHBOARD_CUSTOMER,
+    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
     component: requiredAuth(CustomerNavigation),
-    layoutName: "customerLayout"
+    layoutName: "customerNavigation"
+  },
+  {
+    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
+    component: requiredAuth(CustomerNavigation),
+    layoutName: "customerNavigation"
   },
   {
     path: PATH_URL.PAYMENT_FAILED,
     component: FailedPayment,
     layoutName: "fullLayout"
-  },
-  {
-    path : PATH_URL.PROSES_REFACTOR_DASHBOARD,
-    component: SidebarExample
-
   },
   {
     path: PATH_URL.CONFIRMATION_ERROR,
@@ -123,7 +123,7 @@ const routes = [
     path: PATH_URL.NOT_FOUND_PAGE,
     component: NotFoundPage
   }
-    
+
 ];
 
 export default routes;

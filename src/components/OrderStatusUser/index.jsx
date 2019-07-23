@@ -9,8 +9,8 @@ const OrderStatusUser = props => {
         label,
         customer,
         estimateShippingDate,
-        tabsInDeliveryOrderStatusUser,
-        tabsFinishOrderStatusUser,
+        tabsInDelivery,
+        tabsFinish,
         estimateAccepted,
         logOrderTransactions
     } = props;
@@ -48,7 +48,7 @@ const OrderStatusUser = props => {
                                 <h2>{label}</h2>
                             </Col>
                             <Col md={12}>
-                                {((tabsInDeliveryOrderStatusUser === 3) || (tabsFinishOrderStatusUser === 4)) &&
+                                {((tabsInDelivery === 3) || (tabsFinish === 4)) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
                                 {convertTimesTime.millisecond(estimateShippingDate && estimateShippingDate.receivedDate)}

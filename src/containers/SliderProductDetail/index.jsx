@@ -10,10 +10,9 @@ class SliderProductDetailContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imagesToShow: [],      
+      imagesToShow: [],
       imagesWithDefault: [],
       isImageVariantExist: false,
-      isShowNav: false,
       startIndex: 0
     }
   }
@@ -22,8 +21,8 @@ class SliderProductDetailContainer extends Component {
     let imageDefault = this.props.imageDefault;
     let imagesProps = this.props.images;
     let imagesWithDefault = [];
-    imagesProps.forEach( image => {
-      if(image.isDefault !== true) {
+    imagesProps.forEach(image => {
+      if (image.isDefault !== true) {
         imagesWithDefault.unshift(image);
       }
     });
@@ -34,9 +33,9 @@ class SliderProductDetailContainer extends Component {
       imagesToShow: [...imagesWithDefault]
     })
   }
-  
+
   componentWillReceiveProps(props) {
-    if(props.isUpdateImageVariant) {
+    if (props.isUpdateImageVariant) {
       this.showImages(props.imageVariant);
     }
   }
@@ -61,20 +60,18 @@ class SliderProductDetailContainer extends Component {
 
   showImages(imageVariantProps = "") {
     let imagesToShow = [...this.state.imagesWithDefault];
-      let isImageVariantExist = false;
-      const imageVariant = { ...imageVariantProps };
-      if (imageVariant.largeUrl !== undefined) {
-        this.slider.slideToIndex(0)
-        imagesToShow.unshift(imageVariant);
-        isImageVariantExist = true;
-      }
-      let isShowNav = imagesToShow.length > 4 ? true : false;
-      this.setState({
-        imagesToShow: imagesToShow,
-        isShowNav: isShowNav,
-        isImageVariantExist: isImageVariantExist,
-        startIndex: 0
-      });
+    let isImageVariantExist = false;
+    const imageVariant = { ...imageVariantProps };
+    if (imageVariant.largeUrl !== undefined) {
+      this.slider.slideToIndex(0)
+      imagesToShow.unshift(imageVariant);
+      isImageVariantExist = true;
+    }
+    this.setState({
+      imagesToShow: imagesToShow,
+      isImageVariantExist: isImageVariantExist,
+      startIndex: 0
+    });
   }
 
   imageHover(item) {
@@ -85,7 +82,7 @@ class SliderProductDetailContainer extends Component {
         zoomFactor={0.5}
         mgShape={'square'}
         mgBorderWidth={0}
-      />      
+      />
     );
   }
 
@@ -105,6 +102,8 @@ class SliderProductDetailContainer extends Component {
   }
 
   render() {
+    console.log(this.props.images);
+
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     const imagesToShow = [];
     this.state.imagesToShow.forEach(image => {
@@ -114,6 +113,7 @@ class SliderProductDetailContainer extends Component {
         thumbnail: image.smallUrl
       });
     });
+    let isShowNav = this.props.images.length > 4 ? true : false
     return (
       <Row>
         <Col md={24} sm={12}>
@@ -122,10 +122,10 @@ class SliderProductDetailContainer extends Component {
             startIndex={this.state.startIndex}
             showFullscreenButton={false}
             showPlayButton={false}
-            showNav={this.state.isShowNav}
-            // onSlide={this.changeSlide}
-            lazyLoad={true}
             renderItem={this.imageHover}
+            showNav={isShowNav}
+            onSlide={this.changeSlide}
+            lazyLoad={true}
             items={imagesToShow}
             disableArrowKeys={true}
           />

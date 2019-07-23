@@ -60,7 +60,7 @@ class PaymentInfoPage extends Component {
   };
 
   actionToDashboardCustomer = () => {
-    return history.push("/dashboard-customer");
+    return history.push("/dashboard-customer/pesanan-saya");
   }
 
   render() {
@@ -128,7 +128,6 @@ class PaymentInfoPage extends Component {
             </div>
           </div>
         </React.Fragment>
-        }
       </div>
     );
   }

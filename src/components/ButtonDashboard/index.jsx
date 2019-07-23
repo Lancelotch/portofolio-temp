@@ -10,15 +10,7 @@ const ButtonDashboard = (props) => {
     showReceivedConfirm,
     showHowToModalPayment,
     showOrderDetailsDashboardNotPay,
-    showOrderDetailsDashboardNotSent,
-    showOrderDetailsDashboardInDelivery,
-    showOrderDetailsDashboardFinish,
-    showOrderDetailsDashboardCancel,
-    tabsNotPay,
-    tabsNotSent,
-    tabsFinish,
-    tabsInDelivery,
-    tabsCancel,
+    tabsShowItem,
     order,
     orderProduct,
     invoiceNumber,
@@ -33,7 +25,7 @@ const ButtonDashboard = (props) => {
   })
   return (
     <React.Fragment>
-      {tabsNotPay === 1 &&
+      {tabsShowItem === 1 &&
         <div
           style={{
             display: "flex",
@@ -61,7 +53,7 @@ const ButtonDashboard = (props) => {
             </Button>
           </div>
         </div>}
-      {tabsNotSent === 2 &&
+      {tabsShowItem === 2 &&
         <div
           style={{
             display: "flex",
@@ -70,12 +62,12 @@ const ButtonDashboard = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotSent(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
-      {tabsInDelivery === 3 &&
+      {tabsShowItem === 3 &&
         <div
           style={{
             display: "flex",
@@ -87,12 +79,12 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardInDelivery(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
-      {tabsFinish === 4 &&
+      {tabsShowItem === 4 &&
         <div
           style={{
             display: "flex",
@@ -105,12 +97,12 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardFinish(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
-      {tabsCancel === 5 &&
+      {tabsShowItem === 5 &&
         <div
           style={{
             display: "flex", justifyContent: "flex-end"
@@ -122,7 +114,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardCancel(order, invoiceNumber, id, index)}>
+            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}>
             {strings.cancel_details}
           </Button>
         </div>}

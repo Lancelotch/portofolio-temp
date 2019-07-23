@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const CategoryMenuCascader = props => {
 
     const { allCategory, match, marginTopDropdown } = props
-
     // const build_menu = category => {
     //     let itemMenu = {
     //         value: category.id,

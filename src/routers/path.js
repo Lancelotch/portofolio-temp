@@ -4,8 +4,8 @@ const REGISTER = '/register';
 const LOGIN = '/login';
 const PRODUCT_DETAIL = '/product-detail/:productId';
 const CART = '/cart';
-const DASHBOARD_CUSTOMER = '/dashboard-customer';
-const PROSES_REFACTOR_DASHBOARD = '/dashboard-refactor';
+const DASHBOARD_CUSTOMER_LEVEL_1 = '/dashboard-customer/:pesanan-saya';
+const DASHBOARD_CUSTOMER_LEVEL_2 = '/dashboard-customer/:pesanan-saya/:akunsaya';
 const SEARCH = '/search';
 const CATEGORY_LEVEL_1 = '/category/:categoryLevel1';
 const CATEGORY_LEVEL_2 = '/category/:categoryLevel1/:categoryLevel2';
@@ -25,7 +25,8 @@ const FORGET_PASSWORD = '/forget-password';
 
 const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
-    PROSES_REFACTOR_DASHBOARD :PROSES_REFACTOR_DASHBOARD,
+    DASHBOARD_CUSTOMER_LEVEL_1: DASHBOARD_CUSTOMER_LEVEL_1,
+    DASHBOARD_CUSTOMER_LEVEL_2 :DASHBOARD_CUSTOMER_LEVEL_2,
     VIEW_INVOICE: VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,
@@ -33,7 +34,6 @@ const PATH_URL = {
     CHECKOUT: CHECKOUT,
     REGISTER: REGISTER,
     CART: CART,
-    DASHBOARD_CUSTOMER: DASHBOARD_CUSTOMER,
     SEARCH: SEARCH,
     CATEGORY_LEVEL_1: CATEGORY_LEVEL_1,
     CATEGORY_LEVEL_2: CATEGORY_LEVEL_2,

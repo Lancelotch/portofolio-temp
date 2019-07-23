@@ -5,7 +5,7 @@ import history from "./routers/history";
 import MainLayout from "./layouts/MainLayout";
 import FullLayout from "./layouts/FullLayout";
 import CustomerLayout from "layouts/CustomerLayout";
-
+import SidebarNavigationCustomer from "./layouts/NavigationCustomer";
 
 class App extends Component {
   render() {
@@ -24,6 +24,8 @@ class App extends Component {
           layout = FullLayout;
         } else if (layoutName === "customerLayout") {
           layout = CustomerLayout;
+        } else if (layoutName === "customerNavigation"){
+          layout = SidebarNavigationCustomer
         }
         return <RouteWithLayout
           key={key}

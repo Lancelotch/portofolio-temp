@@ -31,23 +31,6 @@ class OrderDetailsDashboard extends Component {
         this._isMounted = false;
     }
 
-    // listenScrollEvent = e => {
-    //     if (window.scrollY) {
-    //         this.setState({ backgroundColor: "transparent", color: "#000000", position: "" }, this.fixPositionDropdown(false));
-    //     } else {
-    //         this.setState({ backgroundColor: "", position: "", color: "" }, this.fixPositionDropdown(true));
-    //     }
-    // };
-
-    // fixPositionDropdown = isTopHeaderShow => {
-    //     if (!isTopHeaderShow) {
-    //         console.log("if", isTopHeaderShow);
-    //         this.setState({ marginTopDropdown: "10rem" })
-    //     } else {
-    //         console.log("else", isTopHeaderShow);
-    //         this.setState({ marginTopDropdown: "1rem" });
-    //     }
-    // }
     buttonBack = (actionShowOrderListWaiting) => {
         return <Button style={{
             fontSize: 16
@@ -64,41 +47,21 @@ class OrderDetailsDashboard extends Component {
             tabsNotSent,
             tabsFinish,
             tabsCancel,
-            tabsInDeliveryOrderStatusUser,
-            tabsFinishOrderStatusUser,
-            buttonTabsNotPay,
-            buttonTabsNotSent,
-            buttonTabsInDelivery,
-            buttonTabsFinish,
-            buttonTabsCancel,
             estimateAccepted,
             labelTabDetails,
-            actionShowOrderListWaitingNotPay,
-            actionShowOrderListWaitingNotSent,
-            actionShowOrderListWaitingInDelivery,
-            actionShowOrderListWaitingFinish,
-            actionShowOrderListWaitingCancel,
+            actionShowOrderListWaiting,
             invoiceNumber,
             id,
             productOrderInDelivery,
             showReceivedConfirm,
-            indexDetails
+            keyIndex
         } = this.props;
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h2 style={{ fontSize: 24, color: "#4A4A4A" }}>{labelTabDetails}</h2>
-                    {buttonTabsNotPay === "buttonTabsNotPay" &&
-                        this.buttonBack(actionShowOrderListWaitingNotPay)}
-                    {buttonTabsNotSent === "buttonTabsNotSent" &&
-                        this.buttonBack(actionShowOrderListWaitingNotSent)}
-                    {buttonTabsInDelivery === "buttonTabsInDelivery" &&
-                        this.buttonBack(actionShowOrderListWaitingInDelivery)}
-                    {buttonTabsFinish === "buttonTabsFinish" &&
-                        this.buttonBack(actionShowOrderListWaitingFinish)}
-                    {buttonTabsCancel === "buttonTabsCancel" &&
-                        this.buttonBack(actionShowOrderListWaitingCancel)}
+                        {this.buttonBack(actionShowOrderListWaiting)}
                 </div>
                 {((tabsNotPay === 1) || (tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
                     <OrderStatusStep
@@ -109,21 +72,19 @@ class OrderDetailsDashboard extends Component {
                         dateOrder={this.state.order.orderActivityDate} />}
                 {tabsCancel === 5 &&
                     <OrderStatusCancel
-                        cancelBy={this.state.cancelBy}
                         labelTabDetails={labelTabDetails}
                         orderDate={this.state.order.orderActivityDate}
-                        orderDraftCancel={this.state.order.orderDraftCancel} />}
+                        orderCancel={this.state.order.orderCancel} />}
                 {this.state.order.orderItems.map((product, index) => {
                     return (<div key={"index"} style={{ marginTop: 15 }}>
                         <ProductOrderDetails
                             actionReceivedConfirm={showReceivedConfirm}
                             productOrderInDelivery={productOrderInDelivery}
-                            buttonTabsInDelivery={buttonTabsInDelivery}
                             invoiceNumber={invoiceNumber}
                             label="Detail Pesenan"
                             note={product.note}
                             key={product.id}
-                            index={indexDetails}
+                            keyIndex={keyIndex}
                             idOrder={this.state.order.id}
                             id={id}
                             tabsInDelivery={tabsInDelivery}
@@ -139,6 +100,7 @@ class OrderDetailsDashboard extends Component {
                         <PaymentInfo
                             key={index.id}
                             index={1}
+                            cancelBy={this.state.order.orderCancel}
                             courier={this.state.order.courier}
                             productSnapshot={product.productSnapshot}
                             productName={product.productName}
@@ -159,8 +121,8 @@ class OrderDetailsDashboard extends Component {
                     />
                 }
                 <OrderStatusUser
-                    tabsInDeliveryOrderStatusUser={tabsInDeliveryOrderStatusUser}
-                    tabsFinishOrderStatusUser={tabsFinishOrderStatusUser}
+                    tabsInDelivery={tabsInDelivery}
+                    tabsFinish={tabsFinish}
                     estimateAccepted={estimateAccepted}
                     label="Pengiriman"
                     customer={this.state.order.orderAddress}
