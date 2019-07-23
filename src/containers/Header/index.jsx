@@ -51,6 +51,7 @@ class Header extends Component {
     window.addEventListener("load", () => {
       this.updateHeaderHeight();
     })
+    this.updateHeaderHeight();
     this.fixPosition();
     this.setState({
       isAuthenticated: this.props.isAuthenticated,
