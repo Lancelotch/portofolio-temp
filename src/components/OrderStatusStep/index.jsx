@@ -39,7 +39,7 @@ const OrderStatusStep = (props) => {
             </Step>
             <Step
               status={tabsNotSent === 2 ? "finish" : ""}
-              description={tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
+              description={tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.paymentDate) : ""}
               title="Pesenan Dibayarkan"
               icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
                 component={paymentOrder} />}
@@ -47,14 +47,14 @@ const OrderStatusStep = (props) => {
             {
               <Step
                 status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
-                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
+                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.shipmentDate) : ""}
                 title="Pesenan Dikirim"
                 icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
                   component={deliveryOrderIcon} />}
               />}
             <Step
               status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
-              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(dateOrder.orderDate) : ""}
+              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(dateOrder.receivedDate) : ""}
               title="Pesenan Diterima"
               icon={<Icon component={receivedOrderIcon}
                 className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?

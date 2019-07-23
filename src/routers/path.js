@@ -6,7 +6,6 @@ const PRODUCT_DETAIL = '/product-detail/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER_LEVEL_1 = '/dashboard-customer/:pesanan-saya';
 const DASHBOARD_CUSTOMER_LEVEL_2 = '/dashboard-customer/:pesanan-saya/:akunsaya';
-const DASHBOARD_CUSTOMER_LEVEL_3 = '/dashboard-customer/:pesanan-saya/:akunsaya/:detail-pesanan'
 const SEARCH = '/search';
 const CATEGORY_LEVEL_1 = '/category/:categoryLevel1';
 const CATEGORY_LEVEL_2 = '/category/:categoryLevel1/:categoryLevel2';
@@ -28,7 +27,6 @@ const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
     DASHBOARD_CUSTOMER_LEVEL_1: DASHBOARD_CUSTOMER_LEVEL_1,
     DASHBOARD_CUSTOMER_LEVEL_2 :DASHBOARD_CUSTOMER_LEVEL_2,
-    DASHBOARD_CUSTOMER_LEVEL_3 :DASHBOARD_CUSTOMER_LEVEL_3,
     VIEW_INVOICE: VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,

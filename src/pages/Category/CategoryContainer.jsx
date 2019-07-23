@@ -81,7 +81,7 @@ class CategoryPage extends Component {
         isProductAvailable: true
       });
     } catch (error) {
-      this.handleCategoryNotFound(error)
+     // this.handleCategoryNotFound(error)
     }
   };
 

@@ -54,7 +54,7 @@ class OrderDetailsDashboard extends Component {
             id,
             productOrderInDelivery,
             showReceivedConfirm,
-            indexDetails
+            keyIndex
         } = this.props;
         return (
             <React.Fragment>
@@ -72,7 +72,6 @@ class OrderDetailsDashboard extends Component {
                         dateOrder={this.state.order.orderActivityDate} />}
                 {tabsCancel === 5 &&
                     <OrderStatusCancel
-                        cancelBy={this.state.cancelBy}
                         labelTabDetails={labelTabDetails}
                         orderDate={this.state.order.orderActivityDate}
                         orderCancel={this.state.order.orderCancel} />}
@@ -85,7 +84,7 @@ class OrderDetailsDashboard extends Component {
                             label="Detail Pesenan"
                             note={product.note}
                             key={product.id}
-                            index={indexDetails}
+                            keyIndex={keyIndex}
                             idOrder={this.state.order.id}
                             id={id}
                             tabsInDelivery={tabsInDelivery}
@@ -101,6 +100,7 @@ class OrderDetailsDashboard extends Component {
                         <PaymentInfo
                             key={index.id}
                             index={1}
+                            cancelBy={this.state.order.orderCancel}
                             courier={this.state.order.courier}
                             productSnapshot={product.productSnapshot}
                             productName={product.productName}

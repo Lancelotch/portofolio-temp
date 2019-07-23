@@ -1,73 +1,56 @@
 import React, { Component } from "react";
-import { Tabs, Icon } from "antd";
+import { Icon, Menu } from "antd";
 import CustomerOderNavigation from "../../containers/CustomerOrderNavigation";
-import { Link } from "react-router-dom"
 import "./style.sass";
-import { CustomTabPane } from "../../components/CustomTabDashboard";
 
+const { SubMenu } = Menu;
 
 class CustomerNavigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      keyTabs : ""
-    };
-  }
-
   componentDidMount() {
-    const params = this.props.match.params;
-    this.setState({
-      keyTabs : params
-    })
-    window.scrollTo(0, 0);
+    let keyTabs = this.props.match && this.props.match.params
+    const tabsActive = this.props.match && keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
+    this.changeMenu(tabsActive)
   }
 
-  componentWillReceiveProps(props) {
-    const params = props.match.params;
-    this.setState({
-      keyTabs : params
-    })
-  }
 
+  changeMenu = menu => {
+    switch (menu) {
+      case "akun-saya":
+        this.props.actionChangePage(<h1>Dashboard</h1>);
+        break;
+      case "pesanan":
+        this.props.actionChangePage(<div className="customerOrderNavigation" style={{backgroundColor: "#FAFAFA"}}><CustomerOderNavigation /></div>);
+        break;
+      default:
+        console.log('sukses');
+
+    }
+  };
   render() {
-    let keyTabs = this.props.match.params
-    const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
-    console.log(tabsActive);
-    
+    let keyTabs = this.props.match && this.props.match.params
+    const tabsActive = this.props.match && keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     return (
-      <div className="dashboardUser" style={{ marginTop: 20 }}>
-        <Tabs defaultActiveKey={tabsActive} animated={false} tabPosition={"left"}>
-          <CustomTabPane
-            key={"akun-saya"}
-            tab={
-              <React.Fragment>
-                <Icon type="rocket"
-                  style={{
-                    fontSize: 20,
-                    color: "#999999"
-                  }} />
-                <span>{"Akun Saya"}</span>
-              </React.Fragment>
-            }
-            className={"customerOrderNavigation"}
-            my_prop={<p>TESS INI DI AKUN SAYA <Link to='/detail-dashboard-customrer'>Detail</Link></p>}
-          />
-          <CustomTabPane
-            key={"pesanan"}
-            tab={
-              <React.Fragment>
-                <Icon type="rocket"
-                  style={{
-                    fontSize: 20,
-                    color: "#999999"
-                  }} />
-                <span>{"Pesanan Saya"}</span>
-              </React.Fragment>
-            }
-            className={"customerOrderNavigation"}
-            my_prop={<CustomerOderNavigation />}
-          />
-        </Tabs>
+      <div className="dashboardUser">
+        <Menu
+          defaultSelectedKeys={[tabsActive]}
+          mode="inline"
+          defaultOpenKeys={["akun-saya"]}
+          >
+          <SubMenu
+            key="akun-saya"
+            title={
+              <span>
+                <Icon type="user" />
+                Akun Saya
+          </span>
+            }>
+            <Menu.Item key="akun-saya" onClick={() => this.changeMenu("akun-saya")}>Profile</Menu.Item>
+            <Menu.Item key="">option2</Menu.Item>
+            <Menu.Item key="">option3</Menu.Item>
+            <Menu.Item key="">option4</Menu.Item>
+          </SubMenu>
+          <Menu.Item key="pesanan" onClick={() => this.changeMenu("pesanan")}>Pesanan Saya</Menu.Item>
+        </Menu>
       </div>
     );
   }

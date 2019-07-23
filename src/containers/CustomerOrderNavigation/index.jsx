@@ -37,16 +37,17 @@ class CustomerOderNavigation extends Component {
       invoiceNumber: "",
       id: "",
       stateReceivedOrder: [],
-      index: 0,
+      keyIndex: 0,
       isProductAlvailabel: false
     };
   }
 
   componentDidMount() {
     this.productOrderTabs(0);
+   //this.productOrderTabs(2);
   }
 
-  showReceivedConfirm = (allOrder, index, orderId) => {
+  showReceivedConfirm = (allOrder, keyIndex, orderId) => {
     confirm({
       iconClassName: "iconWaitingPaymentCancel",
       title: strings.tab_belum_bayar,
@@ -61,12 +62,12 @@ class CustomerOderNavigation extends Component {
     });
   };
 
-  actionReceivedConfirm = async (index) => {
+  actionReceivedConfirm = async (idReceived) => {
     try {
-      const orderId = index
+      const orderId = idReceived
       const response = await patchService(PATH_ORDER.ORDER_BY_RECEIVED + orderId);
       if (response.code === 200 || response.code === "200") {
-        this.props.actionUpdateTab(2);
+        this.productOrderTabs(2);
       }
     } catch (error) {
       console.log(error);
@@ -80,17 +81,17 @@ class CustomerOderNavigation extends Component {
     })
   }
 
-  actionShowOrderDetailsDashboardNotPay = (order, invoiceNumber, id, index, buttonValue) => {
+  actionShowOrderDetailsDashboardNotPay = (order, invoiceNumber, id, keyIndex, buttonValue) => {
     this.actionShowOrderListWaiting(buttonValue);
-    this.responseDetailDashboard(order, invoiceNumber, id, index);
+    this.responseDetailDashboard(order, invoiceNumber, id, keyIndex);
   };
 
-  responseDetailDashboard(order, invoiceNumber, id, index) {
+  responseDetailDashboard(order, invoiceNumber, id, keyIndex) {
     this.setState({
       order: order,
       invoiceNumber: invoiceNumber,
       id: id,
-      index: index
+      keyIndex: keyIndex
     })
   };
 
@@ -229,6 +230,7 @@ class CustomerOderNavigation extends Component {
       order={this.state.order}
       actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
   }
+
   render() {
     const {
       isShowDetailDashboard,

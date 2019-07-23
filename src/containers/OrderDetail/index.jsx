@@ -9,10 +9,11 @@ import strings from "../../localization/localization";
 
 class OrderDetailContainer extends Component {
   constructor(props) {
-    super(props);    
+    super(props);
     this.state = {
       totalProductPrice: 0,
-      quantity: this.props.quantity
+      quantity: this.props.quantity,
+      variantText: ""
     };
   }
 
@@ -41,22 +42,22 @@ class OrderDetailContainer extends Component {
 
 
   variants = variants => {
-    return variants.map((variant, index) => {
-      return (
-        <span className="detail__variant" key={index}>
-          {variant.name}&nbsp;&nbsp;:&nbsp;{variant.variantItem.name}
-        </span>
-      )
-    })
+
+
   };
+
 
 
   render() {
     const { image, name, sku } = this.props.payloadProductDetail;
-    const { priceProduct,shipmentFee } = this.props;
+    console.log(sku);
+
+    const { priceProduct, shipmentFee } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
     const totalPriceShipping = this.props.quantity * shipmentFee;
-    const totalPriceShippings = totalPriceShipping 
+    const totalPriceShippings = totalPriceShipping
+    let variantItem = sku.length > 0 && sku.map(variants => variants.name)
+    let variantColor = sku.length > 0 &&  sku.map(variantColor => variantColor.variantItem.name)
     return (
       <Fragment>
         <Row>
@@ -89,8 +90,12 @@ class OrderDetailContainer extends Component {
                             className="detail__variant"
                             style={{ textAlign: "left" }}
                             md={20}
-                          > :
-                            {sku.length > 0 && this.variants(sku)}
+                          > :&nbsp;
+                          {sku.length > 0 &&
+                            <React.Fragment>
+                            {variantItem[0] + (" ") + (variantColor[0] + (variantItem[1] === undefined ? "" : ", "))}
+                            {variantItem[1] === undefined ? "" : (variantItem[1] + (" ")) + (variantColor[1])}
+                          </React.Fragment>}
                           </Col>
                         </React.Fragment>
                       }

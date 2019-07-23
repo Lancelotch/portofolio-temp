@@ -19,6 +19,7 @@ import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
 
+
 const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
@@ -101,12 +102,12 @@ const routes = [
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
     component: requiredAuth(CustomerNavigation),
-    layoutName: "customerLayout"
+    layoutName: "customerNavigation"
   },
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
     component: requiredAuth(CustomerNavigation),
-    layoutName: "customerLayout"
+    layoutName: "customerNavigation"
   },
   {
     path: PATH_URL.PAYMENT_FAILED,

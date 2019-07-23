@@ -29,8 +29,8 @@ const OrderStatusCancel = props => {
             {orderCancel.cancelBy && orderCancel.cancelBy === "ADMIN" | orderCancel.cancelBy === "admin" | orderCancel.cancelBy === "SYSTEM" &&
               <Step
                 status={"finish"}
-                description={convertTimesTime.millisecond(orderCancel.createdDate)}
-                title="Pesenan Dibatalkan"
+                description={convertTimesTime.millisecond(orderDate.paymentDate)}
+                title="Pesenan Dibayarkan"
                 icon={<Icon className={"iconOrderStatusStepActive"}
                   component={paymentOrder} />}
               />}
