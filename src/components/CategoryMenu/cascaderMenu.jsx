@@ -75,7 +75,7 @@ const CategoryMenuCascader = props => {
         <React.Fragment>
             <Row>
                 <Col md={24}>
-                    <Cascader key={"id"} popupClassName={marginTopDropdown === 120 ? "cascader-popup header__categoriess" : "cascader-popup-scroll header__categoriess"} options={options} expandTrigger={"hover"}>
+                    <Cascader key={"id"} popupClassName={"cascader-popup header__categoriess"} style={"left: 1000px"} options={options} expandTrigger={"hover"}>
                         <a className="ant-dropdown-link" href="/#">
                             <span className="category">Kategori</span>
                             <Icon style={{ color: "#999999" }} type="down" />

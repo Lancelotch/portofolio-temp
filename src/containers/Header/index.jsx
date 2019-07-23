@@ -37,7 +37,7 @@ class Header extends Component {
       overlayUserMenu: <Login />,
       isTopHeaderShow: true,
       topHeaderHeight: 50,
-      headerHeight: 0,
+      headerHeight: 0,      
       wrapHeaderPosition: "absolute"
     };
     this.listenWindowScroll = this.listenScrollEvent.bind(this);
@@ -51,11 +51,27 @@ class Header extends Component {
     window.addEventListener("load", () => {
       this.updateHeaderHeight();
     })
-
-    this.updateHeaderHeight();
+    this.fixPosition();
     this.setState({
       isAuthenticated: this.props.isAuthenticated,
     }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
+  }
+
+  listenScrollEvent = e => {
+    this.fixPosition();
+  };
+
+  fixPosition = () => {
+    if (window.scrollY > this.state.topHeaderHeight) {
+      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false, marginTopDropdown: 0 });
+    } else if (window.scrollY < this.state.topHeaderHeight) {
+      let marginTopDropdown = this.state.topHeaderHeight - window.scrollY;
+      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true, marginTopDropdown: marginTopDropdown });
+    }
+  }
+
+  listenResizeEvent = e => {
+    this.updateHeaderHeight();
   }
 
   updateHeaderHeight = () => {
@@ -84,27 +100,6 @@ class Header extends Component {
     this.setState({
       overlayUserMenu: isAuthenticated === true ? this.userMenu() : <Login />
     })
-  }
-
-  listenResizeEvent = e => {
-    this.updateHeaderHeight();
-  }
-
-  listenScrollEvent = e => {
-    if (window.scrollY > this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "fixed") {
-      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false }, this.fixPositionDropdown(false));
-    } else if (window.scrollY < this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "absolute") {
-      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true }, this.fixPositionDropdown(true));
-    }
-  };
-
-  fixPositionDropdown = isTopHeaderShow => {
-    if (!isTopHeaderShow) {
-      this.setState({ marginTopDropdown: 70 })
-    } else {
-      this.setState({ marginTopDropdown: 120 });
-    }
-
   }
 
   getAllCategory = async () => {
@@ -228,58 +223,58 @@ class Header extends Component {
     const dropdownTriggerUserMenu = this.state.isAuthenticated === true ? this.dropDownTriggerAuth() : this.dropDownTriggerNotAuth();
     return (
       <React.Fragment>
-        <div className="header-fixed" style={{ position: this.state.wrapHeaderPosition }}>
-          <Row id="topHeader" className="header__row">
-            <Col md={24} style={{ display: this.state.display }}>
-              <div className="topHeader">
-                <TopHeader />
-              </div>
-            </Col>
-          </Row>
-          <Row id="bottomHeader" className="header">
-            <Col md={5}>
-              <Link to="/">
-                <img
-                  src={require("assets/img/monggopesen_logo.png")}
-                  className="header__logo"
-                  alt=""
-                />
-              </Link>
-            </Col>
-            <Col md={15} className="header__search-box">
-              <Search
-                placeholder={strings.search_place_holder}
-                style={{
-                  height: 35,
-                  fontSize: 17,
-                  width: 559
-                }}
-                id="filter"
-                // enterButton
-                name="q"
-                defaultValue={this.getParams()}
-                onSearch={this.getValue}
-                onChange={this.handleInputSearchChange.bind(this)}
-                className="header__search" />
-            </Col>
-            <Col md={4}>
-              <div>
-                <img
-                  src={require("assets/img/icon_header.png")}
-                  alt="header_icon"
-                  className="header__icon"
-                />
-              </div>
-            </Col>
-            <Col md={2}>
-              <div className="header__categories" key={""}>
-                <CategoryMenuCascader key={"id"} match={match} marginTopDropdown={this.state.marginTopDropdown} allCategory={this.state.allCategory} />
-              </div>
-            </Col>
-            <Col md={14}>
-              <div className="header__menus">
-                <Link to="/" className="header__menu">
-                  Lacak Pengiriman
+      <div className="header-fixed" style={{ position: this.state.wrapHeaderPosition }}>
+        <Row id="topHeader" className="header__row">
+          <Col md={24} style={{ display: this.state.display }}>
+            <div className="topHeader">
+              <TopHeader />
+            </div>
+          </Col>
+        </Row>
+        <Row id="bottomHeader" className="header">
+          <Col md={5}>
+            <Link to="/">
+              <img
+                src={require("assets/img/monggopesen_logo.png")}
+                className="header__logo"
+                alt=""
+              />
+            </Link>
+          </Col>
+          <Col md={15} className="header__search-box">
+            <Search
+              placeholder={strings.search_place_holder}
+              style={{
+                height: 35,
+                fontSize: 17,
+                width: 559
+              }}
+              id="filter"
+             // enterButton
+              name="q"
+              defaultValue={this.getParams()}
+              onSearch={this.getValue}
+              onChange={this.handleInputSearchChange.bind(this)}
+              className="header__search" />
+          </Col>
+          <Col md={4}>
+            <div>
+              <img
+                src={require("assets/img/icon_header.png")}
+                alt="header_icon"
+                className="header__icon"
+              />
+            </div>
+          </Col>
+          <Col md={2}>
+            <div className="header__categories" key={""}>
+              <CategoryMenuCascader key={"id"} match={match} allCategory={this.state.allCategory} />
+            </div>
+          </Col>
+          <Col md={14}>
+            <div className="header__menus">
+              <Link to="/" className="header__menu">
+                Lacak Pengiriman
                   </Link>
                 <Link to="/" className="header__menu">
                   Cara Belanja
@@ -291,25 +286,25 @@ class Header extends Component {
                   Bantuan
                   </Link>
 
+            </div>
+          </Col>
+          <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
+            <React.Fragment>{greeting}</React.Fragment>
+            <div onClick={this.showUserMenu} className="header__user-box">
+              <Icon
+                type="user"                
+                className="header__user-icon"
+              />
+              <div className="wrap-header-dropdown">
+                <Dropdown onVisibleChange={this.hideUserMenu} visible={this.state.isShowUserMenu} overlayStyle={{position:"fixed", marginTop:this.state.marginTopDropdown}} overlay={this.state.overlayUserMenu} trigger={["click"]}>
+                  {dropdownTriggerUserMenu}
+                </Dropdown>  
               </div>
-            </Col>
-            <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
-              <React.Fragment>{greeting}</React.Fragment>
-              <div onClick={this.showUserMenu}  className="header__user-box">
-                <Icon
-                  type="user"
-                  className="header__user-icon"
-                />
-                <div className="wrap-header-dropdown">
-                  <Dropdown onVisibleChange={this.hideUserMenu} visible={this.state.isShowUserMenu} overlayStyle={{ position: "fixed", marginTop: this.state.marginTopDropdown }} overlay={this.state.overlayUserMenu} trigger={["click"]}>
-                    {dropdownTriggerUserMenu}
-                  </Dropdown>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <div style={{ height: this.state.headerHeight }}></div>
+            </div>
+          </Col>
+        </Row>
+      </div>
+      <div style={{height: this.state.headerHeight}}></div>
       </React.Fragment>
     );
   }
