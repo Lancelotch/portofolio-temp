@@ -51,11 +51,27 @@ class Header extends Component {
     window.addEventListener("load", () => {
       this.updateHeaderHeight();
     })
-
-    this.updateHeaderHeight();
+    this.fixPosition();
     this.setState({
       isAuthenticated: this.props.isAuthenticated,
     }, () => this.updateOverlayUserMenu(this.props.isAuthenticated))
+  }
+
+  listenScrollEvent = e => {
+    this.fixPosition();
+  };
+
+  fixPosition = () => {
+    if (window.scrollY > this.state.topHeaderHeight) {
+      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false, marginTopDropdown: 0 });
+    } else if (window.scrollY < this.state.topHeaderHeight) {
+      let marginTopDropdown = this.state.topHeaderHeight - window.scrollY;
+      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true, marginTopDropdown: marginTopDropdown });
+    }
+  }
+
+  listenResizeEvent = e => {
+    this.updateHeaderHeight();
   }
 
   updateHeaderHeight = () => {
@@ -84,27 +100,6 @@ class Header extends Component {
     this.setState({
       overlayUserMenu: isAuthenticated === true ? this.userMenu() : <Login />
     })
-  }
-
-  listenResizeEvent = e => {
-    this.updateHeaderHeight();
-  }
-
-  listenScrollEvent = e => {
-    if (window.scrollY > this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "fixed") {
-      this.setState({ display: "none", wrapHeaderPosition: "fixed", isTopHeaderShow: false }, this.fixPositionDropdown(false));
-    } else if (window.scrollY < this.state.topHeaderHeight && this.state.wrapHeaderPosition !== "absolute") {
-      this.setState({ display: "", wrapHeaderPosition: "absolute", isTopHeaderShow: true }, this.fixPositionDropdown(true));
-    }
-  };
-
-  fixPositionDropdown = isTopHeaderShow => {
-    if (!isTopHeaderShow){
-      this.setState({ marginTopDropdown: 70 })
-    } else {
-      this.setState({ marginTopDropdown: 120 });
-    }
-
   }
 
   getAllCategory = async () => {
@@ -267,7 +262,7 @@ class Header extends Component {
           </Col>
           <Col md={2}>
             <div className="header__categories" key={""}>
-              <CategoryMenuCascader key={"id"} match={match} marginTopDropdown={this.state.marginTopDropdown} allCategory={this.state.allCategory} />
+              <CategoryMenuCascader key={"id"} match={match} allCategory={this.state.allCategory} />
             </div>
           </Col>
           <Col md={14}>
@@ -289,7 +284,7 @@ class Header extends Component {
           </Col>
           <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
             <React.Fragment>{greeting}</React.Fragment>
-            <div onClick={this.showUserMenu} onDoubleClick={this.hideUserMenu} className="header__user-box">
+            <div onClick={this.showUserMenu} className="header__user-box">
               <Icon
                 type="user"                
                 className="header__user-icon"
