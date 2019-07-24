@@ -21,15 +21,27 @@ const ProductOrderDetails = props => {
       tabsCancel,
       id,
       note,
-      keyIndex,
-      idOrder
+      keyIndex
     } = props;
+
+  function variantItems() {
+    return (
+      productSnapshot.informations.reduce((acc, cur) => {
+        let arr = acc
+        arr.push(cur.value)
+        if (cur.key === 'item') {
+          arr.push(":")
+        }
+        console.log(arr)
+        return arr
+      }, []).join(' ').split(':').filter(e => e !== '').join(', '))
+  }
   return (
     <Card>
       <div style={{
-          display: "flex",
-          justifyContent: "space-between"
-        }}>
+        display: "flex",
+        justifyContent: "space-between"
+      }}>
         <h2>{label}</h2>
         {((tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
           <label
@@ -70,7 +82,7 @@ const ProductOrderDetails = props => {
           </Link>
           <p className="productOrder__variant" style={{ marginBottom: 10 }}>
             {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-           {productSnapshot.variants}
+           {variantItems()}
           </p>
           <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
             {note && note.charAt(0).toUpperCase() + note.substring(1)}</p>
@@ -80,7 +92,7 @@ const ProductOrderDetails = props => {
         </Col>
         <Col md={5}>
           {tabsInDelivery === 3 &&
-            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, idOrder)}
+            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, id)}
               className="waitingPayment__payNow">
               Pesanan Diterima
         </Button>}

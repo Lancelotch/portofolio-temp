@@ -36,7 +36,7 @@ export const AddressCheckout = props => {
             )}
             <Button
               size="large"
-              className="addressCheckout__button"
+              className="addressAdd__button"
               onClick={onAddAddress}
             >
               Tambah Alamat <Icon type="plus" />

@@ -4,12 +4,11 @@ import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
 import { apiGetWithToken } from "../../api/services";
-import { PATH_DASHBOARD_TAB } from "../../api/path";
+import { PATH_DASHBOARD_TAB, PATH_INVOICE } from "../../api/path";
 import NoOrderHistory from "../../components/NoOrderHistory";
 import { Offline, Online, Detector } from "react-detect-offline";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
-import { PATH_ORDER } from "../../api/path";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
 const confirm = Modal.confirm;
@@ -65,7 +64,7 @@ class CustomerOderNavigation extends Component {
   actionReceivedConfirm = async (idReceived) => {
     try {
       const orderId = idReceived
-      const response = await patchService(PATH_ORDER.ORDER_BY_RECEIVED + orderId);
+      const response = await patchService(PATH_INVOICE.INVOICE_BY_RECEIVED + orderId);
       if (response.code === 200 || response.code === "200") {
         this.productOrderTabs(2);
       }
@@ -81,7 +80,7 @@ class CustomerOderNavigation extends Component {
     })
   }
 
-  actionShowOrderDetailsDashboardNotPay = (order, invoiceNumber, id, keyIndex, buttonValue) => {
+  actionShowOrderDetailsDashboard = (order, invoiceNumber, id, keyIndex, buttonValue) => {
     this.actionShowOrderListWaiting(buttonValue);
     this.responseDetailDashboard(order, invoiceNumber, id, keyIndex);
   };
@@ -165,38 +164,38 @@ class CustomerOderNavigation extends Component {
   }
 
   responseListWaiting(
-    showOrderDetailsDashboardState,
+    showOrderDetailsDashboard,
     responseProductOrder,
     tabsShowItem) {
     return <OrderListWaiting
       productOrder={responseProductOrder}
       actionUpdateTab={this.actionUpdateTab}
-      actionShowOrderDetailsDashboardNotPay={this.actionShowOrderDetailsDashboardNotPay}
-      showOrderDetailsDashboardState={showOrderDetailsDashboardState}
+      actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+      showOrderDetailsDashboard={showOrderDetailsDashboard}
       showReceivedConfirm={this.showReceivedConfirm}
       tabsShowItem={tabsShowItem}
     />
   }
 
-  responseOrderDetailsDashboardNotPay(showOrderDetailsDashboardState) {
+  responseOrderDetailsDashboardNotPay(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       labelTabDetails={"Belum Bayar"}
       tabsNotPay={1}
       order={this.state.order}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  responseOrderDetailsDashboardNotSent(showOrderDetailsDashboardState) {
+  responseOrderDetailsDashboardNotSent(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       labelTabDetails={"Belum Dikirim"}
       tabsNotSent={2}
       invoiceNumber={this.state.invoiceNumber}
       id={this.state.id}
       order={this.state.order}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  responseOrderDetailsDashboardInDelivery(showOrderDetailsDashboardState) {
+  responseOrderDetailsDashboardInDelivery(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       labelTabDetails={"Dalam Pengiriman"}
       tabsNotSent={2}
@@ -206,10 +205,10 @@ class CustomerOderNavigation extends Component {
       id={this.state.id}
       order={this.state.order}
       showReceivedConfirm={this.showReceivedConfirm}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  responseOrderDetailsDashboardFinish(showOrderDetailsDashboardState) {
+  responseOrderDetailsDashboardFinish(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       labelTabDetails={"Finish"}
       tabsNotSent={2}
@@ -219,16 +218,16 @@ class CustomerOderNavigation extends Component {
       invoiceNumber={this.state.invoiceNumber}
       id={this.state.id}
       order={this.state.order}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  responseOrderDetailsDashboardCancel(showOrderDetailsDashboardState) {
+  responseOrderDetailsDashboardCancel(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       labelTabDetails={"Batal"}
       tabsCancel={5}
       id={this.state.id}
       order={this.state.order}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboardState)} />
+      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
   render() {

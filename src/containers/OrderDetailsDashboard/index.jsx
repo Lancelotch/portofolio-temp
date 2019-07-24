@@ -85,7 +85,6 @@ class OrderDetailsDashboard extends Component {
                             note={product.note}
                             key={product.id}
                             keyIndex={keyIndex}
-                            idOrder={this.state.order.id}
                             id={id}
                             tabsInDelivery={tabsInDelivery}
                             tabsNotSent={tabsNotSent}

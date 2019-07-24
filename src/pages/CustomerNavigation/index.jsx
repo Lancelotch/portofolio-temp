@@ -2,24 +2,28 @@ import React, { Component } from "react";
 import { Icon, Menu } from "antd";
 import CustomerOderNavigation from "../../containers/CustomerOrderNavigation";
 import "./style.sass";
+import AddressListDashboard from "../../containers/AddressListDashboard";
 
 const { SubMenu } = Menu;
 
 class CustomerNavigation extends Component {
   componentDidMount() {
-    let keyTabs = this.props.match && this.props.match.params
-    const tabsActive = this.props.match && keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
+    let keyTabs = this.props.match.params
+    const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     this.changeMenu(tabsActive)
   }
 
 
   changeMenu = menu => {
     switch (menu) {
-      case "akun-saya":
+      case "my-account":
         this.props.actionChangePage(<h1>Dashboard</h1>);
         break;
-      case "pesanan":
-        this.props.actionChangePage(<div className="customerOrderNavigation" style={{backgroundColor: "#FAFAFA"}}><CustomerOderNavigation /></div>);
+      case "my":
+        this.props.actionChangePage(<div className="customerOrderNavigation" style={{ backgroundColor: "#FAFAFA" }}><CustomerOderNavigation /></div>);
+        break;
+      case "edit-address":
+        this.props.actionChangePage(<AddressListDashboard />);
         break;
       default:
         console.log('sukses');
@@ -27,29 +31,29 @@ class CustomerNavigation extends Component {
     }
   };
   render() {
-    let keyTabs = this.props.match && this.props.match.params
-    const tabsActive = this.props.match && keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
+    let keyTabs = this.props.match.params
+    const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     return (
       <div className="dashboardUser">
         <Menu
           defaultSelectedKeys={[tabsActive]}
           mode="inline"
-          defaultOpenKeys={["akun-saya"]}
-          >
+          defaultOpenKeys={['my-account']}
+        >
           <SubMenu
-            key="akun-saya"
+            key={'my-account'}
             title={
               <span>
                 <Icon type="user" />
                 Akun Saya
           </span>
             }>
-            <Menu.Item key="akun-saya" onClick={() => this.changeMenu("akun-saya")}>Profile</Menu.Item>
-            <Menu.Item key="">option2</Menu.Item>
-            <Menu.Item key="">option3</Menu.Item>
-            <Menu.Item key="">option4</Menu.Item>
+            <Menu.Item key="my-account" onClick={() => this.changeMenu("my-account")}>Profile</Menu.Item>
+            <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>Ubah Alamat</Menu.Item>
+            <Menu.Item key="ads">option3</Menu.Item>
+            <Menu.Item key="asd">option4</Menu.Item>
           </SubMenu>
-          <Menu.Item key="pesanan" onClick={() => this.changeMenu("pesanan")}>Pesanan Saya</Menu.Item>
+          <Menu.Item key="my" onClick={() => this.changeMenu("my")}>Pesanan Saya</Menu.Item>
         </Menu>
       </div>
     );

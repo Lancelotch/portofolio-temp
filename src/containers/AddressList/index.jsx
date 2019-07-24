@@ -20,6 +20,8 @@ class AddressList extends Component {
   }
 
   onChange = (e) => {
+    console.log(e);
+    
     this.setState({
       customerAddress: this.getAddress(e.target.value)
     });
@@ -43,6 +45,8 @@ class AddressList extends Component {
   };
 
   render() {
+    console.log(this.state.customerAddress);
+    
     return (
       <Modal
         title="Pilih alamat pengiriman"

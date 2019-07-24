@@ -9,7 +9,7 @@ const ButtonDashboard = (props) => {
   const { showDeleteConfirm,
     showReceivedConfirm,
     showHowToModalPayment,
-    showOrderDetailsDashboardNotPay,
+    showOrderDetailsDashboard,
     tabsShowItem,
     order,
     orderProduct,
@@ -47,7 +47,7 @@ const ButtonDashboard = (props) => {
             </Button>
             <Button
               className="waitingPayment__detailPesanan"
-              onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
+              onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
             >
               {strings.order_details}
             </Button>
@@ -62,7 +62,7 @@ const ButtonDashboard = (props) => {
           <Button
             style={{ marginTop: 25 }}
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -73,13 +73,13 @@ const ButtonDashboard = (props) => {
             display: "flex",
             justifyContent: "flex-end"
           }}>
-          <Button onClick={() => showReceivedConfirm(orderProduct, index, order.id)}
+          <Button onClick={() => showReceivedConfirm(orderProduct, index, id)}
             className="waitingPayment__payNow">
             Pesanan Diterima
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -97,7 +97,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
@@ -114,7 +114,7 @@ const ButtonDashboard = (props) => {
           </Button>
           <Button
             className="waitingPayment__detailPesanan"
-            onClick={() => showOrderDetailsDashboardNotPay(order, invoiceNumber, id, index)}>
+            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}>
             {strings.cancel_details}
           </Button>
         </div>}

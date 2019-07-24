@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Layout } from 'antd';
 import Header from 'containers/Header'
 import Footer from 'components/Footer'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 
 const { Content, Sider } = Layout;
 
@@ -12,25 +13,25 @@ class SidebarNavigationCustomer extends Component {
             page: []
         }
     }
+    actionChangePage = page => {
+        this.setState({ page });
+    };
+
+
+     childrenWithProps = React.cloneElement(this.props.children, {
+        actionChangePage: this.actionChangePage
+    });
+
     render() {
-        const actionChangePage = page => {
-            this.setState({ page });
-        };
-
-        console.log(this.state.page);
-
-
-        const childrenWithProps = React.cloneElement(this.props.children, {
-            actionChangePage: actionChangePage
-        });
         return (
             <Layout>
                 <div className="customerLayout">
                     <Header match={this.props} />
+                    <ScrollToTopOnMount />
                     <div className="container">
                         <Layout>
                             <Sider>
-                                {childrenWithProps}
+                                {this.childrenWithProps}
                             </Sider>
                             <Layout>
                                 <Content>

@@ -6,7 +6,7 @@ import { apiGetWithToken } from "../../api/services";
 
 const { Option } = Select;
 const { TextArea } = Input;
-class FormEditAddress extends Component {
+class FormEditAddressDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -74,6 +74,8 @@ class FormEditAddress extends Component {
   }
 
   componentWillReceiveProps(props){
+    console.log('adreeesssss===>',props.address.id);
+    console.log('adreeesssssthisprops===>',this.props.address.id);
     if( this.props.address.id !==  props.address.id) {
       this.props.form.resetFields();
       const {
@@ -256,6 +258,8 @@ class FormEditAddress extends Component {
           subdistrictId,
           isDefault
         } = this.state;
+        console.log('id form edit dashboard',this.state.id);
+        
         const payload = {
           ...values,
           id,
@@ -468,6 +472,6 @@ class FormEditAddress extends Component {
   }
 }
 const WrappedAddressForm = Form.create({ name: "addressForm" })(
-  FormEditAddress
+  FormEditAddressDashboard
 );
 export default withApiMethod(WrappedAddressForm);

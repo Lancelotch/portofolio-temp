@@ -258,6 +258,8 @@ class Checkout extends Component {
   };
 
   actionChangeAddress = address => {
+    console.log(address);
+    
     this.setState(prevState => ({
       customerAddress: address,
       visibleListAddress: !prevState.visibleListAddress,
