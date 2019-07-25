@@ -6,7 +6,8 @@ import currencyRupiah from "../../../library/currency";
 const { Text } = Typography;
 
 const TableInvoicePayment = props => {
-    const { productSnapshot, shipment,courier } = props;
+    const { productSnapshot, shipment, courier } = props;
+    const totalShipping = productSnapshot.quantity * shipment.price
     return (
         <Row>
             <Col md={24}>
@@ -34,14 +35,14 @@ const TableInvoicePayment = props => {
                             <tr>
                                 <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim Internasional</Text>
                                     <Text className="viaShippingTableInvoice" type="danger">
-                                      Pengiriman Internasional Via {shipment.via}</Text>
+                                        Pengiriman Internasional Via {shipment.via}</Text>
                                 </td>
-                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>{shipment.via === "air" ? shipment.price : "Ongkir Sudah Termasuk"}</Text></td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>{shipment.via === "air" || shipment.via === "Udara" || shipment.via === "udara" ? currencyRupiah(totalShipping) : "Ongkir Sudah Termasuk"}</Text></td>
                             </tr>
                             <tr>
                                 <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim JNE &nbsp; {courier.service}</Text>
                                 </td>
-                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="default" style={{ fontSize: 14 }}>{courier.price}</Text></td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="default" style={{ fontSize: 14 }}>{currencyRupiah(courier.price)}</Text></td>
                             </tr>
                         </tbody>
                     </table>

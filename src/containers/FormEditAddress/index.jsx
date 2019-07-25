@@ -48,8 +48,6 @@ class FormEditAddress extends Component {
       subdistrictId,
       isDefault
     } = this.props.address;
-    console.log(this.props.address);
-    
     this.setState({
       id: id,
       labelName: labelName,
@@ -308,8 +306,6 @@ class FormEditAddress extends Component {
     //     <Option value="62">+62</Option>
     //   </Select>
     // );
-    console.log(this.props.address);
-    
     return (
       
       <Modal
@@ -360,7 +356,7 @@ class FormEditAddress extends Component {
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu", phoneNumber)
-            )(<Input /*{addonBefore={prefixSelector}}*/ style={{ width: "100%" }} placeholder="08xxx" />)}
+            )(<Input /*{addonBefore={prefixSelector}}*/ type="number" style={{ width: "100%" }} placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(

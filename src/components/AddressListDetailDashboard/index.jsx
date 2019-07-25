@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import { List, Icon } from 'antd';
+import { List, Icon, Button } from 'antd';
 import "./style.sass";
 
 const StatusAddress = props => {
     return (
         <span
             style={{
-                float: "right",
-                fontSize: 17
+                color: "#FB6900",
+                fontSize: 16
             }}
         >
             {props.isDefault ? "Alamat Utama" : ""}
@@ -24,15 +24,11 @@ const AddressListDetailDashboard = props => {
         city,
         fullAddress,
         province,
-        provinceId,
-        cityId,
         zipcode,
-        geolocation,
         subdistrict,
-        subdistrictId,
         isDefault
     } = props.address;
-    const {address} = props;
+    const { lengthAddress } = props;
     return (
         <React.Fragment>
             <tr>
@@ -55,24 +51,10 @@ const AddressListDetailDashboard = props => {
                     <List.Item>{fullAddress}{" "}{subdistrict}{" "}{city}{" "}{province}{" "}{zipcode}</List.Item>
                 </td>
                 <td>
-                    <button onClick={() => props.actionChangeAddress(id)}>Utamakan</button>
-                    {isDefault && (
-                        <Fragment>
-                            <StatusAddress isDefault={isDefault} />
-                            <br />
-                            <div style={{ clear: "both" }}></div>
-                        </Fragment>
-                    )}
-                    <button onClick={() => props.showDeleteAddress(id)}>Delete Address</button>
-                    <Icon
-                        type="edit"
-                        style={{
-                            float: "right"
-                        }}
-                        onClick={() => props.actionShowEditFormAddress(address)}
-                        className={"icon"}
-                    />
-
+                    {isDefault === true ?
+                        showDefaultAddress(props, lengthAddress, isDefault)
+                        :
+                        showChangeDefaultAddress(props, id)}
                 </td>
             </tr>
         </React.Fragment>
@@ -80,3 +62,28 @@ const AddressListDetailDashboard = props => {
 };
 
 export default AddressListDetailDashboard;
+
+function showChangeDefaultAddress(props, id) {
+    return <Fragment>
+        <div className="addressListDetailAddress">
+            <Icon type="edit" onClick={() => props.actionShowEditFormAddress(props.address)} />
+            <Icon type="delete" onClick={() => props.showDeleteAddress(id)} />
+        </div>
+        <div className="addressListDetailAddressButton" style={{ marginTop: 30 }}>
+            <Button style={{ width: 149, height: 40 }} onClick={() => props.actionChangeAddress(id)}>Jadikan Utama</Button>
+        </div>
+    </Fragment>;
+}
+
+function showDefaultAddress(props, lengthAddress, isDefault) {
+    return <Fragment>
+        <div className="addressListDetailAddress">
+            <Icon type="edit" onClick={() => props.actionShowEditFormAddress(props.address)} />
+            <Icon type="delete" style={{ cursor: "not-allowed", color: "#DDDDDD" }} />
+        </div>
+        <div className="addressListDetailAddressButton" style={{ marginTop: 30 }}>
+            {lengthAddress.length <= 1 && <Icon type="delete" style={{ cursor: "not-allowed", color: "#DDDDDD" }} />}
+            <StatusAddress isDefault={isDefault} />
+        </div>
+    </Fragment>;
+}

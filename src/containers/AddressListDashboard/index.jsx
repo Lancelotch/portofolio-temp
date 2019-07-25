@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { apiGetWithToken, apiPostWithToken, apiDeleteWithToken, apiPutWithToken, apiPatchWithToken, patchService } from '../../api/services';
+import { apiGetWithToken, apiPostWithToken, apiDeleteWithToken, apiPutWithToken, patchService } from '../../api/services';
 import { PATH_CUSTOMER } from '../../api/path';
 import AddressListDetailDashboard from '../../components/AddressListDetailDashboard';
 import { Card, Row, Col, Button, Icon, Modal } from 'antd';
@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { openModal } from "../../store/actions/authentication";
 import { addressDefault } from "../../store/actions/address";
 import strings from '../../localization/localization';
-import FormEditAddressDashboard from '../FormEditAddressDashboard';
+import FormEditAddress from '../FormEditAddress';
 
 
 const confirm = Modal.confirm;
@@ -20,7 +20,6 @@ class AddressListDashboard extends Component {
             addresses: [],
             visibleAddAddress: false,
             visibleEditAddress: false,
-            isProductDetailAvailable: false,
             customerAddress: {},
             cities: [],
             subdistricts:[],
@@ -95,11 +94,9 @@ class AddressListDashboard extends Component {
 
     showDeleteAddress = (idAddress) => {
         confirm({
-            iconClassName: "iconWaitingPaymentCancel",
-            title: strings.tab_belum_bayar,
-            content: strings.tabs_belum_bayar_pesan_batalkan,
+            title: strings.tabs_my_account_change_address,
+            content: strings.tabs_my_account_change_address_paragraph,
             okText: strings.cancel,
-            okType: "danger",
             cancelText: strings.back,
             centered: true,
             onOk: () => {
@@ -130,8 +127,6 @@ class AddressListDashboard extends Component {
         try {
             const idAddress = index
             const response = await apiDeleteWithToken(PATH_CUSTOMER.CUSTOMER_ADDRESS_DELETE + idAddress);
-            console.log('loooooog response', response.data.code);
-
             if (response.data.code === 200 || response.data.code === "200") {
                 this.getAddress();
             }
@@ -147,8 +142,6 @@ class AddressListDashboard extends Component {
     };
 
     actionShowEditFormAddress = (address) => {
-        console.log(address);
-        
         this.setState(prevState => ({
             address: address,
             visibleEditAddress: !prevState.visibleEditAddress
@@ -184,12 +177,10 @@ class AddressListDashboard extends Component {
             const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
             if (response.data.data) {
                 this.setState(
-                    {
-                        customerAddress: request
-                    },
+                    {customerAddress: request},
                     () => {
                         this.getAddress();
-                        this.actionShowEditFormAddress();
+                        this.actionShowEditFormAddress(this.state.address);
                     }
                 );
             }
@@ -204,11 +195,9 @@ class AddressListDashboard extends Component {
         }
         try {
             const response = await patchService(PATH_CUSTOMER.ADDRESS_DEFAULT , request);
-           console.log('changedefault address',response);
-           
-            // if (response.code === 200 || response.code === "200") {
-            //   this.getAddress();
-            // }
+            if (response.code === 200 || response.code === "200") {
+              this.getAddress();
+            }
           } catch (error) {
             console.log(error);
           }
@@ -218,6 +207,7 @@ class AddressListDashboard extends Component {
     responseAddressList = response => {
         return response.map((address, index) => (
             <AddressListDetailDashboard 
+            lengthAddress={response}
             actionChangeAddress={this.actionChangeAddress} 
             key={index} 
             actionShowEditFormAddress={this.actionShowEditFormAddress} 
@@ -259,7 +249,7 @@ class AddressListDashboard extends Component {
                         </Col>
                     </Row>
                     {customerAddress.id && (
-                        <FormEditAddressDashboard
+                        <FormEditAddress
                             visible={this.state.visibleEditAddress}
                             address={this.state.address}
                             onSubmit={this.actionSubmitEditFormAddress}

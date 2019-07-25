@@ -45,8 +45,6 @@ class AddressList extends Component {
   };
 
   render() {
-    console.log(this.state.customerAddress);
-    
     return (
       <Modal
         title="Pilih alamat pengiriman"

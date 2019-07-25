@@ -18,6 +18,7 @@ const strings = new LocalizedStrings({
     category: 'Kategori',
 
     //general
+    received: 'Terima',
     cancel : 'Batalkan',
     oh_no: 'Oh no!',
     back: 'Kembali',
@@ -62,6 +63,13 @@ const strings = new LocalizedStrings({
     tabs_belum_bayar : 'Anda yakin ingin membatalkan pesenan?',
     tabs_belum_bayar_pesan_batalkan : "Pesenan yang anda buat akan kami batalkan",
 
+    //Dashboard Tabs Dalam pengiriman
+    tabs_in_delivery : 'Apa anda yakin sudah menerima pesenan?',
+    tabs_in_delivery_message_in_delivery : 'Pastikan anda benar-benar sudah menerima barang pesenan anda sebelum melakukan konfirmasi ini.',
+
+    //Dashboard Akun Saya Ubah Alamat
+    tabs_my_account_change_address : 'Apa anda yakin ingin menghapus alamat?',
+    tabs_my_account_change_address_paragraph: 'Informasi pada yang tertera pada alamat ini akan kami hapus seluruhnya dari sistem monggopesen.',
 
     //FailedPaymentPage
     text_failed_payment : 'Sepertinya ada kesalahan di dalam sistem kami, silahkan menunggu beberapa saat dan mencoba kembali.',

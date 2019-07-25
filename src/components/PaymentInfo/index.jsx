@@ -7,6 +7,9 @@ import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
     const { shipment,productSnapshot, payment, amount, courier,totalAmount,  cancelBy } = props;
+    
+    const totalShipment = productSnapshot.quantity * shipment.price
+
     return (
             <Card>
                 <div className="paymentInfo">
@@ -91,9 +94,9 @@ const PaymentInfo = props => {
                                                         textAlign: "right",
                                                         marginTop: -20
                                                     }}>
-                                                    {shipment.via === "sea" && "sea" ?
+                                                    {shipment.via === "laut" && "Laut" ?
                                                         "Ongkir Sudah Termasuk " :
-                                                        currencyRupiah(shipment.price)
+                                                        currencyRupiah(totalShipment)
                                                     }
                                                 </p>
                                             </td>

@@ -30,8 +30,8 @@ class PaymentInfoPage extends Component {
 
   getPaymentInfo = async () => {
     this.setState({isLoading : true})
-    const paymentId = this.props.match.params.paymentId;
     try {
+      const paymentId = this.props.match.params.paymentId;
       const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)   
       const payment = response.data.data;
       this.setState({

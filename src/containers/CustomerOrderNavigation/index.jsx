@@ -48,12 +48,11 @@ class CustomerOderNavigation extends Component {
 
   showReceivedConfirm = (allOrder, keyIndex, orderId) => {
     confirm({
-      iconClassName: "iconWaitingPaymentCancel",
-      title: strings.tab_belum_bayar,
-      content: strings.tabs_belum_bayar_pesan_batalkan,
-      okText: strings.cancel,
-      okType: "danger",
+      title: strings.tabs_in_delivery,
+      content: strings.tabs_in_delivery_message_in_delivery,
+      okText: strings.received,
       cancelText: strings.back,
+      okType:"default",
       centered: true,
       onOk: () => {
         this.actionReceivedConfirm(orderId);
