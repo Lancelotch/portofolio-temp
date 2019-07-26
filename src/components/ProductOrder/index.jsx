@@ -2,24 +2,12 @@ import React, { Fragment } from "react";
 import { Row, Col } from "antd";
 import "./style.sass";
 import strings from "../../localization/localization";
+import variantItems from "../../library/variantItems";
 // import currencyRupiah from "../../library/currency";
 
 
 const ProductOrder = props => {
   const { orderItems } = props;
-
-  function variantItems(order) {
-    return (
-      order.reduce((acc, cur) => {
-        let arr = acc
-        arr.push(cur.value)
-        if (cur.key === 'item') {
-          arr.push(":")
-        }
-        return arr
-      }, []).join(' ').split(':').filter(e => e !== '').join(', '))
-  }
-
 
   return (
     <div className="productOrder">

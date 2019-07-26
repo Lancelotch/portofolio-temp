@@ -23,6 +23,7 @@ const AddressListDetail = props => {
     phoneNumber,
     isDefault
   } = props.address;
+
   return (
     <Fragment>
       <Row style={{ marginBottom: 19 }}>
@@ -61,7 +62,8 @@ const AddressListDetail = props => {
               <div style={{ clear: "both" }}></div>
             </Fragment>
           )}
-          <Radio value={id} style={{ float: "right" }} />
+          <Radio onClick={() => props.actionChangeDefaultAddress(id)} value={id} style={{ float: "right" }}>
+          </Radio>
         </Col>
       </Row>
     </Fragment>

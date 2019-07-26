@@ -5,6 +5,7 @@ import { pageUrlViewInvoiceDashboard, pageUrlProductDetail } from "../../library
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import { Button } from "antd";
+import variantItems from "../../library/variantItems";
 
 const ProductOrderDetails = props => {
   const
@@ -23,19 +24,6 @@ const ProductOrderDetails = props => {
       note,
       keyIndex
     } = props;
-
-  function variantItems() {
-    return (
-      productSnapshot.informations.reduce((acc, cur) => {
-        let arr = acc
-        arr.push(cur.value)
-        if (cur.key === 'item') {
-          arr.push(":")
-        }
-        console.log(arr)
-        return arr
-      }, []).join(' ').split(':').filter(e => e !== '').join(', '))
-  }
   return (
     <Card>
       <div style={{
@@ -82,7 +70,7 @@ const ProductOrderDetails = props => {
           </Link>
           <p className="productOrder__variant" style={{ marginBottom: 10 }}>
             {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-           {variantItems()}
+           {variantItems(productSnapshot.informations)}
           </p>
           <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
             {note && note.charAt(0).toUpperCase() + note.substring(1)}</p>

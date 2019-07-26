@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Modal, Radio, Button } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
+import { patchService } from "../../api/services";
+import { PATH_CUSTOMER } from "../../api/path";
 
 const RadioGroup = Radio.Group;
 // const confirm = Modal.confirm;
@@ -9,7 +11,8 @@ class AddressList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customerAddress: this.props.customerAddress
+      customerAddress: this.props.customerAddress,
+      id: ""
     };
   }
 
@@ -19,9 +22,23 @@ class AddressList extends Component {
     })
   }
 
+
+  actionChangeDefaultAddress = async (addressId) => {
+    const request = {
+      addressId: addressId
+    }
+    try {
+      const response = await patchService(PATH_CUSTOMER.ADDRESS_DEFAULT, request);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   onChange = (e) => {
     console.log(e);
-    
+
     this.setState({
       customerAddress: this.getAddress(e.target.value)
     });
@@ -38,6 +55,7 @@ class AddressList extends Component {
   address = addresses => {
     return addresses.map(address => (
       <AddressListDetail
+        actionChangeDefaultAddress={this.actionChangeDefaultAddress}
         key={address.id}
         address={address}
       />
@@ -74,7 +92,7 @@ class AddressList extends Component {
           </Button>
         ]}
       >
-        <RadioGroup style={{width: '100%'}} onChange={this.onChange} value={this.state.customerAddress.id}>
+        <RadioGroup style={{ width: '100%' }} onChange={this.onChange} value={this.state.customerAddress.id}>
           {this.address(this.props.addresses)}
         </RadioGroup>
       </Modal>
