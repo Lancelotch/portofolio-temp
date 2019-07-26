@@ -16,10 +16,7 @@ const ProductOrderDetails = props => {
       label,
       invoiceNumber,
       noInvoice,
-      tabsInDelivery,
-      tabsNotSent,
-      tabsFinish,
-      tabsCancel,
+      tabsShow,
       id,
       note,
       keyIndex
@@ -31,7 +28,7 @@ const ProductOrderDetails = props => {
         justifyContent: "space-between"
       }}>
         <h2>{label}</h2>
-        {((tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
+        {((tabsShow === "showTabsNotSent") || (tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
           <label
             style={{
               fontSize: 20,
@@ -79,12 +76,12 @@ const ProductOrderDetails = props => {
         </p>
         </Col>
         <Col md={5}>
-          {tabsInDelivery === 3 &&
+          {tabsShow === "showTabsFinish" &&
             <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, id)}
               className="waitingPayment__payNow">
               Pesanan Diterima
         </Button>}
-          {tabsCancel === 5 &&
+          {tabsShow === "showTabsCancel" &&
             <div style={{
               display: "flex",
               justifyContent: "flex-end",

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Radio, Button } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
-import { patchService } from "../../api/services";
-import { PATH_CUSTOMER } from "../../api/path";
 
 const RadioGroup = Radio.Group;
 // const confirm = Modal.confirm;
@@ -11,8 +9,7 @@ class AddressList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customerAddress: this.props.customerAddress,
-      id: ""
+      customerAddress: this.props.customerAddress
     };
   }
 
@@ -22,23 +19,7 @@ class AddressList extends Component {
     })
   }
 
-
-  actionChangeDefaultAddress = async (addressId) => {
-    const request = {
-      addressId: addressId
-    }
-    try {
-      const response = await patchService(PATH_CUSTOMER.ADDRESS_DEFAULT, request);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
   onChange = (e) => {
-    console.log(e);
-
     this.setState({
       customerAddress: this.getAddress(e.target.value)
     });
@@ -55,7 +36,6 @@ class AddressList extends Component {
   address = addresses => {
     return addresses.map(address => (
       <AddressListDetail
-        actionChangeDefaultAddress={this.actionChangeDefaultAddress}
         key={address.id}
         address={address}
       />
@@ -73,22 +53,17 @@ class AddressList extends Component {
           <Button
             key="back"
             size="large"
-            style={{
-              border: "unset",
-              fontWeight: 555,
-              color: "#4A4A4A",
-              fontSize: "14px"
-            }}
+            className="button-batal-address"
             onClick={this.props.onCancle}>
             <div className="">Batal</div>
           </Button>,
           <Button
             size="large"
             key="submit"
-            className="buttonSimpan"
+            className="button-simpan"
             onClick={this.handleOk}
           >
-            <div className="buttonSimpan__chooseAddress">Gunakan Alamat</div>
+            <div className="button-simpan__choose-address">Gunakan Alamat</div>
           </Button>
         ]}
       >

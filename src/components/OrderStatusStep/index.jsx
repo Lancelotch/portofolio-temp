@@ -9,22 +9,7 @@ const Step = Steps.Step;
 
 
 const OrderStatusStep = (props) => {
-  const {
-    dateOrder,
-    tabsNotSent,
-    tabsInDelivery,
-    tabsFinish } = props;
-
-  // fixPositionDropdown = isTopHeaderShow => {
-  //   console.log("isShow", isTopHeaderShow);
-
-  //   if (!isTopHeaderShow){
-  //     this.setState({ marginTopBackButton: 70 })
-  //   } else {
-  //     this.setState({ marginTopBackButton: 120 });
-  //   }
-
-  // }
+  const { orderDate, paymentDate, shipmentDate, receivedDate } = props.dateOrder
   return (
     <React.Fragment>
       <Card className="card-step-container" style={{ marginTop: 10 }}>
@@ -33,32 +18,32 @@ const OrderStatusStep = (props) => {
             <Step
               status="finish"
               title="Pesenan Dibuat"
-              description={convertTimesTime.millisecond(dateOrder.orderDate)}
+              description={convertTimesTime.millisecond(orderDate)}
               icon={<Icon style={{ color: "#004853" }}
                 component={boxOrder} />}>
             </Step>
             <Step
-              status={tabsNotSent === 2 ? "finish" : ""}
-              description={tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.paymentDate) : ""}
+              status={paymentDate && "finish"}
+              description={paymentDate && convertTimesTime.millisecond(paymentDate)}
               title="Pesenan Dibayarkan"
-              icon={<Icon className={tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
+              icon={<Icon className={paymentDate && "iconOrderStatusStepActive"}
                 component={paymentOrder} />}
             />
             {
               <Step
-                status={tabsInDelivery === 3 && tabsNotSent === 2 ? "finish" : ""}
-                description={tabsInDelivery === 3 && tabsNotSent === 2 ? convertTimesTime.millisecond(dateOrder.shipmentDate) : ""}
+                status={shipmentDate && paymentDate && "finish"}
+                description={shipmentDate && paymentDate && convertTimesTime.millisecond(shipmentDate)}
                 title="Pesenan Dikirim"
-                icon={<Icon className={tabsInDelivery === 3 && tabsNotSent === 2 ? "iconOrderStatusStepActive" : ""}
+                icon={<Icon className={shipmentDate && paymentDate && "iconOrderStatusStepActive"}
                   component={deliveryOrderIcon} />}
               />}
             <Step
-              status={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? "finish" : ""}
-              description={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ? convertTimesTime.millisecond(dateOrder.receivedDate) : ""}
+              status={receivedDate && paymentDate && shipmentDate && "finish"}
+              description={receivedDate && paymentDate && shipmentDate && convertTimesTime.millisecond(receivedDate)}
               title="Pesenan Diterima"
               icon={<Icon component={receivedOrderIcon}
-                className={tabsFinish === 4 && tabsNotSent === 2 && tabsInDelivery === 3 ?
-                  "iconOrderStatusStepActive" : ""} />}
+                className={receivedDate && paymentDate && shipmentDate &&
+                  "iconOrderStatusStepActive"} />}
             />
           </Steps>
         </div>
