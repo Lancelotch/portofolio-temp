@@ -20,7 +20,7 @@ class CustomerNavigation extends Component {
         this.props.actionChangePage(<h1>Dashboard</h1>);
         break;
       case "my":
-        this.props.actionChangePage(<div className="customerOrderNavigation" style={{ backgroundColor: "#FAFAFA" }}><CustomerOderNavigation /></div>);
+        this.props.actionChangePage(<CustomerOderNavigation />);
         break;
       case "edit-address":
         this.props.actionChangePage(<AddressListDashboard />);
@@ -41,10 +41,11 @@ class CustomerNavigation extends Component {
           defaultOpenKeys={['my-account']}
         >
           <SubMenu
+            className="dashboardUser__Title"
             key={'my-account'}
             title={
               <span>
-                <Icon type="user" />
+                <Icon type="user" style={{fontSize:19}} />
                 Akun Saya
           </span>
             }>
@@ -53,7 +54,7 @@ class CustomerNavigation extends Component {
             <Menu.Item key="ads">option3</Menu.Item>
             <Menu.Item key="asd">option4</Menu.Item>
           </SubMenu>
-          <Menu.Item key="my" onClick={() => this.changeMenu("my")}>Pesanan Saya</Menu.Item>
+          <Menu.Item key="my" className="dashboardUser__Title" onClick={() => this.changeMenu("my")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
         </Menu>
       </div>
     );

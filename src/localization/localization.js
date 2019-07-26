@@ -17,7 +17,18 @@ const strings = new LocalizedStrings({
     //Category
     category: 'Kategori',
 
+    //Address
+    use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
+
     //general
+    add_address: 'Tambah Alamat',
+    address_me : 'Alamat Saya',
+    order_name: 'Nama Pesanan',
+    price: 'Harga',
+    postage_is_included: 'Ongkir Sudah Termasuk',
+    cost_shipment_jne:'Biaya Kirim JNE',
+    cost_shipment_international:'Biaya Kirim Internasional',
+    shipment_via : 'Pengiriman Internasional Via', 
     received: 'Terima',
     cancel : 'Batalkan',
     oh_no: 'Oh no!',
@@ -41,6 +52,7 @@ const strings = new LocalizedStrings({
     pay: "Bayar",
     total: "Jumlah",
     note: "Catatan",
+    variant: 'Variant',
     varian: 'Varian',
     sub_total: "SubTotal",
     real_total: "Total",
@@ -85,7 +97,8 @@ const strings = new LocalizedStrings({
     help_search: 'bantuan pencarian.',
     //Invoice
     text_thanks_invoice: ' Terimakasih sudah berbelanja di monggopesen.com,ini adalah bukti dari transaksi anda',
-
+    text_invoice_infromasi_copy : 'Nomor Virtual Account berhasil di copy, silahkan lanjutkan proses pembayaran.',
+    text_sucsess_copy:'Berhasil di copy',
 
 
     //Dashboard Product Details
@@ -157,7 +170,7 @@ const strings = new LocalizedStrings({
     detail_product: "Detail Produk",
     product_detail_warning_variant_one_item: 'Variant Belum Dipilih',
     product_detail_warning_variant_two_item:'Variant Belum Dipilih Semua',
-    product_detail_info_stock: 'Mohon Maaf Saat Ini Hanya Tesedia{0}',
+    product_detail_info_stock: "Mohon maaf saat ini hanya tersedia {0}",
 
     //Category
     category_text_result: "Menampilkan {0} produk untuk {1}",

@@ -29,33 +29,23 @@ class OrderDetailContainer extends Component {
     this.props.actionChangeNote(note);
   };
 
-  // variants = variants => {
-  //   console.log(variants);
-  //   return (
-  //     <div key={variants.id} className="detail__product-variant">
-  //       <p>
-  //         {`${variants.name} : ${variants.variantItem.name}`}
-  //       </p>
-  //     </div>
-  //   )
-  // };
-
-
-  variants = variants => {
-
-
-  };
-
-
+  variantsItem = (sku) => {
+    return (
+      sku.reduce((acc, cur) => {
+        let arr = acc
+        if (Object.keys(cur).length > 0) {
+          arr = (`${acc}${cur.name}${' '}${cur.variantItem.name}${':'}`)
+        }
+        return arr
+      }, '').split(':').filter(e => e !== '').join(', ')
+    )
+  }
 
   render() {
     const { image, name, sku } = this.props.payloadProductDetail;
     const { priceProduct, shipmentFee } = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
     const totalPriceShipping = this.props.quantity * shipmentFee;
-    const totalPriceShippings = totalPriceShipping
-    let variantItem = sku.length > 0 && sku.map(variants => variants.name)
-    let variantColor = sku.length > 0 &&  sku.map(variantColor => variantColor.variantItem.name)
     return (
       <Fragment>
         <Row>
@@ -90,10 +80,9 @@ class OrderDetailContainer extends Component {
                             md={20}
                           > :&nbsp;
                           {sku.length > 0 &&
-                            <React.Fragment>
-                            {variantItem[0] + (" ") + (variantColor[0] + (variantItem[1] === undefined ? "" : ", "))}
-                            {variantItem[1] === undefined ? "" : (variantItem[1] + (" ")) + (variantColor[1])}
-                          </React.Fragment>}
+                              <React.Fragment>
+                                {this.variantsItem(sku)}
+                              </React.Fragment>}
                           </Col>
                         </React.Fragment>
                       }
@@ -135,7 +124,7 @@ class OrderDetailContainer extends Component {
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
-                  <SelectShipping quantity={this.props.quantity} shipmentFee={totalPriceShippings} onChangeShipping={this.actionChangeShipping} />
+                  <SelectShipping quantity={this.props.quantity} shipmentFee={totalPriceShipping} onChangeShipping={this.actionChangeShipping} />
                 </Col>
                 <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>
@@ -153,3 +142,5 @@ class OrderDetailContainer extends Component {
 }
 
 export default OrderDetailContainer;
+
+

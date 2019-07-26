@@ -174,7 +174,7 @@ class Login extends Component {
                       }
                     ]
                   })(
-                    <Input
+                    <Input.Password
                       className="register__input"
                       size={"large"}
                       onChange={

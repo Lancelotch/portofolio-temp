@@ -1,11 +1,13 @@
+@import '../../sass/variable.sass'
+
 .waitingPayment
     margin-top: 25px
     b
-        color: #4A4A4A
+        color: $primary-font-color
         font-size: 16px
         line-height: 18px
     &__endDatePay
-        color: #004853
+        color: $color-green
         font-size: 16px
 
     &__totalReceived
@@ -16,7 +18,7 @@
         cursor: pointer
         display: unset
         box-shadow: unset 
-        color: #999999 
+        color: $color-silver 
         font-size: 20px 
         margin-top: 15px 
     &__payNow
@@ -27,7 +29,7 @@
         color: #ffffff !important
         font-weight: 500 !important
         margin-right: 10px !important
-        background-color: #FB6900 !important 
+        background-color: $secondary-color !important 
     &__detailPesanan
         height: 48px !important
         font-size: 16px !important
@@ -36,17 +38,22 @@
         font-weight: 500 !important
 
 .waitingPayment__detailPesanan:hover
-    color: #007E80 !important
-    border-color: #007E80 !important         
+    color: $green-table !important
+    border-color: $green-table !important         
 
 .ant-modal-confirm .ant-modal-confirm-btns button + button 
-    background-color: #FB6900 !important
+    background-color: $secondary-color !important
     color: #ffffff
+
+.ant-modal.ant-modal-confirm.ant-modal-confirm-confirm.deliveryReceiver .ant-btn:hover 
+    color: $primary-color !important
+    border-color: $primary-color
+
 
 .ant-btn:active, .ant-btn.active
     border-color: unset !important
 
 .dalamProsesPengiriman
-	color: #004853
+	color: $color-green
 	font-size: 16px
 	line-height: 18px      

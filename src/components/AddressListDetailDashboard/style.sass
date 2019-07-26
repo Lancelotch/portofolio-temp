@@ -1,8 +1,19 @@
-.listAddress li
-    line-height: 30px
+@import '../../sass/variable.sass'
 
-.listAddress tr    
-    border-top: 1px solid #dddddd
+.listAddress
+    &__button
+        border: 1px solid $gainsboro  !important;
+        border-radius: 4px !important;
+        margin-left: 1px !important; 
+        color: $primary-color !important;
+        font-size: 14px !important;
+
+.addressInline
+    box-sizing: border-box
+    height: 1px
+    border: 0.2px solid $gainsboro 
+    margin-left: -25px
+    width: 110%  
 
 .addressListDetailAddress
     display: flex
@@ -11,3 +22,18 @@
 .addressListDetailAddressButton
     display: flex 
     justify-content: center 
+
+.addressListDetailAddressButton .ant-btn:hover
+    color: $primary-color !important
+    border-color: $primary-color !important
+
+.addressListDetailAddressButtonIconChange
+    cursor: pointer
+    font-size: 20px
+
+.addressListDetailAddressButtonIconDefault
+    cursor: not-allowed
+    font-size: 20px    
+    color: $gainsboro !important
+
+

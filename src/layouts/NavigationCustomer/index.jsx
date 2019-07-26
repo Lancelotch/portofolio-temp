@@ -18,7 +18,7 @@ class SidebarNavigationCustomer extends Component {
     };
 
 
-     childrenWithProps = React.cloneElement(this.props.children, {
+    childrenWithProps = React.cloneElement(this.props.children, {
         actionChangePage: this.actionChangePage
     });
 
@@ -33,7 +33,7 @@ class SidebarNavigationCustomer extends Component {
                             <Sider>
                                 {this.childrenWithProps}
                             </Sider>
-                            <Layout>
+                            <Layout style={{ marginTop: 25 }}>
                                 <Content>
                                     {this.state.page}
                                 </Content>

@@ -1,11 +1,20 @@
+@import '../../sass/variable.sass'
+
 .customerOrderNavigation .ant-tabs-nav-wrap
     text-align: center
 
 .ant-tabs .ant-tabs-left-bar .ant-tabs-tab
     text-align: unset !important
 
+i.anticon.anticon-rocket.iconRocket 
+    transform: rotate(44deg)
+    font-size: 19px
+    
+.customerOrderNavigation
+    background-color: "#FAFAFA"    
+
 .customerOrderNavigation .ant-tabs-nav .ant-tabs-tab:hover 
-    color: #FB6900 !important
+    color: $secondary-color !important
 
 .customerOrderNavigation .ant-tabs-nav-container
     background-color: #ffffff
@@ -13,10 +22,10 @@
     padding: 10px
 
 .customerOrderNavigation .ant-tabs-nav .ant-tabs-tab-active 
-    color: #FB6900 !important
+    color: $secondary-color !important
 
 .customerOrderNavigation .ant-tabs-ink-bar
-    background-color: #FB6900 !important
+    background-color: $secondary-color !important
 
 .customerOrderNavigation .ant-tabs-nav .ant-tabs-tab   
     font-size: 18px
@@ -25,8 +34,13 @@
 .dashboardUser .ant-tabs .ant-tabs-left-content
     border-left: unset !important 
 
+.dashboardUser 
+    &__Title
+        color: #000000
+        font-size: 14px    
+
 .dashboardUser .ant-tabs-nav .ant-tabs-tab-active span 
-    color: #FB6900 !important
+    color: $secondary-color !important
 
 .dashboardUser .ant-tabs-ink-bar
     background-color: unset 
@@ -36,6 +50,22 @@
 
 .dashboardUserCollapse .ant-collapse-borderless > .ant-collapse-item 
     border-bottom: unset !important
+
+.dashboardUser .ant-menu-item-selected    
+    color: $secondary-color !important
+
+.dashboardUser .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover    
+    color: $secondary-color !important 
+    background-color: unset !important
+
+.dashboardUser .ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after, .ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after, .ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after, .ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::after, .ant-menu-submenu-vertical > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before, .ant-menu-submenu-vertical-left > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before, .ant-menu-submenu-vertical-right > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before, .ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow::before
+    background: linear-gradient(to right, $secondary-color, $secondary-color) !important 
+
+.dashboardUser .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected
+    background-color: unset !important  
+
+.dashboardUser .ant-menu-vertical .ant-menu-item::after, .ant-menu-vertical-left .ant-menu-item::after, .ant-menu-vertical-right .ant-menu-item::after, .ant-menu-inline .ant-menu-item::after      
+    border-right: unset !important
 
 .ant-menu
     background: #FAFAFA !important

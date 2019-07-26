@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Typography } from 'antd';
 import "./style.sass";
 import currencyRupiah from "../../../library/currency";
+import strings from '../../../localization/localization';
 
 const { Text } = Typography;
 
@@ -15,10 +16,10 @@ const TableInvoicePayment = props => {
                     <table>
                         <tbody>
                             <tr style={{ textAlign: "center" }}>
-                                <th className="tableInvoicePayment__invoicePaymentnNameOrder">Nama Pesanan</th>
-                                <th className="tableInvoicePayment__invoicePaymentVariant">Variant</th>
-                                <th className="tableInvoicePayment__invoicePaymentPrice">Jumlah</th>
-                                <th className="tableInvoicePayment__invoicePaymentTotal">Harga</th>
+                                <th className="tableInvoicePayment__invoicePaymentnNameOrder">{strings.order_name}</th>
+                                <th className="tableInvoicePayment__invoicePaymentVariant">{strings.variant}</th>
+                                <th className="tableInvoicePayment__invoicePaymentPrice">{strings.total}</th>
+                                <th className="tableInvoicePayment__invoicePaymentTotal">{strings.price}</th>
                             </tr>
                             <tr>
                                 <td><Text strong>{productSnapshot.name}</Text> </td>
@@ -33,14 +34,14 @@ const TableInvoicePayment = props => {
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim Internasional</Text>
+                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>{strings.cost_shipment_international}</Text>
                                     <Text className="viaShippingTableInvoice" type="danger">
-                                        Pengiriman Internasional Via {shipment.via}</Text>
+                                        {strings.shipment_via} {shipment.via === "sea" ? "Laut" : "Udara"}</Text>
                                 </td>
-                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>{shipment.via === "air" || shipment.via === "Udara" || shipment.via === "udara" ? currencyRupiah(totalShipping) : "Ongkir Sudah Termasuk"}</Text></td>
+                                <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="danger" style={{ fontSize: 14 }}>{shipment.via === "air" ? currencyRupiah(totalShipping) : strings.postage_is_included}</Text></td>
                             </tr>
                             <tr>
-                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>Biaya Kirim JNE &nbsp; {courier.service}</Text>
+                                <td colSpan="3" className="tableInvoicePayment__shippingTabel"><Text>{strings.cost_shipment_jne} &nbsp; {courier.service}</Text>
                                 </td>
                                 <td colSpan="3" className="tableInvoicePayment__shippingPayment"><Text type="default" style={{ fontSize: 14 }}>{currencyRupiah(courier.price)}</Text></td>
                             </tr>

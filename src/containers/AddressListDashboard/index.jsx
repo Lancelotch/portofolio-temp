@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { apiGetWithToken, apiPostWithToken, apiDeleteWithToken, apiPutWithToken, patchService } from '../../api/services';
 import { PATH_CUSTOMER } from '../../api/path';
 import AddressListDetailDashboard from '../../components/AddressListDetailDashboard';
-import { Card, Row, Col, Button, Icon, Modal } from 'antd';
+import { Card, Row, Col, Button, Icon, Modal, Empty, Spin } from 'antd';
 import FormAddAddress from '../FormAddAddress';
 import { connect } from "react-redux";
 import { openModal } from "../../store/actions/authentication";
@@ -22,8 +22,10 @@ class AddressListDashboard extends Component {
             visibleEditAddress: false,
             customerAddress: {},
             cities: [],
-            subdistricts:[],
-            address:{}
+            subdistricts: [],
+            address: {},
+            isLoading: false,
+            isProductAlvailabel: false
         }
     }
 
@@ -52,13 +54,26 @@ class AddressListDashboard extends Component {
     };
 
     getAddress = async () => {
+        this.setState({ isLoading: true })
         try {
             const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
-            this.setState({
-                addresses: response.data.data
-            });
+            if (response.data.data) {
+                this.setState({
+                    addresses: response.data.data,
+                    isLoading: false
+                });
+            }
+            if (response.data.data.length < 1) {
+                this.setState({
+                    isProductAlvailabel: true
+                })
+            } else if (response.data.data.length > 0){
+                this.setState({
+                    isProductAlvailabel: false
+                })
+            }
         } catch (error) {
-            console.log(error);
+            this.setState({ isLoading: false, isProductAlvailabel: true });
         }
     };
 
@@ -96,7 +111,7 @@ class AddressListDashboard extends Component {
         confirm({
             title: strings.tabs_my_account_change_address,
             content: strings.tabs_my_account_change_address_paragraph,
-            okText: strings.cancel,
+            okText: strings.received,
             cancelText: strings.back,
             centered: true,
             onOk: () => {
@@ -109,19 +124,19 @@ class AddressListDashboard extends Component {
     splitValue = value => {
         const splitValue = value.split("|");
         return splitValue;
-      };
+    };
 
 
     handleChangeCity = value => {
         const city = this.splitValue(value);
         this.setState(
-          {
-            cityId: city[0],
-            city: city[1]
-          },
-          () => this.getSubdistrict(city[0])
+            {
+                cityId: city[0],
+                city: city[1]
+            },
+            () => this.getSubdistrict(city[0])
         );
-      };
+    };
 
     actionDeleteAddress = async (index) => {
         try {
@@ -177,7 +192,7 @@ class AddressListDashboard extends Component {
             const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
             if (response.data.data) {
                 this.setState(
-                    {customerAddress: request},
+                    { customerAddress: request },
                     () => {
                         this.getAddress();
                         this.actionShowEditFormAddress(this.state.address);
@@ -189,63 +204,67 @@ class AddressListDashboard extends Component {
         }
     };
 
-    actionChangeAddress = async (addressId)  => {
+    actionChangeAddress = async (addressId) => {
         const request = {
-            addressId : addressId
+            addressId: addressId
         }
         try {
-            const response = await patchService(PATH_CUSTOMER.ADDRESS_DEFAULT , request);
+            const response = await patchService(PATH_CUSTOMER.ADDRESS_DEFAULT, request);
             if (response.code === 200 || response.code === "200") {
-              this.getAddress();
+                this.getAddress();
             }
-          } catch (error) {
+        } catch (error) {
             console.log(error);
-          }
-      };
+        }
+    };
+
+
+    loadingItems(value) {
+        return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+            {value && <Spin spinning={value} />}
+        </div>
+    }
 
 
     responseAddressList = response => {
         return response.map((address, index) => (
-            <AddressListDetailDashboard 
-            lengthAddress={response}
-            actionChangeAddress={this.actionChangeAddress} 
-            key={index} 
-            actionShowEditFormAddress={this.actionShowEditFormAddress} 
-            isAddressAvailable={this.props.isAddressAvailable} 
-            customerAddress={this.state.customerAddress} 
-            showDeleteAddress={this.showDeleteAddress} 
-            address={address} />
+            <AddressListDetailDashboard
+                lengthAddress={response}
+                actionChangeAddress={this.actionChangeAddress}
+                key={index}
+                actionShowEditFormAddress={this.actionShowEditFormAddress}
+                isAddressAvailable={this.props.isAddressAvailable}
+                customerAddress={this.state.customerAddress}
+                showDeleteAddress={this.showDeleteAddress}
+                address={address} />
         ))
     }
 
     render() {
-        const { customerAddress } = this.state
+        const { customerAddress, addresses,isLoading,isProductAlvailabel } = this.state
         return (
             <Card>
                 <div className="listAddress">
                     <Row>
                         <Col md={20}>
-                            <div style={{}}>
-                                <h4>Alamat Saya</h4>
-                                <p>Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.</p>
-                            </div>
+                            <h4>{strings.address_me}</h4>
+                            <p>{strings.use_notice_address}</p>
                         </Col>
                         <Col md={4}>
                             <Button
                                 size="large"
-                                className="addressAdd__button"
+                                className="listAddress__button"
                                 onClick={this.actionShowAddFormAddress}
                             >
-                                Tambah Alamat <Icon type="plus" />
+                               {strings.add_address}<Icon type="plus" />
                             </Button>
 
                         </Col>
                         <Col md={24} style={{ marginTop: 10 }}>
-                            <table>
-                                <tbody>
-                                    {this.responseAddressList(this.state.addresses)}
-                                </tbody>
-                            </table>
+                            {isLoading ?
+                                this.loadingItems(isLoading) :
+                                this.responseAddressList(addresses)}
+                            {isLoading === true ? false : isProductAlvailabel && <Empty />}
                         </Col>
                     </Row>
                     {customerAddress.id && (

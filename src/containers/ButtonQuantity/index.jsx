@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../../components/ButtonQuantity/style.sass";
 import ButtonQuantity from "../../components/ButtonQuantity";
+import strings from "../../localization/localization";
 
 class ButtonQuantityContainer extends Component {
   constructor(props) {
@@ -60,7 +61,8 @@ class ButtonQuantityContainer extends Component {
     let checkCount = 1
     if (event.target.value > stock) {
       this.setState({
-        text: "Sudah Mencapai Jumlah Maksimum, Stock hanya" + stock
+        text: strings.formatString(
+         strings.product_detail_info_stock,stock)
       })
       checkCount = stock
       this.props.actionUpdateQuantity(event.target.value)

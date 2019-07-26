@@ -43,16 +43,17 @@ class CustomerOderNavigation extends Component {
 
   componentDidMount() {
     this.productOrderTabs(0);
-   //this.productOrderTabs(2);
+    //this.productOrderTabs(2);
   }
 
   showReceivedConfirm = (allOrder, keyIndex, orderId) => {
     confirm({
+      className: "deliveryReceiver",
       title: strings.tabs_in_delivery,
       content: strings.tabs_in_delivery_message_in_delivery,
       okText: strings.received,
       cancelText: strings.back,
-      okType:"default",
+      okType: "default",
       centered: true,
       onOk: () => {
         this.actionReceivedConfirm(orderId);
@@ -239,7 +240,7 @@ class CustomerOderNavigation extends Component {
       isShowOrderDetailsDashboardCancel
     } = this.state
     return (
-      <React.Fragment>
+      <div className="customerOrderNavigation">
         <ScrollToTopOnMount />
         {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
@@ -336,7 +337,7 @@ class CustomerOderNavigation extends Component {
             {isShowOrderDetailsDashboardCancel && this.responseOrderDetailsDashboardCancel("isShowOrderDetailsDashboardCancel")}
           </React.Fragment>
         }
-      </React.Fragment>
+      </div>
     );
   }
 }

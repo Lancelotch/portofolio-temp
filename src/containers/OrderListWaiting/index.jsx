@@ -75,7 +75,7 @@ class OrderListWaitingPayment extends Component {
       showReceivedConfirm
     } = this.props;
     return (
-      <React.Fragment>
+      <div className="orderListWaiting">
         <ScrollToTopOnMount />
         {productOrder.map((order, index) => {
           return (
@@ -117,7 +117,7 @@ class OrderListWaitingPayment extends Component {
             close={this.toggleIsHowToShowModalOpen}
           />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
