@@ -101,7 +101,7 @@ class OrderDetailsDashboard extends Component {
                         />
                     </div>)
                 })}
-                {tabsShow === "showtabsShow" &&
+                {tabsShow === "showTabsNotPay" &&
                     <PaymentDateInfo
                         dateOrder={this.state.order.orderActivityDate}
                         typePayment={this.state.order.payment}
