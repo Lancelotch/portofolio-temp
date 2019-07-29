@@ -204,87 +204,55 @@ class CustomerOderNavigation extends Component {
       isShowOrderDetailsDashboardFinish,
       isShowOrderDetailsDashboardCancel
     } = this.state
+    const listTabsContent = [
+      {
+        key: "1",
+        nameTabs: "Belum Bayar",
+        content: this.listWaiting("isShowOrderDetailsDashboardNotPay", 1)
+      },
+      {
+        key: "2",
+        nameTabs: "Sedang Di Proses",
+        content: this.listWaiting("isShowOrderDetailsDashboardNotSent", 2)
+      },
+      {
+        key: "3",
+        nameTabs: "Dalam Pengiriman",
+        content: this.listWaiting("isShowOrderDetailsDashboardInDelivery", 3)
+      },
+      {
+        key: "4",
+        nameTabs: "Finish",
+        content: this.listWaiting("isShowOrderDetailsDashboardFinish", 4)
+      },
+      {
+        key: "5",
+        nameTabs: "Batal",
+        content: this.listWaiting("isShowOrderDetailsDashboardCancel", 5)
+      }
+    ]
     return (
       <div className="customerOrderNavigation">
         <ScrollToTopOnMount />
         {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
-            <CustomTabPane
-              key={"1"}
-              tab={<span>{"Belum Bayar"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Online polling={polling}>
-                    {this.listWaiting("isShowOrderDetailsDashboardNotPay", 1)}
-                    {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
-                  </Online>
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"2"}
-              tab={<span>{"Sedang Diproses"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() =>
-                      <React.Fragment>
-                        {this.listWaiting("isShowOrderDetailsDashboardNotSent", 2)}
-                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </React.Fragment>
-                    } />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"3"}
-              tab={<span>{"Dalam Pengiriman"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
+            {listTabsContent.map(list => {
+              return (
+                <CustomTabPane
+                  key={list.key}
+                  tab={<span>{list.nameTabs}</span>}
+                  my_prop={
+                    <React.Fragment>
+                      <Offline polling={polling}>
+                        {this.alertOffline()}
+                      </Offline>
                       <Online polling={polling}>
-                        {this.listWaiting("isShowOrderDetailsDashboardInDelivery", 3)}
-                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>)} />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"4"}
-              tab={<span>{"Selesai"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
-                      <Online polling={polling}>
-                        {this.listWaiting("isShowOrderDetailsDashboardFinish", 4)}
+                        {list.content}
                         {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
                       </Online>
-                    )}
-                  />
-                </React.Fragment>} />
-            <CustomTabPane
-              key={"5"}
-              tab={<span>{"Batal"}</span>}
-              my_prop={
-                <React.Fragment>
-                  <Offline polling={polling}>
-                    {this.alertOffline()}
-                  </Offline>
-                  <Detector
-                    render={() => (
-                      <Online polling={polling}>
-                        {this.listWaiting("isShowOrderDetailsDashboardCancel", 5)}
-                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>)} />
-                </React.Fragment>} />
+                    </React.Fragment>} />
+              )
+            })}
           </Tabs>
           :
           <React.Fragment>
