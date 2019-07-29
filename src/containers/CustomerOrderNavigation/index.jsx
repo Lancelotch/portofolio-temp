@@ -246,10 +246,12 @@ class CustomerOderNavigation extends Component {
                       <Offline polling={polling}>
                         {this.alertOffline()}
                       </Offline>
-                      <Online polling={polling}>
-                        {list.content}
-                        {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
-                      </Online>
+                      <Detector
+                        render={() =>
+                          <Online polling={polling}>
+                            {list.content}
+                            {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
+                          </Online>} />
                     </React.Fragment>} />
               )
             })}
