@@ -65,18 +65,66 @@ const ProductOrderDetails = props => {
             to={pageUrlProductDetail + productSnapshot.productId}>
             <h2 style={{ marginBottom: 0 }}> {productSnapshot.name} </h2>
           </Link>
-          <p className="productOrder__variant" style={{ marginBottom: 10 }}>
-            {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-           {variantItems(productSnapshot.informations)}
-          </p>
-          <p className="productOrder__variant">{strings.note}&nbsp;&nbsp;:&nbsp;
-            {note && note.charAt(0).toUpperCase() + note.substring(1)}</p>
-          <p className="productOrder__quantity">
-            {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{productSnapshot.quantity} pcs
-        </p>
+          <div className="productOrder__variant">
+            <table>
+              <tbody>
+                <tr>
+                  <td style={{ width: 70 }}>
+                    <p>
+                      {strings.varian}
+                    </p>
+                  </td>
+                  <td style={{ width: 20 }}>
+                    <p>
+                      :
+              </p>
+                  </td>
+                  <td>
+                    <p>
+                      {variantItems(productSnapshot.informations)}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: 70, verticalAlign: "unset" }}>
+                    <p>
+                      {strings.note}
+                    </p>
+                  </td>
+                  <td style={{ verticalAlign: "unset", width: 20 }}>
+                    <p>
+                      :
+               </p>
+                  </td>
+                  <td>
+                    <p>
+                      {note && note.charAt(0).toUpperCase() + note.substring(1)}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{ width: 70 }}>
+                    <p className="productOrder__quantity">
+                      {strings.total}
+                    </p>
+                  </td>
+                  <td style={{ width: 20 }}>
+                    <p>
+                      :
+              </p>
+                  </td>
+                  <td>
+                    <p className="productOrder__quantity">
+                      {productSnapshot.quantity}&nbsp;{strings.pcs}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </Col>
         <Col md={5}>
-          {tabsShow === "showTabsFinish" &&
+          {tabsShow === "showTabsInDelivery" &&
             <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, id)}
               className="waitingPayment__payNow">
               Pesanan Diterima

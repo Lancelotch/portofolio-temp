@@ -23,7 +23,7 @@ const OrderStatusStep = (props) => {
                 component={boxOrder} />}>
             </Step>
             <Step
-              status={paymentDate && "finish"}
+              status={paymentDate ? "finish" : ""}
               description={paymentDate && convertTimesTime.millisecond(paymentDate)}
               title="Pesenan Dibayarkan"
               icon={<Icon className={paymentDate && "iconOrderStatusStepActive"}
@@ -31,14 +31,14 @@ const OrderStatusStep = (props) => {
             />
             {
               <Step
-                status={shipmentDate && paymentDate && "finish"}
+                status={shipmentDate && paymentDate ? "finish" : ""}
                 description={shipmentDate && paymentDate && convertTimesTime.millisecond(shipmentDate)}
                 title="Pesenan Dikirim"
                 icon={<Icon className={shipmentDate && paymentDate && "iconOrderStatusStepActive"}
                   component={deliveryOrderIcon} />}
               />}
             <Step
-              status={receivedDate && paymentDate && shipmentDate && "finish"}
+              status={receivedDate && paymentDate && shipmentDate ? "finish" : ""}
               description={receivedDate && paymentDate && shipmentDate && convertTimesTime.millisecond(receivedDate)}
               title="Pesenan Diterima"
               icon={<Icon component={receivedOrderIcon}
