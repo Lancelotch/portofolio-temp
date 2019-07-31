@@ -42,11 +42,7 @@ class OrderDetailsDashboard extends Component {
 
     render() {
         const {
-            tabsNotPay,
-            tabsInDelivery,
-            tabsNotSent,
-            tabsFinish,
-            tabsCancel,
+            tabsShow,
             estimateAccepted,
             labelTabDetails,
             actionShowOrderListWaiting,
@@ -61,16 +57,13 @@ class OrderDetailsDashboard extends Component {
                 <ScrollToTopOnMount />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h2 style={{ fontSize: 24, color: "#4A4A4A" }}>{labelTabDetails}</h2>
-                        {this.buttonBack(actionShowOrderListWaiting)}
+                    {this.buttonBack(actionShowOrderListWaiting)}
                 </div>
-                {((tabsNotPay === 1) || (tabsNotSent === 2) || (tabsInDelivery === 3) || (tabsFinish === 4)) &&
+                {((tabsShow === "showTabsNotPay") || (tabsShow === "showTabsNotSent") || (tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
                     <OrderStatusStep
                         labelTabDetails={labelTabDetails}
-                        tabsNotSent={tabsNotSent}
-                        tabsInDelivery={tabsInDelivery}
-                        tabsFinish={tabsFinish}
                         dateOrder={this.state.order.orderActivityDate} />}
-                {tabsCancel === 5 &&
+                {tabsShow === "showTabsCancel" &&
                     <OrderStatusCancel
                         labelTabDetails={labelTabDetails}
                         orderDate={this.state.order.orderActivityDate}
@@ -85,12 +78,8 @@ class OrderDetailsDashboard extends Component {
                             note={product.note}
                             key={product.id}
                             keyIndex={keyIndex}
-                            idOrder={this.state.order.id}
                             id={id}
-                            tabsInDelivery={tabsInDelivery}
-                            tabsNotSent={tabsNotSent}
-                            tabsFinish={tabsFinish}
-                            tabsCancel={tabsCancel}
+                            tabsShow={tabsShow}
                             noInvoice={"No. Invoice"}
                             productSnapshot={product.productSnapshot}
                             variants={product.variants}
@@ -99,7 +88,6 @@ class OrderDetailsDashboard extends Component {
                             totalAmount={product.totalAmount} />
                         <PaymentInfo
                             key={index.id}
-                            index={1}
                             cancelBy={this.state.order.orderCancel}
                             courier={this.state.order.courier}
                             productSnapshot={product.productSnapshot}
@@ -113,7 +101,7 @@ class OrderDetailsDashboard extends Component {
                         />
                     </div>)
                 })}
-                {tabsNotPay === 1 &&
+                {tabsShow === "showTabsNotPay" &&
                     <PaymentDateInfo
                         dateOrder={this.state.order.orderActivityDate}
                         typePayment={this.state.order.payment}
@@ -121,8 +109,7 @@ class OrderDetailsDashboard extends Component {
                     />
                 }
                 <OrderStatusUser
-                    tabsInDelivery={tabsInDelivery}
-                    tabsFinish={tabsFinish}
+                    tabsShow={tabsShow}
                     estimateAccepted={estimateAccepted}
                     label="Pengiriman"
                     customer={this.state.order.orderAddress}

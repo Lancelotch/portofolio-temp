@@ -24,19 +24,19 @@ export const AddressCheckout = props => {
             isAddressAvailable={isAddressAvailable}
             onEdit={onEditAddress}
           />
-          <div className="addressCheckout">
+          <div className="address-checkout">
             {isAddressAvailable && (
               <Button
                 onClick={onSelectListAddress}
                 size="large"
-                className="addressCheckout__button"
+                className="address-checkout__button"
               >
                 Kirim ke Alamat Lain
               </Button>
             )}
             <Button
               size="large"
-              className="addressCheckout__button"
+              className="address-add__button"
               onClick={onAddAddress}
             >
               Tambah Alamat <Icon type="plus" />

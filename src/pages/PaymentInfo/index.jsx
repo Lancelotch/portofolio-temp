@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import { Divider, Button, Modal, Row, Col, Collapse } from "antd";
+import { Divider, Button, Modal, Row, Col, Collapse, notification } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
@@ -10,6 +10,15 @@ import { apiGetWithToken } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../../components/Skeleton";
+
+
+const openNotificationWithIcon = type => {
+  notification[type]({
+    message: strings.text_sucsess_copy,
+    description:
+      strings.text_invoice_infromasi_copy,
+  });
+};
 
 class PaymentInfoPage extends Component {
   constructor(props) {
@@ -29,10 +38,10 @@ class PaymentInfoPage extends Component {
 
 
   getPaymentInfo = async () => {
-    this.setState({isLoading : true})
-    const paymentId = this.props.match.params.paymentId;
+    this.setState({ isLoading: true })
     try {
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)   
+      const paymentId = this.props.match.params.paymentId;
+      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)
       const payment = response.data.data;
       this.setState({
         isLoading: false,
@@ -50,21 +59,15 @@ class PaymentInfoPage extends Component {
   onCopy = () => {
     this.setState({
       copied: true,
-      messageCopy: "Berhasil di Copy"
-    });
-    setTimeout(() => {
-      this.setState({
-        messageCopy: ""
-      })
-    }, 6000)
+    }, () => { openNotificationWithIcon('success') });
   };
 
   actionToDashboardCustomer = () => {
-    return history.push("/dashboard-customer/pesanan-saya");
+    return history.push("/dashboard-customer/my-order");
   }
 
   render() {
-    const { gateway,isLoading } = this.state;
+    const { gateway, isLoading } = this.state;
     const warning = () => {
       Modal.warning({
         className: "modal-check-status",
@@ -86,7 +89,7 @@ class PaymentInfoPage extends Component {
                 <img src={monggopesen_logo} alt="" />
               </Link>
             </div>
-            <div className={isLoading === true ? "top-null":"info__style"}>
+            <div className={isLoading === true ? "top-null" : "info__style"}>
               <div className="info__title">
                 <p>{strings.payment_info}</p>
                 <Divider />

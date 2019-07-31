@@ -15,6 +15,7 @@ export const registerWithGoogle = (history, request) => async dispatch => {
     localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+    dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
     history.push('/');
   } catch (error) {
     console.log("ini error di registerWithGoogle actions",error);
@@ -32,6 +33,7 @@ export const loginWithGoogle = (path, response) => async dispatch => {
       localStorage.setItem('refreshToken', expiredToken)
       const dataCustomer = await customer.customerDetail()
       dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+      dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
       history.push(path)
     } catch (error) {
       console.log("ini error di login with google",error);
@@ -50,6 +52,7 @@ export const loginWithFacebook = (response, path) => async dispatch => {
       localStorage.setItem('refreshToken', expiredToken)
       const dataCustomer = await customer.customerDetail()
       dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
+      dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
       history.push(path)
     }catch(error){
       console.log("ini error di facebook", error)
@@ -69,7 +72,7 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
-    history.push(path)
+   // history.push(path)
   } catch (error) {
     if(error.data){
       if(error.data.errors){
@@ -99,7 +102,6 @@ export const loginWithForm = (history, request, nextPage = "/") => async dispatc
 }
 
 export const registerForm = (history, request, path) => async dispatch => {
-  dispatch(dispatchType.handleLoading())
   try {
     const responseRegisterForm = await authentication.registerWithForm(request);
     dispatch(dispatchType.registerWithForm(responseRegisterForm.data));

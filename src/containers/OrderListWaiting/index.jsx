@@ -48,7 +48,7 @@ class OrderListWaitingPayment extends Component {
     try {
       const orderId = index
       const response = await patchService(PATH_ORDER.ORDER_BY_CANCEL + orderId);
-      if(response.code === 200 || response.code === "200") {
+      if (response.code === 200 || response.code === "200") {
         this.props.actionUpdateTab(0);
       }
     } catch (error) {
@@ -69,20 +69,21 @@ class OrderListWaitingPayment extends Component {
     const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
       tabsShowItem,
-      actionShowOrderDetailsDashboardNotPay,
-      showOrderDetailsDashboardState,
+      actionShowOrderDetailsDashboard,
+      showOrderDetailsDashboard,
       productOrder,
       showReceivedConfirm
     } = this.props;
     return (
-      <React.Fragment>
-      <ScrollToTopOnMount/>
+      <div className="orderListWaiting">
+        <ScrollToTopOnMount />
         {productOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>
               <ProductOrder
                 key={order.id}
-                indexes={order.order.orderItems}
+                order={order}
+                orderItems={order.order.orderItems}
               />
               <hr className="productOrder__inline" />
               <WaitingPayment
@@ -96,6 +97,7 @@ class OrderListWaitingPayment extends Component {
                 indexes={order.order}
               />
               <ButtonDashboard
+                id={order.id}
                 index={index}
                 invoiceNumber={order.invoiceNumber}
                 tabsShowItem={tabsShowItem}
@@ -104,7 +106,7 @@ class OrderListWaitingPayment extends Component {
                 orderProduct={productOrder}
                 order={order.order}
                 showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-                showOrderDetailsDashboardNotPay={() => actionShowOrderDetailsDashboardNotPay(order.order, order.invoiceNumber, order.id, index,showOrderDetailsDashboardState)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index, showOrderDetailsDashboard)}
               />
             </Card>)
         })}
@@ -115,7 +117,7 @@ class OrderListWaitingPayment extends Component {
             close={this.toggleIsHowToShowModalOpen}
           />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

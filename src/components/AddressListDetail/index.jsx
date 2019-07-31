@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Radio, Col, Row } from "antd";
+import "./style.sass";
 
 const StatusAddress = props => {
   return (
@@ -23,34 +24,22 @@ const AddressListDetail = props => {
     phoneNumber,
     isDefault
   } = props.address;
+
   return (
     <Fragment>
-      <Row style={{ marginBottom: 19 }}>
+      <Row>
         <Col md={16}>
-          <b
-            style={{
-              color: "#4D4D4D",
-              fontSize: 17
-            }}
-          >
-            {labelName}
-          </b>
-          <br />
-          <b
-            style={{
-              color: "#4D4D4D",
-              fontSize: 17
-            }}
-          >{`${receiverName} - ${phoneNumber}`}
-          </b>
-          <p
-            style={{
-              color: "#888888",
-              fontSize: 14
-            }}
-          >
-            {fullAddress}
-          </p>
+          <div className="address-list-detail">
+            <b>
+              {labelName}
+            </b>
+            <br />
+            <b>{`${receiverName} - ${phoneNumber}`}
+            </b>
+            <p>
+              {fullAddress}
+            </p>
+          </div>
         </Col>
         <Col md={8}>
           <br />
@@ -58,7 +47,7 @@ const AddressListDetail = props => {
             <Fragment>
               <StatusAddress isDefault={isDefault} />
               <br />
-              <div style={{ clear: "both" }}></div>
+              <div style={{ clear: "both" }} />
             </Fragment>
           )}
           <Radio value={id} style={{ float: "right" }} />

@@ -7,13 +7,13 @@
     &__text
         padding-top: 37px
         padding-left: 23px
-        color: #9B9B9B
+        color: $color-grey
         font-size: 20px
         line-height: 24px
     &__ongkir
         height: 16px
         width: 100%
-        color: #777777
+        color: $color-grey
         font-size: 14px
         line-height: 16px
         padding-top: 12px
@@ -31,8 +31,10 @@
 .checkoutLoading .ant-spin-lg .ant-spin-dot 
     width: 75px
     height: 75px
-    display: flex
-    justify-content: center
-    align-items: center
+    left: 49% !important
+
+.ant-spin-nested-loading > div > .ant-spin    
+    max-height: 50% !important
+
 
    

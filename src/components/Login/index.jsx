@@ -13,7 +13,7 @@ import {
   loginWithFacebook,
   clearError
 } from '../../store/actions/authentication'
-import history from "../../routers/history"
+//import history from "../../routers/history"
 import { rulesEmail } from '../../pages/Register/registerContainer';
 const FormItem = Form.Item
 
@@ -52,7 +52,7 @@ class Login extends Component {
     })
       this.props.form.validateFields( async (err, values) => {
         if (!err) {
-          const login = await this.props.loginWithHome(values,'/',history)
+          const login = await this.props.loginWithHome(values,/*'/',history*/)
           console.log(login);         
           if(this.props.isError ){
             this.props.form.setFields({
