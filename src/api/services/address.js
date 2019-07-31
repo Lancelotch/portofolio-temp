@@ -75,7 +75,7 @@ export const deleteAddress = id => {
   return serviceWithToken()
     .request({
       method: "DELETE",
-      url: `${PATH_CUSTOMER.ADDRESS}/${"06fc0503-8f93-4195-a8e4-9751c7e2024f"}`
+      url: `${PATH_CUSTOMER.CUSTOMER_ADDRESS_DELETE}/${id}`
     })
     .then(response => {
       return response.data;

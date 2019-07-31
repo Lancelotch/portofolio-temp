@@ -34,7 +34,8 @@ class RegisterPage extends Component {
       status: null,
       message: "",
       modalStatus: false,
-      heightImageBackground: 0
+      heightImageBackground: 0,
+      isLoading: this.props.isLoading
     };
   }
 
@@ -75,6 +76,7 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
+    this.setState({ isLoading: true })
     e.preventDefault();
     const { history } = this.props;
     const path = this.state.nextPage;
@@ -82,6 +84,11 @@ class RegisterPage extends Component {
       if (!err) {
         await this.props.registerForm(history, values, path);
         this.validation(this.props.form, values);
+        if (this.props.messageError) {
+          this.setState({
+            isLoading:false
+          })
+        }
       } else {
         this.setState({
           modalStatus: false
@@ -106,12 +113,14 @@ class RegisterPage extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    console.log(this.props.isLoading);
+
     return (
       <React.Fragment>
         <Row style={{ display: "flex" }}>
           <Col md={{ span: 14 }}>
             <div className="scrollable-container">
-              <div className="register_Background" style={{height: this.state.heightImageBackground}} />
+              <div className="register_Background" style={{ height: this.state.heightImageBackground }} />
             </div>
           </Col>
           <Col md={{ span: 10 }}>
@@ -187,13 +196,13 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  <RegistrationSubmitButton isLoading={this.props.isLoading} />
+                  <RegistrationSubmitButton isLoading={this.state.isLoading} />
                   <div className="login-form__error-box">
                     {this.props.messageError ? (
                       <p> {this.props.messageError}</p>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </div>
                 </FormItem>
                 <div

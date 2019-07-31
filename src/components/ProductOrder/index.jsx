@@ -1,40 +1,98 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Row, Col } from "antd";
 import "./style.sass";
 import strings from "../../localization/localization";
+import variantItems from "../../library/variantItems";
 // import currencyRupiah from "../../library/currency";
 
+
 const ProductOrder = props => {
-  const { indexes } = props;
+  const { orderItems } = props;
+
   return (
     <div className="productOrder">
-    {indexes !== undefined | indexes && indexes[0] ?
-      <Row key={"i"}>
-        <Col md={3} style={{ paddingLeft: 32, paddingRight: 72 }}>
-          <img
-            className="productOrder__image"
-            src={indexes[0].productSnapshot.image.largeUrl}
-            alt=""
-          />
-        </Col>
-        <Col md={21}>
-          <h2> {indexes[0].productSnapshot.name} </h2>
-          <p className="productOrder__variant" style={{ marginBottom: 10 }}>
-            {strings.varian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-            {indexes[0].productSnapshot.variants}
-          </p>
-          <p className="productOrder__quantity">
-            {strings.total}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;
-            {indexes[0].productSnapshot.quantity} pcs
-          </p>
-        </Col>
-        {/*<Col md={5} style={{ marginTop: 60 }}>
+      {orderItems !== undefined | orderItems ?
+        <Row key={"i"}>
+          {orderItems.map((order, index) => {
+            return (
+              <Fragment key={index}>
+                <Col md={3} style={{ paddingLeft: 32, paddingRight: 72 }}>
+                  <img
+                    className="productOrder__image"
+                    src={order.productSnapshot.image.largeUrl}
+                    alt=""
+                  />
+                </Col>
+                <Col md={21}>
+                  <h2> {order.productSnapshot.name}</h2>
+                  <div className="productOrder__variant">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: 70 }}>
+                            <p>
+                              {strings.varian}
+                            </p>
+                          </td>
+                          <td style={{ width: 20 }}>
+                            <p>
+                              :
+                        </p>
+                          </td>
+                          <td>
+                            <p>
+                              {variantItems(order.productSnapshot.informations)}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style={{ width: 70, verticalAlign: "unset" }}>
+                            <p>
+                              {strings.note}
+                            </p>
+                          </td>
+                          <td style={{ verticalAlign: "unset", width: 20 }}>
+                            <p>
+                              :
+                         </p>
+                          </td>
+                          <td>
+                            <p>
+                              {order.note}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style={{ width: 70 }}>
+                            <p className="productOrder__quantity">
+                              {strings.total}
+                            </p>
+                          </td>
+                          <td style={{ width: 20 }}>
+                            <p>
+                              :
+                        </p>
+                          </td>
+                          <td>
+                            <p className="productOrder__quantity">
+                              {order.productSnapshot.quantity}&nbsp;{strings.pcs}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+                {/*<Col md={5} style={{ marginTop: 60 }}>
                       <p className="productOrder__totalPrice">
-                         {currencyRupiah(index.totalAmount)} x {index.productQuantity}
+                         {currencyRupiah(0.totalAmount)} x {0.productQuantity}
                            </p>
                       </Col>*/}
-      </Row>
-               : ""     }
+              </Fragment>
+            )
+          })}
+        </Row>
+        : ""}
     </div>
   );
 };

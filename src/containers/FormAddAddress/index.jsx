@@ -242,7 +242,7 @@ class FormAddAddress extends Component {
             {getFieldDecorator(
               "phoneNumber",
               this.rules(true, "Silahkan isi no telfon kamu")
-            )(<Input className="addAddressInput" style={{ width: "100%" }} placeholder="08xxx" />)}
+            )(<Input className="addAddressInput" style={{ width: "100%" }} type="number" placeholder="08xxx" />)}
           </Form.Item>
           <Form.Item label="Provinsi">
             {getFieldDecorator(

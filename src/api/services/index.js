@@ -22,8 +22,8 @@ export const apiPutWithToken = (url, params) => {
   return serviceWithToken().put(url, params);
 };
 
-export const apiDeleteWithToken = url => {
-  return serviceWithToken().delete(url);
+export const apiDeleteWithToken = (url,params) => {
+  return serviceWithToken().delete(url,params);
 };
 
 /** Service Without Token */
@@ -39,8 +39,8 @@ export const apiPatchWithoutToken = (url, params) => {
   return serviceWithoutToken().patch(url, params);
 };
 
-export const apiPutWithoutToken = (url, params) => {
-  return serviceWithoutToken().put(url, params);
+export const apiPutWithoutToken = (url) => {
+  return serviceWithoutToken().put(url);
 };
 
 export const apiDeleteWithoutToken = url => {

@@ -102,8 +102,6 @@ class SliderProductDetailContainer extends Component {
   }
 
   render() {
-    console.log(this.props.images);
-
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     const imagesToShow = [];
     this.state.imagesToShow.forEach(image => {

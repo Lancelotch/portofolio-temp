@@ -53,26 +53,21 @@ class AddressList extends Component {
           <Button
             key="back"
             size="large"
-            style={{
-              border: "unset",
-              fontWeight: 555,
-              color: "#4A4A4A",
-              fontSize: "14px"
-            }}
+            className="button-batal-address"
             onClick={this.props.onCancle}>
             <div className="">Batal</div>
           </Button>,
           <Button
             size="large"
             key="submit"
-            className="buttonSimpan"
+            className="button-simpan"
             onClick={this.handleOk}
           >
-            <div className="buttonSimpan__chooseAddress">Gunakan Alamat</div>
+            <div className="button-simpan__choose-address">Gunakan Alamat</div>
           </Button>
         ]}
       >
-        <RadioGroup style={{width: '100%'}} onChange={this.onChange} value={this.state.customerAddress.id}>
+        <RadioGroup style={{ width: '100%' }} onChange={this.onChange} value={this.state.customerAddress.id}>
           {this.address(this.props.addresses)}
         </RadioGroup>
       </Modal>

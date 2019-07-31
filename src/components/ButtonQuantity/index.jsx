@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Icon, Typography } from "antd";
+import { Input, Icon, Typography,Button} from "antd";
 import "./style.sass";
 
 
@@ -12,13 +12,13 @@ const ButtonQuantity = props => {
     <React.Fragment>
     <div className="row-quantity">
     <div>
-      <button
+      <Button
         className="button_quantity"
         onClick={props.decrementItem}
         disabled={disabled}
       >
         <Icon className="icon__quantity" type="minus" />
-      </button>
+      </Button>
     </div>
     <div className="input-quantity">
       <Input
@@ -33,9 +33,9 @@ const ButtonQuantity = props => {
       />
     </div>
     <div>
-      <button className="button_quantity" onClick={props.incrementItem} disabled={Buttondisabled}>
-        <Icon className="icon__quantity" type="plus" />
-      </button>
+      <Button className="button_quantity" onClick={props.incrementItem} disabled={Buttondisabled}>
+        <Icon  className="icon__quantity" type="plus" />
+      </Button>
     </div>
     <Text style={{ marginTop: "3 %" }} type="danger">{props.text}</Text>
   </div>

@@ -68,7 +68,7 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     localStorage.setItem('refreshToken', expiredToken)
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
-    history.push(path)
+   // history.push(path)
   } catch (error) {
     if(error.data){
       if(error.data.errors){
@@ -98,7 +98,6 @@ export const loginWithForm = (history, request, nextPage = "/") => async dispatc
 }
 
 export const registerForm = (history, request, path) => async dispatch => {
-  dispatch(dispatchType.handleLoading())
   try {
     const responseRegisterForm = await authentication.registerWithForm(request);
     dispatch(dispatchType.registerWithForm(responseRegisterForm.data));

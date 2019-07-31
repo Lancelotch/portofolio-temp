@@ -61,6 +61,7 @@ class Checkout extends Component {
     // this.getSubdistrict()
   }
 
+  
   componentWillReceiveProps(props) {
     if (!props.isAddressAvailable) {
       this.setState({
@@ -258,6 +259,8 @@ class Checkout extends Component {
   };
 
   actionChangeAddress = address => {
+    console.log(address);
+
     this.setState(prevState => ({
       customerAddress: address,
       visibleListAddress: !prevState.visibleListAddress,
@@ -269,7 +272,8 @@ class Checkout extends Component {
 
 
   actionSubmitOrder = async () => {
-    this.setState({ isLoading: true })
+    document.body.style.overflow = "hidden"
+    this.setState({ isLoading: true})
     const {
       variants,
       customerAddress,
@@ -279,7 +283,7 @@ class Checkout extends Component {
       productId,
     } = this.state;
     console.log(this.state.variants);
-    
+
     const request = {
       customerAddressId: customerAddress.id,
       amount: this.countTotalAmount(),
@@ -294,6 +298,7 @@ class Checkout extends Component {
       ]
     };
     try {
+      document.body.style.overflow = "auto"
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
       if (this.state.quantity > this.state.maxOrder) {
         alert('adasd')
@@ -338,6 +343,7 @@ class Checkout extends Component {
       setTimeout(() => {
         this.setState({ isLoading: true })
       })
+      document.body.style.overflow = "hidden"
       console.log(error);
     }
   };
@@ -370,6 +376,8 @@ class Checkout extends Component {
       priceProduct,
       jneChecked
     } = this.state;
+    console.log(this.state.overflow);
+    
     return (
       <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
         <div className="checkout">
@@ -480,4 +488,4 @@ const mapStatetoProps = state => ({
   message: state.authentication.message
 });
 
-export default connect(mapStatetoProps,{ addressDefault, openModal })(Checkout);
+export default connect(mapStatetoProps, { addressDefault, openModal })(Checkout);

@@ -1,16 +1,32 @@
+@import '../../sass/variable.sass'
+
 .row-quantity
 	display: flex
 	margin-bottom: 40px
 	align-items: center
-	
+
+.button_quantity:hover
+	border-color: $primary-color !important
+    color: $primary-color !important 
+
+i.icon__quantity:hover	
+	color: $primary-color !important
+
+i.icon__quantity:active	
+	color: $primary-color !important	
+
+i.icon__quantity:focus	
+	color: $primary-color !important	
+
 .button_quantity 
-	border-radius: 50%
-	margin: 10px
-	height: 33px
-	width: 33px
-	border: 1px solid #D9D9D9
-	background-color: #ffffff
-	cursor: pointer
+	border-radius: 50% !important
+	margin: 10px !important
+	height: 33px !important
+	width: 33px !important
+	border: 1px solid $border-variant !important
+	background-color: #ffffff 
+	cursor: pointer !important
+	padding: 0px !important
 
 input[type="number"] 
     -moz-appearance: textfield !important
@@ -21,29 +37,21 @@ input[type=number]::-webkit-inner-spin-button
     -webkit-appearance: none;
     margin: 0
 
- 
-
-
-
-.icon
-	&__quantity
-		color: #5D5D5D !important
-
 .input-quantity .ant-input
 	width: 77px
 	height: 35.8px
 	border-style: none none solid none
-	border-color: #979797
+	border-color: $color-silver
 	border-radius: 0
-	color: #004853
+	color: $color-green
 	font-size: 30px
 	text-align: center
 	margin-top: 8px !important
 	padding: 0
 
 .input-quantity .ant-input:focus
-	border-color: #979797
+	border-color: $border-variant
 	box-shadow: 0 0 0
     
 .input-quantity .ant-input:hover
-	border-color: #979797 !important
+	border-color: $border-variant !important

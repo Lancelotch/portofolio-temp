@@ -54,7 +54,7 @@ const WaitingPayment = props => {
                 color: " #BBBBBB",
                 fontSize: 16
               }}>
-                {convertTimesTime.millisecond(indexes.orderActivityDate.receivedDate)}
+                {convertTimesTime.millisecond(indexes.orderActivityDate.shipmentDate)}
               </p>
             </Col>
           }

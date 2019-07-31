@@ -181,12 +181,12 @@ class Header extends Component {
               <img src={maskot} width="50%" alt="" />
             </Col>
             <Col md={19}>
-              <Link to={"/dashboard-customer/pesanan-saya/akun-saya"} replace className="header__user-profile">Profile</Link>
+              <Link to={"/dashboard-customer/my-order/my-account"} replace className="header__user-profile">Profile</Link>
             </Col>
           </Row>
         </Menu.Item>
         <hr className="header__user-divider"></hr>
-        <Menu.Item key="1"><Link to={"/dashboard-customer/pesanan-saya"} replace className="header__user-li">Pesenan Saya</Link></Menu.Item>
+        <Menu.Item key="1"><Link to={"/dashboard-customer/my-order"} replace className="header__user-li">Pesenan Saya</Link></Menu.Item>
         <Menu.Item key="2"><Link to={"/"} className="header__user-li">Pengaturan Privasi</Link></Menu.Item>
         <Menu.Item key="3"><Link to={"/"} className="header__user-li">Hubungi Kami</Link></Menu.Item>
         <Menu.Item key="4">
