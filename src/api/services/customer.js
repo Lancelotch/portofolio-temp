@@ -24,8 +24,24 @@ const customerDetail = () => {
     })
 }
 
+const customerEdit = request => {
+    return serviceWithToken()
+      .request({
+        method: "PUT",
+        url: PATH_CUSTOMER.CUSTOMER,
+        data: request
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        return error.response;
+      });
+  };
+
 const customer = {
-    customerDetail: customerDetail
+    customerDetail: customerDetail,
+    customerEdit: customerEdit
 }
 
 export default customer;

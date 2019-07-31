@@ -110,6 +110,20 @@ export const getCustomerName = response => {
   }
 }
 
+export const changeCustomerName = response => {
+  return {
+    type: TYPE.CHANGE_CUSTOMER_NAME,
+    payload:response
+  }
+}
+
+export const changeCustomerPhoto = response => {
+  return {
+    type: TYPE.CHANGE_CUSTOMER_PHOTO,
+    payload:response
+  }
+}
+
 export const clearError = response => {
   return {
     type: TYPE.CLEAR_ERROR
@@ -132,6 +146,8 @@ const dispatchType = {
   openModal: openModal,
   closeModal: closeModal,
   getCustomerName: getCustomerName,
+  changeCustomerName: changeCustomerName,
+  changeCustomerPhoto: changeCustomerPhoto,
   clearError: clearError,
   activationError: activationError
 };
