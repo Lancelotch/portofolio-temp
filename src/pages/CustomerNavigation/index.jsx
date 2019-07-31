@@ -3,6 +3,7 @@ import { Icon, Menu } from "antd";
 import CustomerOderNavigation from "../../containers/CustomerOrderNavigation";
 import "./style.sass";
 import ProfileCustomer from "../../containers/ProfileCustomer";
+import ProfileMain from "../../containers/ProfileMain";
 
 const { SubMenu } = Menu;
 
@@ -32,6 +33,7 @@ class CustomerNavigation extends Component {
     const tabsActive = this.props.match && keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     return (
       <div className="dashboardUser">
+        <ProfileMain />
         <Menu
           defaultSelectedKeys={[tabsActive]}
           mode="inline"

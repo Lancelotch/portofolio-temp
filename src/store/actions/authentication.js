@@ -114,6 +114,18 @@ export const registerForm = (history, request, path) => async dispatch => {
   }
 }
 
+export const customerNameEdit = request => async dispatch => {
+  try {
+    await customer.customerEdit(request)
+    const newCustomerName = request.name
+    const newCustomerPhoto = request.photoUrl
+    dispatch(dispatchType.changeCustomerName(newCustomerName))
+    dispatch(dispatchType.changeCustomerPhoto(newCustomerPhoto))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const openModal = () => dispatch => {
   dispatch(dispatchType.openModal())
 }

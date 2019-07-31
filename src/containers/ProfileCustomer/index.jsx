@@ -1,17 +1,27 @@
 import React, { Component } from "react";
-import { apiGetWithToken, apiPutWithToken } from "../../api/services";
-import { PATH_CUSTOMER } from "../../api/path";
+import "./style.sass";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
+import customer from "../../api/services/customer";
+import { connect } from "react-redux";
+import { customerNameEdit } from "../../store/actions/authentication";
+import { Row, Col } from "antd";
+import { apiPostWithToken } from "../../api/services";
+import { PATH_CUSTOMER } from "../../api/path";
 
 class ProfileCustomer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customerName: "",
+      customerName: this.props.customerName,
       customerEmail: "",
-      imageUrl: "",
+      photoUrl: "",
       allData: {},
+      isErrorDimension: false,
+      isErrorFormat: false,
+      isErrorSize: false,
+      landscape: false,
+      portrait: false,
       disabled: true
     };
   }
@@ -21,98 +31,197 @@ class ProfileCustomer extends Component {
 
   getProfile = async () => {
     try {
-      const response = await apiGetWithToken(PATH_CUSTOMER.CUSTOMER);
-      const name = response.data.data.name;
-      const email = response.data.data.email;
-      const imageUrl = response.data.data.photoUrl;
-      console.log(response);
+      const profile = await customer.customerDetail();
       this.setState({
-        customerName: name,
-        customerEmail: email,
-        imageUrl: imageUrl
+        customerName: profile.data.name,
+        customerEmail: profile.data.email,
+        photoUrl: profile.data.photoUrl,
+        allData: profile.data
       });
-      if (imageUrl) {
-        this.setState({ disabled: false });
+      if (profile.data.photoUrl) {
+        const isDimention = await this.checkDimensionGet(profile.data.photoUrl);
+        if (isDimention.height > isDimention.width) {
+          this.setState({ portrait: true, landscape: false });
+        }
+        if (isDimention.height < isDimention.width) {
+          this.setState({ portrait: false, landscape: true });
+        }
+        this.setState({ disabled: false, isErrorDimension: false });
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  handleChange = response => {
-    console.log("onChange", response.file.status);
-    if (response.file.status === "done") {
+  uploadImage = async ({ onError, onSuccess, file }) => {
+    try {
+      let formData = new FormData();
+      formData.append("file", file);
+      const isDimension = await this.checkDimension(file);
+      if (isDimension.height > 450 && isDimension.width > 450) {
+        if (isDimension.height > isDimension.width) {
+          this.setState({ portrait: true, landscape: false });
+        } else if (isDimension.height < isDimension.width) {
+          this.setState({ portrait: false, landscape: true });
+        }
+        const response = await apiPostWithToken(
+          PATH_CUSTOMER.CUSTOMER_UPLOAD,
+          formData
+        );
+        onSuccess(response.data.data);
+      } else {
+        this.setState({ isErrorDimension: true });
+      }
+    } catch (error) {
+      onError(console.log(error));
+    }
+  };
+
+  handleChangeImage = res => {
+    console.log("onChange", res.file.status);
+    if (res.file.status === "done") {
       this.setState({
-        imageUrl: response.file.response.smallUrl,
+        photoUrl: res.file.response.smallUrl,
+        allData: {
+          ...this.state.allData,
+          photoUrl: res.file.response.smallUrl
+        },
         disabled: false
       });
     }
   };
 
-  removeImage = () => {
-    this.setState({ imageUrl: "", disabled: true });
+  checkDimensionGet = file => {
+    return new Promise(resolve => {
+      var image = new Image();
+      image.src = file;
+      image.onload = function() {
+        let dimension = {};
+        dimension.width = image.naturalWidth;
+        dimension.height = image.naturalHeight;
+        resolve(dimension);
+      };
+    });
   };
 
-  handleSubmit = async () => {
-    try {
-      const file = await apiPutWithToken(
-        PATH_CUSTOMER.CUSTOMER,
-        this.state.allData
-      );
-      console.log("lah", file);
-    } catch (err) {
-      console.log("err");
-    }
+  checkDimension = file => {
+    return new Promise(resolve => {
+      let _URL = window.URL || window.webkitURL;
+      var image = new Image();
+      image.src = _URL.createObjectURL(file);
+      image.onload = function() {
+        let dimension = {};
+        dimension.width = image.naturalWidth;
+        dimension.height = image.naturalHeight;
+        resolve(dimension);
+      };
+    });
+  };
+
+  removeImage = () => {
+    this.setState({
+      photoUrl: "",
+      allData: {
+        ...this.state.allData,
+        photoUrl: ""
+      },
+      landscape: false,
+      portrait: false,
+      isErrorDimension: false,
+      isErrorFormat: false,
+      isErrorSize: false,
+      disabled: true
+    });
   };
 
   handleChangeName = e => {
     e.preventDefault();
-    console.log("e", e);
-    const data = {};
-    data.email = this.state.customerEmail;
-    data.name = e.target.value;
-    data.photoUrl = this.state.imageUrl;
-    console.log("jadi", data);
-    this.setState({ allData: data });
+    this.setState({
+      allData: {
+        ...this.state.allData,
+        name: e.target.value
+      }
+    });
+  };
+
+  handleSubmit = async () => {
+    try {
+      await this.props.customerNameEdit(this.state.allData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  handleError = () => {
+    this.setState({
+      isErrorDimension: false,
+      isErrorFormat: false,
+      isErrorSize: false
+    });
   };
 
   render() {
     const {
       customerName,
       customerEmail,
-      imageUrl,
-      allData,
+      photoUrl,
+      landscape,
+      portrait,
+      isErrorDimension,
+      isErrorFormat,
+      isErrorSize,
       disabled
     } = this.state;
+
+    const beforeUpload = file => {
+      const isPng = file.type === "image/png";
+      const isJpeg = file.type === "image/jpeg";
+      const isJPG = file.type === "image/jpg";
+      const isLt2M = file.size <= 3145728;
+      if (!isJPG && !isJpeg && !isPng) {
+        this.setState({ isErrorFormat: !this.state.isErrorFormat });
+      }
+      if (!isLt2M) {
+        this.setState({ isErrorSize: !this.state.isErrorSize });
+      }
+    };
+
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          borderRadius: 4,
-          boxShadow: "0 2px 4px 0 rgba(0,0,0,0.11)"
-        }}
-      >
-        <div>
+      <Row className="profile">
+        <Col md={12}>
           <ProfileAvatar
-            imageUrl={imageUrl}
-            handleChange={this.handleChange}
+            photoUrl={photoUrl}
+            beforeUpload={beforeUpload}
+            uploadImage={this.uploadImage}
+            handleChangeImage={this.handleChangeImage}
             removeImage={this.removeImage}
+            handleError={this.handleError}
+            landscape={landscape}
+            portrait={portrait}
+            isErrorDimension={isErrorDimension}
+            isErrorFormat={isErrorFormat}
+            isErrorSize={isErrorSize}
             disabled={disabled}
           />
-        </div>
-        <div>
+        </Col>
+        <Col md={12}>
           <ProfileEdit
             customerName={customerName}
             customerEmail={customerEmail}
-            allData={allData}
             handleSubmit={this.handleSubmit}
             handleChangeName={this.handleChangeName}
           />
-        </div>
-      </div>
+        </Col>
+      </Row>
     );
   }
 }
 
-export default ProfileCustomer;
+const mapStateToProps = state => ({
+  customerName: state.authentication.customerName
+});
+
+export default connect(
+  mapStateToProps,
+  { customerNameEdit }
+)(ProfileCustomer);

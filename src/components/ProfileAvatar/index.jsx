@@ -1,58 +1,53 @@
 import React from "react";
-import { Avatar, Button, Icon, Upload, message, Row, Col } from "antd";
-import { apiPostWithToken } from "../../api/services";
-import { PATH_CUSTOMER } from "../../api/path";
-
-const beforeUpload = file => {
-  const isPng = file.type === "image/png";
-  const isJpeg = file.type === "image/jpeg";
-  const isJPG = file.type === "image/jpg";
-  const isLt2M = file.size <= 3145728;
-  if (!isJPG && !isJpeg && !isPng) {
-    message.error("You can only upload JPG file!");
-  }
-  if (!isLt2M) {
-    message.error("Image must smaller than 3MB!");
-  }
-};
-
-const uploadImage = async ({ onError, onSuccess, file }) => {
-  try {
-    let formData = new FormData();
-    formData.append("file", file);
-    const response = await apiPostWithToken(
-      PATH_CUSTOMER.CUSTOMER_UPLOAD,
-      formData
-    );
-    onSuccess(response.data.data);
-  } catch (error) {}
-};
+import "./style.sass";
+import { Avatar, Button, Icon, Upload, Row, Col } from "antd";
 
 const ProfileAvatar = props => {
   const propsUpload = {
     name: "avatar",
     showUploadList: false,
-    beforeUpload: beforeUpload,
+    beforeUpload: props.beforeUpload,
     customRequest: ({ onError, onSuccess, file }) =>
       uploadImage({ onError, onSuccess, file }),
-    onChange: file => props.handleChange(file)
+    onChange: file => props.handleChangeImage(file)
   };
 
-  const { imageUrl, removeImage, disabled } = props;
+  const {
+    photoUrl,
+    uploadImage,
+    removeImage,
+    handleError,
+    landscape,
+    portrait,
+    isErrorDimension,
+    isErrorFormat,
+    isErrorSize,
+    disabled
+  } = props;
 
   return (
-    <Row style={{ padding: 28, maxWidth: 360 }}>
-      <Col md={10} style={{ paddingTop: 5 }}>
-        <Avatar shape="circle" src={imageUrl} size={94} />
+    <Row className="profile-avatar">
+      <Col
+        md={10}
+        className={
+          portrait
+            ? "portrait"
+            : landscape
+            ? "landscape"
+            : ""
+        }
+      >
+        <Avatar src={photoUrl} size={98} alt="You're Perfect" />
       </Col>
       <Col md={14}>
-        <p>Ukuran Gambar Max 3 mb. Format .JPG, .JPEG, .PNG.</p>
+        <p className="profile-avatar__title">
+          Ukuran Gambar Max 3 mb. Format .JPG, .JPEG, .PNG.
+        </p>
         <Button
           style={{
-            padding: 0,
-            height: 24,
-            color: imageUrl ? "#777777" : "#DDDDDD"
+            color: photoUrl ? "#777777" : "#DDDDDD"
           }}
+          className="profile-avatar__button-command"
           type="link"
           onClick={removeImage}
           disabled={disabled}
@@ -62,13 +57,22 @@ const ProfileAvatar = props => {
         </Button>
         <Upload {...propsUpload}>
           <Button
-            style={{ padding: 0, height: 24, color: "#777777" }}
+            style={{ color: "#777777" }}
+            className="profile-avatar__button-command"
+            onClick={handleError}
             type="link"
           >
             <Icon type="camera" />
-            Ubah Foto Profil
+            Upload / Ubah Foto Profil
           </Button>
         </Upload>
+        <div className="profile-avatar__error">
+          {isErrorFormat === true && (
+            <p>Format file yang diupload tidak sesuai.</p>
+          )}
+          {isErrorSize === true && <p>Ukuran gambar lebih dari 3 mb.</p>}
+          {isErrorDimension === true && <p>Minimal height / width 450 px.</p>}
+        </div>
       </Col>
     </Row>
   );
