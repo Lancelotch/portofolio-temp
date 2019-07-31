@@ -177,6 +177,9 @@ class CustomerOderNavigation extends Component {
     responseProductOrder,
     tabsShowItem) {
     return <OrderListWaiting
+      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
+      selectedOrder={this.state.selectedOrder}
+      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
       productOrder={responseProductOrder}
       actionUpdateTab={this.actionUpdateTab}
       actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}

@@ -16,9 +16,7 @@ class OrderListWaitingPayment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHowToShowModalOpen: false,
       orderId: null,
-      selectedOrder: null,
       stateCancelOrder: []
     }
   };
@@ -57,22 +55,16 @@ class OrderListWaitingPayment extends Component {
   };
 
 
-  toggleIsHowToShowModalOpen = order => {
-    this.setState({
-      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
-      selectedOrder: order ? order : null
-    });
-  };
-
-
   render() {
-    const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
       tabsShowItem,
       actionShowOrderDetailsDashboard,
       showOrderDetailsDashboard,
       productOrder,
-      showReceivedConfirm
+      showReceivedConfirm,
+      isHowToShowModalOpen,
+      selectedOrder,
+      showHowToModalPayment
     } = this.props;
     return (
       <div className="orderListWaiting">
@@ -106,7 +98,7 @@ class OrderListWaitingPayment extends Component {
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrder}
                 order={order.order}
-                showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                showHowToModalPayment={showHowToModalPayment}
                 showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index, showOrderDetailsDashboard)}
               />
             </Card>)
@@ -115,7 +107,7 @@ class OrderListWaitingPayment extends Component {
           <ModalHowToPay
             orderPayment={selectedOrder.payment}
             visible={isHowToShowModalOpen}
-            close={this.toggleIsHowToShowModalOpen}
+            close={showHowToModalPayment}
           />
         )}
       </div>
