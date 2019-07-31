@@ -58,7 +58,7 @@ class ProfileCustomer extends Component {
       let formData = new FormData();
       formData.append("file", file);
       const isDimension = await this.checkDimension(file);
-      if (isDimension.height > 450 && isDimension.width > 450) {
+      if (isDimension.height >= 450 && isDimension.width >= 450) {
         if (isDimension.height > isDimension.width) {
           this.setState({ portrait: true, landscape: false });
         } else if (isDimension.height < isDimension.width) {
