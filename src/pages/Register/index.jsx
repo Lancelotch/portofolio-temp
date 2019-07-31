@@ -35,7 +35,7 @@ class RegisterPage extends Component {
       message: "",
       modalStatus: false,
       heightImageBackground: 0,
-      isLoading: false
+      isLoading: this.props.isLoading
     };
   }
 
@@ -76,7 +76,7 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
-    
+    this.setState({ isLoading: true })
     e.preventDefault();
     const { history } = this.props;
     const path = this.state.nextPage;
@@ -84,6 +84,11 @@ class RegisterPage extends Component {
       if (!err) {
         await this.props.registerForm(history, values, path);
         this.validation(this.props.form, values);
+        if (this.props.messageError) {
+          this.setState({
+            isLoading:false
+          })
+        }
       } else {
         this.setState({
           modalStatus: false

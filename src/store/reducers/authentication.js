@@ -10,6 +10,8 @@ const initialState = {
     messageError: '',
     statusModal: false,
     customerName: '',
+    customerPhoto: '',
+    photoUrl: '',
     activated: false
 }
 
@@ -34,6 +36,16 @@ export default (state = initialState, action) => {
                 ...state,
                 customerName: action.payload
             }
+        case TYPE.CHANGE_CUSTOMER_NAME:
+            return {
+                ...state,
+                customerName: action.payload
+            }
+        case TYPE.CHANGE_CUSTOMER_PHOTO:
+            return {
+                ...state,
+                customerPhoto: action.payload
+            }
         case TYPE.LOGIN_WITH_GOOGLE:
             return {
                 ...state,
@@ -56,14 +68,14 @@ export default (state = initialState, action) => {
                 ...state,
                 message: action.payload,
                 isAuthenticated: true,
-                isLoading: true
+                isLoading:false
             }
         case TYPE.REGISTER_FAILED :
             return {
                 ...state,
                 messageError: action.payload,
                 isAuthenticated: false,
-                isLoading: true
+                isLoading: false
             }
         case TYPE.HANDLE_LOADING:
             return {

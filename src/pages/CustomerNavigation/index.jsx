@@ -3,6 +3,8 @@ import { Icon, Menu } from "antd";
 import CustomerOderNavigation from "../../containers/CustomerOrderNavigation";
 import "./style.sass";
 import AddressListDashboard from "../../containers/AddressListDashboard";
+import ProfileCustomer from "../../containers/ProfileCustomer";
+import ProfileMain from "../../containers/ProfileMain";
 
 const { SubMenu } = Menu;
 
@@ -11,13 +13,13 @@ class CustomerNavigation extends Component {
     let keyTabs = this.props.match.params
     const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     this.changeMenu(tabsActive)
+    
   }
-
 
   changeMenu = menu => {
     switch (menu) {
       case "my-account":
-        this.props.actionChangePage(<h1>Dashboard</h1>);
+        this.props.actionChangePage(<div style={{padding: "40px"}}><ProfileCustomer /></div>);
         break;
       case "my":
         this.props.actionChangePage(<CustomerOderNavigation />);
@@ -35,6 +37,7 @@ class CustomerNavigation extends Component {
     const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     return (
       <div className="dashboardUser">
+        <ProfileMain />
         <Menu
           defaultSelectedKeys={[tabsActive]}
           mode="inline"

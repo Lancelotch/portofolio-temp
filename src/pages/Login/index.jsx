@@ -206,7 +206,7 @@ class Login extends Component {
                         state: { nextPage: this.state.nextPage }
                       }}
                     >
-                      <b>{strings.login_forgot_password}</b>
+                      <span>{strings.login_forgot_password}</span>
                     </Link>
                   <Button
                     size={"large"}
