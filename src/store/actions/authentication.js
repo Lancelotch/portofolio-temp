@@ -109,7 +109,9 @@ export const registerForm = (history, request, path) => async dispatch => {
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     history.push(path);
   } catch (error) {
-    dispatch(dispatchType.registerFailed(error.data.message))
+    if (error !== undefined) {
+      dispatch(dispatchType.registerFailed(error.data.message))
+    }
   }
 }
 

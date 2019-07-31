@@ -17,7 +17,7 @@ const WaitingPayment = props => {
   } = props;
   return (
     <React.Fragment>
-      <div className="waitingPayment" key={orderId}>
+      <div className="waiting-payment" key={orderId}>
         <Row>
           {tabsShowItem === 1 &&
             <Col md={12}>
@@ -28,7 +28,7 @@ const WaitingPayment = props => {
                 }}>
                 {labelNotPay}
               </p>
-              <p className="waitingPayment__endDatePay">
+              <p className="waiting-payment__end-date-pay">
                 {convertTimesTime.millisecond(indexes.payment.gateway.expiredPaymentDate)}
               </p>
             </Col>
@@ -36,7 +36,7 @@ const WaitingPayment = props => {
           {tabsShowItem === 2 &&
             <Col md={12}>
               <p
-                className="dalamProsesPengiriman">
+                className="indevelivery">
                 {labelNotSent}
               </p>
             </Col>
@@ -93,14 +93,9 @@ const WaitingPayment = props => {
             </Col>
           }
           <Col md={12}>
-            <font className="waitingPayment__totalReceived"
-              style={{ color: "#777777" }}>
+            <font className="waiting-payment__total-received">
               Total Pesenan : &nbsp;
-            <h4 style={{
-                display: "unset",
-                fontSize: 28,
-                color: "#4A4A4A"
-              }}>
+            <h4 className="waiting-payment__total-amount">
                 {currencyRupiah(indexes.amount)}
               </h4>
             </font>

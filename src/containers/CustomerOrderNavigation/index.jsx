@@ -37,7 +37,9 @@ class CustomerOderNavigation extends Component {
       id: "",
       stateReceivedOrder: [],
       keyIndex: 0,
-      isProductAlvailabel: false
+      isProductAlvailabel: false,
+      isHowToShowModalOpen: false,
+      selectedOrder: null
     };
   }
 
@@ -71,6 +73,13 @@ class CustomerOderNavigation extends Component {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  toggleIsHowToShowModalOpen = order => {
+    this.setState({
+      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
+      selectedOrder: order ? order : null
+    });
   };
 
   actionShowOrderListWaiting = (listener) => {
@@ -179,6 +188,9 @@ class CustomerOderNavigation extends Component {
 
   responOrderDetailsDashboard(showOrderDetailsDashboard, labelTabDetails, itemTabsShow, estimateAccepted) {
     return <OrderDetailsDashboard
+      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
+      selectedOrder={this.state.selectedOrder}
+      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
       labelTabDetails={labelTabDetails}
       estimateAccepted={estimateAccepted}
       tabsShow={itemTabsShow}

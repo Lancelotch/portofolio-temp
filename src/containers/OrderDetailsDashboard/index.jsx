@@ -8,6 +8,7 @@ import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import OrderStatusCancel from '../../components/OrderStatusCancel';
 import { BackTop, Icon } from 'antd';
 import { Button } from 'antd/lib/radio';
+import ModalHowToPay from "../../modal/ModalHowToPay";
 
 class OrderDetailsDashboard extends Component {
     _isMounted = false;
@@ -48,9 +49,11 @@ class OrderDetailsDashboard extends Component {
             actionShowOrderListWaiting,
             invoiceNumber,
             id,
-            productOrderInDelivery,
+            showHowToModalPayment,
             showReceivedConfirm,
-            keyIndex
+            keyIndex,
+            isHowToShowModalOpen,
+            selectedOrder
         } = this.props;
         return (
             <React.Fragment>
@@ -72,7 +75,8 @@ class OrderDetailsDashboard extends Component {
                     return (<div key={"index"} style={{ marginTop: 15 }}>
                         <ProductOrderDetails
                             actionReceivedConfirm={showReceivedConfirm}
-                            productOrderInDelivery={productOrderInDelivery}
+                            showHowToModalPayment={showHowToModalPayment}
+                            productOrderInDelivery={this.state.order}
                             invoiceNumber={invoiceNumber}
                             label="Detail Pesenan"
                             note={product.note}
@@ -115,6 +119,13 @@ class OrderDetailsDashboard extends Component {
                     customer={this.state.order.orderAddress}
                     logOrderTransactions={this.state.order.logOrderTransactions}
                     estimateShippingDate={this.state.order.orderActivityDate} />
+                    {selectedOrder && (
+                        <ModalHowToPay
+                          orderPayment={selectedOrder.payment}
+                          visible={isHowToShowModalOpen}
+                          close={showHowToModalPayment}
+                        />
+                      )}
                 <BackTop />
             </React.Fragment>
         );

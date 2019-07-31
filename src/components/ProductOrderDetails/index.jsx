@@ -19,8 +19,11 @@ const ProductOrderDetails = props => {
       tabsShow,
       id,
       note,
-      keyIndex
+      keyIndex,
+      showHowToModalPayment
     } = props;
+  console.log(productOrderInDelivery);
+
   return (
     <Card>
       <div style={{
@@ -126,18 +129,20 @@ const ProductOrderDetails = props => {
         <Col md={5}>
           {tabsShow === "showTabsInDelivery" &&
             <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, id)}
-              className="waitingPayment__payNow">
+              className="waiting-payment__pay-now">
               Pesanan Diterima
         </Button>}
-          {tabsShow === "showTabsCancel" &&
-            <div style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginRight: 15
-            }}>
+          {tabsShow === "showTabsNotPay" &&
+            <Button
+              className="waiting-payment__pay-now"
+              onClick={() => showHowToModalPayment(productOrderInDelivery)}
+            >
+              {strings.pay_now}
+            </Button>}
+          {((tabsShow === "showTabsCancel" )|| (tabsShow === "showTabsFinish")) &&
+            <div className="waiting-payment-cancel">
               <Button
-                className="waitingPayment__payNow"
-              >
+                className="waiting-payment__pay-now">
                 <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
               </Button>
             </div>

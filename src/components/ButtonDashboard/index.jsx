@@ -15,8 +15,10 @@ const ButtonDashboard = (props) => {
     orderProduct,
     invoiceNumber,
     index,
-    id
+    id,
+    status
   } = props
+console.log(status);
 
   let productId = ""
   order.orderItems.map(orders => {
@@ -33,20 +35,20 @@ const ButtonDashboard = (props) => {
             alignItems: "center"
           }}>
           <p
-            className="waitingPayment__button"
+            className="waiting-payment__button"
             onClick={() => showDeleteConfirm(orderProduct, index, order.id)}
           >
             {strings.cancel_order_dashboard}
           </p>
           <div>
             <Button
-              className="waitingPayment__payNow"
+              className="waiting-payment__pay-now"
               onClick={showHowToModalPayment.bind(this, order)}
             >
               {strings.pay_now}
             </Button>
             <Button
-              className="waitingPayment__detailPesanan"
+              className="waiting-payment__detail-pesanan"
               onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
             >
               {strings.order_details}
@@ -54,66 +56,51 @@ const ButtonDashboard = (props) => {
           </div>
         </div>}
       {tabsShowItem === 2 &&
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end"
-          }}>
+        <div className="button-dashboard">
           <Button
             style={{ marginTop: 25 }}
-            className="waitingPayment__detailPesanan"
+            className="waiting-payment__detail-pesanan"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
       {tabsShowItem === 3 &&
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end"
-          }}>
-          <Button onClick={() => showReceivedConfirm(orderProduct, index, id)}
-            className="waitingPayment__payNow">
+        <div className="button-dashboard">
+          <Button size="large" disabled={status === "SHP" || status === "RCP" ? true : false} onClick={() => showReceivedConfirm(orderProduct, index, id)}
+            className={status === "SHP" || status === "RCP" ? "default ": "waiting-payment__pay-now"}>
             Pesanan Diterima
           </Button>
           <Button
-            className="waitingPayment__detailPesanan"
+            className="waiting-payment__detail-pesanan"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
       {tabsShowItem === 4 &&
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end"
-          }}>
+        <div className="button-dashboard">
           <Button
-            className="waitingPayment__payNow"
+            className="waiting-payment__pay-now"
           >
             <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
           </Button>
           <Button
-            className="waitingPayment__detailPesanan"
+            className="waiting-payment__detail-pesanan"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
           </Button>
         </div>}
       {tabsShowItem === 5 &&
-        <div
-          style={{
-            display: "flex", justifyContent: "flex-end"
-          }}>
+        <div className="button-dashboard">
           <Button
-            className="waitingPayment__payNow"
+            className="waiting-payment__pay-now"
           >
             <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
           </Button>
           <Button
-            className="waitingPayment__detailPesanan"
+            className="waiting-payment__detail-pesanan"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}>
             {strings.cancel_details}
           </Button>

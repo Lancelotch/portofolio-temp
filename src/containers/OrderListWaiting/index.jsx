@@ -99,6 +99,7 @@ class OrderListWaitingPayment extends Component {
               <ButtonDashboard
                 id={order.id}
                 index={index}
+                status={order.status}
                 invoiceNumber={order.invoiceNumber}
                 tabsShowItem={tabsShowItem}
                 showReceivedConfirm={showReceivedConfirm}
