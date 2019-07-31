@@ -61,7 +61,8 @@ export default (state = initialState, action) => {
                 messageError: '',
                 isLoading: false,
                 message: "",
-                customerName: ''
+                customerName: '',
+                customerPhoto: ''
             }
         case TYPE.REGISTER_WITH_FORM:
             return {
