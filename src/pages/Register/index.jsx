@@ -76,6 +76,7 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
+    
     e.preventDefault();
     const { history } = this.props;
     const path = this.state.nextPage;
