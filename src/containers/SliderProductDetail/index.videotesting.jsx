@@ -105,17 +105,24 @@ class SliderProductDetailContainer extends Component {
 
   showHideVideo = () => {
     this.setState({
-      showGalleryVideo: !this.state.showGalleryVideo
+      showGalleryVideo: true
+    })
+  }
+
+hideVideo = () => {
+    this.setState({
+      showGalleryVideo: false
     })
   }
 
   _renderVideo = (item) => {
     return (
+
       <div className='image-gallery-image'>
         {
           this.state.showGalleryVideo === true ?
             <div className='video-wrapper'>
-
+   
               <a
                 className='close-video'
                 onClick={() => this.showHideVideo()}
@@ -148,6 +155,7 @@ class SliderProductDetailContainer extends Component {
               </span>
         }
       </div>
+   
     );
   }
 
@@ -160,7 +168,8 @@ class SliderProductDetailContainer extends Component {
         original: image.mediumUrl,
         thumbnail: image.smallUrl,
         embedUrl: 'http://cloud.video.taobao.com/play/u/2493348363/p/2/e/6/t/1/50117934834.mp4',
-        renderItem:  this._renderVideo ,
+        renderItem:    
+     this._renderVideo ,
         description: 'Render custom slides within the gallery'
       });
     });
