@@ -54,6 +54,19 @@ class OrderListWaitingPayment extends Component {
     }
   };
 
+  sortList = (list, order) => {
+    if (order === "ASC") {
+      return list.sort((a, b) => {
+        return parseFloat(a.order.orderActivityDate.orderDate) - parseFloat(b.order.orderActivityDate.orderDate);
+      })
+    }
+    else {
+      return list.sort((a, b) => {
+        return parseFloat(b.order.orderActivityDate.orderDate) - parseFloat(a.order.orderActivityDate.orderDate);
+      });
+    }
+  }
+
 
   render() {
     const {
@@ -66,10 +79,11 @@ class OrderListWaitingPayment extends Component {
       selectedOrder,
       showHowToModalPayment
     } = this.props;
+    const sortProdcutOrder = this.sortList(productOrder, "DESC")
     return (
       <div className="orderListWaiting">
         <ScrollToTopOnMount />
-        {productOrder.map((order, index) => {
+        {sortProdcutOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>
               <ProductOrder

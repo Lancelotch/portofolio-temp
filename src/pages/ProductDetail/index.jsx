@@ -225,7 +225,7 @@ class ProductDetail extends Component {
           </Row>
         </div>
         {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
-        {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}
+        {this.state.changeCheckout === true && <Redirect to="/checkout" />}
       </React.Fragment>
     );
   }

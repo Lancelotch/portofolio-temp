@@ -13,7 +13,8 @@ import {
   loginWithGoogle,
   openModal,
   clearError,
-  loginWithFacebook
+  loginWithFacebook,
+  handleLoadingFalse
 } from "../../store/actions/authentication";
 import { Link } from "react-router-dom";
 import {
@@ -34,12 +35,12 @@ class RegisterPage extends Component {
       status: null,
       message: "",
       modalStatus: false,
-      heightImageBackground: 0,
-      isLoading: this.props.isLoading
+      heightImageBackground: 0
     };
   }
 
   componentDidMount() {
+    this.props.handleLoadingFalse();
     if (this.props.location.state !== undefined) {
       this.setState({
         nextPage: this.props.location.state.nextPage
@@ -57,6 +58,20 @@ class RegisterPage extends Component {
       heightImageBackground: height
     });
   };
+
+
+  componentDidUpdate(props){
+    console.log(props);
+    
+  }
+
+
+  componentWillReceiveProps(props){
+console.log(props);
+
+  }
+
+
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateHeightImageBackground);
@@ -76,7 +91,6 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = e => {
-    this.setState({ isLoading: true })
     e.preventDefault();
     const { history } = this.props;
     const path = this.state.nextPage;
@@ -84,11 +98,6 @@ class RegisterPage extends Component {
       if (!err) {
         await this.props.registerForm(history, values, path);
         this.validation(this.props.form, values);
-        if (this.props.messageError) {
-          this.setState({
-            isLoading:false
-          })
-        }
       } else {
         this.setState({
           modalStatus: false
@@ -196,7 +205,7 @@ class RegisterPage extends Component {
                   )}
                 </div>
                 <FormItem>
-                  <RegistrationSubmitButton isLoading={this.state.isLoading} />
+                  <RegistrationSubmitButton isLoading={this.props.isLoading} />
                   <div className="login-form__error-box">
                     {this.props.messageError ? (
                       <p> {this.props.messageError}</p>
@@ -282,6 +291,7 @@ export default connect(
     loginWithGoogle,
     openModal,
     clearError,
-    loginWithFacebook
+    loginWithFacebook,
+    handleLoadingFalse
   }
 )(RegisterForm);

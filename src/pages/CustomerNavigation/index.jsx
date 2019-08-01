@@ -13,7 +13,6 @@ class CustomerNavigation extends Component {
     let keyTabs = this.props.match.params
     const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     this.changeMenu(tabsActive)
-    
   }
 
   changeMenu = menu => {

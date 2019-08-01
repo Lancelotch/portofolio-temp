@@ -227,7 +227,7 @@ class CustomerOderNavigation extends Component {
       },
       {
         key: "2",
-        nameTabs: "Sedang Di Proses",
+        nameTabs: "Sedang Diproses",
         content: this.listWaiting("isShowOrderDetailsDashboardNotSent", 2)
       },
       {
@@ -237,7 +237,7 @@ class CustomerOderNavigation extends Component {
       },
       {
         key: "4",
-        nameTabs: "Finish",
+        nameTabs: "Selesai",
         content: this.listWaiting("isShowOrderDetailsDashboardFinish", 4)
       },
       {

@@ -12,6 +12,16 @@ class ProfileMain extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getCustomer();
+  }
+
+  componentDidUpdate(prevProps) {
+   if(this.props.customerPhoto !== prevProps.customerPhoto){
+     this.getCustomer()
+   } 
+  }
+
   getCustomer = async () => {
     try {
       const isDimention = await this.checkDimension(this.props.customerPhoto);
@@ -40,7 +50,6 @@ class ProfileMain extends Component {
 
   render() {
     const { portrait, landscape } = this.state;
-    this.getCustomer();
     return (
       <div>
         <Row style={{ padding: "46px 0 12px 0" }}>
@@ -50,7 +59,7 @@ class ProfileMain extends Component {
           >
             <Avatar icon="user" size={40} src={this.props.customerPhoto} />
           </Col>
-          <Col md={18} style={{ marginTop: 4, fontSize: 20, color: "#000000" }}>
+          <Col md={18} className="profile-main__customer-name" >
             <span>{this.props.customerName}</span>
           </Col>
         </Row>

@@ -69,11 +69,17 @@ const products = productList => {
   };
 };
 
-const handleLoading = () => {
+const handleLoadingEnabled = () => {
   return {
-    type: TYPE.HANDLE_LOADING
+    type: TYPE.HANDLE_LOADING_ENABLED
   };
 };
+
+const handleLoadingDisabled = () => {
+  return {
+    type: TYPE.HANDLE_LOADING_DISABLED
+  }
+}
 
 const getAddressDefault = response => {
   return {
@@ -131,8 +137,9 @@ export const clearError = response => {
 }
 
 const dispatchType = {
+  handleLoadingDisabled : handleLoadingDisabled,
   authFail: authFail,
-  handleLoading: handleLoading,
+  handleLoadingEnabled: handleLoadingEnabled,
   activationUser: activationUser,
   loginWithGoogle: loginWithGoogle,
   loginWithFormEror: loginWithFormEror,
