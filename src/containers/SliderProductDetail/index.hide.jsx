@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
-import { Row, Col, Modal, Button } from "antd";
-import {Link} from "react-router-dom";
+import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
@@ -14,8 +13,7 @@ class SliderProductDetailContainer extends Component {
       imagesToShow: [],
       imagesWithDefault: [],
       isImageVariantExist: false,
-      startIndex: 0,
-      showGalleryVideo: false
+      startIndex: 0
     }
   }
 
@@ -103,62 +101,6 @@ class SliderProductDetailContainer extends Component {
     })
   }
 
-  showHideVideo = () => {
-    this.setState({
-      showGalleryVideo: true
-    })
-  }
-
-hideVideo = () => {
-    this.setState({
-      showGalleryVideo: false
-    })
-  }
-
-  _renderVideo = (item) => {
-    return (
-
-      <div className='image-gallery-image'>
-        {
-          this.state.showGalleryVideo === true ?
-            <div className='video-wrapper'>
-   
-              <a
-                className='close-video'
-                onClick={() => this.showHideVideo()}
-              >
-              </a>
-              <iframe
-                title="asad"
-                width='560'
-                height='315'
-                src={item.embedUrl}
-                frameBorder='0'
-                allowFullScreen
-              >
-              </iframe>
-            </div>
-            :
-              <span onClick={()=>this.showHideVideo()}>
-              <div style={{backgroundColor:"red"}} className='play-button'></div>
-              <img src={item.original} alt="" />
-        
-              {
-                item.description &&
-                <span
-                  className='image-gallery-description'
-                  style={{ right: '0', left: 'initial' }}
-                >
-                  {item.description}
-                </span>
-              }
-              </span>
-        }
-      </div>
-   
-    );
-  }
-
   render() {
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     const imagesToShow = [];
@@ -166,11 +108,7 @@ hideVideo = () => {
       imagesToShow.push({
         large: image.largeUrl,
         original: image.mediumUrl,
-        thumbnail: image.smallUrl,
-        embedUrl: 'http://cloud.video.taobao.com/play/u/2493348363/p/2/e/6/t/1/50117934834.mp4',
-        renderItem:    
-     this._renderVideo ,
-        description: 'Render custom slides within the gallery'
+        thumbnail: image.smallUrl
       });
     });
     let isShowNav = this.props.images.length > 4 ? true : false
