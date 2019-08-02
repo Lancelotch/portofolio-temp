@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
-import { Row, Col, Modal, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
@@ -18,15 +17,6 @@ class SliderProductDetailContainer extends Component {
       startIndex: 0,
       showGalleryVideo: false
     }
-    this.images = [
-      {
-        thumbnail: `${PREFIX_URL}4v.jpg`,
-        original: `${PREFIX_URL}4v.jpg`,
-        embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
-        description: 'Render custom slides within the gallery',
-        renderItem: this._renderVideo
-      }
-    ].concat(this.renderImage)
   }
 
   componentDidMount() {
@@ -39,7 +29,6 @@ class SliderProductDetailContainer extends Component {
       }
     });
     imagesWithDefault.unshift(imageDefault);
-
     this.setState({
       imagesWithDefault: [...imagesWithDefault],
       imagesToShow: [...imagesWithDefault]
@@ -51,26 +40,6 @@ class SliderProductDetailContainer extends Component {
       this.showImages(props.imageVariant);
     }
   }
-
-
-
-
-  // showImages(imagesProps, imageVariantProps) {
-  //   const images = [...imagesProps];
-  //   let isImageVariantExist = false;
-  //   const imageVariant = { ...imageVariantProps };
-  //   if (imageVariant.largeUrl !== undefined) {
-  //     images.unshift(imageVariant);
-  //     isImageVariantExist = true;
-  //   } 
-  //   let isShowNav = images.length > 4 ? true : false;
-  //   this.setState({
-  //     images: images,
-  //     isShowNav: isShowNav,
-  //     isImageVariantExist: isImageVariantExist,
-  //     startIndex: 0
-  //   });
-  // }
 
   showImages(imageVariantProps = "") {
     let imagesToShow = [...this.state.imagesWithDefault];
@@ -88,6 +57,67 @@ class SliderProductDetailContainer extends Component {
     });
   }
 
+  removeThumbnailImageVariant = () => {
+    const imagesToShow = this.state.imagesToShow;
+    const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
+    const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
+    if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
+      thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
+    }
+  }
+
+  pauseVideo = () => {
+    this.setState({ showGalleryVideo: false });
+  }
+
+  changeSlide = (i) => {
+    this.pauseVideo();
+    this.setState({
+      startIndex: i
+    })
+  }
+
+  showHideVideo = () => {
+    this.setState({
+      showGalleryVideo: !this.state.showGalleryVideo
+    })
+  }
+
+  itemVideo = (item) => {
+    return (
+      <div className='image-gallery-image'>
+        {this.state.showGalleryVideo === true ?
+          <div className='video-wrapper'>
+            <span
+              className='close-video'
+              onClick={() => this.showHideVideo()}>
+              <iframe
+                title="video"
+                src={item.embedUrl}
+                frameBorder='0'
+                allowFullScreen
+              >
+              </iframe>
+            </span>
+          </div>
+          :
+          <span onClick={() => this.showHideVideo()}>
+            <div style={{ transform: "translate(0px, 60px)" }}>
+              <div className='play-button' />
+              <img src={item.original} alt="" />
+            </div>
+            {/*item.description &&
+              <span
+                className='image-gallery-description'
+                style={{ right: '0', left: 'initial' }}
+              >
+                {item.description}
+            </span>*/}
+          </span>}
+      </div>
+    )
+  }
+
   imageHover(item) {
     return (
       <Magnifier
@@ -100,88 +130,29 @@ class SliderProductDetailContainer extends Component {
     );
   }
 
-  removeThumbnailImageVariant = () => {
-    const imagesToShow = this.state.imagesToShow;
-    const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
-    const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
-    if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
-      thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
-    }
-  }
-
-  changeSlide = (i) => {
-    this.setState({
-      startIndex: i
-    })
-  }
-
-  showHideVideo = () => {
-    this.setState({
-      showGalleryVideo: true
-    })
-  }
-
-  hideVideo = () => {
-    this.setState({
-      showGalleryVideo: false
-    })
-  }
-
-
-  _renderVideo = (item) => {
-    return (
-
-      <div className='image-gallery-image'>
-        {
-          this.state.showGalleryVideo === true ?
-            <div className='video-wrapper'>
-
-              <a
-                className='close-video'
-                onClick={() => this.showHideVideo()}
-              >
-              </a>
-              <iframe
-                title="asad"
-                width='560'
-                height='315'
-                src={item.embedUrl}
-                frameBorder='0'
-                allowFullScreen
-              >
-              </iframe>
-            </div>
-            :
-            <span onClick={() => this.showHideVideo()}>
-              <div style={{ backgroundColor: "red" }} className='play-button'></div>
-              <img src={item.original} alt="" />
-
-              {
-                item.description &&
-                <span
-                  className='image-gallery-description'
-                  style={{ right: '0', left: 'initial' }}
-                >
-                  {item.description}
-                </span>
-              }
-            </span>
-        }
-      </div>
-
-    );
-  }
-
-  renderImage = () => {
+  imageSlide = () => {
     let imagesToShow = [];
     this.state.imagesToShow.forEach(image => {
-      console.log(this.state.imagesToShow);
       imagesToShow.push({
         original: image.mediumUrl,
         thumbnail: image.smallUrl
-      });
-    });
-    return imagesToShow;
+      })
+    })
+    return imagesToShow
+  }
+
+  imagesandVideoToShow = () => {
+    let imagesandVideoToShow = []
+    const images = this.props.images
+    let originalSlider = images.find(image => image).mediumUrl
+    imagesandVideoToShow.push({
+      thumbnail: `${PREFIX_URL}4v.jpg`,
+      original: originalSlider,
+      embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
+      description: 'Render custom slides within the gallery',
+      renderItem: this.itemVideo
+    })
+    return imagesandVideoToShow.concat(this.imageSlide())
   }
 
   render() {
@@ -189,17 +160,17 @@ class SliderProductDetailContainer extends Component {
     let isShowNav = this.props.images.length > 4 ? true : false
     return (
       <Row>
-        <Col md={24} sm={12}>
+        <Col md={24}>
           <ImageGallery
             ref={slider => (this.slider = slider)}
+            items={this.imagesandVideoToShow()}
+            renderItem={this.imageHover}
+            onSlide={this.changeSlide}
             startIndex={this.state.startIndex}
             showFullscreenButton={false}
             showPlayButton={false}
-            //renderItem={this.imageHover}
             showNav={isShowNav}
-            onSlide={this.changeSlide}
             lazyLoad={true}
-            items={this.images}
             disableArrowKeys={true}
           />
         </Col>
