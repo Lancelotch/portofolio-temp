@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
 
-const PREFIX_URL = 'https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/';
+const PREFIX_URL = `https://raw.githubusercontent.com/putrairawan992/assets-monggopesen/master/ic_button_play.png`;
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
@@ -144,7 +144,7 @@ class SliderProductDetailContainer extends Component {
     const images = this.props.images
     let originalSlider = images.find(image => image).mediumUrl
     imagesandVideoToShow.push({
-      thumbnail: `${PREFIX_URL}4v.jpg`,
+      thumbnail: PREFIX_URL,
       original: originalSlider,
       embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
       description: 'Render custom slides within the gallery',

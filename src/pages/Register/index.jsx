@@ -60,14 +60,14 @@ class RegisterPage extends Component {
   };
 
 
-  componentDidUpdate(props){
+  componentDidUpdate(props) {
     console.log(props);
-    
+
   }
 
 
-  componentWillReceiveProps(props){
-console.log(props);
+  componentWillReceiveProps(props) {
+    console.log(props);
 
   }
 
@@ -120,10 +120,14 @@ console.log(props);
     this.props.clearError();
   };
 
+  maxName = (event) => { 
+    if(event.target.value.length >= 30){
+      alert('karakter sudah jumlah max 30,tidak bisa lebih dari 30')
+    }
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
-    console.log(this.props.isLoading);
-
     return (
       <React.Fragment>
         <Row style={{ display: "flex" }}>
@@ -155,7 +159,9 @@ console.log(props);
                         />
                       }
                       placeholder={"Name"}
+                      onChange={(e) => this.maxName(e)}
                       type="text"
+                      maxLength={30}
                     />
                   )}
                 </FormItem>

@@ -102,7 +102,7 @@ class SliderHome extends Component {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows:true,
+      arrows:false,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
     }
