@@ -25,7 +25,7 @@ class CategoryPage extends Component {
       isQueryAvailable: true,
       limit: 20,
       direction: "desc",
-      sortBy: "createdDate",
+      sortBy: "price.amount",
       element: 0,
       categoryId: ""
     };
@@ -43,6 +43,12 @@ class CategoryPage extends Component {
   }
 
   getCategoryId = (params) => {
+    const categoryLevel1 = params.categoryLevel1
+    const categoryLevel2 = params.categoryLevel1 + "/" + params.categoryLevel2
+    const categoryLevel3 = params.categoryLevel1 + "/" + params.categoryLevel2 + "/" + params.categoryLevel3
+    console.log('categoryLevel3', categoryLevel3);
+    console.log('categoryLevel2', categoryLevel2);
+    console.log('categoryLevel1', categoryLevel1);
     const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
     this.setState({
       categoryId: categoryId,
@@ -71,17 +77,15 @@ class CategoryPage extends Component {
     };
 
     try {
-      //const nextProduct = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_CATEGORY + request)
       const nextProduct = await product.listProductCategory(request);
       this.setState({
         productList: productList.concat(nextProduct.data),
-        // productList: nextProduct.data.data,
         page: page + 1,
         element: nextProduct.element,
         isProductAvailable: true
       });
     } catch (error) {
-     this.handleCategoryNotFound(error)
+      // this.handleCategoryNotFound(error)
     }
   };
 

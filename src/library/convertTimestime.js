@@ -1,34 +1,25 @@
 const millisecond = datetimestamp => {
-    var dt = new Date(datetimestamp * 1);
-    var date = "0" + dt.getDate();
-    var month = []
-    month[0] = "01";
-    month[1] = "02";
-    month[2] = "03";
-    month[3] = "04";
-    month[4] = "05";
-    month[5] = "06";
-    month[6] = "07";
-    month[7] = "08";
-    month[8] = "09";
-    month[9] = "10";
-    month[10] = "11";
-    month[11] = "12";
-    var mounth = month[dt.getMonth()];
+    var dt = new Date(datetimestamp * 1)
+    var getDate = dt.getDate().toString();
+    var date = getDate.padStart(2, '0')
+    var getMonth = (dt.getMonth() + 1).toString();
+    var month = getMonth.padStart(2, '0')
     var year = dt.getFullYear();
-    var hr = "0" + dt.getHours();
-    var m = "0" + dt.getMinutes();
+    var hr = dt.getHours().toString()
+    var hours = hr.padStart(2, '0')
+    var getMinutes = dt.getMinutes().toString();
+    var m = getMinutes.padStart(2, '0')
     //var s = "0" + dt.getSeconds();
     return (
-        date.substr(-2) +
+        date +
         "-" +
-        mounth.substr() +
+        month +
         "-" +
         year +
         " " +
-        hr.substr(-2) +
+        hours +
         ":" +
-        m.substr(-2) 
+        m
     );
 };
 

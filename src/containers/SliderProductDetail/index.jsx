@@ -46,7 +46,7 @@ class SliderProductDetailContainer extends Component {
     let isImageVariantExist = false;
     const imageVariant = { ...imageVariantProps };
     if (imageVariant.largeUrl !== undefined) {
-      this.slider.slideToIndex(0)
+      this.slider.slideToIndex(1)
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
     }
@@ -102,10 +102,8 @@ class SliderProductDetailContainer extends Component {
           </div>
           :
           <span onClick={() => this.showHideVideo()}>
-            <div style={{ transform: "translate(0px, 60px)" }}>
               <div className='play-button' />
-              <img src={item.original} alt="" />
-            </div>
+              <img src={item.original} alt="" className="video-image" />
             {/*item.description &&
               <span
                 className='image-gallery-description'
