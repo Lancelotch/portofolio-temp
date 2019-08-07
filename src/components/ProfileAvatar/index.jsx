@@ -28,18 +28,12 @@ const ProfileAvatar = props => {
   return (
     <Row className="profile-avatar">
       <Col
-        md={10}
-        className={
-          portrait
-            ? "portrait"
-            : landscape
-            ? "landscape"
-            : ""
-        }
+        md={8}
+        className={portrait ? "portrait" : landscape ? "landscape" : ""}
       >
-        <Avatar src={photoUrl} size={98} alt="You're Perfect" />
+        <Avatar icon="user" src={photoUrl} size={98} alt="You're Perfect" />
       </Col>
-      <Col md={14}>
+      <Col md={16}>
         <p className="profile-avatar__title">
           Ukuran Gambar Max 3 mb. Format .JPG, .JPEG, .PNG.
         </p>

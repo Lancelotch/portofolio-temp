@@ -3,7 +3,7 @@ import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Card, Typography } from "antd";
+import { Row, Col, Card, Typography, Tabs } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
@@ -13,9 +13,8 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
-import Breadcrumbs from "../../library/Breadcrumbs.js";
-import Home from "../../library/Breadcrumbs.js";
-import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
+import ProductQnA from "../../containers/ProductQnA";
+import Breadcrumbs from "../../library/Breadcrumbs";
 
 
 const { Text } = Typography
@@ -164,15 +163,14 @@ class ProductDetail extends Component {
 
   render() {
     console.log(this.props.match);
-    
+
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
         <div className="container productDetail">
           <Row>
             <Col md={10}>
-           <Breadcrumbs breadcrumbs={this.props.match}/>
-
+             <Breadcrumbs />
               <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
               {this.state.images.length < 1 ? <Skeleton height={300} /> :
                 <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
@@ -219,8 +217,8 @@ class ProductDetail extends Component {
               </div>
             </Col>
           </Row>
-          <Row>
-            <Col md={24} style={{ marginTop: 50 }}>
+          <Tabs className="tabs-detail" defaultActiveKey="2" type="card">
+            <Tabs.TabPane tab="DETAIL PRODUK" key="1">
               {this.state.isProductAvailable &&
                 <Card className="product-description">
                   <h2>{strings.detail_product}</h2>
@@ -228,8 +226,11 @@ class ProductDetail extends Component {
                     product={this.state.information}
                   />
                 </Card>}
-            </Col>
-          </Row>
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="PERTANYAAN" key="2">
+              <ProductQnA />
+            </Tabs.TabPane>
+          </Tabs>
         </div>
         {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
         {this.state.changeCheckout === true && <Redirect to="/checkout" />}

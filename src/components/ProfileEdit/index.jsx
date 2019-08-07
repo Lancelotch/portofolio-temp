@@ -32,7 +32,7 @@ const ProfileEdit = props => {
             {getFieldDecorator(
               "name",
               rules(true, "Nama harus diisi minimal 1 karakter", customerName)
-            )(<Input onChange={handleChangeName} />)}
+            )(<Input onChange={handleChangeName} maxLength={30} />)}
           </Form.Item>
         </Col>
       </Row>

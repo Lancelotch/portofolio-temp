@@ -1,9 +1,10 @@
 import authentication from "../../api/services/authentication";
+import customer from "../../api/services/customer"
 import dispatchType from "./dispatchType";
 import history from "../../routers/history"
 import { apiGetWithoutToken } from "../../api/services/index"
 import { PATH_PUBLIC } from "../../api/path"
-import customer from "../../api/services/customer"
+
 
 export const registerWithGoogle = (history, request) => async dispatch => {
   try {
@@ -128,11 +129,13 @@ export const registerForm = (history, request, path) => async dispatch => {
 
 export const customerNameEdit = request => async dispatch => {
   try {
-    await customer.customerEdit(request)
-    const newCustomerName = request.name
-    const newCustomerPhoto = request.photoUrl
-    dispatch(dispatchType.changeCustomerName(newCustomerName))
-    dispatch(dispatchType.changeCustomerPhoto(newCustomerPhoto))
+    const editSuccess = await customer.customerEdit(request)
+    if (editSuccess.code === "200") {
+      const newCustomerName = request.name
+      const newCustomerPhoto = request.photoUrl
+      dispatch(dispatchType.changeCustomerName(newCustomerName))
+      dispatch(dispatchType.changeCustomerPhoto(newCustomerPhoto))
+    }
   } catch (error) {
     console.log(error)
   }

@@ -12,7 +12,7 @@ export const getBreadcrumbs = ({ routes, pathname }) => {
   console.log(routes);
   const matches = [];
   pathname
-   .replace(/\/$/, ' ')
+  .replace(/\/$/, ' ')
     .split('/')
     .reduce((previous, current) => {
       const pathSection = `${previous}/${current}`;

@@ -5,6 +5,7 @@ import "./style.sass";
 import AddressListDashboard from "../../containers/AddressListDashboard";
 import ProfileCustomer from "../../containers/ProfileCustomer";
 import ProfileMain from "../../containers/ProfileMain";
+import PasswordDashboard from "../../containers/PasswordDashboard";
 
 const { SubMenu } = Menu;
 
@@ -18,13 +19,16 @@ class CustomerNavigation extends Component {
   changeMenu = menu => {
     switch (menu) {
       case "my-account":
-        this.props.actionChangePage(<div style={{padding: "40px"}}><ProfileCustomer /></div>);
+        this.props.actionChangePage(<ProfileCustomer />);
         break;
       case "my":
         this.props.actionChangePage(<CustomerOderNavigation />);
         break;
       case "edit-address":
         this.props.actionChangePage(<AddressListDashboard />);
+        break;
+        case "password":
+        this.props.actionChangePage(<PasswordDashboard />);
         break;
       default:
         console.log('sukses');
@@ -53,7 +57,7 @@ class CustomerNavigation extends Component {
             }>
             <Menu.Item key="my-account" onClick={() => this.changeMenu("my-account")}>Profile</Menu.Item>
             <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>Ubah Alamat</Menu.Item>
-            <Menu.Item key="ads">option3</Menu.Item>
+            <Menu.Item key="password" onClick={() => this.changeMenu("password")}>Password</Menu.Item>
             <Menu.Item key="asd">option4</Menu.Item>
           </SubMenu>
           <Menu.Item key="my" className="dashboardUser__Title" onClick={() => this.changeMenu("my")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
