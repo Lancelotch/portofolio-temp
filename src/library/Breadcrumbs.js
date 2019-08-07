@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Breadcrumb } from 'antd';
 import { withBreadcrumbs } from './withBreadcrumbs';
-//import routes from "../routers/routes";
+import PATH_URL from "../routers/path";
 
 const UserBreadcrumbLevel1 = ({ match }) =>
     <span>{match.params.categoryLevel1}</span>;
@@ -15,11 +15,10 @@ const UserBreadcrumbLevel3 = ({ match }) =>
 
 
 const routes = [
-    { path: 'users', breadcrumb: 'Users' },
-    { path: '/category/:categoryLevel1', breadcrumb: UserBreadcrumbLevel1 },
-    { path: '/category/:categoryLevel1/:categoryLevel2', breadcrumb: UserBreadcrumbLevel2 },
-    { path: '/category/:categoryLevel1/:categoryLevel2/:categoryLevel3', breadcrumb: UserBreadcrumbLevel3 },
-    { path: '/product-detail/:productId', breadcrumb: 'Product-Detail' }
+    { path: PATH_URL.CATEGORY_LEVEL_1, breadcrumb: UserBreadcrumbLevel1 },
+    { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}`, breadcrumb: UserBreadcrumbLevel2 },
+    { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}/:${"categoryLevel3"}`, breadcrumb: UserBreadcrumbLevel3 },
+    { path: `${PATH_URL.PRODUCT_DETAIL}`, breadcrumb: 'Product-Detail' }
 ];
 
 const Breadcrumbs = ({ breadcrumbs }) => {
@@ -29,14 +28,13 @@ const Breadcrumbs = ({ breadcrumbs }) => {
                 <Link className='mp-breadcrumb-active' to={match.url}>
                     {breadcrumb}
                 </Link>
-                <span>/</span>
             </Breadcrumb.Item>
         )
     })
 
     const breadcrumbItems = [
         <Breadcrumb.Item key="home">
-            <Link to="/">Home</Link>
+            <Link to="/">monggopesen</Link>
         </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
 
