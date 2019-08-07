@@ -40,7 +40,7 @@ const Breadcrumbs = ({ breadcrumbs }) => {
 
     return (
         <div style={{ marginTop: 30 }}>
-            <Breadcrumb className="mp-breadcrumbs">{breadcrumbItems}</Breadcrumb>
+            <Breadcrumb separator=">" className="mp-breadcrumbs">{breadcrumbItems}</Breadcrumb>
         </div>
     )
 }
