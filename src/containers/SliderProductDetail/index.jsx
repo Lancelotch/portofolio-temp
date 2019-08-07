@@ -37,16 +37,16 @@ class SliderProductDetailContainer extends Component {
 
   componentWillReceiveProps(props) {
     if (props.isUpdateImageVariant) {
-      this.showImages(props.imageVariant);
+      this.showImages(props.imageVariant, props.videoUrl);
     }
   }
 
-  showImages(imageVariantProps = "") {
+  showImages(imageVariantProps = "", videoUrl) {
     let imagesToShow = [...this.state.imagesWithDefault];
     let isImageVariantExist = false;
     const imageVariant = { ...imageVariantProps };
     if (imageVariant.largeUrl !== undefined) {
-      this.slider.slideToIndex(1)
+      this.slider.slideToIndex(videoUrl ? 1 : 0)
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
     }
@@ -62,7 +62,7 @@ class SliderProductDetailContainer extends Component {
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
     const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
     if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
-      thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
+      thumbnailDom[this.props.videoUrl ? 1 : 0].parentNode.removeChild(thumbnailDom[this.props.videoUrl ? 1 : 0]);
     }
   }
 
@@ -88,14 +88,14 @@ class SliderProductDetailContainer extends Component {
       <div className='image-gallery-image'>
         {this.state.showGalleryVideo === true ?
           <Modal
-          wrapClassName="modal-video-slider"
-          title=" "
-          visible={this.state.showGalleryVideo}
-          onCancel={this.showHideVideo}
-          centered
-        >
-          <div className='video-wrapper'>
-         
+            wrapClassName="modal-video-slider"
+            title=" "
+            visible={this.state.showGalleryVideo}
+            onCancel={this.showHideVideo}
+            centered
+          >
+            <div className='video-wrapper'>
+
               <iframe
                 title="video"
                 src={item.embedUrl}
@@ -104,13 +104,13 @@ class SliderProductDetailContainer extends Component {
                 allow='autoplay; encrypted-media'
               >
               </iframe>
-      
-          </div>
+
+            </div>
           </Modal>
           :
           <span onClick={() => this.showHideVideo()}>
-              <div className='play-button' />
-              <img src={item.original} alt="" className="video-image" />
+            <div className='play-button' />
+            <img src={item.original} alt="" className="video-image" />
             {/*item.description &&
               <span
                 className='image-gallery-description'
@@ -149,18 +149,19 @@ class SliderProductDetailContainer extends Component {
   imagesandVideoToShow = () => {
     let imagesandVideoToShow = []
     const images = this.props.images
-    let originalSlider = images.find(image => image).mediumUrl
+    let originalSlider = images.find(image => image.isDefault === true).mediumUrl
     imagesandVideoToShow.push({
       thumbnail: PREFIX_URL,
       original: originalSlider,
-      embedUrl: 'https://www.youtube.com/embed/PBXszycQmlU?autoplay=1&showinfo=0',
-      description: 'Render custom slides within the gallery',
+      embedUrl: `${this.props.videoUrl}`,
+      //description: 'Render custom slides within the gallery',
       renderItem: this.itemVideo
     })
     return imagesandVideoToShow.concat(this.imageSlide())
   }
 
   render() {
+    const { videoUrl } = this.props;
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     let isShowNav = this.props.images.length > 4 ? true : false
     return (
@@ -168,7 +169,7 @@ class SliderProductDetailContainer extends Component {
         <Col md={24}>
           <ImageGallery
             ref={slider => (this.slider = slider)}
-            items={this.imagesandVideoToShow()}
+            items={videoUrl ? this.imagesandVideoToShow() : this.imageSlide()}
             renderItem={this.imageHover}
             onSlide={this.changeSlide}
             startIndex={this.state.startIndex}

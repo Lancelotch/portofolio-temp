@@ -26,23 +26,23 @@ const Breadcrumbs = ({ breadcrumbs }) => {
     const extraBreadcrumbItems = breadcrumbs.map(({ breadcrumb, path, match }) => {
         return (
             <Breadcrumb.Item key={match.url}>
-            {console.log(breadcrumb)}
-            
-                <Link to={match.url}>
+                <Link className='mp-breadcrumb-active' to={match.url}>
                     {breadcrumb}
                 </Link>
                 <span>/</span>
             </Breadcrumb.Item>
         )
     })
+
     const breadcrumbItems = [
         <Breadcrumb.Item key="home">
             <Link to="/">Home</Link>
         </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
+
     return (
-        <div className="demo">
-            <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+        <div style={{ marginTop: 30 }}>
+            <Breadcrumb className="mp-breadcrumbs">{breadcrumbItems}</Breadcrumb>
         </div>
     )
 }

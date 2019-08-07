@@ -29,7 +29,7 @@ class CategoryPage extends Component {
       sortBy: "price.amount",
       element: 0,
       categoryId: "",
-      categoryIdName:""
+      categoryIdName: ""
     };
   }
 
@@ -108,7 +108,7 @@ class CategoryPage extends Component {
   onChangeSort = sortValue => {
     const arraySort = sortValue.split("|");
     console.log(arraySort);
-    
+
     const sortBy = arraySort[0];
     const direction = arraySort[1];
     this.setState(
@@ -124,7 +124,7 @@ class CategoryPage extends Component {
   };
 
   infiniteScroll = () => {
-    const { productList, hasMore, element,categoryIdName } = this.state;
+    const { productList, hasMore, element, categoryIdName } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
@@ -132,7 +132,9 @@ class CategoryPage extends Component {
     );
     return (
       <div style={{ marginTop: 35, marginLeft: 8 }}>
-      <Breadcrumbs/>
+        <div style={{ marginBottom: 30 }}>
+          <Breadcrumbs />
+        </div>
         <div
           style={{
             display: "flex",

@@ -105,9 +105,10 @@ class ClickProducts extends Component {
               <div className="card__image-cover">
                 <img
                   alt="example"
-                  src={product.image.mediumUrl}
+                  src={product.image.defaultImage}
                   className="card__image"
                 />
+                {product.videoUrl && <div className='play-button-card-products' />}
               </div>
             }
           >

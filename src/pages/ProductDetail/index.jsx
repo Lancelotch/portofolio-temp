@@ -43,7 +43,8 @@ class ProductDetail extends Component {
       priceShipping: 0,
       alertVariant: "",
       isUpdateImageVariant: false,
-      blurAlertVariant: false
+      blurAlertVariant: false,
+      videoUrl:""
     };
   }
 
@@ -65,7 +66,8 @@ class ProductDetail extends Component {
         images: product.images,
         isProductAvailable: true,
         product: product,
-        variants: product.variants
+        variants: product.variants,
+        videoUrl: product.videoUrl
       });
     } catch (error) {
       console.log(error);
@@ -167,13 +169,13 @@ class ProductDetail extends Component {
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
+      <Breadcrumbs />
         <div className="container productDetail">
           <Row>
             <Col md={10}>
-             <Breadcrumbs />
               <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
               {this.state.images.length < 1 ? <Skeleton height={300} /> :
-                <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
+                <SliderProductDetailContainer videoUrl={this.state.videoUrl} isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
             </Col>
             <Col md={12} offset={1}>
               <div style={{}}>
