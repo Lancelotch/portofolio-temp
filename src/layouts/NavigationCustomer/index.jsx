@@ -33,7 +33,7 @@ class SidebarNavigationCustomer extends Component {
                             <Sider>
                                 {this.childrenWithProps}
                             </Sider>
-                            <Layout style={{ marginTop: 25 }}>
+                            <Layout style={{ marginTop: 25,marginLeft:40 }}>
                                 <Content>
                                     {this.state.page}
                                 </Content>

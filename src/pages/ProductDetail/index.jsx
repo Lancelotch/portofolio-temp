@@ -3,7 +3,7 @@ import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Card, Typography } from "antd";
+import { Row, Col, Card, Typography, Tabs } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
@@ -13,6 +13,7 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
+import ProductQnA from "../../containers/ProductQnA";
 
 
 const { Text } = Typography
@@ -212,17 +213,20 @@ class ProductDetail extends Component {
               </div>
             </Col>
           </Row>
-          <Row>
-            <Col md={24} style={{ marginTop: 50 }}>
-              {this.state.isProductAvailable &&
-                <Card className="product-description">
-                  <h2>{strings.detail_product}</h2>
-                  <ProductAttibutes
-                    product={this.state.information}
-                  />
-                </Card>}
-            </Col>
-          </Row>
+          <Tabs className="tabs-detail" defaultActiveKey="2" type="card">
+              <Tabs.TabPane tab="DETAIL PRODUK" key="1">
+                {this.state.isProductAvailable &&
+                  <Card className="product-description">
+                    <h2>{strings.detail_product}</h2>
+                    <ProductAttibutes
+                      product={this.state.information}
+                    />
+                  </Card>}
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="PERTANYAAN" key="2">
+                <ProductQnA />
+              </Tabs.TabPane>
+          </Tabs>
         </div>
         {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
         {this.state.changeCheckout === true && <Redirect to={{ pathname: "/checkout", state: { nextPage: "/checkout" } }} />}

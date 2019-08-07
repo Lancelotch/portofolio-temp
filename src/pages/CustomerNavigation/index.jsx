@@ -20,7 +20,7 @@ class CustomerNavigation extends Component {
   changeMenu = menu => {
     switch (menu) {
       case "my-account":
-        this.props.actionChangePage(<div style={{padding: "40px"}}><ProfileCustomer /></div>);
+        this.props.actionChangePage(<ProfileCustomer />);
         break;
       case "my":
         this.props.actionChangePage(<CustomerOderNavigation />);
