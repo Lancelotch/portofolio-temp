@@ -40,6 +40,8 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.match.params);
+    
     this.props.handleLoadingFalse();
     if (this.props.location.state !== undefined) {
       this.setState({

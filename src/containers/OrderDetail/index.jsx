@@ -26,8 +26,6 @@ class OrderDetailContainer extends Component {
   };
 
   actionChangeNote = note => {
-    console.log(note);
-    
     this.props.actionChangeNote(note);
   };
 

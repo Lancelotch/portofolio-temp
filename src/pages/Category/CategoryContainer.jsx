@@ -8,6 +8,7 @@ import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
+import Breadcrumbs from "../../library/Breadcrumbs";
 
 
 const Products = React.lazy(() => import("../../components/Products"));
@@ -131,6 +132,7 @@ class CategoryPage extends Component {
     );
     return (
       <div style={{ marginTop: 35, marginLeft: 8 }}>
+      <Breadcrumbs breadcrumbs={this.props.match}/>
         <div
           style={{
             display: "flex",

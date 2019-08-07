@@ -13,6 +13,9 @@ import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
+import Breadcrumbs from "../../library/Breadcrumbs.js";
+import Home from "../../library/Breadcrumbs.js";
+import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
 
 
 const { Text } = Typography
@@ -160,12 +163,16 @@ class ProductDetail extends Component {
 
 
   render() {
+    console.log(this.props.match);
+    
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
         <div className="container productDetail">
           <Row>
             <Col md={10}>
+           <Breadcrumbs breadcrumbs={this.props.match}/>
+
               <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
               {this.state.images.length < 1 ? <Skeleton height={300} /> :
                 <SliderProductDetailContainer isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}

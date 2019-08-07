@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
-import { Row, Col } from "antd";
+import { Row, Col, Modal } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
@@ -87,19 +87,26 @@ class SliderProductDetailContainer extends Component {
     return (
       <div className='image-gallery-image'>
         {this.state.showGalleryVideo === true ?
+          <Modal
+          wrapClassName="modal-video-slider"
+          title=" "
+          visible={this.state.showGalleryVideo}
+          onCancel={this.showHideVideo}
+          centered
+        >
           <div className='video-wrapper'>
-            <span
-              className='close-video'
-              onClick={() => this.showHideVideo()}>
+         
               <iframe
                 title="video"
                 src={item.embedUrl}
                 frameBorder='0'
                 allowFullScreen
+                allow='autoplay; encrypted-media'
               >
               </iframe>
-            </span>
+      
           </div>
+          </Modal>
           :
           <span onClick={() => this.showHideVideo()}>
               <div className='play-button' />
@@ -146,7 +153,7 @@ class SliderProductDetailContainer extends Component {
     imagesandVideoToShow.push({
       thumbnail: PREFIX_URL,
       original: originalSlider,
-      embedUrl: 'https://www.youtube.com/embed/4pSzhZ76GdM?autoplay=1&showinfo=0',
+      embedUrl: 'https://www.youtube.com/embed/PBXszycQmlU?autoplay=1&showinfo=0',
       description: 'Render custom slides within the gallery',
       renderItem: this.itemVideo
     })

@@ -55,7 +55,8 @@ const routes = [
   },
   {
     path: PATH_URL.PRODUCT_DETAIL,
-    component: ProductDetail
+    component: ProductDetail,
+    breadcrumb: 'Product'
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_1,
