@@ -5,7 +5,7 @@ import ProfileEdit from "../../components/ProfileEdit";
 import customer from "../../api/services/customer";
 import { connect } from "react-redux";
 import { customerNameEdit } from "../../store/actions/authentication";
-import { Row, Col } from "antd";
+import { Row, Col, notification } from "antd";
 import { apiPostWithToken } from "../../api/services";
 import { PATH_CUSTOMER } from "../../api/path";
 
@@ -147,6 +147,7 @@ class ProfileCustomer extends Component {
   handleSubmit = async () => {
     try {
       await this.props.customerNameEdit(this.state.allData);
+      this.openNotificationSuccess("success");
     } catch (error) {
       console.log(error);
     }
@@ -157,6 +158,13 @@ class ProfileCustomer extends Component {
       isErrorDimension: false,
       isErrorFormat: false,
       isErrorSize: false
+    });
+  };
+
+  openNotificationSuccess = type => {
+    notification[type]({
+      message: "Berhasil Menyimpan Perubahan Data",
+      duration: 2
     });
   };
 
