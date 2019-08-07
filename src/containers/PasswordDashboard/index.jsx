@@ -91,7 +91,7 @@ class PasswordDashboard extends Component {
           <div className="mp-body-password-container">
             <Formik
               initialValues={{ oldPassword: "", newPassword: "" }}
-              onSubmit={async (values, {setErrors}) => {
+              onSubmit={async (values, {setErrors,resetForm}) => {
                 var isSuccess = false;
                 await this.onSubmitPassword(values).then((response)=>{
                   response ? isSuccess = true : isSuccess = false;
@@ -102,6 +102,7 @@ class PasswordDashboard extends Component {
                     "Kami sudah mengganti password lama anda dengan yang baru cup-cup waw-waw.",
                     "success"
                   );
+                  resetForm(this.initialValues);
                 } else {
                   setErrors({oldPassword: "Password yang anda masukan kurang tepat"})
                 }
@@ -115,6 +116,7 @@ class PasswordDashboard extends Component {
                     <Input
                       name="oldPassword"
                       id="oldPassword"
+                      type="password"
                       onChange={handleChange}
                       value={values.oldPassword}
                       style={{ width: "30%" }}
