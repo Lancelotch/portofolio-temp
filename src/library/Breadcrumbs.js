@@ -14,7 +14,7 @@ const UserBreadcrumbLevel3 = ({ match }) =>
     <span>{match.params.categoryLevel3}</span>;
 
 
-const routes = [
+const breadcrumbRoutes = [
     { path: PATH_URL.CATEGORY_LEVEL_1, breadcrumb: UserBreadcrumbLevel1 },
     { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}`, breadcrumb: UserBreadcrumbLevel2 },
     { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}/:${"categoryLevel3"}`, breadcrumb: UserBreadcrumbLevel3 },
@@ -44,4 +44,4 @@ const Breadcrumbs = ({ breadcrumbs }) => {
         </div>
     )
 }
-export default withBreadcrumbs(routes)(Breadcrumbs);
+export default withBreadcrumbs(breadcrumbRoutes)(Breadcrumbs);

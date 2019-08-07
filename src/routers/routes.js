@@ -19,8 +19,7 @@ import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
 
-
-const routes = [
+ const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
@@ -124,4 +123,5 @@ const routes = [
 
 ];
 
-export default routes;
+export default routes
+
