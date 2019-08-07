@@ -98,8 +98,8 @@ class PasswordDashboard extends Component {
                 })
                 if (isSuccess) {
                   notification(
-                    "Berhasil Mengganti password.",
-                    "Kami sudah mengganti password lama anda dengan yang baru cup-cup waw-waw.",
+                    "Berhasil Menetapkan Password Baru.",
+                    "Akun kamu makin aman nih, ingat untuk selalu berhati-hati dengan tidak memberikan password kamu kepada siapapun",
                     "success"
                   );
                   resetForm(this.initialValues);
