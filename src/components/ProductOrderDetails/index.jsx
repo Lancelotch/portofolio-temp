@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import { Button } from "antd";
 import variantItems from "../../library/variantItems";
+import "./style.sass";
 
 const ProductOrderDetails = props => {
   const
     {
-      productOrderInDelivery,
+      productOrderRespon,
       actionReceivedConfirm,
       productSnapshot,
       label,
@@ -19,30 +20,23 @@ const ProductOrderDetails = props => {
       tabsShow,
       id,
       note,
-      keyIndex
+      keyIndex,
+      showHowToModalPayment
     } = props;
   return (
     <Card>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between"
-      }}>
+      <div className="head-label-item">
         <h2>{label}</h2>
         {((tabsShow === "showTabsNotSent") || (tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
-          <label
-            style={{
-              fontSize: 20,
-              color: "#777777"
-            }}>
+          <label>
             <Link
-              style={{ cursor: "pointer", color: "#FB6900" }}
               to={pageUrlViewInvoiceDashboard + id}
               target="_blank"> Lihat
             </Link> |
             {noInvoice} &nbsp;
-        <font style={{ color: "#000000" }}>
+            <h4>
               {invoiceNumber}
-            </font> &nbsp;
+            </h4> &nbsp;
           </label>}
       </div>
       <hr className="productOrder__inline" />
@@ -125,26 +119,28 @@ const ProductOrderDetails = props => {
         </Col>
         <Col md={5}>
           {tabsShow === "showTabsInDelivery" &&
-            <Button onClick={() => actionReceivedConfirm(productOrderInDelivery, keyIndex, id)}
-              className="waitingPayment__payNow">
+            <Button onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}
+              className="waiting-payment__pay-now">
               Pesanan Diterima
         </Button>}
-          {tabsShow === "showTabsCancel" &&
-            <div style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginRight: 15
-            }}>
+          {tabsShow === "showTabsNotPay" &&
+            <Button
+              className="waiting-payment__pay-now"
+              onClick={() => showHowToModalPayment(productOrderRespon)}
+            >
+              {strings.pay_now}
+            </Button>}
+          {((tabsShow === "showTabsCancel") || (tabsShow === "showTabsFinish")) &&
+            <div className="waiting-payment-cancel">
               <Button
-                className="waitingPayment__payNow"
-              >
+                className="waiting-payment__pay-now">
                 <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
               </Button>
             </div>
           }
         </Col>
       </Row>
-    </Card >
+    </Card>
   )
 }
 

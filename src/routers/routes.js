@@ -19,8 +19,7 @@ import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
 
-
-const routes = [
+ const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
@@ -28,7 +27,6 @@ const routes = [
   },
   {
     path: PATH_URL.HOME,
-    breadcrumb: "monggopesen",
     component: Home
   },
   {
@@ -43,7 +41,6 @@ const routes = [
   },
   {
     path: PATH_URL.REGISTER,
-    breadcrumb: "register",
     component: notRequiredAuth(Register),
     // component: Register,
     layoutName: "fullLayout"
@@ -126,4 +123,5 @@ const routes = [
 
 ];
 
-export default routes;
+export default routes
+

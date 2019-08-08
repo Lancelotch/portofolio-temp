@@ -1,19 +1,38 @@
 @import '../../sass/variable.sass'
 
-.waitingPayment
+
+.waiting-payment-cancel
+    display: flex
+    justify-content: flex-end
+    margin-right: 15px
+
+.button-dashboard .default
+    width: 174px !important
+    height: 48px !important
+    margin-right: 10px !important
+
+.button-dashboard
+    display: flex
+    justify-content: flex-end
+
+.waiting-payment
     margin-top: 25px
     b
         color: $primary-font-color
         font-size: 16px
         line-height: 18px
-    &__endDatePay
+    &__end-date-pay
         color: $color-green
         font-size: 16px
-
-    &__totalReceived
+    &__total-amount
+        display: unset
+        font-size: 28px
+        color: $color-charcoal
+    &__total-received
         font-size: 16px
         float: right
         margin-top: -15px
+        color: $color-grey
     &__button
         border: unset 
         cursor: pointer
@@ -22,7 +41,7 @@
         color: $color-silver 
         font-size: 20px 
         margin-top: 15px 
-    &__payNow
+    &__pay-now
         height: 48px !important
         font-size: 16px !important
         width: 175px !important
@@ -31,14 +50,16 @@
         font-weight: 500 !important
         margin-right: 10px !important
         background-color: $secondary-color !important 
-    &__detailPesanan
+    &__pay-now a:hover 
+        color: #ffffff !important   
+    &__detail-pesanan
         height: 48px !important
         font-size: 16px !important
         width: 175px !important
         border-radius: 4px !important
         font-weight: 500 !important
 
-.waitingPayment__detailPesanan:hover
+.waiting-payment__detail-pesanan:hover
     color: $green-table !important
     border-color: $green-table !important         
 
@@ -54,7 +75,15 @@
 .ant-btn:active, .ant-btn.active
     border-color: unset !important
 
-.dalamProsesPengiriman
+.not-send
 	color: $color-green
 	font-size: 16px
-	line-height: 18px      
+	line-height: 18px    
+
+.label-text
+    margin-bottom: 0px
+    font-size: 16px 
+
+.label-time
+    color: $color-silver
+    font-size: 16px        

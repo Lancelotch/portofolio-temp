@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import ImageGallery from "react-image-gallery";
-import { Row, Col } from "antd";
+import { Row, Col, Modal } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
 
+const PREFIX_URL = `https://raw.githubusercontent.com/putrairawan992/assets-monggopesen/master/ic_button_play.png`;
 
 class SliderProductDetailContainer extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class SliderProductDetailContainer extends Component {
       imagesToShow: [],
       imagesWithDefault: [],
       isImageVariantExist: false,
-      startIndex: 0
+      startIndex: 0,
+      showGalleryVideo: false
     }
   }
 
@@ -27,7 +29,6 @@ class SliderProductDetailContainer extends Component {
       }
     });
     imagesWithDefault.unshift(imageDefault);
-
     this.setState({
       imagesWithDefault: [...imagesWithDefault],
       imagesToShow: [...imagesWithDefault]
@@ -36,34 +37,16 @@ class SliderProductDetailContainer extends Component {
 
   componentWillReceiveProps(props) {
     if (props.isUpdateImageVariant) {
-      this.showImages(props.imageVariant);
+      this.showImages(props.imageVariant, props.videoUrl);
     }
   }
 
-
-  // showImages(imagesProps, imageVariantProps) {
-  //   const images = [...imagesProps];
-  //   let isImageVariantExist = false;
-  //   const imageVariant = { ...imageVariantProps };
-  //   if (imageVariant.largeUrl !== undefined) {
-  //     images.unshift(imageVariant);
-  //     isImageVariantExist = true;
-  //   } 
-  //   let isShowNav = images.length > 4 ? true : false;
-  //   this.setState({
-  //     images: images,
-  //     isShowNav: isShowNav,
-  //     isImageVariantExist: isImageVariantExist,
-  //     startIndex: 0
-  //   });
-  // }
-
-  showImages(imageVariantProps = "") {
+  showImages(imageVariantProps = "", videoUrl) {
     let imagesToShow = [...this.state.imagesWithDefault];
     let isImageVariantExist = false;
     const imageVariant = { ...imageVariantProps };
     if (imageVariant.largeUrl !== undefined) {
-      this.slider.slideToIndex(0)
+      this.slider.slideToIndex(videoUrl ? 1 : 0)
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
     }
@@ -72,6 +55,70 @@ class SliderProductDetailContainer extends Component {
       isImageVariantExist: isImageVariantExist,
       startIndex: 0
     });
+  }
+
+  removeThumbnailImageVariant = () => {
+    const imagesToShow = this.state.imagesToShow;
+    const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
+    const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
+    if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
+      thumbnailDom[this.props.videoUrl ? 1 : 0].parentNode.removeChild(thumbnailDom[this.props.videoUrl ? 1 : 0]);
+    }
+  }
+
+  pauseVideo = () => {
+    this.setState({ showGalleryVideo: false });
+  }
+
+  changeSlide = (i) => {
+    this.pauseVideo();
+    this.setState({
+      startIndex: i
+    })
+  }
+
+  showHideVideo = () => {
+    this.setState({
+      showGalleryVideo: !this.state.showGalleryVideo
+    })
+  }
+
+  itemVideo = (item) => {
+    return (
+      <div className='image-gallery-image'>
+        {this.state.showGalleryVideo === true ?
+          <Modal
+            wrapClassName="modal-video-slider"
+            title=" "
+            visible={this.state.showGalleryVideo}
+            onCancel={this.showHideVideo}
+            centered>
+            <div className='video-wrapper'>
+              <iframe
+                title="video"
+                src={item.embedUrl}
+                frameBorder='0'
+                allowFullScreen
+                allow='autoplay; encrypted-media'
+              >
+              </iframe>
+
+            </div>
+          </Modal>
+          :
+          <span onClick={() => this.showHideVideo()}>
+            <div className='play-button' />
+            <img src={item.original} alt="" className="video-image" />
+            {/*item.description &&
+              <span
+                className='image-gallery-description'
+                style={{ right: '0', left: 'initial' }}
+              >
+                {item.description}
+            </span>*/}
+          </span>}
+      </div>
+    )
   }
 
   imageHover(item) {
@@ -86,45 +133,48 @@ class SliderProductDetailContainer extends Component {
     );
   }
 
-  removeThumbnailImageVariant = () => {
-    const imagesToShow = this.state.imagesToShow;
-    const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
-    const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
-    if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
-      thumbnailDom[0].parentNode.removeChild(thumbnailDom[0]);
-    }
+  imageSlide = () => {
+    let imagesToShow = [];
+    this.state.imagesToShow.forEach(image => {
+      imagesToShow.push({
+        original: image.mediumUrl,
+        thumbnail: image.smallUrl
+      })
+    })
+    return imagesToShow
   }
 
-  changeSlide = (i) => {
-    this.setState({
-      startIndex: i
+  imagesandVideoToShow = () => {
+    let imagesandVideoToShow = []
+    const images = this.props.images
+    let originalSlider = images.find(image => image.isDefault === true).mediumUrl
+    imagesandVideoToShow.push({
+      thumbnail: PREFIX_URL,
+      original: originalSlider,
+      embedUrl: `${this.props.videoUrl}`,
+      //description: 'Render custom slides within the gallery',
+      renderItem: this.itemVideo
     })
+    return imagesandVideoToShow.concat(this.imageSlide())
   }
 
   render() {
+    const { videoUrl } = this.props;
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
-    const imagesToShow = [];
-    this.state.imagesToShow.forEach(image => {
-      imagesToShow.push({
-        large: image.largeUrl,
-        original: image.mediumUrl,
-        thumbnail: image.smallUrl
-      });
-    });
     let isShowNav = this.props.images.length > 4 ? true : false
     return (
       <Row>
-        <Col md={24} sm={12}>
+        <Col md={24}>
           <ImageGallery
             ref={slider => (this.slider = slider)}
+            items={videoUrl ? this.imagesandVideoToShow() : this.imageSlide()}
+            renderItem={this.imageHover}
+            onSlide={this.changeSlide}
             startIndex={this.state.startIndex}
             showFullscreenButton={false}
             showPlayButton={false}
-            renderItem={this.imageHover}
             showNav={isShowNav}
-            onSlide={this.changeSlide}
             lazyLoad={true}
-            items={imagesToShow}
             disableArrowKeys={true}
           />
         </Col>

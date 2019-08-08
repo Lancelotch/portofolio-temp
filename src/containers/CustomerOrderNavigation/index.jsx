@@ -37,7 +37,9 @@ class CustomerOderNavigation extends Component {
       id: "",
       stateReceivedOrder: [],
       keyIndex: 0,
-      isProductAlvailabel: false
+      isProductAlvailabel: false,
+      isHowToShowModalOpen: false,
+      selectedOrder: null
     };
   }
 
@@ -71,6 +73,13 @@ class CustomerOderNavigation extends Component {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  toggleIsHowToShowModalOpen = order => {
+    this.setState({
+      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
+      selectedOrder: order ? order : null
+    });
   };
 
   actionShowOrderListWaiting = (listener) => {
@@ -168,6 +177,9 @@ class CustomerOderNavigation extends Component {
     responseProductOrder,
     tabsShowItem) {
     return <OrderListWaiting
+      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
+      selectedOrder={this.state.selectedOrder}
+      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
       productOrder={responseProductOrder}
       actionUpdateTab={this.actionUpdateTab}
       actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
@@ -179,6 +191,9 @@ class CustomerOderNavigation extends Component {
 
   responOrderDetailsDashboard(showOrderDetailsDashboard, labelTabDetails, itemTabsShow, estimateAccepted) {
     return <OrderDetailsDashboard
+      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
+      selectedOrder={this.state.selectedOrder}
+      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
       labelTabDetails={labelTabDetails}
       estimateAccepted={estimateAccepted}
       tabsShow={itemTabsShow}
@@ -212,7 +227,7 @@ class CustomerOderNavigation extends Component {
       },
       {
         key: "2",
-        nameTabs: "Sedang Di Proses",
+        nameTabs: "Sedang Diproses",
         content: this.listWaiting("isShowOrderDetailsDashboardNotSent", 2)
       },
       {
@@ -222,7 +237,7 @@ class CustomerOderNavigation extends Component {
       },
       {
         key: "4",
-        nameTabs: "Finish",
+        nameTabs: "Selesai",
         content: this.listWaiting("isShowOrderDetailsDashboardFinish", 4)
       },
       {

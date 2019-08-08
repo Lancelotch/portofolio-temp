@@ -6,7 +6,7 @@ import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 
 const BestSeller = props => {
-  const { name, image, price, id } = props.product;
+  const { name, image, price, id, videoUrl } = props.product;
   const priceRp = currencyRupiah(price);
   return (
     <div className="best-card">
@@ -17,7 +17,8 @@ const BestSeller = props => {
             className="best__card"
             cover={
               <div className="best__image-cover">
-                <img alt="example" src={image && image.mediumUrl} className="best__image" />
+                <img alt="example" src={image && image.defaultImage} className="best__image" />
+                {videoUrl && <div className='play-button-card-products' />}
               </div>
             }
           >

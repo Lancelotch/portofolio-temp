@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
                 messageError: action.payload,
                 checkError: true
             }
-        case TYPE.GET_CUSTOMER_NAME: 
+        case TYPE.GET_CUSTOMER_NAME:
             return {
                 ...state,
                 customerName: action.payload
@@ -68,27 +68,30 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 message: action.payload,
-                isAuthenticated: true,
-                isLoading:false
+                isAuthenticated: true
             }
-        case TYPE.REGISTER_FAILED :
+        case TYPE.REGISTER_FAILED:
             return {
                 ...state,
                 messageError: action.payload,
-                isAuthenticated: false,
-                isLoading: false
+                isAuthenticated: false
             }
-        case TYPE.HANDLE_LOADING:
+        case TYPE.HANDLE_LOADING_ENABLED:
             return {
                 ...state,
                 isLoading: true
             }
-            // case "IS_EXPIRED" : 
-            //     return {
-            //         ...state,
-            //           isAuthenticated : (action.payload.data == 'Unauthorized') ? false :true,
-            //           token : (action.payload.data == 'Unauthorized') ? null : state.token
-            //     }  
+        case TYPE.HANDLE_LOADING_DISABLED:
+            return {
+                ...state,
+                isLoading: false
+            }
+        // case "IS_EXPIRED" : 
+        //     return {
+        //         ...state,
+        //           isAuthenticated : (action.payload.data == 'Unauthorized') ? false :true,
+        //           token : (action.payload.data == 'Unauthorized') ? null : state.token
+        //     }  
         case TYPE.ACTIVATION:
             return {
                 ...state,
@@ -96,11 +99,11 @@ export default (state = initialState, action) => {
                 isAuthenticated: true,
                 activated: true
             }
-        case TYPE.ACTIVATION_ERROR: 
+        case TYPE.ACTIVATION_ERROR:
             return {
                 ...state,
                 activated: false,
-                error : action.payload
+                error: action.payload
             }
         case TYPE.OPEN_MODAL:
             return {
@@ -111,8 +114,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 statusModal: false
-            }   
-        case TYPE.CLEAR_ERROR: 
+            }
+        case TYPE.CLEAR_ERROR:
             return {
                 ...state,
                 messageError: ""

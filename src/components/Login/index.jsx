@@ -38,7 +38,7 @@ class Login extends Component {
   }
 
   handleRegisterGoogle = request => {
-    this.props.loginWithGoogle("/", request)
+  this.props.loginWithGoogle({/*"/"*/}, request)
   }
 
   handleFacebook = request => {

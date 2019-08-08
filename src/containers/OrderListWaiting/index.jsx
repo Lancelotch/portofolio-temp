@@ -16,9 +16,7 @@ class OrderListWaitingPayment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHowToShowModalOpen: false,
       orderId: null,
-      selectedOrder: null,
       stateCancelOrder: []
     }
   };
@@ -56,28 +54,36 @@ class OrderListWaitingPayment extends Component {
     }
   };
 
-
-  toggleIsHowToShowModalOpen = order => {
-    this.setState({
-      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
-      selectedOrder: order ? order : null
-    });
-  };
+  sortList = (list, order) => {
+    if (order === "ASC") {
+      return list.sort((a, b) => {
+        return parseFloat(a.order.orderActivityDate.orderDate) - parseFloat(b.order.orderActivityDate.orderDate);
+      })
+    }
+    else {
+      return list.sort((a, b) => {
+        return parseFloat(b.order.orderActivityDate.orderDate) - parseFloat(a.order.orderActivityDate.orderDate);
+      });
+    }
+  }
 
 
   render() {
-    const { isHowToShowModalOpen, selectedOrder } = this.state;
     const {
       tabsShowItem,
       actionShowOrderDetailsDashboard,
       showOrderDetailsDashboard,
       productOrder,
-      showReceivedConfirm
+      showReceivedConfirm,
+      isHowToShowModalOpen,
+      selectedOrder,
+      showHowToModalPayment
     } = this.props;
+    const sortProdcutOrder = this.sortList(productOrder, "DESC")
     return (
       <div className="orderListWaiting">
         <ScrollToTopOnMount />
-        {productOrder.map((order, index) => {
+        {sortProdcutOrder.map((order, index) => {
           return (
             <Card style={{ marginBottom: 15 }} key={index}>
               <ProductOrder
@@ -99,13 +105,14 @@ class OrderListWaitingPayment extends Component {
               <ButtonDashboard
                 id={order.id}
                 index={index}
+                status={order.status}
                 invoiceNumber={order.invoiceNumber}
                 tabsShowItem={tabsShowItem}
                 showReceivedConfirm={showReceivedConfirm}
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrder}
                 order={order.order}
-                showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+                showHowToModalPayment={showHowToModalPayment}
                 showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index, showOrderDetailsDashboard)}
               />
             </Card>)
@@ -114,7 +121,7 @@ class OrderListWaitingPayment extends Component {
           <ModalHowToPay
             orderPayment={selectedOrder.payment}
             visible={isHowToShowModalOpen}
-            close={this.toggleIsHowToShowModalOpen}
+            close={showHowToModalPayment}
           />
         )}
       </div>
