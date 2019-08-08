@@ -5,6 +5,90 @@
     width: 100% !important
     height: 100% !important
 
+.modal-video-slider .ant-modal-close 
+    color: #ffffff !important
+    font-weight: bolder !important
+
+.modal-video-slider .ant-modal-close-x 
+    font-size: 25px !important
+
+.modal-video-slider .ant-modal-header 
+    background: unset !important
+    border-bottom: unset !important
+    
+.modal-video-slider .ant-modal
+    width: 70% !important
+
+.modal-video-slider .ant-modal-footer 
+    display: none
+
+.modal-video-slider .ant-modal-content
+    background-color: unset !important
+    box-shadow: unset !important
+    
+.video-image
+    position: absolute
+    top: 0px
+    bottom: 0px
+    left: 0px
+    right: 0px
+    margin: auto   
+
+.close-video::before 
+    content: '✖'
+    cursor: pointer
+    position: absolute
+    left: 0;
+    top: 0
+    font-size: 20px
+    padding: 20px
+    z-index: 1
+    line-height: .7
+    display: block
+    color: #fff
+
+.play-button 
+    height: 64px
+    width: 64px
+    border-radius: 40px
+    background-color: #FB6900
+    box-shadow: 0 2px 4px 0 rgba(251,105,0,0.5)
+    cursor: pointer
+    position: absolute
+    left: 0
+    top: 0
+    bottom: -10px
+    right: 0
+    margin: auto
+    z-index: 1
+
+.play-button:hover 
+    background-color: rgba(225,154,81,0.9)
+
+.video-wrapper 
+    position: relative
+    padding: 33.35% 0px
+    height: 0px
+    transform: translate(0%,1%)
+
+.video-wrapper iframe 
+    position: absolute
+    top: 0px
+    left: 0px
+    width: 100%
+    height: 100%
+
+.play-button:after 
+    content: ""
+    display: block
+    position: absolute
+    top: 20.5px
+    left: 25px
+    margin: 0 auto
+    border-style: solid
+    border-width: 12.5px 0 12.5px 20px
+    border-color: transparent transparent transparent rgba(255, 255, 255, 1)
+    
 .productDetail .magnifier-image
     max-width: 100%
     max-height: 100%
@@ -14,7 +98,7 @@
     left: 0
     right: 0
     margin: auto
-    padding: auto
+    padding: 0px
     width: auto !important
     height: auto !important
 

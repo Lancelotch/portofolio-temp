@@ -43,7 +43,7 @@ const PopularProducts = props => {
                       <PopularProduct
                         key={product.id}
                         price={product.price}
-                        urlImage={product.image.mediumUrl}
+                        urlImage={product.image.defaultImage}
                         name={product.name}
                         id={product.id}
                         product={product}

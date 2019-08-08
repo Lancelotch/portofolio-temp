@@ -1,23 +1,28 @@
 const millisecond = datetimestamp => {
-    var dt = new Date(datetimestamp * 1);
-    var date = "0" + dt.getDate();
-    var month = "0" + dt.getMonth();
+    var dt = new Date(datetimestamp * 1)
+    var getDate = dt.getDate().toString();
+    var date = getDate.padStart(2, '0')
+    var getMonth = (dt.getMonth() + 1).toString();
+    var month = getMonth.padStart(2, '0')
     var year = dt.getFullYear();
-    var hr = "0" + dt.getHours();
-    var m = "0" + dt.getMinutes();
+    var hr = dt.getHours().toString()
+    var hours = hr.padStart(2, '0')
+    var getMinutes = dt.getMinutes().toString();
+    var m = getMinutes.padStart(2, '0')
     //var s = "0" + dt.getSeconds();
     return (
-        date.substr(-2) +
+        date +
         "-" +
-        month.substr(-2) +
+        month +
         "-" +
         year +
         " " +
-        hr.substr(-2) +
+        hours +
         ":" +
-        m.substr(-2) 
+        m
     );
 };
+
 
 const second = datetimestamp => {
     var dt = new Date(datetimestamp * 1000);

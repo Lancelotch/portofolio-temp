@@ -6,9 +6,11 @@ import strings from '../../localization/localization';
 import convertTimesTime from '../../library/convertTimestime';
 
 const PaymentInfo = props => {
-    const { shipment, productSnapshot, payment, amount, courier, totalAmount, cancelBy } = props;
+    const { shipment, productSnapshot, payment, amount, courier, cancelBy } = props;
 
     const totalShipment = productSnapshot.quantity * shipment.price
+
+    const totalAmount = productSnapshot.price * productSnapshot.quantity
 
     return (
         <Card>

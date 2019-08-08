@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Icon, Menu, Dropdown } from "antd";
 import Search from "antd/lib/input/Search";
 import Login from "components/Login";
-import TopHeader from "../../components/TopHeader";
+//import TopHeader from "../../components/TopHeader";
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
@@ -36,7 +36,7 @@ class Header extends Component {
       marginTopDropdown: 0,
       overlayUserMenu: <Login />,
       isTopHeaderShow: true,
-      topHeaderHeight: 50,
+      topHeaderHeight: 0,
       headerHeight: 0,      
       wrapHeaderPosition: "absolute"
     };
@@ -225,13 +225,13 @@ class Header extends Component {
     return (
       <React.Fragment>
       <div className="header-fixed" style={{ position: this.state.wrapHeaderPosition }}>
-        <Row id="topHeader" className="header__row">
+       {/* <Row id="topHeader" className="header__row">
           <Col md={24} style={{ display: this.state.display }}>
             <div className="topHeader">
               <TopHeader />
             </div>
           </Col>
-        </Row>
+    </Row>*/}
         <Row id="bottomHeader" className="header">
           <Col md={5}>
             <Link to="/">

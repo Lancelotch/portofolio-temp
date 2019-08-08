@@ -2,8 +2,9 @@ import authentication from "../../api/services/authentication";
 import customer from "../../api/services/customer"
 import dispatchType from "./dispatchType";
 import history from "../../routers/history"
-import {apiGetWithoutToken} from "../../api/services/index"
-import {PATH_PUBLIC} from "../../api/path"
+import { apiGetWithoutToken } from "../../api/services/index"
+import { PATH_PUBLIC } from "../../api/path"
+
 
 export const registerWithGoogle = (history, request) => async dispatch => {
   try {
@@ -18,12 +19,12 @@ export const registerWithGoogle = (history, request) => async dispatch => {
     dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
     history.push('/');
   } catch (error) {
-    console.log("ini error di registerWithGoogle actions",error);
+    console.log("ini error di registerWithGoogle actions", error);
   }
 };
 
 export const loginWithGoogle = (path, response) => async dispatch => {
-  if(response) {
+  if (response) {
     try {
       const responseLoginGoogle = await authentication.loginWithGoogle(response);
       dispatch(dispatchType.loginWithGoogle(responseLoginGoogle));
@@ -36,13 +37,13 @@ export const loginWithGoogle = (path, response) => async dispatch => {
       dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
       history.push(path)
     } catch (error) {
-      console.log("ini error di login with google",error);
+      console.log("ini error di login with google", error);
     }
   }
 };
 
 export const loginWithFacebook = (response, path) => async dispatch => {
-  if(response){
+  if (response) {
     try {
       const responseLoginFacebook = await authentication.loginWithFacebook(response)
       dispatch(dispatchType.loginWithGoogle(responseLoginFacebook));
@@ -54,14 +55,14 @@ export const loginWithFacebook = (response, path) => async dispatch => {
       dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
       dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
       history.push(path)
-    }catch(error){
+    } catch (error) {
       console.log("ini error di facebook", error)
     }
   }
 
 }
 
-export const loginWithHome = (request,path,history) => async dispatch => {
+export const loginWithHome = (request, path, history) => async dispatch => {
   try {
     const responseLoginForm = await authentication.loginWithForm(request);
     await dispatch(dispatchType.loginWithForm(responseLoginForm))
@@ -72,18 +73,18 @@ export const loginWithHome = (request,path,history) => async dispatch => {
     const dataCustomer = await customer.customerDetail()
     dispatch(dispatchType.getCustomerName(dataCustomer.data.name))
     dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
-   // history.push(path)
+    history.push(path)
   } catch (error) {
-    if(error.data){
-      if(error.data.errors){
+    if (error.data) {
+      if (error.data.errors) {
         const msg = error.data.errors[0].defaultMessage
         dispatch(dispatchType.loginFailed(msg))
-      }else{
+      } else {
         const msg = error.data.message
         dispatch(dispatchType.loginFailed(msg))
       }
     }
-    
+
   }
 }
 
@@ -101,7 +102,12 @@ export const loginWithForm = (history, request, nextPage = "/") => async dispatc
   }
 }
 
+export const handleLoadingFalse = () => dispatch => {
+  dispatch(dispatchType.handleLoadingDisabled());
+}
+
 export const registerForm = (history, request, path) => async dispatch => {
+  dispatch(dispatchType.handleLoadingEnabled())
   try {
     const responseRegisterForm = await authentication.registerWithForm(request);
     dispatch(dispatchType.registerWithForm(responseRegisterForm.data));
@@ -114,7 +120,10 @@ export const registerForm = (history, request, path) => async dispatch => {
     dispatch(dispatchType.changeCustomerPhoto(dataCustomer.data.photoUrl))
     history.push(path);
   } catch (error) {
-    dispatch(dispatchType.registerFailed(error.data.message))
+    if (error !== undefined) {
+      dispatch(dispatchType.registerFailed(error.data.message))
+      dispatch(dispatchType.handleLoadingDisabled())
+    }
   }
 }
 
@@ -153,7 +162,7 @@ export const activatingUser = (request) => async dispatch => {
     dispatch(dispatchType.activationUser(responseActivatingUser));
     //history.push("/");
   } catch (error) {
-    console.log("ini error di redux activatinguser",error);
+    console.log("ini error di redux activatinguser", error);
     dispatch(dispatchType.activationError(error))
   }
 };

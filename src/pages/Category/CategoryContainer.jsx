@@ -8,6 +8,7 @@ import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
+import Breadcrumbs from "../../library/Breadcrumbs";
 
 
 const Products = React.lazy(() => import("../../components/Products"));
@@ -25,9 +26,10 @@ class CategoryPage extends Component {
       isQueryAvailable: true,
       limit: 20,
       direction: "desc",
-      sortBy: "createdDate",
+      sortBy: "price.amount",
       element: 0,
-      categoryId: ""
+      categoryId: "",
+      categoryIdName: ""
     };
   }
 
@@ -43,8 +45,10 @@ class CategoryPage extends Component {
   }
 
   getCategoryId = (params) => {
-    const categoryId = params[Object.keys(params)[Object.keys(params).length - 1]];
+    const categoryIdName = params[Object.keys(params)[Object.keys(params).length - 1]];
+    const categoryId = Object.entries(params).map(([key, val]) => `${val}`).join('/')
     this.setState({
+      categoryIdName: categoryIdName,
       categoryId: categoryId,
       isProductAvailable: false,
       productList: [],
@@ -69,19 +73,16 @@ class CategoryPage extends Component {
       direction: direction,
       categoryId: categoryId
     };
-
     try {
-      //const nextProduct = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_CATEGORY + request)
       const nextProduct = await product.listProductCategory(request);
       this.setState({
         productList: productList.concat(nextProduct.data),
-        // productList: nextProduct.data.data,
         page: page + 1,
         element: nextProduct.element,
         isProductAvailable: true
       });
     } catch (error) {
-     this.handleCategoryNotFound(error)
+      this.handleCategoryNotFound(error)
     }
   };
 
@@ -106,6 +107,8 @@ class CategoryPage extends Component {
 
   onChangeSort = sortValue => {
     const arraySort = sortValue.split("|");
+    console.log(arraySort);
+
     const sortBy = arraySort[0];
     const direction = arraySort[1];
     this.setState(
@@ -121,14 +124,17 @@ class CategoryPage extends Component {
   };
 
   infiniteScroll = () => {
-    const { productList, hasMore, categoryId, element } = this.state;
+    const { productList, hasMore, element, categoryIdName } = this.state;
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{categoryId}</b>
+      <b style={{ color: "#FF416C" }}>{categoryIdName}</b>
     );
     return (
       <div style={{ marginTop: 35, marginLeft: 8 }}>
+        <div style={{ marginBottom: 30 }}>
+          <Breadcrumbs />
+        </div>
         <div
           style={{
             display: "flex",
@@ -139,8 +145,8 @@ class CategoryPage extends Component {
             <SortListProduct
               defaultValue={"createdDate|desc"}
               onChange={this.onChangeSort}
-              valueLow={"price.idr|asc"}
-              valueHigh={"price.idr|desc"} /></span>
+              valueLow={"price.amount|asc"}
+              valueHigh={"price.amount|desc"} /></span>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
