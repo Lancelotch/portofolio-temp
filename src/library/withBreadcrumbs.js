@@ -8,10 +8,6 @@ const renderer = ({ breadcrumb, match }) => {
 }; 
 
 export const getBreadcrumbs = ({ routes, pathname }) => {
-  console.log('pathname',pathname
-  .replace(/\/$/)
-  .split('/'));
-  console.log('routes',routes);
   const matches = [];
   pathname
     .replace(/\/$/, ' ')
@@ -31,12 +27,9 @@ export const getBreadcrumbs = ({ routes, pathname }) => {
         }
         return false;
       });
-      console.log('pathSection',pathSection);
       
       if (breadcrumbMatch) {
-        console.log('breadcrumbMatch',breadcrumbMatch);
         matches.push(breadcrumbMatch);
-        console.log(matches)
       }
       return pathSection;      
     });

@@ -1,33 +1,62 @@
 import React, { Component } from "react";
 import "./style.sass";
-import { Row, Col, Button, Divider } from "antd";
+import { Row, Col, Button, Divider, Pagination } from "antd";
 import Search from "antd/lib/input/Search";
 import dummyQnA from "../../dummy/dummyQnA.json";
-import Highlighter from "react-highlight-words";
+import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 
 class ProductQnA extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ""
+      search: "",
+      minValue: 0,
+      maxValue: 5
     };
   }
 
-  renderQnA = qna => {
+
+  getHighlightedText(text, higlight) {
+    if (!higlight.trim()) {
+      return <span>{text}</span>
+    }
+    let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
+    return <span> {parts.filter(part => part).map((part, i) =>
+      <mark key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
+        {part}
+      </mark>)
+    } </span>;
+  }
+
+  renderQnA = (qna, i) => {
     return (
-      <Col  md={24} style={{ marginTop: "20px" }}>
-        <Highlighter
-          searchWords={[this.state.search]}
-          textToHighlight={qna.answerCustomer}
-        />
-        <p>
-          <Highlighter
-            searchWords={[this.state.search]}
-            textToHighlight={qna.questionAdmin}
-          />
-        </p>
+      <Col key={i} md={24} style={{ marginTop: 20 }}>
+        <Row>
+          <Col md={1}>
+            <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
+          </Col>
+          <Col md={23}>
+            <b>{this.getHighlightedText(qna.answerCustomer, this.state.search)}</b>
+            <p style={{ color: "#417505" }}>{this.getHighlightedText(qna.questionAdmin, this.state.search)}</p>
+          </Col>
+        </Row>
       </Col>
     );
+  };
+
+
+  handleChangeQnA = value => {
+    if (value <= 1) {
+      this.setState({
+        minValue: 0,
+        maxValue: 5
+      });
+    } else {
+      this.setState({
+        minValue: this.state.maxValue,
+        maxValue: value * 5
+      });
+    }
   };
 
   onChange = e => {
@@ -36,7 +65,7 @@ class ProductQnA extends Component {
 
   render() {
     const { search } = this.state
-    const lowercasedFilter = search.toLowerCase();
+    const lowercasedFilter = search.toLowerCase()
     const filteredQnA = dummyQnA.filter(item => {
       return Object.keys(item).some(key =>
         item[key].toLowerCase().includes(lowercasedFilter)
@@ -47,7 +76,7 @@ class ProductQnA extends Component {
         <Row className="title-inline">
           <Col md={13} style={{ paddingTop: "6px" }}>
             <span className="title-inline__title">
-              Pertanyaan terkait Produk (32)
+              Pertanyaan terkait Produk ({dummyQnA.length})
               </span>
           </Col>
           <Col md={3}>
@@ -62,17 +91,20 @@ class ProductQnA extends Component {
           <Col md={8}>
             <Search
               value={this.state.search}
-              onSearch={value => console.log(value)}
               placeholder="Cari pertanyaan terkait"
               onChange={this.onChange}
             />
           </Col>
         </Row>
-        <Row>
-          {filteredQnA.forEach(qna => {
-             this.renderQnA(qna);
-          })}
-        </Row>
+        {filteredQnA.slice(this.state.minValue, this.state.maxValue)
+          .map((val, i) => (this.renderQnA(val, i)))
+        }
+        <Pagination
+          defaultCurrent={1}
+          defaultPageSize={5}
+          onChange={this.handleChangeQnA}
+          total={dummyQnA.length}
+        />
         <Divider />
       </div>
     );

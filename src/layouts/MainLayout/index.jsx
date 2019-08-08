@@ -11,8 +11,6 @@ class MainLayout extends Component {
                 <Header match={this.props} />
                 <ScrollToTopOnMount />
                 <div className="container">
-                {console.log(this.props)}
-                
                     {this.props.children}
                 </div>
                 <Footer />

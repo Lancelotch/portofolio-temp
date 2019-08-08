@@ -92,10 +92,8 @@ class SliderProductDetailContainer extends Component {
             title=" "
             visible={this.state.showGalleryVideo}
             onCancel={this.showHideVideo}
-            centered
-          >
+            centered>
             <div className='video-wrapper'>
-
               <iframe
                 title="video"
                 src={item.embedUrl}

@@ -164,8 +164,6 @@ class ProductDetail extends Component {
 
 
   render() {
-    console.log(this.props.match);
-
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
