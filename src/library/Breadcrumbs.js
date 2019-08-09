@@ -18,7 +18,7 @@ const breadcrumbRoutes = [
     { path: PATH_URL.CATEGORY_LEVEL_1, breadcrumb: UserBreadcrumbLevel1 },
     { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}`, breadcrumb: UserBreadcrumbLevel2 },
     { path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}/:${"categoryLevel3"}`, breadcrumb: UserBreadcrumbLevel3 },
-    { path: `${PATH_URL.PRODUCT_DETAIL}`, breadcrumb: 'Product-Detail' }
+    { path: `${PATH_URL.PRODUCT_DETAIL}`, breadcrumb: 'Product detail' }
 ];
 
 const Breadcrumbs = ({ breadcrumbs }) => {
