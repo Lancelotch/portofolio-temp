@@ -48,7 +48,7 @@ console.log(status);
               {strings.pay_now}
             </Button>
             <Button
-              className="waiting-payment__detail-pesanan"
+              className="waiting-payment__detail-order"
               onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
             >
               {strings.order_details}
@@ -59,7 +59,7 @@ console.log(status);
         <div className="button-dashboard">
           <Button
             style={{ marginTop: 25 }}
-            className="waiting-payment__detail-pesanan"
+            className="waiting-payment__detail-order"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
@@ -72,7 +72,7 @@ console.log(status);
             Pesanan Diterima
           </Button>
           <Button
-            className="waiting-payment__detail-pesanan"
+            className="waiting-payment__detail-order"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
@@ -86,7 +86,7 @@ console.log(status);
             <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
           </Button>
           <Button
-            className="waiting-payment__detail-pesanan"
+            className="waiting-payment__detail-order"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
           >
             {strings.order_details}
@@ -100,7 +100,7 @@ console.log(status);
             <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
           </Button>
           <Button
-            className="waiting-payment__detail-pesanan"
+            className="waiting-payment__detail-order"
             onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}>
             {strings.cancel_details}
           </Button>

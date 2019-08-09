@@ -139,13 +139,13 @@ class SearchPage extends Component {
                 leftMargin={13}
                 rightMargin={13} />}>
               {productList.map((product, index) =>
-
                 <Products
                   key={index}
                   id={product.id}
                   defaultImage={product.defaultImage.defaultImage}
                   information={product.information.name}
                   price={product.price.amount}
+                  videoUrl={product.videoUrl}
                 />
               )}
             </Suspense>

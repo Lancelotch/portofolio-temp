@@ -169,6 +169,7 @@ class CategoryPage extends Component {
                   defaultImage={product.image.mediumUrl}
                   information={product.name}
                   price={product.price}
+                  videoUrl={product.videoUrl}
                 />
               )}
             </Suspense>

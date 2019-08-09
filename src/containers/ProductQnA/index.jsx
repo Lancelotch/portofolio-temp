@@ -1,62 +1,57 @@
 import React, { Component } from "react";
 import "./style.sass";
-import { Row, Col, Button, Divider, Pagination } from "antd";
+import { Row, Col, Button, Divider, Table } from "antd";
 import Search from "antd/lib/input/Search";
 import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
+
+const columns = [
+  {
+    title: 'Question',
+    dataIndex: 'questionAndAnswer',
+    key: 'questionAndAnswer',
+  }
+];
 
 class ProductQnA extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: "",
-      minValue: 0,
-      maxValue: 5
+      search: ""
     };
   }
-
 
   getHighlightedText(text, higlight) {
     if (!higlight.trim()) {
       return <span>{text}</span>
     }
     let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
-    return <span> {parts.filter(part => part).map((part, i) =>
-      <mark key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
-        {part}
-      </mark>)
-    } </span>;
-  }
-
-  renderQnA = (qna, i) => {
-    return (
-      <Col key={i} md={24} style={{ marginTop: 20 }}>
-        <Row>
-          <Col md={1}>
-            <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
-          </Col>
-          <Col md={23}>
-            <b>{this.getHighlightedText(qna.answerCustomer, this.state.search)}</b>
-            <p style={{ color: "#417505" }}>{this.getHighlightedText(qna.questionAdmin, this.state.search)}</p>
-          </Col>
-        </Row>
-      </Col>
-    );
+    return <span>
+      {parts.filter(part => part).map((part, i) =>
+        <mark key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
+          {part}
+        </mark>)
+      }
+    </span>
   };
 
-
-  handleChangeQnA = value => {
-    if (value <= 1) {
-      this.setState({
-        minValue: 0,
-        maxValue: 5
-      });
-    } else {
-      this.setState({
-        minValue: this.state.maxValue,
-        maxValue: value * 5
-      });
-    }
+  renderQnA = (qna, i) => {
+    return ({
+      key: i,
+      questionAndAnswer: [
+        <Col key={i} md={24} style={{ marginTop: 20 }}>
+          <Row>
+            <Col md={1}>
+              <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
+            </Col>
+            <Col md={23}>
+              <b> {this.getHighlightedText(qna.questionAdmin, this.state.search)}</b>
+              <p style={{ color: "#417505" }}> {this.getHighlightedText(qna.answerCustomer, this.state.search)}</p>
+            </Col>
+          </Row>
+        </Col>
+      ]
+    })
   };
 
   onChange = e => {
@@ -96,15 +91,13 @@ class ProductQnA extends Component {
             />
           </Col>
         </Row>
-        {filteredQnA.slice(this.state.minValue, this.state.maxValue)
-          .map((val, i) => (this.renderQnA(val, i)))
-        }
-        <Pagination
-          defaultCurrent={1}
-          defaultPageSize={5}
-          onChange={this.handleChangeQnA}
-          total={dummyQnA.length}
-        />
+        <Table
+          className="table-qna"
+          showHeader={false}
+          pagination={{ defaultPageSize: 5 }}
+          dataSource={
+            filteredQnA.map((QnA, i) => (this.renderQnA(QnA, i)))}
+          columns={columns} />
         <Divider />
       </div>
     );
