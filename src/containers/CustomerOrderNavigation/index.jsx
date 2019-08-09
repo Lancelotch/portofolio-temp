@@ -103,10 +103,20 @@ class CustomerOderNavigation extends Component {
     })
   };
 
+  checkSortTabs = value => {
+    let sortListTabsNotPayCancel = ""
+    if (value === 0 || value === 4) {
+      sortListTabsNotPayCancel = "?direction=desc&sortBy=orderActivityDate.orderDate"
+    }else{
+      sortListTabsNotPayCancel = "?direction=desc&sortBy=creationDate"
+    }
+    return sortListTabsNotPayCancel
+  }
+
   productOrderTabs = async (value) => {
     this.setState({ isLoading: true })
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + value);
+      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + value + this.checkSortTabs(value) );
       if (response.data.data) {
         this.setState({
           productOrder: response.data.data,
