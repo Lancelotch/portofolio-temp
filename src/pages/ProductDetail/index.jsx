@@ -217,7 +217,7 @@ class ProductDetail extends Component {
               </div>
             </Col>
           </Row>
-          <Tabs className="tabs-detail" defaultActiveKey="2" type="card">
+          <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
             <Tabs.TabPane tab="DETAIL PRODUK" key="1">
               {this.state.isProductAvailable &&
                 <Card className="product-description">
