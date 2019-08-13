@@ -47,7 +47,7 @@ const OrderStatusUser = props => {
                                 <h2>{label}</h2>
                             </Col>
                             <Col md={12}>
-                                {((tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
+                                {((tabsShow === "isShowOrderDetailsDashboardInDelivery") || (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
                                 {convertTimesTime.millisecond(estimateShippingDate && estimateShippingDate.receivedDate)}
@@ -62,17 +62,16 @@ const OrderStatusUser = props => {
                                     <td>
                                         <div className="borderRight">
                                             <label className="nameCustomer">{customer.receiverName}</label>
-                                            <p className="nameCustomerText"
-                                                style={{ marginBottom: 7 }}>
+                                            <p className="nameCustomerText" style={{ marginTop: 17 }}>
                                                 <NumberFormat
                                                     value={customer.phoneNumber}
                                                     displayType={'text'}
                                                     format="####-####-####"
                                                 />
-                                            </p>
-                                            <p className="nameCustomerText">
+                                                <br />
                                                 {customer.fullAddress},&nbsp;{customer.city},&nbsp;
-                                        {customer.subdistrict},&nbsp;{customer.province},&nbsp;{customer.zipcode}
+                                        {customer.subdistrict},&nbsp;{customer.province},&nbsp;
+                                        {customer.zipcode}
                                             </p>
                                         </div>
                                     </td>

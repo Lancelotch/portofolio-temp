@@ -20,7 +20,7 @@ const WaitingPayment = props => {
       <div className="waiting-payment" key={orderId}>
         <Row>
           <Col md={12}>
-            {tabsShowItem === 1 &&
+            {tabsShowItem === "isShowOrderDetailsDashboardNotPay" &&
               <React.Fragment>
                 <p className="label-text">
                   {labelNotPay}
@@ -29,12 +29,12 @@ const WaitingPayment = props => {
                   {convertTimesTime.millisecond(indexes.payment.gateway.expiredPaymentDate)}
                 </p>
               </React.Fragment>}
-            {tabsShowItem === 2 &&
+            {tabsShowItem === "isShowOrderDetailsDashboardNotSent" &&
               <p
                 className="not-send">
                 {labelNotSent}
               </p>}
-            {tabsShowItem === 3 &&
+            {tabsShowItem === "isShowOrderDetailsDashboardInDelivery" &&
               <React.Fragment>
                 <p className="label-text">
                   {labelInDelivery}
@@ -43,7 +43,7 @@ const WaitingPayment = props => {
                   {convertTimesTime.millisecond(indexes.orderActivityDate.shipmentDate)}
                 </p>
               </React.Fragment>}
-            {tabsShowItem === 4 &&
+            {tabsShowItem === "isShowOrderDetailsDashboardFinish" &&
               <React.Fragment>
                 <p className="label-text">
                   {labelFinish}
@@ -52,13 +52,9 @@ const WaitingPayment = props => {
                   {convertTimesTime.millisecond(indexes.orderActivityDate.receivedDate)}
                 </p>
               </React.Fragment>}
-            {tabsShowItem === 5 &&
+            {tabsShowItem === "isShowOrderDetailsDashboardCancel" &&
               <React.Fragment>
-                <p
-                  style={{
-                    marginBottom: 0,
-                    color: "black"
-                  }}>
+                <p className="label-text">
                   {labelCancel} {indexes.orderCancel && indexes.orderCancel.cancelBy}
                 </p>
                 <p className="label-time">

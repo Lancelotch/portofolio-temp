@@ -7,6 +7,7 @@ import strings from "../../localization/localization";
 import { Button } from "antd";
 import variantItems from "../../library/variantItems";
 import "./style.sass";
+import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 
 const ProductOrderDetails = props => {
   const
@@ -21,13 +22,16 @@ const ProductOrderDetails = props => {
       id,
       note,
       keyIndex,
-      showHowToModalPayment
+      showHowToModalPayment,
+      status
     } = props;
   return (
     <Card>
       <div className="head-label-item">
         <h2>{label}</h2>
-        {((tabsShow === "showTabsNotSent") || (tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
+        {((tabsShow === "isShowOrderDetailsDashboardNotSent") ||
+          (tabsShow === "isShowOrderDetailsInDelivery") ||
+          (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
           <label>
             <Link
               to={pageUrlViewInvoiceDashboard + id}
@@ -117,20 +121,19 @@ const ProductOrderDetails = props => {
             </table>
           </div>
         </Col>
-        <Col md={5}>
-          {tabsShow === "showTabsInDelivery" &&
-            <Button onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}
-              className="waiting-payment__pay-now">
-              Pesanan Diterima
-        </Button>}
-          {tabsShow === "showTabsNotPay" &&
+        <Col md={5} style={{ marginTop: 30 }}>
+          {tabsShow === "isShowOrderDetailsDashboardInDelivery" &&
+            buttonDisabledandEnabledDelivery(status, actionReceivedConfirm,
+              productOrderRespon, keyIndex, id)}
+          {tabsShow === "isShowOrderDetailsDashboardNotPay" &&
             <Button
               className="waiting-payment__pay-now"
               onClick={() => showHowToModalPayment(productOrderRespon)}
             >
               {strings.pay_now}
             </Button>}
-          {((tabsShow === "showTabsCancel") || (tabsShow === "showTabsFinish")) &&
+          {((tabsShow === "isShowOrderDetailsDashboardCancel") ||
+            (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
             <div className="waiting-payment-cancel">
               <Button
                 className="waiting-payment__pay-now">
@@ -145,3 +148,5 @@ const ProductOrderDetails = props => {
 }
 
 export default ProductOrderDetails;
+
+

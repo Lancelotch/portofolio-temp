@@ -5,20 +5,20 @@ import Search from "antd/lib/input/Search";
 import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 
-const columns = [
-  {
-    title: 'Question',
-    dataIndex: 'questionAndAnswer',
-    key: 'questionAndAnswer',
-  }
+const columns = [{
+  title: 'Question',
+  dataIndex: 'questionAndAnswer',
+  key: 'questionAndAnswer'
+}
 ];
 
 class ProductQnA extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ""
-    };
+      search: "",
+      currentPage: 0
+    }
   }
 
   getHighlightedText(text, higlight) {
@@ -28,9 +28,9 @@ class ProductQnA extends Component {
     let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
     return <span>
       {parts.filter(part => part).map((part, i) =>
-        <mark key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
+        <span key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
           {part}
-        </mark>)
+        </span>)
       }
     </span>
   };
@@ -44,9 +44,13 @@ class ProductQnA extends Component {
             <Col md={1}>
               <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
             </Col>
-            <Col md={23}>
-              <b> {this.getHighlightedText(qna.questionAdmin, this.state.search)}</b>
+            <Col md={23} style={{ marginTop: 10 }}>
+              <b style={{ fontWeight: 555 }}> {this.getHighlightedText(qna.questionAdmin, this.state.search)}</b>
               <p style={{ color: "#417505" }}> {this.getHighlightedText(qna.answerCustomer, this.state.search)}</p>
+              <span>Apakah pertanyaan ini membantu?
+                <Button style={{ margin: "0px 10px 0 10px" }} className="mp-button-qna">Ya</Button>
+                <Button style={{ margin: "0px 10px 0 10px" }} className="mp-button-qna">Tidak</Button>
+              </span>
             </Col>
           </Row>
         </Col>
@@ -54,8 +58,12 @@ class ProductQnA extends Component {
     })
   };
 
-  onChange = e => {
-    this.setState({ search: e.target.value });
+  onChangeSearch = e => {
+    this.setState({ search: e.target.value, currentPage: 0 });
+  };
+
+  onPageChange = page => {
+    this.setState({ currentPage: page })
   };
 
   render() {
@@ -69,7 +77,7 @@ class ProductQnA extends Component {
     return (
       <div className="product-forum">
         <Row className="title-inline">
-          <Col md={13} style={{ paddingTop: "6px" }}>
+          <Col md={13}>
             <span className="title-inline__title">
               Pertanyaan terkait Produk ({dummyQnA.length})
               </span>
@@ -87,18 +95,23 @@ class ProductQnA extends Component {
             <Search
               value={this.state.search}
               placeholder="Cari pertanyaan terkait"
-              onChange={this.onChange}
+              onChange={this.onChangeSearch}
             />
           </Col>
         </Row>
+        <Divider />
         <Table
           className="table-qna"
           showHeader={false}
-          pagination={{ defaultPageSize: 5 }}
+          pagination={{
+            defaultPageSize: 5,
+            current: this.state.currentPage,
+            onChange: this.onPageChange,
+            className: 'pagination-product-forum'
+          }}
           dataSource={
             filteredQnA.map((QnA, i) => (this.renderQnA(QnA, i)))}
           columns={columns} />
-        <Divider />
       </div>
     );
   }

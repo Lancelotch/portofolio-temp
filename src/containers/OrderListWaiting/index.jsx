@@ -12,7 +12,7 @@ import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 
 const confirm = Modal.confirm;
 
-class OrderListWaitingPayment extends Component {
+class OrderListWaiting extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,8 @@ class OrderListWaitingPayment extends Component {
 
   render() {
     const {
-      tabsShowItem,
+      labelTabDetails,
+      estimateAccepted,
       actionShowOrderDetailsDashboard,
       showOrderDetailsDashboard,
       productOrder,
@@ -98,7 +99,7 @@ class OrderListWaitingPayment extends Component {
                 labelFinish={"Pesenan Diterima"}
                 labelInDelivery={"Perkiraan barang diterima"}
                 labelCancel={"Pesenan dibatalkan oleh"}
-                tabsShowItem={tabsShowItem}
+                tabsShowItem={showOrderDetailsDashboard}
                 id={order.id}
                 indexes={order.order}
               />
@@ -107,13 +108,13 @@ class OrderListWaitingPayment extends Component {
                 index={index}
                 status={order.status}
                 invoiceNumber={order.invoiceNumber}
-                tabsShowItem={tabsShowItem}
+                tabsShowItem={showOrderDetailsDashboard}
                 showReceivedConfirm={showReceivedConfirm}
                 showDeleteConfirm={this.showDeleteConfirm}
                 orderProduct={productOrder}
                 order={order.order}
                 showHowToModalPayment={showHowToModalPayment}
-                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order.order, order.invoiceNumber, order.id, index, showOrderDetailsDashboard)}
+                showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order, index, showOrderDetailsDashboard, labelTabDetails, estimateAccepted)}
               />
             </Card>)
         })}
@@ -129,4 +130,4 @@ class OrderListWaitingPayment extends Component {
   }
 }
 
-export default OrderListWaitingPayment;
+export default OrderListWaiting;

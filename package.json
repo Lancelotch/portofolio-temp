@@ -26,7 +26,6 @@
     "react-loading-skeleton": "^1.1.2",
     "react-localization": "^1.0.13",
     "react-magnifier": "^3.0.0",
-    "react-material-snackbar": "^3.0.1",
     "react-moment": "^0.9.2",
     "react-number-format": "^4.0.7",
     "react-redux": "^6.0.0",
@@ -43,9 +42,7 @@
     "redux-promise-middleware": "^5.1.1",
     "redux-saga": "^1.0.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
     "sass": "^1.20.1",
-    "slick-carousel": "^1.8.1",
     "yup": "^0.27.0"
   },
   "scripts": {
