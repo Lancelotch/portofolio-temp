@@ -1,4 +1,9 @@
-.productOrder
+@import '../../sass/variable.sass'
+
+
+.product-order
+    table 
+        margin-top: 10px
     h2
         // color: #4A4A4A
         font-size: 18px
@@ -6,25 +11,39 @@
         margin-bottom: 0px
     &__quantity
         font-size: 16px
-        color: #000000    
+        color: $color-black    
     &__image 
         max-width: 66.56px
         max-height: 70px
         display: block
         margin: 6px auto
     &__variant
-        color: #9B9B9B
+        color: $color-nobel
         font-size: 16px
         line-height: 18px
+        padding-left: 20px
     &__variant p 
         margin-bottom: 5px !important    
     &__totalPrice
-        color: #4A4A4A
+        color: $color-charcoal
         font-size: 16px
         line-height: 18px   
     &__inline
         box-sizing: border-box
         height: 1px
-        border: 1px solid #DDDDDD 
+        border: 1px solid $gainsboro 
         margin-left: -25px
         width: 110%   
+
+.head-label-item
+    display: flex
+    justify-content: space-between
+    label
+         font-size: 20px
+         color: $color-grey
+    a   
+        cursor: pointer
+        color: $color-safety-orange
+    h4 
+        display: unset    
+        

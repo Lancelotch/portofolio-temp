@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import { Button } from "antd";
 import variantItems from "../../library/variantItems";
-import "./style.sass";
+import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 
 const ProductOrderDetails = props => {
@@ -43,27 +43,27 @@ const ProductOrderDetails = props => {
             </h4> &nbsp;
           </label>}
       </div>
-      <hr className="productOrder__inline" />
+      <hr className="product-order__inline" />
       <Row style={{ marginTop: 25 }}>
         <Col md={2}>
           <Link
             style={{ cursor: "pointer" }}
             to={pageUrlProductDetail + productSnapshot.productId}>
             <img
-              className="productOrder__image"
+              className="product-order__image"
               src={productSnapshot.image.defaultImage}
               alt=""
             />
           </Link>
         </Col>
         <Col md={17}>
+        <div className="product-order__variant">
           <Link
             className="default"
             style={{ cursor: "pointer" }}
             to={pageUrlProductDetail + productSnapshot.productId}>
-            <h2 style={{ marginBottom: 0 }}> {productSnapshot.name} </h2>
+            <h2> {productSnapshot.name} </h2>
           </Link>
-          <div className="productOrder__variant">
             <table>
               <tbody>
                 <tr>
@@ -102,7 +102,7 @@ const ProductOrderDetails = props => {
                 </tr>
                 <tr>
                   <td style={{ width: 70 }}>
-                    <p className="productOrder__quantity">
+                    <p className="product-order__quantity">
                       {strings.total}
                     </p>
                   </td>
@@ -112,7 +112,7 @@ const ProductOrderDetails = props => {
               </p>
                   </td>
                   <td>
-                    <p className="productOrder__quantity">
+                    <p className="product-order__quantity">
                       {productSnapshot.quantity}&nbsp;{strings.pcs}
                     </p>
                   </td>

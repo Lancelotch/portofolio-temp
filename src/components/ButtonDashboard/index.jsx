@@ -57,7 +57,6 @@ const ButtonDashboard = (props) => {
           {tabsShowItem === "isShowOrderDetailsDashboardInDelivery" &&
           buttonDisabledandEnabledDelivery(status, showReceivedConfirm,
             orderProduct, index, id)}
-          }
           {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
             (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
             <Button
