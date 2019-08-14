@@ -3,7 +3,7 @@ import "./style.sass";
 import { Input, Button, Form, Row, Col } from "antd";
 
 const ProfileEdit = props => {
-  const onSubmitImage = e => {
+  const onSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
@@ -20,7 +20,7 @@ const ProfileEdit = props => {
   const { customerName, customerEmail, handleChangeName } = props;
   const { getFieldDecorator } = props.form;
   return (
-    <Form onSubmit={onSubmitImage} className="profile__row-edit">
+    <Form onSubmit={onSubmit} className="profile__row-edit">
       <Row>
         <Col md={4}>
           <Form.Item>

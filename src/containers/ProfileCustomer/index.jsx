@@ -5,7 +5,7 @@ import ProfileEdit from "../../components/ProfileEdit";
 import customer from "../../api/services/customer";
 import { connect } from "react-redux";
 import { customerNameEdit } from "../../store/actions/authentication";
-import { Row, Col, notification } from "antd";
+import { Row, Col, notification, Card } from "antd";
 import { apiPostWithToken } from "../../api/services";
 import { PATH_CUSTOMER } from "../../api/path";
 
@@ -195,32 +195,34 @@ class ProfileCustomer extends Component {
     };
 
     return (
-      <Row className="profile">
-        <Col md={12}>
-          <ProfileAvatar
-            photoUrl={photoUrl}
-            beforeUpload={beforeUpload}
-            uploadImage={this.uploadImage}
-            handleChangeImage={this.handleChangeImage}
-            removeImage={this.removeImage}
-            handleError={this.handleError}
-            landscape={landscape}
-            portrait={portrait}
-            isErrorDimension={isErrorDimension}
-            isErrorFormat={isErrorFormat}
-            isErrorSize={isErrorSize}
-            disabled={disabled}
-          />
-        </Col>
-        <Col md={12}>
-          <ProfileEdit
-            customerName={customerName}
-            customerEmail={customerEmail}
-            handleSubmit={this.handleSubmit}
-            handleChangeName={this.handleChangeName}
-          />
-        </Col>
-      </Row>
+      <Card title="Profil Pengguna" bodyStyle={{display:"flex"}}>
+        <Row className="profile">
+          <Col md={12}>
+            <ProfileAvatar
+              photoUrl={photoUrl}
+              beforeUpload={beforeUpload}
+              uploadImage={this.uploadImage}
+              handleChangeImage={this.handleChangeImage}
+              removeImage={this.removeImage}
+              handleError={this.handleError}
+              landscape={landscape}
+              portrait={portrait}
+              isErrorDimension={isErrorDimension}
+              isErrorFormat={isErrorFormat}
+              isErrorSize={isErrorSize}
+              disabled={disabled}
+            />
+          </Col>
+          <Col md={12}>
+            <ProfileEdit
+              customerName={customerName}
+              customerEmail={customerEmail}
+              handleSubmit={this.handleSubmit}
+              handleChangeName={this.handleChangeName}
+            />
+          </Col>
+        </Row>
+      </Card>
     );
   }
 }

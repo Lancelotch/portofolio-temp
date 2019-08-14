@@ -52,7 +52,7 @@ class ProfileMain extends Component {
     const { portrait, landscape } = this.state;
     return (
       <div>
-        <Row style={{ padding: "46px 0 12px 0" }}>
+        <Row style={{ padding: "16px 0 12px 0" }}>
           <Col
             md={6}
             className={portrait ? "portrait" : landscape ? "landscape" : ""}
