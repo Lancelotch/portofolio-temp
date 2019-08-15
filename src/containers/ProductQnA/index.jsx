@@ -45,11 +45,15 @@ class ProductQnA extends Component {
               <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
             </Col>
             <Col md={23} style={{ marginTop: 10 }}>
-              <b style={{ fontWeight: 555 }}> {this.getHighlightedText(qna.questionAdmin, this.state.search)}</b>
-              <p style={{ color: "#417505" }}> {this.getHighlightedText(qna.answerCustomer, this.state.search)}</p>
+              <b style={{ fontWeight: 555 }}>
+                {this.getHighlightedText(qna.questionAdmin, this.state.search)}
+              </b>
+              <p style={{ color: "#417505" }}>
+                {this.getHighlightedText(qna.answerCustomer, this.state.search)}
+              </p>
               <span>Apakah pertanyaan ini membantu?
-                <Button style={{ margin: "0px 10px 0 10px" }} className="mp-button-qna">Ya</Button>
-                <Button style={{ margin: "0px 10px 0 10px" }} className="mp-button-qna">Tidak</Button>
+                <Button className="mp-button-qna">Ya</Button>
+                <Button className="mp-button-qna">Tidak</Button>
               </span>
             </Col>
           </Row>
@@ -88,7 +92,7 @@ class ProductQnA extends Component {
               className="title-inline__button-live-chat"
               onClick={this.handleLiveChat}
             >
-              LIVE CHAT
+              Live Chat
               </Button>
           </Col>
           <Col md={8}>
