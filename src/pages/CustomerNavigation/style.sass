@@ -6,18 +6,23 @@
 .ant-tabs .ant-tabs-left-bar .ant-tabs-tab
     text-align: unset !important
 
+.customerOrderNavigation .mp-loading-items
+    display: flex
+    justify-content: center
+    margin-top: 100px   
+
 i.anticon.anticon-rocket.iconRocket 
     transform: rotate(44deg)
     font-size: 19px
     
 .customerOrderNavigation
-    background-color: "#FAFAFA"    
+    background-color: #FAFAFA    
 
 .customerOrderNavigation .ant-tabs-nav .ant-tabs-tab:hover 
     color: $secondary-color !important
 
 .customerOrderNavigation .ant-tabs-nav-container
-    background-color: #ffffff
+    background-color: $text-white
     border-radius: 4px
     padding: 10px
 
@@ -35,9 +40,8 @@ i.anticon.anticon-rocket.iconRocket
     border-left: unset !important 
 
 .dashboardUser 
-    margin-top: 20px
     &__Title
-        color: #000000
+        color: $color-black
         font-size: 14px    
 
 .dashboardUser .ant-tabs-nav .ant-tabs-tab-active span 

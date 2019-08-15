@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col } from "antd";
+import { Input, Form, Icon, Row, Col, Typography } from "antd";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
 import { connect } from "react-redux";
@@ -24,6 +24,9 @@ import {
   RegistrationSubmitButton
 } from "./registerContainer";
 
+
+const { Text } = Typography
+
 const FormItem = Form.Item;
 
 class RegisterPage extends Component {
@@ -35,13 +38,14 @@ class RegisterPage extends Component {
       status: null,
       message: "",
       modalStatus: false,
-      heightImageBackground: 0
+      heightImageBackground: 0,
+      limit: ""
     };
   }
 
   componentDidMount() {
     console.log(this.props.match.params);
-    
+
     this.props.handleLoadingFalse();
     if (this.props.location.state !== undefined) {
       this.setState({
@@ -122,9 +126,13 @@ class RegisterPage extends Component {
     this.props.clearError();
   };
 
-  maxName = (event) => { 
-    if(event.target.value.length >= 30){
-      alert('karakter sudah jumlah max 30,tidak bisa lebih dari 30')
+  maxName = (event) => {
+    if (event.target.value.length >= 30) {
+      this.setState({ limit: 'karakter sudah jumlah max 30,tidak bisa lebih dari 30' })
+    } else {
+      return setTimeout(() => {
+        this.setState({ limit: '' })
+      },5000)
     }
   }
 
@@ -166,6 +174,7 @@ class RegisterPage extends Component {
                       maxLength={30}
                     />
                   )}
+                  <Text type="danger" className="mp-limit-character">{this.state.limit}</Text>
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator("email", rulesEmail())(

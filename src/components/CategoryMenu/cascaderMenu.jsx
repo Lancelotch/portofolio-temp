@@ -38,11 +38,10 @@ const CategoryMenuCascader = props => {
             (children &&
                 children.map(child => ({
                     value: child.id,
-                    label: <Link
-                    style={{ width: "100%", display: "block", height: "31px" }}
-                    key={child.id}
-                    className="default"
-                    to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
+                    label: <Link         
+                        key={child.id}
+                        className="defaultCategoryMenu"
+                        to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}>
                         {child.name}
                     </Link>
                 }))) || []
@@ -54,25 +53,30 @@ const CategoryMenuCascader = props => {
             children &&
             children.map(child => ({
                 value: child.id,
-                label: <Link key={child.id} style={{ width: "100%", display: "block", height: "31px" }} className="default" to={`${url}/${idCategory}/${child.idName}`}>
+                label: <Link key={child.id}    
+                    className="defaultCategoryMenu"
+                    to={`${url}/${idCategory}/${child.idName}`}>
                     {child.name}
                 </Link>,
                 children: createSubChildren(child.categorySubChildResponses, child.idName, idCategory)
             }))
         );
     };
-    
+
 
     const url = isUrlIsCategory(match.url);
     // const options = allCategory.map(build_menu);
     const options = allCategory.map(category => ({
         value: category.id,
-        label: <Link key={category.id} style={{ width: "100%", display: "block", height: "31px" }} className="default" to={`${url}/${category.idName}`}>{category.name}</Link>,
+        label: <Link key={category.id}
+            className="defaultCategoryMenu"
+            to={`${url}/${category.idName}`}>
+            {category.name}
+        </Link>,
         children: createChildren(category.categorySubResponses, category.idName)
     }));
 
     return (
-        <React.Fragment>
             <Row>
                 <Col md={24}>
                     <Cascader key={"id"} popupClassName={"cascader-popup header__categoriess"} options={options} expandTrigger={"hover"}>
@@ -83,7 +87,6 @@ const CategoryMenuCascader = props => {
                     </Cascader>
                 </Col>
             </Row>
-        </React.Fragment>
     );
 }
 

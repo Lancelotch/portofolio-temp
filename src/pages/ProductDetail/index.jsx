@@ -167,17 +167,17 @@ class ProductDetail extends Component {
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
-      <Breadcrumbs />
-        <div className="container productDetail">
+      <Breadcrumbs information={this.state.information.name} />
+        <div className="container mp-product-detail">
           <Row>
             <Col md={10}>
-              <p className="productDetail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
+              <p className="mp-product-detail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
               {this.state.images.length < 1 ? <Skeleton height={300} /> :
                 <SliderProductDetailContainer videoUrl={this.state.videoUrl} isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
             </Col>
             <Col md={12} offset={1}>
-              <div style={{}}>
-                <p className="productDetail__price">
+              <div>
+                <p className="mp-product-detail__price">
                   {this.state.images.length < 1 ? <Skeleton height={25} /> : (currencyRupiah(this.state.price.amount))}
                 </p>
                 {this.state.images.length < 1 ? <Skeleton height={25} width={200} /> :
@@ -188,7 +188,7 @@ class ProductDetail extends Component {
                   </div>
                   :
                   <React.Fragment>
-                    <span style={{ fontSize: "18px", color: "#5d5d5d", display: "block" }}>Jumlah</span>
+                    <span className="mp-product-detail__total-quantity">Jumlah</span>
                     <ButtonQuantityContainer
                       stock={this.state.information.maxOrder}
                       quantity={this.state.quantity}
@@ -207,7 +207,7 @@ class ProductDetail extends Component {
                   <div style={{ marginTop: 64 }}>
                     {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text> : null}
                     <button
-                      className="productDetail__addCart"
+                      className="mp-product-detail__addCart"
                       onClick={this.actionSubmitToCheckout}
                     >
                       {strings.order_now}

@@ -13,7 +13,7 @@
     display: flex
     justify-content: center
     align-items: center
-    background: #fafafa
+    background: $color-snow
     width: 100%
     transform: translate3d(0, 0, 0)
     transition: mdc-animation-exit-temporary(transform, 250ms)
@@ -32,7 +32,7 @@
     padding-left: 70px
     padding-right: 70px
     padding-bottom: 20px
-    background-color: #ffffff
+    background-color: $white-font-color
     z-index: 1000
     &__logo
         padding-top: 40px
@@ -43,7 +43,7 @@
     &__search 
         height: 48px
     &__search input
-        background-color: #FAFAFA
+        background-color: $color-snow
     &__categories
         // font-size: 18px
         display: flex
@@ -54,7 +54,7 @@
         flex-direction: row
         padding-top: 12px 
     &__menu
-        color: #777777
+        color: $color-grey
         font-size: 14px
         // line-height: 16px
         margin-right: 20px 
@@ -65,7 +65,7 @@
         display: block
         width: 0
         height: 2px
-        background: #777777
+        background: $color-grey
         transition: width .3s
     &__menu:hover
         color: $primary-color-hover
@@ -76,7 +76,7 @@
         padding-top: 12px
         height: 16px
         // width: 134px
-        color: #000000
+        color: $color-black
         font-size: 14px
         line-height: 16px
     &__greeting h3
@@ -97,7 +97,7 @@
         // margin-left:5px
         font-size: 18px
     &__user-box span
-        color: #007E80
+        color: $color-teal
         font-size: 14px
         // line-height: 16px
         // padding-top: 12px
@@ -106,7 +106,7 @@
         margin-right: 3px
     &__name-icon
         padding-top: 7px
-        color: #999999 !important
+        color: $color-hex-gray !important
     &__user-box .wrap-header-dropdown .header-ellipsis
         max-width: 90px !important
         white-space: nowrap
@@ -136,7 +136,7 @@
     &__user-profile
         height: 28px
         width: 59px
-        color: #000000
+        color: $color-black
         font-size: 20px
         font-weight: 500
         line-height: 28px
@@ -144,12 +144,12 @@
         box-sizing: border-box
         height: 1px
         width: 100%
-        border: 1px solid #EEEEEE
+        border: 1px solid $color-whisper
         margin: 0px 0px 15px 0px
     &__user-logout
         padding: 16px 16px 6px 16px
     &__user-li
-        color: #4A4A4A
+        color: $color-charcoal
         font-size: 14px
         font-weight: 500
         line-height: 22px
@@ -161,7 +161,7 @@
         height: 48px
         margin-top: 26px
         cursor: pointer
-        background-color: #ffffff
+        background-color: $text-white
     // &__user-menu li button:hover
     //     color: $secondary-color
     //     border-color: $secondary-color
@@ -174,7 +174,7 @@
     left: 325px !important
 
 .linkCategory 
-    color: "black" 
+    color: $color-black
 
 .header__icon
     display: block
@@ -188,7 +188,7 @@
 .category
     height: 18px
     width: 59px
-    color: #007E80
+    color: $color-teal
     font-size: 15px
     font-weight: 500
     line-height: 18px
