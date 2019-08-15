@@ -21,6 +21,9 @@ const strings = new LocalizedStrings({
     use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
 
     //general
+    change_address:'Ubah Alamat',
+    password:'Password',
+    profile:'Profile',
     add_address: 'Tambah Alamat',
     address_me : 'Alamat Saya',
     order_name: 'Nama Pesanan',
@@ -36,6 +39,9 @@ const strings = new LocalizedStrings({
     cancel_order_by : 'Pesenan dibatalkan oleh',
     buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
+    estimate_accepted_order: 'Perkiraan barang diterima',
+    order_received: 'Pesenan Diterima',
+    in_delivery: 'Dalam Proses Pengiriman',
     before_pay: 'Bayar Sebelum',
     pay_now : 'Bayar Sekarang',
     cancel_details: 'Detail Pembatalan',

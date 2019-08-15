@@ -92,13 +92,13 @@ class OrderListWaiting extends Component {
                 order={order}
                 orderItems={order.order.orderItems}
               />
-              <hr className="productOrder__inline" />
+              <hr className="mp-inline" />
               <WaitingPayment
-                labelNotPay={"Bayar Sebelum"}
-                labelNotSent={"Dalam Proses Pengiriman"}
-                labelFinish={"Pesenan Diterima"}
-                labelInDelivery={"Perkiraan barang diterima"}
-                labelCancel={"Pesenan dibatalkan oleh"}
+                labelNotPay={strings.before_pay}
+                labelNotSent={strings.in_delivery}
+                labelFinish={strings.order_received}
+                labelInDelivery={strings.estimate_accepted_order}
+                labelCancel={strings.cancel_order_by}
                 tabsShowItem={showOrderDetailsDashboard}
                 id={order.id}
                 indexes={order.order}

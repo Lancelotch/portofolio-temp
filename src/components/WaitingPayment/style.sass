@@ -35,7 +35,7 @@
     &__total-received
         font-size: 16px
         float: right
-        margin-top: -15px
+        margin: -15px 0px 20px 0px
         color: $color-grey
     &__button
         border: unset 
@@ -62,10 +62,9 @@
         width: 175px !important
         border-radius: 4px !important
         font-weight: 500 !important
-
-.waiting-payment__detail-order:hover
-    color: $green-table !important
-    border-color: $green-table !important         
+    &__detail-order:hover
+        color: $green-table !important
+        border-color: $green-table !important         
 
 .ant-modal-confirm .ant-modal-confirm-btns button + button 
     background-color: $secondary-color !important
@@ -75,6 +74,12 @@
     color: $primary-color !important
     border-color: $primary-color
 
+.ant-modal.ant-modal-confirm.ant-modal-confirm-confirm.deliveryReceiver .ant-btn-default:hover 
+    color: $text-white !important
+    border-color: unset
+
+.ant-btn:hover, .ant-btn:focus 
+    border-color: unset !important
 
 .ant-btn:active, .ant-btn.active
     border-color: unset !important

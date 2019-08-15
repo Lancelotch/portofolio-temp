@@ -6,7 +6,7 @@ import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 
 const { Content, Sider } = Layout;
 
-class SidebarNavigationCustomer extends Component {
+class NavigationCustomer extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -25,15 +25,15 @@ class SidebarNavigationCustomer extends Component {
     render() {
         return (
             <Layout>
-                <div className="customerLayout">
+                <div className="mp-customer-layout">
                     <Header match={this.props} />
                     <ScrollToTopOnMount />
-                    <div className="container">
+                    <div className="container mp-customer-layout__wrapper">
                         <Layout>
-                            <Sider>
+                            <Sider className="mp-customer-layout__children">
                                 {this.childrenWithProps}
                             </Sider>
-                            <Layout style={{ marginTop: 25,marginLeft:40 }}>
+                            <Layout className="mp-customer-layout__content">
                                 <Content>
                                     {this.state.page}
                                 </Content>
@@ -47,4 +47,4 @@ class SidebarNavigationCustomer extends Component {
     }
 }
 
-export default SidebarNavigationCustomer;
+export default NavigationCustomer;

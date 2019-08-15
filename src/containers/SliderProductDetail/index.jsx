@@ -51,12 +51,12 @@ class SliderProductDetailContainer extends Component {
       this.slider.slideToIndex(this.showThumbnail())
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
-    }
-    this.setState({
-      imagesToShow: imagesToShow,
-      isImageVariantExist: isImageVariantExist,
-      startIndex: 0
-    });
+      this.setState({
+        imagesToShow: imagesToShow,
+        isImageVariantExist: isImageVariantExist,
+        startIndex: 0
+      });
+    }    
   }
 
   showThumbnail = () => {

@@ -55,7 +55,7 @@ const OrderStatusUser = props => {
                                 }
                             </Col>
                         </Row>
-                        <hr className="productOrder__inline" />
+                        <hr className="mp-inline" />
                         <table>
                             <tbody>
                                 <tr>
