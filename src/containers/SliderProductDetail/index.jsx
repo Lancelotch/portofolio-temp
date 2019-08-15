@@ -19,6 +19,8 @@ class SliderProductDetailContainer extends Component {
     }
   }
 
+
+
   componentDidMount() {
     let imageDefault = this.props.imageDefault;
     let imagesProps = this.props.images;
@@ -37,16 +39,16 @@ class SliderProductDetailContainer extends Component {
 
   componentWillReceiveProps(props) {
     if (props.isUpdateImageVariant) {
-      this.showImages(props.imageVariant, props.videoUrl);
+      this.showImages(props.imageVariant);
     }
   }
 
-  showImages(imageVariantProps = "", videoUrl) {
+  showImages(imageVariantProps = "") {
     let imagesToShow = [...this.state.imagesWithDefault];
     let isImageVariantExist = false;
     const imageVariant = { ...imageVariantProps };
     if (imageVariant.largeUrl !== undefined) {
-      this.slider.slideToIndex(videoUrl ? 1 : 0)
+      this.slider.slideToIndex(this.showThumbnail())
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
     }
@@ -57,12 +59,20 @@ class SliderProductDetailContainer extends Component {
     });
   }
 
+  showThumbnail = () => {
+    if (this.props.videoUrl) {
+      return 1
+    } else {
+      return 0
+    }
+  }
+
   removeThumbnailImageVariant = () => {
     const imagesToShow = this.state.imagesToShow;
     const thumbnailDom = document.getElementsByClassName("image-gallery-thumbnail");
     const lenImagesToShowWihoutVariant = imagesToShow.length - 1;
     if (thumbnailDom.length > lenImagesToShowWihoutVariant) {
-      thumbnailDom[this.props.videoUrl ? 1 : 0].parentNode.removeChild(thumbnailDom[this.props.videoUrl ? 1 : 0]);
+      thumbnailDom[this.showThumbnail()].parentNode.removeChild(thumbnailDom[this.showThumbnail()]);
     }
   }
 
@@ -158,15 +168,18 @@ class SliderProductDetailContainer extends Component {
     return imagesandVideoToShow.concat(this.imageSlide())
   }
 
+
   render() {
     const { videoUrl } = this.props;
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     let isShowNav = this.props.images.length > 4 ? true : false
+    console.log(this.state.isImageVariantExist2);
+
     return (
       <Row>
         <Col md={24}>
           <ImageGallery
-            ref={slider => (this.slider = slider)}
+            ref={slider => this.slider = slider}
             items={videoUrl ? this.imagesandVideoToShow() : this.imageSlide()}
             renderItem={this.imageHover}
             onSlide={this.changeSlide}

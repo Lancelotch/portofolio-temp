@@ -16,6 +16,7 @@ const Products = props => {
         urlImage={props.defaultImage}
         name={props.information}
         price={props.price}
+        videoUrl={props.videoUrl}
       />
     </Col>
   )

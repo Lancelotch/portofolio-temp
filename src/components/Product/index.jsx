@@ -23,7 +23,12 @@ const Product = props => {
           hoverable
           bordered={true}
           style={cardStyle}
-          cover={ <div className="popular__image-cover"><img alt="example" src={urlImage} className="popular__image" /></div>}
+          cover={ 
+            <div className="popular__image-cover">
+            <img alt="example" src={urlImage} className="popular__image" />
+            {props.videoUrl && <div className='play-button-card-products' />}
+            </div>
+          }
         >
           <Meta title={title} description={<span className="priceProduct">{price}</span>} />
         </Card>
