@@ -14,59 +14,44 @@ const PaymentInfo = props => {
 
     return (
         <Card>
-            <div className="paymentInfo">
+            <div className="mp-payment-info">
                 <Row>
                     <Col md={24}>
                         <table>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <p className="nameCustomerText"
-                                            style={{ marginBottom: 0 }}>
+                                        <p className="mp-price-product-payment-info">
                                             {strings.price_product}
                                         </p>
                                     </td>
                                     <td>
-                                        <p className="nameCustomerText"
-                                            style={{
-                                                marginBottom: 0,
-                                                textAlign: "right",
-                                                fontSize: 18
-                                            }}>
+                                        <p className="mp-price-payment-info">
                                             {currencyRupiah(productSnapshot.price)}
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p className="nameCustomerText"
-                                            style={{
-                                                marginBottom: 0,
-                                                marginTop: -20
-                                            }}>
+                                        <p className="mp-payment-info-pcs">
                                             {strings.pcs}
                                         </p>
                                     </td>
                                     <td>
-                                        <p className="nameCustomerText"
-                                            style={{
-                                                marginBottom: 0,
-                                                textAlign: "right",
-                                                marginTop: -20
-                                            }}>
+                                        <p className="mp-quantity-payment-info">
                                             X&nbsp;{productSnapshot.quantity}
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <b className="paymentBold">
+                                        <b className="mp-sub-total-payment-info">
                                             {strings.sub_total}
                                         </b>
                                     </td>
                                     <td>
-                                        <p className="paymentBold"
-                                            style={{ textAlign: "right" }}>
+                                        <p className="mp-sub-total-payment-info 
+                                        mp-sub-total-right-payment-info">
                                             {currencyRupiah(totalAmount)}
                                         </p>
                                     </td>
@@ -74,8 +59,7 @@ const PaymentInfo = props => {
                                 {shipment !== undefined | shipment ?
                                     <tr>
                                         <td>
-                                            <p className="nameCustomerText"
-                                                style={{ marginBottom: 0, fontSize: 14 }}>
+                                            <p className="mp-international-shipping-payment-info">
                                                 {strings.international_shipping}
                                             </p>
                                         </td>
@@ -84,18 +68,12 @@ const PaymentInfo = props => {
                                 {shipment !== undefined | shipment ?
                                     <tr>
                                         <td>
-                                            <p className="customerVia"
-                                                style={{ marginBottom: 0, marginTop: -20 }}>
+                                            <p className="mp-customer-via mp-customer-via-courier-name">
                                                 {shipment.via === "air" ? "Udara" : "Laut"}
                                             </p>
                                         </td>
                                         <td>
-                                            <p className="customerVia"
-                                                style={{
-                                                    marginBottom: 0,
-                                                    textAlign: "right",
-                                                    marginTop: -20
-                                                }}>
+                                            <p className="mp-customer-via mp-customer-via-courier-price">
                                                 {shipment.via === "sea" ?
                                                     "Ongkir Sudah Termasuk " :
                                                     currencyRupiah(totalShipment)
@@ -106,28 +84,22 @@ const PaymentInfo = props => {
                                 {courier !== undefined | courier ?
                                     <tr>
                                         <td>
-                                            <p className="nameCustomerText"
-                                                style={{ marginBottom: 0, fontSize: 14 }}>
+                                            <p className="mp-payment-info-pengiriman-lokal">
                                                 Pengiriman Lokal
-                                                    </p>
+                                            </p>
                                         </td>
                                     </tr>
                                     : null}
                                 {courier !== undefined | courier ?
                                     <tr>
                                         <td>
-                                            <p className="customerVia"
-                                                style={{ marginBottom: 0, marginTop: -20 }}>
+                                            <p className="mp-customer-via mp-customer-via-courier-name">
                                                 {courier.name}
                                             </p>
                                         </td>
                                         <td>
-                                            <p className="customerVia"
-                                                style={{
-                                                    marginBottom: 0,
-                                                    textAlign: "right",
-                                                    marginTop: -20
-                                                }}>
+                                            <p className="mp-customer-via 
+                                            mp-customer-via-courier-price">
                                                 {currencyRupiah(courier.price)}
                                             </p>
                                         </td>
@@ -135,13 +107,13 @@ const PaymentInfo = props => {
                                 { /* courier !== undefined | courier ?
                                         <tr>
                                             <td>
-                                                <p className="customerVia"
+                                                <p className="mp-customer-via"
                                                     style={{ marginBottom: 0, marginTop: -20 }}>
                                                     Asuransi
                                                     </p>
                                             </td>
                                             <td>
-                                                <p className="customerVia"
+                                                <p className="mp-customer-via"
                                                     style={{
                                                         marginBottom: 0,
                                                         textAlign: "right",
@@ -153,33 +125,25 @@ const PaymentInfo = props => {
                                                 </tr> : null*/}
                                 <tr>
                                     <td>
-                                        <p className="totalPesanan"
-                                            style={{ marginBottom: 0, marginTop: 24 }}
+                                        <p className="mp-total-pesanan mp-total-pesanan-string"
                                         >{strings.total_payment}</p>
                                     </td>
                                     <td>
-                                        <p className="totalPesanan"
-                                            style={{
-                                                marginBottom: 0,
-                                                textAlign: "right",
-                                                marginTop: 24
-                                            }}>
+                                        <p className="mp-total-pesanan mp-total-pesanan-amount">
                                             {currencyRupiah(amount)}
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p className="nameCustomerText"
-                                            style={{ marginBottom: 0 }}>
+                                        <p className="mp-payment-type-payment-info">
                                             {strings.payment_type}
                                         </p>
                                     </td>
                                     {payment !== undefined | payment ?
                                         <td>
                                             <p
-                                                className="nameCustomerText"
-                                                style={{ marginBottom: 0, textAlign: "right" }}>
+                                                className="mp-price-payment-info">
                                                 {payment.gateway.bankName} Virtual Account
                                                 </p>
                                         </td>
@@ -193,13 +157,13 @@ const PaymentInfo = props => {
                             </tbody>
                         </table>
                         {cancelBy !== undefined | cancelBy ?
-                            <div className="paymentCancelOrder" key={""}>
+                            <div className="mp-payment-info-cancel-order" key={""}>
                                 <Row>
                                     <Col md={24}>
-                                        <p className="paymentCancelOrder__label">
+                                        <p className="mp-payment-info-cancel-order__label">
                                             {strings.cancel_order_by} {cancelBy.cancelBy}
                                         </p>
-                                        <p className="paymentCancelOrder__labelEstimate">
+                                        <p className="mp-payment-info-cancel-order__label-estimate">
                                             {convertTimesTime.millisecond(cancelBy.createdDate)}
                                         </p>
                                     </Col>
