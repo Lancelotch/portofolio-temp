@@ -22,7 +22,7 @@ class CustomerNavigation extends Component {
       case "my-account":
         this.props.actionChangePage(<ProfileCustomer />);
         break;
-      case "my":
+      case "my-order":
         this.props.actionChangePage(<CustomerOderNavigation />);
         break;
       case "edit-address":
@@ -60,7 +60,7 @@ class CustomerNavigation extends Component {
             <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>{strings.change_address}</Menu.Item>
             <Menu.Item key="password" onClick={() => this.changeMenu("password")}>{strings.password}</Menu.Item>
           </SubMenu>
-          <Menu.Item key="my" className="mp-dashboard-user__title" onClick={() => this.changeMenu("my")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
+          <Menu.Item key="my-order" className="mp-dashboard-user__title" onClick={() => this.changeMenu("my-order")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
         </Menu>
       </div>
     );
