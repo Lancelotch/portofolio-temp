@@ -3,17 +3,9 @@ import "./style.sass";
 import { Avatar, Button, Icon, Upload, Row, Col } from "antd";
 
 const ProfileAvatar = props => {
-  const propsUpload = {
-    name: "avatar",
-    showUploadList: false,
-    beforeUpload: props.beforeUpload,
-    customRequest: ({ onError, onSuccess, file }) =>
-      uploadImage({ onError, onSuccess, file }),
-    onChange: file => props.handleChangeImage(file)
-  };
-
   const {
     photoUrl,
+    loading,
     uploadImage,
     removeImage,
     handleError,
@@ -25,13 +17,27 @@ const ProfileAvatar = props => {
     disabled
   } = props;
 
+  const propsUpload = {
+    name: "avatar",
+    showUploadList: false,
+    beforeUpload: props.beforeUpload,
+    customRequest: ({ onError, onSuccess, file }) =>
+      uploadImage({ onError, onSuccess, file }),
+    onChange: file => props.handleChangeImage(file)
+  };
+
   return (
     <Row className="profile-avatar">
       <Col
         md={8}
         className={portrait ? "portrait" : landscape ? "landscape" : ""}
       >
-        <Avatar icon="user" src={photoUrl} size={98} alt="You're Perfect" />
+        <Avatar
+          size={98}
+          icon={loading ? "loading" : "user"}
+          src={photoUrl}
+          alt="You're Perfect"
+        />
       </Col>
       <Col md={16}>
         <p className="profile-avatar__title">

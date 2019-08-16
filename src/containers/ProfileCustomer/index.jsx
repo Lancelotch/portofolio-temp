@@ -16,6 +16,7 @@ class ProfileCustomer extends Component {
       customerName: this.props.customerName,
       customerEmail: "",
       photoUrl: "",
+      loading: false,
       allData: {},
       isErrorDimension: false,
       isErrorFormat: false,
@@ -79,6 +80,12 @@ class ProfileCustomer extends Component {
 
   handleChangeImage = res => {
     console.log("onChange", res.file.status);
+    if (res.file.status === "uploading") {
+      this.setState({
+        ...this.state.allData,
+        loading: true
+      });
+    }
     if (res.file.status === "done") {
       this.setState({
         photoUrl: res.file.response.smallUrl,
@@ -86,6 +93,7 @@ class ProfileCustomer extends Component {
           ...this.state.allData,
           photoUrl: res.file.response.smallUrl
         },
+        loading: false,
         disabled: false
       });
     }
@@ -173,6 +181,7 @@ class ProfileCustomer extends Component {
       customerName,
       customerEmail,
       photoUrl,
+      loading,
       landscape,
       portrait,
       isErrorDimension,
@@ -195,11 +204,12 @@ class ProfileCustomer extends Component {
     };
 
     return (
-      <Card title="Profil Pengguna" bodyStyle={{display:"flex"}}>
+      <Card title="Profil Pengguna" bodyStyle={{ display: "flex" }}>
         <Row className="profile">
           <Col md={12}>
             <ProfileAvatar
               photoUrl={photoUrl}
+              loading={loading}
               beforeUpload={beforeUpload}
               uploadImage={this.uploadImage}
               handleChangeImage={this.handleChangeImage}

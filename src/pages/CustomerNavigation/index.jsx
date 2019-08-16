@@ -27,7 +27,7 @@ class CustomerNavigation extends Component {
       case "edit-address":
         this.props.actionChangePage(<AddressListDashboard />);
         break;
-        case "password":
+      case "password":
         this.props.actionChangePage(<PasswordDashboard />);
         break;
       default:
@@ -53,12 +53,12 @@ class CustomerNavigation extends Component {
               <span>
                 <Icon type="user" style={{fontSize:19}} />
                 Akun Saya
-          </span>
+              </span>
             }>
-            <Menu.Item key="my-account" onClick={() => this.changeMenu("my-account")}>Profile</Menu.Item>
-            <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>Ubah Alamat</Menu.Item>
-            <Menu.Item key="password" onClick={() => this.changeMenu("password")}>Password</Menu.Item>
-            <Menu.Item key="asd">option4</Menu.Item>
+            <Menu.Item className="sub-item" key="my-account" onClick={() => this.changeMenu("my-account")}>Profile</Menu.Item>
+            <Menu.Item className="sub-item" key="edit-address" onClick={() => this.changeMenu("edit-address")}>Ubah Alamat</Menu.Item>
+            <Menu.Item className="sub-item" key="password" onClick={() => this.changeMenu("password")}>Password</Menu.Item>
+            <Menu.Item className="sub-item" key="asd">option4</Menu.Item>
           </SubMenu>
           <Menu.Item key="my" className="dashboardUser__Title" onClick={() => this.changeMenu("my")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
         </Menu>
