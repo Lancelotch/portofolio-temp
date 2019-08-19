@@ -6,7 +6,6 @@ import Login from "components/Login";
 import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import "./style.sass";
-import "sass/style.sass";
 import { logout } from "../../store/actions/authentication";
 import customer from "../../api/services/customer";
 import { Link } from "react-router-dom"

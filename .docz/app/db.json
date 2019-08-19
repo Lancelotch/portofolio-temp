@@ -1,0 +1,3844 @@
+{
+  "config": {
+    "title": "ECOMMERCE",
+    "description": "My awesome app using docz",
+    "menu": [],
+    "version": "0.1.0",
+    "repository": null,
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {},
+    "separator": "-",
+    "notUseSpecifiers": true
+  },
+  "props": [
+    {
+      "key": "src/App.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "App",
+          "methods": [],
+          "actualName": "App"
+        }
+      ]
+    },
+    {
+      "key": "src/hoc/Fetcher.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Fetcher",
+          "methods": [
+            {
+              "name": "fetchData",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "path",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Fetcher"
+        }
+      ]
+    },
+    {
+      "key": "src/hoc/FetcherAction.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FetcherAction",
+          "methods": [
+            {
+              "name": "doGet",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "url",
+                  "type": null
+                },
+                {
+                  "name": "payload",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "doPost",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "url",
+                  "type": null
+                },
+                {
+                  "name": "payload",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "doUpdate",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "url",
+                  "type": null
+                },
+                {
+                  "name": "payload",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "doDelete",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "url",
+                  "type": null
+                },
+                {
+                  "name": "payload",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "responseMethod",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "method",
+                  "type": null
+                },
+                {
+                  "name": "response",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "fetchData",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "url",
+                  "type": null
+                },
+                {
+                  "name": "method",
+                  "type": null
+                },
+                {
+                  "name": "payload",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FetcherAction"
+        }
+      ]
+    },
+    {
+      "key": "src/library/Breadcrumbs.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Breadcrumbs",
+          "methods": [],
+          "actualName": "Breadcrumbs"
+        }
+      ]
+    },
+    {
+      "key": "src/library/alertOffiline.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "alertOffline",
+          "methods": [],
+          "actualName": "alertOffline"
+        }
+      ]
+    },
+    {
+      "key": "src/library/buttonDisabledAndEnabled.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "buttonDisabledandEnabledDelivery",
+          "methods": [],
+          "actualName": "buttonDisabledandEnabledDelivery"
+        }
+      ]
+    },
+    {
+      "key": "src/library/iconTracking.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "boxOrder",
+          "methods": [],
+          "actualName": "boxOrder"
+        },
+        {
+          "description": "",
+          "displayName": "paymentOrder",
+          "methods": [],
+          "actualName": "paymentOrder"
+        },
+        {
+          "description": "",
+          "displayName": "deliveryOrderIcon",
+          "methods": [],
+          "actualName": "deliveryOrderIcon"
+        },
+        {
+          "description": "",
+          "displayName": "receivedOrderIcon",
+          "methods": [],
+          "actualName": "receivedOrderIcon"
+        },
+        {
+          "description": "",
+          "displayName": "cancelOrderIcon",
+          "methods": [],
+          "actualName": "cancelOrderIcon"
+        }
+      ]
+    },
+    {
+      "key": "src/library/loadingSpin.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "loadingItems",
+          "methods": [],
+          "actualName": "loadingItems"
+        }
+      ]
+    },
+    {
+      "key": "src/components/AddressCheckout/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressCheckout",
+          "methods": [],
+          "actualName": "AddressCheckout"
+        }
+      ]
+    },
+    {
+      "key": "src/components/AddressDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressDetail",
+          "methods": [],
+          "actualName": "AddressDetail"
+        }
+      ]
+    },
+    {
+      "key": "src/components/AddressListDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressListDetail",
+          "methods": [],
+          "actualName": "AddressListDetail"
+        }
+      ]
+    },
+    {
+      "key": "src/components/AddressListDetailDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressListDetailDashboard",
+          "methods": [],
+          "actualName": "AddressListDetailDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Benefit/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Benefit",
+          "methods": [],
+          "actualName": "Benefit"
+        }
+      ]
+    },
+    {
+      "key": "src/components/BestSeller/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BestSeller",
+          "methods": [],
+          "actualName": "BestSeller"
+        }
+      ]
+    },
+    {
+      "key": "src/components/BestSellers/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BestSellers",
+          "methods": [],
+          "actualName": "BestSellers"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ButtonDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonDashboard",
+          "methods": [],
+          "actualName": "ButtonDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ButtonQuantity/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonQuantity",
+          "methods": [],
+          "actualName": "ButtonQuantity"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Categories/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Categories",
+          "methods": [
+            {
+              "name": "getCategoryFeature",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "suggestedProduct",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Categories"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Category/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Category",
+          "methods": [],
+          "actualName": "Category"
+        }
+      ]
+    },
+    {
+      "key": "src/components/CategoryMenu/cascaderMenu.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CategoryMenuCascader",
+          "methods": [],
+          "actualName": "CategoryMenuCascader"
+        }
+      ]
+    },
+    {
+      "key": "src/components/CategoryMenu/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CategoryMenu",
+          "methods": [],
+          "actualName": "CategoryMenu"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ClickProducts/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ClickProducts",
+          "methods": [],
+          "actualName": "ClickProducts"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Confirmation/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "confirmationPage",
+          "methods": [],
+          "actualName": "confirmationPage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ConfirmationError/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "errorPage",
+          "methods": [],
+          "actualName": "errorPage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/CustomTabDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CustomTabPane",
+          "methods": [],
+          "actualName": "CustomTabPane"
+        }
+      ]
+    },
+    {
+      "key": "src/components/FailedPayment/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FailedPayment",
+          "methods": [],
+          "actualName": "FailedPayment"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Fetcher/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Fetcher",
+          "methods": [
+            {
+              "name": "fetchData",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "path",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Fetcher"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Footer/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Footer",
+          "methods": [
+            {
+              "name": "onChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "openNotification",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Footer"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Image/FrontImage.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FrontImage",
+          "methods": [],
+          "actualName": "FrontImage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Loading/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Loading",
+          "methods": [],
+          "actualName": "Loading"
+        }
+      ]
+    },
+    {
+      "key": "src/components/NoOrderHistory/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NoOrderHistory",
+          "methods": [],
+          "actualName": "NoOrderHistory"
+        }
+      ]
+    },
+    {
+      "key": "src/components/NoResultSearch/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NoResultSearch",
+          "methods": [],
+          "actualName": "NoResultSearch"
+        }
+      ]
+    },
+    {
+      "key": "src/components/NotFoundPage/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NotFoundPage",
+          "methods": [],
+          "actualName": "NotFoundPage"
+        }
+      ]
+    },
+    {
+      "key": "src/components/NotedLimit/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NotedLimit",
+          "methods": [],
+          "actualName": "NotedLimit"
+        }
+      ]
+    },
+    {
+      "key": "src/components/OrderStatusCancel/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderStatusCancel",
+          "methods": [],
+          "actualName": "OrderStatusCancel"
+        }
+      ]
+    },
+    {
+      "key": "src/components/OrderStatusStep/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderStatusStep",
+          "methods": [],
+          "actualName": "OrderStatusStep"
+        }
+      ]
+    },
+    {
+      "key": "src/components/OrderStatusUser/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderStatusUser",
+          "methods": [],
+          "actualName": "OrderStatusUser"
+        }
+      ]
+    },
+    {
+      "key": "src/components/OrderSummary/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderSummary",
+          "methods": [],
+          "actualName": "OrderSummary"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentDateInfo/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentDateInfo",
+          "methods": [],
+          "actualName": "PaymentDateInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentInfo/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentInfo",
+          "methods": [],
+          "actualName": "PaymentInfo"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentInstructions/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentInstructions",
+          "methods": [],
+          "actualName": "PaymentInstructions"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentInvoice/container.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Payment",
+          "methods": [],
+          "actualName": "Payment"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentInvoice/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentInvoice",
+          "methods": [],
+          "actualName": "PaymentInvoice"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PaymentVirtualAccount/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentInvoice",
+          "methods": [],
+          "actualName": "PaymentInvoice"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PopularProduct/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PopularProduct",
+          "methods": [],
+          "actualName": "PopularProduct"
+        }
+      ]
+    },
+    {
+      "key": "src/components/PopularProducts/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PopularProducts",
+          "methods": [],
+          "actualName": "PopularProducts"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Product/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Product",
+          "methods": [],
+          "actualName": "Product"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProductAttributes/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductAttibutes",
+          "methods": [],
+          "actualName": "ProductAttibutes"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProductListCategory/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductListCategory",
+          "methods": [
+            {
+              "name": "getProductList",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "fetchMoreData",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderProduct",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "products",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ProductListCategory"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProductOrder/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductOrder",
+          "methods": [],
+          "actualName": "ProductOrder"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProductOrderDetails/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductOrderDetails",
+          "methods": [],
+          "actualName": "ProductOrderDetails"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Products/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Products",
+          "methods": [],
+          "actualName": "Products",
+          "props": {
+            "productList": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProfileAvatar/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProfileAvatar",
+          "methods": [],
+          "actualName": "ProfileAvatar"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ProfileEdit/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProfileEdit",
+          "methods": [],
+          "actualName": "ProfileEdit"
+        }
+      ]
+    },
+    {
+      "key": "src/components/ScrollToTopOnMount/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ScrollToTopOnMount",
+          "methods": [],
+          "actualName": "ScrollToTopOnMount"
+        }
+      ]
+    },
+    {
+      "key": "src/components/SelectCity/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SelectCity",
+          "methods": [],
+          "actualName": "SelectCity",
+          "props": {
+            "data": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/SelectProvince/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SelectProvince",
+          "methods": [],
+          "actualName": "SelectProvince",
+          "props": {
+            "data": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/SelectShipping/ShippingSelected.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ShippingSelected",
+          "methods": [],
+          "actualName": "ShippingSelected"
+        }
+      ]
+    },
+    {
+      "key": "src/components/SelectShipping/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SelectShipping",
+          "methods": [
+            {
+              "name": "onChangeShipping",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "selected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SelectShipping"
+        }
+      ]
+    },
+    {
+      "key": "src/components/SelectSubDistrict/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SelectSubDistrict",
+          "methods": [],
+          "actualName": "SelectSubDistrict",
+          "props": {
+            "data": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Shipping/Shippings.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Shippings",
+          "methods": [],
+          "actualName": "Shippings",
+          "props": {
+            "estimation": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "price": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Shipping/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Shipping",
+          "methods": [
+            {
+              "name": "shipping",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Shipping"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Skeleton/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SkeletonCustom",
+          "methods": [],
+          "actualName": "SkeletonCustom",
+          "props": {
+            "count": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "height": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "leftMargin": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "rightMargin": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            },
+            "topMargin": {
+              "type": {
+                "name": "number"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/SliderHome/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SliderHome",
+          "methods": [
+            {
+              "name": "getSliderHome",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SliderHome"
+        }
+      ]
+    },
+    {
+      "key": "src/components/SliderSecondary/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SliderProductDetail",
+          "methods": [
+            {
+              "name": "imageHover",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "item",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "imageViewer",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SliderProductDetail",
+          "props": {
+            "productImages": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/SortListProduct/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SortListProduct",
+          "methods": [],
+          "actualName": "SortListProduct"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Spinner/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Spinner",
+          "methods": [],
+          "actualName": "Spinner",
+          "props": {
+            "size": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/TopHeader/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TopHeader",
+          "methods": [],
+          "actualName": "TopHeader"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Variant/Variants.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Variants",
+          "methods": [
+            {
+              "name": "changedInfo",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "colorId",
+                  "type": null
+                },
+                {
+                  "name": "sizeId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onChangeVariant",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "selected",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "loopVariantProduct",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Variants",
+          "props": {
+            "name": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "value": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "id": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "sizeId": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "colorId": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "sku": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Variant/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Variant",
+          "methods": [],
+          "actualName": "Variant"
+        }
+      ]
+    },
+    {
+      "key": "src/components/WaitingPayment/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "WaitingPayment",
+          "methods": [],
+          "actualName": "WaitingPayment"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/AddressList/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressList",
+          "methods": [
+            {
+              "name": "onChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleOk",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "address",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "addresses",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "AddressList"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ButtonQuantity/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonQuantityContainer",
+          "methods": [
+            {
+              "name": "incrementItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "decrementItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "checkTypingQuantity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onChangeQuantityBlur",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onChangeQuantity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "event",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ButtonQuantityContainer"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/AddressListDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "AddressListDashboard",
+          "methods": [
+            {
+              "name": "initCustomerAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getCities",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getSubdistrict",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "showDeleteAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "idAddress",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "splitValue",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeCity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionDeleteAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "index",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionShowAddFormAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionShowEditFormAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "address",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitAddFormAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "request",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitEditFormAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "request",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "addressId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "loadingItems",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "responseAddressList",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "response",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "AddressListDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/CustomerOrderNavigation/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CustomerOderNavigation",
+          "methods": [
+            {
+              "name": "showReceivedConfirm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "allOrder",
+                  "type": null
+                },
+                {
+                  "name": "keyIndex",
+                  "type": null
+                },
+                {
+                  "name": "orderId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionReceivedConfirm",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "idReceived",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "toggleIsHowToShowModalOpen",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "order",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionShowOrderListWaiting",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "listener",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionShowOrderDetailsDashboard",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "order",
+                  "type": null
+                },
+                {
+                  "name": "keyIndex",
+                  "type": null
+                },
+                {
+                  "name": "isShowDashboardItem",
+                  "type": null
+                },
+                {
+                  "name": "labelTabDetails",
+                  "type": null
+                },
+                {
+                  "name": "estimateAccepted",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "checkSortTabs",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "productOrderTabs",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateTab",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "functions",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "selectkey",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionUpdateTab",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "tabPosition",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "itemList",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "list",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "responseListWaiting",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "showOrderDetailsDashboard",
+                  "type": null
+                },
+                {
+                  "name": "responseProductOrder",
+                  "type": null
+                },
+                {
+                  "name": "labelTabDetails",
+                  "type": null
+                },
+                {
+                  "name": "estimateAccepted",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "responOrderDetailsDashboard",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "showOrderDetailsDashboard",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "listWaiting",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "isShow",
+                  "type": null
+                },
+                {
+                  "name": "labelTabDetails",
+                  "type": null
+                },
+                {
+                  "name": "estimateAccepted",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "CustomerOderNavigation"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Header/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Header",
+          "methods": [
+            {
+              "name": "listenScrollEvent",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "fixPosition",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "listenResizeEvent",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateHeaderHeight",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateOverlayUserMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "isAuthenticated",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getAllCategory",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleInputSearchChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getCustomerDetail",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "dropDownTriggerAuth",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "dropDownTriggerNotAuth",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleLogout",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "isUrlIsCategory",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getValue",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getParams",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "userMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "showUserMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "hideUserMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Header"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Home/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "HomePageContainer",
+          "methods": [],
+          "actualName": "HomePageContainer"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/OrderDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderDetailContainer",
+          "methods": [
+            {
+              "name": "actionUpdateQuantity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "quantity",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeShipping",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "shipping",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeNote",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "note",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "variantsItem",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "sku",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "OrderDetailContainer"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/OrderDetailsDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderDetailsDashboard",
+          "methods": [
+            {
+              "name": "buttonBack",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "actionShowOrderListWaiting",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "OrderDetailsDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/PasswordDashboard/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PasswordDashboard",
+          "methods": [
+            {
+              "name": "resetForm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "values",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onSubmitPassword",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "{ oldPassword, newPassword }",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onResetPassword",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "schema",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onCaptchaChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "PasswordDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/OrderListWaiting/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "OrderListWaiting",
+          "methods": [
+            {
+              "name": "showDeleteConfirm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "allOrder",
+                  "type": null
+                },
+                {
+                  "name": "index",
+                  "type": null
+                },
+                {
+                  "name": "orderId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionCancelConfirm",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "index",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "OrderListWaiting"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ProductQnA/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductQnA",
+          "methods": [
+            {
+              "name": "getHighlightedText",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "text",
+                  "type": null
+                },
+                {
+                  "name": "higlight",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "renderQnA",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "qna",
+                  "type": null
+                },
+                {
+                  "name": "i",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onChangeSearch",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "onPageChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ProductQnA"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ProfileCustomer/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProfileCustomer",
+          "methods": [
+            {
+              "name": "getProfile",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "uploadImage",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "{ onError, onSuccess, file }",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeImage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "res",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "checkDimensionGet",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "file",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "checkDimension",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "file",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "removeImage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChangeName",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleError",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "openNotificationSuccess",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "type",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ProfileCustomer"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/ProfileMain/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProfileMain",
+          "methods": [
+            {
+              "name": "getCustomer",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "checkDimension",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "file",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ProfileMain"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/SliderProductDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SliderProductDetailContainer",
+          "methods": [
+            {
+              "name": "showImages",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "imageVariantProps",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "showThumbnail",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "removeThumbnailImageVariant",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "pauseVideo",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "changeSlide",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "i",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "showHideVideo",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "itemVideo",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "item",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "imageHover",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "item",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "imageSlide",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "imagesandVideoToShow",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "SliderProductDetailContainer",
+          "props": {
+            "images": {
+              "type": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "custom",
+                  "raw": "Object"
+                }
+              },
+              "required": false,
+              "description": ""
+            },
+            "imageVariant": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            },
+            "imageDefault": {
+              "type": {
+                "name": "object"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Sku/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SkuContainer",
+          "methods": [
+            {
+              "name": "getSkuSmallestPrice",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "product",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "compareSkuSmallestPrice",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "smallest",
+                  "type": null
+                },
+                {
+                  "name": "sku",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "initSku",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "skuSmallestPrice",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "updateSku",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateVariant",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "variantId",
+                  "type": null
+                },
+                {
+                  "name": "value",
+                  "type": null
+                },
+                {
+                  "name": "name",
+                  "type": null
+                },
+                {
+                  "name": "variantTypeIsImage",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "convertSkuId",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "variantId",
+                  "type": null
+                },
+                {
+                  "name": "valueId",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SkuContainer"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Variants/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Variants",
+          "methods": [
+            {
+              "name": "updateSku",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateVariant",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "valueId",
+                  "type": null
+                },
+                {
+                  "name": "value",
+                  "type": null
+                },
+                {
+                  "name": "name",
+                  "type": null
+                },
+                {
+                  "name": "variantTypeIsImage",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Variants"
+        }
+      ]
+    },
+    {
+      "key": "src/containers/Variants/index2.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Variants",
+          "methods": [
+            {
+              "name": "isNotByDefault",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateSku",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateVariant",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "valueId",
+                  "type": null
+                },
+                {
+                  "name": "value",
+                  "type": null
+                },
+                {
+                  "name": "name",
+                  "type": null
+                },
+                {
+                  "name": "variantTypeIsImage",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Variants"
+        }
+      ]
+    },
+    {
+      "key": "src/guides/Colors/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Colors",
+          "methods": [],
+          "actualName": "Colors"
+        }
+      ]
+    },
+    {
+      "key": "src/layouts/CustomerLayout/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CustomerLayout",
+          "methods": [],
+          "actualName": "CustomerLayout"
+        }
+      ]
+    },
+    {
+      "key": "src/layouts/FullLayout/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FullLayout",
+          "methods": [],
+          "actualName": "FullLayout"
+        }
+      ]
+    },
+    {
+      "key": "src/layouts/MainLayout/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "MainLayout",
+          "methods": [],
+          "actualName": "MainLayout"
+        }
+      ]
+    },
+    {
+      "key": "src/layouts/NavigationCustomer/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "NavigationCustomer",
+          "methods": [
+            {
+              "name": "actionChangePage",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "page",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "NavigationCustomer"
+        }
+      ]
+    },
+    {
+      "key": "src/modal/ModalHowToPay/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalHowToPay",
+          "methods": [
+            {
+              "name": "handleOk",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "callback",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "key",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ModalHowToPay"
+        }
+      ]
+    },
+    {
+      "key": "src/modal/ModalRegisterSuccess/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalRegister",
+          "methods": [],
+          "actualName": "ModalRegister"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Category/CategoryContainer.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CategoryPage",
+          "methods": [
+            {
+              "name": "getCategoryId",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "params",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getProductList",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleCategoryNotFound",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "error",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "fetchMoreData",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onChangeSort",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "sortValue",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "infiniteScroll",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderProducts",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderNotFound",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "CategoryPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Category/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CategoryPage",
+          "methods": [],
+          "actualName": "CategoryPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Checkout/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Checkout",
+          "methods": [
+            {
+              "name": "getCities",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getSubdistrict",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "id",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "splitValue",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleChangeCity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "value",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "initCustomerAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "variantsRequest",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "variantsRequest",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "getPayloadProductDetail",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getFareExpedisi",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getListAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionShowAddFormAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionShowEditFormAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionShowListAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitAddFormAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "request",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitEditFormAddress",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "request",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeShipping",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "shipping",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionUpdateQuantity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "quantity",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeNote",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "note",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionChangeAddress",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "address",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitOrder",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleChecked",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "countTotalAmount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Checkout"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Confirmation/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ConfirmationEmail",
+          "methods": [
+            {
+              "name": "requestActivation",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "idConfirmation",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "toHome",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getCustomerName",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ConfirmationEmail"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/ConfirmationError/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ConfirmationError",
+          "methods": [],
+          "actualName": "ConfirmationError"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/CustomerNavigation/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CustomerNavigation",
+          "methods": [
+            {
+              "name": "changeMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "menu",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "CustomerNavigation"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Example/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ExamplePage",
+          "methods": [],
+          "actualName": "ExamplePage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/ForgetPassword/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ForgetPassword",
+          "methods": [
+            {
+              "name": "submitForgotPassword",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "param",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleEmailChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSubmit",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleClose",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleInvalidEmail",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ForgetPassword"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Home/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "HomePage",
+          "methods": [],
+          "actualName": "HomePage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/PaymentInfo/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PaymentInfoPage",
+          "methods": [
+            {
+              "name": "getPaymentInfo",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onCopy",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionToDashboardCustomer",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "PaymentInfoPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Product/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductPage",
+          "methods": [
+            {
+              "name": "getProductList",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "fetchMoreData",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onChangeSort",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "sortValue",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "infiniteScroll",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderProducts",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ProductPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/ProductDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProductDetail",
+          "methods": [
+            {
+              "name": "getProductDetail",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionUpdateSku",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "sku",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionUpdateQuantity",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "quantity",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "countTotalAmount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "actionUpdateImageVariant",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "image",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "actionSubmitToCheckout",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "redirectLogin",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "redirectCheckout",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "variantAlert",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ProductDetail"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Register/registerContainer.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RegistrationSubmitButton",
+          "methods": [],
+          "actualName": "RegistrationSubmitButton"
+        },
+        {
+          "description": "",
+          "displayName": "RegistrationaAlert",
+          "methods": [],
+          "actualName": "RegistrationaAlert"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Search/SearchContainer.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchPage",
+          "methods": [
+            {
+              "name": "onRefresh",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getProductList",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "fetchMoreData",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onChangeSort",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "sortValue",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "infiniteScroll",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderProducts",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderNotFound",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "showResultSearch",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "isQueryAvailable",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SearchPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Search/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchPage",
+          "methods": [],
+          "actualName": "SearchPage"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/Test/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Test",
+          "methods": [],
+          "actualName": "Test"
+        }
+      ]
+    },
+    {
+      "key": "src/pages/ViewInvoice/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ViewInvoice",
+          "methods": [
+            {
+              "name": "viewInvoiceDetailsDashboard",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderButton",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "ViewInvoice"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Button/AllButton/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Button",
+          "methods": [],
+          "actualName": "Button"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Button/SocialMedia/Facebook.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonFacebook",
+          "methods": [
+            {
+              "name": "handleSocialResponse",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "user",
+                  "type": null
+                },
+                {
+                  "name": "err",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ButtonFacebook"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Button/SocialMedia/Google.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonGoogle",
+          "methods": [
+            {
+              "name": "handleSocialResponse",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "user",
+                  "type": null
+                },
+                {
+                  "name": "err",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ButtonGoogle"
+        }
+      ]
+    },
+    {
+      "key": "src/components/InvoiceDetailDashboard/TableInvoiceDetail/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TableInvoiceDetailDashboard",
+          "methods": [],
+          "actualName": "TableInvoiceDetailDashboard"
+        }
+      ]
+    },
+    {
+      "key": "src/components/InvoiceDetailDashboard/TableInvoicePayment/index.jsx",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TableInvoicePayment",
+          "methods": [],
+          "actualName": "TableInvoicePayment"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "key": "src/guides/Colors/index.md",
+      "value": {
+        "name": "Colors",
+        "menu": "Guides",
+        "id": "d73911406c1bb060de66fb07ca48c20e",
+        "filepath": "src/guides/Colors/index.md",
+        "link": "",
+        "slug": "src-guides-colors-index",
+        "route": "/src-guides-colors-index",
+        "headings": [
+          {
+            "slug": "colors",
+            "depth": 1,
+            "value": "Colors"
+          },
+          {
+            "slug": "how-to-use",
+            "depth": 2,
+            "value": "How To Use"
+          },
+          {
+            "slug": "example",
+            "depth": 2,
+            "value": "Example"
+          },
+          {
+            "slug": "variable-color-matterhorn",
+            "depth": 2,
+            "value": "Variable: $color-matterhorn"
+          },
+          {
+            "slug": "variable-color-gray",
+            "depth": 2,
+            "value": "Variable: $color-gray"
+          },
+          {
+            "slug": "variable-color-whisper",
+            "depth": 2,
+            "value": "Variable: $color-whisper"
+          },
+          {
+            "slug": "variable-color-nobel",
+            "depth": 2,
+            "value": "Variable: $color-nobel"
+          },
+          {
+            "slug": "variable-color-nero",
+            "depth": 2,
+            "value": "Variable: $color-nero"
+          },
+          {
+            "slug": "variable-color-snow",
+            "depth": 2,
+            "value": "Variable: $color-snow"
+          },
+          {
+            "slug": "variable-color-curious-blue",
+            "depth": 2,
+            "value": "Variable: $color-curious-blue"
+          },
+          {
+            "slug": "variable-color-safety-orange",
+            "depth": 2,
+            "value": "Variable: $color-safety-orange"
+          },
+          {
+            "slug": "variable-color-orange-red",
+            "depth": 2,
+            "value": "Variable: $color-orange-red"
+          }
+        ]
+      }
+    }
+  ]
+}
