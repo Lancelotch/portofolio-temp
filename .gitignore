@@ -23,3 +23,6 @@ yarn-error.log*
 src/assets/img
 
 package-lock.json
+.vscode
+yarn.lock
+.docz
