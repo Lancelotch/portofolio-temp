@@ -6,6 +6,7 @@ import AddressListDashboard from "../../containers/AddressListDashboard";
 import ProfileCustomer from "../../containers/ProfileCustomer";
 import ProfileMain from "../../containers/ProfileMain";
 import PasswordDashboard from "../../containers/PasswordDashboard";
+import strings from "../../localization/localization";
 
 const { SubMenu } = Menu;
 
@@ -21,13 +22,13 @@ class CustomerNavigation extends Component {
       case "my-account":
         this.props.actionChangePage(<ProfileCustomer />);
         break;
-      case "my":
+      case "my-order":
         this.props.actionChangePage(<CustomerOderNavigation />);
         break;
       case "edit-address":
         this.props.actionChangePage(<AddressListDashboard />);
         break;
-        case "password":
+      case "password":
         this.props.actionChangePage(<PasswordDashboard />);
         break;
       default:
@@ -39,7 +40,7 @@ class CustomerNavigation extends Component {
     let keyTabs = this.props.match.params
     const tabsActive = keyTabs[Object.keys(keyTabs)[Object.keys(keyTabs).length - 1]];
     return (
-      <div className="dashboardUser">
+      <div className="mp-dashboard-user">
         <ProfileMain />
         <Menu
           defaultSelectedKeys={[tabsActive]}
@@ -47,20 +48,19 @@ class CustomerNavigation extends Component {
           defaultOpenKeys={['my-account']}
         >
           <SubMenu
-            className="dashboardUser__Title"
+            className="mp-dashboard-user__title"
             key={'my-account'}
             title={
               <span>
-                <Icon type="user" style={{fontSize:19}} />
-                Akun Saya
+                <Icon type="user" style={{ fontSize: 19 }} />
+                {strings.my_account}
           </span>
             }>
-            <Menu.Item key="my-account" onClick={() => this.changeMenu("my-account")}>Profile</Menu.Item>
-            <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>Ubah Alamat</Menu.Item>
-            <Menu.Item key="password" onClick={() => this.changeMenu("password")}>Password</Menu.Item>
-            <Menu.Item key="asd">option4</Menu.Item>
+            <Menu.Item key="my-account" onClick={() => this.changeMenu("my-account")}>{strings.profile}</Menu.Item>
+            <Menu.Item key="edit-address" onClick={() => this.changeMenu("edit-address")}>{strings.change_address}</Menu.Item>
+            <Menu.Item key="password" onClick={() => this.changeMenu("password")}>{strings.password}</Menu.Item>
           </SubMenu>
-          <Menu.Item key="my" className="dashboardUser__Title" onClick={() => this.changeMenu("my")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
+          <Menu.Item key="my-order" className="mp-dashboard-user__title" onClick={() => this.changeMenu("my-order")}><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
         </Menu>
       </div>
     );

@@ -246,7 +246,7 @@ class CustomerOderNavigation extends Component {
     ]
 
     return (
-      <div className="customerOrderNavigation">
+      <div className="mp-customer-order-navigation">
         <ScrollToTopOnMount />
         {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>

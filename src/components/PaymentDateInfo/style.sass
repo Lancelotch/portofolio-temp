@@ -1,25 +1,43 @@
-.paymentDateInfo
-	margin-top: 15px
+@import '../../sass/variable.sass'
 
-.dateInfoPayment	
+.mp-payment-date-info
+	margin-top: 15px
+	&__before-pay
+		margin-bottom: 5px 
+		font-size: 14px 
+		color: $color-grey
+	&__end-date
+		color: $color-orange-red
+		font-size: 24px
+		line-height: 29px
+	&__pay-to		
+		margin-bottom: 0px 
+		font-size: 14px
+		color: $color-grey 	
+
+.mp-date-info-payment	
     display: flex
     justify-content: flex-end
 
-.paymentEndDate
-	color: #F63700
-	font-size: 24px
-	line-height: 29px	
-
 .giyarto
-	color: #000000
+	color: $color-black
 	font-size: 20px
 	font-weight: 500
 
 
-.virtualAccount
-	color: #004853
+.mp-virtual-account-date-info
+	color: $color-green
 	font-size: 20px
 	font-weight: 500
 	letter-spacing: 0.67px
+
+.mp-date-info-payment-type
+	color: $color-grey
+	font-size: 18px
+
+.mp-virtual-account-bank-name
+	color: $color-grey
+	font-size: 18px
+	text-align: right		
 	
 			

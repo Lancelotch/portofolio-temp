@@ -11,13 +11,15 @@ const Step = Steps.Step;
 const OrderStatusCancel = props => {
   const { orderDate, orderCancel } = props
   return (
-    <div style={{ marginTop: 30 }}>
+    <div className="mp-step-order-cancel-wrapper">
       <Card>
-        <div className={orderCancel && orderCancel.cancelBy === "ADMIN" | 
-        orderCancel && orderCancel.cancelBy === "admin" | 
-        orderCancel && orderCancel.cancelBy === "SYSTEM" ? 
-        "stepOrderStatusCancelBySystem stepOrderStatusCancel" : 
-        "stepOrderStatusCancelByCustomer stepOrderStatusCancel"}>
+        <div className={
+          ((orderCancel && orderCancel.cancelBy === "ADMIN") ||
+            (orderCancel && orderCancel.cancelBy === "admin") ||
+            (orderCancel && orderCancel.cancelBy === "SYSTEM") ?
+            "mp-step-order-cancel-by-system mp-step-order-cancel" :
+            "mp-step-order-cancel-by-customer mp-step-order-cancel"
+          )}>
           <Steps size="small" labelPlacement="vertical">
             <Step
               status="finish"
