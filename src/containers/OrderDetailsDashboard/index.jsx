@@ -6,7 +6,7 @@ import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import OrderStatusCancel from '../../components/OrderStatusCancel';
-import { BackTop, Icon,Button } from 'antd';
+import { BackTop, Icon, Button } from 'antd';
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "./style.sass";
 
@@ -15,7 +15,7 @@ class OrderDetailsDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            order: this.props.order
+            orderDetailsRespon: this.props.orderDetailsRespon
         };
     };
 
@@ -30,7 +30,7 @@ class OrderDetailsDashboard extends Component {
 
     buttonBack = (actionShowOrderListWaiting) => {
         return <Button size="large" className="button-back-dashboard"
-        onClick={() => actionShowOrderListWaiting()}>
+            onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali
         </Button>
@@ -50,6 +50,7 @@ class OrderDetailsDashboard extends Component {
             isHowToShowModalOpen,
             selectedOrder
         } = this.props;
+        const { orderDetailsRespon } = this.state;
         return (
             <React.Fragment>
                 <ScrollToTopOnMount />
@@ -57,24 +58,26 @@ class OrderDetailsDashboard extends Component {
                     <h2>{labelTabDetails}</h2>
                     {this.buttonBack(actionShowOrderListWaiting)}
                 </div>
-                {((tabsShow === "showTabsNotPay") || 
-                  (tabsShow === "showTabsNotSent") || 
-                  (tabsShow === "showTabsInDelivery") || 
-                  (tabsShow === "showTabsFinish")) &&
+                {((tabsShow === "isShowOrderDetailsDashboardNotPay") ||
+                    (tabsShow === "isShowOrderDetailsDashboardNotSent") ||
+                    (tabsShow === "isShowOrderDetailsDashboardInDelivery") ||
+                    (tabsShow === "isShowOrderDetailsDashboardFinish")
+                ) &&
                     <OrderStatusStep
                         labelTabDetails={labelTabDetails}
-                        dateOrder={this.state.order.orderActivityDate} />}
-                {tabsShow === "showTabsCancel" &&
+                        dateOrder={orderDetailsRespon.order.orderActivityDate} />}
+                {tabsShow === "isShowOrderDetailsDashboardCancel" &&
                     <OrderStatusCancel
                         labelTabDetails={labelTabDetails}
-                        orderDate={this.state.order.orderActivityDate}
-                        orderCancel={this.state.order.orderCancel} />}
-                {this.state.order.orderItems.map((product, index) => {
-                    return (<div key={"index"} style={{ marginTop: 15 }}>
+                        orderDate={orderDetailsRespon.order.orderActivityDate}
+                        orderCancel={orderDetailsRespon.order.orderCancel} />}
+                {orderDetailsRespon.order.orderItems.map((product, index) => {
+                    return (<div key={index} style={{ marginTop: 15 }}>
                         <ProductOrderDetails
+                            status={orderDetailsRespon.status}
                             actionReceivedConfirm={showReceivedConfirm}
                             showHowToModalPayment={showHowToModalPayment}
-                            productOrderRespon={this.state.order}
+                            productOrderRespon={orderDetailsRespon.order}
                             invoiceNumber={invoiceNumber}
                             label="Detail Pesenan"
                             note={product.note}
@@ -90,22 +93,22 @@ class OrderDetailsDashboard extends Component {
                             totalAmount={product.totalAmount} />
                         <PaymentInfo
                             key={index.id}
-                            cancelBy={this.state.order.orderCancel}
-                            courier={this.state.order.courier}
+                            cancelBy={orderDetailsRespon.order.orderCancel}
+                            courier={orderDetailsRespon.order.courier}
                             productSnapshot={product.productSnapshot}
                             productName={product.productName}
-                            amount={this.state.order.amount}
+                            amount={orderDetailsRespon.order.amount}
                             shipment={product.shipment}
                             price={product.price}
                             productQuantity={product.productQuantity}
-                            payment={this.state.order.payment}
+                            payment={orderDetailsRespon.order.payment}
                         />
                     </div>)
                 })}
-                {tabsShow === "showTabsNotPay" &&
+                {tabsShow === "isShowOrderDetailsDashboardNotPay" &&
                     <PaymentDateInfo
-                        dateOrder={this.state.order.orderActivityDate}
-                        typePayment={this.state.order.payment}
+                        dateOrder={orderDetailsRespon.order.orderActivityDate}
+                        typePayment={orderDetailsRespon.order.payment}
                         bank={this.state.bank}
                     />
                 }
@@ -113,16 +116,16 @@ class OrderDetailsDashboard extends Component {
                     tabsShow={tabsShow}
                     estimateAccepted={estimateAccepted}
                     label="Pengiriman"
-                    customer={this.state.order.orderAddress}
-                    logOrderTransactions={this.state.order.logOrderTransactions}
-                    estimateShippingDate={this.state.order.orderActivityDate} />
-                    {selectedOrder && (
-                        <ModalHowToPay
-                          orderPayment={selectedOrder.payment}
-                          visible={isHowToShowModalOpen}
-                          close={showHowToModalPayment}
-                        />
-                      )}
+                    customer={orderDetailsRespon.order.orderAddress}
+                    logOrderTransactions={orderDetailsRespon.order.logOrderTransactions}
+                    estimateShippingDate={orderDetailsRespon.order.orderActivityDate} />
+                {selectedOrder && (
+                    <ModalHowToPay
+                        orderPayment={selectedOrder.payment}
+                        visible={isHowToShowModalOpen}
+                        close={showHowToModalPayment}
+                    />
+                )}
                 <BackTop />
             </React.Fragment>
         );

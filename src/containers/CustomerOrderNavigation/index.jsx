@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Spin, Alert, Modal } from "antd";
+import { Tabs, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
@@ -10,6 +10,8 @@ import { Offline, Online, Detector } from "react-detect-offline";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
+import { loadingItems } from "../../library/loadingSpin";
+import { alertOffline } from "../../library/alertOffiline";
 
 const confirm = Modal.confirm;
 
@@ -24,11 +26,6 @@ class CustomerOderNavigation extends Component {
     super(props);
     this.state = {
       isShowDetailDashboard: false,
-      isShowOrderDetailsDashboardNotPay: false,
-      isShowOrderDetailsDashboardInDelivery: false,
-      isShowOrderDetailsDashboardNotSent: false,
-      isShowOrderDetailsDashboardFinish: false,
-      isShowOrderDetailsDashboardCancel: false,
       order: [],
       activeKey: "1",
       isLoading: false,
@@ -39,7 +36,10 @@ class CustomerOderNavigation extends Component {
       keyIndex: 0,
       isProductAlvailabel: false,
       isHowToShowModalOpen: false,
-      selectedOrder: null
+      selectedOrder: null,
+      isShowDashboardItem: false,
+      labelTabDetails: "",
+      estimateAccepted: ""
     };
   }
 
@@ -89,17 +89,16 @@ class CustomerOderNavigation extends Component {
     })
   }
 
-  actionShowOrderDetailsDashboard = (order, invoiceNumber, id, keyIndex, buttonValue) => {
-    this.actionShowOrderListWaiting(buttonValue);
-    this.responseDetailDashboard(order, invoiceNumber, id, keyIndex);
-  };
-
-  responseDetailDashboard(order, invoiceNumber, id, keyIndex) {
+  actionShowOrderDetailsDashboard = (order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) => {
+    this.actionShowOrderListWaiting(isShowDashboardItem)
     this.setState({
       order: order,
-      invoiceNumber: invoiceNumber,
-      id: id,
-      keyIndex: keyIndex
+      invoiceNumber: order.invoiceNumber,
+      id: order.id,
+      keyIndex: keyIndex,
+      isShowDashboardItem: isShowDashboardItem,
+      labelTabDetails: labelTabDetails,
+      estimateAccepted: estimateAccepted
     })
   };
 
@@ -107,7 +106,7 @@ class CustomerOderNavigation extends Component {
     let sortListTabsNotPayCancel = ""
     if (value === 0 || value === 4) {
       sortListTabsNotPayCancel = "?direction=desc&sortBy=orderActivityDate.orderDate"
-    }else{
+    } else {
       sortListTabsNotPayCancel = "?direction=desc&sortBy=creationDate"
     }
     return sortListTabsNotPayCancel
@@ -116,7 +115,7 @@ class CustomerOderNavigation extends Component {
   productOrderTabs = async (value) => {
     this.setState({ isLoading: true })
     try {
-      const response = await apiGetWithToken(PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD + value + this.checkSortTabs(value) );
+      const response = await apiGetWithToken(`${PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD}${value}${this.checkSortTabs(value)}`);
       if (response.data.data) {
         this.setState({
           productOrder: response.data.data,
@@ -124,21 +123,10 @@ class CustomerOderNavigation extends Component {
           isProductAlvailabel: false
         })
       }
-      if (response.data.data.length < 1) {
-        this.setState({
-          isProductAlvailabel: true
-        })
-      }
     } catch (error) {
       this.setState({ isLoading: false, isProductAlvailabel: true });
     }
   };
-
-  loadingItems(value) {
-    return <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
-      {value && <Spin spinning={value} />}
-    </div>
-  }
 
   updateTab = (functions) => {
     this.setState({
@@ -169,23 +157,22 @@ class CustomerOderNavigation extends Component {
     }
   }
 
-  alertOffline = () => {
-    return <Alert
-      message="Error"
-      description="Oooops Internet Anda Terputus, Coba cek modem sudah bayar apa belum ?"
-      type="error"
-      showIcon
-    />
-  }
-
   actionUpdateTab = (tabPosition) => {
     this.productOrderTabs(tabPosition);
+  }
+
+  itemList(list) {
+    return this.state.isProductAlvailabel === true ?
+      this.state.isLoading === true ? false :
+        this.state.isProductAlvailabel && <NoOrderHistory /> :
+      list.content;
   }
 
   responseListWaiting(
     showOrderDetailsDashboard,
     responseProductOrder,
-    tabsShowItem) {
+    labelTabDetails,
+    estimateAccepted) {
     return <OrderListWaiting
       isHowToShowModalOpen={this.state.isHowToShowModalOpen}
       selectedOrder={this.state.selectedOrder}
@@ -195,69 +182,71 @@ class CustomerOderNavigation extends Component {
       actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
       showOrderDetailsDashboard={showOrderDetailsDashboard}
       showReceivedConfirm={this.showReceivedConfirm}
-      tabsShowItem={tabsShowItem}
+      labelTabDetails={labelTabDetails}
+      estimateAccepted={estimateAccepted}
     />
   }
 
-  responOrderDetailsDashboard(showOrderDetailsDashboard, labelTabDetails, itemTabsShow, estimateAccepted) {
+  responOrderDetailsDashboard(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
       isHowToShowModalOpen={this.state.isHowToShowModalOpen}
       selectedOrder={this.state.selectedOrder}
       showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-      labelTabDetails={labelTabDetails}
-      estimateAccepted={estimateAccepted}
-      tabsShow={itemTabsShow}
+      labelTabDetails={this.state.labelTabDetails}
+      estimateAccepted={this.state.estimateAccepted}
+      tabsShow={showOrderDetailsDashboard}
       invoiceNumber={this.state.invoiceNumber}
       id={this.state.id}
-      order={this.state.order}
+      orderDetailsRespon={this.state.order}
       showReceivedConfirm={this.showReceivedConfirm}
       actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  listWaiting = (isShow, tabsShow) => {
+  listWaiting = (isShow, labelTabDetails, estimateAccepted) => {
     return this.state.isLoading ?
-      this.loadingItems(this.state.isLoading) :
-      this.responseListWaiting(isShow, this.state.productOrder, tabsShow);
+      loadingItems(this.state.isLoading) :
+      this.responseListWaiting(isShow, this.state.productOrder, labelTabDetails, estimateAccepted);
   }
 
   render() {
+
     const {
+      isShowDashboardItem,
       isShowDetailDashboard,
-      isShowOrderDetailsDashboardNotPay,
-      isShowOrderDetailsDashboardInDelivery,
-      isShowOrderDetailsDashboardNotSent,
-      isShowOrderDetailsDashboardFinish,
-      isShowOrderDetailsDashboardCancel
     } = this.state
+
     const listTabsContent = [
       {
         key: "1",
         nameTabs: "Belum Bayar",
-        content: this.listWaiting("isShowOrderDetailsDashboardNotPay", 1)
+        content: this.listWaiting("isShowOrderDetailsDashboardNotPay", "Belum Bayar")
       },
       {
         key: "2",
         nameTabs: "Sedang Diproses",
-        content: this.listWaiting("isShowOrderDetailsDashboardNotSent", 2)
+        content: this.listWaiting("isShowOrderDetailsDashboardNotSent", "Belum Dikirim")
       },
       {
         key: "3",
         nameTabs: "Dalam Pengiriman",
-        content: this.listWaiting("isShowOrderDetailsDashboardInDelivery", 3)
+        content: this.listWaiting("isShowOrderDetailsDashboardInDelivery", 
+        "Dalam Pengiriman", "Perkiraan Diterima")
       },
       {
         key: "4",
         nameTabs: "Selesai",
-        content: this.listWaiting("isShowOrderDetailsDashboardFinish", 4)
+        content: this.listWaiting("isShowOrderDetailsDashboardFinish",
+        "Selesai","Pesanan Diterima")
       },
       {
         key: "5",
         nameTabs: "Batal",
-        content: this.listWaiting("isShowOrderDetailsDashboardCancel", 5)
+        content: this.listWaiting("isShowOrderDetailsDashboardCancel", "Batal")
       }
     ]
+
     return (
-      <div className="customerOrderNavigation">
+      <div className="mp-customer-order-navigation">
         <ScrollToTopOnMount />
         {isShowDetailDashboard === false ?
           <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
@@ -269,26 +258,20 @@ class CustomerOderNavigation extends Component {
                   my_prop={
                     <React.Fragment>
                       <Offline polling={polling}>
-                        {this.alertOffline()}
+                        {alertOffline()}
                       </Offline>
                       <Detector
                         render={() =>
                           <Online polling={polling}>
-                            {list.content}
-                            {this.state.isLoading === true ? false : this.state.isProductAlvailabel && <NoOrderHistory />}
+                            {this.itemList(list)}
                           </Online>} />
-                    </React.Fragment>} />
-              )
+                    </React.Fragment>} />)
             })}
           </Tabs>
           :
           <React.Fragment>
-            {isShowOrderDetailsDashboardNotPay && this.responOrderDetailsDashboard("isShowOrderDetailsDashboardNotPay", "Belum Bayar", "showTabsNotPay")}
-            {isShowOrderDetailsDashboardNotSent && this.responOrderDetailsDashboard("isShowOrderDetailsDashboardNotSent", "Belum Dikirim", "showTabsNotSent")}
-            {isShowOrderDetailsDashboardInDelivery &&
-              this.responOrderDetailsDashboard("isShowOrderDetailsDashboardInDelivery", "Dalam Pengiriman", "showTabsInDelivery", "Perkiraan Diterima")}
-            {isShowOrderDetailsDashboardFinish && this.responOrderDetailsDashboard("isShowOrderDetailsDashboardFinish", "Selesai", "showTabsFinish", "Paket Diterima")}
-            {isShowOrderDetailsDashboardCancel && this.responOrderDetailsDashboard("isShowOrderDetailsDashboardCancel", "Batal", "showTabsCancel")}
+            {isShowDashboardItem &&
+              this.responOrderDetailsDashboard(isShowDashboardItem)}
           </React.Fragment>
         }
       </div>

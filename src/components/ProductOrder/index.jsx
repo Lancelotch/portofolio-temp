@@ -10,7 +10,7 @@ const ProductOrder = props => {
   const { orderItems } = props;
 
   return (
-    <div className="productOrder">
+    <div className="product-order">
       {orderItems !== undefined | orderItems ?
         <Row key={"i"}>
           {orderItems.map((order, index) => {
@@ -18,14 +18,14 @@ const ProductOrder = props => {
               <Fragment key={index}>
                 <Col md={3} style={{ paddingLeft: 32, paddingRight: 72 }}>
                   <img
-                    className="productOrder__image"
+                    className="product-order__image"
                     src={order.productSnapshot.image.largeUrl}
                     alt=""
                   />
                 </Col>
                 <Col md={21}>
+                  <div className="product-order__variant">
                   <h2> {order.productSnapshot.name}</h2>
-                  <div className="productOrder__variant">
                     <table>
                       <tbody>
                         <tr>
@@ -64,7 +64,7 @@ const ProductOrder = props => {
                         </tr>
                         <tr>
                           <td style={{ width: 70 }}>
-                            <p className="productOrder__quantity">
+                            <p className="product-order__quantity">
                               {strings.total}
                             </p>
                           </td>
@@ -74,7 +74,7 @@ const ProductOrder = props => {
                         </p>
                           </td>
                           <td>
-                            <p className="productOrder__quantity">
+                            <p className="product-order__quantity">
                               {order.productSnapshot.quantity}&nbsp;{strings.pcs}
                             </p>
                           </td>

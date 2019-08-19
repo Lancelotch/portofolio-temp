@@ -4,6 +4,7 @@ import { Button } from 'antd'
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../library/url"
 import strings from '../../localization/localization';
+import { buttonDisabledandEnabledDelivery } from '../../library/buttonDisabledAndEnabled';
 
 const ButtonDashboard = (props) => {
   const { showDeleteConfirm,
@@ -13,13 +14,10 @@ const ButtonDashboard = (props) => {
     tabsShowItem,
     order,
     orderProduct,
-    invoiceNumber,
     index,
     id,
     status
   } = props
-console.log(status);
-
   let productId = ""
   order.orderItems.map(orders => {
     productId = orders.productSnapshot.productId
@@ -27,13 +25,8 @@ console.log(status);
   })
   return (
     <React.Fragment>
-      {tabsShowItem === 1 &&
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
-          }}>
+      {tabsShowItem === "isShowOrderDetailsDashboardNotPay" &&
+        <div className="waiting-payment__not-pay">
           <p
             className="waiting-payment__button"
             onClick={() => showDeleteConfirm(orderProduct, index, order.id)}
@@ -49,60 +42,39 @@ console.log(status);
             </Button>
             <Button
               className="waiting-payment__detail-order"
-              onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
+              onClick={showOrderDetailsDashboard}
             >
               {strings.order_details}
             </Button>
           </div>
         </div>}
-      {tabsShowItem === 2 &&
+      {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
+        (tabsShowItem === "isShowOrderDetailsDashboardCancel") ||
+        (tabsShowItem === "isShowOrderDetailsDashboardInDelivery") ||
+        (tabsShowItem === "isShowOrderDetailsDashboardNotSent")
+      ) &&
         <div className="button-dashboard">
-          <Button
-            style={{ marginTop: 25 }}
-            className="waiting-payment__detail-order"
-            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
-          >
-            {strings.order_details}
-          </Button>
-        </div>}
-      {tabsShowItem === 3 &&
-        <div className="button-dashboard">
-          <Button size="large" disabled={status === "SHP" || status === "RCP" ? true : false} onClick={() => showReceivedConfirm(orderProduct, index, id)}
-            className={status === "SHP" || status === "RCP" ? "default ": "waiting-payment__pay-now"}>
-            Pesanan Diterima
-          </Button>
-          <Button
-            className="waiting-payment__detail-order"
-            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
-          >
-            {strings.order_details}
-          </Button>
-        </div>}
-      {tabsShowItem === 4 &&
-        <div className="button-dashboard">
-          <Button
-            className="waiting-payment__pay-now"
-          >
-            <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
-          </Button>
+          {tabsShowItem === "isShowOrderDetailsDashboardInDelivery" &&
+          buttonDisabledandEnabledDelivery(status, showReceivedConfirm,
+            orderProduct, index, id)}
+          {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
+            (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
+            <Button
+              className="waiting-payment__pay-now">
+              <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
+            </Button>}
           <Button
             className="waiting-payment__detail-order"
-            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}
+            onClick={showOrderDetailsDashboard}
           >
-            {strings.order_details}
-          </Button>
-        </div>}
-      {tabsShowItem === 5 &&
-        <div className="button-dashboard">
-          <Button
-            className="waiting-payment__pay-now"
-          >
-            <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
-          </Button>
-          <Button
-            className="waiting-payment__detail-order"
-            onClick={() => showOrderDetailsDashboard(order, invoiceNumber, id, index)}>
-            {strings.cancel_details}
+            {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
+              (tabsShowItem === "isShowOrderDetailsDashboardInDelivery") ||
+              (tabsShowItem === "isShowOrderDetailsDashboardNotSent")) &&
+              strings.order_details
+            }
+            {(tabsShowItem === "isShowOrderDetailsDashboardCancel") &&
+              strings.cancel_details
+            }
           </Button>
         </div>}
     </React.Fragment>

@@ -40,14 +40,14 @@ const OrderStatusUser = props => {
 
         <React.Fragment>
             {customer !== undefined | customer &&
-                <div className="orderStatusUser">
+                <div className="mp-order-status-user">
                     <Card>
                         <Row>
                             <Col md={12}>
                                 <h2>{label}</h2>
                             </Col>
                             <Col md={12}>
-                                {((tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
+                                {((tabsShow === "isShowOrderDetailsDashboardInDelivery") || (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
                                     (<p style={styleEstimateaAccepted}>
                                         {estimateAccepted} : &nbsp;
                                 {convertTimesTime.millisecond(estimateShippingDate && estimateShippingDate.receivedDate)}
@@ -55,33 +55,32 @@ const OrderStatusUser = props => {
                                 }
                             </Col>
                         </Row>
-                        <hr className="productOrder__inline" />
+                        <hr className="mp-inline" />
                         <table>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div className="borderRight">
-                                            <label className="nameCustomer">{customer.receiverName}</label>
-                                            <p className="nameCustomerText"
-                                                style={{ marginBottom: 7 }}>
+                                        <div>
+                                            <label className="mp-order-status-user-receivername">{customer.receiverName}</label>
+                                            <p className="mp-order-status-user-text" style={{ marginTop: 17 }}>
                                                 <NumberFormat
                                                     value={customer.phoneNumber}
                                                     displayType={'text'}
                                                     format="####-####-####"
                                                 />
-                                            </p>
-                                            <p className="nameCustomerText">
+                                                <br />
                                                 {customer.fullAddress},&nbsp;{customer.city},&nbsp;
-                                        {customer.subdistrict},&nbsp;{customer.province},&nbsp;{customer.zipcode}
+                                                {customer.subdistrict},&nbsp;{customer.province},&nbsp;
+                                                {customer.zipcode}
                                             </p>
                                         </div>
                                     </td>
                                     <td>
-                                        <div className="wrapperRight">
+                                        <div className="mp-wrapper-order-status-user">
                                             {responseOrderLogTransactions.map((log, index) => {
-                                                let styleLog = index === 0 ? "parentDateTransaction dateTransaction logEnable" : "parentDateTransaction dateTransaction logDisabled"
+                                                let styleLog = index === 0 ? "mp-log-enabled" : "mp-log-disabled"
                                                 return (
-                                                    <div key={index} className={styleLog}>
+                                                    <div key={index} className={`${styleLog} mp-log-order-transactions`}>
                                                         <span className="dot" />
                                                         <p key={index} className={styleLog} style={{ textAlign: "left" }}>
                                                             {convertTimesTime.millisecond(log.createdDate)}&nbsp;{log.description}

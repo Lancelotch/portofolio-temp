@@ -10,15 +10,15 @@ const PaymentDateInfo = props => {
     return (
         <React.Fragment>
             {typePayment !== undefined | typePayment ?
-                <div className="paymentDateInfo">
+                <div className="mp-payment-date-info">
                     <Card>
                         <Row>
                             <Col md={24}>
-                                <p className="nameCustomerText" style={{ marginBottom: 5, fontSize: 14 }}>{strings.before_pay}</p>
-                                <font className="paymentEndDate">{convertTimesTime.millisecond(dateOrder.orderDate)}</font>
+                                <p className="mp-payment-date-info__before-pay">{strings.before_pay}</p>
+                                <font className="mp-payment-date-info__end-date">{convertTimesTime.millisecond(dateOrder.orderDate)}</font>
                             </Col>
                             <Col md={24} style={{ marginTop: 25 }}>
-                                <p className="nameCustomerText" style={{ marginBottom: 0, fontSize: 14 }}>
+                                <p className="mp-payment-date-info__pay-to">
                                     {strings.pay_to}
                                 </p>
                                 <table>
@@ -28,10 +28,10 @@ const PaymentDateInfo = props => {
                                                 <h3 className="giyarto">{strings.giyarto}</h3>
                                             </td>
                                             <td>
-                                                <div className="dateInfoPayment">
+                                                <div className="mp-date-info-payment">
                                                  { /*  <img src={bank.imageUrl} alt="" style={{ maxHeight: 25, maxWidth: 69 }} />*/}
                                                     &nbsp;&nbsp;
-                                                    <font className="virtualAccount">
+                                                    <font className="mp-virtual-account-date-info">
                                                         {typePayment.virtualAccount}
                                                     </font>
                                                 </div>
@@ -39,11 +39,11 @@ const PaymentDateInfo = props => {
                                         </tr>
                                         <tr>
                                             <td>
-                                                <p className="nameCustomerText">{strings.payment_type}</p>
+                                                <p className="mp-date-info-payment-type">{strings.payment_type}</p>
                                             </td>
                                             <td>
-                                                <p className="nameCustomerText" style={{ textAlign: "right" }}>{
-                                                    typePayment.gateway.bankName} Virtual Account
+                                                <p className="mp-virtual-account-bank-name">
+                                                    {typePayment.gateway.bankName} Virtual Account
                                                 </p>
                                             </td>
                                         </tr>

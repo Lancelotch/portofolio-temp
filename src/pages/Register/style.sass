@@ -5,7 +5,7 @@
 
 .heads .anticon-eye 
   font-size: 25px
-  color: #FB6900 !important
+  color: $secondary-color !important
 
 .register_Background
   width: 100%
@@ -17,8 +17,8 @@
   background-position-x: 0
 
 .scrollable-container
-  background: -webkit-linear-gradient(to right, #00B5B7, #007E80);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #00B5B7, #007E80); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to right, #00B5B7, $primary-color);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00B5B7, $primary-color); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 .register .ant-form-item 
   width: 360px
@@ -95,7 +95,7 @@
     &__link-login
       height: 19px
       width: 224px
-      color: #F63700
+      color: $color-orange-red
       font-size: 16px
       font-weight: bold
       line-height: 19px
@@ -104,4 +104,11 @@
       color: $primary-color !important
     &__confirm
       margin-top: 10px  
+
+.mp-limit-character.ant-typography.ant-typography-danger 
+    position: absolute
+    width: 100%
+    bottom: 0px
+    left: 0px
+    top: 22px      
 

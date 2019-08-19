@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import { Button } from "antd";
 import variantItems from "../../library/variantItems";
-import "./style.sass";
+import "../ProductOrder/style.sass";
+import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 
 const ProductOrderDetails = props => {
   const
@@ -21,13 +22,16 @@ const ProductOrderDetails = props => {
       id,
       note,
       keyIndex,
-      showHowToModalPayment
+      showHowToModalPayment,
+      status
     } = props;
   return (
     <Card>
       <div className="head-label-item">
         <h2>{label}</h2>
-        {((tabsShow === "showTabsNotSent") || (tabsShow === "showTabsInDelivery") || (tabsShow === "showTabsFinish")) &&
+        {((tabsShow === "isShowOrderDetailsDashboardNotSent") ||
+          (tabsShow === "isShowOrderDetailsInDelivery") ||
+          (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
           <label>
             <Link
               to={pageUrlViewInvoiceDashboard + id}
@@ -39,27 +43,27 @@ const ProductOrderDetails = props => {
             </h4> &nbsp;
           </label>}
       </div>
-      <hr className="productOrder__inline" />
+      <hr className="product-order__inline" />
       <Row style={{ marginTop: 25 }}>
         <Col md={2}>
           <Link
             style={{ cursor: "pointer" }}
             to={pageUrlProductDetail + productSnapshot.productId}>
             <img
-              className="productOrder__image"
+              className="product-order__image"
               src={productSnapshot.image.defaultImage}
               alt=""
             />
           </Link>
         </Col>
         <Col md={17}>
+        <div className="product-order__variant">
           <Link
             className="default"
             style={{ cursor: "pointer" }}
             to={pageUrlProductDetail + productSnapshot.productId}>
-            <h2 style={{ marginBottom: 0 }}> {productSnapshot.name} </h2>
+            <h2> {productSnapshot.name} </h2>
           </Link>
-          <div className="productOrder__variant">
             <table>
               <tbody>
                 <tr>
@@ -98,7 +102,7 @@ const ProductOrderDetails = props => {
                 </tr>
                 <tr>
                   <td style={{ width: 70 }}>
-                    <p className="productOrder__quantity">
+                    <p className="product-order__quantity">
                       {strings.total}
                     </p>
                   </td>
@@ -108,7 +112,7 @@ const ProductOrderDetails = props => {
               </p>
                   </td>
                   <td>
-                    <p className="productOrder__quantity">
+                    <p className="product-order__quantity">
                       {productSnapshot.quantity}&nbsp;{strings.pcs}
                     </p>
                   </td>
@@ -117,20 +121,19 @@ const ProductOrderDetails = props => {
             </table>
           </div>
         </Col>
-        <Col md={5}>
-          {tabsShow === "showTabsInDelivery" &&
-            <Button onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}
-              className="waiting-payment__pay-now">
-              Pesanan Diterima
-        </Button>}
-          {tabsShow === "showTabsNotPay" &&
+        <Col md={5} style={{ marginTop: 30 }}>
+          {tabsShow === "isShowOrderDetailsDashboardInDelivery" &&
+            buttonDisabledandEnabledDelivery(status, actionReceivedConfirm,
+              productOrderRespon, keyIndex, id)}
+          {tabsShow === "isShowOrderDetailsDashboardNotPay" &&
             <Button
               className="waiting-payment__pay-now"
               onClick={() => showHowToModalPayment(productOrderRespon)}
             >
               {strings.pay_now}
             </Button>}
-          {((tabsShow === "showTabsCancel") || (tabsShow === "showTabsFinish")) &&
+          {((tabsShow === "isShowOrderDetailsDashboardCancel") ||
+            (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
             <div className="waiting-payment-cancel">
               <Button
                 className="waiting-payment__pay-now">
@@ -145,3 +148,5 @@ const ProductOrderDetails = props => {
 }
 
 export default ProductOrderDetails;
+
+

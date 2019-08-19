@@ -9,6 +9,7 @@ import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
 import Breadcrumbs from "../../library/Breadcrumbs";
+import { escapeRegExp } from "../../library/regex";
 
 
 const Products = React.lazy(() => import("../../components/Products"));
@@ -128,7 +129,7 @@ class CategoryPage extends Component {
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{categoryIdName}</b>
+      <b style={{ color: "#FF416C" }}>{escapeRegExp(categoryIdName)}</b>
     );
     return (
       <div style={{ marginTop: 35, marginLeft: 8 }}>

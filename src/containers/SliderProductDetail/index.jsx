@@ -51,12 +51,12 @@ class SliderProductDetailContainer extends Component {
       this.slider.slideToIndex(this.showThumbnail())
       imagesToShow.unshift(imageVariant);
       isImageVariantExist = true;
-    }
-    this.setState({
-      imagesToShow: imagesToShow,
-      isImageVariantExist: isImageVariantExist,
-      startIndex: 0
-    });
+      this.setState({
+        imagesToShow: imagesToShow,
+        isImageVariantExist: isImageVariantExist,
+        startIndex: 0
+      });
+    }    
   }
 
   showThumbnail = () => {
@@ -161,7 +161,7 @@ class SliderProductDetailContainer extends Component {
     imagesandVideoToShow.push({
       thumbnail: PREFIX_URL,
       original: originalSlider,
-      embedUrl: `${this.props.videoUrl}`,
+      embedUrl: this.props.videoUrl,
       //description: 'Render custom slides within the gallery',
       renderItem: this.itemVideo
     })
@@ -173,8 +173,6 @@ class SliderProductDetailContainer extends Component {
     const { videoUrl } = this.props;
     this.state.isImageVariantExist && this.removeThumbnailImageVariant();
     let isShowNav = this.props.images.length > 4 ? true : false
-    console.log(this.state.isImageVariantExist2);
-
     return (
       <Row>
         <Col md={24}>
