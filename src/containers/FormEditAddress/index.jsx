@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
+import {  Modal, Form, Input, Select, Row, Col } from "antd";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
 import { apiGetWithToken } from "../../api/services";
-
+import Button from "../../components/Button/AllButton";
 const { Option } = Select;
 const { TextArea } = Input;
 class FormEditAddress extends Component {
@@ -27,7 +27,7 @@ class FormEditAddress extends Component {
       cities: [],
       subdistricts: [],
       isDefault: false,
-      length : 0
+      length: 0
     };
   }
 
@@ -63,16 +63,16 @@ class FormEditAddress extends Component {
       subdistrictId: subdistrictId,
       subdistrict: subdistrict,
       isDefault: isDefault,
-      length : fullAddress && fullAddress.length
+      length: fullAddress && fullAddress.length
     }, () => {
-        this.getProvince();
-        this.getCities();
-        this.getSubdistrict();
+      this.getProvince();
+      this.getCities();
+      this.getSubdistrict();
     })
   }
 
-  componentWillReceiveProps(props){
-    if( this.props.address.id !==  props.address.id) {
+  componentWillReceiveProps(props) {
+    if (this.props.address.id !== props.address.id) {
       this.props.form.resetFields();
       const {
         id,
@@ -90,7 +90,7 @@ class FormEditAddress extends Component {
         subdistrictId,
         isDefault
       } = props.address;
-      
+
       this.setState({
         id: id,
         labelName: labelName,
@@ -107,16 +107,16 @@ class FormEditAddress extends Component {
         subdistrict: subdistrict,
         isDefault: isDefault,
       }, () => {
-          this.getProvince();
-          this.getCities();
-          this.getSubdistrict();
-      })  
+        this.getProvince();
+        this.getCities();
+        this.getSubdistrict();
+      })
     }
   }
 
   onChangeFullAddress = (e) => {
     this.setState({
-      length : e.target.value.length
+      length: e.target.value.length
     })
   }
 
@@ -176,7 +176,7 @@ class FormEditAddress extends Component {
   optionsProvince = provinces => {
     const options = [];
     provinces.forEach(provinces => {
-     provinces.province_id  &&
+      provinces.province_id &&
         options.push(
           <Option
             value={`${provinces.province_id}|${provinces.province}`}
@@ -230,7 +230,7 @@ class FormEditAddress extends Component {
         <Option
           value={`${subdistrict.subdistrict_id}|${
             subdistrict.subdistrict_name
-          }`}
+            }`}
           key={subdistrict.subdistrict_id}
         >
           {subdistrict.subdistrict_name}
@@ -270,7 +270,7 @@ class FormEditAddress extends Component {
           isDefault
         };
         this.props.onSubmit(payload);
-        
+
       }
     });
   };
@@ -307,40 +307,32 @@ class FormEditAddress extends Component {
     //   </Select>
     // );
     return (
-      
+
       <Modal
         title="Ubah Alamat Lama"
         visible={this.props.visible}
         onOk={this.handleSubmit}
         onCancel={this.props.onCancle}
         footer={[
-          <Button 
-          key="back"
-          type="link"
-          style={{
-            border: "none",
-            fontWeight: 555,
-            color: "#777777",
-            fontSize: "12px",
-            boxShadow: "none"
-          }}
-          size="large" 
-          onClick={this.props.onCancle}
+          <Button
+            key="back"
+            type="link"
+            size="large"
+            onClick={this.props.onCancle}
           >
             Batalkan
           </Button>,
           <Button
             key="submit"
-            className="buttonSimpan"
-            loading={false}
+            type="primary"
             onClick={this.handleSubmit}
           >
-            <div className="buttonSimpan__text">Simpan</div>
+            Simpan
           </Button>
         ]}
       >
         <Form onSubmit={this.handleSubmit}>
-          <Form.Item label="Nama Alamat"  help="Contoh: Rumah, Kantor, Kost dll">
+          <Form.Item label="Nama Alamat" help="Contoh: Rumah, Kantor, Kost dll">
             {getFieldDecorator(
               "labelName",
               this.rules(true, "Silahkan isi nama alamat", labelName)
@@ -433,29 +425,29 @@ class FormEditAddress extends Component {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label="Alamat Lengkap" 
-          help={
-            <p
-            style={{
-              fontSize: 14,
-              lineHeight: 1.5,
-              opacity: 0.5,
-              float: "right"
-              }}
-            >
-            {this.state.length}/400
+          <Form.Item label="Alamat Lengkap"
+            help={
+              <p
+                style={{
+                  fontSize: 14,
+                  lineHeight: 1.5,
+                  opacity: 0.5,
+                  float: "right"
+                }}
+              >
+                {this.state.length}/400
             </p>
-          }
+            }
           >
             {getFieldDecorator(
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu", fullAddress)
             )(
-                <TextArea
+              <TextArea
                 placeholder="Alamat Lengkap"
                 onChange={this.onChangeFullAddress}
                 autosize={{ minRows: 3, maxRows: 6 }}
-                ></TextArea>
+              ></TextArea>
             )}
           </Form.Item>
         </Form>

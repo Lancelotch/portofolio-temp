@@ -105,7 +105,7 @@ const OrderSummary = props => {
               disabled={checkPriceJne}
               type="primary"
               width="full"
-              margin="margin-small"
+              margin="small"
               onClick={props.onOrder}>
               {strings.choose_payment_methods}
             </Button>

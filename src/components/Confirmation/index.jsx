@@ -3,7 +3,6 @@ import {Row, Col ,Button} from 'antd'
 import history from '../../routers/history'
 import logo from "../../assets/img/monggopesen_logo.png"
 import ilustration from "../../assets/img/ic_background/illustration_pesenajadulu.png"
-import "../../sass/style.sass";
 import './style.sass'
 
 const toHome = () => {

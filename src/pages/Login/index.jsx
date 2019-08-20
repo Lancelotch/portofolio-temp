@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Button, Icon, Row, Col, Checkbox } from "antd";
+import { Input, Form, Icon, Row, Col, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
 import ButtonGoogle from "../../components/Button/SocialMedia/Google";
@@ -21,6 +21,7 @@ import {
   // AlertLogin,
   // RegistrationaAlert
 } from "../Register/registerContainer";
+import Button from "../../components/Button/AllButton";
 // import HomePage from "../Home";
 
 const FormItem = Form.Item;
@@ -209,9 +210,10 @@ class Login extends Component {
                       <span>{strings.login_forgot_password}</span>
                     </Link>
                   <Button
-                    size={"large"}
+                    type="primary"
                     htmlType="submit"
-                    className="login__button-login color-button"
+                    width="full"
+                    size="large"
                   >
                     <p className="register__form__button-register-text">
                       {strings.login_enter}

@@ -1,7 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Row, Col, BackTop } from "antd";
 import { connect } from "react-redux";
-import "sass/style.sass";
 import InfiniteScroll from "react-infinite-scroll-component";
 import product from "../../api/services/product";
 import SkeletonCustom from "../../components/Skeleton";

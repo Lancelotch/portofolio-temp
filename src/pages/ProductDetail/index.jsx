@@ -7,7 +7,7 @@ import { Row, Col, Card, Typography, Tabs } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
-import ButtonQuantityContainer from "../../containers/ButtonQuantity";
+import Quantity from "../../components/Quantity";
 import { connect } from "react-redux";
 import "./style.sass";
 import { apiGetWithoutToken } from "../../api/services";
@@ -190,12 +190,9 @@ class ProductDetail extends Component {
                   :
                   <React.Fragment>
                     <span className="mp-product-detail__total-quantity">Jumlah</span>
-                    <ButtonQuantityContainer
+                    <Quantity
                       stock={this.state.information.maxOrder}
-                      quantity={this.state.quantity}
-                      actionUpdateQuantity={this.actionUpdateQuantity}
-                      incrementItem={this.incrementItem}
-                      decrementItem={this.decrementItem}
+                      updateQuantity={this.actionUpdateQuantity}
                     />
                   </React.Fragment>
                 }

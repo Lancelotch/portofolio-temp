@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { activatingUser } from "../../store/actions/authentication";
-import "../../sass/style.sass";
 import "./style.sass"
 import customer from "../../api/services/customer"
 import history from "../../routers/history"
