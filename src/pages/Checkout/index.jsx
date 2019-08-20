@@ -359,7 +359,7 @@ class Checkout extends Component {
       totalShippingPrice = Number(this.state.shipmentFee.difference) * Number(this.state.quantity);
     };
     const totalAmount = Number(this.state.priceJne)
-    const total = subTotal + totalShippingPrice + totalAmount
+    const total = this.state.shipmentFee.difference ? subTotal + totalShippingPrice + totalAmount : subTotal + totalAmount
     return total;
   }
 
