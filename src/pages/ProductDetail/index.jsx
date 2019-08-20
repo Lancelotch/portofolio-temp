@@ -15,6 +15,7 @@ import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
 import ProductQnA from "../../containers/ProductQnA";
 import Breadcrumbs from "../../library/Breadcrumbs";
+import Button from "../../components/Button/AllButton";
 
 
 const { Text } = Typography
@@ -44,7 +45,7 @@ class ProductDetail extends Component {
       alertVariant: "",
       isUpdateImageVariant: false,
       blurAlertVariant: false,
-      videoUrl:""
+      videoUrl: ""
     };
   }
 
@@ -167,7 +168,7 @@ class ProductDetail extends Component {
     let totalShipping = this.countTotalAmount();
     return (
       <React.Fragment>
-      <Breadcrumbs information={this.state.information.name} />
+        <Breadcrumbs information={this.state.information.name} />
         <div className="container mp-product-detail">
           <Row>
             <Col md={10}>
@@ -206,12 +207,14 @@ class ProductDetail extends Component {
                   </div> :
                   <div style={{ marginTop: 64 }}>
                     {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text> : null}
-                    <button
-                      className="mp-product-detail__addCart"
+                    <Button
+                      type="primary"
+                      width="90"
+                      size="large"
                       onClick={this.actionSubmitToCheckout}
                     >
                       {strings.order_now}
-                    </button>
+                    </Button>
                   </div>
                 }
               </div>

@@ -1,40 +1,22 @@
-.card
-    &__Style 
-        width: 436px
-        margin-top: 25px !important
-        margin-left: 15px !important
-        box-shadow: 0 1px 3px rgba(0,0,0,0.21)
-    &__ColumnLeft 
-        text-align: end
-    &__ColumnLeftVia
-        text-align: end
-        color: #9B9B9B
-    &__Button:hover   
-        opacity: 0.77
-        border-color: unset !important
-        
-.ordersummary .card__Button 
-    text-align: center
-    padding: 6px
-    margin-top: 24px
-    background-color: #FB6900
-    color: #ffffff
-    width: 388px
-    height: 48px
-    font-size: 18px
-    display: block
+@import '../../sass/variable.sass'
 
-.ordersummary .card__Button:focus
-    color: #ffffff
-    background-color: #FB6900
-    border-color: unset !important
+.mp-order-summary
+    width: 436px
+    margin-top: 25px !important
+    margin-left: 15px !important
+    box-shadow: 0 1px 3px rgba(0,0,0,0.21)
+    &__column-left 
+        text-align: end
+    &__column-left-via
+        text-align: end
+        color: $color-nobel
 
 .price-pcs
-    color: #777777
+    color: $color-grey
     line-height: 10px
 
 .sub-total
-    color: #000000
+    color: $color-black
     margin-top: 24px
 
 .international-shipping
@@ -52,37 +34,37 @@
     margin-top: 28px
 
 .jne-checkbox
-    color: #BBBBBB !important
+    color: $color-silver !important
 
 .jne-checkbox-true
-    color: #4A4A4A !important
+    color: $color-charcoal !important
 
 .jne-price
     margin-top: 22px
-    color: #BBBBBB
+    color: $color-silver
 
 .jne-price-true
     margin-top: 22px
-    color: #4A4A4A
+    color: $color-charcoal
 
 .p-color-teal
-    color: #004853
+    color: $color-green
 
 .ordersummary .ant-btn:hover
-    background-color: #FB6900
-    color: #ffffff
+    background-color: $text-orange
+    color: $text-white
 
-.ordersummary 
+.mp-order-summary-button 
     display: flex
     justify-content: center
 
 .divider-checkout
     margin: 12px 0 !important
 
-.rowUnderDivider 
-    color: #004853
+.mp-order-summary-row-under-divider 
+    color: $color-green
     font-size: 16px
     margin-top: 16px
 
-.rowUnderDivider b
-    color: #000000
+.mp-order-summary-row-under-divider b
+    color: $color-black

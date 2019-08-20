@@ -8,15 +8,6 @@
 .login-content
   margin-top: 40px
 
-.color-button:hover
-  background-color: #ff4500 !important
-  border: unset !important  
-
-.color-button
-  color: #ffffff
-  background-color: #FB6900
-  border: unset !important
- 
 .login-form 
   display: flex
   flex-direction: column
@@ -30,20 +21,11 @@
     display: flex
     flex-direction: row
     color: $primary-color
-  &__button 
-    width: 50%
-    &__submit
-      width: 100%
-      height: 48px !important
-      margin: 0.5rem 0
-    &__submit h4
-      color: $text-white
-      padding-top: 5px
   &__error-box
     height: 20px
     display: flex
     justify-content: center
-    color: #A8071A
+    color: $color-carmine
   &__error-box p
     margin-bottom: 0
   &__error-notif
@@ -55,13 +37,13 @@
     &__text
       font-size: 16px
       text-align: center
-      color: #ADADAD
+      color: $color-dark-gray
       justify-content: center
       margin-bottom: 0
   &__input-text input
     height: 48px !important
     width: 275px !important
-    background-color: #ffffff
+    background-color: $white-font-color
   &__socmed-box
     display: flex
     width: 100%
@@ -76,5 +58,5 @@
     color: $secondary-color
     font-weight: bold
   &__register:hover
-    color: #ff4500 !important
+    color: $color-orange-red !important
   

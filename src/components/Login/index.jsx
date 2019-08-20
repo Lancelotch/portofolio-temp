@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Form, Button, Icon, Checkbox, Menu } from 'antd'
+import { Input, Form, Icon, Checkbox, Menu } from 'antd'
 import {Link} from 'react-router-dom'
 import ButtonFacebook from '../Button/SocialMedia/Facebook'
 import ButtonGoogle from '../Button/SocialMedia/Google'
@@ -15,6 +15,7 @@ import {
 } from '../../store/actions/authentication'
 //import history from "../../routers/history"
 import { rulesEmail } from '../../pages/Register/registerContainer';
+import Button from '../Button/AllButton';
 const FormItem = Form.Item
 
 class Login extends Component {
@@ -130,11 +131,11 @@ class Login extends Component {
                 </a>
                 <div>
                 <Button
-                  size={'large'}
                   htmlType='submit'
-                  className='login-form__button__submit color-button'
+                  type="primary"
+                  width="full"
                 >
-                  <h4>{strings.login_enter}</h4>
+                  {strings.login_enter}
                 </Button>
                 <div className='login-form__error-box'>
                   {this.props.messageError ? (<p> {this.props.messageError}</p>): ""}

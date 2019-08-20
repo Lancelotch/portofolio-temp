@@ -1,8 +1,9 @@
 import React from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import { Card, Row, Col, Button, Divider, Checkbox, Icon, Popover } from "antd";
+import { Card, Row, Col, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
+import Button from "../Button/AllButton";
 
 const OrderSummary = props => {
   const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;
@@ -19,8 +20,8 @@ const OrderSummary = props => {
 
 
   return (
-    <Card title={strings.order_summary} className="card__Style">
-      <Row className="card__Content">
+    <Card title={strings.order_summary} className="mp-order-summary">
+      <Row>
         <Col md={12}>
           <div className="price-pcs">
             <p>{"Harga Product"}</p>
@@ -67,7 +68,7 @@ const OrderSummary = props => {
             </Checkbox>
           </div>
         </Col>
-        <Col md={12} className="card__ColumnLeft">
+        <Col md={12} className="mp-order-summary__column-left">
           <div className="price-pcs">
             <p className="price">{totalAmount(totalProduct)}</p>
             { /*<p>{`x ${quantity}`}</p>*/}
@@ -91,16 +92,21 @@ const OrderSummary = props => {
         </Col>
       </Row>
       <Divider className="divider-checkout" />
-      <Row className="rowUnderDivider">
+      <Row className="mp-order-summary-row-under-divider">
         <Col md={12}>
           <b>{strings.real_total}</b>
         </Col>
-        <Col md={12} className="card__ColumnLeft">
+        <Col md={12} className="mp-order-summary__column-left">
           <b className="price">{currencyRupiah(total)}</b>
         </Col>
         <Col md={24}>
-          <div className="ordersummary">
-            <Button disabled={checkPriceJne} className="card__Button" onClick={props.onOrder}>
+          <div className="mp-order-summary-button">
+            <Button
+              disabled={checkPriceJne}
+              type="primary"
+              width="full"
+              margin="margin-small"
+              onClick={props.onOrder}>
               {strings.choose_payment_methods}
             </Button>
           </div>
