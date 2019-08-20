@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 
