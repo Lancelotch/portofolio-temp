@@ -19,7 +19,8 @@ const cssClasses = value => classNamesStyle({
     'mp-btn-size-small': (value.size === 'small'),
     'mp-btn-grey': (value.type === 'grey'),
     'mp-margin-button-small': (value.margin === 'small'),
-    'mp-margin-button-right-small':(value.marginRight === 'small'),
+    'mp-margin-button-right-small':(value.marginright === 'small'),
+    'mp-margin-button-left-small':(value.marginleft === 'small'),
     'mp-button-disabled': (value.disabled === true)
 });
 

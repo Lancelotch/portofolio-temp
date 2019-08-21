@@ -36,7 +36,7 @@ const ButtonDashboard = (props) => {
           <div>
             <Button
               type="primary"
-              marginRight="small"
+              marginright="small"
               size="large"
               onClick={showHowToModalPayment.bind(this, order)}
             >
@@ -64,7 +64,7 @@ const ButtonDashboard = (props) => {
             (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
             <Button
               type="primary"
-              marginRight="small"
+              r="small"
               size="large">
               <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
             </Button>}

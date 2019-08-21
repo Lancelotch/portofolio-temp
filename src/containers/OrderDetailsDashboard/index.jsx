@@ -30,7 +30,7 @@ class OrderDetailsDashboard extends Component {
     }
 
     buttonBack = (actionShowOrderListWaiting) => {
-        return <Button type="secondary" size="large"
+        return <Button type="secondary" size="small"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali

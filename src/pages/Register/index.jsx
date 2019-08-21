@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, Form, Icon, Row, Col, Typography } from "antd";
-import ButtonFacebook from "../../components/ButtonSocialMedia/Facebook";
-import ButtonGoogle from "../../components/ButtonSocialMedia/Google";
+import ButtonFacebook from "../../components/ButtonFacebook";
+import ButtonGoogle from "../../components/ButtonGoogle";
 import { connect } from "react-redux";
 import "./style.sass";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";

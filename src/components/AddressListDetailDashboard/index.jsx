@@ -40,15 +40,15 @@ const AddressListDetailDashboard = props => {
     }]
     return (
         <Row>
-            <hr className="addressInline" />
+            <hr className="mp-address-in-line" />
             <Col md={3}>
                 {listDataAddress.map((list,i) => {
                     return (
                         <Fragment key={i}>
-                            <List.Item><Text disabled>{list.addressName}</Text></List.Item>
-                            <List.Item><Text disabled>{list.nameReceived}</Text></List.Item>
-                            <List.Item><Text disabled>{list.phone}</Text></List.Item>
-                            <List.Item><Text disabled>{list.address}</Text></List.Item>
+                            <List.Item><Text className="mp-list-data-address">{list.addressName}</Text></List.Item>
+                            <List.Item><Text className="mp-list-data-address">{list.nameReceived}</Text></List.Item>
+                            <List.Item><Text className="mp-list-data-address">{list.phone}</Text></List.Item>
+                            <List.Item><Text className="mp-list-data-address">{list.address}</Text></List.Item>
                         </Fragment>)})}
 
             </Col>
@@ -80,11 +80,11 @@ export default AddressListDetailDashboard;
 
 function showChangeDefaultAddress(props, id) {
     return <Fragment>
-        <div className="addressListDetailAddress">
-            <Icon type="edit" className="addressListDetailAddressButtonIconChange"  onClick={() => props.actionShowEditFormAddress(props.address)} />
-            <Icon type="delete" className="addressListDetailAddressButtonIconChange" onClick={() => props.showDeleteAddress(id)} />
+        <div className="mp-address-list-detail-address">
+            <Icon type="edit" className="mp-address-list-detail-address-button-icon-change"  onClick={() => props.actionShowEditFormAddress(props.address)} />
+            <Icon type="delete" className="mp-address-list-detail-address-button-icon-change" onClick={() => props.showDeleteAddress(id)} />
         </div>
-        <div className="addressListDetailAddressButton" style={{ marginTop: 30 }}>
+        <div className="mp-address-list-detail-address-button" style={{ marginTop: 30 }}>
             <Button  onClick={() => props.actionChangeAddress(id)}>Jadikan Utama</Button>
         </div>
     </Fragment>;
@@ -92,11 +92,11 @@ function showChangeDefaultAddress(props, id) {
 
 function showDefaultAddress(props, lengthAddress, isDefault) {
     return <Fragment>
-        <div className="addressListDetailAddress">
-            <Icon type="edit" className="addressListDetailAddressButtonIconChange" onClick={() => props.actionShowEditFormAddress(props.address)} />
-            {lengthAddress.length >= 1 &&<Icon type="delete" className="addressListDetailAddressButtonIconDefault" />}
+        <div className="mp-address-list-detail-address">
+            <Icon type="edit" className="mp-address-list-detail-address-button-icon-change" onClick={() => props.actionShowEditFormAddress(props.address)} />
+            {lengthAddress.length >= 1 &&<Icon type="delete" className="mp-address-list-detail-address-button-icon-default" />}
         </div>
-        <div className="addressListDetailAddressButtonIconDefault" style={{ marginTop: 30 }}>
+        <div className="mp-address-list-detail-address-button-icon-default" style={{ marginTop: 30 }}>
             <StatusAddress isDefault={isDefault} />
         </div>
     </Fragment>;

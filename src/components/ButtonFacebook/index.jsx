@@ -1,10 +1,13 @@
-import React,{Component} from 'react'
+import React from 'react'
 import {OldSocialLogin as SocialLogin} from 'react-social-login'
 import { FacebookLoginButton as FacebookButton} from "react-social-login-buttons";
+import PropTypes from "prop-types";
+
 const REACT_APP_FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 
-class ButtonFacebook extends Component{
-  handleSocialResponse = (user, err) => {
+const ButtonFacebook = props => {
+
+  function handleSocialResponse (user, err)  {
     const profile = user._profile;
     //const provider = user._provider;
     const token = user._token.accessToken
@@ -12,24 +15,27 @@ class ButtonFacebook extends Component{
       token : token,
       id: profile.id
     }
-    this.props.onSubmit(request);
+    props.onSubmit(request);
   }
 
-  render(){
     return(
-      <div className={`${this.props.className}`}>
+      <div className={`${props.className}`}>
         <SocialLogin
         provider='facebook'
         appId={REACT_APP_FACEBOOK_APP_ID}
-        callback={this.handleSocialResponse}
+        callback={handleSocialResponse}
         >
           <FacebookButton style={{margin:"0 0 0 8px"}} size={"48px"} align={"center"}>
-            {this.props.children}
+            {props.children}
           </FacebookButton>
         </SocialLogin>
       </div>
     )
   }
-}
+
+  ButtonFacebook.propTypes = {
+    className: PropTypes.string,
+    onSubmit: PropTypes.func, 
+  };
 
 export default ButtonFacebook;

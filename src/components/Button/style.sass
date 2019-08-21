@@ -1,25 +1,31 @@
 .mp-btn-primary
     @include mp-btn
     background-color: $color-safety-orange !important
-    color: $text-white !important
+    color: $color-white !important
     border: unset !important
 
 .mp-btn-default:hover
     background-color: unset !important 
-    color: $primary-color !important 
-    border-color: $primary-color !important
+    color: $color-teal !important 
+    border-color: $color-teal !important
 
 .mp-btn-width-full
     width: 100% !important
 
 .mp-btn-size-large
     height: 48px !important
+
+.mp-btn-size-small
+    height: 33px !important    
     
 .mp-btn-width-90
     width: 90% !important
 
 .mp-margin-button-right-small 
-    margin-right: 10px !important
+    @include mp-margin-left-small
+
+.mp-margin-button-left-small 
+    @include mp-margin-left-small
 
 .mp-btn-primary:hover
   background-color: $color-orange-red !important
@@ -32,18 +38,17 @@
   margin: 0px 0px 0px 0px  
 
 .mp-button-disabled
-  background-color: $gainsboro !important  
+  background-color: $color-gainsboro  !important  
   cursor: not-allowed !important
 
 .mp-btn-secondary
     @include mp-btn
-    @include mp-margin-left-medium
     color: $color-teal !important
     border-color: initial !important
 
 .mp-btn-danger
     @include mp-btn
-    background-color: $text-white !important
+    background-color: $color-white !important
     border-color: $color-carmine !important
     color: $color-carmine !important
     font-weight: 500
@@ -53,7 +58,7 @@
 .mp-btn-danger:hover
     @include mp-btn
     background-color: $color-carmine !important
-    color: $text-white !important
+    color: $color-white !important
 .mp-btn-secondary:hover
     color: $color-teal !important
 
@@ -71,8 +76,8 @@
 
 .mp-btn-link:hover
     @include mp-btn
-    color: $primary-color !important 
-    border-color: $primary-color !important  
+    color: $color-teal !important 
+    border-color: $color-teal !important  
 
 .mp-btn-mini-require
     color: $color-carmine !important

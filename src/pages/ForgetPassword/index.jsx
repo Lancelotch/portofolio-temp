@@ -120,9 +120,9 @@ class ForgetPassword extends Component {
                         />
                       )}
                       {this.state.showMessage ? (
-                        <div className="forget-password__error-message">
+                        <span className="forget-password__error-message">
                           {this.state.errorMessage}
-                        </div>
+                        </span>
                       ) : null}
                     </FormItem>
                     <FormItem>
