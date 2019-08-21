@@ -8,6 +8,7 @@ import variantItems from "../../library/variantItems";
 import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 import Button from "../Button";
+import TableProductOrder from "../TableProductOrder";
 
 const ProductOrderDetails = props => {
   const
@@ -64,61 +65,11 @@ const ProductOrderDetails = props => {
               to={pageUrlProductDetail + productSnapshot.productId}>
               <h2> {productSnapshot.name} </h2>
             </Link>
-            <table>
-              <tbody>
-                <tr>
-                  <td style={{ width: 70 }}>
-                    <p>
-                      {strings.varian}
-                    </p>
-                  </td>
-                  <td style={{ width: 20 }}>
-                    <p>
-                      :
-              </p>
-                  </td>
-                  <td>
-                    <p>
-                      {variantItems(productSnapshot.informations)}
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ width: 70, verticalAlign: "unset" }}>
-                    <p>
-                      {strings.note}
-                    </p>
-                  </td>
-                  <td style={{ verticalAlign: "unset", width: 20 }}>
-                    <p>
-                      :
-               </p>
-                  </td>
-                  <td>
-                    <p>
-                      {note && note.charAt(0).toUpperCase() + note.substring(1)}
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ width: 70 }}>
-                    <p className="product-order__quantity">
-                      {strings.total}
-                    </p>
-                  </td>
-                  <td style={{ width: 20 }}>
-                    <p>
-                      :
-              </p>
-                  </td>
-                  <td>
-                    <p className="product-order__quantity">
-                      {productSnapshot.quantity}&nbsp;{strings.pcs}
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <TableProductOrder
+              informations={productSnapshot.informations}
+              quantity={productSnapshot.quantity}
+              ote={note}
+            />
           </div>
         </Col>
         <Col md={5} style={{ marginTop: 30 }}>

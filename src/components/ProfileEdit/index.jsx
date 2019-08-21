@@ -52,7 +52,7 @@ const ProfileEdit = props => {
       <Row>
         <Col offset={4}>
           <Form.Item>
-            <Button htmlType="submit" size="small" type="primary">
+            <Button htmlType="submit" type="primary">
               Simpan Perubahan
             </Button>
           </Form.Item>
