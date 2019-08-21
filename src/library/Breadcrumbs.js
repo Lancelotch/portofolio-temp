@@ -35,7 +35,6 @@ const breadcrumbRoutes = [
 const Breadcrumbs = ({ breadcrumbs, information }) => {
   const extraBreadcrumbItems = breadcrumbs.map(
     ({ breadcrumb, path, match }) => {
-      console.log("bread", information);
       return (
         <Breadcrumb.Item key={match.url}>
           <Link className="mp-breadcrumb-active" replace to={match.url}>
