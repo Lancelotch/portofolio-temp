@@ -3,7 +3,7 @@ import {  Modal, Form, Input, Select, Row, Col } from "antd";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
 import { apiGetWithToken } from "../../api/services";
-import Button from "../../components/Button/AllButton";
+import Button from "../../components/Button";
 const { Option } = Select;
 const { TextArea } = Input;
 class FormEditAddress extends Component {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Input, Form, Icon, Checkbox, Menu } from 'antd'
 import {Link} from 'react-router-dom'
-import ButtonFacebook from '../Button/SocialMedia/Facebook'
-import ButtonGoogle from '../Button/SocialMedia/Google'
+import ButtonFacebook from '../ButtonSocialMedia/Facebook'
+import ButtonGoogle from '../ButtonSocialMedia/Google'
 import { connect } from 'react-redux'
 import './style.sass'
 // import '../../sass/style.sass'
@@ -15,7 +15,7 @@ import {
 } from '../../store/actions/authentication'
 //import history from "../../routers/history"
 import { rulesEmail } from '../../pages/Register/registerContainer';
-import Button from '../Button/AllButton';
+import Button from '../Button';
 const FormItem = Form.Item
 
 class Login extends Component {

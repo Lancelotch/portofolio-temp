@@ -6,9 +6,10 @@ import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import OrderStatusCancel from '../../components/OrderStatusCancel';
-import { BackTop, Icon, Button } from 'antd';
+import { BackTop, Icon} from 'antd';
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "./style.sass";
+import Button from '../../components/Button';
 
 class OrderDetailsDashboard extends Component {
     _isMounted = false;
@@ -29,7 +30,7 @@ class OrderDetailsDashboard extends Component {
     }
 
     buttonBack = (actionShowOrderListWaiting) => {
-        return <Button size="large" className="button-back-dashboard"
+        return <Button type="secondary" size="large"
             onClick={() => actionShowOrderListWaiting()}>
             <Icon type="arrow-left" /> &nbsp;
             Kembali

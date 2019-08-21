@@ -1,22 +1,28 @@
-.top-header
-    margin: 6px
-    text-align: center
-    color: #777777
-
-.content
-    margin: 48px
-
-.logo
-    margin: 24px 0
-
 .collapse_null .ant-collapse-content > .ant-collapse-content-box
-    height: 300px
+    height: 300px  
 
-.info
+.mp-info-payment
+    text-align: center
+    p
+        margin-bottom: 1px
+        font-weight: 500
+        line-height: 32px
+    &__top-header 
+        margin: 6px
+        text-align: center
+        color: $color-grey   
+    &__logo
+        margin: 24px 0    
     &__style
         border-radius: 4px
-        background-color: #FFFFFF
+        background-color: $text-white
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.11)
+    &__top-null
+        height: 700px 
+        border-radius: 4px
+        padding: 30px
+        background-color: $text-white
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.11)      
     &__title
         padding-top: 14px
     &__title p
@@ -29,67 +35,51 @@
     &__content
         padding: 0 65px
     &__payment
-        text-align: center
-    &__payment p
-        margin-bottom: 1px
-        font-weight: 500
-        line-height: 32px
-    &__bank
+        color: #9B9B9B 
+        font-size: 18px  
+    &__gross-amount
+        color: $color-green 
+        font-size: 36px  
+    &__expired-payment
+        color: $color-charcoal 
+        font-size: 24px
+    &__wrapper-virtual-account
+        display: flex 
+        justify-content: center
+        margin-top: 35px
+    &__virtual-account
+        color: black
+        font-size: 25px 
+        font-weight: 500                    
+    &__info-bank
         height: 108px
         width: 100%
         margin-top: -15px
         border-radius: 4px
         padding: 0 30px
         background-image: url("../../assets/img/ic_background/ic_bg_info_pembayaran.png")
-    &__bni
-        height: 27px
-        margin: 8px 0
-    &__bankButton
-	    height: 48px !important
-	    width: 134px
-	    border-radius: 4px
-	    background-color: #FB6900 !important
-    &__bankButton p
-        color: #ffffff
-        margin-bottom: 5px
-        font-size: 20px
-        font-weight: 500
-        letter-spacing: 0.67px
-    &__dropdownMethod
+    &__drop-down
         margin-top: 40px
-    &__dropdownMethod .ant-collapse
+    &__drop-down .ant-collapse
         background-color: rgba(0,0,0,0.02)
-    &__dropdownMethod .ant-collapse-content
-        background-color: #ffffff
-    &__button
-        height: 48px !important
-        width: 100%
-        background-color: #FB6900 !important
-        border-radius: 4px
-        margin-top: 32px
-        margin-bottom: 32px
-    &__button p
-        margin-bottom: 5px
-        font-size: 20px
-        color: #FFFFFF
+    &__drop-down .ant-collapse-content
+        background-color: $text-white
+    &__virtual-number
+        color: $color-green
+        font-size: 32px
+        font-weight: 500
+        letter-spacing: 1.07px
+        line-height: 39px
+    &__button-skeleton
+        display: flex
+        justify-content: center   
 
 .modal-check-status .ant-btn
-    border-color: #FB6900 !important
-    background-color: #FB6900 !important
+    border-color: $color-safety-orange !important
+    background-color: $color-safety-orange !important
     
 .modal-check-status .ant-btn:hover
-    border-color: #EC5600
-    background-color: #EC5600
+    border-color: $color-persimmon
+    background-color: $color-persimmon
 
-.virtualNumber
-    color: #004853
-    font-size: 32px
-    font-weight: 500
-    letter-spacing: 1.07px
-    line-height: 39px
-
-.top-null
-    height: 700px 
-    border-radius: 4px
-    background-color: #FFFFFF
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.11)   
+ 

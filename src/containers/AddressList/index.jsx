@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Radio } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
-import Button from "../../components/Button/AllButton";
+import Button from "../../components/Button";
 
 const RadioGroup = Radio.Group;
 // const confirm = Modal.confirm;

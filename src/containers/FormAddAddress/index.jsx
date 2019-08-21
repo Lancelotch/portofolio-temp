@@ -4,7 +4,7 @@ import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
 import { apiGetWithToken } from "../../api/services";
 import "./style.sass";
-import Button from "../../components/Button/AllButton";
+import Button from "../../components/Button";
 
 
 const { Option } = Select;

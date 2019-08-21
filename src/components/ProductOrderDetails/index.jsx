@@ -4,10 +4,10 @@ import { Row, Col, Card } from "antd";
 import { pageUrlViewInvoiceDashboard, pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
-import { Button } from "antd";
 import variantItems from "../../library/variantItems";
 import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
+import Button from "../Button";
 
 const ProductOrderDetails = props => {
   const
@@ -57,13 +57,13 @@ const ProductOrderDetails = props => {
           </Link>
         </Col>
         <Col md={17}>
-        <div className="product-order__variant">
-          <Link
-            className="default"
-            style={{ cursor: "pointer" }}
-            to={pageUrlProductDetail + productSnapshot.productId}>
-            <h2> {productSnapshot.name} </h2>
-          </Link>
+          <div className="product-order__variant">
+            <Link
+              className="default"
+              style={{ cursor: "pointer" }}
+              to={pageUrlProductDetail + productSnapshot.productId}>
+              <h2> {productSnapshot.name} </h2>
+            </Link>
             <table>
               <tbody>
                 <tr>
@@ -127,7 +127,8 @@ const ProductOrderDetails = props => {
               productOrderRespon, keyIndex, id)}
           {tabsShow === "isShowOrderDetailsDashboardNotPay" &&
             <Button
-              className="waiting-payment__pay-now"
+              type="primary"
+              size="large"
               onClick={() => showHowToModalPayment(productOrderRespon)}
             >
               {strings.pay_now}
@@ -136,7 +137,9 @@ const ProductOrderDetails = props => {
             (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
             <div className="waiting-payment-cancel">
               <Button
-                className="waiting-payment__pay-now">
+                type="primary"
+                size="large"
+              >
                 <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
               </Button>
             </div>

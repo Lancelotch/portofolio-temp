@@ -15,7 +15,7 @@ import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
 import ProductQnA from "../../containers/ProductQnA";
 import Breadcrumbs from "../../library/Breadcrumbs";
-import Button from "../../components/Button/AllButton";
+import Button from "../../components/Button";
 
 
 const { Text } = Typography

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
-import { Divider, Button, Modal, Row, Col, Collapse, notification } from "antd";
+import { Divider, Modal, Row, Col, Collapse, notification } from "antd";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
@@ -10,6 +10,7 @@ import { apiGetWithToken } from "../../api/services";
 import { PATH_ORDER } from "../../api/path";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../../components/Skeleton";
+import Button from "../../components/Button";
 
 
 const openNotificationWithIcon = type => {
@@ -80,23 +81,23 @@ class PaymentInfoPage extends Component {
     return (
       <div className="container">
         <React.Fragment>
-          <div className="top-header">
+          <div className="mp-info-payment__top-header">
             <span>{strings.payment_info_sentence}</span>
           </div>
-          <div className="content">
-            <div className="logo">
+          <div className="mp-info-payment__content">
+            <div className="mp-info-payment__logo">
               <Link to="/#">
                 <img src={monggopesen_logo} alt="" />
               </Link>
             </div>
-            <div className={isLoading === true ? "top-null" : "info__style"}>
-              <div className="info__title">
+            <div className={isLoading === true ? "mp-info-payment__top-null" : "mp-info-payment__style"}>
+              <div className="mp-info-payment__title">
                 <p>{strings.payment_info}</p>
                 <Divider />
               </div>
-              <div className="info__content">
+              <div className="mp-info-payment___content">
                 {isLoading === true ?
-                  <Row type="flex" align="middle" style={{ marginTop: 40 }} className="info__bank">
+                  <Row type="flex" align="middle" style={{ marginTop: 40 }} className="mp-info-payment__info-bank">
                     <Col md={4} />
                     <Col md={16} />
                     <Col md={4} style={{ textAlign: "end" }}>
@@ -109,7 +110,7 @@ class PaymentInfoPage extends Component {
                     onCopy={this.onCopy}
                   />}
                 <center style={{ color: "red" }}>{this.state.messageCopy}</center>
-                <div className="info__dropdownMethod">
+                <div className="mp-info-payment__drop-down">
                   {isLoading === true ?
                     <Collapse defaultActiveKey={["1"]} accordion>
                       <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
@@ -120,10 +121,16 @@ class PaymentInfoPage extends Component {
                 </div>
                 <div>
                   {isLoading === true ?
-                    <SkeletonCustom width={975} topMargin={10} height={48} color={"#BBBBBB"} count={0} />
+                    <SkeletonCustom 
+                    leftMargin={13}
+                    width={975} 
+                    topMargin={10} 
+                    height={48} 
+                    color={"#BBBBBB"} 
+                    count={0} />
                     :
-                    <Button className="info__button" onClick={warning}>
-                      <p>{strings.payment_check}</p>
+                    <Button type="primary" width="full" size="large" onClick={warning}>
+                      {strings.payment_check}
                     </Button>
                   }
                 </div>

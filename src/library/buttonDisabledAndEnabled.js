@@ -1,5 +1,6 @@
 import React from "react";
-import { Button } from "antd";
+import Button from "../components/Button";
+
 
 
 export const buttonDisabledandEnabledDelivery = (status, actionReceivedConfirm, productOrderRespon, keyIndex, id) => {

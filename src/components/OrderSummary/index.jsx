@@ -3,7 +3,7 @@ import "./style.sass";
 import strings from "../../localization/localization";
 import { Card, Row, Col, Divider, Checkbox, Icon, Popover } from "antd";
 import currencyRupiah from "../../library/currency";
-import Button from "../Button/AllButton";
+import Button from "../Button";
 
 const OrderSummary = props => {
   const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;

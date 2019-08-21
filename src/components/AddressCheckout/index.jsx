@@ -2,7 +2,7 @@ import React from "react";
 import AddressDetail from "../AddressDetail";
 import { Card, Icon } from "antd";
 import "./style.sass";
-import Button from "../Button/AllButton";
+import Button from "../Button";
 
 export const AddressCheckout = props => {
   const {

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Input, Form, Icon, Row, Col, Checkbox } from "antd";
 import { Link } from "react-router-dom";
-import ButtonFacebook from "../../components/Button/SocialMedia/Facebook";
-import ButtonGoogle from "../../components/Button/SocialMedia/Google";
+import ButtonFacebook from "../../components/ButtonSocialMedia/Facebook";
+import ButtonGoogle from "../../components/ButtonSocialMedia/Google";
 import { connect } from "react-redux";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import "./style.sass";
@@ -21,7 +21,7 @@ import {
   // AlertLogin,
   // RegistrationaAlert
 } from "../Register/registerContainer";
-import Button from "../../components/Button/AllButton";
+import Button from "../../components/Button";
 // import HomePage from "../Home";
 
 const FormItem = Form.Item;

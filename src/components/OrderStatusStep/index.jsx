@@ -13,7 +13,7 @@ const OrderStatusStep = (props) => {
   return (
     <React.Fragment>
       <Card className="card-step-container" style={{ marginTop: 10 }}>
-        <div className="stepOrderStatus">
+        <div className="mp-step-order-status">
           <Steps size="small" labelPlacement="vertical">
             <Step
               status="finish"
