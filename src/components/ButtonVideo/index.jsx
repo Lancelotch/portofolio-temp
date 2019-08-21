@@ -2,7 +2,7 @@ import React from 'react';
 import "./style.sass";
 import PropTypes from "prop-types";
 
-const ButtonVideo = props => {
+export default function ButtonVideo (props) {
     return (
         <div className={props.className} />
     );
@@ -11,5 +11,3 @@ const ButtonVideo = props => {
 ButtonVideo.propTypes = {
     className: PropTypes.string
   };
-
-export default ButtonVideo;

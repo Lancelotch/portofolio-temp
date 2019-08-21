@@ -4,7 +4,7 @@ import { GoogleLoginButton as GoogleButton} from "react-social-login-buttons"
 import PropTypes from "prop-types"
 const REACT_APP_GOOGLE_APP_ID = process.env.REACT_APP_GOOGLE_APP_ID
 
-const ButtonGoogle = props =>{
+export default function ButtonGoogle(props){
  function handleSocialResponse (user, err) {
     if(user) {
       const token = user._token.idToken;
@@ -35,7 +35,3 @@ const ButtonGoogle = props =>{
     className: PropTypes.string,
     onSubmit: PropTypes.func, 
   };
-
-
-
-export default ButtonGoogle;

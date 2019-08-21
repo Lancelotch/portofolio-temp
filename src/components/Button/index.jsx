@@ -4,38 +4,35 @@ import classNames from 'classnames';
 import propTypes from 'prop-types';
 import style from "./style.sass";
 
-const classNamesStyle = classNames.bind(style)
 
-const cssClasses = value => classNamesStyle({
-    'mp-btn-primary': (value.type === 'primary'),
-    'mp-btn-default': (value.type === 'default'),
-    'mp-btn-secondary': (value.type === 'secondary'),
-    'mp-btn-white': (value.type === 'white'),
-    'mp-btn-danger': (value.type === 'danger'),
-    'mp-btn-link': (value.type === 'link'),
-    'mp-btn-disabled':(value.type === 'disabled'),
-    'mp-btn-width-full': (value.width === 'full'),
-    'mp-btn-width-90': (value.width === '90'),
-    'mp-btn-size-large': (value.size === 'large'),
-    'mp-btn-size-small': (value.size === 'small'),
-    'mp-btn-grey': (value.type === 'grey'),
-    'mp-margin-button-small': (value.margin === 'small'),
-    'mp-margin-button-right-small':(value.marginright === 'small'),
-    'mp-margin-button-left-small':(value.marginleft === 'small'),
-    'mp-button-disabled': (value.disabled === true)
-});
-
-const Button = props => {
-    return (
-        <ButtonAnt  className={cssClasses(props)} {...props}>{props.children}</ButtonAnt>
-    )
+export default function Button(props) {
+    let classNamesStyle = classNames.bind(style)
+    let cssClasses = classNamesStyle({
+        'mp-btn-primary': (props.type === 'primary'),
+        'mp-btn-default': (props.type === 'default'),
+        'mp-btn-secondary': (props.type === 'secondary'),
+        'mp-btn-white': (props.type === 'white'),
+        'mp-btn-danger': (props.type === 'danger'),
+        'mp-btn-link': (props.type === 'link'),
+        'mp-btn-disabled': (props.type === 'disabled'),
+        'mp-btn-width-full': (props.width === 'full'),
+        'mp-btn-width-90': (props.width === '90'),
+        'mp-btn-size-large': (props.size === 'large'),
+        'mp-btn-size-small': (props.size === 'small'),
+        'mp-btn-grey': (props.type === 'grey'),
+        'mp-margin-button-small': (props.margin === 'small'),
+        'mp-margin-button-right-small': (props.marginright === 'small'),
+        'mp-margin-button-left-small': (props.marginleft === 'small'),
+        'mp-button-disabled': (props.disabled === true)
+    });
+    return <ButtonAnt className={cssClasses} {...props}>{props.children}</ButtonAnt>
 }
 
 Button.propTypes = {
-    type: propTypes.oneOf(['primary', 'default','secondary','white','link','danger','grey','circle-small','disabled']),
-    width: propTypes.oneOf(['default', 'full','90']),
-    size: propTypes.oneOf(['default','large']),
-    margin: propTypes.oneOf(['small','medium','large'])
+    type: propTypes.oneOf(['primary', 'default', 'secondary', 'white', 'link', 'danger', 'grey', 'circle-small', 'disabled']),
+    width: propTypes.oneOf(['default', 'full', '90']),
+    size: propTypes.oneOf(['default', 'large']),
+    margin: propTypes.oneOf(['small', 'medium', 'large'])
 }
 
 Button.defaultProps = {
@@ -44,4 +41,3 @@ Button.defaultProps = {
     size: 'default'
 }
 
-export default Button;

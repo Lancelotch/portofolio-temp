@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const REACT_APP_FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 
-const ButtonFacebook = props => {
+export default function  ButtonFacebook (props) {
 
   function handleSocialResponse (user, err)  {
     const profile = user._profile;
@@ -38,4 +38,3 @@ const ButtonFacebook = props => {
     onSubmit: PropTypes.func, 
   };
 
-export default ButtonFacebook;
