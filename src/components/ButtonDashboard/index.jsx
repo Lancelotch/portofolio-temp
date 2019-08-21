@@ -6,7 +6,7 @@ import strings from '../../localization/localization';
 import { buttonDisabledandEnabledDelivery } from '../../library/buttonDisabledAndEnabled';
 import Button from "../Button"
 
-const ButtonDashboard = (props) => {
+export default function ButtonDashboard(props) {
   const { showDeleteConfirm,
     showReceivedConfirm,
     showHowToModalPayment,
@@ -86,5 +86,3 @@ const ButtonDashboard = (props) => {
     </React.Fragment>
   )
 }
-
-export default ButtonDashboard;
