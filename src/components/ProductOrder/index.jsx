@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import { Row, Col } from "antd";
 import "./style.sass";
-import strings from "../../localization/localization";
-import variantItems from "../../library/variantItems";
 import TableProductOrder from "../TableProductOrder";
 // import currencyRupiah from "../../library/currency";
 

@@ -134,6 +134,7 @@ class Login extends Component {
                   htmlType='submit'
                   type="primary"
                   width="full"
+                  size="large"
                 >
                   {strings.login_enter}
                 </Button>

@@ -106,6 +106,7 @@ const OrderSummary = props => {
               type="primary"
               width="full"
               margin="small"
+              size="large"
               onClick={props.onOrder}>
               {strings.choose_payment_methods}
             </Button>

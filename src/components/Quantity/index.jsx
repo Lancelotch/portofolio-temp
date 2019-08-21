@@ -62,7 +62,7 @@ export default function Quantity(props) {
       <div className="mp-quantity">
         <div>
           <Button
-            className="mp-quantity-circle-small"
+            className={Buttondisabled ? "mp-quantity-circle-small-disabled" : "mp-quantity-circle-small"}
             onClick={decrementItem}
             disabled={disabled}
           >
@@ -81,7 +81,7 @@ export default function Quantity(props) {
         </div>
         <div>
           <Button
-            className="mp-quantity-circle-small"
+            className={Buttondisabled ? "mp-quantity-circle-small-disabled" : "mp-quantity-circle-small"}
             onClick={incrementItem}
             disabled={Buttondisabled}>
             <Icon className="mp-icon__quantity" type="plus" />

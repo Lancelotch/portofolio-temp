@@ -4,7 +4,6 @@ import { Row, Col, Card } from "antd";
 import { pageUrlViewInvoiceDashboard, pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
-import variantItems from "../../library/variantItems";
 import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 import Button from "../Button";

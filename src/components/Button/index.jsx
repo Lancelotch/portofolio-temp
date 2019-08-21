@@ -13,6 +13,7 @@ const cssClasses = value => classNamesStyle({
     'mp-btn-white': (value.type === 'white'),
     'mp-btn-danger': (value.type === 'danger'),
     'mp-btn-link': (value.type === 'link'),
+    'mp-btn-disabled':(value.type === 'disabled'),
     'mp-btn-width-full': (value.width === 'full'),
     'mp-btn-width-90': (value.width === '90'),
     'mp-btn-size-large': (value.size === 'large'),
@@ -31,7 +32,7 @@ const Button = props => {
 }
 
 Button.propTypes = {
-    type: propTypes.oneOf(['primary', 'default','secondary','white','link','danger','grey','circle-small']),
+    type: propTypes.oneOf(['primary', 'default','secondary','white','link','danger','grey','circle-small','disabled']),
     width: propTypes.oneOf(['default', 'full','90']),
     size: propTypes.oneOf(['default','large']),
     margin: propTypes.oneOf(['small','medium','large'])

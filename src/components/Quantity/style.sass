@@ -3,7 +3,7 @@
 	margin-bottom: 40px
 	align-items: center
 
-.mp-quantity-circle-small
+.mp-quantity-circle-small,.mp-quantity-circle-small-disabled
 	border-radius: 50% !important
 	margin: 10px !important
 	height: 33px !important
@@ -14,7 +14,11 @@
 
 .mp-quantity-circle-small:hover,.mp-quantity-circle-small:focus
     color: $color-teal !important 
-    border-color: $color-teal !important	
+    border-color: $color-teal !important
+
+.mp-quantity-circle-small-disabled:hover,.mp-quantity-circle-small-disabled:focus
+    color: $color-white !important 
+    border-color: unset !important		
 
 i.mp-icon__quantity:hover,i.mp-icon__quantity:active,i.mp-icon__quantity:focus	
 	color: $color-teal !important	
