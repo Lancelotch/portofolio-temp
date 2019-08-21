@@ -64,7 +64,7 @@ const ButtonDashboard = (props) => {
             (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
             <Button
               type="primary"
-              r="small"
+              marginright="small"
               size="large">
               <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
             </Button>}
