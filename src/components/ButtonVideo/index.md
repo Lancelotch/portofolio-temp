@@ -21,7 +21,12 @@ no details
 
 ## Playground
 
-### Button video className 'play-button' or 'play-button-card-products'
+### Button video className 'play-button'
 <Playground>
     <ButtonVideo className="play-button"/>
+</Playground>
+
+### Button video className 'play-button-card-products'
+<Playground>
+    <ButtonVideo className="play-button-card-products"/>
 </Playground>
