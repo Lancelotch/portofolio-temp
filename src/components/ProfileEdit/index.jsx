@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.sass";
-import { Input, Button, Form, Row, Col } from "antd";
+import { Input,  Form, Row, Col } from "antd";
+import Button from "../Button";
 
 const ProfileEdit = props => {
   const onSubmit = e => {
@@ -51,7 +52,7 @@ const ProfileEdit = props => {
       <Row>
         <Col offset={4}>
           <Form.Item>
-            <Button htmlType="submit" className="profile__button-edit">
+            <Button htmlType="submit" type="primary">
               Simpan Perubahan
             </Button>
           </Form.Item>

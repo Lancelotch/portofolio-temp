@@ -4,6 +4,7 @@ import { Row, Col, Modal } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
+import ButtonVideo from "../../components/ButtonVideo";
 
 const PREFIX_URL = `https://raw.githubusercontent.com/putrairawan992/assets-monggopesen/master/ic_button_play.png`;
 
@@ -117,7 +118,7 @@ class SliderProductDetailContainer extends Component {
           </Modal>
           :
           <span onClick={() => this.showHideVideo()}>
-            <div className='play-button' />
+            <ButtonVideo className="play-button"/>
             <img src={item.original} alt="" className="video-image" />
             {/*item.description &&
               <span

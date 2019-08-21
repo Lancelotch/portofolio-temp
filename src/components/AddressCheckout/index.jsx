@@ -1,7 +1,8 @@
 import React from "react";
 import AddressDetail from "../AddressDetail";
-import { Card, Button, Icon } from "antd";
+import { Card, Icon } from "antd";
 import "./style.sass";
+import Button from "../Button";
 
 export const AddressCheckout = props => {
   const {
@@ -29,14 +30,14 @@ export const AddressCheckout = props => {
               <Button
                 onClick={onSelectListAddress}
                 size="large"
-                className="address-checkout__button"
+                type="secondary"
               >
                 Kirim ke Alamat Lain
               </Button>
             )}
             <Button
               size="large"
-              className="address-add__button"
+              type="secondary"
               onClick={onAddAddress}
             >
               Tambah Alamat <Icon type="plus" />

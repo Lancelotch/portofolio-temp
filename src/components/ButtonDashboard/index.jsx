@@ -1,12 +1,12 @@
 import React from 'react'
 import "../ProductOrder/style.sass"
-import { Button } from 'antd'
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../library/url"
 import strings from '../../localization/localization';
 import { buttonDisabledandEnabledDelivery } from '../../library/buttonDisabledAndEnabled';
+import Button from "../Button"
 
-const ButtonDashboard = (props) => {
+export default function ButtonDashboard(props) {
   const { showDeleteConfirm,
     showReceivedConfirm,
     showHowToModalPayment,
@@ -35,13 +35,16 @@ const ButtonDashboard = (props) => {
           </p>
           <div>
             <Button
-              className="waiting-payment__pay-now"
+              type="primary"
+              marginright="small"
+              size="large"
               onClick={showHowToModalPayment.bind(this, order)}
             >
               {strings.pay_now}
             </Button>
             <Button
-              className="waiting-payment__detail-order"
+              type="secondary"
+              size="large"
               onClick={showOrderDetailsDashboard}
             >
               {strings.order_details}
@@ -55,16 +58,19 @@ const ButtonDashboard = (props) => {
       ) &&
         <div className="button-dashboard">
           {tabsShowItem === "isShowOrderDetailsDashboardInDelivery" &&
-          buttonDisabledandEnabledDelivery(status, showReceivedConfirm,
-            orderProduct, index, id)}
+            buttonDisabledandEnabledDelivery(status, showReceivedConfirm,
+              orderProduct, index, id)}
           {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
             (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
             <Button
-              className="waiting-payment__pay-now">
+              type="primary"
+              marginright="small"
+              size="large">
               <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
             </Button>}
           <Button
-            className="waiting-payment__detail-order"
+          type="secondary"
+          size="large"
             onClick={showOrderDetailsDashboard}
           >
             {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
@@ -80,5 +86,3 @@ const ButtonDashboard = (props) => {
     </React.Fragment>
   )
 }
-
-export default ButtonDashboard;

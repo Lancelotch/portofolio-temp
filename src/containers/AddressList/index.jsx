@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Modal, Radio, Button } from "antd";
+import { Modal, Radio } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
+import Button from "../../components/Button";
 
 const RadioGroup = Radio.Group;
 // const confirm = Modal.confirm;
@@ -51,16 +52,15 @@ class AddressList extends Component {
         onCancel={this.props.onCancle}
         footer={[
           <Button
-            key="back"
+          key="cancel"
             size="large"
-            className="button-batal-address"
             onClick={this.props.onCancle}>
             <div className="">Batal</div>
           </Button>,
           <Button
+          key="use address"
             size="large"
-            key="submit"
-            className="button-simpan"
+            type="primary"
             onClick={this.handleOk}
           >
             <div className="button-simpan__choose-address">Gunakan Alamat</div>

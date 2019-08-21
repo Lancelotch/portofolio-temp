@@ -33,14 +33,14 @@ const OrderStatusCancel = props => {
                 status={"finish"}
                 description={convertTimesTime.millisecond(orderDate.paymentDate)}
                 title="Pesenan Dibayarkan"
-                icon={<Icon className={"iconOrderStatusStepActive"}
+                icon={<Icon className={"mp-icon-order-status-step-active"}
                   component={paymentOrder} />}
               />}
             <Step
               status={"finish"}
               description={convertTimesTime.millisecond(orderCancel && orderCancel.createdDate)}
               title="Pesenan Dibatalkan"
-              icon={<Icon className={"iconOrderStatusStepActive"}
+              icon={<Icon className={"mp-icon-order-status-step-active"}
                 component={cancelOrderIcon} />}
             />
           </Steps>

@@ -1,10 +1,11 @@
-import React,{Component} from 'react'
+import React from 'react'
 import {OldSocialLogin as SocialLogin} from 'react-social-login'
-import { GoogleLoginButton as GoogleButton} from "react-social-login-buttons";
+import { GoogleLoginButton as GoogleButton} from "react-social-login-buttons"
+import PropTypes from "prop-types"
 const REACT_APP_GOOGLE_APP_ID = process.env.REACT_APP_GOOGLE_APP_ID
 
-class ButtonGoogle extends Component{
-  handleSocialResponse = (user, err) => {
+export default function ButtonGoogle(props){
+ function handleSocialResponse (user, err) {
     if(user) {
       const token = user._token.idToken;
       const request = {
@@ -14,22 +15,23 @@ class ButtonGoogle extends Component{
     }
   }
 
-  render(){
-    const {onSubmit} = this.props
+    const {onSubmit} = props
     return(
-      <div className={`${this.props.className}`}>
+      <div className={`${props.className}`}>
         <SocialLogin
           provider='google'
           appId={REACT_APP_GOOGLE_APP_ID}
-          callback={this.handleSocialResponse}
+          callback={handleSocialResponse}
         >
           <GoogleButton onClick={onSubmit} style={{margin:"0 8px 0 0"}} size={"48px"} align={"center"}>
-            {this.props.children}
+            {props.children}
           </GoogleButton>
         </SocialLogin>
       </div>
     )
-  }
-}
-
-export default ButtonGoogle;
+  } 
+  
+  ButtonGoogle.propTypes = {
+    className: PropTypes.string,
+    onSubmit: PropTypes.func, 
+  };
