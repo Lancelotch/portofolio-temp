@@ -25,7 +25,7 @@ class OrderDetailsDashboard extends Component {
         //window.addEventListener("scroll", this.listenScrollEvent);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._isMounted = false;
     }
 

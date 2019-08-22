@@ -5,7 +5,7 @@ import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
-import ButtonVideo from "../ButtonVideo";
+import ButtonPlay from "../Button Play";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -109,7 +109,7 @@ class ClickProducts extends Component {
                   src={product.image.defaultImage}
                   className="card__image"
                 />
-                {product.videoUrl && <ButtonVideo className="play-button-card-products"/>}
+                {product.videoUrl && <ButtonPlay type="thumbnail"/>}
               </div>
             }
           >

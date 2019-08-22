@@ -4,7 +4,7 @@ import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom"
 import { pageUrlProductDetail } from "../../library/url";
 import "./style.sass";
-import ButtonVideo from "../ButtonVideo"
+import ButtonPlay from "../Button Play";
 
 const { Meta } = Card;
 
@@ -27,7 +27,7 @@ const Product = props => {
           cover={ 
             <div className="popular__image-cover">
             <img alt="example" src={urlImage} className="popular__image" />
-            {props.videoUrl && <ButtonVideo className="play-button-card-products"/>}
+            {props.videoUrl && <ButtonPlay type="thumbnail"/>}
             </div>
           }
         >
