@@ -1,21 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import Headers from "containers/Header";
 import Footer from "components/Footer";
 import "./style.sass";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount"
 
 
-class CustomerLayout extends Component {
-  render() {
+export default function CustomerLayout (props) {
     return (
       <div className="customerLayout">
         <ScrollToTopOnMount />
-        <Headers match={this.props} />
-        <div className="container">{this.props.children}</div>
+        <Headers match={props} />
+        <div className="container">{props.children}</div>
         <Footer />
       </div>
     );
-  }
 }
 
-export default CustomerLayout;

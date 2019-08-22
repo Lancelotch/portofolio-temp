@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Layout } from 'antd';
 import Header from 'containers/Header'
 import Footer from 'components/Footer'
@@ -6,23 +6,18 @@ import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 
 const { Content, Sider } = Layout;
 
-class NavigationCustomer extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            page: []
-        }
-    }
-    actionChangePage = page => {
-        this.setState({ page });
+export default function NavigationCustomer (props) {
+    const [page, setPage] = useState([]);
+
+   function actionChangePage(page){
+        setPage(page);
     };
 
 
-    childrenWithProps = React.cloneElement(this.props.children, {
-        actionChangePage: this.actionChangePage
+   const childrenWithProps = React.cloneElement(this.props.children, {
+        actionChangePage: actionChangePage
     });
 
-    render() {
         return (
             <Layout>
                 <div className="mp-customer-layout">
@@ -31,11 +26,11 @@ class NavigationCustomer extends Component {
                     <div className="container mp-customer-layout__wrapper">
                         <Layout>
                             <Sider className="mp-customer-layout__children">
-                                {this.childrenWithProps}
+                                {childrenWithProps}
                             </Sider>
                             <Layout className="mp-customer-layout__content">
                                 <Content>
-                                    {this.state.page}
+                                    {page}
                                 </Content>
                             </Layout>
                         </Layout>
@@ -44,7 +39,5 @@ class NavigationCustomer extends Component {
                 </div>
             </Layout>
         );
-    }
 }
 
-export default NavigationCustomer;

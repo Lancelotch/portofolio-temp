@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import "./style.sass";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount"
 
-class FullLayout extends Component {
-    render() {
+export default function FullLayout () {
         return (
             <div>
                 <ScrollToTopOnMount />
                 {this.props.children}
             </div>
         )
-    }
 }
 
-export default FullLayout;
