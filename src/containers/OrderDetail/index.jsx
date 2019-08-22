@@ -98,7 +98,7 @@ class OrderDetail extends Component {
                     <div className="detail__button-quantity">
                       <Quantity
                         stock={this.props.stock}
-                        initValue={this.props.quantity}
+                        initValue={Number(this.props.quantity)}
                         updateQuantity={this.actionUpdateQuantity}
                       />
                     </div>
