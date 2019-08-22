@@ -38,7 +38,7 @@ class SliderProductDetailContainer extends Component {
     })
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.isUpdateImageVariant) {
       this.showImages(props.imageVariant);
     }

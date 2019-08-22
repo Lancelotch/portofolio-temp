@@ -14,7 +14,7 @@ class AddressList extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       customerAddress: props.customerAddress
     })

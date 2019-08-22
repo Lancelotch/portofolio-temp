@@ -71,7 +71,7 @@ class FormEditAddress extends Component {
     })
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (this.props.address.id !== props.address.id) {
       this.props.form.resetFields();
       const {
