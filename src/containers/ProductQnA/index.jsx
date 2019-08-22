@@ -4,6 +4,7 @@ import { Row, Col, Button, Divider, Table } from "antd";
 import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 import Search from "../../components/Search";
+import Input from "../../components/Input";
 
 const columns = [{
   title: 'Question',
@@ -101,6 +102,7 @@ class ProductQnA extends Component {
               placeholder="Cari pertanyaan terkait"
               onChange={this.onChangeSearch}
             />
+            <Input size="large" placeholder="hai" icon="alert" />
           </Col>
         </Row>
         <Divider />
