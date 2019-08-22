@@ -65,20 +65,6 @@ class RegisterPage extends Component {
     });
   };
 
-
-  componentDidUpdate(props) {
-    console.log(props);
-
-  }
-
-
-  componentWillReceiveProps(props) {
-    console.log(props);
-
-  }
-
-
-
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateHeightImageBackground);
   }

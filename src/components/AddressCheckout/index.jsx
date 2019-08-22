@@ -1,8 +1,10 @@
 import React from "react";
 import AddressDetail from "../AddressDetail";
-import { Card, Icon } from "antd";
+import { Card } from "antd";
 import "./style.sass";
 import Button from "../Button";
+import strings from "../../localization/localization";
+import ButtonIcon from "../ButtonIcon";
 
 export const AddressCheckout = props => {
   const {
@@ -17,7 +19,7 @@ export const AddressCheckout = props => {
       <Card
         className="card-address"
         size="default"
-        title={<div>Alamat Pengiriman</div>}
+        title={<div>{strings.shipping_address}</div>}
       >
         <div style={{ padding: 15 }}>
           <AddressDetail
@@ -31,8 +33,9 @@ export const AddressCheckout = props => {
                 onClick={onSelectListAddress}
                 size="large"
                 type="secondary"
+                marginright="small"
               >
-                Kirim ke Alamat Lain
+                {strings.send_to_another_address}
               </Button>
             )}
             <Button
@@ -40,7 +43,7 @@ export const AddressCheckout = props => {
               type="secondary"
               onClick={onAddAddress}
             >
-              Tambah Alamat <Icon type="plus" />
+             {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
             </Button>
           </div>
         </div>
