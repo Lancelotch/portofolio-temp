@@ -1,30 +1,35 @@
-.ant-typography.mp-list-data-address
-    color: $color-silver !important       
+.listAddress
+    &__button
+        border: 1px solid $color-gainsboro  !important;
+        border-radius: 4px !important;
+        margin-left: 1px !important; 
+        color: $color-teal !important;
+        font-size: 14px !important;
 
-.mp-address-in-line
+.addressInline
     box-sizing: border-box
     height: 1px
     border: 0.2px solid $color-gainsboro 
     margin-left: -25px
     width: 110%  
 
-.mp-address-list-detail-address
+.addressListDetailAddress
     display: flex
     justify-content: space-evenly
 
-.mp-address-list-detail-address-button
+.addressListDetailAddressButton
     display: flex 
     justify-content: center 
 
-.mp-address-list-detail-address-button .ant-btn:hover
+.addressListDetailAddressButton .ant-btn:hover
     color: $color-teal !important
     border-color: $color-teal !important
 
-.mp-address-list-detail-address-button-icon-change
+.addressListDetailAddressButtonIconChange
     cursor: pointer
     font-size: 20px
 
-.mp-address-list-detail-address-button-icon-default
+.addressListDetailAddressButtonIconDefault
     cursor: not-allowed
     font-size: 20px    
     color: $color-gainsboro !important
