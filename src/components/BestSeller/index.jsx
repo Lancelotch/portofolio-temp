@@ -4,7 +4,7 @@ import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
-import ButtonVideo from "../ButtonVideo"
+import ButtonPlay from "../Button Play";
 
 const BestSeller = props => {
   const { name, image, price, id, videoUrl } = props.product;
@@ -19,7 +19,7 @@ const BestSeller = props => {
             cover={
               <div className="best__image-cover">
                 <img alt="" src={image && image.defaultImage} className="best__image" />
-                {videoUrl && <ButtonVideo className="play-button-card-products"/>}
+                {videoUrl && <ButtonPlay type="thumbnail"/>}
               </div>
             }
           >

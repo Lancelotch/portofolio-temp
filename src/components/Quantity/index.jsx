@@ -27,19 +27,19 @@ export default function Quantity(props) {
   function onChangeQuantityBlur(event) {
     if (event.target.value < 1) {
       props.updateQuantity(1);
+      setQuantity(1)
     }
   };
 
-
-  function onChangeQuantity(event) {
+  function onChangeQuantity(event) { 
     let stock = props.stock
     let checkCount = 1
+    setQuantity(event.target.value)
     if (event.target.value > stock) {
       setText(
         strings.formatString(strings.product_detail_info_stock, stock)
       )
       checkCount = stock
-      setQuantity(event.target.value)
       setTimeout(() => {
         setQuantity(stock)
         // props.updateQuantity(stock)
@@ -62,7 +62,7 @@ export default function Quantity(props) {
       <div className="mp-quantity">
         <div>
           <Button
-            className={Buttondisabled ? "mp-quantity-circle-small-disabled" : "mp-quantity-circle-small"}
+            className={disabled ? "mp-quantity-circle-small-disabled" : "mp-quantity-circle-small"}
             onClick={decrementItem}
             disabled={disabled}
           >

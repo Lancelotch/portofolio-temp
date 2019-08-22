@@ -19,7 +19,9 @@ const strings = new LocalizedStrings({
 
     //Address
     use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
-
+    send_to_another_address : 'Kirim ke Alamat Lain',
+    shipping_address : 'Alamat Pengiriman',
+  
     //general
     change_address:'Ubah Alamat',
     password:'Password',
