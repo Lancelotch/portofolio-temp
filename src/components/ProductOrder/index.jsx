@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { Row, Col } from "antd";
 import "./style.sass";
-import strings from "../../localization/localization";
-import variantItems from "../../library/variantItems";
+import TableProductOrder from "../TableProductOrder";
 // import currencyRupiah from "../../library/currency";
 
 
@@ -26,61 +25,11 @@ const ProductOrder = props => {
                 <Col md={21}>
                   <div className="product-order__variant">
                   <h2> {order.productSnapshot.name}</h2>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td style={{ width: 70 }}>
-                            <p>
-                              {strings.varian}
-                            </p>
-                          </td>
-                          <td style={{ width: 20 }}>
-                            <p>
-                              :
-                        </p>
-                          </td>
-                          <td>
-                            <p>
-                              {variantItems(order.productSnapshot.informations)}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style={{ width: 70, verticalAlign: "unset" }}>
-                            <p>
-                              {strings.note}
-                            </p>
-                          </td>
-                          <td style={{ verticalAlign: "unset", width: 20 }}>
-                            <p>
-                              :
-                         </p>
-                          </td>
-                          <td>
-                            <p>
-                              {order.note}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style={{ width: 70 }}>
-                            <p className="product-order__quantity">
-                              {strings.total}
-                            </p>
-                          </td>
-                          <td style={{ width: 20 }}>
-                            <p>
-                              :
-                        </p>
-                          </td>
-                          <td>
-                            <p className="product-order__quantity">
-                              {order.productSnapshot.quantity}&nbsp;{strings.pcs}
-                            </p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <TableProductOrder 
+                  informations={order.productSnapshot.informations} 
+                  quantity={order.productSnapshot.quantity}
+                  ote={order.note}
+                  />
                   </div>
                 </Col>
                 {/*<Col md={5} style={{ marginTop: 60 }}>

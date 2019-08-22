@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { apiGetWithToken, apiPostWithToken, apiDeleteWithToken, apiPutWithToken, patchService } from '../../api/services';
 import { PATH_CUSTOMER } from '../../api/path';
 import AddressListDetailDashboard from '../../components/AddressListDetailDashboard';
-import { Card, Row, Col, Button, Icon, Modal, Empty, Spin } from 'antd';
+import { Card, Row, Col, Icon, Modal, Empty, Spin } from 'antd';
 import FormAddAddress from '../FormAddAddress';
 import { connect } from "react-redux";
 import { openModal } from "../../store/actions/authentication";
 import { addressDefault } from "../../store/actions/address";
 import strings from '../../localization/localization';
 import FormEditAddress from '../FormEditAddress';
+import Button from '../../components/Button';
 
 
 const confirm = Modal.confirm;
@@ -67,7 +68,7 @@ class AddressListDashboard extends Component {
                 this.setState({
                     isProductAlvailabel: true
                 })
-            } else if (response.data.data.length > 0){
+            } else if (response.data.data.length > 0) {
                 this.setState({
                     isProductAlvailabel: false
                 })
@@ -241,7 +242,7 @@ class AddressListDashboard extends Component {
     }
 
     render() {
-        const { customerAddress, addresses,isLoading,isProductAlvailabel } = this.state
+        const { customerAddress, addresses, isLoading, isProductAlvailabel } = this.state
         return (
             <Card>
                 <div className="listAddress">
@@ -251,14 +252,15 @@ class AddressListDashboard extends Component {
                             <p>{strings.use_notice_address}</p>
                         </Col>
                         <Col md={4}>
-                            <Button
-                                size="large"
-                                className="listAddress__button"
-                                onClick={this.actionShowAddFormAddress}
-                            >
-                               {strings.add_address}<Icon type="plus" />
-                            </Button>
-
+                            <div style={{ marginLeft: -18 }}>
+                                <Button
+                                    size="large"
+                                    type="secondary"
+                                    onClick={this.actionShowAddFormAddress}
+                                >
+                                    {strings.add_address}<Icon type="plus" />
+                                </Button>
+                            </div>
                         </Col>
                         <Col md={24} style={{ marginTop: 10 }}>
                             {isLoading ?

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import ButtonQuantityContainer from "../ButtonQuantity";
+import Quantity from "../../components/Quantity";
 import "./style.sass";
 import { Row, Col, Card, Icon, Divider } from "antd";
 import NotedLimit from "../../components/NotedLimit";
@@ -7,7 +7,7 @@ import SelectShipping from "../../components/SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
-class OrderDetailContainer extends Component {
+class OrderDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -96,10 +96,10 @@ class OrderDetailContainer extends Component {
                   </Col>
                   <Col md={19} offset={5}>
                     <div className="detail__button-quantity">
-                      <ButtonQuantityContainer
+                      <Quantity
                         stock={this.props.stock}
-                        quantity={this.props.quantity}
-                        actionUpdateQuantity={this.actionUpdateQuantity}
+                        initValue={this.props.quantity}
+                        updateQuantity={this.actionUpdateQuantity}
                       />
                     </div>
                     <div className="detail__alert">
@@ -141,6 +141,6 @@ class OrderDetailContainer extends Component {
   }
 }
 
-export default OrderDetailContainer;
+export default OrderDetail;
 
 

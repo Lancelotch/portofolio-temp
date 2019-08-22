@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Button, Modal, Form, Input, Select, Row, Col } from "antd";
+import { Modal, Form, Input, Select, Row, Col } from "antd";
 import { PATH_CUSTOMER } from "../../api/path";
 import withApiMethod from "../../hoc/withApiMethod";
 import { apiGetWithToken } from "../../api/services";
 import "./style.sass";
+import Button from "../../components/Button";
+
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -37,7 +39,7 @@ class FormAddAddress extends Component {
 
   onChangeFullAddress = (e) => {
     this.setState({
-      length : e.target.value.length
+      length: e.target.value.length
     })
   }
 
@@ -90,7 +92,7 @@ class FormAddAddress extends Component {
   optionsProvince = provinces => {
     const options = [];
     provinces.forEach(provinces => {
-      provinces.province_id  &&
+      provinces.province_id &&
         options.push(
           <Option
             value={`${provinces.province_id}|${provinces.province}`}
@@ -203,25 +205,16 @@ class FormAddAddress extends Component {
         footer={[
           <Button
             key="back"
-            size="large"
-            style={{
-              border: "none",
-              fontWeight: 555,
-              color: "#777777",
-              fontSize: "12px",
-              boxShadow: "none"
-            }}
+            type="link"
             onClick={this.props.onCancle}>
             Batalkan
           </Button>,
           <Button
-            size="large"
-            key="submit"
-            className="buttonSimpan"
-            loading={false}
+          key="save"
+            type="primary"
             onClick={this.handleSubmit}
           >
-            <div className="buttonSimpan__text">Simpan</div>
+            Simpan
           </Button>
         ]}
       >
@@ -320,27 +313,27 @@ class FormAddAddress extends Component {
             </Col>
           </Row>
           <Form.Item label="Alamat Lengkap" help={
-                <p
-                  style={{
-                    fontSize: 14,
-                    lineHeight: 1.5,
-                    opacity: 0.5,
-                    float: "right"
-                    }}
-                >
-                  {this.state.length}/400
+            <p
+              style={{
+                fontSize: 14,
+                lineHeight: 1.5,
+                opacity: 0.5,
+                float: "right"
+              }}
+            >
+              {this.state.length}/400
                 </p>
           }>
             {getFieldDecorator(
               "fullAddress",
               this.rules(true, "Silahkan alamat Lengkap kamu")
             )(
-                <TextArea
+              <TextArea
                 className="addAddressInput"
                 placeholder="Alamat Lengkap"
                 autosize={{ minRows: 3, maxRows: 6 }}
                 onChange={this.onChangeFullAddress}
-                />
+              />
             )}
           </Form.Item>
         </Form>

@@ -8,7 +8,7 @@ import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
-import Breadcrumbs from "../../library/Breadcrumbs";
+import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import { escapeRegExp } from "../../library/regex";
 
 

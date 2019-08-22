@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Alert } from "antd";
+import {  Alert } from "antd";
 import strings from "../../localization/localization";
 import Loading from '../../components/Loading';
+import Button from "../../components/Button";
 
 export const RegistrationSubmitButton = props => {
   const {isLoading} = props
@@ -10,8 +11,8 @@ export const RegistrationSubmitButton = props => {
       <Loading />
     ) : (
       <Button
-        className="register__form__button-register color-button"
-        size={"large"}
+        size="large"
+        width="full"
         htmlType="submit"
         type="primary"
       >

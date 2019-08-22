@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { withBreadcrumbs } from "./withBreadcrumbs";
-import PATH_URL from "../routers/path";
-import { escapeRegExp } from "./regex";
+import {withBreadcrumbs}  from "../../library/withBreadcrumbs.js";
+import {escapeRegExp} from "../../library/regex.js";
+import PATH_URL from "../../routers/path";
+
+import "./style.sass";
 
 const UserBreadcrumbLevel1 = ({ match }) => (
   <span>{escapeRegExp(match.params.categoryLevel1)}</span>
@@ -60,4 +62,5 @@ const Breadcrumbs = ({ breadcrumbs, information }) => {
     </div>
   );
 };
+
 export default withBreadcrumbs(breadcrumbRoutes)(Breadcrumbs);

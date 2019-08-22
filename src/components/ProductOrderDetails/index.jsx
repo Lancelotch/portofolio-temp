@@ -4,10 +4,10 @@ import { Row, Col, Card } from "antd";
 import { pageUrlViewInvoiceDashboard, pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
-import { Button } from "antd";
-import variantItems from "../../library/variantItems";
 import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
+import Button from "../Button";
+import TableProductOrder from "../TableProductOrder";
 
 const ProductOrderDetails = props => {
   const
@@ -57,68 +57,18 @@ const ProductOrderDetails = props => {
           </Link>
         </Col>
         <Col md={17}>
-        <div className="product-order__variant">
-          <Link
-            className="default"
-            style={{ cursor: "pointer" }}
-            to={pageUrlProductDetail + productSnapshot.productId}>
-            <h2> {productSnapshot.name} </h2>
-          </Link>
-            <table>
-              <tbody>
-                <tr>
-                  <td style={{ width: 70 }}>
-                    <p>
-                      {strings.varian}
-                    </p>
-                  </td>
-                  <td style={{ width: 20 }}>
-                    <p>
-                      :
-              </p>
-                  </td>
-                  <td>
-                    <p>
-                      {variantItems(productSnapshot.informations)}
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ width: 70, verticalAlign: "unset" }}>
-                    <p>
-                      {strings.note}
-                    </p>
-                  </td>
-                  <td style={{ verticalAlign: "unset", width: 20 }}>
-                    <p>
-                      :
-               </p>
-                  </td>
-                  <td>
-                    <p>
-                      {note && note.charAt(0).toUpperCase() + note.substring(1)}
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style={{ width: 70 }}>
-                    <p className="product-order__quantity">
-                      {strings.total}
-                    </p>
-                  </td>
-                  <td style={{ width: 20 }}>
-                    <p>
-                      :
-              </p>
-                  </td>
-                  <td>
-                    <p className="product-order__quantity">
-                      {productSnapshot.quantity}&nbsp;{strings.pcs}
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="product-order__variant">
+            <Link
+              className="default"
+              style={{ cursor: "pointer" }}
+              to={pageUrlProductDetail + productSnapshot.productId}>
+              <h2> {productSnapshot.name} </h2>
+            </Link>
+            <TableProductOrder
+              informations={productSnapshot.informations}
+              quantity={productSnapshot.quantity}
+              ote={note}
+            />
           </div>
         </Col>
         <Col md={5} style={{ marginTop: 30 }}>
@@ -127,7 +77,8 @@ const ProductOrderDetails = props => {
               productOrderRespon, keyIndex, id)}
           {tabsShow === "isShowOrderDetailsDashboardNotPay" &&
             <Button
-              className="waiting-payment__pay-now"
+              type="primary"
+              size="large"
               onClick={() => showHowToModalPayment(productOrderRespon)}
             >
               {strings.pay_now}
@@ -136,7 +87,9 @@ const ProductOrderDetails = props => {
             (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
             <div className="waiting-payment-cancel">
               <Button
-                className="waiting-payment__pay-now">
+                type="primary"
+                size="large"
+              >
                 <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
               </Button>
             </div>

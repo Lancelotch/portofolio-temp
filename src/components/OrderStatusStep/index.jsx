@@ -13,20 +13,20 @@ const OrderStatusStep = (props) => {
   return (
     <React.Fragment>
       <Card className="card-step-container" style={{ marginTop: 10 }}>
-        <div className="stepOrderStatus">
+        <div className="mp-step-order-status">
           <Steps size="small" labelPlacement="vertical">
             <Step
               status="finish"
               title="Pesenan Dibuat"
               description={convertTimesTime.millisecond(orderDate)}
-              icon={<Icon style={{ color: "#004853" }}
+              icon={<Icon className="mp-icon-order-status-step-active"
                 component={boxOrder} />}>
             </Step>
             <Step
               status={paymentDate ? "finish" : ""}
               description={paymentDate && convertTimesTime.millisecond(paymentDate)}
               title="Pesenan Dibayarkan"
-              icon={<Icon className={paymentDate && "iconOrderStatusStepActive"}
+              icon={<Icon className={paymentDate ? "mp-icon-order-status-step-active" : "mp-icon-order-status-step"}
                 component={paymentOrder} />}
             />
             {
@@ -34,7 +34,7 @@ const OrderStatusStep = (props) => {
                 status={shipmentDate && paymentDate ? "finish" : ""}
                 description={shipmentDate && paymentDate && convertTimesTime.millisecond(shipmentDate)}
                 title="Pesenan Dikirim"
-                icon={<Icon className={shipmentDate && paymentDate && "iconOrderStatusStepActive"}
+                icon={<Icon className={shipmentDate && paymentDate  ? "mp-icon-order-status-step-active" : "mp-icon-order-status-step"}
                   component={deliveryOrderIcon} />}
               />}
             <Step
@@ -42,8 +42,8 @@ const OrderStatusStep = (props) => {
               description={receivedDate && paymentDate && shipmentDate && convertTimesTime.millisecond(receivedDate)}
               title="Pesenan Diterima"
               icon={<Icon component={receivedOrderIcon}
-                className={receivedDate && paymentDate && shipmentDate &&
-                  "iconOrderStatusStepActive"} />}
+                className={receivedDate && paymentDate && shipmentDate  ?
+                  "mp-icon-order-status-step-active" : "mp-icon-order-status-step"} />}
             />
           </Steps>
         </div>

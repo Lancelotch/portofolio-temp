@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "antd";
+import Button from "../components/Button";
+
 
 
 export const buttonDisabledandEnabledDelivery = (status, actionReceivedConfirm, productOrderRespon, keyIndex, id) => {
-  return <Button size="large" disabled={status === "SHP" || status === "RCP" ? true : false}
-    onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}
-    className={status === "SHP" || status === "RCP" ? "default " : "waiting-payment__pay-now"}>
+  return <Button size="large" marginright="small" type={status === "SHP" || status === "RCP" ? "disabled" : "primary"} disabled={status === "SHP" || status === "RCP" ? true : false}
+    onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}>
     Pesanan Diterima
   </Button>;
 }
