@@ -7,6 +7,7 @@ import propTypes from "prop-types";
 export default function Input(props) {
   const classNamesStyle = classNames.bind(style);
   const sassClasses = classNamesStyle({
+    "mp-input-small": props.size === "small",
     "mp-input-medium": props.size === "medium",
     "mp-input-large": props.size === "large",
     "mp-input-x-large": props.size === "xlarge"
@@ -28,7 +29,6 @@ export default function Input(props) {
   }
 
   let fixStyling = [
-    "mp-input-component",
     sassClasses,
     inputXlargePrefix,
     inputLargePrefix
@@ -56,7 +56,7 @@ Input.propTypes = {
   placeholder: propTypes.string,
   value: propTypes.string,
   icon: propTypes.string,
-  size: propTypes.oneOf(["medium", "large", "xlarge"]),
+  size: propTypes.oneOf(["small", "medium", "large", "xlarge"]),
   onChange: propTypes.func,
   onKeyUp: propTypes.func,
   maxLength: propTypes.number,
@@ -64,5 +64,6 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  size: "small",
   type: "default"
 };

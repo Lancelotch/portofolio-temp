@@ -23,6 +23,7 @@ This is input of Monggopesen
 - icon: is used for adding icon as an prefix
 - onChange: is used for adding onChangeHandler
 - onKeyUp: is used for adding onKeyUpHandler
+- size: 'small' is used to set height to 32px
 - size: 'medium' is used to set height to 36px
 - size: 'large' is used to set height to 48px
 - size: 'xlarge' is used to set height to 56px

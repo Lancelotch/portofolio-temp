@@ -102,7 +102,7 @@ class ProductQnA extends Component {
               placeholder="Cari pertanyaan terkait"
               onChange={this.onChangeSearch}
             />
-            <Input size="large" placeholder="hai" icon="alert" />
+            <Input placeholder="hai" icon="alert" />
           </Col>
         </Row>
         <Divider />
