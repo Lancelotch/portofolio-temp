@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Input, Button,Form, Alert } from "antd";
+import { Button, Form, Alert } from "antd";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { rulesEmail } from "../Register/registerContainer";
+import Input from "../../components/Input";
 
 class ForgetPassword extends Component {
   constructor(props) {
@@ -81,94 +82,89 @@ class ForgetPassword extends Component {
           >
             <img src={monggopesen_logo} alt="Monggopesen" />
           </div>
-            {this.state.isEmailSend ? (
-              <div>
-                <Alert
-                  showIcon
-                  message="Email pengaturan kata sandi telah dikirim"
-                  type="success"
-                  style={{ marginTop: "120px" }}
-                  closable
-                  onClose={this.handleClose}
-                  description="Silahkan cek email yang sudah kami kirim, dan ikuti instruksi yang sudah kami sediakan
+          {this.state.isEmailSend ? (
+            <div>
+              <Alert
+                showIcon
+                message="Email pengaturan kata sandi telah dikirim"
+                type="success"
+                style={{ marginTop: "120px" }}
+                closable
+                onClose={this.handleClose}
+                description="Silahkan cek email yang sudah kami kirim, dan ikuti instruksi yang sudah kami sediakan
                   untuk pengaturan perubahan kata sandi."
-                />
-              </div>
-            ) : (
-              <div className="forget-password__box-forget-content">
-                <div>
-                  <p className="forget-password__title">Lupa Kata Sandi</p>
-                  <p className="forget-password__content">
-                    Masukkan alamat email yang terdaftar, kami akan
-                    <br />
-                    mengirimkan link untuk mengatur ulang kata sandi.
-                  </p>
-                  <Form onSubmit={this.handleSubmit}>
-                    {this.state.emailNotRegister}
-                    <FormItem>
-                      {getFieldDecorator("email", rulesEmail())(
-                        <Input
-                          placeholder="Email"
-                          onChange={this.handleEmailChange}
-                          className={
-                            this.state.showMessage
-                              ? "forget-password__input-email-error"
-                              : "forget-password__input-email"
-                          }
-                          name="email"
-                          onKeyUp={this.handleInvalidEmail}
-                        />
-                      )}
-                      {this.state.showMessage ? (
-                        <span className="forget-password__error-message">
-                          {this.state.errorMessage}
-                        </span>
-                      ) : null}
-                    </FormItem>
-                    <FormItem>
-                      <Button
-                        htmlType="submit"
-                        disabled={!isEnabled}
-                        className={
-                          isEnabled
-                            ? "forget-password__button-submit"
-                            : "forget-password__button-submit-disabled"
-                        }
-                      >
-                        Kirim Link
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </div>
-                <div className="forget-password__content-bottom">
-                  <span>
-                    Silahkan{" "}
-                    <Link
-                      className="forget-password__link-bottom"
-                      to={{
-                        pathname: "/login"
-                      }}
-                      style={{ color: "#F63700" }}
+              />
+            </div>
+          ) : (
+            <div className="forget-password__box-forget-content">
+              <div>
+                <p className="forget-password__title">Lupa Kata Sandi</p>
+                <p className="forget-password__content">
+                  Masukkan alamat email yang terdaftar, kami akan
+                  <br />
+                  mengirimkan link untuk mengatur ulang kata sandi.
+                </p>
+                <Form onSubmit={this.handleSubmit}>
+                  {this.state.emailNotRegister}
+                  <FormItem>
+                    {getFieldDecorator("email", rulesEmail())(
+                      <Input
+                        size="large"
+                        placeholder="Email"
+                        onChange={this.handleEmailChange}
+                        onKeyUp={this.handleInvalidEmail}
+                      />
+                    )}
+                    {this.state.showMessage ? (
+                      <span className="forget-password__error-message">
+                        {this.state.errorMessage}
+                      </span>
+                    ) : null}
+                  </FormItem>
+                  <FormItem>
+                    <Button
+                      htmlType="submit"
+                      disabled={!isEnabled}
+                      className={
+                        isEnabled
+                          ? "forget-password__button-submit"
+                          : "forget-password__button-submit-disabled"
+                      }
                     >
-                      Login
-                    </Link>{" "}
-                    jika kamu sudah punya akun,
-                    <br />
-                    atau{" "}
-                    <Link
-                      className="forget-password__link-bottom"
-                      to={{
-                        pathname: "/register"
-                      }}
-                      style={{ color: "#F63700" }}
-                    >
-                      Register
-                    </Link>{" "}
-                    untuk mulai belanja barang-barang kece.
-                  </span>
-                </div>
+                      Kirim Link
+                    </Button>
+                  </FormItem>
+                </Form>
               </div>
-            )}
+              <div className="forget-password__content-bottom">
+                <span>
+                  Silahkan{" "}
+                  <Link
+                    className="forget-password__link-bottom"
+                    to={{
+                      pathname: "/login"
+                    }}
+                    style={{ color: "#F63700" }}
+                  >
+                    Login
+                  </Link>{" "}
+                  jika kamu sudah punya akun,
+                  <br />
+                  atau{" "}
+                  <Link
+                    className="forget-password__link-bottom"
+                    to={{
+                      pathname: "/register"
+                    }}
+                    style={{ color: "#F63700" }}
+                  >
+                    Register
+                  </Link>{" "}
+                  untuk mulai belanja barang-barang kece.
+                </span>
+              </div>
+            </div>
+          )}
           <div />
         </div>
       </div>
