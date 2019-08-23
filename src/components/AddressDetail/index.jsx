@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Icon } from "antd";
 import "./style.sass";
-import ButtonIcon from "../ButtonIcon";
 
 const AddressAvailable = props => {
   const {
@@ -19,10 +18,15 @@ const AddressAvailable = props => {
         <Col md={12} className="address__name">
           <p>{labelName}</p>
         </Col>
-        <Col md={12}>
-          <div className="address__icon-edit">
-            <ButtonIcon icon="edit" onClick={() => props.onEdit("EDIT")} />
-          </div>
+        <Col md={12} className="address__icon-edit">
+          <Icon
+            type="edit"
+            style={{
+              float: "right"
+            }}
+            onClick={() => props.onEdit("EDIT")}
+            className={"icon"}
+          />
         </Col>
       </Row>
       <Row>
@@ -65,8 +69,8 @@ const AddressDetail = props => {
   return props.isAddressAvailable ? (
     <AddressAvailable data={props.addressDefault} onEdit={props.onEdit} />
   ) : (
-      <AddressUnAvailable />
-    );
+    <AddressUnAvailable />
+  );
 };
 
 export default AddressDetail;

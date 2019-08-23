@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./style.sass";
 import { Row, Col, Button, Divider, Table } from "antd";
-import Search from "antd/lib/input/Search";
 import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
+import Search from "../../components/Search";
+import Input from "../../components/Input";
 
 const columns = [{
   title: 'Question',
@@ -101,6 +102,7 @@ class ProductQnA extends Component {
               placeholder="Cari pertanyaan terkait"
               onChange={this.onChangeSearch}
             />
+            <Input placeholder="hai" icon="alert" />
           </Col>
         </Row>
         <Divider />

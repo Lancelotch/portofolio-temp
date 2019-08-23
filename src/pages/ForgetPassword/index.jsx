@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Input, Button,Form, Alert } from "antd";
+import { Button,Form, Alert } from "antd";
 import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { rulesEmail } from "../Register/registerContainer";
+import Input from "../../components/Input";
 
 class ForgetPassword extends Component {
   constructor(props) {
@@ -109,13 +110,8 @@ class ForgetPassword extends Component {
                       {getFieldDecorator("email", rulesEmail())(
                         <Input
                           placeholder="Email"
+                          size="large"
                           onChange={this.handleEmailChange}
-                          className={
-                            this.state.showMessage
-                              ? "forget-password__input-email-error"
-                              : "forget-password__input-email"
-                          }
-                          name="email"
                           onKeyUp={this.handleInvalidEmail}
                         />
                       )}
