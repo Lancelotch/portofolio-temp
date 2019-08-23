@@ -4,7 +4,7 @@ import { Row, Col, Modal } from "antd";
 import PropTypes from "prop-types";
 import Magnifier from "react-magnifier";
 import "./style.sass";
-import ButtonPlay from "../../components/Button Play";
+import ButtonPlay from "../../components/ButtonPlay";
 
 const PREFIX_URL = `https://raw.githubusercontent.com/putrairawan992/assets-monggopesen/master/ic_button_play.png`;
 

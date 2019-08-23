@@ -4,7 +4,7 @@ import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
-import ButtonPlay from "../Button Play";
+import ButtonPlay from "../ButtonPlay";
 
 const BestSeller = props => {
   const { name, image, price, id, videoUrl } = props.product;
