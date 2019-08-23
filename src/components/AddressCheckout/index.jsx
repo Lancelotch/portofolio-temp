@@ -40,7 +40,7 @@ export const AddressCheckout = props => {
             )}
             <Button
               size="large"
-              className="address-add__button"
+              type="secondary"
               onClick={onAddAddress}
             >
              {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
