@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./style.sass";
 import { Row, Col, Button, Divider, Table } from "antd";
-import Search from "antd/lib/input/Search";
 import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
+import Search from "../../components/Search";
 
 const columns = [{
   title: 'Question',
