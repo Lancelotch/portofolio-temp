@@ -14,14 +14,14 @@ export default function NavigationCustomer (props) {
     };
 
 
-   const childrenWithProps = React.cloneElement(this.props.children, {
+   const childrenWithProps = React.cloneElement(props.children, {
         actionChangePage: actionChangePage
     });
 
         return (
             <Layout>
                 <div className="mp-customer-layout">
-                    <Header match={this.props} />
+                    <Header match={props} />
                     <ScrollToTopOnMount />
                     <div className="container mp-customer-layout__wrapper">
                         <Layout>
