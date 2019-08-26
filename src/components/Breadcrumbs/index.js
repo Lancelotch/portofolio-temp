@@ -39,7 +39,7 @@ const Breadcrumbs = ({ breadcrumbs, information }) => {
     ({ breadcrumb, path, match }) => {
       return (
         <Breadcrumb.Item key={match.url}>
-          <Link className="mp-breadcrumb-active" replace to={match.url}>
+          <Link replace to={match.url}>
             {breadcrumb}
           </Link>
         </Breadcrumb.Item>

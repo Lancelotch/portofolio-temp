@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.sass";
-import { Input,  Form, Row, Col } from "antd";
+import { Form, Row, Col } from "antd";
 import Button from "../Button";
+import Input from "../Input";
 
 const ProfileEdit = props => {
   const onSubmit = e => {
