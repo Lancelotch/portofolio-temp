@@ -5,7 +5,7 @@ import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
-import ButtonPlay from "../Button Play";
+import ButtonPlay from "../ButtonPlay";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
