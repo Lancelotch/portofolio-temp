@@ -7,52 +7,32 @@ import FormLogin from "../../containers/FormLogin";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
+import BackgroundForm from "../../components/BackgroundForm";
 
 export default function Login() {
-  const {isAuthenticated, history } = useRootContext()
-  const [heightImageBackground, stateHeightImageBackground] = useState(0)
-  
-  useEffect(() => {
-    updateHeightImageBackground();
-  }, [])
-
+  const { isAuthenticated, history } = useRootContext()
 
   useEffect(() => {
     if (isAuthenticated) {
       history.push(PATH_URL.HOME);
     }
-    window.addEventListener('resize', updateHeightImageBackground)
-    
-    return () => {
-      window.removeEventListener('resize', updateHeightImageBackground)
-    }
   })
-
-  function updateHeightImageBackground() {
-    let heightContent = window.document.getElementById("root").offsetHeight;
-    let heightWindow = window.innerHeight;
-    let height = heightWindow >= heightContent ? heightWindow : heightContent
-    stateHeightImageBackground(height)
-  }
 
   return (
     <div className="mp-login-container">
       <Col md={{ span: 14 }}>
-        <div
-          className="scrollable-container">
-          <div className="mp-form-background" style={{ height: heightImageBackground }} />
-        </div>
+        <BackgroundForm />
       </Col>
       <Col md={{ span: 10 }}>
         <div className="mp-login-content">
-            <Link to="/">
-              <img
-                className="mp-login-container__logo"
-                src={monggopesen_logo}
-                alt="login__logo"
-              />
-            </Link>
-            <p className="mp-login-container__title">{strings.login_enter}</p>
+          <Link to="/">
+            <img
+              className="mp-login-container__logo"
+              src={monggopesen_logo}
+              alt="login__logo"
+            />
+          </Link>
+          <p className="mp-login-container__title">{strings.login_enter}</p>
           <FormLogin />
 
         </div>
