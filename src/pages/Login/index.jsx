@@ -11,29 +11,29 @@ import strings from "../../localization/localization";
 export default function Login() {
   const {isAuthenticated, history } = useRootContext()
   const [heightImageBackground, stateHeightImageBackground] = useState(0)
+  
+  useEffect(() => {
+    updateHeightImageBackground();
+  }, [])
+
 
   useEffect(() => {
     if (isAuthenticated) {
       history.push(PATH_URL.HOME);
     }
-  })
-
-  useEffect(() => {
     window.addEventListener('resize', updateHeightImageBackground)
-    updateHeightImageBackground()
+    
     return () => {
       window.removeEventListener('resize', updateHeightImageBackground)
     }
-  }, [])
+  })
 
   function updateHeightImageBackground() {
     let heightContent = window.document.getElementById("root").offsetHeight;
     let heightWindow = window.innerHeight;
     let height = heightWindow >= heightContent ? heightWindow : heightContent
     stateHeightImageBackground(height)
-
   }
-  console.log(heightImageBackground);
 
   return (
     <div className="mp-login-container">
