@@ -13,14 +13,11 @@ import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
 
-function FormLogin(props) {
+export default function FormLogin(props) {
     const { handleLogin, isSubmitting, isAuthenticated, history } = useRootContext()
     const [nextPage, setNextPage] = useState(" ")
 
     useEffect(() => {
-        // if (props.location.state !== undefined) {
-        //     setNextPage(props.location.state.nextPage)
-        // }
         if (isAuthenticated) {
             history.push(PATH_URL.HOME);
         }
@@ -91,7 +88,6 @@ function FormLogin(props) {
                                     <Checkbox>{strings.login_remember_me}</Checkbox>
                                     <Link
                                         className="mp-form-login__forgot"
-                                        // onClick={this.clearErrorMessage}
                                         to={{
                                             pathname: "/forget-password",
                                             state: { nextPage: nextPage }
@@ -114,14 +110,10 @@ function FormLogin(props) {
                                 </div>
                                 <Form.Item className="mp-form-login__btn-socmed">
                                     <div className="mp-form-login__socmed-box">
-                                        <ButtonGoogle
-                                        //onSubmit={this.handleloginGoogle}
-                                        >
+                                        <ButtonGoogle>
                                             {strings.google}
                                         </ButtonGoogle>
-                                        <ButtonFacebook
-                                        //onSubmit={this.handleFacebook}
-                                        >
+                                        <ButtonFacebook>
                                             {strings.facebook}
                                         </ButtonFacebook>
                                     </div>
@@ -130,7 +122,6 @@ function FormLogin(props) {
                                             strings.login_quote,
                                             <Link
                                                 className="link-register"
-                                                //onClick={this.clearErrorMessage}
                                                 to={{
                                                     pathname: "/register",
                                                     state: { nextPage:  nextPage }
@@ -148,4 +139,3 @@ function FormLogin(props) {
     );
 }
 
-export default FormLogin;
