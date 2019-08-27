@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "./style.sass";
 
-function BackgroundForm() {
-
+export default function BackgroundForm() {
     const [heightImageBackground, stateHeightImageBackground] = useState(0)
-
 
     useEffect(() => {
         window.addEventListener('resize', updateHeightImageBackground)
@@ -19,7 +17,6 @@ function BackgroundForm() {
         let heightWindow = window.innerHeight;
         let height = heightWindow >= heightContent ? heightWindow : heightContent
         stateHeightImageBackground(height)
-
     }
 
     return (
@@ -28,5 +25,3 @@ function BackgroundForm() {
         </div>
     );
 };
-
-export default BackgroundForm;
