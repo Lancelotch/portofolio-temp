@@ -48,15 +48,6 @@ export default function FormLogin(props) {
                                         name="email"
                                         size="large"
                                         icon="mail"
-                                        prefix={
-                                            <Icon
-                                                type="user"
-                                                style={{
-                                                    color: "rgba(0,0,0,.25)",
-                                                    fontSize: "15.64px"
-                                                }}
-                                            />
-                                        }
                                         onChange={handleChange}
                                         value={values.email}
                                         onBlur={handleBlur}
@@ -65,9 +56,6 @@ export default function FormLogin(props) {
                                 <Form.Item>
                                     <Input
                                         name="password"
-                                        prefix={
-                                            <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                                        }
                                         type="password"
                                         size="large"
                                         icon="lock"
