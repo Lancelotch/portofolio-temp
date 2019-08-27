@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import Header from 'containers/Header'
 import Footer from 'components/Footer'
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
+import { useRootContext } from "../../hoc/RootContext";
 
 const { Content, Sider } = Layout;
 
 export default function NavigationCustomer (props) {
-    const [page, setPage] = useState([]);
+    const {isAuthenticated, history} = useRootContext();
 
-   function actionChangePage(page){
-        setPage(page);
-    };
+    useEffect(() => {
+      if(props.needAuthenticated && !isAuthenticated){
+        history.push('/login');
+      }      
+    })
+  
+    if(props.needAuthenticated && !isAuthenticated){
+      return null;
+    } else {  
+        const [page, setPage] = useState([]);
 
-
-   const childrenWithProps = React.cloneElement(props.children, {
-        actionChangePage: actionChangePage
-    });
-
+        function actionChangePage(page){
+             setPage(page);
+         };
+     
+     
+        const childrenWithProps = React.cloneElement(props.children, {
+             actionChangePage: actionChangePage
+         });
+          
         return (
             <Layout>
                 <div className="mp-customer-layout">
@@ -39,5 +51,6 @@ export default function NavigationCustomer (props) {
                 </div>
             </Layout>
         );
+    }
 }
 

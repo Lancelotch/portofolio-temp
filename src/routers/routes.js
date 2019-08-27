@@ -9,8 +9,6 @@ import CategoryContainer from "../pages/Category/CategoryContainer";
 import SearchContainer from "../pages/Search/SearchContainer";
 import Checkout from "../pages/Checkout";
 import CustomerNavigation from "../pages/CustomerNavigation";
-import requiredAuth from "../hoc/requiredAuth";
-import notRequiredAuth from "../hoc/notRequiredAuth";
 import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
@@ -33,7 +31,7 @@ import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
     path: PATH_URL.HOME,
     component: Home,
     layout: MainLayout,
-    //needAuthenticated: false
+    needAuthenticated: false
   },
   {
     path: PATH_URL.LOGIN,
@@ -43,13 +41,13 @@ import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
   },
   {
     path: PATH_URL.CHECKOUT,
-    component: requiredAuth(Checkout),
+    component: Checkout,
     layout: FullLayout,
     needAuthenticated: true
   },
   {
     path: PATH_URL.REGISTER,
-    component: notRequiredAuth(Register),
+    component: Register,
     layout: FullLayout,
     needAuthenticated: false
   },
@@ -109,13 +107,13 @@ import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
   },
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
-    component: requiredAuth(CustomerNavigation),
+    component: CustomerNavigation,
     layout: SidebarNavigationCustomer,
     needAuthenticated: true
   },
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
-    component: requiredAuth(CustomerNavigation),
+    component: CustomerNavigation,
     layout: SidebarNavigationCustomer,
     needAuthenticated: true
   },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "containers/Header";
 import Footer from "components/Footer";
 import "./style.sass";
@@ -8,9 +8,15 @@ import PATH_URL from "../../routers/path";
 import PropTypes from "prop-types";
 
 function MainLayout(props) {
-  const { isAuthenticated, history } = useRootContext();
-  if (props.needAuthenticated && !isAuthenticated) {
-    history.push(PATH_URL.LOGIN);
+  const {isAuthenticated, history} = useRootContext();
+
+  useEffect(() => {
+    if(props.needAuthenticated && !isAuthenticated){
+      history.push('/login');
+    }      
+  })
+
+  if(props.needAuthenticated && !isAuthenticated){
     return null;
   } else {
     return (
