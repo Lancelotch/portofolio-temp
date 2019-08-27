@@ -22,6 +22,8 @@ class SliderProductDetailContainer extends Component {
 
 
 
+
+
   componentDidMount() {
     let imageDefault = this.props.imageDefault;
     let imagesProps = this.props.images;
@@ -55,7 +57,7 @@ class SliderProductDetailContainer extends Component {
       this.setState({
         imagesToShow: imagesToShow,
         isImageVariantExist: isImageVariantExist,
-        startIndex: 0
+        startIndex: 1
       });
     }    
   }

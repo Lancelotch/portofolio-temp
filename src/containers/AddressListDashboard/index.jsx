@@ -35,7 +35,7 @@ class AddressListDashboard extends Component {
         this.initCustomerAddress();
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (!props.isAddressAvailable) {
             this.setState({
                 customerAddress: props.dataAddressDefault

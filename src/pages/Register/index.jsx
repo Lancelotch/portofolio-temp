@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Typography } from "antd";
+import { Form, Row, Col, Typography } from "antd";
 import ButtonFacebook from "../../components/ButtonFacebook";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import { connect } from "react-redux";
@@ -23,6 +23,7 @@ import {
   rulesPassword,
   RegistrationSubmitButton
 } from "./registerContainer";
+import Input from "../../components/Input";
 
 
 const { Text } = Typography
@@ -146,17 +147,10 @@ class RegisterPage extends Component {
                 <FormItem>
                   {getFieldDecorator("name", rulesName())(
                     <Input
-                      className="register__input"
                       size={"large"}
-                      prefix={
-                        <Icon
-                          type={"user"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
+                      icon="user"
                       placeholder={"Name"}
                       onChange={(e) => this.maxName(e)}
-                      type="text"
                       maxLength={30}
                     />
                   )}
@@ -165,34 +159,22 @@ class RegisterPage extends Component {
                 <FormItem>
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
-                      className="register__input"
                       onChange={this.props.clearError}
                       size={"large"}
-                      prefix={
-                        <Icon
-                          type={"mail"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
+                      icon="mail"
                       placeholder={"Email"}
                     />
                   )}
                 </FormItem>
                 <FormItem>
                   {getFieldDecorator("password", rulesPassword())(
-                    <Input.Password
-                      className="register__input"
+                    <Input
+                      type="password"
                       min={6}
                       max={12}
                       size={"large"}
-                      prefix={
-                        <Icon
-                          type={"lock"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
+                      icon="lock"
                       placeholder={strings.register_password_placeholder}
-                      type="password"
                     />
                   )}
                 </FormItem>
@@ -244,12 +226,12 @@ class RegisterPage extends Component {
                     {strings.formatString(
                       strings.register_quote,
                       <Link
+                        className="link-login"
                         to={{
                           pathname: "/login",
                           state: { nextPage: this.state.nextPage }
                         }}
                         onClick={this.clearErrorMessage}
-                        style={{ color: "#F63700" }}
                       >
                         <span className="register__form__link-login">
                           {strings.register_login}

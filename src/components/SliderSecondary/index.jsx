@@ -20,7 +20,7 @@ class SliderProductDetail extends Component {
   componentDidMount(){
     this.setState({index:this.props.index})
   }
-  componentWillReceiveProps(props){
+  UNSAFE_componentWillReceiveProps(props){
     if(this.props.images.length > 6){
       this.setState({
         isShowNav : true
