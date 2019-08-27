@@ -1,8 +1,9 @@
 import { apiGetWithoutToken } from "../../api/services";
 import { PATH_PRODUCT } from "../../api/path";
+import { serviceWithoutToken } from "../../api/services/httpClient";
 
 
-async function getLimitProduct(props) {
+async function getLimit(props) {
     const loading = props.loading ? props.loading : function() {};
     let response = ""
     loading(true);
@@ -16,7 +17,7 @@ async function getLimitProduct(props) {
     }
 };
 
-async function getAllProduct(props){
+async function getAll(props){
     const loading = props.loading ? props.loading : function(){};
     let response = ""
     loading(true)
@@ -30,9 +31,26 @@ async function getAllProduct(props){
     }
 }
 
+async function getByCategory( props ){
+    return new Promise((resolve, reject) => {
+        serviceWithoutToken()
+          .request({
+            method: "GET",
+            url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${props.categoryId}?limit=20&page=${props.page}&sortBy=${props.sortBy}&direction=${props.direction}`
+          })
+          .then(response => {
+            resolve(response.data);
+          })
+          .catch(error => {
+            reject(error.response);
+          });
+      });
+}
+
 const Product = {
-    getLimitProduct: getLimitProduct,
-    getAllProduct: getAllProduct
+    getLimit: getLimit,
+    getAll: getAll,
+    getByCategory: getByCategory
 }
 
 export default Product;

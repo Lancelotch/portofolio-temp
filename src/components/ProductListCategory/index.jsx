@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Product from "../Product";
-import product from "../../api/services/product";
+import product from "../../repository/Product";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Row, Col, BackTop } from "antd";
 import strings from "../../localization/localization";
@@ -20,7 +20,7 @@ class ProductListCategory extends Component {
   getProductList = async () => {
     const { products, page } = this.state;
     try {
-      const nextProduct = await product.listProductCategory(page);
+      const nextProduct = await product.getByCategory(page);
       this.setState({
         products: products.concat(nextProduct.data),
         page: page + 1,

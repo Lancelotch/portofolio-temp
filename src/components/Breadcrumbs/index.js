@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import {withBreadcrumbs}  from "../../library/withBreadcrumbs.js";
-import {escapeRegExp} from "../../library/regex.js";
+import { withBreadcrumbs } from "../../library/withBreadcrumbs.js";
+import { escapeRegExp } from "../../library/regex.js";
 import PATH_URL from "../../routers/path";
 
 import "./style.sass";
@@ -39,7 +39,7 @@ const Breadcrumbs = ({ breadcrumbs, information }) => {
     ({ breadcrumb, path, match }) => {
       return (
         <Breadcrumb.Item key={match.url}>
-          <Link replace to={match.url} className="mp-breadcrumbs-actived">
+          <Link replace to={match.url}>
             {breadcrumb}
           </Link>
         </Breadcrumb.Item>

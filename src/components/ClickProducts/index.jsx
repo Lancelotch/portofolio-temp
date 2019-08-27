@@ -6,7 +6,7 @@ import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
 import ButtonPlay from "../ButtonPlay";
-import Product from "../../repository/ProductHome";
+import Product from "../../repository/Product";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -72,7 +72,7 @@ function ClickProducts () {
   }, [])
 
   async function getClickProducts() {
-      let clickProducts = await Product.getAllProduct({
+      let clickProducts = await Product.getAll({
           loading: setLoading
       })
       if (clickProducts.status === 200) {
