@@ -47,7 +47,7 @@ class ProfileCustomer extends Component {
         if (isDimention.height < isDimention.width) {
           this.setState({ portrait: false, landscape: true });
         }
-        this.setState({ disabled: false, isErrorDimension: false });
+        this.setState({ disabled: false });
       }
     } catch (error) {
       console.log(error);
@@ -79,13 +79,19 @@ class ProfileCustomer extends Component {
   };
 
   handleChangeImage = res => {
-    console.log("onChange", res.file.status);
-    if (res.file.status === "uploading") {
-      this.setState({
-        ...this.state.allData,
-        loading: true
-      });
-    }
+    setTimeout(() => {
+      if (
+        res.file.status === "uploading" &&
+        !this.state.isErrorFormat &&
+        !this.state.isErrorSize &&
+        !this.state.isErrorDimension
+      ) {
+        this.setState({
+          ...this.state.allData,
+          loading: true
+        });
+      }
+    }, 10);
     if (res.file.status === "done") {
       this.setState({
         photoUrl: res.file.response.smallUrl,
@@ -196,10 +202,10 @@ class ProfileCustomer extends Component {
       const isJPG = file.type === "image/jpg";
       const isLt2M = file.size <= 3145728;
       if (!isJPG && !isJpeg && !isPng) {
-        this.setState({ isErrorFormat: !this.state.isErrorFormat });
+        this.setState({ isErrorFormat: true });
       }
       if (!isLt2M) {
-        this.setState({ isErrorSize: !this.state.isErrorSize });
+        this.setState({ isErrorSize: true });
       }
     };
 

@@ -5,17 +5,13 @@ import SliderHome from "../../components/SliderHome";
 // import category from "../../api/services/category";
 import Benefit from "../../components/Benefit";
 // import product from "../../api/services/product";
-import BestSellers from "../../components/BestSellers";
-import PopularProducts from "../../components/PopularProducts";
+import BestSellers from "../BestSellers";
+import PopularProducts from "../PopularProducts";
 import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
 import ClickProducts from "../../components/ClickProducts";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import strings from "../../localization/localization";
-import Fetcher from "../../components/Fetcher";
-import { PATH_PRODUCT } from "../../api/path";
-
-
 
 class HomePageContainer extends Component {
   render() {
@@ -27,13 +23,9 @@ class HomePageContainer extends Component {
             <Row type="flex" justify="center">
               <Benefit />
             </Row>
-            <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_LIMIT}>
-              <PopularProducts {...this.props} /*maxProductCount={4}*/ />
-            </Fetcher>
+              <PopularProducts/>
             <Col md={24}>
-              <Fetcher path={PATH_PRODUCT.PRODUCT_ALL_LIMIT}>
-                <BestSellers {...this.props} /*maxProductCount={4}*/></BestSellers>
-              </Fetcher>
+              <BestSellers />      
             </Col>
             <Link to='/'>
               <img className='inspiration-box' src={Inspiration_1} alt="" />
@@ -49,9 +41,7 @@ class HomePageContainer extends Component {
                     width: 1130,
                   }}
                 >
-                  <Fetcher path={PATH_PRODUCT.PRODUCT}>
-                    <ClickProducts {...this.props} />
-                  </Fetcher>
+                    <ClickProducts  />
                 </div>
               </Row>
             </div>
