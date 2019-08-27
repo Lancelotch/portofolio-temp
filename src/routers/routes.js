@@ -5,7 +5,6 @@ import Login from "../pages/Login";
 import ProductDetail from "../pages/ProductDetail";
 import Confirmation from "../pages/Confirmation";
 import Product from "../pages/Product";
-import Example from "../pages/Example";
 import CategoryContainer from "../pages/Category/CategoryContainer";
 import SearchContainer from "../pages/Search/SearchContainer";
 import Checkout from "../pages/Checkout";
@@ -18,107 +17,125 @@ import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
 import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
+import FullLayout from "../layouts/FullLayout";
+import MainLayout from "../layouts/MainLayout";
+import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
+
 
  const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.HOME,
-    component: Home
+    component: Home,
+    layout: MainLayout,
+    //needAuthenticated: false
   },
   {
     path: PATH_URL.LOGIN,
-    component: notRequiredAuth(Login),
-    layoutName: "fullLayout"
+    component: Login,
+    layout: FullLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.CHECKOUT,
     component: requiredAuth(Checkout),
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.REGISTER,
     component: notRequiredAuth(Register),
-    // component: Register,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.CONFIRMATION,
     component: Confirmation,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.PRODUCT_DETAIL,
-    component: ProductDetail
+    component: ProductDetail,
+    layout: MainLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_1,
-    component: CategoryContainer
+    component: CategoryContainer,
+    layout: MainLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_2,
-    component: CategoryContainer
+    component: CategoryContainer,
+    layout: MainLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_3,
-    component: CategoryContainer
+    component: CategoryContainer,
+    layout: MainLayout,
+    needAuthenticated: false
   },
-  // {
-  //     path: '/category/fashion-pria/:categoryId',
-  //     component: CategoryContainer
-  // },
-  // {
-  //     path: '/category/fashion-pria/sepatu/:categoryId',
-  //     component: CategoryContainer
-  // },
   {
     path: PATH_URL.VIEW_INVOICE,
     component: ViewInvoice,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.SEARCH,
-    component: SearchContainer
+    component: SearchContainer,
+    layout: MainLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.PRODUCTS,
-    component: Product
-  },
-  {
-    path: PATH_URL.EXAMPLE,
-    component: Example
+    component: Product,
+    layout: MainLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.PAYMENT_INFO,
     component: PaymentInfoPage,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
     component: requiredAuth(CustomerNavigation),
-    layoutName: "customerNavigation"
+    layout: SidebarNavigationCustomer,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
     component: requiredAuth(CustomerNavigation),
-    layoutName: "customerNavigation"
+    layout: SidebarNavigationCustomer,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.PAYMENT_FAILED,
     component: FailedPayment,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: true
   },
   {
     path: PATH_URL.CONFIRMATION_ERROR,
     component: ConfirmationError,
-    layoutName: "fullLayout"
+    layout: FullLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.NOT_FOUND_PAGE,
-    component: NotFoundPage
+    component: NotFoundPage,
+    layout: MainLayout,
+    needAuthenticated: false
   }
 
 ];
