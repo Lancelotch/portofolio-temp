@@ -28,18 +28,22 @@ export default function Input(props) {
 
   let fixStyling = [sassClasses, inputLargePrefix, inputXlargePrefix].join(" ");
 
-  let resultInput;
+  let propsAnt = {
+    ...props,
+    size: props.size === "xlarge" && undefined
+  }
 
+  let resultInput;
   if (props.type === "default") {
     resultInput = (
-      <InputAnt {...props} className={fixStyling} prefix={inputPrefixIcon} />
+      <InputAnt {...propsAnt} className={fixStyling} prefix={inputPrefixIcon} />
     );
   }
 
   if (props.type === "password") {
     resultInput = (
       <InputAnt.Password
-        {...props}
+        {...propsAnt}
         className={fixStyling}
         prefix={inputPrefixIcon}
       />
@@ -57,7 +61,7 @@ export default function Input(props) {
     );
   }
 
-  return resultInput;
+  return <div>{resultInput}</div>
 }
 
 Input.propTypes = {
