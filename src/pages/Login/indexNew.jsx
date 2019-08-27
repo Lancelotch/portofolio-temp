@@ -6,15 +6,26 @@ import ButtonGoogle from "../../components/ButtonGoogle";
 import { connect } from "react-redux";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import "./style.sass";
+// import "../../sass/style.sass"
+import strings from "../../localization/localization";
+import {
+  loginWithGoogle,
+  loginWithForm,
+  loginWithHome,
+  clearError,
+  loginWithFacebook
+} from "../../store/actions/authentication";
+import {
+  rulesEmail
+  // rulesPassword,
+  // AlertLogin,
+  // RegistrationaAlert
+} from "../Register/registerContainer";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import logo from "../../assets/img/logo_monggopesen/ic_logo_bag_borderteal.png";
-import {useRootContext} from "../../hoc/RootContext";
-import PATH_URL from "../../routers/path";
-import { schema } from "./schema";
+// import HomePage from "../Home";
 
-function Login(){
-  const {handleLogin, isSubmitting, isAuthenticated, history} = useRootContext()
+const FormItem = Form.Item;
 
 class Login extends Component {
   constructor(props) {
@@ -189,12 +200,13 @@ class Login extends Component {
                     </Link>
                   <Button
                     type="primary"
-                    size="large"
-                    width="full"
                     htmlType="submit"
-                    disabled={isSubmitting}
+                    width="full"
+                    size="large"
                   >
-                    Log in
+                    <p className="register__form__button-register-text">
+                      {strings.login_enter}
+                    </p>
                   </Button>
                   <div className="login-form__error-box">
                     {this.props.messageError ? (
@@ -239,12 +251,30 @@ class Login extends Component {
                   )}
                 </div>
               </Form>
-            )}
-          </Formik>
-        </div>
-      </div>
-    </div>
-  );
+            </div>
+          </Col>
+        </Row>
+      </React.Fragment>
+    );
+  }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  isAuthenticated: state.authentication.isAuthenticated,
+  token: state.authentication.token,
+  auth: state.authentication.auth,
+  messageError: state.authentication.messageError,
+  isError: state.authentication.checkError
+});
+
+const LoginForm = Form.create({})(Login);
+export default connect(
+  mapStateToProps,
+  {
+    loginWithGoogle,
+    loginWithForm,
+    loginWithHome,
+    clearError,
+    loginWithFacebook
+  }
+)(LoginForm);
