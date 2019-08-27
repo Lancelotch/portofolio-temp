@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import currencyRupiah from "../../library/currency";
 import { Card, Icon, Carousel } from "antd";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
-import ButtonPlay from "../Button Play";
+import ButtonPlay from "../ButtonPlay";
+import Product from "../../repository/ProductHome";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -62,17 +63,26 @@ const SamplePrevArrow = props => {
   );
 };
 
-class ClickProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: this.props.products
-    };
-  }
+function ClickProducts () {
+  const [clickproducts, setClickProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  render() {
-    const { data } = this.props;
-    const products = data.slice(0, 10);
+  useEffect(() => {
+      getClickProducts()
+  }, [])
+
+  async function getClickProducts() {
+      let clickProducts = await Product.getAllProduct({
+          loading: setLoading
+      })
+      if (clickProducts.status === 200) {
+          setClickProducts(clickProducts.data.data)
+      } else {
+          setClickProducts(null)
+      }
+
+  }
+    const products = clickproducts.slice(0, 10);
     let sliderToClickLength = products.length <= 6 ? false : true
     const settings = {
       slidesToShow: 5,
@@ -87,11 +97,7 @@ class ClickProducts extends Component {
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
       appendDots: dots => (
-        <div
-          style={{
-            borderRadius: 10
-          }}
-        >
+        <div style={{borderRadius: 10}}>
           <ul className="dots"> {dots} </ul>
         </div>
       )
@@ -125,7 +131,7 @@ class ClickProducts extends Component {
 
     return (
       <div className="sliderClickProducts">
-        {products.length < 1 ? (
+        {loading ? (
           <SkeletonCustom
             count={4}
             height={300}
@@ -135,7 +141,6 @@ class ClickProducts extends Component {
         }
       </div>
     );
-  }
 }
 
 export default ClickProducts;

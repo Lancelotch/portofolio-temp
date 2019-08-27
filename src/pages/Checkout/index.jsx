@@ -62,7 +62,7 @@ class Checkout extends Component {
   }
 
   
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (!props.isAddressAvailable) {
       this.setState({
         customerAddress: props.dataAddressDefault
