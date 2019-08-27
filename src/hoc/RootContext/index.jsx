@@ -2,7 +2,7 @@ import React, { useState, useReducer, useContext } from "react";
 import { apiPostWithoutToken } from "../../services/api";
 //import { PATH_AUTHENTICATION } from "../../services/path/login";
 import { withRouter } from "react-router-dom";
-import PATH_URL from "../../routers/path";
+import { PATH_PUBLIC } from "../../api/path";
 const CreateRootContext = React.createContext();
 
 const RootContext = (props) => {
@@ -37,7 +37,7 @@ const RootContext = (props) => {
     try {
       setIsSubmitting(true);
       const response = await apiPostWithoutToken(
-        PATH_URL.LOGIN,
+        PATH_PUBLIC.PUBLIC_USER_LOGIN,
         payload
       );
       if (response) {
