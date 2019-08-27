@@ -8,18 +8,21 @@ export default function Search(props) {
   const { Search } = Input;
   const classNamesStyle = classNames.bind(style);
   const sassClasses = classNamesStyle({
+    "mp-search-default": props.size === "default",
     "mp-search-medium": props.size === "medium",
     "mp-search-large": props.size === "large"
   });
 
-  const fixStyle = ["mp-search-component", sassClasses].join(" ");
-
-  return <Search {...props} className={fixStyle} />;
+  return <Search {...props} className={sassClasses} />;
 }
 
 Search.propTypes = {
   placeholder: propTypes.string,
-  size: propTypes.oneOf(["medium", "large"]),
+  size: propTypes.oneOf(["default", "medium", "large"]),
   onChange: propTypes.func,
   onSearch: propTypes.func
+};
+
+Search.defaultProps = {
+  size: "default"
 };

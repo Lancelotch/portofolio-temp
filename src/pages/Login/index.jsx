@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input, Form, Icon, Row, Col, Checkbox } from "antd";
+import { Form, Row, Col, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ButtonFacebook from "../../components/ButtonFacebook";
 import ButtonGoogle from "../../components/ButtonGoogle";
@@ -22,6 +22,7 @@ import {
   // RegistrationaAlert
 } from "../Register/registerContainer";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 // import HomePage from "../Home";
 
 const FormItem = Form.Item;
@@ -149,19 +150,13 @@ class Login extends Component {
                 <FormItem>
                   {getFieldDecorator("email", rulesEmail())(
                     <Input
-                      className="register__input"
                       onChange={
                         this.state.firstInput
                           ? this.clearTrigger
                           : this.clearErrorMessage
                       }
                       size={"large"}
-                      prefix={
-                        <Icon
-                          type={"user"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
+                      icon={"user"}
                       placeholder={"Email"}
                     />
                   )}
@@ -175,22 +170,16 @@ class Login extends Component {
                       }
                     ]
                   })(
-                    <Input.Password
-                      className="register__input"
+                    <Input
                       size={"large"}
+                      type="password"
                       onChange={
                         this.state.firstInput
                           ? this.clearTrigger
                           : this.clearErrorMessage
                       }
-                      prefix={
-                        <Icon
-                          type={"lock"}
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
+                      icon="lock"
                       placeholder={"Password"}
-                      type="password"
                     />
                   )}
                 </FormItem>
@@ -250,7 +239,7 @@ class Login extends Component {
                   {strings.formatString(
                     strings.login_quote,
                     <Link
-                      style={{ color: "#F63700" }}
+                      className="link-register"
                       onClick={this.clearErrorMessage}
                       to={{
                         pathname: "/register",

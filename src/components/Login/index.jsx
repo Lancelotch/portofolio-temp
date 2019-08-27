@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Form, Icon, Checkbox, Menu } from 'antd'
+import { Form, Checkbox, Menu } from 'antd'
 import {Link} from 'react-router-dom'
 import ButtonFacebook from '../ButtonFacebook'
 import ButtonGoogle from '../ButtonGoogle'
@@ -16,6 +16,7 @@ import {
 //import history from "../../routers/history"
 import { rulesEmail } from '../../pages/Register/registerContainer';
 import Button from '../Button';
+import Input from '../Input';
 const FormItem = Form.Item
 
 class Login extends Component {
@@ -85,12 +86,7 @@ class Login extends Component {
                   <Input
                     size={'large'}
                     onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
-                    prefix={
-                      <Icon
-                        type={'user'}
-                        style={{ color: 'rgba(0,0,0,.25)' }}
-                      />
-                    }
+                    icon="user"
                     placeholder={'Email'}
                   />
                 )}
@@ -104,21 +100,13 @@ class Login extends Component {
                     }
                   ]
                 })(
-
-                  <Input.Password
-                  className="register__input"
-                  size={"large"}
-                  prefix={
-                    <Icon
-                      type={"lock"}
-                      style={{ color: "rgba(0,0,0,.25)" }}
-                    />
-                  }
-                  onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
-                  placeholder={strings.register_password_placeholder}
-                  type="password"
-                />
-               
+                  <Input
+                    type="password"
+                    size={"large"}
+                    icon="lock"
+                    onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
+                    placeholder={strings.register_password_placeholder}
+                  />
                 )}
               </FormItem>
               <FormItem className='login-form__checkBox'>
