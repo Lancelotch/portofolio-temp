@@ -141,7 +141,7 @@ const strings = new LocalizedStrings({
     enter: "Masuk",
 
     //Login
-    login_enter: "Masuk",
+    login_enter: "Masuk sekarang",
     login_option: "atau masuk dengan",
     login_remember_me: "Ingat saya",
     login_forgot_password: "Lupa Password ?",

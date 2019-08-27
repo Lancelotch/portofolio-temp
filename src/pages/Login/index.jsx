@@ -1,107 +1,62 @@
-import React, { useEffect } from "react";
-import { Icon, Form } from "antd";
-import { Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { Col } from "antd";
 import "./style.sass";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import logo from "../../assets/img/logo_monggopesen/ic_logo_bag_borderteal.png";
-import {useRootContext} from "../../hoc/RootContext";
+import { useRootContext } from "../../hoc/RootContext";
 import PATH_URL from "../../routers/path";
-import { schema } from "./schema";
+import FormLogin from "../../containers/FormLogin";
+import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
+import { Link } from "react-router-dom";
+import strings from "../../localization/localization";
 
-function Login(){
-  const {handleLogin, isSubmitting, isAuthenticated, history} = useRootContext()
+export default function Login() {
+  const {isAuthenticated, history } = useRootContext()
+  const [heightImageBackground, stateHeightImageBackground] = useState(0)
 
   useEffect(() => {
-    if(isAuthenticated){
+    if (isAuthenticated) {
       history.push(PATH_URL.HOME);
-    }      
+    }
   })
-  
+
+  useEffect(() => {
+    window.addEventListener('resize', updateHeightImageBackground)
+    updateHeightImageBackground()
+    return () => {
+      window.removeEventListener('resize', updateHeightImageBackground)
+    }
+  }, [])
+
+  function updateHeightImageBackground() {
+    let heightContent = window.document.getElementById("root").offsetHeight;
+    let heightWindow = window.innerHeight;
+    let height = heightWindow >= heightContent ? heightWindow : heightContent
+    stateHeightImageBackground(height)
+
+  }
+  console.log(heightImageBackground);
+
   return (
     <div className="mp-login-container">
-      <div className="mp-login-header-container">
-        <span>Report Problem</span>
-        <span>Help</span>
-      </div>
-      <div className="mp-login-content">
-        <img src={logo} alt="monggopesen-logo" />
-        <span>Admin Login</span>
-        <div className="mp-form-login">
-          <Formik
-            initialValues={{ email: "", password: ""}}
-            onSubmit={values => {
-              handleLogin(values);
-            }}
-            validationSchema={schema}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit
-            }) => (
-              <Form onSubmit={handleSubmit}>
-                <Form.Item>
-                  <Input
-                    placeholder="Email"
-                    name="email"
-                    prefix={
-                      <Icon
-                        type="user"
-                        style={{
-                          color: "rgba(0,0,0,.25)",
-                          fontSize: "15.64px"
-                        }}
-                      />
-                    }
-                    onChange={handleChange}
-                    value={values.email}
-                    onBlur={handleBlur}
-                    className="mp-login-input-text"
-                  />
-                </Form.Item>
-                <Form.Item>
-                  <Input
-                    name="password"
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    type="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    value={values.password}
-                    onBlur={handleBlur}
-                    status={
-                      errors.password && touched.password ? "error" : "default"
-                    }
-                    className="mp-login-input-text"
-                  />
-                  
-                </Form.Item>
-                {((errors.username && touched.username) || (errors.password && touched.password)) && (
-                  <center className="mp-login-error-message"><span>Please don't be stupid! </span></center>
-                )}
-                <div className="mp-login-button-submit">
-                  <Button
-                    type="primary"
-                    size="large"
-                    width="full"
-                    htmlType="submit"
-                    disabled={isSubmitting}
-                  >
-                    Log in
-                  </Button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+      <Col md={{ span: 14 }}>
+        <div
+          className="scrollable-container">
+          <div className="mp-form-background" style={{ height: heightImageBackground }} />
         </div>
-      </div>
+      </Col>
+      <Col md={{ span: 10 }}>
+        <div className="mp-login-content">
+            <Link to="/">
+              <img
+                className="mp-login-container__logo"
+                src={monggopesen_logo}
+                alt="login__logo"
+              />
+            </Link>
+            <p className="mp-login-container__title">{strings.login_enter}</p>
+          <FormLogin />
+
+        </div>
+      </Col>
     </div>
   );
 }
-
-export default Login;
