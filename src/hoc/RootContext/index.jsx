@@ -42,10 +42,32 @@ const RootContext = (props) => {
       );
       if (response) {
         const token = response.data.data.access_token;
-        window.localStorage.setItem("authenticated",JSON.stringify({ isAuthenticated: true, body: { token: token, role: payload.role  }}));
+        window.localStorage.setItem("authenticated",JSON.stringify({ isAuthenticated: true, body: { token: token }}));
         dispatch({
           type: "login",
-          payload: { token: token, role: payload.role }
+          payload: { token: token }
+        });
+      }
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
+  };
+
+  const register = async payload => {
+    try {
+      setIsSubmitting(true);
+      const response = await apiPostWithoutToken(
+        PATH_PUBLIC.PUBLIC_USER_REGISTER,
+        payload
+      );
+      if (response) {
+        const token = response.data.data.access_token;
+        window.localStorage.setItem("authenticated",JSON.stringify({ isAuthenticated: true, body: { token: token }}));
+        dispatch({
+          type: "login",
+          payload: {token: token}
         });
       }
       setIsSubmitting(false);
@@ -69,6 +91,9 @@ const RootContext = (props) => {
         ...state,
         handleLogin: payload => {
           login(payload);
+        },
+        handleRegister: payload => {
+          register(payload);
         },
         handleLogout: () =>{
           logout()
