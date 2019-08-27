@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import "./style.sass";
 
-function BackgroundForm() {
+export default function BackgroundAuth() {
 
     const [heightImageBackground, stateHeightImageBackground] = useState(0)
 
 
     useEffect(() => {
+        updateHeightImageBackground();
         window.addEventListener('resize', updateHeightImageBackground)
-        updateHeightImageBackground()
+
         return () => {
             window.removeEventListener('resize', updateHeightImageBackground)
         }
     }, [])
 
     function updateHeightImageBackground() {
-        let heightContent = window.document.getElementById("root").offsetHeight;
+        let heightContent = document.body.scrollHeight;
         let heightWindow = window.innerHeight;
         let height = heightWindow >= heightContent ? heightWindow : heightContent
         stateHeightImageBackground(height)
@@ -28,5 +29,3 @@ function BackgroundForm() {
         </div>
     );
 };
-
-export default BackgroundForm;
