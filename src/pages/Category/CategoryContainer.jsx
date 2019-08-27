@@ -40,7 +40,7 @@ class CategoryPage extends Component {
     window.scrollTo(0, 0);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const params = props.match.params;
     this.getCategoryId(params);
   }

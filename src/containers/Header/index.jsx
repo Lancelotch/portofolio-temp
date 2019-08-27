@@ -87,7 +87,7 @@ class Header extends Component {
     window.removeEventListener("resize", this.listenResizeEvent);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.isAuthenticated !== this.state.isAuthenticated) {
       this.setState({
         isAuthenticated: props.isAuthenticated,

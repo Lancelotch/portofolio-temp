@@ -10,11 +10,7 @@
         p
             margin-bottom: 6px
 
-.link-register
-    color: $color-safety-orange
 
-.link-register:hover
-    color: $color-orange-red
  
 
   
