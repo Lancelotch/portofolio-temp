@@ -58,6 +58,7 @@ class ProductDetail extends Component {
     const productId = this.props.match.params.productId;
     try {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID + productId)
+      console.log("data", response)
       const product = response.data.data;
       this.setState({
         information: product.information,
@@ -197,7 +198,7 @@ class ProductDetail extends Component {
                   </React.Fragment>
                 }
                 {this.state.isProductAvailable && (
-                  <Shipping totalShipping={totalShipping} actionUpdatePriceShipping={this.actionUpdatePriceShipping} priceShippment={this.state.price.fee} />)}
+                  <Shipping totalShipping={totalShipping} actionUpdatePriceShipping={this.actionUpdatePriceShipping} priceShipment={this.state.price.fee} />)}
                 {this.state.images.length < 1 ?
                   <div style={{ marginTop: 55 }}>
                     <Skeleton height={40} width={350} />
@@ -206,8 +207,8 @@ class ProductDetail extends Component {
                     {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text> : null}
                     <Button
                       type="primary"
-                      width="90"
                       size="large"
+                      width="full"
                       onClick={this.actionSubmitToCheckout}
                     >
                       {strings.order_now}

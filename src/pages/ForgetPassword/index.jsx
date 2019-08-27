@@ -144,7 +144,6 @@ class ForgetPassword extends Component {
                     to={{
                       pathname: "/login"
                     }}
-                    style={{ color: "#F63700" }}
                   >
                     Login
                   </Link>{" "}
@@ -156,7 +155,6 @@ class ForgetPassword extends Component {
                     to={{
                       pathname: "/register"
                     }}
-                    style={{ color: "#F63700" }}
                   >
                     Register
                   </Link>{" "}

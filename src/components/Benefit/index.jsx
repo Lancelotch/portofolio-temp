@@ -28,13 +28,9 @@ const Benefit = ({ data, error, loading }) => {
     />
     ) :
     (
-      <div className="mp-benefit-box">
-        <div className="container">
-          <Row>
-            <Col md={2} />
-            {showBenefit}
-            <Col md={2} />
-          </Row>
+      <div className="container">
+        <div className="mp-benefit-box">
+          {showBenefit}
         </div>
       </div>
     )}</React.Fragment>

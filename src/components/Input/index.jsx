@@ -3,6 +3,7 @@ import classNames from "classnames";
 import style from "./style.sass";
 import { Input as InputAnt, Icon } from "antd";
 import propTypes from "prop-types";
+import Button from "../Button";
 
 export default function Input(props) {
   const classNamesStyle = classNames.bind(style);
@@ -13,35 +14,30 @@ export default function Input(props) {
     "mp-input-x-large": props.size === "xlarge"
   });
 
-  let inputPrefixIcon = null;
+  let inputPrefixIcon, inputLargePrefix, inputXlargePrefix;
+
   if (props.icon) {
     inputPrefixIcon = <Icon type={props.icon} />;
   }
-
-  let inputLargePrefix = null;
   if (props.size === "large" && props.icon) {
     inputLargePrefix = "mp-input-large-prefix";
   }
-
-  let inputXlargePrefix = null;
   if (props.size === "xlarge" && props.icon) {
     inputXlargePrefix = "mp-input-x-large-prefix";
   }
 
-  let fixStyling = [
-    sassClasses,
-    inputXlargePrefix,
-    inputLargePrefix
-  ].join(" ");
+  let fixStyling = [sassClasses, inputLargePrefix, inputXlargePrefix].join(" ");
+
+  let resultInput;
 
   if (props.type === "default") {
-    return (
+    resultInput = (
       <InputAnt {...props} className={fixStyling} prefix={inputPrefixIcon} />
     );
   }
 
   if (props.type === "password") {
-    return (
+    resultInput = (
       <InputAnt.Password
         {...props}
         className={fixStyling}
@@ -49,10 +45,23 @@ export default function Input(props) {
       />
     );
   }
+
+  if (props.buttontext !== "") {
+    resultInput = (
+      <div className="mp-input-with-button">
+        {resultInput}
+        <Button type="teal" size={props.size} onClick={props.onClick}>
+          {props.buttontext}
+        </Button>
+      </div>
+    );
+  }
+
+  return resultInput;
 }
 
 Input.propTypes = {
-  type: propTypes.string,
+  type: propTypes.oneOf(["default", "password"]),
   placeholder: propTypes.string,
   value: propTypes.string,
   icon: propTypes.string,
@@ -60,10 +69,12 @@ Input.propTypes = {
   onChange: propTypes.func,
   onKeyUp: propTypes.func,
   maxLength: propTypes.number,
-  disabled: propTypes.bool
+  disabled: propTypes.bool,
+  buttontext: propTypes.string
 };
 
 Input.defaultProps = {
+  type: "default",
   size: "small",
-  type: "default"
+  buttontext: ""
 };
