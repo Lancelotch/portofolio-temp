@@ -10,7 +10,7 @@ import PATH_URL from "../../routers/path";
 import { schema } from "./schema";
 
 function Login(){
-  const {handleLogin, isSubmitting, isAuthenticated, history} = useRootContext()
+  const {handleLogin, isSubmitting, isAuthenticated, history} = useRootContext();
   if(isAuthenticated){
     history.push(PATH_URL.HOME);
     return null;
