@@ -1,41 +1,25 @@
-.mp-login-container
-  margin: 0px 72px 0px 72px
-.mp-login-header-container
-  display: flex
-  padding: 32px
-  justify-content: flex-end
-.mp-login-header-container > span
-  color: $color-charcoal
-  font-size: 18px
-  margin: 0px 20px 0px 20px
-.mp-login-content
-  display: flex
-  justify-content: center
-  align-items: center
-  height: 60vh
-  flex-direction: column
-.mp-login-content > img
-  height: 71px
-  width: 73px
-.mp-login-content > span
-  font-size: 20px
-  font-weight: 500
-  color: $color-teal
-  padding-top: 12px
-.mp-login-content > .mp-form-login
-  margin-top: 60px
-.mp-login-input-text
-  height: 48px
-  width: 360px!important
-.mp-login-input-error
-  border-color: red
-.mp-login-error-message
-  color: red
-  margin-bottom: -20px
-.mp-login-button-submit
-  margin: 0 4px 0 -4px
-  padding-top: 40px
+.mp-form-background
+  max-width: 100%
+  background-image: url('../../assets/img/register_pict.png')
+  background-size: 65%
+  background-attachment: fixed
+  background-repeat: no-repeat
+  background-position: bottom
+  background-position-x: 0
 
-//ant
-.ant-input-affix-wrapper .ant-input:not(:first-child)
-  padding-left: 40px!important
+.mp-login-content
+  max-width: 444px 
+  margin: 0 auto
+  
+.mp-login-container
+  &__logo
+    padding-top: 64px !important
+    display: block
+    margin: 0 auto
+  &__title
+    color: $color-black
+    margin-top: 32px
+    font-size: 16px
+    text-align: center
+    margin-bottom: 32px  
+  
