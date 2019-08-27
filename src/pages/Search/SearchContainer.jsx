@@ -36,7 +36,7 @@ class SearchPage extends Component {
     this.getProductList();
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
     this.onRefresh()
   }
 
