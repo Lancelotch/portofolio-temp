@@ -66,3 +66,9 @@ no details
 <Playground>
     <Input placeholder="Some text" size="xlarge" icon="mail" />
 </Playground>
+
+### Input size XLarge with Prefix
+
+<Playground>
+    <Input placeholder="Some text" size="xlarge" icon="mail" buttontext="button" />
+</Playground>

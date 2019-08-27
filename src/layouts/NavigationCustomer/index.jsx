@@ -1,41 +1,48 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import Header from 'containers/Header'
 import Footer from 'components/Footer'
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
+import { useRootContext } from "../../hoc/RootContext";
 
 const { Content, Sider } = Layout;
 
-class NavigationCustomer extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            page: []
-        }
-    }
-    actionChangePage = page => {
-        this.setState({ page });
-    };
+export default function NavigationCustomer (props) {
+    const {isAuthenticated, history} = useRootContext();
 
+    useEffect(() => {
+      if(props.needAuthenticated && !isAuthenticated){
+        history.push('/login');
+      }      
+    })
+  
+    if(props.needAuthenticated && !isAuthenticated){
+      return null;
+    } else {  
+        const [page, setPage] = useState([]);
 
-    childrenWithProps = React.cloneElement(this.props.children, {
-        actionChangePage: this.actionChangePage
-    });
-
-    render() {
+        function actionChangePage(page){
+             setPage(page);
+         };
+     
+     
+        const childrenWithProps = React.cloneElement(props.children, {
+             actionChangePage: actionChangePage
+         });
+          
         return (
             <Layout>
                 <div className="mp-customer-layout">
-                    <Header match={this.props} />
+                    <Header match={props} />
                     <ScrollToTopOnMount />
                     <div className="container mp-customer-layout__wrapper">
                         <Layout>
                             <Sider className="mp-customer-layout__children">
-                                {this.childrenWithProps}
+                                {childrenWithProps}
                             </Sider>
                             <Layout className="mp-customer-layout__content">
                                 <Content>
-                                    {this.state.page}
+                                    {page}
                                 </Content>
                             </Layout>
                         </Layout>
@@ -47,4 +54,3 @@ class NavigationCustomer extends Component {
     }
 }
 
-export default NavigationCustomer;

@@ -66,8 +66,6 @@ const ProfileAvatar = props => {
             Upload / Ubah Foto Profil
           </Button>
         </Upload>
-        <Button type="primary">lah</Button>
-        
         <div className="profile-avatar__error">
           {isErrorFormat === true && (
             <p>Format file yang diupload tidak sesuai.</p>

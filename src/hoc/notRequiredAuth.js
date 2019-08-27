@@ -7,7 +7,7 @@ export default ComposedComponent => {
       router: PropTypes.object
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       if (this.props.isAuthenticated) {
         this.props.history.push("/");
       }

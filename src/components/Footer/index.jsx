@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Input, Icon, notification, Form } from "antd";
+import { Row, Col, Icon, notification, Form } from "antd";
 import { Link } from "react-router-dom";
 import category from "../../api/services/category";
 import "./style.sass";
@@ -13,7 +13,8 @@ import instagram from "../../assets/img/ic_instagram.png";
 import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
 import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
-import {rulesEmail} from "../../pages/Register/registerContainer"
+import { rulesEmail } from "../../pages/Register/registerContainer";
+import Input from "../Input";
 
 const FormItem = Form.Item;
 
@@ -37,11 +38,11 @@ class Footer extends Component {
     });
   };
 
-  handleSubmit =  e => {
-    e.preventDefault()
-    const {validateFields,resetFields} = this.props.form
-    validateFields(async(err,values) => {
-      if(!err){
+  handleSubmit = e => {
+    // e.preventDefault();
+    const { validateFields, resetFields } = this.props.form;
+    validateFields(async (err, values) => {
+      if (!err) {
         try {
           const response = await category.subscription({
             email: values.email
@@ -51,14 +52,12 @@ class Footer extends Component {
             showNotification: !this.state.showNotification
           });
           this.openNotification();
-          resetFields()
-        }catch (error) {
+          resetFields();
+        } catch (error) {
           console.log(error);
         }
       }
-    })
-    
-    
+    });
   };
 
   openNotification = async () => {
@@ -68,7 +67,7 @@ class Footer extends Component {
         message: "Selamat",
         description: "sekarang kamu bisa dapetin update dari kita",
         // icon: <Icon type="smile" style={{ color: "#108ee9" }} />
-        icon :<Icon type="check-circle" />
+        // icon: <Icon type="check-circle" />
       });
     } else {
       return null;
@@ -151,38 +150,23 @@ class Footer extends Component {
                     <Col md={24}>
                       <div className="footer__invitation">
                         <p>{strings.subscripton_invitation}</p>
-                        
+
                         <Form onSubmit={this.handleSubmit}>
                           <Row>
-                            <Col md={20}>
+                            <Col md={24}>
                               <FormItem>
                                 {getFieldDecorator("email", rulesEmail())(
                                   <Input
-                                  className="footer__input"
-                                  prefix={
-                                    <Icon
-                                      type={"mail"}
-                                      style={{ color: "rgba(0,0,0,.25)", fontSize: "20px" }}
-                                    />
-                                  }
-                                  placeholder="Email"
-                                  name="email"
-                                  // onChange={this.onChange}
+                                    placeholder="Email"
+                                    icon="mail"
+                                    size="xlarge"
+                                    buttontext="Send"
+                                    onClick={this.handleSubmit}
                                   />
                                 )}
                               </FormItem>
                             </Col>
-                            <Col md={4}>
-                            <FormItem>
-                              <button
-                                className="footer__button"
-                                type="submit"
-                              >
-                                {strings.send}
-                               </button>
-                            </FormItem>
-                            </Col>
-                          </Row> 
+                          </Row>
                         </Form>
                       </div>
                     </Col>
@@ -211,7 +195,6 @@ class Footer extends Component {
     );
   }
 }
-
 
 const FooterForm = Form.create({})(Footer);
 export default FooterForm;
