@@ -10,6 +10,7 @@ import SortListProduct from "../../components/SortListProduct";
 import Category from "./";
 import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import { escapeRegExp } from "../../library/regex";
+import Product from "../../repository/Product";
 
 
 const Products = React.lazy(() => import("../../components/Products"));
@@ -75,11 +76,11 @@ class CategoryPage extends Component {
       categoryId: categoryId
     };
     try {
-      const nextProduct = await product.listProductCategory(request);
+      const nextProduct = await Product.getByCategory(request);
       this.setState({
-        productList: productList.concat(nextProduct.data),
+        productList: productList.concat(nextProduct.data.data),
         page: page + 1,
-        element: nextProduct.element,
+        element: nextProduct.data.element,
         isProductAvailable: true
       });
     } catch (error) {

@@ -58,7 +58,6 @@ class ProductDetail extends Component {
     const productId = this.props.match.params.productId;
     try {
       const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID + productId)
-      console.log("data", response)
       const product = response.data.data;
       this.setState({
         information: product.information,

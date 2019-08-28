@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Row, Col, BackTop } from "antd";
 import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -9,80 +9,70 @@ import SortListProduct from "../../components/SortListProduct";
 
 const Products = React.lazy(() => import("../../components/Products"));
 
-class ProductPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productList: [],
-      hasMore: true,
-      page: 0,
-      isProductAvailable: false,
-      loadingSkeleton: true,
-      isQueryAvailable: true,
-      limit: 20,
-      direction: "desc",
-      sortBy: "createdDate",
-      element: 0
-    };
-  }
+function ProductPage(props) {
+  const [productList, setProductList] = useState([])
+  const [hasMore, setHasMore] = useState(true)
+  const [page, setPage] = useState(0)
+  const [isProductAvailable, setIsProductAvailable] = useState(false)
+  const [loadingSkeleton, setLoadingSkeleton] = useState(true)
+  const [isQueryAvailable, setIsQueryAvailable] = useState(true)
+  const [limit, setLimit] = useState(20)
+  const [direction, setDirection] = useState("desc")
+  const [sortBy, setSortBy] = useState("createdDate")
+  const [element, setElement] = useState(0)
 
-  componentDidMount() {
-    this.getProductList();
+  useEffect(()=> {
+    getProductList();
     window.scrollTo(0, 0);
-  }
+  },[])
 
-  getProductList = async () => {
-    const {
-      productList,
-      page,
-      limit
-    } = this.state;
+  async function getProductList() {
     const request = {
       page: page,
       limit: limit
     };
-    try {
       const nextProduct = await product.products(request);
-      this.setState({
-        productList: productList.concat(nextProduct.data),
-        page: page + 1,
-        element: nextProduct.element,
-        isProductAvailable: true
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      if(nextProduct.code === "200"){
+        setProductList(productList.concat(nextProduct.data))
+        setPage(page + 1)
+        setElement(nextProduct.element)
+        setIsProductAvailable(true)
+      }
   };
 
-  fetchMoreData = () => {
-    const { productList, element } = this.state;
+  function fetchMoreData() {
     // , hasMore
     if (productList.length >= element) {
-      this.setState({ hasMore: false });
+      setHasMore(false)
       return;
     } else {
-      this.getProductList();
+      getProductList();
     }
   };
 
-  onChangeSort = sortValue => {
+  function onChangeSort(sortValue) {
     const arraySort = sortValue.split("|");
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    this.setState(
-      {
-        productList: [],
-        page: 0,
-        sortBy: sortBy,
-        direction: direction,
-        hasMore: true
-      },
-      () => this.getProductList()
-    );
+    setProductList([])
+    setPage(0)
+    setSortBy(sortBy)
+    setDirection(direction)
+    setHasMore(true)
+    getProductList()
+    // this.setState(
+    //   {
+    //     productList: [],
+    //     page: 0,
+    //     sortBy: sortBy,
+    //     direction: direction,
+    //     hasMore: true
+    //   },
+    //   () => this.getProductList()
+    // );
   };
 
-  infiniteScroll = () => {
-    const { productList, hasMore } = this.state;
+  function infiniteScroll() {
     // const categoryTextResult = strings.formatString(
     //   strings.category_text_result,
     //   element,
@@ -96,13 +86,13 @@ class ProductPage extends Component {
         }}>
           <SortListProduct
             defaultValue={"createdDate|desc"}
-            onChange={this.onChangeSort}
+            onChange={onChangeSort}
             valueLow={"price.idr|asc"}
             valueHigh={"price.idr|desc"} />
         </div>
         <InfiniteScroll
           dataLength={productList.length}
-          next={this.fetchMoreData}
+          next={fetchMoreData}
           hasMore={hasMore}
           loader={productList.length < 20 ? false : <Spinner size="large" />}
           endMessage={
@@ -136,9 +126,9 @@ class ProductPage extends Component {
     );
   };
 
-  renderProducts = () => {
-    return this.state.isProductAvailable ? (
-      this.infiniteScroll()
+  function renderProducts() {
+    return isProductAvailable ? (
+      infiniteScroll()
     ) : (
         <SkeletonCustom
           count={20}
@@ -149,19 +139,17 @@ class ProductPage extends Component {
       );
   };
 
-  render() {
     return (
       <React.Fragment>
         <Row>
           <Col xs={24} md={24}>
             <div className="container">
-              {this.renderProducts()}
+              {renderProducts()}
             </div>
           </Col>
         </Row>
       </React.Fragment>
     );
-  }
 }
 
 const mapStateToProps = state => ({
