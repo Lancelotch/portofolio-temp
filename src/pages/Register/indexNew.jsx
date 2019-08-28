@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Icon, Form, Row, Col } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
@@ -19,30 +19,28 @@ function Register() {
   } = useRootContext();
   const validateStatus = (error, touched) =>
     error && touched ? "warning" : "success";
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push(PATH_URL.HOME);
-    }
-  });
-
-  return (
-    <React.Fragment>
-      <Row style={{ display: "flex" }}>
-        <Col md={{ span: 14 }}>
-          <div className="scrollable-container">
-            <div className="register_Background" />
-          </div>
-        </Col>
-        <Col md={{ span: 10 }}>
-          <div className="register">
-            <img
-              className="register__logo"
-              src={monggopesen_logo}
-              alt="login__logo"
-              onClick={()=>history.push(PATH_URL.HOME)}
-            />
-            <h2 className="register__title">{strings.register_now}</h2>
+    
+  if (isAuthenticated) {
+    history.push(PATH_URL.HOME);
+    return null;
+  } else {
+    return (
+        <React.Fragment>
+        <Row style={{ display: "flex" }}>
+          <Col md={{ span: 14 }}>
+            <div className="scrollable-container">
+              <div className="register_Background" />
+            </div>
+          </Col>
+          <Col md={{ span: 10 }}>
+            <div className="register">
+                <img
+                  className="register__logo"
+                  src={monggopesen_logo}
+                  alt="login__logo"
+                  onClick={history.push(PATH_URL.HOME)}
+                />
+              <h2 className="register__title">{strings.register_now}</h2>
             <Formik
               initialValues={{ name: "", email: "", password: "" }}
               onSubmit={values => {
@@ -140,11 +138,12 @@ function Register() {
                 </Form>
               )}
             </Formik>
-          </div>
-        </Col>
-      </Row>
-    </React.Fragment>
-  );
+            </div>
+          </Col>
+        </Row>
+      </React.Fragment>
+    );
+  }
 }
 
 export default Register;

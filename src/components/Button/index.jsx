@@ -26,7 +26,13 @@ export default function Button(props) {
         'mp-margin-button-left-small': (props.marginleft === 'small'),
         'mp-button-disabled': (props.disabled === true)
     });    
-    return <ButtonAnt style={{width: `${props.width}${`%`}`}} className={cssClasses} {...props}>{props.children}</ButtonAnt>
+
+    let propsAnt = {
+        ...props,
+        size: props.size === "xlarge" ? undefined : props.size
+    }
+    
+    return <ButtonAnt style={{width: `${props.width}${`%`}`}} className={cssClasses} {...propsAnt}>{props.children}</ButtonAnt>
 }
 
 Button.propTypes = {

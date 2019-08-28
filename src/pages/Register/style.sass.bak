@@ -16,6 +16,10 @@
   background-position: bottom
   background-position-x: 0
 
+.scrollable-container
+  background: -webkit-linear-gradient(to right, #00B5B7, $color-teal);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #00B5B7, $color-teal); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 .register .ant-form-item 
   width: 360px
 
@@ -35,7 +39,6 @@
     color: $color-teal
     margin-top: 32px
     font-size: 20px
-    text-align: center
     margin-bottom: 32px
   &__input
     height: 48px
@@ -48,7 +51,6 @@
     height: 48px
     &__note
       display: block
-      margin: 10px 0
       width: 360px
       line-height: 18px
       text-align: left
@@ -64,6 +66,8 @@
       width: 30%
       background: gray
     &__option-text
+      margin-top: 32px
+      margin-bottom: 10px
       color: #ADADAD
       font-size: 14px
     &__socmed-box
@@ -84,12 +88,12 @@
     &__link-login
       height: 19px
       width: 224px
-      color: $color-safety-orange
+      color: $color-orange-red
       font-size: 16px
       font-weight: bold
       line-height: 19px
-    &__link-login:hover,
-    &__link-login:focus
+    &__link:hover,
+    &__link:focus
       color: $color-orange-red !important
     &__confirm
       margin-top: 10px  
@@ -100,3 +104,4 @@
     bottom: 0px
     left: 0px
     top: 22px      
+
