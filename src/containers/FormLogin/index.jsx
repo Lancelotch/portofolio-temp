@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {  Form, Checkbox } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
@@ -20,7 +20,6 @@ export default function FormLogin(props) {
         <div className="mp-login-container">
             <div className="mp-form-login">
                 <Formik
-                    initialValues={{ email: "", password: "" }}
                     onSubmit={values => {
                         handleLogin(values);
                     }}
