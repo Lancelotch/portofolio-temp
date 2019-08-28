@@ -1,5 +1,5 @@
 import React from "react";
-import {  Form, Checkbox } from "antd";
+import { Form, Checkbox } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
@@ -7,10 +7,14 @@ import Input from "../../components/Input";
 import { useRootContext } from "../../hoc/RootContext";
 import { schema } from "./schema";
 import strings from "../../localization/localization";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
+export default function FormLogin() {
+  const { handleLogin, isSubmitting } = useRootContext();
+  const validateStatus = (error, touched) =>
+    error && touched ? "warning" : "success";
 
 export default function FormLogin(props) {
     
@@ -114,4 +118,3 @@ export default function FormLogin(props) {
         </div>
     );
 }
-

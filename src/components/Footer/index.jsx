@@ -159,7 +159,7 @@ class Footer extends Component {
                                   <Input
                                     placeholder="Email"
                                     icon="mail"
-                                    size="xlarge"
+                                    size="large"
                                     buttontext="Send"
                                     onClick={this.handleSubmit}
                                   />
