@@ -99,7 +99,8 @@ const RootContext = (props) => {
           logout()
         },
         isSubmitting,
-        history: props.history
+        history: props.history,
+        match: props.match
       }}
     >
       {props.children}
