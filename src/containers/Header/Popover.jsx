@@ -1,38 +1,30 @@
-import React from "react";
+import React,{useState} from "react";
 import { Popover as AntPopover } from "antd";
 import PropTypes from 'prop-types';
-import Login from "components/Login";
-export default function Popover({ name, isAuthenticated, onClick }) {
-  const text = <p>Profile</p>;
-  const content = (
+import FormLogin from "../FormLogin";
+export default function Popover({ name, isAuthenticated, onClick, visible }) {
+  const [visibleChange, setVisibleChange] = useState(false);
+  const title = isAuthenticated ? <p>Profile</p> : null;
+  const label = isAuthenticated ? {name} : "Login";
+  const content = isAuthenticated ? (
     <div>
       <p>Pesenan Saya</p>
       <p>Pengaturan Privasi</p>
       <p>Hubungi Kami</p>
       <p onClick={()=>onClick('logout')}>Log Out</p>
-    </div>
-  );
+    </div> ) : <FormLogin/>;
 
   return (
     <React.Fragment>
-      {isAuthenticated ? (
         <AntPopover
           placement="bottomRight"
-          title={text}
+          title={title}
           content={content}
-          trigger="click"
+          visible={visible}
+          onVisibleChange={visibleChange}
         >
-          <p>{name}</p>
+          <p onClick={()=>setVisibleChange(!visibleChange)}>{label}</p>
         </AntPopover>
-      ) : (
-        <AntPopover
-          placement="bottomRight"
-          content={<Login />}
-          trigger="click"
-        >
-          <p>Login</p>
-        </AntPopover>
-      )}
     </React.Fragment>
   );
 }
@@ -40,5 +32,6 @@ export default function Popover({ name, isAuthenticated, onClick }) {
 Popover.propType = {
   name : PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  visible: PropTypes.bool
 }

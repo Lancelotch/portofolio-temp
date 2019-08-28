@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React,{useState, useEffect} from "react";
 import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";
@@ -13,6 +13,10 @@ import "./style.sass";
 
 export default function Header() {
   const { isAuthenticated, handleLogout, history, match } = useRootContext();
+  const [visible, setVisible] = useState(false);
+  useEffect(()=>{
+    isAuthenticated && setVisible(false);
+  })
   function actionPopover(action) {
     switch (action) {
       case "profile":
@@ -20,8 +24,10 @@ export default function Header() {
         break;
       case "logout":
         handleLogout();
+        setVisible(!visible);
         break;
       default:
+        setVisible(!visible);
         break;
     }
   }
@@ -85,6 +91,7 @@ export default function Header() {
                 isAuthenticated={isAuthenticated}
                 name="Candra"
                 onClick={actionPopover}
+                visible={visible}
               />
             </div>
           </div>
