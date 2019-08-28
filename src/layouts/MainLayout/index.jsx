@@ -4,7 +4,6 @@ import Footer from "components/Footer";
 import "./style.sass";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 import { useRootContext } from "../../hoc/RootContext";
-import PATH_URL from "../../routers/path";
 import PropTypes from "prop-types";
 
 function MainLayout(props) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Icon, notification, Form } from "antd";
+import { Row, Col, notification, Form } from "antd";
 import { Link } from "react-router-dom";
 import category from "../../api/services/category";
 import "./style.sass";
