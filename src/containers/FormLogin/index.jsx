@@ -11,11 +11,6 @@ import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
-export default function FormLogin() {
-  const { handleLogin, isSubmitting } = useRootContext();
-  const validateStatus = (error, touched) =>
-    error && touched ? "warning" : "success";
-
 export default function FormLogin(props) {
     
     const { handleLogin, isSubmitting} = useRootContext()
