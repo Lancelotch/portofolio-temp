@@ -15,7 +15,7 @@ import ButtonFacebook from "../../components/ButtonFacebook";
 
 export default function FormLogin(props) {
     const { handleLogin, isSubmitting, isAuthenticated, history } = useRootContext()
-    const [nextPage, setNextPage] = useState(" ")
+    const [nextPage] = useState(" ")
 
     useEffect(() => {
         if (isAuthenticated) {
