@@ -23,6 +23,9 @@ const strings = new LocalizedStrings({
     shipping_address : 'Alamat Pengiriman',
   
     //general
+    password_required: "Password harus diisi",
+    email_valid: "Email harus valid",
+    email_quote_required: "Email harus diisi",
     change_address:'Ubah Alamat',
     password:'Password',
     profile:'Profile',
@@ -158,9 +161,6 @@ const strings = new LocalizedStrings({
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
     register_name: "Nama lengkap harus diisi",
-    register_email: "Email harus valid",
-    register_email_quote: "Email harus diisi",
-    register_password: "Password harus diisi",
     register_password_quote: "Password harus 6 digit kombinasi angka dan huruf",
     register_password_placeholder: "Password",
     register_sucsess: "Pendaftaran Berhasil Silahkan Cek Email Untuk Aktivasi",
