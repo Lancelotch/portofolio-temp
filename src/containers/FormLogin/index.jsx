@@ -5,7 +5,6 @@ import "./style.sass";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useRootContext } from "../../hoc/RootContext";
-import PATH_URL from "../../routers/path";
 import { schema } from "./schema";
 import strings from "../../localization/localization";
 import { Link } from "react-router-dom"
@@ -14,15 +13,8 @@ import ButtonFacebook from "../../components/ButtonFacebook";
 
 
 export default function FormLogin(props) {
-    const { handleLogin, isSubmitting, isAuthenticated, history } = useRootContext()
-    const [nextPage] = useState(" ")
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            history.push(PATH_URL.HOME);
-        }
-    })
-
+    
+    const { handleLogin, isSubmitting} = useRootContext()
     const validateStatus = (error,touched)=> error && touched ? "warning":"success";
 
     return (
@@ -76,8 +68,8 @@ export default function FormLogin(props) {
                                     <Link
                                         className="mp-form-login__forgot"
                                         to={{
-                                            pathname: "/forget-password",
-                                            state: { nextPage: nextPage }
+                                            pathname: "/forget-password"
+                                    
                                         }}
                                     >
                                         <span>{strings.login_forgot_password}</span>
@@ -110,8 +102,7 @@ export default function FormLogin(props) {
                                             <Link
                                                 className="link-register"
                                                 to={{
-                                                    pathname: "/register",
-                                                    state: { nextPage:  nextPage }
+                                                    pathname: "/register"
                                                 }}>
                                                 <b>{strings.login_register} </b>
                                             </Link>
