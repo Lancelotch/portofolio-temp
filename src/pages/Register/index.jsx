@@ -21,8 +21,6 @@ function Register() {
     isAuthenticated,
     history
   } = useRootContext();
-  const validateStatus = (error, touched) =>
-    error && touched ? "warning" : "success";
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -64,7 +62,7 @@ function Register() {
               }) => (
                   <Form onSubmit={handleSubmit}>
                     <Form.Item
-                      validateStatus={validateStatus(errors.name, touched.name)}
+                      validateStatus={errors.name && "error"}
                       help={errors.name}
                     >
                       <Input
@@ -86,7 +84,7 @@ function Register() {
                       />
                     </Form.Item>
                     <Form.Item
-                      validateStatus={validateStatus(errors.email, touched.email)}
+                      validateStatus={errors.email && "error"}
                       help={errors.email}
                     >
                       <Input
@@ -108,10 +106,7 @@ function Register() {
                       />
                     </Form.Item>
                     <Form.Item
-                      validateStatus={validateStatus(
-                        errors.password,
-                        touched.password
-                      )}
+                      validateStatus={errors.password && "error"}
                       help={errors.password}
                     >
                       <Input
