@@ -1,30 +1,63 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { Popover as AntPopover } from "antd";
 import PropTypes from 'prop-types';
 import FormLogin from "../FormLogin";
-export default function Popover({ name, isAuthenticated, onClick, visible }) {
-  const [visibleChange, setVisibleChange] = useState(false);
-  const title = isAuthenticated ? <p>Profile</p> : null;
-  const label = isAuthenticated ? {name} : "Login";
-  const content = isAuthenticated ? (
-    <div>
-      <p>Pesenan Saya</p>
-      <p>Pengaturan Privasi</p>
-      <p>Hubungi Kami</p>
-      <p onClick={()=>onClick('logout')}>Log Out</p>
-    </div> ) : <FormLogin/>;
+import { useRootContext } from "../../hoc/RootContext";
 
+export default function Popover({ name, isAuthenticated }) {
+  const { handleLogout } = useRootContext();
+  const [visible, setVisible] = useState(false);
+  const [content, setContent] = useState(<FormLogin />);
+
+  const UserMenu = function() {
+    return (
+      <div>
+        <p>Pesenan Saya</p>
+        <p>Pengaturan Privasi</p>
+        <p>Hubungi Kami</p>
+        <p onClick={()=>actionPopover('logout')}>Log Out</p>
+      </div>
+    )
+  }
+
+  useEffect(()=>{
+    setVisible(false);
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    isAuthenticated ?  setContent(<UserMenu />) : setContent(<FormLogin/>);
+  }, [visible])
+
+  function actionPopover(action) {
+    switch (action) {
+      case "profile":
+        console.log('profile');
+        break;
+      case "logout":
+        handleLogout();
+        break;
+      default:
+        break;
+    }
+  }
+
+  const title = isAuthenticated ? <p>Profile</p> : null;
+  const label = isAuthenticated ? name : "Login";
+  
   return (
     <React.Fragment>
+      <div style={{display: "flex"}}>
+        <p onClick={() => setVisible(true)}>{label}</p>
         <AntPopover
           placement="bottomRight"
           title={title}
           content={content}
+          trigger="click"
           visible={visible}
-          onVisibleChange={visibleChange}
+          onVisibleChange={() => setVisible(false)}
         >
-          <p onClick={()=>setVisibleChange(!visibleChange)}>{label}</p>
         </AntPopover>
+      </div>
     </React.Fragment>
   );
 }
@@ -32,6 +65,4 @@ export default function Popover({ name, isAuthenticated, onClick, visible }) {
 Popover.propType = {
   name : PropTypes.string,
   isAuthenticated: PropTypes.bool,
-  onClick: PropTypes.func,
-  visible: PropTypes.bool
 }

@@ -12,25 +12,7 @@ import Greeting from "./Greeting";
 import "./style.sass";
 
 export default function Header() {
-  const { isAuthenticated, handleLogout, history, match } = useRootContext();
-  const [visible, setVisible] = useState(false);
-  useEffect(()=>{
-    isAuthenticated && setVisible(false);
-  })
-  function actionPopover(action) {
-    switch (action) {
-      case "profile":
-        console.log('profile');
-        break;
-      case "logout":
-        handleLogout();
-        setVisible(!visible);
-        break;
-      default:
-        setVisible(!visible);
-        break;
-    }
-  }
+  const { isAuthenticated, history, match } = useRootContext();
 
   return (
     <React.Fragment>
@@ -90,8 +72,6 @@ export default function Header() {
               <Popover
                 isAuthenticated={isAuthenticated}
                 name="Candra"
-                onClick={actionPopover}
-                visible={visible}
               />
             </div>
           </div>
