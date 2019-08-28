@@ -6,7 +6,7 @@ import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
 import ButtonPlay from "../ButtonPlay";
-import Product from "../../repository/ProductHome";
+import Product from "../../repository/Product";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -64,26 +64,26 @@ const SamplePrevArrow = props => {
 };
 
 function ClickProducts () {
-  const [clickproducts, setClickProducts] = useState([])
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      getClickProducts()
+      getProducts()
   }, [])
 
-  async function getClickProducts() {
-      let clickProducts = await Product.getAllProduct({
+  async function getProducts() {
+      let productsResp = await Product.getAll({
           loading: setLoading
       })
-      if (clickProducts.status === 200) {
-          setClickProducts(clickProducts.data.data)
+      if (productsResp.status === 200) {
+          setProducts(productsResp.data.data)
       } else {
-          setClickProducts(null)
+          setProducts(null)
       }
 
   }
-    const products = clickproducts.slice(0, 10);
-    let sliderToClickLength = products.length <= 6 ? false : true
+    const productsToShow = products.slice(0, 10);
+    let sliderToClickLength = productsToShow.length <= 6 ? false : true
     const settings = {
       slidesToShow: 5,
       slidesToScroll: 2,
@@ -103,25 +103,25 @@ function ClickProducts () {
       )
     };
 
-    const slides = products.map((product, i) => {
+    const slides = productsToShow.map((item, i) => {
       return (
-        <Link to={pageUrlProductDetail + product.id || "#"} key={i}>
+        <Link to={pageUrlProductDetail + item.id || "#"} key={i}>
           <Card
             className="card__style"
             cover={
               <div className="card__image-cover">
                 <img
                   alt="example"
-                  src={product.image.defaultImage}
+                  src={item.image.defaultImage}
                   className="card__image"
                 />
-                {product.videoUrl && <ButtonPlay type="thumbnail"/>}
+                {item.videoUrl && <ButtonPlay type="thumbnail"/>}
               </div>
             }
           >
             <div className="card__info">
-              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000", fontSize: 16 }}>{product.name}</p>
-              <p className="card__price">{currencyRupiah(product.price)}</p>
+              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000", fontSize: 16 }}>{item.name}</p>
+              <p className="card__price">{currencyRupiah(item.price)}</p>
             </div>
           </Card>
         </Link>

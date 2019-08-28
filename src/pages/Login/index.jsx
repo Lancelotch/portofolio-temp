@@ -2,28 +2,31 @@ import React, { useEffect } from "react";
 import { Col } from "antd";
 import "./style.sass";
 import { useRootContext } from "../../hoc/RootContext";
-import PATH_URL from "../../routers/path";
 import FormLogin from "../../containers/FormLogin";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import BackgroundAuth from "../../components/BackgroundAuth";
+import PATH_URL from "../../routers/path.js"
 
-export default function Login() {
+export default function Login(props) {
+  
   const { isAuthenticated, history } = useRootContext()
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push(PATH_URL.HOME);
+      const nextPage = props.location.state && 
+      props.location.state.nextPage ? props.location.state.nextPage : PATH_URL.HOME
+      history.push(nextPage);
     }
   })
 
   return (
     <div className="mp-login-container">
-      <Col md={{ span: 14 }}>
+      <Col md={14}>
         <BackgroundAuth />
       </Col>
-      <Col md={{ span: 10 }}>
+      <Col md={10}>
         <div className="mp-login-content">
           <Link to="/">
             <img
