@@ -30,7 +30,7 @@ export default function Input(props) {
 
   let propsAnt = {
     ...props,
-    size: props.size === "xlarge" && undefined
+    size: props.size === "xlarge" || "medium" ? undefined : props.size
   }
 
   let resultInput;

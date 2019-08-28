@@ -7,7 +7,7 @@ import FormLogin from "../../containers/FormLogin";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
-import BackgroundForm from "../../components/BackgroundForm";
+import BackgroundAuth from "../../components/BackgroundAuth";
 
 export default function Login() {
   const { isAuthenticated, history } = useRootContext()
@@ -21,7 +21,7 @@ export default function Login() {
   return (
     <div className="mp-login-container">
       <Col md={{ span: 14 }}>
-        <BackgroundForm />
+        <BackgroundAuth />
       </Col>
       <Col md={{ span: 10 }}>
         <div className="mp-login-content">
@@ -34,7 +34,6 @@ export default function Login() {
           </Link>
           <p className="mp-login-container__title">{strings.login_enter}</p>
           <FormLogin />
-
         </div>
       </Col>
     </div>

@@ -23,6 +23,8 @@ export default function FormLogin(props) {
         }
     })
 
+    const validateStatus = (error,touched)=> error && touched ? "warning":"success";
+
     return (
         <div className="mp-login-container">
             <div className="mp-form-login">
@@ -42,32 +44,20 @@ export default function FormLogin(props) {
                         handleSubmit
                     }) => (
                             <Form onSubmit={handleSubmit}>
-                                <Form.Item>
+                                <Form.Item validateStatus={validateStatus(errors.email,touched.email)} help={errors.email}>
                                     <Input
                                         placeholder="Email"
                                         name="email"
                                         size="large"
                                         icon="mail"
-                                        prefix={
-                                            <Icon
-                                                type="user"
-                                                style={{
-                                                    color: "rgba(0,0,0,.25)",
-                                                    fontSize: "15.64px"
-                                                }}
-                                            />
-                                        }
                                         onChange={handleChange}
                                         value={values.email}
                                         onBlur={handleBlur}
                                     />
                                 </Form.Item>
-                                <Form.Item>
+                                <Form.Item validateStatus={validateStatus(errors.password,touched.password)} help={errors.password}>
                                     <Input
                                         name="password"
-                                        prefix={
-                                            <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                                        }
                                         type="password"
                                         size="large"
                                         icon="lock"
@@ -81,9 +71,6 @@ export default function FormLogin(props) {
                                     />
 
                                 </Form.Item>
-                                {((errors.username && touched.username) || (errors.password && touched.password)) && (
-                                    <center className="mp-login-error-message"><span>Please don't be stupid! </span></center>
-                                )}
                                 <Form.Item>
                                     <Checkbox>{strings.login_remember_me}</Checkbox>
                                     <Link
