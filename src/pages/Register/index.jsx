@@ -36,12 +36,11 @@ function Register() {
         </Col>
         <Col md={10}>
           <div className="mp-register">
-            <Link to="/">
+            <Link to={PATH_URL.HOME}>
               <img
                 className="mp-register__logo"
                 src={monggopesen_logo}
                 alt="login__logo"
-                onClick={() => history.push(PATH_URL.HOME)}
               />
             </Link>
             <font className="mp-register__title">{strings.register_now}</font>
