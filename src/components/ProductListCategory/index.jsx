@@ -16,7 +16,7 @@ export default function ProductListCategory() {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [params, setParams] = useState({
-    limit: "",
+    limit: 20,
     page: page,
     sortBy: "",
     direction: ""
