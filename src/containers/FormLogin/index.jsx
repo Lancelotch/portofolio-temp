@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Form, Checkbox } from "antd";
+import {  Form, Checkbox } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useRootContext } from "../../hoc/RootContext";
-import PATH_URL from "../../routers/path";
 import { schema } from "./schema";
 import strings from "../../localization/localization";
 import { Link } from "react-router-dom"
@@ -14,14 +13,9 @@ import ButtonFacebook from "../../components/ButtonFacebook";
 
 
 export default function FormLogin(props) {
-    const { handleLogin, isSubmitting, isAuthenticated, history } = useRootContext()
-    const [nextPage, setNextPage] = useState(" ")
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            history.push(PATH_URL.HOME);
-        }
-    })
+    
+    const { handleLogin, isSubmitting} = useRootContext()
+    const validateStatus = (error,touched)=> error && touched ? "warning":"success";
 
     return (
         <div className="mp-login-container">
@@ -42,7 +36,7 @@ export default function FormLogin(props) {
                         handleSubmit
                     }) => (
                             <Form onSubmit={handleSubmit}>
-                                <Form.Item>
+                                <Form.Item validateStatus={validateStatus(errors.email,touched.email)} help={errors.email}>
                                     <Input
                                         placeholder="Email"
                                         name="email"
@@ -53,7 +47,7 @@ export default function FormLogin(props) {
                                         onBlur={handleBlur}
                                     />
                                 </Form.Item>
-                                <Form.Item>
+                                <Form.Item validateStatus={validateStatus(errors.password,touched.password)} help={errors.password}>
                                     <Input
                                         name="password"
                                         type="password"
@@ -69,16 +63,13 @@ export default function FormLogin(props) {
                                     />
 
                                 </Form.Item>
-                                {((errors.username && touched.username) || (errors.password && touched.password)) && (
-                                    <center className="mp-login-error-message"><span>Please don't be stupid! </span></center>
-                                )}
                                 <Form.Item>
                                     <Checkbox>{strings.login_remember_me}</Checkbox>
                                     <Link
                                         className="mp-form-login__forgot"
                                         to={{
-                                            pathname: "/forget-password",
-                                            state: { nextPage: nextPage }
+                                            pathname: "/forget-password"
+                                    
                                         }}
                                     >
                                         <span>{strings.login_forgot_password}</span>
@@ -111,8 +102,7 @@ export default function FormLogin(props) {
                                             <Link
                                                 className="link-register"
                                                 to={{
-                                                    pathname: "/register",
-                                                    state: { nextPage:  nextPage }
+                                                    pathname: "/register"
                                                 }}>
                                                 <b>{strings.login_register} </b>
                                             </Link>

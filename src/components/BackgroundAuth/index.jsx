@@ -5,7 +5,6 @@ export default function BackgroundAuth() {
 
     const [heightImageBackground, stateHeightImageBackground] = useState(0)
 
-
     useEffect(() => {
         updateHeightImageBackground();
         window.addEventListener('resize', updateHeightImageBackground)
@@ -20,7 +19,6 @@ export default function BackgroundAuth() {
         let heightWindow = window.innerHeight;
         let height = heightWindow >= heightContent ? heightWindow : heightContent
         stateHeightImageBackground(height)
-
     }
 
     return (
