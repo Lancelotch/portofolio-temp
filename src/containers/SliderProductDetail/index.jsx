@@ -27,6 +27,8 @@ class SliderProductDetailContainer extends Component {
   componentDidMount() {
     let imageDefault = this.props.imageDefault;
     let imagesProps = this.props.images;
+    console.log(imagesProps);
+    
     let imagesWithDefault = [];
     imagesProps.forEach(image => {
       if (image.isDefault !== true) {
