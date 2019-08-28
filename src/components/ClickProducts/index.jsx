@@ -82,8 +82,8 @@ function ClickProducts () {
       }
 
   }
-    const product = products.slice(0, 10);
-    let sliderToClickLength = product.length <= 6 ? false : true
+    const productsToShow = products.slice(0, 10);
+    let sliderToClickLength = productsToShow.length <= 6 ? false : true
     const settings = {
       slidesToShow: 5,
       slidesToScroll: 2,
@@ -103,7 +103,7 @@ function ClickProducts () {
       )
     };
 
-    const slides = product.map((item, i) => {
+    const slides = productsToShow.map((item, i) => {
       return (
         <Link to={pageUrlProductDetail + item.id || "#"} key={i}>
           <Card
