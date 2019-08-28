@@ -84,7 +84,7 @@ class Login extends Component {
               <FormItem className='login-form__input-text'>
                 {getFieldDecorator('email', rulesEmail())(
                   <Input
-                    sizeinput={'large'}
+                    size={'large'}
                     onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                     icon="user"
                     placeholder={'Email'}
@@ -102,7 +102,7 @@ class Login extends Component {
                 })(
                   <Input
                     type="password"
-                    sizeinput={"large"}
+                    size={"large"}
                     icon="lock"
                     onChange={this.state.firstInput ? this.clearTrigger :this.clearErrorMessage}
                     placeholder={strings.register_password_placeholder}
