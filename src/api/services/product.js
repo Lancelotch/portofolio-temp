@@ -1,21 +1,21 @@
 import { PATH_PRODUCT } from "../path";
 import { serviceWithoutToken } from "./httpClient";
 
-const listProductCategory = ({categoryId,page, sortBy, direction}) => {
-  return new Promise((resolve, reject) => {
-    serviceWithoutToken()
-      .request({
-        method: "GET",
-        url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
-      })
-      .then(response => {
-        resolve(response.data);
-      })
-      .catch(error => {
-        reject(error.response);
-      });
-  });
-};
+// const listProductCategory = ({categoryId,page, sortBy, direction}) => {
+//   return new Promise((resolve, reject) => {
+//     serviceWithoutToken()
+//       .request({
+//         method: "GET",
+//         url: `${PATH_PRODUCT.PRODUCT_CATEGORY}${categoryId}?limit=20&page=${page}&sortBy=${sortBy}&direction=${direction}`
+//       })
+//       .then(response => {
+//         resolve(response.data);
+//       })
+//       .catch(error => {
+//         reject(error.response);
+//       });
+//   });
+// };
 
 const popularProduct = request => {
   return new Promise((resolve, reject) => {
@@ -98,7 +98,6 @@ const products = ({page,limit}) =>{
 }
 
 const product = {
-  listProductCategory: listProductCategory,
   listProductSearch: listProductSearch,
   popularProduct: popularProduct,
   bestSellerProduct: bestSellerProduct,

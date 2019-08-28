@@ -3,7 +3,7 @@ import PopularProduct from "../../components/PopularProduct";
 import { Col, Row } from "antd";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
-import Product from "../../repository/ProductHome";
+import Product from "../../repository/Product";
 
 
 export default function PopularProducts(props) {
@@ -15,7 +15,7 @@ export default function PopularProducts(props) {
   },[])
 
   async function getProductPopular () {
-    let productPopular = await Product.getLimitProduct({
+    let productPopular = await Product.getLimit({
       loading : setLoading
     })
     if (productPopular.status === 200) {

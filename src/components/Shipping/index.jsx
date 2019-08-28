@@ -19,7 +19,6 @@ class Shipping extends Component {
     try {
       //const res = await shipping.getShipping();
       const res = await dummyShipping;
-      console.log("res", res)
       this.setState({
         shipping: res.data
       });

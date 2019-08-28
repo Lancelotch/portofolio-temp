@@ -3,7 +3,7 @@ import { Col, Row } from 'antd'
 import BestSeller from '../../components/BestSeller'
 import strings from "../../localization/localization";
 import SkeletonCustom from '../../components/Skeleton';
-import Product from '../../repository/ProductHome';
+import Product from '../../repository/Product';
 
 export default function BestSellers(props) {
     const [bestseller, setBestSeller] = useState([])
@@ -14,7 +14,7 @@ export default function BestSellers(props) {
     }, [])
 
     async function getBestSeller() {
-        let bestSeller = await Product.getLimitProduct({
+        let bestSeller = await Product.getLimit({
             loading: setLoading
         })
         if (bestSeller.status === 200) {
