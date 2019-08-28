@@ -78,9 +78,9 @@ class CategoryPage extends Component {
     try {
       const nextProduct = await Product.getByCategory(request);
       this.setState({
-        productList: productList.concat(nextProduct.data),
+        productList: productList.concat(nextProduct.data.data),
         page: page + 1,
-        element: nextProduct.element,
+        element: nextProduct.data.element,
         isProductAvailable: true
       });
     } catch (error) {

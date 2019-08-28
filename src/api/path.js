@@ -41,7 +41,7 @@ export const PATH_CUSTOMER = {
 //PRODUCT
 const PRODUCT = "product";
 const PRODUCT_BY_ID = 'product/';
-const PRODUCT_CATEGORY = "product/category/";
+const PRODUCT_CATEGORY = "product/category";
 const PRODUCT_ALL_LIMIT = "product?limit=4";
 const PRODUCT_SEARCH = "product/search?keyword="
 const PRODUCT_BEST_SELLER = "product/best-seller?limit=4";

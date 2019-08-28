@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../Product";
 import product from "../../repository/Product";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -10,40 +10,44 @@ const colStyle = {
   paddingBottom: "16px"
 };
 
-class ProductListCategory extends Component {
-  state = {
-    products: [],
-    hasMore: true,
-    page: 0
-  };
+export default function ProductListCategory() {
+  const [products, setProducts] = useState([])
+  const [hasMore, setHasMore] = useState(true)
+  const [page, setPage] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [params, setParams] = useState({
+    limit: "",
+    page: page,
+    sortBy: "",
+    direction: ""
+  })
 
   getProductList = async () => {
-    const { products, page } = this.state;
     try {
-      const nextProduct = await product.getByCategory(page);
-      this.setState({
-        products: products.concat(nextProduct.data),
-        page: page + 1,
-        limit: nextProduct.element
+      const nextProduct = await product.getByCategory({
+        params: params,
+        loading: setLoading
       });
+      setProducts(products.concat(nextProduct.data.data))
+      setPage(page + 1)
+      setParams({...params, limit: nextProduct.data.element})
     } catch (error) {
       console.log(error);
     }
   };
 
-  componentDidMount() {
-    this.getProductList();
-  }
+  useEffect(()=>{
+    getProductList()
+  }, [])
 
-  fetchMoreData = () => {
-  const { products, limit /*hasMore*/ } = this.state;
-    if (products.length >= limit) {
-      this.setState({ hasMore: false });
-      return;
-    }else{
-      this.getProductList();
-    }
-  };
+  // fetchMoreData = () => {
+  //   if (products.length >= limit) {
+  //     setHasMore(false)
+  //     return;
+  //   }else{
+  //     this.getProductList();
+  //   }
+  // };
 
   renderProduct = products => {
     return products.map((product, index) => (
@@ -58,7 +62,6 @@ class ProductListCategory extends Component {
     ));
   };
 
-  render() {
     const { products, hasMore, limit=0 } = this.state;
     
     const categoryTextResult = strings.formatString(strings.category_text_result, limit, "sepatu");
@@ -82,6 +85,4 @@ class ProductListCategory extends Component {
       </React.Fragment>
     );
   }
-}
 
-export default ProductListCategory;

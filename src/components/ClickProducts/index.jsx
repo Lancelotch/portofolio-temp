@@ -64,25 +64,25 @@ const SamplePrevArrow = props => {
 };
 
 function ClickProducts () {
-  const [clickproducts, setClickProducts] = useState([])
+  const [clickProducts, setClickProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      getClickProducts()
+      getProducts()
   }, [])
 
-  async function getClickProducts() {
-      let clickProducts = await Product.getAll({
+  async function getProducts() {
+      let products = await Product.getAll({
           loading: setLoading
       })
-      if (clickProducts.status === 200) {
-          setClickProducts(clickProducts.data.data)
+      if (products.status === 200) {
+          setClickProducts(products.data.data)
       } else {
           setClickProducts(null)
       }
 
   }
-    const products = clickproducts.slice(0, 10);
+    const products = clickProducts.slice(0, 10);
     let sliderToClickLength = products.length <= 6 ? false : true
     const settings = {
       slidesToShow: 5,

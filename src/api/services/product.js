@@ -98,7 +98,6 @@ const products = ({page,limit}) =>{
 }
 
 const product = {
-  // listProductCategory: listProductCategory,
   listProductSearch: listProductSearch,
   popularProduct: popularProduct,
   bestSellerProduct: bestSellerProduct,

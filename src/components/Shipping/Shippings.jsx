@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 
 const Shippings = props => {
   const { shipping, totalShipping } = props;
-  console.log("props", props)
 
   return (
     <React.Fragment>
