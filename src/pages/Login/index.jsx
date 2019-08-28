@@ -9,11 +9,8 @@ import strings from "../../localization/localization";
 import BackgroundAuth from "../../components/BackgroundAuth";
 
 export default function Login(props) {
-  const { isAuthenticated, history } = useRootContext()
-
-
-  console.log(props.location.state);
   
+  const { isAuthenticated, history } = useRootContext()
 
   useEffect(() => {
     if (isAuthenticated) {
