@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Form, Checkbox } from "antd";
+import {  Form, Checkbox } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
