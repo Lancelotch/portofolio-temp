@@ -20,7 +20,6 @@ export default function FormLogin(props) {
         <div className="mp-login-container">
             <div className="mp-form-login">
                 <Formik
-                    initialValues={{ email: "", password: "" }}
                     onSubmit={values => {
                         handleLogin(values);
                     }}

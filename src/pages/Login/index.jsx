@@ -7,6 +7,7 @@ import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import BackgroundAuth from "../../components/BackgroundAuth";
+import PATH_URL from "../../routers/path.js"
 
 export default function Login(props) {
   
@@ -14,7 +15,9 @@ export default function Login(props) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push(props.location.state.nextPage);
+      const nextPage = props.location.state && 
+      props.location.state.nextPage ? props.location.state.nextPage : PATH_URL.HOME
+      history.push(nextPage);
     }
   })
 

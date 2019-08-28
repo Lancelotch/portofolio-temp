@@ -45,7 +45,6 @@ function Register() {
             </Link>
             <font className="mp-register__title">{strings.register_now}</font>
             <Formik
-              initialValues={{ name: "", email: "", password: "" }}
               onSubmit={values => {
                 handleRegister(values);
               }}
