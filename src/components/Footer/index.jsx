@@ -110,8 +110,9 @@ function Footer() {
                       <Row>
                         <Col md={24}>
                           <Formik
-                            onSubmit={values => {
+                            onSubmit={(values, {resetForm}) => {
                               handleSubmitSubscribe(values);
+                              resetForm({});
                             }}
                             validationSchema={schema}
                           >
