@@ -33,6 +33,8 @@ export default function Input(props) {
     size: props.size === "xlarge" || "medium" ? undefined : props.size
   }
 
+  delete propsAnt.onButtonClick;
+
   let resultInput;
   if (props.type === "default") {
     resultInput = (
@@ -54,8 +56,8 @@ export default function Input(props) {
     resultInput = (
       <div className="mp-input-with-button">
         {resultInput}
-        <Button type="teal" size={props.size} onClick={props.onClick}>
-          {props.buttontext}
+        <Button type="teal" size={props.size} onClick={props.onButtonClick}>
+         {props.buttontext}
         </Button>
       </div>
     );
@@ -74,7 +76,8 @@ Input.propTypes = {
   onKeyUp: propTypes.func,
   maxLength: propTypes.number,
   disabled: propTypes.bool,
-  buttontext: propTypes.string
+  buttontext: propTypes.string,
+  onButtonClick: propTypes.func
 };
 
 Input.defaultProps = {
