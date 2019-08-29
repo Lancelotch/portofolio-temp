@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React from "react";
 import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";

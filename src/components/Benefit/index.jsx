@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style.sass";
-import { PATH_HOME } from "../../api/path";
-import withGetMethodApi from "../../hoc/withGetMethodApi";
 import SkeletonCustom from "../Skeleton";
 import { Col } from "antd";
+import BenefitHome from "../../repository/BenefitHome";
 
-const Benefit = ({ data, error, loading }) => {
+export default function Benefit (){
+  const [benefitData,setBenefitData] = useState([]);
+  const [loading,setLoading] = useState(false)
 
-  const showBenefit = data.map((benefit, index) => (
+  useEffect(()=>{
+    getBenefit()
+  },[])
+
+  async function getBenefit () {
+    let benefitData = await BenefitHome.getAll({
+      loading : setLoading
+    })
+    if (benefitData.status === 200) {
+      setBenefitData(benefitData.data.data) 
+    } else {
+      setBenefitData(null)
+    }          
+  }
+
+  const showBenefit = benefitData.map((benefit, index) => (
     <Col key={index} md={4}>
       <img
         className="mp-benefit-image"
@@ -17,23 +33,26 @@ const Benefit = ({ data, error, loading }) => {
   ));
 
 
-  return <React.Fragment>{data.length < 1 ?
-    (<SkeletonCustom
-      count={4}
-      width={200}
-      height={40}
-      leftMargin={13}
-      rightMargin={13}
-      topMargin={24}
-    />
-    ) :
-    (
-      <div className="container">
-        <div className="mp-benefit-box">
-          {showBenefit}
+  return (
+    <React.Fragment>
+      {loading ?
+        <SkeletonCustom
+          count={4}
+          width={200}
+          height={40}
+          leftMargin={13}
+          rightMargin={13}
+          topMargin={24}
+        />
+        :
+        <div className="container">
+          <div className="mp-benefit-box">
+            {showBenefit}
+          </div>
         </div>
-      </div>
-    )}</React.Fragment>
+        }
+    </React.Fragment>
+  )
 };
 
-export default withGetMethodApi(PATH_HOME.HOME_BENEFIT)(Benefit);
+

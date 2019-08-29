@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import category from '../../api/services/category'
+import React, {  useState, useEffect } from 'react'
 import { Carousel, Row, Col, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import './style.sass'
 import Skeleton from "react-loading-skeleton";
+import SliderBannerHome from '../../repository/SliderBannerHome';
 
 
 const SampleNextArrow = props => {
@@ -61,79 +61,65 @@ const SamplePrevArrow = props => {
   );
 };
 
-class SliderHome extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      sliderImages: []
-    }
-  }
+function SliderHome() {
 
-  componentDidMount() {
-    this.mounted = true
-    this.getSliderHome()
-  }
+  const [sliderImages, setSliderImages] = useState([])
+  const [loading,setLoading] = useState(false)
 
-  componentWillUnmount(){
-    this.mounted = false
-  }
+  useEffect(()=>{
+    getSliderHome()
+  },[])
 
-  getSliderHome = async () => {
-    try {
-      const payload = await category.sliderHome()
-      if(this.mounted){
-        this.setState({
-          sliderImages: payload.data
-        })
-      }
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
-  render() {
-    const { sliderImages } = this.state
-    const settings = {
-      dots: false,
-      speed: 2000,
-      autoplaySpeed: 7000,
-      infinite: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows:false,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />
-    }
-    const slides = sliderImages.map((image, index) => {
-      return (
-        <React.Fragment key={index}>
-          <Link to='/'>
-            <img
-              className='imageSlider'
-              src={image.imageUrl}
-              alt={image.type}
-            />
-          </Link>
-        </React.Fragment>
-      )
+  async function getSliderHome () {
+    let sliderImages = await SliderBannerHome.getAll({
+      loading : setLoading
     })
+    if (sliderImages.status === 200) {
+      setSliderImages(sliderImages.data.data) 
+    } else {
+      setSliderImages(null)
+    }          
+  }
 
+  const settings = {
+    dots: false,
+    speed: 2000,
+    autoplaySpeed: 7000,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
+  }
+  const slides = sliderImages.map((image, index) => {
     return (
-      <React.Fragment>
-        <Row>
-          <Col md={24}>
-            <div className="sliderHome full-width" >
-              <Carousel autoplay {...settings}>
-                {this.state.sliderImages.length < 1 ? (<Skeleton width={"100%"} height={376}/>):(slides)}
-              </Carousel>
-            </div>
-          </Col>
-        </Row>
+      <React.Fragment key={index}>
+        <Link to='/'>
+          <img
+            className='imageSlider'
+            src={image.imageUrl}
+            alt={image.type}
+          />
+        </Link>
       </React.Fragment>
     )
-  }
+  })
+
+  return (
+    <React.Fragment>
+      <Row>
+        <Col md={24}>
+          <div className="sliderHome full-width" >
+            <Carousel autoplay {...settings}>
+              {loading? (<Skeleton width={"100%"} height={376} />) : (slides)}
+            </Carousel>
+          </div>
+        </Col>
+      </Row>
+    </React.Fragment>
+  )
 }
+
 
 export default SliderHome
