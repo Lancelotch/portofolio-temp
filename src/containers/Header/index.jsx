@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React from "react";
 import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";
@@ -10,6 +10,7 @@ import PATH_URL from "../../routers/path";
 import Helpers from "./Helpers";
 import Greeting from "./Greeting";
 import "./style.sass";
+import { PATH_CATEGORY } from "../../services/path/category";
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
@@ -22,17 +23,16 @@ export default function Header() {
             src={require("assets/img/monggopesen_logo.png")}
             className="header__logo"
             alt=""
-            onClick={() => history.push("/")}
+            onClick={() => history.push(PATH_URL.HOME)}
           />
         </Col>
         <Col md={15} className="header__search-box">
           <div style={{ width: 600 }}>
             <Search
               placeholder={strings.search_place_holder}
-              id="filter"
-              defaultValue=""
-              onSearch={() => {}}
-              onChange={() => {}}
+              onSearch={keyword => {
+                history.push(`/search?q=${keyword}`);
+              }}
             />
           </div>
         </Col>
@@ -48,7 +48,7 @@ export default function Header() {
         <Col md={2}>
           <div className="header__categories" key={""}>
             <DataSource
-              url={PATH_URL.GET_CATEGORY}
+              url={PATH_CATEGORY.CATEGORY_FEATURE}
               render={data => (
                 <CategoryMenuCascader
                   key={"id"}
@@ -60,7 +60,7 @@ export default function Header() {
           </div>
         </Col>
         <Col md={14}>
-          <Helpers/>
+          <Helpers />
         </Col>
         <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
           <div className="header__greeting">
@@ -69,10 +69,7 @@ export default function Header() {
           <div className="header__user-box">
             <Icon type="user" className="header__user-icon" />
             <div className="wrap-header-dropdown">
-              <Popover
-                isAuthenticated={isAuthenticated}
-                name="Candra"
-              />
+              <Popover isAuthenticated={isAuthenticated} />
             </div>
           </div>
         </Col>
