@@ -14,7 +14,7 @@ export default function BestSellers(props) {
     }, [])
 
     async function getBestSeller() {
-        let bestSeller = await Product.getLimit({
+        let bestSeller = await Product.getBestSeller({
             loading: setLoading
         })
         if (bestSeller.status === 200) {
