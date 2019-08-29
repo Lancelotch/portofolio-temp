@@ -16,8 +16,8 @@ async function getAll( props ){
 }
 
 
-const BenefitHome = {
+const Benefit = {
     getAll : getAll
 }
 
-export default BenefitHome;
+export default Benefit;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.sass";
 import SkeletonCustom from "../Skeleton";
 import { Col } from "antd";
-import BenefitHome from "../../repository/BenefitHome";
+import BenefitHome from "../../repository/Benefit";
 
 export default function Benefit (){
   const [benefitData,setBenefitData] = useState([]);

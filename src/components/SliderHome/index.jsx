@@ -3,7 +3,7 @@ import { Carousel, Row, Col, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import './style.sass'
 import Skeleton from "react-loading-skeleton";
-import SliderBannerHome from '../../repository/SliderBannerHome';
+import SliderBanner from '../../repository/SliderBanner';
 
 
 const SampleNextArrow = props => {
@@ -71,7 +71,7 @@ function SliderHome() {
   },[])
 
   async function getSliderHome () {
-    let sliderImages = await SliderBannerHome.getAll({
+    let sliderImages = await SliderBanner.getAll({
       loading : setLoading
     })
     if (sliderImages.status === 200) {
