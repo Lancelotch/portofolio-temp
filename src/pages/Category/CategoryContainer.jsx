@@ -1,11 +1,10 @@
-import React, { Suspense, useEffect, useState, useRef } from "react";
-import { BackTop } from "antd";
+import React, { Suspense, useEffect, useState } from "react";
+import { BackTop, Row, Col } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
-import Category from "./";
 import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import { escapeRegExp } from "../../library/regex";
 import Product from "../../repository/Product";
@@ -17,20 +16,16 @@ export default function CategoryPage(props) {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [isProductAvailable, setIsProductAvailable] = useState(false);
-  const [loadingSkeleton, setLoadingSkeleton] = useState(true);
-  const [query, setQuery] = useState("");
-  const [isQueryAvailable, setIsQueryAvailable] = useState(true);
   const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("price.amount");
   const [element, setElement] = useState(0);
-  const [categoryId, setCategoryId] = useState(0);
-  const [categoryIdName, setCategoryIdName] = useState(0);
+
   const params = props.match.params;
 
   useEffect(() => {
     getProductList();
-  }, [params, sortBy, direction]);
+  }, [params, direction]);
 
   async function getProductList() {
     const categoryId = Object.entries(params)
@@ -48,7 +43,7 @@ export default function CategoryPage(props) {
     });
     if (nextProduct.status === 200) {
       setProductList(nextProduct.data.data);
-      setPage(page + 1);
+      setPage(page);
       setElement(nextProduct.data.element);
       setIsProductAvailable(true);
     } else {
@@ -73,7 +68,6 @@ export default function CategoryPage(props) {
 
   function onChangeSort(sortValue) {
     const arraySort = sortValue.split("|");
-    console.log(arraySort);
     const sortBy = arraySort[0];
     const direction = arraySort[1];
     setProductList([]);
@@ -163,6 +157,13 @@ export default function CategoryPage(props) {
     );
   }
 
-  const { match } = props;
-  return <Category match={match}>{renderProducts()}</Category>;
+  return (
+    <React.Fragment>
+      <Row>
+        <Col xs={24} md={24}>
+          {renderProducts()}
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
 }
