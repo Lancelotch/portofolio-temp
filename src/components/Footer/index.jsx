@@ -13,7 +13,6 @@ import instagram from "../../assets/img/ic_instagram.png";
 import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
 import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
-import { rulesEmail } from "../../pages/Register/registerContainer";
 import Input from "../Input";
 
 const FormItem = Form.Item;
@@ -154,17 +153,18 @@ class Footer extends Component {
                         <Form onSubmit={this.handleSubmit}>
                           <Row>
                             <Col md={24}>
-                              <FormItem>
-                                {getFieldDecorator("email", rulesEmail())(
+                              {/* <FormItem>
+                              REFACTOR USING FORMIK
+                                {getFieldDecorator("email", rulesEmail())( */}
                                   <Input
                                     placeholder="Email"
                                     icon="mail"
-                                    size="xlarge"
+                                    size="large"
                                     buttontext="Send"
                                     onClick={this.handleSubmit}
                                   />
-                                )}
-                              </FormItem>
+                                {/* )}
+                              </FormItem> */}
                             </Col>
                           </Row>
                         </Form>

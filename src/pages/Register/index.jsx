@@ -9,6 +9,10 @@ import PATH_URL from "../../routers/path";
 import { schema } from "./schema";
 import strings from "../../localization/localization";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
+import BackgroundAuth from "../../components/BackgroundAuth";
+import { Link } from "react-router-dom";
+import ButtonGoogle from "../../components/ButtonGoogle";
+import ButtonFacebook from "../../components/ButtonFacebook";
 
 function Register() {
   const {
@@ -17,8 +21,6 @@ function Register() {
     isAuthenticated,
     history
   } = useRootContext();
-  const validateStatus = (error, touched) =>
-    error && touched ? "warning" : "success";
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -28,23 +30,21 @@ function Register() {
 
   return (
     <React.Fragment>
-      <Row style={{ display: "flex" }}>
-        <Col md={{ span: 14 }}>
-          <div className="scrollable-container">
-            <div className="register_Background" />
-          </div>
+      <Row>
+        <Col md={14}>
+          <BackgroundAuth />
         </Col>
-        <Col md={{ span: 10 }}>
-          <div className="register">
-            <img
-              className="register__logo"
-              src={monggopesen_logo}
-              alt="login__logo"
-              onClick={()=>history.push(PATH_URL.HOME)}
-            />
-            <h2 className="register__title">{strings.register_now}</h2>
+        <Col md={10}>
+          <div className="mp-register">
+            <Link to={PATH_URL.HOME}>
+              <img
+                className="mp-register__logo"
+                src={monggopesen_logo}
+                alt="login__logo"
+              />
+            </Link>
+            <font className="mp-register__title">{strings.register_now}</font>
             <Formik
-              initialValues={{ name: "", email: "", password: "" }}
               onSubmit={values => {
                 handleRegister(values);
               }}
@@ -58,75 +58,77 @@ function Register() {
                 handleBlur,
                 handleSubmit
               }) => (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Item
-                    validateStatus={validateStatus(errors.name, touched.name)}
-                    help={errors.name}
-                  >
-                    <Input
-                      placeholder="Nama"
-                      name="name"
-                      prefix={
-                        <Icon
-                          type="user"
-                          style={{
-                            color: "rgba(0,0,0,.25)",
-                            fontSize: "15.64px"
-                          }}
-                        />
-                      }
-                      onChange={handleChange}
-                      value={values.name}
-                      onBlur={handleBlur}
-                      className="register__input"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    validateStatus={validateStatus(errors.email, touched.email)}
-                    help={errors.email}
-                  >
-                    <Input
-                      placeholder="Email"
-                      name="email"
-                      prefix={
-                        <Icon
-                          type="mail"
-                          style={{
-                            color: "rgba(0,0,0,.25)",
-                            fontSize: "15.64px"
-                          }}
-                        />
-                      }
-                      onChange={handleChange}
-                      value={values.email}
-                      onBlur={handleBlur}
-                      className="register__input"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    validateStatus={validateStatus(
-                      errors.password,
-                      touched.password
-                    )}
-                    help={errors.password}
-                  >
-                    <Input
-                      name="password"
-                      prefix={
-                        <Icon
-                          type="lock"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      type="password"
-                      placeholder="Password"
-                      onChange={handleChange}
-                      value={values.password}
-                      onBlur={handleBlur}
-                      className="register__input"
-                    />
-                  </Form.Item>
-                  <div className="mp-login-button-submit">
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Item
+                      validateStatus={errors.name && "error"}
+                      help={errors.name}
+                    >
+                      <Input
+                        placeholder="Nama"
+                        name="name"
+                        size="large"
+                        prefix={
+                          <Icon
+                            type="user"
+                            style={{
+                              color: "rgba(0,0,0,.25)",
+                              fontSize: "15.64px"
+                            }}
+                          />
+                        }
+                        onChange={handleChange}
+                        value={values.name}
+                        onBlur={handleBlur}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      validateStatus={errors.email && "error"}
+                      help={errors.email}
+                    >
+                      <Input
+                        placeholder="Email"
+                        name="email"
+                        size="large"
+                        prefix={
+                          <Icon
+                            type="mail"
+                            style={{
+                              color: "rgba(0,0,0,.25)",
+                              fontSize: "15.64px"
+                            }}
+                          />
+                        }
+                        onChange={handleChange}
+                        value={values.email}
+                        onBlur={handleBlur}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      validateStatus={errors.password && "error"}
+                      help={errors.password}
+                    >
+                      <Input
+                        name="password"
+                        size="large"
+                        prefix="lock"
+                        type="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        value={values.password}
+                        onBlur={handleBlur}
+                      />
+                    </Form.Item>
+                    <div className="mp-register__note">
+                      {strings.formatString(
+                        strings.register_agree,
+                        <a className="mp-register__link" href="/">
+                          {strings.register_policy}
+                        </a>,
+                        <a className="mp-register__link" href="/">
+                          {strings.register_requirement}
+                        </a>
+                      )}
+                    </div>
                     <Button
                       type="primary"
                       size="large"
@@ -134,11 +136,42 @@ function Register() {
                       htmlType="submit"
                       disabled={isSubmitting}
                     >
-                      Register
+                      {strings.login_register}
                     </Button>
-                  </div>
-                </Form>
-              )}
+                    <div
+                      type="flex"
+                      align="middle"
+                      className="mp-register__option-text"
+                    >
+                      <span>{strings.register_option}</span>
+                    </div>
+                    <Form.Item className="mp-register__btn-socmed">
+                      <div className="mp-register__socmed-box">
+                        <ButtonGoogle>
+                          {strings.google}
+                        </ButtonGoogle>
+                        <ButtonFacebook>
+                          {strings.facebook}
+                        </ButtonFacebook>
+                      </div>
+                      <div className="mp-register__direct-login">
+                        {strings.formatString(
+                          strings.register_quote,
+                          <Link
+                            to={{
+                              pathname: "/login"
+                            }}
+                            style={{ color: "#F63700" }}
+                          >
+                            <span className="mp-register__link-login">
+                              {strings.register_login}
+                            </span>
+                          </Link>
+                        )}
+                      </div>
+                    </Form.Item>
+                  </Form>
+                )}
             </Formik>
           </div>
         </Col>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {  Form, Checkbox } from "antd";
+import React from "react";
+import { Form, Checkbox } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
@@ -7,21 +7,18 @@ import Input from "../../components/Input";
 import { useRootContext } from "../../hoc/RootContext";
 import { schema } from "./schema";
 import strings from "../../localization/localization";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
-
 
 export default function FormLogin(props) {
     
     const { handleLogin, isSubmitting} = useRootContext()
-    const validateStatus = (error,touched)=> error && touched ? "warning":"success";
 
     return (
         <div className="mp-login-container">
             <div className="mp-form-login">
                 <Formik
-                    initialValues={{ email: "", password: "" }}
                     onSubmit={values => {
                         handleLogin(values);
                     }}
@@ -36,7 +33,7 @@ export default function FormLogin(props) {
                         handleSubmit
                     }) => (
                             <Form onSubmit={handleSubmit}>
-                                <Form.Item validateStatus={validateStatus(errors.email,touched.email)} help={errors.email}>
+                                <Form.Item validateStatus={errors.email && "error"} help={errors.email}>
                                     <Input
                                         placeholder="Email"
                                         name="email"
@@ -47,7 +44,7 @@ export default function FormLogin(props) {
                                         onBlur={handleBlur}
                                     />
                                 </Form.Item>
-                                <Form.Item validateStatus={validateStatus(errors.password,touched.password)} help={errors.password}>
+                                <Form.Item validateStatus={errors.password && "error"} help={errors.password}>
                                     <Input
                                         name="password"
                                         type="password"
@@ -116,4 +113,3 @@ export default function FormLogin(props) {
         </div>
     );
 }
-
