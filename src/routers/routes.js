@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import ProductDetail from "../pages/ProductDetail";
 import Confirmation from "../pages/Confirmation";
 import Product from "../pages/Product";
-import CategoryContainer from "../pages/Category/CategoryContainer";
+import Category from "../pages/Category";
 import SearchContainer from "../pages/Search/SearchContainer";
 import Checkout from "../pages/Checkout";
 import CustomerNavigation from "../pages/CustomerNavigation";
@@ -65,19 +65,19 @@ import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_1,
-    component: CategoryContainer,
+    component: Category,
     layout: MainLayout,
     needAuthenticated: false
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_2,
-    component: CategoryContainer,
+    component: Category,
     layout: MainLayout,
     needAuthenticated: false
   },
   {
     path: PATH_URL.CATEGORY_LEVEL_3,
-    component: CategoryContainer,
+    component: Category,
     layout: MainLayout,
     needAuthenticated: false
   },

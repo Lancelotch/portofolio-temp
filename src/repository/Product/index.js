@@ -51,7 +51,7 @@ async function getBestSeller(props) {
 
 async function getByCategory( props ){
     const loading = props.loading ? props.loading : function(){};
-    const params = props.params
+    const params = props.objparams
     const categoryId = props.categoryId
     let response = ""
     loading(true)

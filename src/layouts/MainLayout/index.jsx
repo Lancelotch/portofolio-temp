@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Header from "containers/Header";
 import Footer from "components/Footer";
 import "./style.sass";
@@ -7,15 +7,19 @@ import { useRootContext } from "../../hoc/RootContext";
 import PropTypes from "prop-types";
 
 function MainLayout(props) {
-  const {isAuthenticated, history} = useRootContext();
+  const { isAuthenticated, history } = useRootContext();
 
   useEffect(() => {
-    if(props.needAuthenticated && !isAuthenticated){
-      history.push('/login');
-    }      
-  })
+    window.scrollTo(0, 0);
+  }, []);
 
-  if(props.needAuthenticated && !isAuthenticated){
+  useEffect(() => {
+    if (props.needAuthenticated && !isAuthenticated) {
+      history.push("/login");
+    }
+  });
+
+  if (props.needAuthenticated && !isAuthenticated) {
     return null;
   } else {
     return (
