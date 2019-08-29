@@ -1,9 +1,7 @@
-import React, { Component, Suspense } from "react";
+import React, { Suspense, useEffect, useState, useRef } from "react";
 import { BackTop } from "antd";
-import { connect } from "react-redux";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
-import product from "../../api/services/product";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
@@ -12,121 +10,82 @@ import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import { escapeRegExp } from "../../library/regex";
 import Product from "../../repository/Product";
 
-
 const Products = React.lazy(() => import("../../components/Products"));
 
-class CategoryPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      productList: [],
-      hasMore: true,
-      page: 0,
-      isProductAvailable: false,
-      loadingSkeleton: true,
-      query: "",
-      isQueryAvailable: true,
-      limit: 20,
-      direction: "desc",
-      sortBy: "price.amount",
-      element: 0,
-      categoryId: "",
-      categoryIdName: ""
-    };
-  }
+export default function CategoryPage(props) {
+  const [productList, setProductList] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(0);
+  const [isProductAvailable, setIsProductAvailable] = useState(false);
+  const [loadingSkeleton, setLoadingSkeleton] = useState(true);
+  const [query, setQuery] = useState("");
+  const [isQueryAvailable, setIsQueryAvailable] = useState(true);
+  const [limit, setLimit] = useState(20);
+  const [direction, setDirection] = useState("desc");
+  const [sortBy, setSortBy] = useState("price.amount");
+  const [element, setElement] = useState(0);
+  const [categoryId, setCategoryId] = useState(0);
+  const [categoryIdName, setCategoryIdName] = useState(0);
+  const params = props.match.params;
 
-  componentDidMount() {
-    const params = this.props.match.params;
-    this.getCategoryId(params);
-    window.scrollTo(0, 0);
-  }
+  useEffect(() => {
+    getProductList();
+  }, [params, sortBy, direction]);
 
-  UNSAFE_componentWillReceiveProps(props) {
-    const params = props.match.params;
-    this.getCategoryId(params);
-  }
-
-  getCategoryId = (params) => {
-    const categoryIdName = params[Object.keys(params)[Object.keys(params).length - 1]];
-    const categoryId = Object.entries(params).map(([key, val]) => `${val}`).join('/')
-    this.setState({
-      categoryIdName: categoryIdName,
-      categoryId: categoryId,
-      isProductAvailable: false,
-      productList: [],
-      page: 0,
-      hasMore: true
-    }, () => this.getProductList());
-  }
-
-  getProductList = async () => {
-    const {
-      productList,
-      page,
-      limit,
-      sortBy,
-      direction,
-      categoryId
-    } = this.state;
-    const request = {
+  async function getProductList() {
+    const categoryId = Object.entries(params)
+      .map(([key, val]) => `${val}`)
+      .join("/");
+    const objparams = {
       page: page,
       limit: limit,
       sortBy: sortBy,
-      direction: direction,
-      categoryId: categoryId
+      direction: direction
     };
-    try {
-      const nextProduct = await Product.getByCategory(request);
-      this.setState({
-        productList: productList.concat(nextProduct.data.data),
-        page: page + 1,
-        element: nextProduct.data.element,
-        isProductAvailable: true
-      });
-    } catch (error) {
-      this.handleCategoryNotFound(error)
-    }
-  };
-
-  handleCategoryNotFound = (error) => {
-    if (error.status !== 200) {
-      this.props.history.push('/products');
-      this.setState({
-        isQueryAvailable: false
-      });
+    const nextProduct = await Product.getByCategory({
+      categoryId,
+      objparams
+    });
+    if (nextProduct.status === 200) {
+      setProductList(nextProduct.data.data);
+      setPage(page + 1);
+      setElement(nextProduct.data.element);
+      setIsProductAvailable(true);
+    } else {
+      handleCategoryNotFound(nextProduct);
     }
   }
 
-  fetchMoreData = () => {
-    const { productList, element } = this.state;
+  function handleCategoryNotFound(error) {
+    if (error.status !== 200) {
+      props.history.push("/products");
+    }
+  }
+
+  function fetchMoreData() {
     if (productList.length >= element) {
-      this.setState({ hasMore: false });
+      setHasMore(false);
       return;
     } else {
-      this.getProductList();
+      getProductList();
     }
-  };
+  }
 
-  onChangeSort = sortValue => {
+  function onChangeSort(sortValue) {
     const arraySort = sortValue.split("|");
     console.log(arraySort);
-
     const sortBy = arraySort[0];
     const direction = arraySort[1];
-    this.setState(
-      {
-        productList: [],
-        page: 0,
-        sortBy: sortBy,
-        direction: direction,
-        hasMore: true
-      },
-      () => this.getProductList()
-    );
-  };
+    setProductList([]);
+    setPage(0);
+    setSortBy(sortBy);
+    setDirection(direction);
+    setHasMore(true);
+  }
 
-  infiniteScroll = () => {
-    const { productList, hasMore, element, categoryIdName } = this.state;
+  function infiniteScroll() {
+    const categoryIdName =
+      params[Object.keys(params)[Object.keys(params).length - 1]];
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
@@ -141,30 +100,39 @@ class CategoryPage extends Component {
           style={{
             display: "flex",
             justifyContent: "space-between"
-          }}>
+          }}
+        >
           <span className="categoryTextResult">{categoryTextResult}</span>
-          <span>Urutkan &nbsp;&nbsp;&nbsp;
+          <span>
+            Urutkan &nbsp;&nbsp;&nbsp;
             <SortListProduct
               defaultValue={"createdDate|desc"}
-              onChange={this.onChangeSort}
+              onChange={onChangeSort}
               valueLow={"price.amount|asc"}
-              valueHigh={"price.amount|desc"} /></span>
+              valueHigh={"price.amount|desc"}
+            />
+          </span>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
-          next={this.fetchMoreData}
+          next={fetchMoreData}
           hasMore={hasMore}
           loader={productList.length < 20 ? "" : <Spinner size="large" />}
-          endMessage={<BackTop />}>
+          endMessage={<BackTop />}
+        >
           <div style={{ marginTop: 35 }}>
-            <Suspense fallback={
-              <SkeletonCustom
-                count={20}
-                height={300}
-                leftMargin={13}
-                rightMargin={13}
-                topMargin={15} />}>
-              {productList.map((product, index) =>
+            <Suspense
+              fallback={
+                <SkeletonCustom
+                  count={20}
+                  height={300}
+                  leftMargin={13}
+                  rightMargin={13}
+                  topMargin={15}
+                />
+              }
+            >
+              {productList.map((product, index) => (
                 <Products
                   key={index}
                   id={product.id}
@@ -173,50 +141,28 @@ class CategoryPage extends Component {
                   price={product.price}
                   videoUrl={product.videoUrl}
                 />
-              )}
+              ))}
             </Suspense>
           </div>
         </InfiniteScroll>
       </div>
     );
-  };
+  }
 
-  renderProducts = () => {
-    return this.state.isProductAvailable ? (
-      this.infiniteScroll()
+  function renderProducts() {
+    return isProductAvailable ? (
+      infiniteScroll()
     ) : (
-        <SkeletonCustom
-          count={20}
-          height={300}
-          leftMargin={13}
-          topMargin={15}
-          rightMargin={13}
-        />
-      );
-  };
-
-  renderNotFound = () => {
-    const { query } = this.state;
-    return (
-      <p>
-        Oooopppss... <b>"{query}"</b> tidak ditemukan
-      </p>
-    );
-  };
-
-  render() {
-    const { match } = this.props;
-    return (
-      <Category match={match}>
-        {this.renderProducts()}
-      </Category>
-
+      <SkeletonCustom
+        count={20}
+        height={300}
+        leftMargin={13}
+        topMargin={15}
+        rightMargin={13}
+      />
     );
   }
+
+  const { match } = props;
+  return <Category match={match}>{renderProducts()}</Category>;
 }
-
-const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated
-});
-
-export default connect(mapStateToProps)(CategoryPage);

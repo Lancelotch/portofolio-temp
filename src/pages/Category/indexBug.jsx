@@ -1,0 +1,27 @@
+import React, { Component } from "react";
+import { Row, Col} from "antd";
+import { connect } from "react-redux";
+import "./style.sass";
+
+// const Products = React.lazy(() => import("../../components/Products"));
+
+class CategoryPage extends Component {
+  render() {
+    // const { match } = this.props;
+    return (
+      <React.Fragment>
+        <Row>
+          <Col xs={24} md={24}>
+            {this.props.children}
+          </Col>
+        </Row>
+      </React.Fragment>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.authentication.isAuthenticated
+});
+
+export default connect(mapStateToProps)(CategoryPage);
