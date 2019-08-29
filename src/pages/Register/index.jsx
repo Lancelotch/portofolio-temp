@@ -110,12 +110,7 @@ function Register() {
                       <Input
                         name="password"
                         size="large"
-                        prefix={
-                          <Icon
-                            type="lock"
-                            style={{ color: "rgba(0,0,0,.25)" }}
-                          />
-                        }
+                        prefix="lock"
                         type="password"
                         placeholder="Password"
                         onChange={handleChange}

@@ -5,7 +5,6 @@ import "./style.sass";
 import authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
-import { rulesEmail } from "../Register/registerContainer";
 import Input from "../../components/Input";
 
 class ForgetPassword extends Component {
@@ -106,21 +105,21 @@ class ForgetPassword extends Component {
                 </p>
                 <Form onSubmit={this.handleSubmit}>
                   {this.state.emailNotRegister}
-                  <FormItem>
-                    {getFieldDecorator("email", rulesEmail())(
+                  {/* <FormItem>
+                    {getFieldDecorator("email", rulesEmail())( */}
                       <Input
                         size="large"
                         placeholder="Email"
                         onChange={this.handleEmailChange}
                         onKeyUp={this.handleInvalidEmail}
                       />
-                    )}
+                    {/* )}
                     {this.state.showMessage ? (
                       <span className="forget-password__error-message">
                         {this.state.errorMessage}
                       </span>
                     ) : null}
-                  </FormItem>
+                  </FormItem> */}
                   <FormItem>
                     <Button
                       htmlType="submit"
