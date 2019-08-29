@@ -1,5 +1,5 @@
 import { apiGetWithoutToken } from "../../services/api";
-import { PATH_PRODUCT } from "../../api/path";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 
 async function getLimit(props) {
