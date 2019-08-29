@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import ProductDetail from "../pages/ProductDetail";
 import Confirmation from "../pages/Confirmation";
 import Product from "../pages/Product";
-import Category from "../pages/Category/Index";
+import Category from "../pages/Category";
 import SearchContainer from "../pages/Search/SearchContainer";
 import Checkout from "../pages/Checkout";
 import CustomerNavigation from "../pages/CustomerNavigation";
