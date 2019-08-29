@@ -33,7 +33,6 @@ async function getAll(props){
 async function getByCategory( props ){
     const loading = props.loading ? props.loading : function(){};
     const params = props.objparams
-    console.log("dr", params)
     const categoryId = props.categoryId
     let response = ""
     loading(true)
