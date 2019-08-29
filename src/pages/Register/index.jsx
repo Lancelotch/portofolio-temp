@@ -49,6 +49,7 @@ function Register() {
                 handleRegister(values);
               }}
               validationSchema={schema}
+              validateOnChange={false}
             >
               {({
                 values,
@@ -78,7 +79,6 @@ function Register() {
                         }
                         onChange={handleChange}
                         value={values.name}
-                        onBlur={handleBlur}
                       />
                     </Form.Item>
                     <Form.Item
@@ -100,7 +100,6 @@ function Register() {
                         }
                         onChange={handleChange}
                         value={values.email}
-                        onBlur={handleBlur}
                       />
                     </Form.Item>
                     <Form.Item
@@ -115,7 +114,6 @@ function Register() {
                         placeholder="Password"
                         onChange={handleChange}
                         value={values.password}
-                        onBlur={handleBlur}
                       />
                     </Form.Item>
                     <div className="mp-register__note">

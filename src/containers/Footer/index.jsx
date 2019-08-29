@@ -12,7 +12,7 @@ import instagram from "../../assets/img/ic_instagram.png";
 import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
 import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
-import Input from "../Input";
+import Input from "../../components/Input";
 import { Formik } from "formik";
 import { schema } from "./schema";
 import Subscription from "../../repository/Subscription";
@@ -20,11 +20,12 @@ import notification from "../../library/notification";
 
 function Footer() {
 
-  async function handleSubmitSubscribe(email) {
+  async function handleSubmitSubscribe(email, resetForm) {
     const subscription = await Subscription.add({
       email: email
     })
     if (subscription.status === 200) {
+      resetForm({});
       notification(
         "Selamat",
         "sekarang kamu bisa dapetin update dari kita.",
@@ -111,17 +112,15 @@ function Footer() {
                         <Col md={24}>
                           <Formik
                             onSubmit={(values, {resetForm}) => {
-                              handleSubmitSubscribe(values);
-                              resetForm({});
+                              handleSubmitSubscribe(values, resetForm);
                             }}
                             validationSchema={schema}
-                          >
+                            validateOnChange={false}
+                            >
                             {({
                               values,
                               errors,
-                              touched,
                               handleChange,
-                              handleBlur,
                               handleSubmit
                             }) => (
                                   <Form.Item validateStatus={errors.email && "error"} help={errors.email}>
@@ -134,7 +133,6 @@ function Footer() {
                                       buttontext="Send"
                                       onButtonClick={handleSubmit}
                                       onChange={handleChange}
-                                      onBlur={handleBlur}
                                     />
                                   </Form.Item>
                               )}
