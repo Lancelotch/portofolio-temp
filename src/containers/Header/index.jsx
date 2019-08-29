@@ -3,7 +3,7 @@ import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
-import CategoryMenuCascader from "../../components/CategoryMenu/cascaderMenu";
+import CategoryMenu from "../../components/CategoryMenu";
 import Popover from "../Popover";
 import DataSource from "../../hoc/DataSource";
 import PATH_URL from "../../routers/path";
@@ -14,7 +14,6 @@ import { PATH_CATEGORY } from "../../services/path/category";
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
-
   return (
     <React.Fragment>
       <Row id="bottomHeader" className="header">
@@ -50,7 +49,7 @@ export default function Header() {
             <DataSource
               url={PATH_CATEGORY.CATEGORY_FEATURE}
               render={data => (
-                <CategoryMenuCascader
+                <CategoryMenu
                   key={"id"}
                   match={match}
                   allCategory={data.data.data}
@@ -69,7 +68,7 @@ export default function Header() {
           <div className="header__user-box">
             <Icon type="user" className="header__user-icon" />
             <div className="wrap-header-dropdown">
-              <Popover isAuthenticated={isAuthenticated} />
+              <Popover />
             </div>
           </div>
         </Col>

@@ -9,7 +9,7 @@ const RootContext = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const initialState = {
     isAuthenticated: false,
-    body: {}
+    authBody: {}
   };
 
   const prevAuthenticated =
@@ -20,13 +20,13 @@ const RootContext = props => {
         return {
           ...state,
           isAuthenticated: true,
-          body: { ...action.payload }
+          authBody: { ...action.payload }
         };
       case "logout":
         return {
           ...state,
           isAuthenticated: false,
-          body: null
+          authBody: null
         };
       default:
         return state;
@@ -44,7 +44,7 @@ const RootContext = props => {
         const token = response.data.data.access_token;
         window.localStorage.setItem(
           "authenticated",
-          JSON.stringify({ isAuthenticated: true, body: response.data.data })
+          JSON.stringify({ isAuthenticated: true, authBody: response.data.data })
         );
         window.localStorage.setItem("token", token);
         dispatch({
@@ -70,7 +70,7 @@ const RootContext = props => {
         const token = response.data.data.access_token;
         window.localStorage.setItem(
           "authenticated",
-          JSON.stringify({ isAuthenticated: true, body: response.data.data })
+          JSON.stringify({ isAuthenticated: true, authBody: response.data.data })
         );
         window.localStorage.setItem("token", token);
         dispatch({
