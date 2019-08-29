@@ -5,7 +5,7 @@ import { Col } from "antd";
 import BenefitHome from "../../repository/Benefit";
 
 export default function Benefit (){
-  const [benefitData,setBenefitData] = useState([]);
+  const [benefit,setBenefit] = useState([]);
   const [loading,setLoading] = useState(false)
 
   useEffect(()=>{
@@ -13,17 +13,17 @@ export default function Benefit (){
   },[])
 
   async function getBenefit () {
-    let benefitData = await BenefitHome.getAll({
+    let benefit = await BenefitHome.getAll({
       loading : setLoading
     })
-    if (benefitData.status === 200) {
-      setBenefitData(benefitData.data.data) 
+    if (benefit.status === 200) {
+      setBenefit(benefit.data.data) 
     } else {
-      setBenefitData(null)
+      setBenefit(null)
     }          
   }
 
-  const showBenefit = benefitData.map((benefit, index) => (
+  const showBenefit = benefit.map((benefit, index) => (
     <Col key={index} md={4}>
       <img
         className="mp-benefit-image"
