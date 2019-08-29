@@ -5,15 +5,15 @@ import { withRouter } from "react-router-dom";
 import { PATH_PUBLIC } from "../../api/path";
 const CreateRootContext = React.createContext();
 
-const RootContext = (props) => {
+const RootContext = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const initialState = {
     isAuthenticated: false,
     body: {}
   };
-  
+
   const prevAuthenticated =
-  JSON.parse(window.localStorage.getItem("authenticated")) || initialState;
+    JSON.parse(window.localStorage.getItem("authenticated")) || initialState;
   const reducer = (state, action) => {
     switch (action.type) {
       case "login":
@@ -42,10 +42,14 @@ const RootContext = (props) => {
       );
       if (response) {
         const token = response.data.data.access_token;
-        window.localStorage.setItem("authenticated",JSON.stringify({ isAuthenticated: true, body: { token: token }}));
+        window.localStorage.setItem(
+          "authenticated",
+          JSON.stringify({ isAuthenticated: true, body: response.data.data })
+        );
+        window.localStorage.setItem("token", token);
         dispatch({
           type: "login",
-          payload: { token: token }
+          payload: response.data.data
         });
       }
       setIsSubmitting(false);
@@ -64,10 +68,14 @@ const RootContext = (props) => {
       );
       if (response) {
         const token = response.data.data.access_token;
-        window.localStorage.setItem("authenticated",JSON.stringify({ isAuthenticated: true, body: { token: token }}));
+        window.localStorage.setItem(
+          "authenticated",
+          JSON.stringify({ isAuthenticated: true, body: response.data.data })
+        );
+        window.localStorage.setItem("token", token);
         dispatch({
           type: "login",
-          payload: {token: token}
+          payload: response.data.data
         });
       }
       setIsSubmitting(false);
@@ -78,13 +86,12 @@ const RootContext = (props) => {
   };
 
   const logout = () => {
-    window.localStorage.setItem(
-      "authenticated",JSON.stringify(initialState));
-      dispatch({
-        type: "logout"
-      })
-
-  }
+    window.localStorage.removeItem("authenticated");
+    window.localStorage.removeItem("token");
+    dispatch({
+      type: "logout"
+    });
+  };
   return (
     <CreateRootContext.Provider
       value={{
@@ -95,8 +102,8 @@ const RootContext = (props) => {
         handleRegister: payload => {
           register(payload);
         },
-        handleLogout: () =>{
-          logout()
+        handleLogout: () => {
+          logout();
         },
         isSubmitting,
         history: props.history,
@@ -108,5 +115,5 @@ const RootContext = (props) => {
   );
 };
 const useRootContext = () => useContext(CreateRootContext);
-export default (withRouter)(RootContext);
+export default withRouter(RootContext);
 export { CreateRootContext, useRootContext };

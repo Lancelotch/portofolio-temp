@@ -4,7 +4,7 @@ import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenuCascader from "../../components/CategoryMenu/cascaderMenu";
-import Popover from "./Popover";
+import Popover from "../Popover";
 import DataSource from "../../hoc/DataSource";
 import PATH_URL from "../../routers/path";
 import Helpers from "./Helpers";

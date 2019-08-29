@@ -3,10 +3,10 @@ import { Popover as AntPopover, Icon } from "antd";
 import PropTypes from "prop-types";
 import FormLogin from "../FormLogin";
 import UserMenu from "./UserMenu";
-import DataSource from "../../hoc/DataSource";
-import { PATH_CUSTOMER } from "../../services/path/customer";
+import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover({ isAuthenticated }) {
+  const { body } = useRootContext();
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
 
@@ -18,15 +18,9 @@ export default function Popover({ isAuthenticated }) {
     isAuthenticated ? setContent(<UserMenu />) : setContent(<FormLogin />);
   }, [visible]);
 
-  const Label = ({ name }) => <span>{name}</span>;
-
   const title = isAuthenticated ? <p>Profile</p> : null;
   const label = isAuthenticated ? (
-    <DataSource
-      url={PATH_CUSTOMER.CUSTOMER}
-      withAuth={true}
-      render={data => <Label name={data.data.data.name} />}
-    />
+    <span>{body.name}</span>
   ) : (
     <span>Login</span>
   );
