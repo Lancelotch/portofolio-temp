@@ -1,26 +1,28 @@
 import { apiGetWithoutToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
 
-async function getAll(props){
-    const loading = props.loading ? props.loading : function(){};
+
+
+async function getAll(props) {
+    const loading = props.loading ? props.loading : function () { };
     let response = ""
     loading(true)
     try {
         response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT)
         loading(false)
         return response
-    } catch (error){
+    } catch (error) {
         loading(false)
-        return error 
+        return error
     }
 }
 
 async function getPopular(props) {
-    const loading = props.loading ? props.loading : function() {};
+    const loading = props.loading ? props.loading : function () { };
     const params = {
         limit: 4
     }
-    let response = ""    
+    let response = ""
     loading(true);
     try {
         response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
@@ -33,11 +35,11 @@ async function getPopular(props) {
 };
 
 async function getBestSeller(props) {
-    const loading = props.loading ? props.loading : function() {};
+    const loading = props.loading ? props.loading : function () { };
     const params = {
         limit: 4
     }
-    let response = ""    
+    let response = ""
     loading(true);
     try {
         response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
@@ -49,8 +51,8 @@ async function getBestSeller(props) {
     }
 };
 
-async function getByCategory( props ){
-    const loading = props.loading ? props.loading : function(){};
+async function getByCategory(props) {
+    const loading = props.loading ? props.loading : function () { };
     const params = props.objparams
     const categoryId = props.categoryId
     let response = ""
@@ -59,17 +61,34 @@ async function getByCategory( props ){
         response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT_CATEGORY}/${categoryId}`, params)
         loading(false)
         return response
-    } catch (error){
+    } catch (error) {
         loading(false)
-        return error 
+        return error
     }
 }
+
+
+async function getProductDetail(props) {
+    const loading = props.loading ? props.loading : function () { };
+    const productId = props.productId;
+    let response = ""
+    loading(true)
+    try {
+        response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`)
+        loading(false)
+        return response
+    } catch (error) {
+        loading(false)
+        return error
+    }
+};
 
 const Product = {
     getAll: getAll,
     getPopular: getPopular,
     getBestSeller: getBestSeller,
-    getByCategory: getByCategory
+    getByCategory: getByCategory,
+    getProductDetail: getProductDetail
 }
 
 export default Product;
