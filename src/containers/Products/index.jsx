@@ -3,7 +3,7 @@ import Product from "../../components/Product";
 import { Col, Row } from "antd";
 import PropTypes from "prop-types";
 
-const Products = props => {
+export default function Products(props) {
   let products = props.products;
   return (
     <Row style={{margin: "24px 18px 0 18px"}}>
@@ -25,7 +25,6 @@ const Products = props => {
 };
 
 Products.propTypes = {
-  productList: PropTypes.arrayOf(Object)
+  products: PropTypes.arrayOf(Object)
 };
 
-export default Products;
