@@ -4,11 +4,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
-import Product from "../../repository/Product";
+import ProductRepo from "../../repository/Product";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
-export default function ProductPage() {
+export default function Product() {
   const [productList, setProductList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -28,7 +28,7 @@ export default function ProductPage() {
       sortBy: sortBy,
       direction: direction
     };
-    const nextProduct = await Product.getAll({ page, request });
+    const nextProduct = await ProductRepo.getAll({ page, request });
     if (nextProduct.status === 200) {
       setProductList(productList.concat(nextProduct.data.data));
       setElement(nextProduct.data.element);
