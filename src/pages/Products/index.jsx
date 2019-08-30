@@ -6,9 +6,9 @@ import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
 import ProductRepo from "../../repository/Product";
 
-const Products = React.lazy(() => import("../../containers/Products"));
+const ProductsContainer = React.lazy(() => import("../../containers/Products"));
 
-export default function Product() {
+export default function Products() {
   const [productList, setProductList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -97,7 +97,7 @@ export default function Product() {
                 />
               }
             >
-              <Products products={productList} />
+              <ProductsContainer products={productList} />
             </Suspense>
           </div>
         </InfiniteScroll>
