@@ -6,7 +6,7 @@ async function getAll(props){
     let response = ""
     loading(true)
     try {
-        response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT)
+        response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, props.request)
         loading(false)
         return response
     } catch (error){
