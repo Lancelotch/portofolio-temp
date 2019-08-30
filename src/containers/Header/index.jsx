@@ -3,17 +3,17 @@ import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
-import CategoryMenuCascader from "../../components/CategoryMenu/cascaderMenu";
-import Popover from "./Popover";
+import CategoryMenu from "../../components/CategoryMenu";
+import Popover from "../Popover";
 import DataSource from "../../hoc/DataSource";
 import PATH_URL from "../../routers/path";
 import Helpers from "./Helpers";
 import Greeting from "./Greeting";
 import "./style.sass";
+import { PATH_CATEGORY } from "../../services/path/category";
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
-
   return (
     <React.Fragment>
       <Row id="bottomHeader" className="header">
@@ -22,17 +22,16 @@ export default function Header() {
             src={require("assets/img/monggopesen_logo.png")}
             className="header__logo"
             alt=""
-            onClick={() => history.push("/")}
+            onClick={() => history.push(PATH_URL.HOME)}
           />
         </Col>
         <Col md={15} className="header__search-box">
           <div style={{ width: 600 }}>
             <Search
               placeholder={strings.search_place_holder}
-              id="filter"
-              defaultValue=""
-              onSearch={() => {}}
-              onChange={() => {}}
+              onSearch={keyword => {
+                history.push(`/search?q=${keyword}`);
+              }}
             />
           </div>
         </Col>
@@ -48,9 +47,9 @@ export default function Header() {
         <Col md={2}>
           <div className="header__categories" key={""}>
             <DataSource
-              url={PATH_URL.GET_CATEGORY}
+              url={PATH_CATEGORY.CATEGORY_FEATURE}
               render={data => (
-                <CategoryMenuCascader
+                <CategoryMenu
                   key={"id"}
                   match={match}
                   allCategory={data.data.data}
@@ -60,7 +59,7 @@ export default function Header() {
           </div>
         </Col>
         <Col md={14}>
-          <Helpers/>
+          <Helpers />
         </Col>
         <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
           <div className="header__greeting">
@@ -69,10 +68,7 @@ export default function Header() {
           <div className="header__user-box">
             <Icon type="user" className="header__user-icon" />
             <div className="wrap-header-dropdown">
-              <Popover
-                isAuthenticated={isAuthenticated}
-                name="Candra"
-              />
+              <Popover />
             </div>
           </div>
         </Col>

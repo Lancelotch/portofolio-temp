@@ -16,8 +16,8 @@ async function getAll( props ){
 }
 
 
-const SliderBanner= {
+const Banner= {
     getAll : getAll
 }
 
-export default SliderBanner;
+export default Banner;

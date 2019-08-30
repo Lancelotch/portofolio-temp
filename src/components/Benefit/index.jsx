@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.sass";
 import SkeletonCustom from "../Skeleton";
 import { Col } from "antd";
-import BenefitHome from "../../repository/Benefit";
+import BenefitRepo from "../../repository/Benefit";
 
 export default function Benefit (){
   const [benefit,setBenefit] = useState([]);
@@ -13,7 +13,7 @@ export default function Benefit (){
   },[])
 
   async function getBenefit () {
-    let benefit = await BenefitHome.getAll({
+    let benefit = await BenefitRepo.getAll({
       loading : setLoading
     })
     if (benefit.status === 200) {
