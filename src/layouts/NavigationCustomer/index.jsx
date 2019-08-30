@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import Header from 'containers/Header'
-import Footer from 'components/Footer'
+import Footer from 'containers/Footer'
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import { useRootContext } from "../../hoc/RootContext";
 

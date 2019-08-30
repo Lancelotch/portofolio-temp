@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Headers from "containers/Header";
-import Footer from "components/Footer";
+import Footer from "containers/Footer";
 import "./style.sass";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 import { useRootContext } from "../../hoc/RootContext";
