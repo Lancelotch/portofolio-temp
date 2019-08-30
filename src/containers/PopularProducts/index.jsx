@@ -18,7 +18,6 @@ export default function PopularProducts(props) {
     let productPopular = await Product.getPopular({
       loading : setLoading
     })
-    console.log("iniii", productPopular);
     if (productPopular.status === 200) {
       setPopularProducts(productPopular.data.data) 
     } else {
