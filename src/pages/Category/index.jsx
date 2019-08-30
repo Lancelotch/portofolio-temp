@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { BackTop, Row, Col } from "antd";
+import { BackTop, Row, Col, Divider } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
@@ -9,7 +9,7 @@ import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import { escapeRegExp } from "../../library/regex";
 import Product from "../../repository/Product";
 
-const Products = React.lazy(() => import("../../components/Products"));
+const Products = React.lazy(() => import("../../containers/Products"));
 
 export default function Category(props) {
   const [productList, setProductList] = useState([]);
@@ -25,7 +25,7 @@ export default function Category(props) {
 
   useEffect(() => {
     getProductList();
-  }, [params, direction]);
+  }, [params, direction, sortBy]);
 
   async function getProductList() {
     const categoryId = Object.entries(params)
@@ -86,26 +86,30 @@ export default function Category(props) {
       <b style={{ color: "#FF416C" }}>{escapeRegExp(categoryIdName)}</b>
     );
     return (
-      <div style={{ marginTop: 35, marginLeft: 8 }}>
-        <div style={{ marginBottom: 30 }}>
+      <div style={{ marginTop: 24 }}>
+        <div style={{margin: "0 24px"}}>
           <Breadcrumbs />
         </div>
+        <Divider style={{ margin: "12px 0" }} />
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: "0 24px"
           }}
         >
-          <span className="categoryTextResult">{categoryTextResult}</span>
-          <span>
-            Urutkan &nbsp;&nbsp;&nbsp;
+          <div>{categoryTextResult}</div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span>Urutkan &nbsp;&nbsp;&nbsp;</span>
             <SortListProduct
-              defaultValue={"createdDate|desc"}
+              defaultValue={"|desc"}
               onChange={onChangeSort}
+              valueOld={"|asc"}
               valueLow={"price.amount|asc"}
               valueHigh={"price.amount|desc"}
             />
-          </span>
+          </div>
         </div>
         <InfiniteScroll
           dataLength={productList.length}
@@ -114,7 +118,7 @@ export default function Category(props) {
           loader={productList.length < 20 ? "" : <Spinner size="large" />}
           endMessage={<BackTop />}
         >
-          <div style={{ marginTop: 35 }}>
+          <div>
             <Suspense
               fallback={
                 <SkeletonCustom
@@ -126,16 +130,7 @@ export default function Category(props) {
                 />
               }
             >
-              {productList.map((product, index) => (
-                <Products
-                  key={index}
-                  id={product.id}
-                  defaultImage={product.image.mediumUrl}
-                  information={product.name}
-                  price={product.price}
-                  videoUrl={product.videoUrl}
-                />
-              ))}
+              <Products products={productList} />
             </Suspense>
           </div>
         </InfiniteScroll>

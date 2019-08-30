@@ -11,7 +11,7 @@ import Search from "./";
 import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
 
-const Products = React.lazy(() => import("../../components/Products"));
+const Products = React.lazy(() => import("../../containers/Products"));
 
 class SearchPage extends Component {
   constructor(props) {
