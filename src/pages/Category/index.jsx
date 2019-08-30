@@ -41,7 +41,6 @@ export default function Category(props) {
       categoryId,
       objparams
     });
-    console.log("pro", nextProduct);
     if (nextProduct.status === 200) {
       setProductList(nextProduct.data.data);
       setPage(page);
