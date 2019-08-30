@@ -1,10 +1,10 @@
 import axios from 'axios';
 const REACT_APP_API_SERVICE = process.env.REACT_APP_API_MAIN_SERVICE;
 const getToken = () => {
-  return JSON.parse(window.localStorage.getItem("authenticated")).body;
+  return window.localStorage.getItem("token");
 }
 
-export const serviceWithToken = (token = getToken().token) => axios.create({
+export const serviceWithToken = (token = getToken()) => axios.create({
   baseURL: REACT_APP_API_SERVICE,
   timeout: 60 * 4 * 1000,
   headers: {

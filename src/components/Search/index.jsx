@@ -13,7 +13,12 @@ export default function Search(props) {
     "mp-search-large": props.size === "large"
   });
 
-  return <Search {...props} className={sassClasses} />;
+  return (
+    <Search
+      {...props}
+      className={sassClasses}
+    />
+  );
 }
 
 Search.propTypes = {

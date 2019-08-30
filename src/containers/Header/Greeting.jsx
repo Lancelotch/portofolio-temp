@@ -14,6 +14,6 @@ export default function Greeting({ isAuthenticated }) {
   );
 }
 
-Greeting.propType = {
+Greeting.propTypes = {
     isAuthenticated: PropTypes.bool
 }

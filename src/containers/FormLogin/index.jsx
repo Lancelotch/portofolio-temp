@@ -23,13 +23,13 @@ export default function FormLogin(props) {
                         handleLogin(values);
                     }}
                     validationSchema={schema}
+                    validateOnChange={false}
                 >
                     {({
                         values,
                         errors,
                         touched,
                         handleChange,
-                        handleBlur,
                         handleSubmit
                     }) => (
                             <Form onSubmit={handleSubmit}>
@@ -41,7 +41,6 @@ export default function FormLogin(props) {
                                         icon="mail"
                                         onChange={handleChange}
                                         value={values.email}
-                                        onBlur={handleBlur}
                                     />
                                 </Form.Item>
                                 <Form.Item validateStatus={errors.password && "error"} help={errors.password}>
@@ -53,10 +52,6 @@ export default function FormLogin(props) {
                                         placeholder="Password"
                                         onChange={handleChange}
                                         value={values.password}
-                                        onBlur={handleBlur}
-                                        status={
-                                            errors.password && touched.password ? "error" : "default"
-                                        }
                                     />
 
                                 </Form.Item>

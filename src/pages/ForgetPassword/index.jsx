@@ -62,8 +62,7 @@ class ForgetPassword extends Component {
   render() {
     const isEnabled = this.state.email.length > 0;
     const FormItem = Form.Item;
-    const { form } = this.props;
-    const { getFieldDecorator } = form;
+
     return (
       <div className="forget-password">
         <div

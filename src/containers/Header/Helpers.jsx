@@ -22,6 +22,6 @@ export default function Helpers({ onClick }) {
   );
 }
 
-Helpers.propType = {
+Helpers.propTypes = {
   onClick: PropTypes.func
 };
