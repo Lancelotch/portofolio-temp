@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
@@ -8,86 +8,108 @@ import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
 import Quantity from "../../components/Quantity";
+import { connect } from "react-redux";
 import "./style.sass";
+import { apiGetWithoutToken } from "../../api/services";
+import { PATH_PRODUCT } from "../../api/path";
 import Skeleton from "react-loading-skeleton";
 import ProductQnA from "../../containers/ProductQnA";
 import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import Button from "../../components/Button";
-import { useRootContext } from "../../hoc/RootContext";
-import Product from "../../repository/Product";
 
 
 const { Text } = Typography
 
-function ProductDetail(props) {
-  const [images, setImages] = useState([])
-  const [imageVariant, setImageVariant] = useState({})
-  const [defaultImage, setDefaultImage] = useState({})
-  const [information, setInformation] = useState({})
-  const [note, setNote] = useState(null)
-  const [data, setData] = useState({ sku: {} })
-  const [quantity, setQuantity] = useState(1)
-  const [alertVariant, setAlertVariant] = useState("")
-  const [videoUrl, setVideoUrl] = useState("")
-  const [isUpdateImageVariant, setIsUpdateImageVariant] = useState(false)
-  const [blurAlertVariant, setBlurAlertVariant] = useState(false)
-  const [price, setPrice] = useState({})
-  const [variants, setVariants] = useState([])
-  const [changeCheckout, setChangeCheckout] = useState(false)
-  const [open, setOpen] = useState(false)
-  const [id, setId] = useState("")
-  const [product, setProduct] = useState({})
-  const [isProductAvailable, setIsProductAvailable] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const { isAuthenticated } = useRootContext()
+class ProductDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      information: {},
+      defaultImage: {},
+      price: {},
+      variants: [],
+      changeCheckout: false,
+      open: false,
+      id: "",
+      name: "",
+      product: {},
+      isProductAvailable: false,
+      images: [],
+      imageVariant: {},
+      note: null,
+      data: {
+        sku: {}
+      },
+      quantity: 1,
+      priceShipping: 0,
+      alertVariant: "",
+      isUpdateImageVariant: false,
+      blurAlertVariant: false,
+      videoUrl: ""
+    };
+  }
 
-
-  useEffect(() => {
+  componentDidMount() {
     window.scrollTo(0, 0)
-    getProductDetail()
-  }, [])
+    this.getProductDetail();
+  }
 
-
-  async function getProductDetail() {
-    let productDetail = await Product.getProductDetail({
-      loading: setLoading,
-      productId: props.match.params.productId
-    })
-    if (productDetail.status === 200) {
-      setDefaultImage(productDetail.data.data.defaultImage)
-      setProduct(productDetail.data.data)
-      setImages(productDetail.data.data.images)
-      setVariants(productDetail.data.data.variants)
-      setInformation(productDetail.data.data.information)
-      setPrice(productDetail.data.data.price)
-      setId(productDetail.data.data.id)
-      setIsProductAvailable(true)
-      setVideoUrl(productDetail.data.data.videoUrl)
+  getProductDetail = async () => {
+    const productId = this.props.match.params.productId;
+    try {
+      const response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_BY_ID + productId)
+      const product = response.data.data;
+      this.setState({
+        information: product.information,
+        price: product.price,
+        defaultImage: product.defaultImage,
+        id: product.id,
+        images: product.images,
+        isProductAvailable: true,
+        product: product,
+        variants: product.variants,
+        videoUrl: product.videoUrl
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  function actionUpdateSku(sku) {
-    const dataSku = { ...data, sku };
-    setData(dataSku)
+  actionUpdateSku = (sku) => {
+    const data = { ...this.state.data, sku };
+    this.setState({ data });
   };
 
-  function actionUpdateQuantity(quantity) {
-    setQuantity(quantity)
-    setIsUpdateImageVariant(false)
+  actionUpdateQuantity = quantity => {
+    this.setState({
+      quantity: quantity,
+      isUpdateImageVariant: false
+    });
   };
 
-  function countTotalAmount() {
-    const subTotal = price.fee && price.fee.shipmentFee.difference * quantity;
+  countTotalAmount = () => {
+    const subTotal = this.state.price.fee && this.state.price.fee.shipmentFee.difference * this.state.quantity;
     const total = subTotal
     return total;
   }
 
-  function actionUpdateImageVariant(image) {
-    setImageVariant(image)
-    setIsUpdateImageVariant(true)
+  actionUpdateImageVariant = image => {
+    this.setState({
+      imageVariant: image,
+      isUpdateImageVariant: true
+    })
   };
 
-  function actionSubmitToCheckout() {
+  actionSubmitToCheckout = () => {
+    const {
+      id,
+      note,
+      price,
+      images,
+      data,
+      information,
+      quantity,
+    } = this.state
     const image = images.find(image => image.isDefault === true).defaultImage;
     const items = {
       shipmentFee: price.fee.shipmentFee,
@@ -102,123 +124,124 @@ function ProductDetail(props) {
     }
     const indexesToLocalstorage = JSON.stringify(items);
     localStorage.setItem("product", indexesToLocalstorage);
-    if (variants.length > 0) {
-      variantAlert();
-    } else if (variants.length < 1) {
-      if (isAuthenticated !== false) {
-        redirectCheckout();
+    if (this.state.variants.length > 0) {
+      this.variantAlert();
+    } else if (this.state.variants.length < 1) {
+      if (this.props.isAuthenticated !== false) {
+        this.redirectCheckout();
       } else {
-        redirectLogin();
+        this.redirectLogin();
       }
     }
   };
 
-  function redirectLogin() {
-    setOpen(!open)
+  redirectLogin = () => {
+    this.setState(prevState => ({
+      open: !prevState.open
+    }));
   }
 
-  function redirectCheckout() {
-    setChangeCheckout(!changeCheckout)
+  redirectCheckout = () => {
+    this.setState(prevState => ({
+      changeCheckout: !prevState.changeCheckout
+    }));
   }
 
-  function variantAlert() {
-    if (data.sku.length === undefined) {
-      setAlertVariant(strings.product_detail_warning_variant_one_item)
-      setBlurAlertVariant(true)
+  variantAlert = () => {
+    if (this.state.data.sku.length === undefined) {
+      this.setState({ alertVariant: strings.product_detail_warning_variant_one_item, blurAlertVariant: true })
     } else {
-      if (data.sku.length < variants.length) {
-        setAlertVariant(strings.product_detail_warning_variant_two_item)
-        setBlurAlertVariant(true)
+      if (this.state.data.sku.length < this.state.variants.length) {
+        this.setState({ alertVariant: strings.product_detail_warning_variant_two_item, blurAlertVariant: true })
       } else {
-        if (isAuthenticated !== false) {
-          redirectCheckout();
+        if (this.props.isAuthenticated !== false) {
+          this.redirectCheckout();
         } else {
-          redirectLogin();
+          this.redirectLogin();
         }
       }
     }
   };
 
 
-  let totalShipping = countTotalAmount();
-
-  return (
-    <React.Fragment>
-      <Breadcrumbs information={information.name} />
-      <div className="container mp-product-detail">
-        <Row>
-          <Col md={10}>
-            <p className="mp-product-detail__product-name">{loading ? <Skeleton height={20} /> : information.name}</p>
-            {images.length < 1 ? <Skeleton height={300} /> :
-              <SliderProductDetailContainer
-                videoUrl={videoUrl}
-                isUpdateImageVariant={isUpdateImageVariant}
-                variantsLength={variants.length}
-                imageDefault={defaultImage}
-                images={images}
-                imageVariant={imageVariant} />}
-          </Col>
-          <Col md={12} offset={1}>
-            <div>
-              <p className="mp-product-detail__price">
-                {loading ? <Skeleton height={25} /> : (currencyRupiah(price.amount))}
-              </p>
-              {images.length < 1 ? <Skeleton height={25} width={200} /> :
-                <Variants product={product} actionUpdateImageVariant={actionUpdateImageVariant} actionUpdateSku={actionUpdateSku} />}
-              {loading ?
-                <div style={{ marginTop: 10 }}>
-                  <Skeleton height={40} width={200} />
-                </div>
-                :
-                <React.Fragment>
-                  <span className="mp-product-detail__total-quantity">Jumlah</span>
-                  <Quantity
-                    stock={information.maxOrder}
-                    updateQuantity={actionUpdateQuantity}
+  render() {
+    let totalShipping = this.countTotalAmount();
+    return (
+      <React.Fragment>
+        <Breadcrumbs information={this.state.information.name} />
+        <div className="container mp-product-detail">
+          <Row>
+            <Col md={10}>
+              <p className="mp-product-detail__product-name">{this.state.images.length < 1 ? <Skeleton height={20} /> : this.state.information.name}</p>
+              {this.state.images.length < 1 ? <Skeleton height={300} /> :
+                <SliderProductDetailContainer variantsLength={this.state.variants.length} videoUrl={this.state.videoUrl} isUpdateImageVariant={this.state.isUpdateImageVariant} imageDefault={this.state.defaultImage} images={this.state.images} imageVariant={this.state.imageVariant} />}
+            </Col>
+            <Col md={12} offset={1}>
+              <div>
+                <p className="mp-product-detail__price">
+                  {this.state.images.length < 1 ? <Skeleton height={25} /> : (currencyRupiah(this.state.price.amount))}
+                </p>
+                {this.state.images.length < 1 ? <Skeleton height={25} width={200} /> :
+                  <Variants product={this.state.product} actionUpdateImageVariant={this.actionUpdateImageVariant} actionUpdateSku={this.actionUpdateSku} />}
+                {this.state.images.length < 1 ?
+                  <div style={{ marginTop: 10 }}>
+                    <Skeleton height={40} width={200} />
+                  </div>
+                  :
+                  <React.Fragment>
+                    <span className="mp-product-detail__total-quantity">Jumlah</span>
+                    <Quantity
+                      stock={this.state.information.maxOrder}
+                      updateQuantity={this.actionUpdateQuantity}
+                    />
+                  </React.Fragment>
+                }
+                {this.state.isProductAvailable && (
+                  <Shipping totalShipping={totalShipping} actionUpdatePriceShipping={this.actionUpdatePriceShipping} priceShipment={this.state.price.fee} />)}
+                {this.state.images.length < 1 ?
+                  <div style={{ marginTop: 55 }}>
+                    <Skeleton height={40} width={350} />
+                  </div> :
+                  <div style={{ marginTop: 64 }}>
+                    {this.state.blurAlertVariant === true ? <Text type="danger">{this.state.alertVariant}</Text> : null}
+                    <Button
+                      type="primary"
+                      size="large"
+                      width="full"
+                      onClick={this.actionSubmitToCheckout}
+                    >
+                      {strings.order_now}
+                    </Button>
+                  </div>
+                }
+              </div>
+            </Col>
+          </Row>
+          <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
+            <Tabs.TabPane tab="DETAIL PRODUK" key="1">
+              {this.state.isProductAvailable &&
+                <Card className="product-description">
+                  <h2>{strings.detail_product}</h2>
+                  <ProductAttibutes
+                    product={this.state.information}
                   />
-                </React.Fragment>
-              }
-              {isProductAvailable && (
-                <Shipping totalShipping={totalShipping} priceShipment={price.fee} />)}
-              {loading ?
-                <div style={{ marginTop: 55 }}>
-                  <Skeleton height={40} width={350} />
-                </div> :
-                <div style={{ marginTop: 64 }}>
-                  {blurAlertVariant === true ? <Text type="danger">{alertVariant}</Text> : null}
-                  <Button
-                    type="primary"
-                    size="large"
-                    width="full"
-                    onClick={actionSubmitToCheckout}
-                  >
-                    {strings.order_now}
-                  </Button>
-                </div>
-              }
-            </div>
-          </Col>
-        </Row>
-        <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
-          <Tabs.TabPane tab="DETAIL PRODUK" key="1">
-            {isProductAvailable &&
-              <Card className="product-description">
-                <h2>{strings.detail_product}</h2>
-                <ProductAttibutes
-                  product={information}
-                />
-              </Card>}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab="PERTANYAAN" key="2">
-            <ProductQnA />
-          </Tabs.TabPane>
-        </Tabs>
-      </div>
-      {open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
-      {changeCheckout === true && <Redirect to="/checkout" />}
-    </React.Fragment>
-  );
+                </Card>}
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="PERTANYAAN" key="2">
+              <ProductQnA />
+            </Tabs.TabPane>
+          </Tabs>
+        </div>
+        {this.state.open === true && <Redirect to={{ pathname: "/login", state: { nextPage: "/checkout" } }} />}
+        {this.state.changeCheckout === true && <Redirect to="/checkout" />}
+      </React.Fragment>
+    );
+  }
 }
 
-export default ProductDetail;
+const mapStateToProps = state => ({
+  isAuthenticated: state.authentication.isAuthenticated
+});
+
+export default connect(mapStateToProps)(ProductDetail);
 
