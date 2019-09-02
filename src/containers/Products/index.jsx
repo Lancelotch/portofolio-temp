@@ -4,17 +4,25 @@ import { Col, Row } from "antd";
 import PropTypes from "prop-types";
 
 export default function Products(props) {
-  let products = props.products;
+  const products = props.products;
   return (
-    <Row style={{margin: "24px 18px 0 18px"}}>
+    <Row style={{ margin: "24px 18px 0 18px" }}>
       {products.map((product, index) => {
         return (
           <Col key={index} md={4} style={{ padding: "8px" }}>
             <Product
               id={product.id}
-              urlImage={product.image.mediumUrl}
-              name={product.name}
-              price={product.price}
+              urlImage={
+                product.defaultImage
+                  ? product.defaultImage.mediumUrl
+                  : product.image.mediumUrl
+              }
+              name={
+                product.information ? product.information.name : product.name
+              }
+              price={
+                product.price.amount ? product.price.amount : product.price
+              }
               videoUrl={product.videoUrl}
             />
           </Col>
@@ -22,9 +30,8 @@ export default function Products(props) {
       })}
     </Row>
   );
-};
+}
 
 Products.propTypes = {
   products: PropTypes.arrayOf(Object)
 };
-

@@ -1,59 +1,59 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { BackTop, Row, Col, Divider } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
+import getParamUrl from "../../library/getParamUrl";
+import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
-import Breadcrumbs from "../../components/Breadcrumbs/index.js";
-import { escapeRegExp } from "../../library/regex";
 import Product from "../../repository/Product";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
-export default function Category(props) {
+export default function Search(props) {
   const [productList, setProductList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [isProductAvailable, setIsProductAvailable] = useState(false);
+  const [query, setQuery] = useState("");
+  const [isQueryAvailable, setIsQueryAvailable] = useState(true);
   const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
 
-  const params = props.match.params;
-
   useEffect(() => {
+    onRefresh();
     getProductList();
-  }, [params, direction, sortBy]);
+  }, [direction, sortBy, props.location.search]);
+
+  function onRefresh() {
+    setProductList([]);
+    setPage(0);
+  }
 
   async function getProductList() {
-    const categoryId = Object.entries(params)
-      .map(([key, val]) => `${val}`)
-      .join("/");
-    const objparams = {
+    const { location } = props;
+    const { query } = getParamUrl(location);
+    setQuery(query);
+    const request = {
+      keyword: query,
       page: page,
       limit: limit,
       sortBy: sortBy,
       direction: direction
     };
-    const nextProduct = await Product.getByCategory({
-      categoryId,
-      objparams
-    });
+    const nextProduct = await Product.getByKeyword({ request });
     if (nextProduct.status === 200) {
-      setProductList(nextProduct.data.data);
-      setPage(page);
+      setProductList(productList.concat(nextProduct.data.data));
+      setPage(page + 1);
       setElement(nextProduct.data.element);
       setIsProductAvailable(true);
+      setIsQueryAvailable(true);
     } else {
-      handleCategoryNotFound(nextProduct);
-    }
-  }
-
-  function handleCategoryNotFound(error) {
-    if (error.status !== 200) {
-      props.history.push("/products");
+      setIsQueryAvailable(false);
     }
   }
 
@@ -78,16 +78,14 @@ export default function Category(props) {
   }
 
   function infiniteScroll() {
-    const categoryIdName =
-      params[Object.keys(params)[Object.keys(params).length - 1]];
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{escapeRegExp(categoryIdName)}</b>
+      <b style={{ color: "#FF416C" }}>{query}</b>
     );
     return (
-      <div style={{ marginTop: 24 }}>
-        <div style={{margin: "0 24px"}}>
+      <div>
+        <div style={{ margin: "0 24px" }}>
           <Breadcrumbs />
         </div>
         <Divider style={{ margin: "12px 0" }} />
@@ -95,11 +93,10 @@ export default function Category(props) {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
             margin: "0 24px"
           }}
         >
-          <div>{categoryTextResult}</div>
+          <span className="categoryTextResult">{categoryTextResult}</span>
           <div style={{ display: "flex", alignItems: "center" }}>
             <span>Urutkan &nbsp;&nbsp;&nbsp;</span>
             <SortListProduct
@@ -115,10 +112,14 @@ export default function Category(props) {
           dataLength={productList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={productList.length < 20 ? "" : <Spinner size="large" />}
-          endMessage={<BackTop />}
+          loader={productList.length < 20 ? false : <Spinner size="large" />}
+          endMessage={
+            <div>
+              <BackTop />
+            </div>
+          }
         >
-          <div>
+          <div style={{ marginTop: 24 }}>
             <Suspense
               fallback={
                 <SkeletonCustom
@@ -126,7 +127,6 @@ export default function Category(props) {
                   height={300}
                   leftMargin={13}
                   rightMargin={13}
-                  topMargin={15}
                 />
               }
             >
@@ -152,13 +152,19 @@ export default function Category(props) {
     );
   }
 
+  function renderNotFound() {
+    return <NoResultSearch query={query} />;
+  }
+
+  function showResultSearch(showRender) {
+    return showRender === true ? renderProducts() : renderNotFound();
+  }
+
   return (
-    <React.Fragment>
-      <Row>
-        <Col xs={24} md={24}>
-          {renderProducts()}
-        </Col>
-      </Row>
-    </React.Fragment>
+    <Row>
+      <Col>
+        <div className="container">{showResultSearch(isQueryAvailable)}</div>
+      </Col>
+    </Row>
   );
 }
