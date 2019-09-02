@@ -1,6 +1,6 @@
 import React from "react";
 import { useRootContext } from "../../hoc/RootContext";
-import { Row, Col, Icon } from "antd";
+import { Row, Col, Icon, Form } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
@@ -11,7 +11,9 @@ import Helpers from "./Helpers";
 import Greeting from "./Greeting";
 import "./style.sass";
 import { PATH_CATEGORY } from "../../services/path/category";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import { schema } from "./schema";
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
@@ -29,12 +31,27 @@ export default function Header() {
         </Col>
         <Col md={15} className="header__search-box">
           <div style={{ width: 600 }}>
-            <Search
-              placeholder={strings.search_place_holder}
-              onSearch={keyword => {
+            <Formik
+              onSubmit={value => {
+                const keyword = value.search
+                console.log("try", keyword)
                 history.push(`/search?q=${keyword}`);
               }}
-            />
+              validationSchema={schema}
+              validateOnChange={false}
+            >
+              {({ values, errors, handleChange, handleSubmit }) => (
+                <Form.Item>
+                  <Search
+                    name="search"
+                    value={values.search}
+                    placeholder={strings.search_place_holder}
+                    onSearch={handleSubmit}
+                    onChange={handleChange}
+                  />
+                </Form.Item>
+              )}
+            </Formik>
           </div>
         </Col>
         <Col md={4}>
