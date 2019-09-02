@@ -62,7 +62,7 @@ const SamplePrevArrow = props => {
   );
 };
 
-function ClickProducts() {
+function Recommend() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -110,7 +110,7 @@ function ClickProducts() {
           title={item.name}
           price={item.price}
           playButton={item.videoUrl}
-          type="rekomendasi-products" />
+          type="recommend" />
       </Link>
     );
   });
@@ -130,4 +130,4 @@ function ClickProducts() {
   );
 }
 
-export default ClickProducts;
+export default Recommend;
