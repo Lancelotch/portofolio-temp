@@ -1,17 +1,14 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { BackTop, Row, Col, Divider } from "antd";
-import strings from "../../localization/localization";
+import React, { Suspense, useState, useEffect } from "react";
+import { Row, Col, BackTop } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
-import Breadcrumbs from "../../components/Breadcrumbs/index.js";
-import { escapeRegExp } from "../../library/regex";
-import Product from "../../repository/Product";
+import ProductRepo from "../../repository/Product";
 
-const Products = React.lazy(() => import("../../containers/Products"));
+const ProductsContainer = React.lazy(() => import("../../containers/Products"));
 
-export default function Category(props) {
+export default function Products() {
   const [productList, setProductList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -21,39 +18,21 @@ export default function Category(props) {
   const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
 
-  const params = props.match.params;
-
   useEffect(() => {
     getProductList();
-  }, [params, direction, sortBy]);
+  }, [direction, sortBy]);
 
   async function getProductList() {
-    const categoryId = Object.entries(params)
-      .map(([key, val]) => `${val}`)
-      .join("/");
-    const objparams = {
-      page: page,
+    const request = {
       limit: limit,
       sortBy: sortBy,
       direction: direction
     };
-    const nextProduct = await Product.getByCategory({
-      categoryId,
-      objparams
-    });
+    const nextProduct = await ProductRepo.getAll({ page, request });
     if (nextProduct.status === 200) {
-      setProductList(nextProduct.data.data);
-      setPage(page);
+      setProductList(productList.concat(nextProduct.data.data));
       setElement(nextProduct.data.element);
       setIsProductAvailable(true);
-    } else {
-      handleCategoryNotFound(nextProduct);
-    }
-  }
-
-  function handleCategoryNotFound(error) {
-    if (error.status !== 200) {
-      props.history.push("/products");
     }
   }
 
@@ -78,59 +57,47 @@ export default function Category(props) {
   }
 
   function infiniteScroll() {
-    const categoryIdName =
-      params[Object.keys(params)[Object.keys(params).length - 1]];
-    const categoryTextResult = strings.formatString(
-      strings.category_text_result,
-      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{escapeRegExp(categoryIdName)}</b>
-    );
     return (
       <div style={{ marginTop: 24 }}>
-        <div style={{margin: "0 24px"}}>
-          <Breadcrumbs />
-        </div>
-        <Divider style={{ margin: "12px 0" }} />
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            justifyContent: "flex-end",
             margin: "0 24px"
           }}
         >
-          <div>{categoryTextResult}</div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span>Urutkan &nbsp;&nbsp;&nbsp;</span>
-            <SortListProduct
-              defaultValue={"|desc"}
-              onChange={onChangeSort}
-              valueOld={"|asc"}
-              valueLow={"price.amount|asc"}
-              valueHigh={"price.amount|desc"}
-            />
-          </div>
+          <SortListProduct
+            defaultValue={"|desc"}
+            onChange={onChangeSort}
+            valueOld={"|asc"}
+            valueLow={"price.amount|asc"}
+            valueHigh={"price.amount|desc"}
+          />
         </div>
         <InfiniteScroll
           dataLength={productList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={productList.length < 20 ? "" : <Spinner size="large" />}
-          endMessage={<BackTop />}
+          loader={productList.length < 20 ? false : <Spinner size="large" />}
+          endMessage={
+            <div>
+              <BackTop />
+            </div>
+          }
         >
-          <div>
+          <div style={{ marginTop: 24 }}>
             <Suspense
               fallback={
                 <SkeletonCustom
                   count={20}
                   height={300}
                   leftMargin={13}
-                  rightMargin={13}
                   topMargin={15}
+                  rightMargin={13}
                 />
               }
             >
-              <Products products={productList} />
+              <ProductsContainer products={productList} />
             </Suspense>
           </div>
         </InfiniteScroll>
@@ -156,7 +123,7 @@ export default function Category(props) {
     <React.Fragment>
       <Row>
         <Col xs={24} md={24}>
-          {renderProducts()}
+          <div className="container">{renderProducts()}</div>
         </Col>
       </Row>
     </React.Fragment>

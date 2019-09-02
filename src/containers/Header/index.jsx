@@ -11,6 +11,7 @@ import Helpers from "./Helpers";
 import Greeting from "./Greeting";
 import "./style.sass";
 import { PATH_CATEGORY } from "../../services/path/category";
+import { Link } from 'react-router-dom'
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
@@ -18,12 +19,13 @@ export default function Header() {
     <React.Fragment>
       <Row id="bottomHeader" className="header">
         <Col md={5}>
-          <img
-            src={require("assets/img/monggopesen_logo.png")}
-            className="header__logo"
-            alt=""
-            onClick={() => history.push(PATH_URL.HOME)}
-          />
+          <Link to={PATH_URL.HOME}>
+            <img
+              src={require("assets/img/monggopesen_logo.png")}
+              className="header__logo"
+              alt=""
+            />
+          </Link>
         </Col>
         <Col md={15} className="header__search-box">
           <div style={{ width: 600 }}>

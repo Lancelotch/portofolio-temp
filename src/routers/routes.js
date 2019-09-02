@@ -4,9 +4,8 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import ProductDetail from "../pages/ProductDetail";
 import Confirmation from "../pages/Confirmation";
-import Product from "../pages/Product";
+import Products from "../pages/Products";
 import Category from "../pages/Category";
-import SearchContainer from "../pages/Search/SearchContainer";
 import Checkout from "../pages/Checkout";
 import CustomerNavigation from "../pages/CustomerNavigation";
 import PaymentInfoPage from "../pages/PaymentInfo";
@@ -18,6 +17,7 @@ import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
+import Search from "../pages/Search";
 
 
  const routes = [
@@ -89,13 +89,13 @@ import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
   },
   {
     path: PATH_URL.SEARCH,
-    component: SearchContainer,
+    component: Search,
     layout: MainLayout,
     needAuthenticated: false
   },
   {
     path: PATH_URL.PRODUCTS,
-    component: Product,
+    component: Products,
     layout: MainLayout,
     needAuthenticated: false
   },
