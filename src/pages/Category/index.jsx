@@ -18,7 +18,7 @@ export default function Category(props) {
   const [isProductAvailable, setIsProductAvailable] = useState(false);
   const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
-  const [sortBy, setSortBy] = useState("price.amount");
+  const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
 
   const params = props.match.params;
