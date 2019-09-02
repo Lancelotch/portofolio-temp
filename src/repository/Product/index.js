@@ -84,12 +84,28 @@ async function getByKeyword(props) {
   }
 }
 
+async function getProductDetail(props) {
+  const loading = props.loading ? props.loading : function () { };
+  const productId = props.productId;
+  let response = ""
+  loading(true)
+  try {
+      response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`)
+      loading(false)
+      return response
+  } catch (error) {
+      loading(false)
+      return error
+  }
+};
+
 const Product = {
   getAll: getAll,
   getPopular: getPopular,
   getBestSeller: getBestSeller,
   getByCategory: getByCategory,
-  getByKeyword: getByKeyword
+  getByKeyword: getByKeyword,
+  getProductDetail:getProductDetail
 };
 
 export default Product;

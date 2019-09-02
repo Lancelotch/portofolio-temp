@@ -49,7 +49,7 @@ class SliderProductDetailContainer extends Component {
   showImages(imageVariantProps = "") {
     let imagesToShow = [...this.state.imagesWithDefault];
     let isImageVariantExist = false;
-    const imageVariant = { ...imageVariantProps };
+    const imageVariant = { ...imageVariantProps }; 
     if (imageVariant.largeUrl !== undefined) {
       this.slider.slideToIndex(this.showThumbnail())
       imagesToShow.unshift(imageVariant);
@@ -59,7 +59,12 @@ class SliderProductDetailContainer extends Component {
         isImageVariantExist: isImageVariantExist,
         startIndex: 1
       });
-    }    
+    }  
+    if (this.props.variantsLength < 2) {
+      this.setState({
+        startIndex: 0
+      })
+    } 
   }
 
   showThumbnail = () => {
