@@ -17,7 +17,7 @@ import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
-import Search from "../pages/Search/Search";
+import Search from "../pages/Search";
 
 
  const routes = [
