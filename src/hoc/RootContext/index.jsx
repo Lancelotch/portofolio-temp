@@ -45,7 +45,7 @@ const RootContext = props => {
         payload: response.data.data
       });
     }
-    };
+  };
 
   const register = async payload => {
     const response = await authentication.register({param: payload, loading: setIsSubmitting});
