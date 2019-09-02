@@ -13,7 +13,7 @@ import ButtonFacebook from "../../components/ButtonFacebook";
 
 export default function FormLogin(props) {
     
-    const { handleLogin, isSubmitting} = useRootContext()
+    const { handleLogin, isSubmitting } = useRootContext()
 
     return (
         <div className="mp-login-container">
@@ -66,7 +66,6 @@ export default function FormLogin(props) {
                                     >
                                         <span>{strings.login_forgot_password}</span>
                                     </Link>
-                                </Form.Item>
                                     <Button
                                         type="primary"
                                         size="large"
@@ -76,6 +75,10 @@ export default function FormLogin(props) {
                                     >
                                         {strings.enter}
                                     </Button>
+                                    <div className="mp-form-login__error-box">
+                                        Tess
+                                    </div>
+                                </Form.Item>
                                 <div type="flex" align="middle" className="mp-form-login__text-login">
                                     <p>{strings.login_option}</p>
                                 </div>
