@@ -10,7 +10,7 @@ const colStyle = {
 
 const Products = props => {
   return(
-    <Col  md={4} style={colStyle}>
+    <Col md={4} style={colStyle}>
       <Product
         id={props.id}
         urlImage={props.defaultImage}

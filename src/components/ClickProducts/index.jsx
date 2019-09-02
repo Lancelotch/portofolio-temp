@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import currencyRupiah from "../../library/currency";
-import { Card, Icon, Carousel } from "antd";
+import { Icon, Carousel } from "antd";
 import "./style.sass";
 import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
-import ButtonPlay from "../ButtonPlay";
 import Product from "../../repository/Product";
+import Cards from "../Cards";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -63,84 +62,72 @@ const SamplePrevArrow = props => {
   );
 };
 
-function ClickProducts () {
+function ClickProducts() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-      getProducts()
+    getProducts()
   }, [])
 
   async function getProducts() {
-      let productsResp = await Product.getAll({
-          loading: setLoading
-      })
-      if (productsResp.status === 200) {
-          setProducts(productsResp.data.data)
-      } else {
-          setProducts(null)
-      }
+    let productsResp = await Product.getAll({
+      loading: setLoading
+    })
+    if (productsResp.status === 200) {
+      setProducts(productsResp.data.data)
+    } else {
+      setProducts(null)
+    }
 
   }
-    const productsToShow = products.slice(0, 10);
-    let sliderToClickLength = productsToShow.length <= 6 ? false : true
-    const settings = {
-      slidesToShow: 5,
-      slidesToScroll: 2,
-      dots: true,
-      infinite: sliderToClickLength,
-      speed: 1000,
-      autoplaySpeed: 7000,
-      autoplay: true,
-      arrows: true,
-      swipeToSlide: true,
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />,
-      appendDots: dots => (
-        <div style={{borderRadius: 10}}>
-          <ul className="dots"> {dots} </ul>
-        </div>
-      )
-    };
-
-    const slides = productsToShow.map((item, i) => {
-      return (
-        <Link to={pageUrlProductDetail + item.id || "#"} key={i}>
-          <Card
-            className="card__style"
-            cover={
-              <div className="card__image-cover">
-                <img
-                  alt="example"
-                  src={item.image.defaultImage}
-                  className="card__image"
-                />
-                {item.videoUrl && <ButtonPlay type="thumbnail"/>}
-              </div>
-            }
-          >
-            <div className="card__info">
-              <p style={{ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: "1", overflow: "hidden", color: "#000000", fontSize: 16 }}>{item.name}</p>
-              <p className="card__price">{currencyRupiah(item.price)}</p>
-            </div>
-          </Card>
-        </Link>
-      );
-    });
-
-
-    return (
-      <div className="sliderClickProducts">
-        {loading ? (
-          <SkeletonCustom
-            count={4}
-            height={300}
-            leftMargin={13}
-            rightMargin={13} />) :
-          (<Carousel {...settings}>{slides}</Carousel>)
-        }
+  const productsToShow = products.slice(0, 10);
+  let sliderToClickLength = productsToShow.length <= 6 ? false : true
+  const settings = {
+    slidesToShow: 5,
+    slidesToScroll: 2,
+    dots: true,
+    infinite: sliderToClickLength,
+    speed: 1000,
+    autoplaySpeed: 7000,
+    autoplay: true,
+    arrows: true,
+    swipeToSlide: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    appendDots: dots => (
+      <div style={{ borderRadius: 10 }}>
+        <ul className="dots"> {dots} </ul>
       </div>
+    )
+  };
+
+  const slides = productsToShow.map((item, i) => {
+    return (
+      <Link to={pageUrlProductDetail + item.id || "#"} key={i}>
+        <Cards
+          urlImage={item.image.defaultImage}
+          title={item.name}
+          price={item.price}
+          playButton={item.videoUrl}
+          type="rekomendasi-products" />
+      </Link>
     );
+  });
+
+
+  return (
+    <div className="mp-slider-click-products">
+      {loading ? (
+        <SkeletonCustom
+          count={4}
+          height={300}
+          leftMargin={13}
+          rightMargin={13} />) :
+        (<Carousel {...settings}>{slides}</Carousel>)
+      }
+    </div>
+  );
 }
 
 export default ClickProducts;
