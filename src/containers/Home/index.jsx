@@ -5,7 +5,7 @@ import Benefit from "../../components/Benefit";
 import BestSellers from "../BestSellers";
 import PopularProducts from "../PopularProducts";
 import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
-import ClickProducts from "../../components/ClickProducts";
+import Recommend from "../../components/Recommend";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import strings from "../../localization/localization";
@@ -37,7 +37,7 @@ export default function Home() {
                   width: 1130,
                 }}
               >
-                <ClickProducts />
+                <Recommend />
               </div>
             </Row>
           </div>
