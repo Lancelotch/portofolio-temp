@@ -1,8 +1,6 @@
 import React, { useState, useReducer, useContext } from "react";
-import { apiPostWithoutToken } from "../../services/api";
-//import { PATH_AUTHENTICATION } from "../../services/path/login";
 import { withRouter } from "react-router-dom";
-import { PATH_PUBLIC } from "../../api/path";
+import authentication from "../../repository/Authentication";
 const CreateRootContext = React.createContext();
 
 const RootContext = props => {
@@ -36,11 +34,8 @@ const RootContext = props => {
   const login = async payload => {
     try {
       setIsSubmitting(true);
-      const response = await apiPostWithoutToken(
-        PATH_PUBLIC.PUBLIC_USER_LOGIN,
-        payload
-      );
-      if (response) {
+      const response = await authentication.login({param: payload});
+      if (response.status === 200) {
         const token = response.data.data.access_token;
         window.localStorage.setItem(
           "authenticated",
@@ -62,11 +57,8 @@ const RootContext = props => {
   const register = async payload => {
     try {
       setIsSubmitting(true);
-      const response = await apiPostWithoutToken(
-        PATH_PUBLIC.PUBLIC_USER_REGISTER,
-        payload
-      );
-      if (response) {
+      const response = await authentication.register({param: payload});
+      if (response.status === 200) {
         const token = response.data.data.access_token;
         window.localStorage.setItem(
           "authenticated",

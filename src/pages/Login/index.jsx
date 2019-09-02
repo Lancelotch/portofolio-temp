@@ -10,9 +10,7 @@ import BackgroundAuth from "../../components/BackgroundAuth";
 import PATH_URL from "../../routers/path.js"
 
 export default function Login(props) {
-  
   const { isAuthenticated, history } = useRootContext()
-
   useEffect(() => {
     if (isAuthenticated) {
       const nextPage = props.location.state && 
