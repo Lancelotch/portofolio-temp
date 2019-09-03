@@ -58,7 +58,7 @@ Cards.propTypes = {
     playButton: PropTypes.string,
     urlImage: PropTypes.string,
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.string
 };
 
 Cards.defaultProps = {
