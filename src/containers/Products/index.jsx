@@ -8,8 +8,6 @@ export default function Products(props) {
   return (
     <Row style={{ margin: "24px 18px 0 18px" }}>
       {products.map((product, index) => {
-        console.log("price", product.price.amount);
-        console.log("price2", product.price);
         return (
           <Col key={index} md={4} style={{ padding: "8px" }}>
             <Product
