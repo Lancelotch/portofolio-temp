@@ -33,14 +33,13 @@ export default function Header() {
           <div style={{ width: 600 }}>
             <Formik
               onSubmit={value => {
-                const keyword = value.search
-                console.log("try", keyword)
+                const keyword = value.search;
                 history.push(`/search?q=${keyword}`);
               }}
               validationSchema={schema}
               validateOnChange={false}
             >
-              {({ values, errors, handleChange, handleSubmit }) => (
+              {({ values, handleChange, handleSubmit }) => (
                 <Form.Item>
                   <Search
                     name="search"

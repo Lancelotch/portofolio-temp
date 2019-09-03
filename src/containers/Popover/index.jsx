@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./style.sass";
 import { Popover as AntPopover, Icon } from "antd";
 import PropTypes from "prop-types";
 import FormLogin from "../FormLogin";
@@ -6,7 +7,7 @@ import UserMenu from "./UserMenu";
 import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover() {
-  const { authBody, isAuthenticated, handleLogout, history } = useRootContext();
+  const { authBody, isAuthenticated, handleLogout } = useRootContext();
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
 
@@ -16,11 +17,10 @@ export default function Popover() {
 
   useEffect(() => {
     isAuthenticated
-      ? setContent(<UserMenu handleLogout={handleLogout} history={history} />)
+      ? setContent(<UserMenu handleLogout={handleLogout} />)
       : setContent(<FormLogin />);
   }, [visible]);
 
-  const title = isAuthenticated ? <p>Profile</p> : null;
   const label = isAuthenticated ? (
     <span>{authBody.name}</span>
   ) : (
@@ -32,15 +32,18 @@ export default function Popover() {
       <div style={{ display: "flex" }}>
         <AntPopover
           placement="bottomRight"
-          title={title}
+          overlayClassName="mp-popover"
           content={content}
           trigger="click"
           visible={visible}
           onVisibleChange={val => setVisible(val)}
         >
-          <span onClick={() => setVisible(!visible)}>
+          <span
+            className="mp-main-header-popover__box"
+            onClick={() => setVisible(!visible)}
+          >
             {label}
-            <Icon className="header__name-icon" type="down" />
+            <Icon className="mp-main-header-popover__name-icon" type="down" />
           </span>
         </AntPopover>
       </div>
