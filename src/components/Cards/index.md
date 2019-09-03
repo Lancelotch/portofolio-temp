@@ -17,7 +17,7 @@ This is Cards of Monggopesen
 
 ## Purpose Of Props
 
-- Type: 'popular','best','rekomendasi-products','default'<br/>
+- Type: 'popular','bestSeller','recommend','default'<br/>
 - urlImage: "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/"<br/>
 -title : 'Ini Cards'<br/>
 -price : '2343253'<br/>
@@ -37,11 +37,11 @@ no details
     price={25283000.00}/>
 </Playground>
 
-### Cards with type="best" playButton="string"
+### Cards with type="bestSeller" playButton="string"
 
 <Playground>
 <Cards
-    type="best"
+    type="bestSeller"
     title={"Sepeda Motor"}
     urlImage={"https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-15T07:02:04.092Z_574ae245-06c0-49ae-b4d3-33924223a652"}
     price={25283000.00}
@@ -61,7 +61,7 @@ no details
 />
 </Playground>
 
-### Cards with type="rekomendasi-products"
+### Cards with type="recommend"
 
 <Playground>
 <Cards
