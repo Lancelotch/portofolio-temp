@@ -11,7 +11,7 @@ export default function Cards(props) {
 
     const cssClassesWrapper = classNamesStyle({
         'mp-hover-box-popular': (props.type === 'popular'),
-        'mp-hover-box-best': (props.type === 'bestSeller'),
+        'mp-hover-box-best': (props.type === 'best-seller'),
         'mp-hover-box-recommend': (props.type === 'recommend'),
         'mp-hover-box-default': (props.type === 'default'),
         'mp-border-actived': (props.border === 'active')
@@ -20,14 +20,14 @@ export default function Cards(props) {
 
     const titleCard = classNamesStyle({
         'mp-cards-title-popular': (props.type === 'popular'),
-        'mp-cards-title-best': (props.type === 'bestSeller'),
+        'mp-cards-title-best': (props.type === 'best-seller'),
         'mp-cards-title-recommend': (props.type === 'recommend'),
         'mp-cards-title-default':(props.type === 'default')
     });
 
     const priceCard = classNamesStyle({
         'mp-cards-price-popular': (props.type === 'popular'),
-        'mp-cards-price-best': (props.type === 'bestSeller' || props.type === 'recommend'),
+        'mp-cards-price-best': (props.type === 'best-seller' || props.type === 'recommend'),
         'mp-cards-price-default': (props.type === 'default')
     });
 
@@ -53,7 +53,7 @@ export default function Cards(props) {
 
 
 Cards.propTypes = {
-    type: PropTypes.oneOf(['popular', 'best', 'recommend']),
+    type: PropTypes.oneOf(['popular', 'best-seller', 'recommend']),
     border: PropTypes.oneOf(['active']),
     playButton: PropTypes.string,
     urlImage: PropTypes.string,
