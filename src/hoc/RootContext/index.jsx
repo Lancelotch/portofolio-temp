@@ -24,7 +24,7 @@ const RootContext = props => {
         return {
           ...state,
           isAuthenticated: false,
-          authBody: null
+          authBody: {}
         };
       default:
         return state;

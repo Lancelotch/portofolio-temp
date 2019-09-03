@@ -14,7 +14,7 @@ export default function ForgetPassword (){
   const [isEmailSend , setIsEmailSend] = useState(false)
   const [email, setEmail] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const isEnabled = email.length > 0;
+  const isEnabled = email.length > 0 ? true : false;
 
   async function handleSubmit (values){
     const forgotPassword = await Authentication.forgotPassword({params : values})
@@ -109,7 +109,7 @@ export default function ForgetPassword (){
                   type="primary"
                   width="full"
                   size="large"
-                  disabled={isEnabled ? false : true}
+                  disabled={isEnabled}
                 >
                   Kirim Link
                 </Button>
