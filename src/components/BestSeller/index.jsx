@@ -12,7 +12,7 @@ const BestSeller = props => {
       <div className="mp-best-content">
         <Link to={pageUrlProductDetail + id || "#"}>
         <Cards
-        type="best"
+        type="bestSeller"
         title={name}
         urlImage={image.defaultImage}
         price={priceRp}
