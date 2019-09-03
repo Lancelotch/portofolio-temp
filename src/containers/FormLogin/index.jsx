@@ -11,9 +11,12 @@ import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
-export default function FormLogin(props) {
-    
-    const { handleLogin, isSubmitting } = useRootContext()
+export default function FormLogin(props) {    
+    const { handleLogin, isSubmitting, authBody } = useRootContext()
+    let errorMessage = 
+    authBody.response &&
+    authBody.response.data &&
+    authBody.response.data.message ? authBody.response.data.message : "";
 
     return (
         <div className="mp-login-container">
@@ -76,7 +79,7 @@ export default function FormLogin(props) {
                                         {strings.enter}
                                     </Button>
                                     <div className="mp-form-login__error-box">
-                                        Tess
+                                        {errorMessage}
                                     </div>
                                 </Form.Item>
                                 <div type="flex" align="middle" className="mp-form-login__text-login">
