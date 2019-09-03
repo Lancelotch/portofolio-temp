@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, Alert } from "antd";
+import { Form, Alert } from "antd";
+import Button from '../../components/Button'
 import "./style.sass";
-// import Authentication from "../../api/services/authentication";
 import history from "../../routers/history";
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import Input from "../../components/Input";
@@ -17,9 +17,7 @@ export default function ForgetPassword (){
   const isEnabled = email.length > 0;
 
   async function handleSubmit (values){
-    console.log("values", values)
     const forgotPassword = await Authentication.forgotPassword({params : values})
-    console.log("forgot",forgotPassword.response)
     if(forgotPassword.status === 200){
       setIsEmailSend(true)
     }else{
@@ -87,7 +85,6 @@ export default function ForgetPassword (){
             render={({
               values,
               errors,
-              touched,
               setFieldValue,
               handleSubmit,
             }) => (
@@ -105,19 +102,18 @@ export default function ForgetPassword (){
                   onChange={e => handleChangeEmail(e,setFieldValue)}
                   value={values.email}
                 />
-                
                 </Form.Item>
                 <Form.Item>
                 <Button
                   htmlType="submit"
-                  className={
-                    isEnabled
-                      ? "forget-password__button-submit"
-                      : "forget-password__button-submit-disabled"
-                  }
+                  type="primary"
+                  width="full"
+                  size="large"
+                  disabled={isEnabled ? false : true}
                 >
                   Kirim Link
                 </Button>
+
                 </Form.Item>
               </Form>
             )}
