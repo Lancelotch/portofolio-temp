@@ -6,6 +6,10 @@ const PRODUCT_DETAIL = '/product-detail/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER_LEVEL_1 = '/dashboard-customer/:myorder';
 const DASHBOARD_CUSTOMER_LEVEL_2 = '/dashboard-customer/:myorder/:myaccount';
+const DASHBOARD_PROFILE = '/dashboard/profile';
+const DASHBOARD_ADDRESS = '/dashboard/address';
+const DASHBOARD_PASSWORD = '/dashboard/password';
+const DASHBOARD_ORDER = '/dashboard/order';
 const SEARCH = '/search';
 const CATEGORY_LEVEL_1 = '/category/:categoryLevel1';
 const CATEGORY_LEVEL_2 = '/category/:categoryLevel1/:categoryLevel2';
@@ -44,7 +48,11 @@ const PATH_URL = {
     GET_CATEGORY: GET_CATEGORY,
     PAYMENT_FAILED : PAYMENT_FAILED,
     CONFIRMATION_ERROR: CONFIRMATION_ERROR,
-    FORGET_PASSWORD: FORGET_PASSWORD
+    FORGET_PASSWORD: FORGET_PASSWORD,
+    DASHBOARD_PROFILE,
+    DASHBOARD_ADDRESS,
+    DASHBOARD_PASSWORD,
+    DASHBOARD_ORDER
 }
 
 export default PATH_URL;
