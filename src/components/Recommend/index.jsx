@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
 import Product from "../../repository/Product";
 import Cards from "../Cards";
+import currencyRupiah from "../../library/currency";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -108,7 +109,7 @@ function Recommend() {
         <Cards
           urlImage={item.image.defaultImage}
           title={item.name}
-          price={item.price}
+          price={currencyRupiah(item.price)}
           playButton={item.videoUrl}
           type="recommend" />
       </Link>

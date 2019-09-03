@@ -1,4 +1,4 @@
-import {apiPostWithoutToken } from "../../services/api";
+import {apiPostWithoutToken, apiGetWithoutToken } from "../../services/api";
 import { PATH_PUBLIC } from "../../services/path/public";
 
 
@@ -30,9 +30,24 @@ async function register(props){
     }
 }
 
+async function forgotPassword(props){
+    const loading = props.loading ? props.loading : function () {};
+    let response = ''
+    const params = props.params
+    loading(true)
+    try {
+        response = await apiGetWithoutToken(PATH_PUBLIC.PUBLIC_FORGOT_PASSWORD, params)
+        return response
+    }catch(error){
+        loading(false)
+        return error
+    }
+}
+
 const authentication = {
     login: login,
-    register: register
+    register: register,
+    forgotPassword : forgotPassword
 }
 
 export default authentication;
