@@ -3,6 +3,7 @@ import { Route, Router, Switch } from "react-router-dom";
 import routes from "./routers/routes";
 import history from "./routers/history";
 import RootContext from "./hoc/RootContext";
+import AppLayout from "./layouts/AppLayout";
 
 function App() {
   const RouteWithLayout = ({
@@ -15,9 +16,11 @@ function App() {
       <Route
         {...rest}
         render={props => (
-          <Layout needAuthenticated={needAuthenticated}>
-            <Component {...props} />
-          </Layout>
+          <AppLayout needAuthenticated={needAuthenticated}>
+            <Layout>
+              <Component {...props} />
+            </Layout>
+          </AppLayout>
         )}
       />
     );
