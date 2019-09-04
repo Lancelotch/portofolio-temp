@@ -1,12 +1,11 @@
 import React from "react";
-import currencyRupiah from "../../library/currency";
 import { Link } from "react-router-dom";
 import { pageUrlProductDetail } from "../../library/url";
 import Cards from "../Cards";
 
 const PopularProduct = props => {
   const { id, name, urlImage, price } = props;
-  const priceRp = currencyRupiah(price);
+  const priceRp = price;
   return (
     <Link to={pageUrlProductDetail + id || "#"}>
       <Cards

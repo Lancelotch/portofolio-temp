@@ -1,32 +1,77 @@
-import React, {useEffect} from "react";
-import Headers from "containers/Header";
-import Footer from "containers/Footer";
-import "./style.sass";
-import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
+import React, { useState, useEffect } from 'react';
+import { Layout } from 'antd';
+import Header from 'containers/Header'
+import Footer from 'containers/Footer'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import { useRootContext } from "../../hoc/RootContext";
+import { Icon, Menu } from "antd";
+import strings from "../../localization/localization";
+import ProfileMain from "../../containers/ProfileMain";
+import PATH_URL from '../../routers/path'
+import "./style.sass"
 
+const { SubMenu } = Menu;
 
+const { Content, Sider } = Layout;
 
 export default function CustomerLayout (props) {
-  const {isAuthenticated, history} = useRootContext();
+    const {history} = useRootContext();
+    const [activeTab, setActiveTab] = useState('')
 
-  useEffect(() => {
-    if(props.needAuthenticated && !isAuthenticated){
-      history.push('/login');
-    }      
-  })
+    useEffect(() => {
+        getTabActive()
+    },[])
 
-  if(props.needAuthenticated && !isAuthenticated){
-    return null;
-  } else {
+    function getTabActive () {
+        const routeTab = window.location.pathname
+        const splitRoute = routeTab.split('/')
+        const tabActive = splitRoute[splitRoute.length -1]
+        setActiveTab(tabActive)
+    }
+
     return (
-      <div className="customerLayout">
-        <ScrollToTopOnMount />
-        <Headers match={props} />
-        <div className="container">{props.children}</div>
-        <Footer />
-      </div>
+        <Layout>
+            <div className="mp-customer-layout">
+                <Header match={props} />
+                <ScrollToTopOnMount />
+                <div className="container mp-customer-layout__wrapper">
+                    <Layout>
+                        <Sider className="mp-customer-layout__children">
+                            <div className="mp-dashboard-user">
+                                <ProfileMain />
+                                <Menu
+                                    mode="inline"
+                                    defaultOpenKeys={['profile']}
+                                    selectedKeys={[activeTab]}
+                                >
+                                <SubMenu
+                                    className="mp-dashboard-user__title"
+                                    key={'profile'}
+                                    title={
+                                        <span>
+                                            <Icon type="user" style={{ fontSize: 19 }} />
+                                            {strings.my_account}
+                                        </span>
+                                        }
+                                >
+                                    <Menu.Item key="profile" onClick={() => history.push(PATH_URL.DASHBOARD_PROFILE)}  >{strings.profile}</Menu.Item>
+                                    <Menu.Item key="address" onClick={() => history.push(PATH_URL.DASHBOARD_ADDRESS) } >{strings.change_address}</Menu.Item>
+                                    <Menu.Item key="password" onClick={() => history.push(PATH_URL.DASHBOARD_PASSWORD) } >{strings.password}</Menu.Item>
+                                </SubMenu>
+                                    <Menu.Item key="order" onClick={() => history.push(PATH_URL.DASHBOARD_ORDER) } className="mp-dashboard-user__title" ><Icon type="rocket" className="iconRocket" />Pesanan Saya</Menu.Item>
+                                </Menu>
+                            </div>
+                        </Sider>
+                        <Layout className="mp-customer-layout__content">
+                            <Content>
+                                {props.children}
+                            </Content>
+                        </Layout>
+                    </Layout>
+                </div>
+                <Footer />
+            </div>
+        </Layout>
     );
-  }
 }
 
