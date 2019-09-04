@@ -7,8 +7,9 @@ import {
   apiPostWithToken,
   apiGetWithToken,
   apiPutWithToken
-} from "../../api/services";
-import { PATH_CUSTOMER, PATH_ORDER, PATH_SHIPPING } from "../../api/path";
+} from "../../services/api/index";
+import { PATH_CUSTOMER, PATH_ORDER} from "../../api/path";
+import {PATH_SHIPPING} from "../../services/path/shipping";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import FormEditAddress from "../../containers/FormEditAddress";
 import AddressList from "../../containers/AddressList";

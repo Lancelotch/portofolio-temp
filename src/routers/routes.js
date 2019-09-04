@@ -17,13 +17,14 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
+import CustomerOderNavigation from "../containers/CustomerOrderNavigation";
 import DummyPageProfile from '../pages/DummyPageProfile'
 import DummyPageAddress from '../pages/DummyPageAddress'
 import DummyPagePassword from '../pages/DummyPagePassword'
 import DummyPageOrder from '../pages/DummyPageOrder'
 
 
- const routes = [
+const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
@@ -130,6 +131,12 @@ import DummyPageOrder from '../pages/DummyPageOrder'
     path: PATH_URL.DASHBOARD_ORDER,
     component : DummyPageOrder,
     layout : CustomerLayout,
+    needAuthenticated: true
+  },
+  {
+    path: "/customer-navigation-testing",
+    component: CustomerOderNavigation,
+    layout:FullLayout,
     needAuthenticated: true
   },
   {

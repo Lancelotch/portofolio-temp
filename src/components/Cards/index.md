@@ -20,7 +20,7 @@ This is Cards of Monggopesen
 - Type: 'popular','best-seller','recommend','default'<br/>
 - urlImage: "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/"<br/>
 -title : 'Ini Cards'<br/>
--price : '2343253'<br/>
+-price : type number 2343253<br/>
 -playButton : 'from api respon (http://bizcommon.alicdn.com/7RLWSSwpa3nDfyuh3c1/zIm12hXlPCkKtisrfUo%40%40hd.mp4)'
 
 ## Details

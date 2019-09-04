@@ -13,10 +13,10 @@ export default function Products() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [isProductAvailable, setIsProductAvailable] = useState(false);
-  const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
+  const limit = 20
 
   useEffect(() => {
     getProductList();

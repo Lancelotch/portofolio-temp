@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import "./style.sass";
-import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
+
 
 function FullLayout(props) {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import { Spin } from "antd";
 
-export const loadingItems = (value)=> {
+export default function LoadingSpin() {
     return <div className="mp-loading-items">
-      {value && <Spin spinning={value} />}
+       <Spin spinning={true} />
     </div>
   }
