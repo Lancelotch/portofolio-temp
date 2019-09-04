@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.sass";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
-// import customer from "../../api/services/customer";
-// import { connect } from "react-redux";
-// import { customerNameEdit } from "../../store/actions/authentication";
 import { notification, Card } from "antd";
-// import { apiPostWithToken } from "../../api/services";
-// import { PATH_CUSTOMER } from "../../api/path";
 import Customer from "../../repository/Customer";
 
 export default function Profile() {
@@ -187,7 +182,7 @@ export default function Profile() {
   return (
     <Card title="Profil Pengguna">
       <div className="profile">
-        <div style={{ width: "100%" }}>
+        <div className="profile__content">
           <ProfileAvatar
             photoUrl={photoUrl}
             loading={loading}
@@ -204,7 +199,7 @@ export default function Profile() {
             disabled={disabled}
           />
         </div>
-        <div style={{ width: "100%" }}>
+        <div className="profile__content">
           <ProfileEdit
             customerName={customerName}
             customerEmail={customerEmail}
