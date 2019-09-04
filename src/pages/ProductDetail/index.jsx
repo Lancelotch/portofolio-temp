@@ -15,9 +15,7 @@ import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
-import { apiGetWithoutToken } from "../../services/api";
-import { PATH_CATEGORY_BREADCRUMBS } from "../../services/path/breadCrumbCategory";
-import Breadcrumb from "../../repository/Breadcrumb";
+import Breadcrumb from "../../repository/Breadcrumb/index";
 
 
 const { Text } = Typography
@@ -41,8 +39,7 @@ export default function ProductDetail(props) {
   const [product, setProduct] = useState({})
   const [isProductAvailable, setIsProductAvailable] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [categoryId,setCategoryId] = useState("")
-  const [categoryLevel,setCategoryLevel] = useState({})
+  const [categoryLevel, setCategoryLevel] = useState({})
   const { isAuthenticated } = useRootContext()
 
 
@@ -53,15 +50,14 @@ export default function ProductDetail(props) {
 
 
 
-  async function getCategory () {
-    let category = Breadcrumb.getBreadCrumb({
-      
+  async function getCategory(categoryId) {
+    let category = await Breadcrumb.getBreadCrumb({
+      params: categoryId
     })
-
+    setCategoryLevel(category.data.data)
   };
 
-  console.log(categoryId);
-    
+
 
   async function getProductDetail() {
     let productDetail = await Product.getById({
@@ -69,11 +65,8 @@ export default function ProductDetail(props) {
       productId: props.match.params.productId
     })
     const product = productDetail.data.data
-    console.log(product);
-    getCategory(product.information.category.id)
     if (productDetail.status === 200) {
       setDefaultImage(product.defaultImage)
-      setCategoryId(product.information.category.id)
       setProduct(product)
       setImages(product.images)
       setVariants(product.variants)
@@ -83,6 +76,7 @@ export default function ProductDetail(props) {
       setIsProductAvailable(true)
       setVideoUrl(product.videoUrl)
     }
+    getCategory(product.information.category.id)
   };
 
   function actionUpdateSku(sku) {
@@ -157,12 +151,11 @@ export default function ProductDetail(props) {
     }
   };
 
-
   let totalShipping = countTotalAmount();
 
   return (
     <React.Fragment>
-      <Breadcrumbs category={categoryLevel} information={information.name} />
+      {categoryLevel && <Breadcrumbs category={categoryLevel} information={information.name} />}
       <div className="container mp-product-detail">
         <Row>
           <Col md={10}>

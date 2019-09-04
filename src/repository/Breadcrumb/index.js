@@ -7,7 +7,7 @@ async function getBreadCrumb(props) {
     let response = ""
     loading(true)
     try {
-        response = await apiGetWithoutToken(PATH_CATEGORY_BREADCRUMBS.CATEGORY_LEVELS + params)
+        response = await apiGetWithoutToken(`${PATH_CATEGORY_BREADCRUMBS.CATEGORY_LEVELS}/${params}`)
         loading(false)
         return response
     } catch (error) {
