@@ -4,6 +4,7 @@ import ButtonPlay from '../ButtonPlay';
 import classNames from 'classnames';
 import style from "./style.sass";
 import PropTypes from "prop-types";
+import currencyRupiah from '../../library/currency';
 
 export default function Cards(props) {
 
@@ -30,7 +31,7 @@ export default function Cards(props) {
         'mp-cards-price-best': (props.type === 'best-seller' || props.type === 'recommend'),
         'mp-cards-price-default': (props.type === 'default')
     });
-
+    
     return (
         <CardAnt
             bordered={false}
@@ -44,7 +45,7 @@ export default function Cards(props) {
                 <span className={`mp-card-title ${titleCard}`}>
                     {props.title}
                 </span>
-                <span className={priceCard}>{props.price} </span>
+                <span className={priceCard}>{currencyRupiah(props.price)} </span>
             </div>
 
         </CardAnt>
@@ -53,12 +54,12 @@ export default function Cards(props) {
 
 
 Cards.propTypes = {
-    type: PropTypes.oneOf(['popular', 'best-seller', 'recommend']),
+    type: PropTypes.oneOf(['default','popular', 'best-seller', 'recommend']),
     border: PropTypes.oneOf(['active']),
     playButton: PropTypes.string,
     urlImage: PropTypes.string,
     title: PropTypes.string,
-    price: PropTypes.string
+    price: PropTypes.number
 };
 
 Cards.defaultProps = {

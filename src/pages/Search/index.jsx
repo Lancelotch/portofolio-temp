@@ -19,10 +19,10 @@ export default function Search(props) {
   const [isProductAvailable, setIsProductAvailable] = useState(false);
   const [query, setQuery] = useState("");
   const [isQueryAvailable, setIsQueryAvailable] = useState(true);
-  const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
+  const limit = 20
 
   useEffect(() => {
     onRefresh();

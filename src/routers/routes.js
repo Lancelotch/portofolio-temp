@@ -18,9 +18,10 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
 import Search from "../pages/Search";
+import CustomerOderNavigation from "../containers/CustomerOrderNavigation";
 
 
- const routes = [
+const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
@@ -115,6 +116,12 @@ import Search from "../pages/Search";
     path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
     component: CustomerNavigation,
     layout: SidebarNavigationCustomer,
+    needAuthenticated: true
+  },
+  {
+    path: "/customer-navigation-testing",
+    component: CustomerOderNavigation,
+    layout:FullLayout,
     needAuthenticated: true
   },
   {

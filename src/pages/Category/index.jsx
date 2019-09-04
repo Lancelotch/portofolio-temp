@@ -16,10 +16,10 @@ export default function Category(props) {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const [isProductAvailable, setIsProductAvailable] = useState(false);
-  const [limit, setLimit] = useState(20);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [element, setElement] = useState(0);
+  const limit = 20
 
   const params = props.match.params;
 

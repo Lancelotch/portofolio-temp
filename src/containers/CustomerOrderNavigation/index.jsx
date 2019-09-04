@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, {  useState, useEffect } from "react";
 import { Tabs, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
 import OrderListWaiting from "../OrderListWaiting";
 import OrderDetailsDashboard from "../OrderDetailsDashboard";
-import { apiGetWithToken } from "../../api/services";
-import { PATH_DASHBOARD_TAB, PATH_INVOICE } from "../../api/path";
+import { PATH_INVOICE } from "../../services/path/invoice"
 import NoOrderHistory from "../../components/NoOrderHistory";
 import { Offline, Online, Detector } from "react-detect-offline";
 import strings from "../../localization/localization";
@@ -12,6 +11,7 @@ import { patchService } from "../../api/services";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
 import { loadingItems } from "../../library/loadingSpin";
 import { alertOffline } from "../../library/alertOffiline";
+import Order from "../../repository/Order";
 
 const confirm = Modal.confirm;
 
@@ -21,34 +21,29 @@ const polling = {
   timeout: 1000
 };
 
-class CustomerOderNavigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShowDetailDashboard: false,
-      order: [],
-      activeKey: "1",
-      isLoading: false,
-      productOrder: [],
-      invoiceNumber: "",
-      id: "",
-      stateReceivedOrder: [],
-      keyIndex: 0,
-      isProductAlvailabel: false,
-      isHowToShowModalOpen: false,
-      selectedOrder: null,
-      isShowDashboardItem: false,
-      labelTabDetails: "",
-      estimateAccepted: ""
-    };
-  }
+export default function CustomerOderNavigation(props) {
+  const [isShowDetailDashboard, setIsShowDetailDashboard] = useState(false)
+  const [order, setOrder] = useState([])
+  const [activeKey, setActiveKey] = useState("1")
+  const [isLoading, setIsLoading] = useState(false)
+  const [productOrder, setProductOrder] = useState([])
+  const [invoiceNumber, setInvoiceNumber] = useState("")
+  const [id, setId] = useState("")
+  //const [keyIndex, setKeyIndex] = useState(0)
+  const [isProductAlvailabel, setIsProductAlvailabel] = useState(false)
+  const [isHowToShowModalOpen, setIsHowToShowModalOpen] = useState(false)
+  const [selectedOrder, setSelectedOrder] = useState(null)
+  const [isShowDashboardItem, setIsShowDashboardItem] = useState(false)
+  const [labelTabDetails, setLabelTabDetails] = useState("")
+  const [estimateAccepted, setEstimateAccepted] = useState("")
 
-  componentDidMount() {
-    this.productOrderTabs(0);
-    //this.productOrderTabs(2);
-  }
 
-  showReceivedConfirm = (allOrder, keyIndex, orderId) => {
+  useEffect(() => {
+    productOrderTabs(0)
+  }, [])
+
+
+  function showReceivedConfirm(allOrder, keyIndex, orderId) {
     confirm({
       className: "deliveryReceiver",
       title: strings.tabs_in_delivery,
@@ -58,225 +53,205 @@ class CustomerOderNavigation extends Component {
       okType: "default",
       centered: true,
       onOk: () => {
-        this.actionReceivedConfirm(orderId);
+        actionReceivedConfirm(orderId);
       },
     });
   };
 
-  actionReceivedConfirm = async (idReceived) => {
+  async function actionReceivedConfirm(idReceived) {
     try {
       const orderId = idReceived
       const response = await patchService(PATH_INVOICE.INVOICE_BY_RECEIVED + orderId);
       if (response.code === 200 || response.code === "200") {
-        this.productOrderTabs(2);
+        productOrderTabs(2);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  toggleIsHowToShowModalOpen = order => {
-    this.setState({
-      isHowToShowModalOpen: !this.state.isHowToShowModalOpen,
-      selectedOrder: order ? order : null
-    });
+  function toggleIsHowToShowModalOpen(order) {
+    setIsHowToShowModalOpen(!isHowToShowModalOpen)
+    setSelectedOrder(order ? order : null)
   };
 
-  actionShowOrderListWaiting = (listener) => {
-    this.setState({
-      [listener]: !this.state[listener],
-      isShowDetailDashboard: !this.state.isShowDetailDashboard
-    })
+  function actionShowOrderListWaiting() {
+    setIsShowDetailDashboard(!isShowDetailDashboard)
   }
 
-  actionShowOrderDetailsDashboard = (order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) => {
-    this.actionShowOrderListWaiting(isShowDashboardItem)
-    this.setState({
-      order: order,
-      invoiceNumber: order.invoiceNumber,
-      id: order.id,
-      keyIndex: keyIndex,
-      isShowDashboardItem: isShowDashboardItem,
-      labelTabDetails: labelTabDetails,
-      estimateAccepted: estimateAccepted
-    })
+  function actionShowOrderDetailsDashboard(order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) {
+    actionShowOrderListWaiting(isShowDashboardItem)
+    setOrder(order)
+    setInvoiceNumber(order.invoiceNumber)
+    setId(order.id)
+   // setKeyIndex(keyIndex)
+    setIsShowDashboardItem(isShowDashboardItem)
+    setLabelTabDetails(labelTabDetails)
+    setEstimateAccepted(estimateAccepted)
   };
 
-  checkSortTabs = value => {
+
+  function checkSortTabs(value) {
     let sortListTabsNotPayCancel = ""
     if (value === 0 || value === 4) {
-      sortListTabsNotPayCancel = "?direction=desc&sortBy=orderActivityDate.orderDate"
+        sortListTabsNotPayCancel = "?direction=desc&sortBy=orderActivityDate.orderDate"
     } else {
-      sortListTabsNotPayCancel = "?direction=desc&sortBy=creationDate"
+        sortListTabsNotPayCancel = "?direction=desc&sortBy=creationDate"
     }
     return sortListTabsNotPayCancel
-  }
+}
 
-  productOrderTabs = async (value) => {
-    this.setState({ isLoading: true })
-    try {
-      const response = await apiGetWithToken(`${PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD}${value}${this.checkSortTabs(value)}`);
-      if (response.data.data) {
-        this.setState({
-          productOrder: response.data.data,
-          isLoading: false,
-          isProductAlvailabel: false
-        })
-      }
-    } catch (error) {
-      this.setState({ isLoading: false, isProductAlvailabel: true });
+
+  async function productOrderTabs(value) {
+    let productOrder = await Order.tabs({
+      loading: setIsLoading,
+      value: value,
+      productAlvailabel: setIsProductAlvailabel,
+      sortListTabs: checkSortTabs(value)
+    })
+    if (productOrder.status === 200) {
+      setProductOrder(productOrder.data.data)
     }
   };
 
-  updateTab = (functions) => {
-    this.setState({
-      productOrder: []
-    }, () => functions());
+  function updateTab(functions) {
+    setProductOrder([])
+    functions()
   };
 
-  handleChange = (selectkey) => {
-    this.setState({ activeKey: selectkey })
+  function handleChange(selectkey) {
+    setActiveKey(selectkey)
     switch (selectkey) {
       case "1":
-        this.updateTab(() => this.productOrderTabs(0));
+        updateTab(() => productOrderTabs(0));
         break;
       case "2":
-        this.updateTab(() => this.productOrderTabs(1));
+        updateTab(() => productOrderTabs(1));
         break;
       case "3":
-        this.updateTab(() => this.productOrderTabs(2));
+        updateTab(() => productOrderTabs(2));
         break;
       case "4":
-        this.updateTab(() => this.productOrderTabs(3));
+        updateTab(() => productOrderTabs(3));
         break;
       case "5":
-        this.updateTab(() => this.productOrderTabs(4));;
+        updateTab(() => productOrderTabs(4));;
         break;
       default:
         console.log("error");
     }
   }
 
-  actionUpdateTab = (tabPosition) => {
-    this.productOrderTabs(tabPosition);
+  function actionUpdateTab(tabPosition) {
+    productOrderTabs(tabPosition);
   }
 
-  itemList(list) {
-    return this.state.isProductAlvailabel === true ?
-      this.state.isLoading === true ? false :
-        this.state.isProductAlvailabel && <NoOrderHistory /> :
+  function itemList(list) {
+    return isProductAlvailabel === true ?
+      isLoading === true ? false :
+        isProductAlvailabel && <NoOrderHistory /> :
       list.content;
   }
 
-  responseListWaiting(
+  function responseListWaiting(
     showOrderDetailsDashboard,
     responseProductOrder,
     labelTabDetails,
     estimateAccepted) {
     return <OrderListWaiting
-      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
-      selectedOrder={this.state.selectedOrder}
-      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
+      isHowToShowModalOpen={isHowToShowModalOpen}
+      selectedOrder={selectedOrder}
+      showHowToModalPayment={toggleIsHowToShowModalOpen}
       productOrder={responseProductOrder}
-      actionUpdateTab={this.actionUpdateTab}
-      actionShowOrderDetailsDashboard={this.actionShowOrderDetailsDashboard}
+      actionUpdateTab={actionUpdateTab}
+      actionShowOrderDetailsDashboard={actionShowOrderDetailsDashboard}
       showOrderDetailsDashboard={showOrderDetailsDashboard}
-      showReceivedConfirm={this.showReceivedConfirm}
+      showReceivedConfirm={showReceivedConfirm}
       labelTabDetails={labelTabDetails}
       estimateAccepted={estimateAccepted}
     />
   }
 
-  responOrderDetailsDashboard(showOrderDetailsDashboard) {
+  function responOrderDetailsDashboard(showOrderDetailsDashboard) {
     return <OrderDetailsDashboard
-      isHowToShowModalOpen={this.state.isHowToShowModalOpen}
-      selectedOrder={this.state.selectedOrder}
-      showHowToModalPayment={this.toggleIsHowToShowModalOpen}
-      labelTabDetails={this.state.labelTabDetails}
-      estimateAccepted={this.state.estimateAccepted}
+      isHowToShowModalOpen={isHowToShowModalOpen}
+      selectedOrder={selectedOrder}
+      showHowToModalPayment={toggleIsHowToShowModalOpen}
+      labelTabDetails={labelTabDetails}
+      estimateAccepted={estimateAccepted}
       tabsShow={showOrderDetailsDashboard}
-      invoiceNumber={this.state.invoiceNumber}
-      id={this.state.id}
-      orderDetailsRespon={this.state.order}
-      showReceivedConfirm={this.showReceivedConfirm}
-      actionShowOrderListWaiting={() => this.actionShowOrderListWaiting(showOrderDetailsDashboard)} />
+      invoiceNumber={invoiceNumber}
+      id={id}
+      orderDetailsRespon={order}
+      showReceivedConfirm={showReceivedConfirm}
+      actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />
   }
 
-  listWaiting = (isShow, labelTabDetails, estimateAccepted) => {
-    return this.state.isLoading ?
-      loadingItems(this.state.isLoading) :
-      this.responseListWaiting(isShow, this.state.productOrder, labelTabDetails, estimateAccepted);
+  function listWaiting(isShow, labelTabDetails, estimateAccepted) {
+    return isLoading ?
+      loadingItems(isLoading) :
+      responseListWaiting(isShow, productOrder, labelTabDetails, estimateAccepted);
   }
 
-  render() {
-
-    const {
-      isShowDashboardItem,
-      isShowDetailDashboard,
-    } = this.state
-
-    const listTabsContent = [
-      {
-        key: "1",
-        nameTabs: "Belum Bayar",
-        content: this.listWaiting("isShowOrderDetailsDashboardNotPay", "Belum Bayar")
-      },
-      {
-        key: "2",
-        nameTabs: "Sedang Diproses",
-        content: this.listWaiting("isShowOrderDetailsDashboardNotSent", "Belum Dikirim")
-      },
-      {
-        key: "3",
-        nameTabs: "Dalam Pengiriman",
-        content: this.listWaiting("isShowOrderDetailsDashboardInDelivery", 
+  const listTabsContent = [
+    {
+      key: "1",
+      nameTabs: "Belum Bayar",
+      content: listWaiting("isShowOrderDetailsDashboardNotPay", "Belum Bayar")
+    },
+    {
+      key: "2",
+      nameTabs: "Sedang Diproses",
+      content: listWaiting("isShowOrderDetailsDashboardNotSent", "Belum Dikirim")
+    },
+    {
+      key: "3",
+      nameTabs: "Dalam Pengiriman",
+      content: listWaiting("isShowOrderDetailsDashboardInDelivery",
         "Dalam Pengiriman", "Perkiraan Diterima")
-      },
-      {
-        key: "4",
-        nameTabs: "Selesai",
-        content: this.listWaiting("isShowOrderDetailsDashboardFinish",
-        "Selesai","Pesanan Diterima")
-      },
-      {
-        key: "5",
-        nameTabs: "Batal",
-        content: this.listWaiting("isShowOrderDetailsDashboardCancel", "Batal")
-      }
-    ]
+    },
+    {
+      key: "4",
+      nameTabs: "Selesai",
+      content: listWaiting("isShowOrderDetailsDashboardFinish",
+        "Selesai", "Pesanan Diterima")
+    },
+    {
+      key: "5",
+      nameTabs: "Batal",
+      content: listWaiting("isShowOrderDetailsDashboardCancel", "Batal")
+    }
+  ]
 
-    return (
-      <div className="mp-customer-order-navigation">
-        <ScrollToTopOnMount />
-        {isShowDetailDashboard === false ?
-          <Tabs activeKey={this.state.activeKey} onChange={this.handleChange}>
-            {listTabsContent.map(list => {
-              return (
-                <CustomTabPane
-                  key={list.key}
-                  tab={<span>{list.nameTabs}</span>}
-                  my_prop={
-                    <React.Fragment>
-                      <Offline polling={polling}>
-                        {alertOffline()}
-                      </Offline>
-                      <Detector
-                        render={() =>
-                          <Online polling={polling}>
-                            {this.itemList(list)}
-                          </Online>} />
-                    </React.Fragment>} />)
-            })}
-          </Tabs>
-          :
-          <React.Fragment>
-            {isShowDashboardItem &&
-              this.responOrderDetailsDashboard(isShowDashboardItem)}
-          </React.Fragment>
-        }
-      </div>
-    );
-  }
+  return (
+    <div className="mp-customer-order-navigation">
+      <ScrollToTopOnMount />
+      {isShowDetailDashboard === false ?
+        <Tabs activeKey={activeKey} onChange={handleChange}>
+          {listTabsContent.map(list => {
+            return (
+              <CustomTabPane
+                key={list.key}
+                tab={<span>{list.nameTabs}</span>}
+                my_prop={
+                  <React.Fragment>
+                    <Offline polling={polling}>
+                      {alertOffline()}
+                    </Offline>
+                    <Detector
+                      render={() =>
+                        <Online polling={polling}>
+                          {itemList(list)}
+                        </Online>} />
+                  </React.Fragment>} />)
+          })}
+        </Tabs>
+        :
+        <React.Fragment>
+          {responOrderDetailsDashboard(isShowDashboardItem)}
+        </React.Fragment>
+      }
+    </div>
+  );
 }
 
-export default CustomerOderNavigation;
