@@ -17,7 +17,7 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
-import CustomerOderNavigation from "../containers/CustomerOrderNavigation";
+import CustomerOderNavigation from "../pages/Order";
 import DummyPageProfile from '../pages/DummyPageProfile'
 import DummyPageAddress from '../pages/DummyPageAddress'
 import DummyPagePassword from '../pages/DummyPagePassword'
@@ -129,14 +129,8 @@ const routes = [
   },
   {
     path: PATH_URL.DASHBOARD_ORDER,
-    component : DummyPageOrder,
+    component : CustomerOderNavigation,
     layout : CustomerLayout,
-    needAuthenticated: true
-  },
-  {
-    path: "/customer-navigation-testing",
-    component: CustomerOderNavigation,
-    layout:FullLayout,
     needAuthenticated: true
   },
   {
