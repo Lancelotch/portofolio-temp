@@ -31,6 +31,19 @@ export default function FormAddress(props) {
     getAddress(props.id);
   }
 
+  async function getAddress(params) {
+    const response = await Address.get({
+      loading: setLoading,
+      params: params
+    });
+    if (response.status === 200) {
+      let address = response.data.data;
+      getCities(address.provinceId);
+      getSubdistricts(address.cityId);
+      setInitialValues(address);
+    }
+  }
+
   async function getProvinces() {
     const response = await Address.getListProvince({});
     if (response.status === 200) {
@@ -51,19 +64,6 @@ export default function FormAddress(props) {
     const response = await Address.getListSubdistrict({ params: params });
     if (response.status === 200) {
       setSubdistricts(response.data.data);
-    }
-  }
-
-  async function getAddress(params) {
-    const response = await Address.get({
-      loading: setLoading,
-      params: params
-    });
-    if (response.status === 200) {
-      let address = response.data.data;
-      getCities(address.provinceId);
-      getSubdistricts(address.cityId);
-      setInitialValues(address);
     }
   }
 
