@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import ModalFormAddress from "../../containers/ModalFormAddress";
 
 export default function Development() {
-  const [visible, setVisible] = useState(false);
+  const [visibleCreate, setVisibleCreate] = useState(false);
+  const [visibleUpdate, setVisibleUpdate] = useState(false);
   const [action, setAction] = useState("create");
   function handleCreate(){
       setAction("create");
-      setVisible(true);
+      setVisibleCreate(true);
   }
-  function handleEdit(){
+  function handleUpdate(){
     setAction("update");
-    setVisible(true);
+    setVisibleUpdate(true);
   }
   return (
     <React.Fragment>
-      <button onClick={handleCreate}>Create Address</button>
-      <button onClick={handleEdit}>Edit Address</button>
-      <ModalFormAddress action={action} visible={visible} onCancel={()=>setVisible(false)} id="2c80df93-4b82-4d4b-8f54-94a67b0abdb1"/>
+      <button onClick={() => handleCreate()}>Create Address</button>
+      <button onClick={() => handleUpdate()}>Edit Address</button>
+      <ModalFormAddress action={action} visible={visibleCreate} onCancel={()=>setVisibleCreate(false)} onSuccess={()=>setVisibleCreate(false)}/>
+      <ModalFormAddress action={action} visible={visibleUpdate} onCancel={()=>setVisibleUpdate(false)} onSuccess={()=>setVisibleUpdate(false)} id="8524ac9f-ec39-4e3b-8338-08d8cfd1543a"/>
     </React.Fragment>
   );
 }

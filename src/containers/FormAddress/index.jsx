@@ -2,52 +2,37 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Select, Row, Col, Card } from "antd";
 import { Formik } from "formik";
 import { schema } from "./schema";
-import address from "../../repository/Address";
+import Address from "../../repository/Address";
 import PropTypes from "prop-types";
 
 const { Option } = Select;
 const { TextArea } = Input;
 export default function FormAddress(props) {
-  const init = {
-    labelName: "",
-    receiverName: "",
-    phoneNumber: "",
-    fullAddress: "",
-    provinceId: "",
-    province: "",
-    cityId: "",
-    city: "",
-    subdistrictId: "",
-    subdistrict: "",
-    zipcode: "",
-    geolocation: { longitude: -6.219201, latitude: 107.172443 },
-    isDefault: false
-  };
   const titleCreate = "Tambah Alamat Pengiriman";
   const titleUpdate = "Rubah Alamat Pengiriman";
   const [loading, setLoading] = useState(false);
   const [provinces, setProvinces] = useState();
   const [cities, setCities] = useState();
   const [subdistricts, setSubdistricts] = useState();
-  const [initialValues, setInitialValues] = useState(init);
+  const [initialValues, setInitialValues] = useState();
   const [title, setTitle] = useState(titleCreate);
-
+  
   useEffect(() => {
+    props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
   }, []);
 
-  useEffect(()=>{
-    if(props.action === "create"){
-      setInitialValues(init);
-      setTitle(titleCreate);
-    }else{
-      getAddress(props.id);
-      setTitle(titleUpdate);
-    }
-  },[props.action])
+  function doCreate() {
+    setTitle(titleCreate);
+  }
+
+  function doUpdate() {
+    setTitle(titleUpdate);
+    getAddress(props.id);
+  }
 
   async function getProvinces() {
-    const response = await address.getListProvince({});
+    const response = await Address.getListProvince({});
     if (response.status === 200) {
       setProvinces(response.data.data);
     }
@@ -55,7 +40,7 @@ export default function FormAddress(props) {
 
   async function getCities(provinceId) {
     const params = { province: provinceId };
-    const response = await address.getListCity({ params: params });
+    const response = await Address.getListCity({ params: params });
     if (response.status === 200) {
       setCities(response.data.data);
     }
@@ -63,45 +48,45 @@ export default function FormAddress(props) {
 
   async function getSubdistricts(cityId) {
     const params = { city: cityId };
-    const response = await address.getListSubdistrict({ params: params });
+    const response = await Address.getListSubdistrict({ params: params });
     if (response.status === 200) {
       setSubdistricts(response.data.data);
     }
   }
 
   async function getAddress(params) {
-    const response = await address.get({
+    const response = await Address.get({
       loading: setLoading,
       params: params
     });
     if (response.status === 200) {
-      setInitialValues(response.data.data);
+      let address = response.data.data;
+      getCities(address.provinceId);
+      getSubdistricts(address.cityId);
+      setInitialValues(address);
     }
   }
 
-  async function create(params) {
-    return await address.create({
+  async function submitCreate(params) {
+    const response =  await Address.create({
       loading: setLoading,
       params: params
     });
+    return response;
   }
 
-  async function update(params) {
-    return await address.update({
+  async function submitUpdate(params) {
+    const response = await Address.update({
       loading: setLoading,
       params: params
     });
+    return response;
   }
 
   async function handleSubmit(params) {
-    let response = {};
-    if(props.action === "create"){
-      response = await create(params);
-    }else{
-      response = await update(params);
-    }
+    let response = props.action === "create" ? await submitCreate(params) : await submitUpdate(params);
     if (response.status === 200) {
-      props.onCancel();
+      props.onSuccess();
     }
   }
 
@@ -113,13 +98,12 @@ export default function FormAddress(props) {
       onSubmit={values => {
         handleSubmit(values);
       }}
+      validateOnChange={false}
     >
       {({
         values,
         errors,
-        touched,
         handleChange,
-        handleBlur,
         handleSubmit,
         setFieldValue,
       }) => (
@@ -127,44 +111,32 @@ export default function FormAddress(props) {
           <Form onSubmit={handleSubmit}>
             <Form.Item
               label="Nama Alamat"
-              validateStatus={errors.labelName && touched.labelName && "error"}
-              help={errors.labelName && touched.labelName && errors.labelName}
+              validateStatus={errors.labelName && "error"}
+              help={errors.labelName}
             >
               <Input
                 placeholder="Contoh: Rumah, Kantor, Kost, dll"
                 name="labelName"
                 onChange={handleChange}
                 value={values.labelName}
-                onBlur={handleBlur}
               />
             </Form.Item>
             <Form.Item
               label="Atas Nama"
-              validateStatus={
-                errors.receiverName && touched.receiverName && "error"
-              }
-              help={
-                errors.receiverName &&
-                touched.receiverName &&
-                errors.receiverName
-              }
+              validateStatus={errors.receiverName && "error"}
+              help={errors.receiverName}
             >
               <Input
                 placeholder="Atas Nama"
                 name="receiverName"
                 onChange={handleChange}
                 value={values.receiverName}
-                onBlur={handleBlur}
               />
             </Form.Item>
             <Form.Item
               label="No. Telepon"
-              validateStatus={
-                errors.phoneNumber && touched.phoneNumber && "error"
-              }
-              help={
-                errors.phoneNumber && touched.phoneNumber && errors.phoneNumber
-              }
+              validateStatus={ errors.phoneNumber && "error" }
+              help={ errors.phoneNumber }
             >
               <Input
                 placeholder="08xxx"
@@ -172,40 +144,31 @@ export default function FormAddress(props) {
                 type="number"
                 onChange={handleChange}
                 value={values.phoneNumber}
-                onBlur={handleBlur}
               />
             </Form.Item>
             <Form.Item
               label="Provinsi"
-              validateStatus={errors.province && touched.province && "error"}
-              help={errors.province && touched.province && errors.province}
+              validateStatus={errors.province && "error"}
+              help={errors.province}
             >
               <Select
                 showSearch
                 name="province"
                 placeholder="Select a province"
                 optionFilterProp="children"
-                onChange={option => {
-                  const split = option.split("|");
-                  setFieldValue("provinceId", split[0]);
-                  setFieldValue("province", split[1]);
-                  getCities(split[0]);
-                  values.city = "";
-                  values.cityId = "";
-                  values.subdistrict = "";
-                  values.subdistrictId = "";
+                onChange={value => {
+                  setFieldValue("provinceId", value);
+                  setFieldValue("cityId", "");
+                  setFieldValue("subdistrictId", "");
+                  getCities(value);
+                  setSubdistricts([]);
                 }}
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
-                }
-                value={values.province}
+                value={values.provinceId}
               >
                 {provinces &&
                   provinces.map(province => (
                     <Option
-                      value={`${province.province_id}|${province.province}`}
+                      value={province.province_id}
                       key={province.province_id}
                     >
                       {province.province}
@@ -215,33 +178,25 @@ export default function FormAddress(props) {
             </Form.Item>
             <Form.Item
               label="Kota / Kabupaten"
-              validateStatus={errors.city && touched.city && "error"}
-              help={errors.city && touched.city && errors.city}
+              validateStatus={errors.city && "error"}
+              help={errors.city}
             >
               <Select
                 showSearch
                 name="city"
                 placeholder="Select a City"
                 optionFilterProp="children"
-                onChange={option => {
-                  const split = option.split("|");
-                  setFieldValue("cityId", split[0]);
-                  setFieldValue("city", split[1]);
-                  getSubdistricts(split[0]);
-                  values.subdistrict = "";
-                  values.subdistrictId = "";
+                onChange={value => {
+                  setFieldValue("cityId", value)
+                  setFieldValue("subdistrictId", "");
+                  getSubdistricts(value);
                 }}
-                filterOption={(input, option) =>
-                  option.props.children
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
-                }
-                value={values.city}
+                value={values.cityId}
               >
                 {cities &&
                   cities.map(city => (
                     <Option
-                      value={`${city.city_id}|${city.city_name}`}
+                      value={city.city_id}
                       key={city.city_id}
                     >
                       {city.city_name}
@@ -253,36 +208,23 @@ export default function FormAddress(props) {
               <Col md={19}>
                 <Form.Item
                   label="Kecamatan"
-                  validateStatus={
-                    errors.subdistrict && touched.subdistrict && "error"
-                  }
-                  help={
-                    errors.subdistrict &&
-                    touched.subdistrict &&
-                    errors.subdistrict
-                  }
+                  validateStatus={ errors.subdistrict && "error" }
+                  help={ errors.subdistrict }
                 >
                   <Select
                     showSearch
                     name="subdistrict"
                     placeholder="Select a subdistrict"
                     optionFilterProp="children"
-                    onChange={option => {
-                      const split = option.split("|");
-                      setFieldValue("subdistrictId", split[0]);
-                      setFieldValue("subdistrict", split[1]);
+                    onChange={value => {
+                      setFieldValue("subdistrictId", value)
                     }}
-                    filterOption={(input, option) =>
-                      option.props.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                    value={values.subdistrict}
+                    value={values.subdistrictId}
                   >
                     {subdistricts &&
                       subdistricts.map(subdistrict => (
                         <Option
-                          value={`${subdistrict.subdistrict_id}|${subdistrict.subdistrict_name}`}
+                          value={subdistrict.subdistrict_id}
                           key={subdistrict.subdistrict_id}
                         >
                           {subdistrict.subdistrict_name}
@@ -294,39 +236,33 @@ export default function FormAddress(props) {
               <Col offset={1} md={4}>
                 <Form.Item
                   label="Kode Pos"
-                  validateStatus={errors.zipcode && touched.zipcode && "error"}
-                  help={errors.zipcode && touched.zipcode && errors.zipcode}
+                  validateStatus={errors.zipcode && "error"}
+                  help={errors.zipcode}
                 >
                   <Input
                     placeholder=""
                     name="zipcode"
                     onChange={handleChange}
                     value={values.zipcode}
-                    onBlur={handleBlur}
                   />
                 </Form.Item>
               </Col>
             </Row>
             <Form.Item
               label="Alamat Lengkap"
-              validateStatus={
-                errors.fullAddress && touched.fullAddress && "error"
-              }
-              help={
-                errors.fullAddress && touched.fullAddress && errors.fullAddress
-              }
+              validateStatus={ errors.fullAddress && "error" }
+              help={ errors.fullAddress }
             >
               <TextArea
                 placeholder="Atas Nama"
                 name="fullAddress"
                 onChange={handleChange}
                 value={values.fullAddress}
-                onBlur={handleBlur}
               />
             </Form.Item>
             <Row type="flex" justify="end">
               <Col md={4}>
-                <span onClick={props.onCancel}>Batalkan</span>
+                <span onClick={() => props.onCancel()}>Batalkan</span>
               </Col>
               <Col md={4}>
                 <Button
