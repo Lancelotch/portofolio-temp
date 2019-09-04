@@ -109,7 +109,7 @@ export default function Order(props) {
 
 
   async function productOrderTabs(status) {
-    let productOrder = await OrderRepo.tabs({
+    let productOrder = await OrderRepo.getByStatus({
       loading: setIsLoading,
       status: status,
       params: checkSortTabs(status)
