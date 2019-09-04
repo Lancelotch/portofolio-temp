@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.sass";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
@@ -10,7 +10,7 @@ import { notification, Card } from "antd";
 // import { PATH_CUSTOMER } from "../../api/path";
 import Customer from "../../repository/Customer";
 
-export default function ProfileCustomer(props) {
+export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
