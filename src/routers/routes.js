@@ -16,8 +16,13 @@ import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
-import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
+import NavigationCustomer from "../layouts/NavigationCustomer";
 import Search from "../pages/Search";
+import Profile from '../containers/ProfileCustomer'
+import DummyPageProfile from '../pages/DummyPageProfile'
+import DummyPageAddress from '../pages/DummyPageAddress'
+import DummyPagePassword from '../pages/DummyPagePassword'
+import DummyPageOrder from '../pages/DummyPageOrder'
 
 
  const routes = [
@@ -106,15 +111,27 @@ import Search from "../pages/Search";
     needAuthenticated: true
   },
   {
-    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
-    component: CustomerNavigation,
-    layout: SidebarNavigationCustomer,
+    path: PATH_URL.DASHBOARD_PROFILE,
+    component: DummyPageProfile,
+    layout: NavigationCustomer,
     needAuthenticated: true
   },
   {
-    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
-    component: CustomerNavigation,
-    layout: SidebarNavigationCustomer,
+    path: PATH_URL.DASHBOARD_ADDRESS,
+    component: DummyPageAddress,
+    layout: NavigationCustomer,
+    needAuthenticated: true
+  },
+  {
+    path: PATH_URL.DASHBOARD_PASSWORD,
+    component : DummyPagePassword,
+    layout: NavigationCustomer,
+    needAuthenticated: true
+  },
+  {
+    path: PATH_URL.DASHBOARD_ORDER,
+    component : DummyPageOrder,
+    layout : NavigationCustomer,
     needAuthenticated: true
   },
   {
