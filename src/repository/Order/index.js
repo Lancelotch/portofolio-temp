@@ -3,19 +3,17 @@ import { PATH_DASHBOARD_TAB } from "../../services/path/dashboard";
 
 async function tabs(props) {
     const loading = props.loading ? props.loading : function () { };
-    const productAlvailabel = props.productAlvailabel
-    const value = props.value
-    const sortListTabs = props.sortListTabs
+    const status = props.status
+    const params = props.params
     let response = ""
     loading(true)
     try {
-        response = await apiGetWithToken(`${PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD}${value}${sortListTabs}`);
-        productAlvailabel(false)
+        response = await apiGetWithToken(`${PATH_DASHBOARD_TAB.ORDER_STATUS_TAB_DASHBOARD}/${status}`, params);
         loading(false)
         return response
     } catch (error) {
         loading(false)
-        productAlvailabel(true)
+        return error
     }
 };
 

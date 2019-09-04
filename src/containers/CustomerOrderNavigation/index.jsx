@@ -8,8 +8,7 @@ import NoOrderHistory from "../../components/NoOrderHistory";
 import { Offline, Online, Detector } from "react-detect-offline";
 import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
-import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
-import { loadingItems } from "../../library/loadingSpin";
+import LoadingSpin from "../../library/loadingSpin";
 import { alertOffline } from "../../library/alertOffiline";
 import Order from "../../repository/Order";
 
@@ -30,7 +29,7 @@ export default function CustomerOderNavigation(props) {
   const [invoiceNumber, setInvoiceNumber] = useState("")
   const [id, setId] = useState("")
   //const [keyIndex, setKeyIndex] = useState(0)
-  const [isProductAlvailabel, setIsProductAlvailabel] = useState(false)
+  const [isOrderAlvailable, setIsOrderAlvailable] = useState(false)
   const [isHowToShowModalOpen, setIsHowToShowModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState(null)
   const [isShowDashboardItem, setIsShowDashboardItem] = useState(false)
@@ -91,51 +90,60 @@ export default function CustomerOderNavigation(props) {
   };
 
 
-  function checkSortTabs(value) {
-    let sortListTabsNotPayCancel = ""
-    if (value === 0 || value === 4) {
-        sortListTabsNotPayCancel = "?direction=desc&sortBy=orderActivityDate.orderDate"
+  function checkSortTabs(status) {
+    let params = {}
+    if (status === 0 || status === 4) {
+      params = {
+        direction : "desc",
+        sortBy: "orderActivityDate.orderDate"
+
+      }
     } else {
-        sortListTabsNotPayCancel = "?direction=desc&sortBy=creationDate"
+      params = {
+        direction: "desc",
+        sortBy:"creationDate"
+      }
     }
-    return sortListTabsNotPayCancel
+    return params
 }
 
 
-  async function productOrderTabs(value) {
+  async function productOrderTabs(status) {
     let productOrder = await Order.tabs({
       loading: setIsLoading,
-      value: value,
-      productAlvailabel: setIsProductAlvailabel,
-      sortListTabs: checkSortTabs(value)
-    })
+      status: status,
+      params: checkSortTabs(status)
+    })    
     if (productOrder.status === 200) {
       setProductOrder(productOrder.data.data)
+      setIsOrderAlvailable(true)
+    } else {
+      setIsOrderAlvailable(false)
     }
   };
 
-  function updateTab(functions) {
-    setProductOrder([])
-    functions()
-  };
+  // function updateTab(functions) {
+  //   setProductOrder([])
+  //   functions()
+  // };
 
   function handleChange(selectkey) {
     setActiveKey(selectkey)
     switch (selectkey) {
       case "1":
-        updateTab(() => productOrderTabs(0));
+        productOrderTabs(0)
         break;
       case "2":
-        updateTab(() => productOrderTabs(1));
+        productOrderTabs(1)
         break;
       case "3":
-        updateTab(() => productOrderTabs(2));
+        productOrderTabs(2)
         break;
       case "4":
-        updateTab(() => productOrderTabs(3));
+        productOrderTabs(3)
         break;
       case "5":
-        updateTab(() => productOrderTabs(4));;
+       productOrderTabs(4)
         break;
       default:
         console.log("error");
@@ -147,10 +155,7 @@ export default function CustomerOderNavigation(props) {
   }
 
   function itemList(list) {
-    return isProductAlvailabel === true ?
-      isLoading === true ? false :
-        isProductAlvailabel && <NoOrderHistory /> :
-      list.content;
+    return isOrderAlvailable ? list.content : <NoOrderHistory />;
   }
 
   function responseListWaiting(
@@ -188,9 +193,7 @@ export default function CustomerOderNavigation(props) {
   }
 
   function listWaiting(isShow, labelTabDetails, estimateAccepted) {
-    return isLoading ?
-      loadingItems(isLoading) :
-      responseListWaiting(isShow, productOrder, labelTabDetails, estimateAccepted);
+    return responseListWaiting(isShow, productOrder, labelTabDetails, estimateAccepted);
   }
 
   const listTabsContent = [
@@ -225,7 +228,6 @@ export default function CustomerOderNavigation(props) {
 
   return (
     <div className="mp-customer-order-navigation">
-      <ScrollToTopOnMount />
       {isShowDetailDashboard === false ?
         <Tabs activeKey={activeKey} onChange={handleChange}>
           {listTabsContent.map(list => {
@@ -241,7 +243,7 @@ export default function CustomerOderNavigation(props) {
                     <Detector
                       render={() =>
                         <Online polling={polling}>
-                          {itemList(list)}
+                          {isLoading ? <LoadingSpin/> : itemList(list)}
                         </Online>} />
                   </React.Fragment>} />)
           })}
