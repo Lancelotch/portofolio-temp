@@ -8,6 +8,7 @@ import { Icon, Menu } from "antd";
 import strings from "../../localization/localization";
 import ProfileMain from "../../containers/ProfileMain";
 import PATH_URL from '../../routers/path'
+import "./style.sass"
 
 const { SubMenu } = Menu;
 

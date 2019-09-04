@@ -1,8 +1,8 @@
 import React, {  useState, useEffect } from "react";
 import { Tabs, Modal } from "antd";
 import { CustomTabPane } from "../../components/CustomTabDashboard";
-import OrderListWaiting from "../OrderListWaiting";
-import OrderDetailsDashboard from "../OrderDetailsDashboard";
+import OrderListWaiting from "../../containers/OrderListWaiting";
+import OrderDetailsDashboard from "../../containers/OrderDetailsDashboard";
 import { PATH_INVOICE } from "../../services/path/invoice"
 import NoOrderHistory from "../../components/NoOrderHistory";
 import { Offline, Online, Detector } from "react-detect-offline";
@@ -10,7 +10,7 @@ import strings from "../../localization/localization";
 import { patchService } from "../../api/services";
 import LoadingSpin from "../../library/loadingSpin";
 import { alertOffline } from "../../library/alertOffiline";
-import Order from "../../repository/Order";
+import OrderRepo from "../../repository/Order";
 
 const confirm = Modal.confirm;
 
@@ -20,7 +20,7 @@ const polling = {
   timeout: 1000
 };
 
-export default function CustomerOderNavigation(props) {
+export default function Order(props) {
   const [isShowDetailDashboard, setIsShowDetailDashboard] = useState(false)
   const [order, setOrder] = useState([])
   const [activeKey, setActiveKey] = useState("1")
@@ -109,7 +109,7 @@ export default function CustomerOderNavigation(props) {
 
 
   async function productOrderTabs(status) {
-    let productOrder = await Order.tabs({
+    let productOrder = await OrderRepo.tabs({
       loading: setIsLoading,
       status: status,
       params: checkSortTabs(status)
