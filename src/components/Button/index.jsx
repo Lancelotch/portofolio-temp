@@ -15,7 +15,6 @@ export default function Button(props) {
         'mp-btn-white': (props.type === 'white'),
         'mp-btn-danger': (props.type === 'danger'),
         'mp-btn-link': (props.type === 'link'),
-        'mp-btn-disabled': (props.type === 'disabled'),
         'mp-btn-width-full': (props.width === 'full'),
         'mp-btn-size-large': (props.size === 'large'),
         'mp-btn-size-x-large': (props.size === 'xlarge'),
@@ -36,7 +35,7 @@ export default function Button(props) {
 }
 
 Button.propTypes = {
-    type: propTypes.oneOf(['primary', 'default', 'secondary', 'teal', 'white', 'link', 'danger', 'grey', 'circle-small', 'disabled']),
+    type: propTypes.oneOf(['primary', 'default', 'secondary', 'teal', 'white', 'link', 'danger', 'grey', 'circle-small']),
     width: propTypes.oneOf(['default', 'full', 'string number of percentage']),
     size: propTypes.oneOf(['default', 'large', 'xlarge']),
     margin: propTypes.oneOf(['small', 'medium', 'large'])

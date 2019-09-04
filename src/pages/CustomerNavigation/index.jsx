@@ -7,9 +7,12 @@ import ProfileCustomer from "../../containers/ProfileCustomer";
 import ProfileMain from "../../containers/ProfileMain";
 import PasswordDashboard from "../../containers/PasswordDashboard";
 import strings from "../../localization/localization";
+import { Link } from 'react-router-dom'
+// import { useRootContext } from "../../hoc/RootContext";
+
 
 const { SubMenu } = Menu;
-
+// const {history} = useRootContext();
 class CustomerNavigation extends Component {
   componentDidMount() {
     let keyTabs = this.props.match.params
