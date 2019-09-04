@@ -1,17 +1,16 @@
 import React from "react";
 import { Modal } from "antd";
-import EditAddress from "../EditAddress";
-import CreateAddress from "../CreateAddress";
 import PropTypes from "prop-types";
+import FormAddress from "../FormAddress";
 
 export default function ModalFormAddress(props) {
   return (
     <Modal visible={props.visible} onCancel={props.onCancel} footer={null}>
-      {props.action === "create" ? (
-        <CreateAddress onCancel={props.onCancel} />
-      ) : (
-        <EditAddress onCancel={props.onCancel} id={props.addressId} />
-      )}
+      <FormAddress
+        action={props.action}
+        onCancel={props.onCancel}
+        id={props.id}
+      />
     </Modal>
   );
 }
@@ -19,7 +18,8 @@ export default function ModalFormAddress(props) {
 ModalFormAddress.propTypes = {
   visible: PropTypes.bool,
   action: PropTypes.string,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
+  id: PropTypes.string
 };
 
 ModalFormAddress.defaultProps = {
