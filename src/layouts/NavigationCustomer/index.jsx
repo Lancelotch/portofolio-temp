@@ -56,11 +56,12 @@ export default function NavigationCustomer (props) {
                                         className="mp-dashboard-user__title"
                                         key={'profile'}
                                         title={
-                                        <span>
-                                            <Icon type="user" style={{ fontSize: 19 }} />
-                                            {strings.my_account}
-                                        </span>
-                                        }>
+                                            <span>
+                                                <Icon type="user" style={{ fontSize: 19 }} />
+                                                {strings.my_account}
+                                            </span>
+                                            }
+                                    >
                                         <Menu.Item key="profile" onClick={() => history.push(PATH_URL.DASHBOARD_PROFILE)}  >{strings.profile}</Menu.Item>
                                         <Menu.Item key="address" onClick={() => history.push(PATH_URL.DASHBOARD_ADDRESS) } >{strings.change_address}</Menu.Item>
                                         <Menu.Item key="password" onClick={() => history.push(PATH_URL.DASHBOARD_PASSWORD) } >{strings.password}</Menu.Item>
