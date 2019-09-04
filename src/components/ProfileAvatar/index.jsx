@@ -68,10 +68,23 @@ const ProfileAvatar = props => {
         </Upload>
         <div className="profile-avatar__error">
           {isErrorFormat === true && (
-            <p>Format file yang diupload tidak sesuai.</p>
+            <span>
+              Format file yang diupload tidak sesuai.
+              <br />
+            </span>
           )}
-          {isErrorSize === true && <p>Ukuran gambar lebih dari 3 mb.</p>}
-          {isErrorDimension === true && <p>Minimal height / width 450 px.</p>}
+          {isErrorSize === true && (
+            <span>
+              Ukuran gambar lebih dari 3 mb.
+              <br />
+            </span>
+          )}
+          {isErrorDimension === true && (
+            <span>
+              Minimal height / width 450 px.
+              <br />
+            </span>
+          )}
         </div>
       </Col>
     </Row>
