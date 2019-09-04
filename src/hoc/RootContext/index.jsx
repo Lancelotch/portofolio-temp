@@ -17,14 +17,14 @@ const RootContext = props => {
       case "login":
         return {
           ...state,
-          isAuthenticated: true,
+          isAuthenticated: action.isAuthenticated,
           authBody: { ...action.payload }
         };
       case "logout":
         return {
           ...state,
           isAuthenticated: false,
-          authBody: null
+          authBody: {}
         };
       default:
         return state;
@@ -32,50 +32,34 @@ const RootContext = props => {
   };
   const [state, dispatch] = useReducer(reducer, prevAuthenticated);
   const login = async payload => {
-    try {
-      setIsSubmitting(true);
-      const response = await authentication.login({param: payload});
-      if (response.status === 200) {
-        const token = response.data.data.access_token;
-        window.localStorage.setItem(
-          "authenticated",
-          JSON.stringify({ isAuthenticated: true, authBody: response.data.data })
-        );
-        window.localStorage.setItem("token", token);
-        dispatch({
-          type: "login",
-          payload: response.data.data
-        });
-      }
-      setIsSubmitting(false);
-    } catch (error) {
-      console.log(error);
-      setIsSubmitting(false);
-    }
+    const response = await authentication.login({param: payload, loading: setIsSubmitting});
+    actionRegisterLogin(response);
   };
 
   const register = async payload => {
-    try {
-      setIsSubmitting(true);
-      const response = await authentication.register({param: payload});
-      if (response.status === 200) {
-        const token = response.data.data.access_token;
+    const response = await authentication.register({param: payload, loading: setIsSubmitting});
+    actionRegisterLogin(response);
+  };
+
+  function actionRegisterLogin(response) {
+    let isAuthenticated = false;
+    if (response.status === 200) {
+      const token = response.data.data.access_token;
+      if(token !== "") {
+        isAuthenticated = true;
         window.localStorage.setItem(
           "authenticated",
           JSON.stringify({ isAuthenticated: true, authBody: response.data.data })
         );
         window.localStorage.setItem("token", token);
-        dispatch({
-          type: "login",
-          payload: response.data.data
-        });
       }
-      setIsSubmitting(false);
-    } catch (error) {
-      console.log(error);
-      setIsSubmitting(false);
     }
-  };
+    dispatch({
+      type: "login",
+      isAuthenticated: isAuthenticated,
+      payload: response.data && response.data.data ? response.data.data : response
+    });
+  }
 
   const logout = () => {
     window.localStorage.removeItem("authenticated");

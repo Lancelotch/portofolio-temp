@@ -39,12 +39,13 @@
         padding-top: 30px
         display: flex
         justify-content: center
+    &__search-box .ant-form-item
+        margin: 0
     &__search 
         height: 48px
     &__search input
         background-color: $color-snow
     &__categories
-        // font-size: 18px
         display: flex
         flex-direction: row
         padding-top: 12px
@@ -55,7 +56,6 @@
     &__menu
         color: $color-grey
         font-size: 14px
-        // line-height: 16px
         margin-right: 20px 
         height: 16px
         display: inline-block
@@ -68,13 +68,9 @@
         transition: width .3s
     &__menu:hover
         color: $color-teal
-    // &__menu:hover::after
-    //     width: 100%
-    //     transition: width .3s
     &__greeting
         padding-top: 12px
         height: 16px
-        // width: 134px
         color: $color-black
         font-size: 14px
         line-height: 16px
@@ -86,26 +82,18 @@
         font-weight: 500
         color: $color-safety-orange
     &__user-box
-        // margin-top: -15px
-        // margin-bottom: 5px
         margin-left: 32px
         display: flex
         padding-top: 10px
     &__user-icon
-        // padding-top: 27px
-        // margin-left:5px
         font-size: 18px
+        color: $color-grey
     &__user-box span
         color: $color-teal
         font-size: 14px
-        // line-height: 16px
-        // padding-top: 12px
         cursor: pointer
-        margin-left: 5px
+        margin-left: 3px
         margin-right: 3px
-    &__name-icon
-        padding-top: 7px
-        color: $color-silver !important
     &__user-box .wrap-header-dropdown .header-ellipsis
         max-width: 90px !important
         white-space: nowrap
@@ -161,10 +149,6 @@
         margin-top: 26px
         cursor: pointer
         background-color: $color-white
-    // &__user-menu li button:hover
-    //     color: $secondary-color
-    //     border-color: $secondary-color
-
 
 .header .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) 
     border-color: $color-teal !important

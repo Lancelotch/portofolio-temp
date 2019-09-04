@@ -7,7 +7,6 @@ import Confirmation from "../pages/Confirmation";
 import Products from "../pages/Products";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
-import CustomerNavigation from "../pages/CustomerNavigation";
 import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
@@ -16,14 +15,14 @@ import ConfirmationError from "../pages/ConfirmationError";
 import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
-import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
+import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
 import FormAddAddress from "../containers/FormAddAddress";
 import FormAddress from "../containers/FormAddress";
 import Development from "../pages/Development";
 
 
- const routes = [
+const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
@@ -109,15 +108,27 @@ import Development from "../pages/Development";
     needAuthenticated: true
   },
   {
-    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_1,
-    component: CustomerNavigation,
-    layout: SidebarNavigationCustomer,
+    path: PATH_URL.DASHBOARD_PROFILE,
+    component: DummyPageProfile,
+    layout: CustomerLayout,
     needAuthenticated: true
   },
   {
-    path: PATH_URL.DASHBOARD_CUSTOMER_LEVEL_2,
-    component: CustomerNavigation,
-    layout: SidebarNavigationCustomer,
+    path: PATH_URL.DASHBOARD_ADDRESS,
+    component: DummyPageAddress,
+    layout: CustomerLayout,
+    needAuthenticated: true
+  },
+  {
+    path: PATH_URL.DASHBOARD_PASSWORD,
+    component : DummyPagePassword,
+    layout: CustomerLayout,
+    needAuthenticated: true
+  },
+  {
+    path: PATH_URL.DASHBOARD_ORDER,
+    component : Order,
+    layout : CustomerLayout,
     needAuthenticated: true
   },
   {
