@@ -28,7 +28,7 @@ export default function NavigationCustomer (props) {
     },[])
 
     function getTabActive () {
-        const routeTab = props.children.props.location.pathname
+        const routeTab = window.location.pathname
         const splitRoute = routeTab.split('/')
         const tabActive = splitRoute[splitRoute.length -1]
         setActiveTab(tabActive)
