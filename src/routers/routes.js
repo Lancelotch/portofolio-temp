@@ -18,6 +18,9 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import SidebarNavigationCustomer from "../layouts/NavigationCustomer";
 import Search from "../pages/Search";
+import FormAddAddress from "../containers/FormAddAddress";
+import FormAddress from "../containers/FormAddress";
+import Development from "../pages/Development";
 
 
  const routes = [
@@ -130,12 +133,17 @@ import Search from "../pages/Search";
     needAuthenticated: false
   },
   {
+    path: '/address',
+    component: Development,
+    layout: FullLayout,
+    needAuthenticated: true
+  },
+  {
     path: PATH_URL.NOT_FOUND_PAGE,
     component: NotFoundPage,
     layout: MainLayout,
     needAuthenticated: false
   }
-
 ];
 
 export default routes
