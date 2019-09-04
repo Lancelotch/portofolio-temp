@@ -7,34 +7,39 @@ import PATH_URL from "../../routers/path";
 
 import "./style.sass";
 
-const UserBreadcrumbLevel1 = ({ match }) => (
+const CategoryBreadCrumbLevel1 = ({ match }) => (
   <span>{escapeRegExp(match.params.categoryLevel1)}</span>
 );
 
-const UserBreadcrumbLevel2 = ({ match }) => (
+const CategoryBreadCrumbLevel2 = ({ match }) => (
   <span>{escapeRegExp(match.params.categoryLevel2)}</span>
 );
 
-const UserBreadcrumbLevel3 = ({ match }) => (
+const CategoryBreadCrumbLevel3 = ({ match }) => (
   <span>{escapeRegExp(match.params.categoryLevel3)}</span>
 );
 
+
 const breadcrumbRoutes = [
-  { path: `${PATH_URL.CATEGORY_LEVEL_1}`, breadcrumb: UserBreadcrumbLevel1 },
+  {
+    path: `${PATH_URL.CATEGORY_LEVEL_1}`, 
+    breadcrumb: CategoryBreadCrumbLevel1
+  },
   {
     path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}`,
-    breadcrumb: UserBreadcrumbLevel2
+    breadcrumb: CategoryBreadCrumbLevel2
   },
   {
-    path: `${
-      PATH_URL.CATEGORY_LEVEL_1
-    }/:${"categoryLevel2"}/:${"categoryLevel3"}`,
-    breadcrumb: UserBreadcrumbLevel3
+    path: `${PATH_URL.CATEGORY_LEVEL_1}/:${"categoryLevel2"}/:${"categoryLevel3"}`,
+    breadcrumb: CategoryBreadCrumbLevel3
   },
-  { path: `${PATH_URL.PRODUCT_DETAIL}`, breadcrumb: "product detail" }
+  {
+    path: `${PATH_URL.PRODUCT_DETAIL}`, 
+    breadcrumb: "product detail"
+  }
 ];
 
-const Breadcrumbs = ({ breadcrumbs, information }) => {
+const Breadcrumbs = ({ breadcrumbs, information,category }) => {
   const extraBreadcrumbItems = breadcrumbs.map(
     ({ breadcrumb, path, match }) => {
       return (
@@ -57,7 +62,7 @@ const Breadcrumbs = ({ breadcrumbs, information }) => {
     <div style={{ marginTop: 30 }}>
       <Breadcrumb separator=">" className="mp-breadcrumbs">
         {breadcrumbItems}
-        <Breadcrumb.Item>{information}</Breadcrumb.Item>
+        <Breadcrumb.Item>{category.level1}{information}</Breadcrumb.Item>
       </Breadcrumb>
     </div>
   );

@@ -1,7 +1,7 @@
 import {  apiGetWithToken } from "../../services/api";
 import { PATH_DASHBOARD_TAB } from "../../services/path/dashboard";
 
-async function tabs(props) {
+async function getByStatus(props) {
     const loading = props.loading ? props.loading : function () { };
     const status = props.status
     const params = props.params
@@ -18,7 +18,7 @@ async function tabs(props) {
 };
 
 const Order = {
-    tabs : tabs
+    getByStatus : getByStatus
 }
 
 export default Order;

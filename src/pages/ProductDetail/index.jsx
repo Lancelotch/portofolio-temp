@@ -15,6 +15,9 @@ import Breadcrumbs from "../../components/Breadcrumbs/index.js";
 import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
+import { apiGetWithoutToken } from "../../services/api";
+import { PATH_CATEGORY_BREADCRUMBS } from "../../services/path/breadCrumbCategory";
+import Breadcrumb from "../../repository/Breadcrumb";
 
 
 const { Text } = Typography
@@ -38,6 +41,8 @@ export default function ProductDetail(props) {
   const [product, setProduct] = useState({})
   const [isProductAvailable, setIsProductAvailable] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [categoryId,setCategoryId] = useState("")
+  const [categoryLevel,setCategoryLevel] = useState({})
   const { isAuthenticated } = useRootContext()
 
 
@@ -47,21 +52,36 @@ export default function ProductDetail(props) {
   }, [])
 
 
+
+  async function getCategory () {
+    let category = Breadcrumb.getBreadCrumb({
+      
+    })
+
+  };
+
+  console.log(categoryId);
+    
+
   async function getProductDetail() {
     let productDetail = await Product.getById({
       loading: setLoading,
       productId: props.match.params.productId
     })
+    const product = productDetail.data.data
+    console.log(product);
+    getCategory(product.information.category.id)
     if (productDetail.status === 200) {
-      setDefaultImage(productDetail.data.data.defaultImage)
-      setProduct(productDetail.data.data)
-      setImages(productDetail.data.data.images)
-      setVariants(productDetail.data.data.variants)
-      setInformation(productDetail.data.data.information)
-      setPrice(productDetail.data.data.price)
-      setId(productDetail.data.data.id)
+      setDefaultImage(product.defaultImage)
+      setCategoryId(product.information.category.id)
+      setProduct(product)
+      setImages(product.images)
+      setVariants(product.variants)
+      setInformation(product.information)
+      setPrice(product.price)
+      setId(product.id)
       setIsProductAvailable(true)
-      setVideoUrl(productDetail.data.data.videoUrl)
+      setVideoUrl(product.videoUrl)
     }
   };
 
@@ -142,7 +162,7 @@ export default function ProductDetail(props) {
 
   return (
     <React.Fragment>
-      <Breadcrumbs information={information.name} />
+      <Breadcrumbs category={categoryLevel} information={information.name} />
       <div className="container mp-product-detail">
         <Row>
           <Col md={10}>
