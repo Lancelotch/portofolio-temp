@@ -63,11 +63,11 @@ export default function Profile() {
   }
 
   async function uploadImage({ onError, onSuccess, file }) {
-    let params = new FormData();
-    params.append("file", file);
+    let formData = new FormData();
+    formData.append("file", file);
     const request = {
       loading: setLoading,
-      params: params
+      params: formData
     };
     const isDimension = await checkDimension(file);
     if (isDimension.height >= 450 && isDimension.width >= 450) {
