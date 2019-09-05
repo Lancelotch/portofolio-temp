@@ -16,6 +16,7 @@ import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
 import Breadcrumb from "../../repository/Breadcrumb/index";
+import { convertToCategoryName } from "../../library/regex";
 
 
 const { Text } = Typography
@@ -154,7 +155,7 @@ export default function ProductDetail(props) {
   Object.values(breadcrumbsApi).forEach((value, index) => {
     pathTemp = pathTemp + "/" + value
     const breadcrumb = {
-      label: value,
+      label: convertToCategoryName(value),
       link: pathTemp
     }
     breadcrumbs.push(breadcrumb);
