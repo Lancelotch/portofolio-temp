@@ -5,9 +5,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
 import Spinner from "../../components/Spinner";
 import SortListProduct from "../../components/SortListProduct";
-import Breadcrumbs from "../../components/Breadcrumbs/index.js";
-import { escapeRegExp } from "../../library/regex";
+import { convertToCategoryName } from "../../library/regex";
 import Product from "../../repository/Product";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -77,18 +77,31 @@ export default function Category(props) {
     setHasMore(true);
   }
 
+  let breadcrumbs = []
+  let pathTemp = "/category";
+
+  Object.values(params).forEach((value,index)=>{
+    pathTemp = pathTemp + "/" + value    
+    const breadcrumb = {
+      label : convertToCategoryName(value),
+      link : pathTemp
+    }
+    breadcrumbs.push(breadcrumb);
+  })
+
+
   function infiniteScroll() {
     const categoryIdName =
       params[Object.keys(params)[Object.keys(params).length - 1]];
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
-      <b style={{ color: "#FF416C" }}>{escapeRegExp(categoryIdName)}</b>
+      <b style={{ color: "#FF416C"}}>{convertToCategoryName(categoryIdName)}</b>
     );
     return (
       <div style={{ marginTop: 24 }}>
         <div style={{margin: "0 24px"}}>
-          <Breadcrumbs />
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
         </div>
         <Divider style={{ margin: "12px 0" }} />
         <div

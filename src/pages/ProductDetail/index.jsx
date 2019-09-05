@@ -11,7 +11,7 @@ import Quantity from "../../components/Quantity";
 import "./style.sass";
 import Skeleton from "react-loading-skeleton";
 import ProductQnA from "../../containers/ProductQnA";
-import Breadcrumbs from "../../components/Breadcrumbs/index.js";
+import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
 import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
@@ -39,7 +39,7 @@ export default function ProductDetail(props) {
   const [product, setProduct] = useState({})
   const [isProductAvailable, setIsProductAvailable] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [categoryLevel, setCategoryLevel] = useState({})
+  const [breadcrumbsApi, setBreadcrumbsApi] = useState({})
   const { isAuthenticated } = useRootContext()
 
 
@@ -48,16 +48,12 @@ export default function ProductDetail(props) {
     getProductDetail()
   }, [])
 
-
-
-  async function getCategory(categoryId) {
-    let category = await Breadcrumb.getBreadCrumb({
+  async function getBradcrumb(categoryId) {
+    let breadcrumbs = await Breadcrumb.getByCategory({
       params: categoryId
     })
-    setCategoryLevel(category.data.data)
+    setBreadcrumbsApi(breadcrumbs.data.data)
   };
-
-
 
   async function getProductDetail() {
     let productDetail = await Product.getById({
@@ -76,7 +72,7 @@ export default function ProductDetail(props) {
       setIsProductAvailable(true)
       setVideoUrl(product.videoUrl)
     }
-    getCategory(product.information.category.id)
+    getBradcrumb(product.information.category.id)
   };
 
   function actionUpdateSku(sku) {
@@ -152,10 +148,28 @@ export default function ProductDetail(props) {
   };
 
   let totalShipping = countTotalAmount();
+  let breadcrumbs = []
+  let pathTemp = "/category";
+
+  Object.values(breadcrumbsApi).forEach((value, index) => {
+    pathTemp = pathTemp + "/" + value
+    const breadcrumb = {
+      label: value,
+      link: pathTemp
+    }
+    breadcrumbs.push(breadcrumb);
+  })
+
+  const breadcrumbNameProduct = {
+    label: information.name
+  }
+
+  breadcrumbs.push(breadcrumbNameProduct)
+
 
   return (
     <React.Fragment>
-      {categoryLevel && <Breadcrumbs category={categoryLevel} information={information} />}
+      <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
       <div className="container mp-product-detail">
         <Row>
           <Col md={10}>

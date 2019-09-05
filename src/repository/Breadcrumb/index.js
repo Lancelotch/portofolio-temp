@@ -1,7 +1,7 @@
 import {   apiGetWithoutToken } from "../../services/api";
 import { PATH_CATEGORY } from "../../services/path/category";
 
-async function getBreadCrumb(props) {
+async function getByCategory(props) {
     const loading = props.loading ? props.loading : function () { };
     const params = props.params
     let response = ""
@@ -17,7 +17,7 @@ async function getBreadCrumb(props) {
 };
 
 const Breadcrumb = {
-    getBreadCrumb : getBreadCrumb
+    getByCategory : getByCategory
 }
 
 export default Breadcrumb;
