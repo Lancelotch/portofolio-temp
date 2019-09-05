@@ -1,5 +1,5 @@
 //CATEGORY 
-const CATEGORY_FEATURE = "category";
+const CATEGORY = "category";
 export const PATH_CATEGORY = {
-    CATEGORY_FEATURE: CATEGORY_FEATURE,
+    CATEGORY: CATEGORY,
 }
