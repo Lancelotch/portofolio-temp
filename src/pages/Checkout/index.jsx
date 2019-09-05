@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Row, Col, Spin } from "antd";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Spin, Form } from "antd";
+// import { connect } from "react-redux";
 import FormAddAddress from "../../containers/FormAddAddress";
-import { addressDefault } from "../../store/actions/address";
+// import { addressDefault } from "../../store/actions/address";
 import {
   apiPostWithToken,
   apiGetWithToken,
-  apiPutWithToken
+  // apiPutWithToken
 } from "../../services/api/index";
 import { PATH_CUSTOMER, PATH_ORDER} from "../../api/path";
 import {PATH_SHIPPING} from "../../services/path/shipping";
@@ -16,76 +16,67 @@ import AddressList from "../../containers/AddressList";
 import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
-import ModalSuccess from '../../modal/ModalRegisterSuccess'
-import { openModal } from "../../store/actions/authentication"
+// import ModalSuccess from '../../modal/ModalRegisterSuccess'
+// import { openModal } from "../../store/actions/authentication"
 import { pageUrlPaymentInfo } from "../../library/url"
 import "./style.sass";
 import history from "../../routers/history";
 import { Link } from "react-router-dom";
+import { Formik } from 'formik'
+import schemaOrder from './schema'
 
-class Checkout extends Component {
-  constructor() {
-    super();
-    this.state = {
-      visibleAddAddress: false,
-      visibleEditAddress: false,
-      visibleListAddress: false,
-      addresses: [],
-      customerAddress: {},
-      productId: "",
-      priceProduct: 0,
-      shipment: "sea",
-      variants: [],
-      productSkuId: "",
-      quantity: 1,
-      note: "",
-      isProductDetailAvailable: false,
-      textButton: "Lanjut Belanja",
-      cities: [],
-      subdistricts: [],
-      jneChecked: false,
-      totalAmount: 0,
-      maxOrder: 0,
-      shipmentFee: {},
-      priceJne: 0,
-      isLoading: false
-    };
-  }
+export default function Checkout (props){
+  const [isLoading, setIsLoading] = useState(false)
+  const [visibleAddAddress, setVisibleAddAddress] = useState(false)
+  const [visibleEditAddress, setVisibleEditAddress] = useState(false)
+  const [visibleListAddress, setVisibleListAddress] = useState(false)
+  const [customerAddress, setCustomerAddress] = useState({})
+  const [addresses, setAddresses] = useState([])
+  // const [cities, setCities] = useState([])
+  const [subdistricts, setSubdistricts] = useState([])
+  const [isProductDetailAvailable, setIsProductDetailAvailable] = useState(false)
+  const [shipmentFee, setShipmentFee] = useState({})
+  const [maxOrder, setMaxOrder] = useState(0)
+  const [priceProduct, setPriceProduct] = useState(0)
+  const [priceJne, setPriceJne] = useState(0)
+  // const [quantity, setQuantity] = useState(1)
+  const [payloadProductDetail, setPayloadProductDetail] = useState({})
+  const [jneChecked, setJneChecked] = useState(false)
+  const [payload, setPayload] = useState({
+    customerAddressId : '5d79413c-a81f-4f9c-8701-8684b1ee6199',
+    amount : 0,
+    items : [
+      {
+        notes : '',
+        productId : '',
+        quantity : 1,
+        shipment : 'sea',
+        variants : []
+      }
+    ]
+  })
 
-  snap = window.snap;
+  useEffect(() => {
+    getListAddress();
+    getPayloadProductDetail();
+    
+    initCustomerAddress();
+    getFareExpedisi();
+    getSubdistrict()
+  },[priceJne])
 
-  componentDidMount() {
-    this.getListAddress();
-    this.getPayloadProductDetail();
-    this.initCustomerAddress();
-    this.getFareExpedisi();
-    // this.getSubdistrict()
-  }
-
-  
-  UNSAFE_componentWillReceiveProps(props) {
-    if (!props.isAddressAvailable) {
-      this.setState({
-        customerAddress: props.dataAddressDefault
-      });
-    }
-  }
-
-  getCities = async id => {
-    const params = {
-      province: id
-    };
-    try {
-      const response = await apiGetWithToken(
-        PATH_CUSTOMER.ADDRESS_CITY,
-        params
-      );
-      this.setState({ cities: response.data.data });
-    } catch (error) {
-      console.log(error);
-    }
+  async function initCustomerAddress () {
+    // await props.addressDefault();
+    // this.setState(
+    //   { customerAddress: this.props.dataAddressDefault }
+    //   , () => {
+    //     this.getCities(this.state.customerAddress.provinceId);
+    //     this.getSubdistrict(this.state.customerAddress.cityId);
+    //   }
+    // );
   };
-  getSubdistrict = async id => {
+
+  async function getSubdistrict (id) {
     const params = {
       city: id
     };
@@ -94,41 +85,100 @@ class Checkout extends Component {
         PATH_CUSTOMER.ADDRESS_SUBDISTRICT,
         params
       );
-      this.setState({ subdistricts: response.data.data });
+      setSubdistricts(response.data.data)
     } catch (error) {
       console.log(error);
     }
   };
 
-  splitValue = value => {
-    const splitValue = value.split("|");
-    return splitValue;
-  };
+  async function getFareExpedisi () {
+    try {
+      const response = await apiPostWithToken(PATH_SHIPPING.JNE, {})
+      setPriceJne(response.data.data.price)
+    } catch (error) {
+      console.log(error);
 
-  handleChangeCity = value => {
-    const city = this.splitValue(value);
-    this.setState(
-      {
-        cityId: city[0],
-        city: city[1]
-      },
-      () => this.getSubdistrict(city[0])
-    );
-  };
+    }
+  }
 
-  initCustomerAddress = async () => {
-    await this.props.addressDefault();
-    this.setState(
-      { customerAddress: this.props.dataAddressDefault }
-      , () => {
-        this.getCities(this.state.customerAddress.provinceId);
-        this.getSubdistrict(this.state.customerAddress.cityId);
+  function getPayloadProductDetail () {
+    const dataProductDetail = JSON.parse(localStorage.getItem("product"));
+    const dataVariants = variantsRequest(dataProductDetail.sku)
+    
+    setIsProductDetailAvailable(true)
+    setPriceProduct(dataProductDetail.price)
+    setPayloadProductDetail(dataProductDetail)
+    setMaxOrder(dataProductDetail.maxOrder)
+    setShipmentFee(dataProductDetail.shipmentFee)
+    const {quantity , price , shipmentFee} = dataProductDetail
+    const total = countTotalAmount(quantity , price , shipmentFee , payload.items[0].shipment )
+    const tempPayloadItems = [...payload.items]
+    const tempItems = tempPayloadItems.map(temp => {
+      return {...temp , 
+        productId : dataProductDetail.productId,
+        variants : dataVariants,
+        quantity : dataProductDetail.quantity
       }
-    );
+    })
+    setPayload({
+      ...payload ,
+      amount : total,
+      productId : dataProductDetail.productId,
+      items : tempItems
+
+    })
   };
 
+  function countTotalAmount (quantity, price, shipmentFee , shipment) {
+    const subTotal = Number(quantity) * Number(price);
+    let totalShippingPrice = 0;
+    if (shipment === "air") {
+      totalShippingPrice = Number(shipmentFee.difference) * Number(quantity);
+    };
+    const totalAmount = Number(priceJne)
+    const total = shipmentFee.difference ? subTotal + totalShippingPrice + totalAmount : subTotal + totalAmount
+    return total
+  }
 
-  variantsRequest = variantsRequest => {
+  function setStateNote (event) {
+    
+    const tempPayloadItems = [...payload.items]
+    const tempItems = tempPayloadItems.map(item => {
+      return { ...item , notes : event.target.value}
+    })
+    setPayload({
+      ...payload ,
+      items : tempItems
+    })
+  }
+
+  function actionUpdateQuantity (qty)  {
+    const total = countTotalAmount(qty, priceProduct , shipmentFee)
+    const tempPayloadItems = [...payload.items]
+    const tempItems = tempPayloadItems.map(item => {
+      return { ...item , quantity : qty}
+    })
+    setPayload({
+      ...payload , 
+      amount : total,
+      items : tempItems
+    })
+  };
+
+  function actionChangeShipping (shipping)  {
+    const total = countTotalAmount(payload.items[0].quantity, priceProduct , shipmentFee , shipping.shipment)
+    const tempPayloadItems = [...payload.items]
+    const tempItems = tempPayloadItems.map(item => {
+      return { ...item , shipment : shipping.shipment}
+    })
+    setPayload({
+      ...payload ,
+      amount : total,
+      items : tempItems
+    })
+  };
+
+  function variantsRequest (variantsRequest) {
     const variants = [];
     variantsRequest.length >= 1 &&
       variantsRequest.forEach(variant => {
@@ -140,64 +190,77 @@ class Checkout extends Component {
     return variants;
   };
 
-  getPayloadProductDetail = () => {
-    const payloadProductDetail = JSON.parse(localStorage.getItem("product"));
-    this.setState({
-      isProductDetailAvailable: true,
-      productId: payloadProductDetail.productId,
-      priceProduct: payloadProductDetail.price,
-      payloadProductDetail: { ...payloadProductDetail },
-      variants: this.variantsRequest(payloadProductDetail.sku),
-      quantity: payloadProductDetail.quantity,
-      note: payloadProductDetail.note,
-      maxOrder: payloadProductDetail.maxOrder,
-      shipmentFee: payloadProductDetail.shipmentFee
-    });
-  };
-
-
-  getFareExpedisi = async () => {
-    try {
-      const response = await apiPostWithToken(PATH_SHIPPING.JNE, {})
-      this.setState({
-        priceJne: response.data.data.price
-      })
-    } catch (error) {
-      console.log(error);
-
-    }
+  function actionShowAddFormAddress (){
+    setVisibleAddAddress(!visibleAddAddress)
   }
 
-  getListAddress = async () => {
+  function actionShowEditFormAddress ()  {
+    setVisibleEditAddress(!visibleEditAddress)
+  };
+
+  function actionShowListAddress () {
+    setVisibleListAddress(!visibleListAddress)
+  };
+
+  async function getListAddress  () {
     try {
       const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
-      this.setState({
-        addresses: response.data.data
-      });
+      // this.setState({
+      //   addresses: response.data.data
+      // });
+      setAddresses(response.data.data)
     } catch (error) {
       console.log(error);
     }
   };
 
-  actionShowAddFormAddress = () => {
-    this.setState(prevState => ({
-      visibleAddAddress: !prevState.visibleAddAddress
-    }));
+  
+  async function actionSubmitEditFormAddress (request) {
+    try {
+      // const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
+      // if (response.data.data) {
+      //   this.setState(
+      //     {
+      //       customerAddress: request
+      //     },
+      //     () => {
+      //       getListAddress();
+      //       actionShowEditFormAddress();
+      //     }
+      //   );
+      // }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  actionShowEditFormAddress = () => {
-    this.setState(prevState => ({
-      visibleEditAddress: !prevState.visibleEditAddress
-    }));
+  // function splitValue (value) {
+  //   const splitValue = value.split("|");
+  //   return splitValue;
+  // };
+
+  function handleChangeCity (value) {
+    // const city = splitValue(value);
+    // this.setState(
+    //   {
+    //     cityId: city[0],
+    //     city: city[1]
+    //   },
+    //   () => this.getSubdistrict(city[0])
+    // );
   };
 
-  actionShowListAddress = () => {
-    this.setState(prevState => ({
-      visibleListAddress: !prevState.visibleListAddress
-    }));
+  function actionChangeAddress (address) {
+    // this.setState(prevState => ({
+    //   customerAddress: address,
+    //   visibleListAddress: !prevState.visibleListAddress,
+    //   tempCities: this.getCities(address.provinceId),
+    //   tempSubdistrict: this.getSubdistrict(address.cityId)
+    // }));
+    // this.getCities()
   };
 
-  actionSubmitAddFormAddress = async request => {
+  async function actionSubmitAddFormAddress (request){
     try {
       const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
       if (response.data.data) {
@@ -206,112 +269,64 @@ class Checkout extends Component {
           ...request,
           id: customerAddressId
         };
-        this.setState({
-          customerAddress: customerAddress
-        });
-        this.props.addressDefault();
-        this.getListAddress();
-        if (!this.isAddressAvailable) {
-          this.props.addressDefault();
-        }
-        this.actionShowAddFormAddress();
+        setCustomerAddress(customerAddress)
+        props.addressDefault();
+        getListAddress();
+        // if (!this.isAddressAvailable) {
+        //   this.props.addressDefault();
+        // }
+        actionShowAddFormAddress();
       }
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
-  actionSubmitEditFormAddress = async request => {
-    try {
-      const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
-      if (response.data.data) {
-        this.setState(
-          {
-            customerAddress: request
-          },
-          () => {
-            this.getListAddress();
-            this.actionShowEditFormAddress();
-          }
-        );
-      }
-    } catch (error) {
-      console.log(error);
+  function handleChecked () {
+    setJneChecked(!jneChecked)
+  }
+
+  function handleSubmit (values){
+    if(props.isAddressAvailable){
+      actionSubmitOrder(values)
+    }else{
+      actionShowAddFormAddress()
     }
-  };
+  }
 
-  actionChangeShipping = (shipping) => {
-    this.setState({
-      shipment: shipping.shipment,
-      shipping: shipping
-    });
-  };
+  // async function getCities (id) {
+  //   const params = {
+  //     province: id
+  //   };
+  //   try {
+  //     const response = await apiGetWithToken(
+  //       PATH_CUSTOMER.ADDRESS_CITY,
+  //       params
+  //     );
+  //     // this.setState({ cities: response.data.data });
+  //     setCities(response.data.data)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  actionUpdateQuantity = quantity => {
-    this.setState({
-      quantity: quantity
-    });
-  };
-
-  actionChangeNote = note => {
-    this.setState({
-      note: note
-    });
-  };
-
-  actionChangeAddress = address => {
-    console.log(address);
-
-    this.setState(prevState => ({
-      customerAddress: address,
-      visibleListAddress: !prevState.visibleListAddress,
-      tempCities: this.getCities(address.provinceId),
-      tempSubdistrict: this.getSubdistrict(address.cityId)
-    }));
-    // this.getCities()
-  };
-
-
-  actionSubmitOrder = async () => {
-    document.body.style.overflow = "hidden"
-    this.setState({ isLoading: true})
-    const {
-      variants,
-      customerAddress,
-      shipment,
-      quantity,
-      note,
-      productId,
-    } = this.state;
-    console.log(this.state.variants);
-
-    const request = {
-      customerAddressId: customerAddress.id,
-      amount: this.countTotalAmount(),
-      items: [
-        {
-          productId: productId,
-          shipment: shipment,
-          variants: variants,
-          quantity: quantity,
-          note: note
-        }
-      ]
-    };
-    try {
-      document.body.style.overflow = "auto"
+  async function actionSubmitOrder (request){
+      try {
+      // document.body.style.overflow = "auto"
+      setIsLoading(true)
+      const quantity = payload.items[0].quantity
       const response = await apiPostWithToken(PATH_ORDER.ORDER, request);
-      if (this.state.quantity > this.state.maxOrder) {
+      if (quantity > maxOrder) {
         alert('adasd')
-        this.setState({ isLoading: false })
+        setIsLoading(false)
       } else {
-
         if (response.data.data) {
           setTimeout(() => {
-            this.setState({ isLoading: false })
+            setIsLoading(false)
           }, 700)
           const token = response.data.data.token;
-          this.snap.pay(token, {
+          const snap = window.snap
+          snap.pay(token, {
             onSuccess: function (result) {
               history.push("/");
             },
@@ -342,151 +357,120 @@ class Checkout extends Component {
     }
     catch (error) {
       setTimeout(() => {
-        this.setState({ isLoading: true })
+        setIsLoading(true)
       })
-      document.body.style.overflow = "hidden"
+      // document.body.style.overflow = "hidden"
       console.log(error);
     }
-  };
-
-  handleChecked = () => {
-    this.setState({ jneChecked: !this.state.jneChecked });
   }
 
-  countTotalAmount = () => {
-    const subTotal = Number(this.state.quantity) * Number(this.state.priceProduct);
-    let totalShippingPrice = 0;
-    if (this.state.shipment === "air") {
-      totalShippingPrice = Number(this.state.shipmentFee.difference) * Number(this.state.quantity);
-    };
-    const totalAmount = Number(this.state.priceJne)
-    const total = this.state.shipmentFee.difference ? subTotal + totalShippingPrice + totalAmount : subTotal + totalAmount
-    return total;
-  }
 
-  render() {
-    const total = this.countTotalAmount();
-    const { isAddressAvailable } = this.props;
-    const {
-      addresses,
-      payloadProductDetail,
-      isProductDetailAvailable,
-      customerAddress,
-      quantity,
-      shipment,
-      priceProduct,
-      jneChecked
-    } = this.state;
-    console.log(this.state.overflow);
-    
-    return (
-      <Spin wrapperClassName="checkoutLoading" size="large" spinning={this.state.isLoading}>
-        <div className="checkout">
-          <div className="container">
-            <Row>
-              <Col md={24}>
-                <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
-              </Col>
-              <Col md={5}>
-                <Link to="/">
-                  <img
-                    src={require("assets/img/monggopesen_logo.png")}
-                    className="header__logo"
-                    alt=""
-                  />
-                </Link>
-              </Col>
-              <Col md={15}>
-                <p className="checkout__text">{strings.checkout}</p>
-              </Col>
-            </Row>
-            <div className="checkout__content">
-              <Row>
-                <Col md={15} style={{ marginTop: 25 }}>
-                  <AddressCheckout
-                    customerAddress={customerAddress}
-                    isAddressAvailable={isAddressAvailable}
-                    onEditAddress={this.actionShowEditFormAddress}
-                    onSelectListAddress={this.actionShowListAddress}
-                    onAddAddress={this.actionShowAddFormAddress}
-                  />
-                  <FormAddAddress
-                    visible={this.state.visibleAddAddress}
-                    onSubmit={this.actionSubmitAddFormAddress}
-                    onCancle={this.actionShowAddFormAddress}
-                    isAddressAvailable={this.props.isAddressAvailable}
-                  />
-                  {customerAddress.id && (
-                    <FormEditAddress
-                      visible={this.state.visibleEditAddress}
-                      address={customerAddress}
-                      onSubmit={this.actionSubmitEditFormAddress}
-                      onCancle={this.actionShowEditFormAddress}
-                      cities={this.state.cities}
-                      subdistricts={this.state.subdistricts}
-                      handleChangeCity={this.handleChangeCity}
-                    />
-                  )}
-                  <AddressList
-                    addresses={addresses}
-                    visible={this.state.visibleListAddress}
-                    onCancle={this.actionShowListAddress}
-                    onChangeAddress={this.actionChangeAddress}
-                    customerAddress={customerAddress}
-                  />
-                  {isProductDetailAvailable && (
-                    <OrderDetailContainer
-                      shipmentFee={this.state.shipmentFee.difference}
-                      stock={this.state.maxOrder}
-                      priceProduct={priceProduct}
-                      payloadProductDetail={payloadProductDetail}
-                      actionChangeShipping={this.actionChangeShipping}
-                      actionUpdateQuantity={this.actionUpdateQuantity}
-                      quantity={quantity}
-                      actionChangeNote={this.actionChangeNote}
-                    />
-                  )}
-                </Col>
-                <Col md={9}>
-                  <OrderSummary
-                    isLoading={this.state.isLoading}
-                    priceJne={this.state.priceJne}
-                    shipmentFee={this.state.shipmentFee.difference}
-                    quantity={quantity}
-                    total={total}
-                    priceProduct={priceProduct}
-                    shipment={shipment}
-                    checked={jneChecked}
-                    handleChecked={this.handleChecked}
-                    onOrder={() =>
-                      isAddressAvailable
-                        ? this.actionSubmitOrder()
-                        : this.actionShowAddFormAddress()
-                    }
-                  />
-                </Col>
-              </Row>
-              {this.props.message && (
-                <ModalSuccess
-                  textButton={this.state.textButton}
-                  modalStatus={this.props.statusModal}
-                  email={this.props.message.email}
+
+  return (
+    <Spin wrapperClassName="checkoutLoading" size="large" spinning={isLoading} >
+      <div className="checkout">
+        <div className="container">
+          <Row>
+            <Col md={24}>
+              <center className="checkout__ongkir">Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp. 200,000</center>
+            </Col>
+            <Col md={5}>
+              <Link to="/">
+                <img
+                  src={require("assets/img/monggopesen_logo.png")}
+                  className="header__logo"
+                  alt=""
                 />
+              </Link>
+            </Col>
+            <Col md={15}>
+              <p className="checkout__text">{strings.checkout}</p>
+            </Col>
+          </Row>
+          <div className="checkout__content">
+            <Formik 
+              initialValues={payload}
+              onSubmit={(values => {
+                handleSubmit(values)
+              })}
+              enableReinitialize
+              validationSchema={schemaOrder}
+              render={({
+                values,
+                handleSubmit,
+                setFieldValue,
+                errors
+              }) => (
+                
+                <Form onSubmit={handleSubmit}>
+                <Row>
+                  <Col md={15} style={{ marginTop: 25 }}>
+                    <AddressCheckout
+                      customerAddress={customerAddress}
+                      // isAddressAvailable={isAddressAvailable}
+                      onEditAddress={actionShowEditFormAddress}
+                      onSelectListAddress={actionShowListAddress}
+                      onAddAddress={actionShowAddFormAddress}
+                    />
+                    <FormAddAddress
+                      visible={visibleAddAddress}
+                      onSubmit={actionSubmitAddFormAddress}
+                      onCancle={actionShowAddFormAddress}
+                      // isAddressAvailable={this.props.isAddressAvailable}
+                    />
+                    {customerAddress.id && (
+                      <FormEditAddress
+                        visible={visibleEditAddress}
+                        address={customerAddress}
+                        onSubmit={actionSubmitEditFormAddress}
+                        onCancle={actionShowEditFormAddress}
+                        // cities={cities}
+                        subdistricts={subdistricts}
+                        handleChangeCity={handleChangeCity}
+                      />
+                    )}
+                    <AddressList
+                      addresses={addresses}
+                      visible={visibleListAddress}
+                      onCancle={actionShowListAddress}
+                      onChangeAddress={actionChangeAddress}
+                      customerAddress={customerAddress}
+                    />
+                    {isProductDetailAvailable && (
+                      <Form.Item>
+                         <OrderDetailContainer
+                            shipmentFee={shipmentFee.difference}
+                            stock={maxOrder}
+                            priceProduct={priceProduct}
+                            payloadProductDetail={payloadProductDetail}
+                            actionChangeShipping={actionChangeShipping}
+                            actionUpdateQuantity={actionUpdateQuantity}
+                            quantity={values.items[0].quantity}
+                            setStateNote={setStateNote}
+                          />
+                      </Form.Item>
+                    )}
+                  </Col>
+                  <Col md={9}>
+                    <OrderSummary
+                      isLoading={isLoading}
+                      priceJne={priceJne}
+                      shipmentFee={shipmentFee.difference}
+                      quantity={values.items[0].quantity}
+                      total={values.amount}
+                      priceProduct={priceProduct}
+                      shipment={values.items[0].shipment}
+                      checked={jneChecked}
+                      handleChecked={handleChecked}
+                    />
+                  </Col>
+                </Row>
+                </Form>
               )}
-            </div>
+            />
           </div>
         </div>
-      </Spin>
-    );
-  }
-
+      </div>
+    </Spin>
+  )
 }
-
-const mapStatetoProps = state => ({
-  dataAddressDefault: state.address.addressDefault,
-  isAddressAvailable: state.address.isAddressAvailable,
-  statusModal: state.authentication.statusModal,
-  message: state.authentication.message
-});
-
-export default connect(mapStatetoProps, { addressDefault, openModal })(Checkout);

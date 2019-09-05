@@ -17,6 +17,8 @@ const OrderSummary = props => {
     return currencyRupiah(amountTotal)
   };
 
+  // console.log("props",props)
+
 
 
   return (
@@ -107,7 +109,9 @@ const OrderSummary = props => {
               width="full"
               margin="small"
               size="large"
-              onClick={props.onOrder}>
+              htmlType="submit"
+              // onClick={() => props.onOrder()}
+            >
               {strings.choose_payment_methods}
             </Button>
           </div>
