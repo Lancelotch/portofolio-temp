@@ -17,9 +17,11 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
-import FormAddAddress from "../containers/FormAddAddress";
-import FormAddress from "../containers/FormAddress";
 import Development from "../pages/Development";
+import DummyPageProfile from "../pages/DummyPageProfile";
+import DummyPageAddress from "../pages/DummyPageAddress";
+import DummyPagePassword from "../pages/DummyPagePassword";
+import Order from "../pages/Order";
 
 
 const routes = [

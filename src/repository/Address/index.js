@@ -79,7 +79,6 @@ async function create(props){
 async function update(props){
     const loading = props.loading ? props.loading : function() {};
     const params = props.params;
-    console.log(params);
     let response = "";
     loading(true);
     try {
