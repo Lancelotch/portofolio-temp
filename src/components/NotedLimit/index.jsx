@@ -15,12 +15,6 @@ class NotedLimit extends Component {
     return (
       <div>
         <TextArea
-          // onChange={e =>
-          //   this.setState(
-          //     { length: e.target.value.length },
-          //     this.props.setFieldValue('notes',e.target.value)
-          //   )
-          // }
           onChange={ e => this.props.setStateNote(e)}
           name="notes"
           maxLength={255}
