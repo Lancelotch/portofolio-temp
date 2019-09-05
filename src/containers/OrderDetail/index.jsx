@@ -130,7 +130,10 @@ class OrderDetail extends Component {
                   <b>{strings.note}</b>
                 </Col>
                 <Col md={19} className="shipping-checkout__note">
-                  <NotedLimit onChange={this.actionChangeNote} />
+                  <NotedLimit 
+                    // setFieldValue={this.props.setFieldValue} 
+                    setStateNote={this.props.setStateNote}
+                  />
                 </Col>
               </Row>
             </Card>
