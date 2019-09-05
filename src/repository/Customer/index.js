@@ -1,25 +1,12 @@
-import { apiGetWithToken, apiPostWithToken, apiPutWithToken } from "../../services/api";
+import { apiGetWithToken, apiPutWithToken } from "../../services/api";
 import { PATH_CUSTOMER } from "../../services/path/customer";
 
-async function get() {
-  let response = "";
-  try {
-    response = await apiGetWithToken(PATH_CUSTOMER.CUSTOMER);
-    return response;
-  } catch (error) {
-    return error;
-  }
-}
-
-async function upload(props) {
+async function get(props) {
   const loading = props.loading ? props.loading : function() {};
   let response = "";
-  let params = props.formData;
-  console.log("props", props)
-  console.log("param", params)
   loading(true);
   try {
-    response = await apiPostWithToken(PATH_CUSTOMER.CUSTOMER_UPLOAD, params);
+    response = await apiGetWithToken(PATH_CUSTOMER.CUSTOMER);
     loading(false);
     return response;
   } catch (error) {
@@ -28,21 +15,24 @@ async function upload(props) {
   }
 }
 
-async function put(props) {
+async function update(props) {
+  const loading = props.loading && undefined ? props.loading : function() {};
   let response = "";
   let params = props;
+  loading(true);
   try {
     response = await apiPutWithToken(PATH_CUSTOMER.CUSTOMER, params);
+    loading(false);
     return response;
   } catch (error) {
+    loading(false);
     return error;
   }
 }
 
 const Customer = {
   get,
-  upload,
-  put
+  update
 };
 
 export default Customer;

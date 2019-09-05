@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.sass";
-import { Avatar, Button, Icon, Upload, Row, Col } from "antd";
+import { Avatar, Icon, Upload, Row, Col } from "antd";
+import Button from "../Button";
 
 const ProfileAvatar = props => {
   const {
@@ -35,7 +36,7 @@ const ProfileAvatar = props => {
         <Avatar
           size={98}
           icon={loading ? "loading" : "user"}
-          src={photoUrl}
+          src={loading ? null : photoUrl}
           alt="You're Perfect"
         />
       </Col>
@@ -44,9 +45,7 @@ const ProfileAvatar = props => {
           Ukuran Gambar Max 3 mb. Format .JPG, .JPEG, .PNG.
         </p>
         <Button
-          style={{
-            color: photoUrl ? "#777777" : "#DDDDDD"
-          }}
+          style={disabled ? { cursor: "default" } : {}}
           className="profile-avatar__button-command"
           type="link"
           onClick={removeImage}
@@ -57,10 +56,9 @@ const ProfileAvatar = props => {
         </Button>
         <Upload {...propsUpload}>
           <Button
-            style={{ color: "#777777" }}
+            type="link"
             className="profile-avatar__button-command"
             onClick={handleError}
-            type="link"
           >
             <Icon type="camera" />
             Upload / Ubah Foto Profil

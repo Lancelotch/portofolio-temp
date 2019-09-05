@@ -4,6 +4,7 @@ import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
 import { notification, Card } from "antd";
 import Customer from "../../repository/Customer";
+import ImageContainer from "../../repository/Image";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,10 @@ export default function Profile() {
   }, []);
 
   async function getProfile() {
-    const response = await Customer.get();
+    const params = {
+      loading: setLoading
+    };
+    const response = await Customer.get(params);
     const res = response.data.data;
     if (response.status === 200) {
       setCustomerName(res.name);
@@ -74,7 +78,7 @@ export default function Profile() {
         setPortrait(false);
         setLandscape(true);
       }
-      const response = await Customer.upload(params);
+      const response = await ImageContainer.upload(params);
       onSuccess(response.data.data);
     } else {
       setIsErrorDimension(true);
@@ -89,6 +93,8 @@ export default function Profile() {
         !isErrorSize &&
         !isErrorDimension
       ) {
+        setLoading(true);
+        setPhotoUrl("");
         setAllData({
           ...allData,
           loading: true
@@ -139,7 +145,7 @@ export default function Profile() {
       ...allData,
       name: name
     };
-    const response = await Customer.put(request);
+    const response = await Customer.update(request);
     if (response.status === 200) {
       openNotificationSuccess("success");
     } else {
@@ -158,7 +164,7 @@ export default function Profile() {
     if (type === "success") {
       message = "Berhasil Menyimpan Perubahan Data";
     } else {
-      message = "Wah Faktor Face nih, Ganti Muka!1!1";
+      message = "Gagal Menyimpan Perubahan Data";
     }
     notification[type]({
       message: message,
