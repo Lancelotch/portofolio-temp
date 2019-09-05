@@ -3,6 +3,7 @@ import { Breadcrumb } from "antd";
 import "./style.sass";
 import propTypes from 'prop-types';
 import {Link} from "react-router-dom";
+import strings from '../../localization/localization';
 
 export default function Breadcrumbs(props) {
     const breadcrumbs = props.breadcrumbs
@@ -11,7 +12,7 @@ export default function Breadcrumbs(props) {
         <div style={{ marginTop: 30 }}>
             <Breadcrumb separator=">" className="mp-breadcrumbs">
                 <Breadcrumb.Item key="home">
-                    <Link to="/">Monggopesen</Link>
+                    <Link to="/">{strings.monggoPesen}</Link>
                 </Breadcrumb.Item>
                 {breadcrumbs.map((breadcrumb, index) => {
                     let checkLast = index === breadcrumbs.length - 1 ? true : false
