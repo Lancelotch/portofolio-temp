@@ -63,11 +63,11 @@ export default function Profile() {
   }
 
   async function uploadImage({ onError, onSuccess, file }) {
-    let formData = new FormData();
-    formData.append("file", file);
-    const params = {
+    let params = new FormData();
+    params.append("file", file);
+    const request = {
       loading: setLoading,
-      formData: formData
+      params: params
     };
     const isDimension = await checkDimension(file);
     if (isDimension.height >= 450 && isDimension.width >= 450) {
@@ -78,7 +78,7 @@ export default function Profile() {
         setPortrait(false);
         setLandscape(true);
       }
-      const response = await ImageContainer.upload(params);
+      const response = await ImageContainer.upload(request);
       onSuccess(response.data.data);
     } else {
       setIsErrorDimension(true);

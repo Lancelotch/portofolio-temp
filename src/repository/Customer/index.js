@@ -2,7 +2,8 @@ import { apiGetWithToken, apiPutWithToken } from "../../services/api";
 import { PATH_CUSTOMER } from "../../services/path/customer";
 
 async function get(props) {
-  const loading = props.loading ? props.loading : function() {};
+  const loading = props.loading && undefined ? props.loading : function() {};
+  console.log("has", loading)
   let response = "";
   loading(true);
   try {
