@@ -17,11 +17,11 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
-import Order from "../pages/Order";
+import Development from "../pages/Development";
 import Profile from "../pages/Profile";
-import DummyPageAddress from '../pages/DummyPageAddress'
-import DummyPagePassword from '../pages/DummyPagePassword'
-
+import DummyPageAddress from "../pages/DummyPageAddress";
+import DummyPagePassword from "../pages/DummyPagePassword";
+import Order from "../pages/Order";
 
 const routes = [
   {
@@ -145,12 +145,17 @@ const routes = [
     needAuthenticated: false
   },
   {
+    path: '/address',
+    component: Development,
+    layout: FullLayout,
+    needAuthenticated: true
+  },
+  {
     path: PATH_URL.NOT_FOUND_PAGE,
     component: NotFoundPage,
     layout: MainLayout,
     needAuthenticated: false
   }
-
 ];
 
 export default routes
