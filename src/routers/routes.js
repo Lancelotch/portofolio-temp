@@ -18,11 +18,10 @@ import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
 import Development from "../pages/Development";
-import DummyPageProfile from "../pages/DummyPageProfile";
+import Profile from "../pages/Profile";
 import DummyPageAddress from "../pages/DummyPageAddress";
 import DummyPagePassword from "../pages/DummyPagePassword";
 import Order from "../pages/Order";
-
 
 const routes = [
   {
@@ -111,7 +110,7 @@ const routes = [
   },
   {
     path: PATH_URL.DASHBOARD_PROFILE,
-    component: DummyPageProfile,
+    component: Profile,
     layout: CustomerLayout,
     needAuthenticated: true
   },
