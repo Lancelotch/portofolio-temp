@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Select, Row, Col, Card } from "antd";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { schema } from "./schema";
 import Address from "../../repository/Address";
 import PropTypes from "prop-types";
-import * as yup from "yup";
+import { reduce, keyBy } from "lodash";
+import convertSchemaToInit from "../../library/convertSchemaToInit";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -21,10 +22,12 @@ export default function FormAddress(props) {
   useEffect(() => {
     props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
+    console.log(schema);
   }, []);
 
   function doCreate() {
     setTitle(titleCreate);
+    setInitialValues(convertSchemaToInit(schema));
   }
 
   function doUpdate() {
@@ -69,7 +72,7 @@ export default function FormAddress(props) {
   }
 
   async function submitCreate(params) {
-    const response =  await Address.create({
+    const response = await Address.create({
       loading: setLoading,
       params: params
     });
@@ -85,7 +88,10 @@ export default function FormAddress(props) {
   }
 
   async function handleSubmit(params) {
-    let response = props.action === "create" ? await submitCreate(params) : await submitUpdate(params);
+    let response =
+      props.action === "create"
+        ? await submitCreate(params)
+        : await submitUpdate(params);
     if (response.status === 200) {
       props.onSuccess();
     }
@@ -94,21 +100,21 @@ export default function FormAddress(props) {
   function onChangeProvince(value, option, setFieldValue) {
     setFieldValue("province", option.props.children);
     setFieldValue("provinceId", value);
-    setFieldValue("cityId", "")
+    setFieldValue("cityId", "");
     setFieldValue("subdistrictId", "");
     getCities(value);
     setSubdistricts([]);
   }
-  
+
   function onChangeCity(value, option, setFieldValue) {
     setFieldValue("city", option.props.children);
-    setFieldValue("cityId", value)
+    setFieldValue("cityId", value);
     setFieldValue("subdistrictId", "");
     getSubdistricts(value);
   }
 
   function onChangeSubdistrict(value, option, setFieldValue) {
-    setFieldValue("subdistrict", option.props.children)
+    setFieldValue("subdistrict", option.props.children);
     setFieldValue("subdistrictId", value);
   }
 
@@ -118,18 +124,12 @@ export default function FormAddress(props) {
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={values => {
-        console.log(values);
-        // handleSubmit(values);
+        //console.log(values);
+        handleSubmit(values);
       }}
       validateOnChange={false}
     >
-      {({
-        values,
-        errors,
-        handleChange,
-        handleSubmit,
-        setFieldValue,
-      }) => (
+      {({ values, errors, handleChange, handleSubmit, setFieldValue }) => (
         <Card title={title} bordered={false}>
           <Form onSubmit={handleSubmit}>
             <Form.Item
@@ -158,8 +158,8 @@ export default function FormAddress(props) {
             </Form.Item>
             <Form.Item
               label="No. Telepon"
-              validateStatus={ errors.phoneNumber && "error" }
-              help={ errors.phoneNumber }
+              validateStatus={errors.phoneNumber && "error"}
+              help={errors.phoneNumber}
             >
               <Input
                 placeholder="08xxx"
@@ -183,7 +183,7 @@ export default function FormAddress(props) {
                   onChangeProvince(value, option, setFieldValue);
                 }}
                 value={provinces && values.provinceId}
-                >
+              >
                 {provinces &&
                   provinces.map(province => (
                     <Option
@@ -212,10 +212,7 @@ export default function FormAddress(props) {
               >
                 {cities &&
                   cities.map(city => (
-                    <Option
-                      value={city.city_id}
-                      key={city.city_id}
-                    >
+                    <Option value={city.city_id} key={city.city_id}>
                       {city.city_name}
                     </Option>
                   ))}
@@ -225,8 +222,8 @@ export default function FormAddress(props) {
               <Col md={19}>
                 <Form.Item
                   label="Kecamatan"
-                  validateStatus={ errors.subdistrictId && "error" }
-                  help={ errors.subdistrictId }
+                  validateStatus={errors.subdistrictId && "error"}
+                  help={errors.subdistrictId}
                 >
                   <Select
                     showSearch
@@ -234,7 +231,7 @@ export default function FormAddress(props) {
                     placeholder="Select a subdistrict"
                     optionFilterProp="children"
                     onChange={(value, option) => {
-                      onChangeSubdistrict(value, option, setFieldValue)
+                      onChangeSubdistrict(value, option, setFieldValue);
                     }}
                     value={subdistricts && values.subdistrictId}
                   >
@@ -267,8 +264,8 @@ export default function FormAddress(props) {
             </Row>
             <Form.Item
               label="Alamat Lengkap"
-              validateStatus={ errors.fullAddress && "error" }
-              help={ errors.fullAddress }
+              validateStatus={errors.fullAddress && "error"}
+              help={errors.fullAddress}
             >
               <TextArea
                 placeholder="Atas Nama"
