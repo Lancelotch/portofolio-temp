@@ -155,7 +155,7 @@ export default function ProductDetail(props) {
 
   return (
     <React.Fragment>
-      {categoryLevel && <Breadcrumbs category={categoryLevel} information={information.name} />}
+      {categoryLevel && <Breadcrumbs category={categoryLevel} information={information} />}
       <div className="container mp-product-detail">
         <Row>
           <Col md={10}>

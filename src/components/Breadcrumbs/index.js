@@ -71,7 +71,7 @@ const Breadcrumbs = ({ breadcrumbs, information, category }) => {
   const categoryProductDetailBreadCrumbItemLevel1 = [
     <Breadcrumb.Item key={categoryLevel1}>
     <Link className="mp-breadcrumbs-actived"
-        to={`${"/category"}/${categoryLevel1}`}>
+        to={`${"/category"}/${category && information.category && information.category.nameId}`}>
         {categoryLevel1 && escapeRegExp(categoryLevel1)}
       </Link>
     </Breadcrumb.Item>
@@ -87,7 +87,7 @@ const Breadcrumbs = ({ breadcrumbs, information, category }) => {
     <div style={{ marginTop: 30 }}>
       <Breadcrumb separator=">" className="mp-breadcrumbs">
         {breadcrumbItems}
-        <Breadcrumb.Item>{information}</Breadcrumb.Item>
+        <Breadcrumb.Item>{information && information.name}</Breadcrumb.Item>
       </Breadcrumb>
     </div>
   );
