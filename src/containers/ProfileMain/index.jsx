@@ -4,6 +4,7 @@ import { Avatar } from "antd";
 import Customer from "../../repository/Customer";
 
 export default function ProfileMain() {
+  const [loading, setLoading] = useState(false);
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -14,7 +15,9 @@ export default function ProfileMain() {
   }, []);
 
   async function getCustomer() {
-    const params = {};
+    const params = {
+      loading: setLoading
+    };
     const response = await Customer.get(params);
     const res = response.data.data;
     if (response.status === 200) {
@@ -51,7 +54,11 @@ export default function ProfileMain() {
     <div>
       <div className="profile-main">
         <div className={portrait ? "portrait" : landscape ? "landscape" : ""}>
-          <Avatar icon="user" size={40} src={photoUrl} />
+          <Avatar
+            icon={loading ? "loading" : "user"}
+            size={40}
+            src={loading ? null : photoUrl}
+          />
         </div>
         <div className="profile-main__customer-name">
           <span>{customerName}</span>

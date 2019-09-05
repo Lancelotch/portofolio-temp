@@ -24,7 +24,9 @@ export default function Profile() {
   }, []);
 
   async function getProfile() {
-    const params = {};
+    const params = {
+      loading: setLoading
+    };
     const response = await Customer.get(params);
     const res = response.data.data;
     if (response.status === 200) {
