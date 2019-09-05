@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Select, Row, Col, Card } from "antd";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import { schema } from "./schema";
 import Address from "../../repository/Address";
 import PropTypes from "prop-types";
+import * as yup from "yup";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -16,7 +17,7 @@ export default function FormAddress(props) {
   const [subdistricts, setSubdistricts] = useState();
   const [initialValues, setInitialValues] = useState();
   const [title, setTitle] = useState(titleCreate);
-  
+
   useEffect(() => {
     props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
@@ -90,13 +91,35 @@ export default function FormAddress(props) {
     }
   }
 
+  function onChangeProvince(value, option, setFieldValue) {
+    setFieldValue("province", option.props.children);
+    setFieldValue("provinceId", value);
+    setFieldValue("cityId", "")
+    setFieldValue("subdistrictId", "");
+    getCities(value);
+    setSubdistricts([]);
+  }
+  
+  function onChangeCity(value, option, setFieldValue) {
+    setFieldValue("city", option.props.children);
+    setFieldValue("cityId", value)
+    setFieldValue("subdistrictId", "");
+    getSubdistricts(value);
+  }
+
+  function onChangeSubdistrict(value, option, setFieldValue) {
+    setFieldValue("subdistrict", option.props.children)
+    setFieldValue("subdistrictId", value);
+  }
+
   return (
     <Formik
       enableReinitialize
       initialValues={initialValues}
       validationSchema={schema}
       onSubmit={values => {
-        handleSubmit(values);
+        console.log(values);
+        // handleSubmit(values);
       }}
       validateOnChange={false}
     >
@@ -148,23 +171,19 @@ export default function FormAddress(props) {
             </Form.Item>
             <Form.Item
               label="Provinsi"
-              validateStatus={errors.province && "error"}
-              help={errors.province}
+              validateStatus={errors.provinceId && "error"}
+              help={errors.provinceId}
             >
               <Select
                 showSearch
-                name="province"
+                name="provinceId"
                 placeholder="Select a province"
                 optionFilterProp="children"
-                onChange={value => {
-                  setFieldValue("provinceId", value);
-                  setFieldValue("cityId", "");
-                  setFieldValue("subdistrictId", "");
-                  getCities(value);
-                  setSubdistricts([]);
+                onChange={(value, option) => {
+                  onChangeProvince(value, option, setFieldValue);
                 }}
-                value={values.provinceId}
-              >
+                value={provinces && values.provinceId}
+                >
                 {provinces &&
                   provinces.map(province => (
                     <Option
@@ -178,20 +197,18 @@ export default function FormAddress(props) {
             </Form.Item>
             <Form.Item
               label="Kota / Kabupaten"
-              validateStatus={errors.city && "error"}
-              help={errors.city}
+              validateStatus={errors.cityId && "error"}
+              help={errors.cityId}
             >
               <Select
                 showSearch
-                name="city"
+                name="cityId"
                 placeholder="Select a City"
                 optionFilterProp="children"
-                onChange={value => {
-                  setFieldValue("cityId", value)
-                  setFieldValue("subdistrictId", "");
-                  getSubdistricts(value);
+                onChange={(value, option) => {
+                  onChangeCity(value, option, setFieldValue);
                 }}
-                value={values.cityId}
+                value={cities && values.cityId}
               >
                 {cities &&
                   cities.map(city => (
@@ -208,18 +225,18 @@ export default function FormAddress(props) {
               <Col md={19}>
                 <Form.Item
                   label="Kecamatan"
-                  validateStatus={ errors.subdistrict && "error" }
-                  help={ errors.subdistrict }
+                  validateStatus={ errors.subdistrictId && "error" }
+                  help={ errors.subdistrictId }
                 >
                   <Select
                     showSearch
-                    name="subdistrict"
+                    name="subdistrictId"
                     placeholder="Select a subdistrict"
                     optionFilterProp="children"
-                    onChange={value => {
-                      setFieldValue("subdistrictId", value)
+                    onChange={(value, option) => {
+                      onChangeSubdistrict(value, option, setFieldValue)
                     }}
-                    value={values.subdistrictId}
+                    value={subdistricts && values.subdistrictId}
                   >
                     {subdistricts &&
                       subdistricts.map(subdistrict => (
