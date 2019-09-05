@@ -69,7 +69,7 @@ const Breadcrumbs = ({ breadcrumbs, information, category }) => {
   ].concat(categoryLevel3 && categoryProductDetailBreadCrumbItemLevel3)
 
   const categoryProductDetailBreadCrumbItemLevel1 = [
-    <Breadcrumb.Item key="1">
+    <Breadcrumb.Item key={categoryLevel1}>
     <Link className="mp-breadcrumbs-actived"
         to={`${"/category"}/${categoryLevel1}`}>
         {categoryLevel1 && escapeRegExp(categoryLevel1)}
