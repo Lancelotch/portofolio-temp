@@ -1,41 +1,43 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.sass";
-import { Avatar, Row, Col } from "antd";
-import { connect } from "react-redux";
+import { Avatar } from "antd";
+import Customer from "../../repository/Customer";
 
-class ProfileMain extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      landscape: false,
-      portrait: false
+export default function ProfileMain() {
+  const [loading, setLoading] = useState(false);
+  const [landscape, setLandscape] = useState(false);
+  const [portrait, setPortrait] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+
+  useEffect(() => {
+    getCustomer();
+  }, []);
+
+  async function getCustomer() {
+    const params = {
+      loading: setLoading
     };
-  }
-
-  componentDidMount() {
-    this.getCustomer();
-  }
-
-  componentDidUpdate(prevProps) {
-   if(this.props.customerPhoto !== prevProps.customerPhoto){
-     this.getCustomer()
-   } 
-  }
-
-  getCustomer = async () => {
-    try {
-      const isDimention = await this.checkDimension(this.props.customerPhoto);
-      if (isDimention.height > isDimention.width) {
-        this.setState({ portrait: true, landscape: false });
-      } else if (isDimention.height < isDimention.width) {
-        this.setState({ portrait: false, landscape: true });
-      }
-    } catch (error) {
-      console.log(error);
+    const response = await Customer.get(params);
+    const res = response.data.data;
+    if (response.status === 200) {
+      setCustomerName(res.name);
+      setPhotoUrl(res.photoUrl);
     }
-  };
+    if (res.photoUrl) {
+      const isDimention = await checkDimension(res.photoUrl);
+      if (isDimention.height > isDimention.width) {
+        setPortrait(true);
+        setLandscape(false);
+      }
+      if (isDimention.height < isDimention.width) {
+        setPortrait(false);
+        setLandscape(true);
+      }
+    }
+  }
 
-  checkDimension = file => {
+  function checkDimension(file) {
     return new Promise(resolve => {
       var image = new Image();
       image.src = file;
@@ -46,31 +48,22 @@ class ProfileMain extends Component {
         resolve(dimension);
       };
     });
-  };
-
-  render() {
-    const { portrait, landscape } = this.state;
-    return (
-      <div>
-        <Row style={{ padding: "16px 0 12px 0" }}>
-          <Col
-            md={6}
-            className={portrait ? "portrait" : landscape ? "landscape" : ""}
-          >
-            <Avatar icon="user" size={40} src={this.props.customerPhoto} />
-          </Col>
-          <Col md={18} className="profile-main__customer-name" >
-            <span>{this.props.customerName}</span>
-          </Col>
-        </Row>
-      </div>
-    );
   }
+
+  return (
+    <div>
+      <div className="profile-main">
+        <div className={portrait ? "portrait" : landscape ? "landscape" : ""}>
+          <Avatar
+            icon={loading ? "loading" : "user"}
+            size={40}
+            src={loading ? null : photoUrl}
+          />
+        </div>
+        <div className="profile-main__customer-name">
+          <span>{customerName}</span>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({
-  customerName: state.authentication.customerName,
-  customerPhoto: state.authentication.customerPhoto
-});
-
-export default connect(mapStateToProps)(ProfileMain);

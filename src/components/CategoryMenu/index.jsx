@@ -48,19 +48,22 @@ export default function CategoryMenu(props) {
     );
   };
 
-  const options = allCategory.map(category => ({
-    value: category.id,
-    label: (
-      <Link
-        key={category.id}
-        className="defaultCategoryMenu"
-        to={`${url}/${category.idName}`}
-      >
-        {category.name}
-      </Link>
-    ),
-    children: createChildren(category.categorySubResponses, category.idName)
-  }));
+  function getOptions() {
+    const options = allCategory && allCategory.map(category => ({
+      value: category.id,
+      label: (
+        <Link
+          key={category.id}
+          className="defaultCategoryMenu"
+          to={`${url}/${category.idName}`}
+        >
+          {category.name}
+        </Link>
+      ),
+      children: createChildren(category.categorySubResponses, category.idName)
+    }));
+    return options;
+  }
 
   return (
     <Row>
@@ -68,7 +71,7 @@ export default function CategoryMenu(props) {
         <Cascader
           key={"id"}
           popupClassName={"cascader-popup header__categoriess"}
-          options={options}
+          options={getOptions()}
           expandTrigger={"hover"}
         >
           <a className="ant-dropdown-link" href="/#">

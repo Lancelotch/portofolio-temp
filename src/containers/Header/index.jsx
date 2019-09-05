@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRootContext } from "../../hoc/RootContext";
 import { Row, Col, Icon, Form } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
 import Popover from "../Popover";
-import DataSource from "../../hoc/DataSource";
 import PATH_URL from "../../routers/path";
 import Helpers from "./Helpers";
 import Greeting from "./Greeting";
 import "./style.sass";
-import { PATH_CATEGORY } from "../../services/path/category";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { schema } from "./schema";
+import Category from "../../repository/Category";
 
 export default function Header() {
   const { isAuthenticated, history, match } = useRootContext();
+  const [allCategory, setAllCategory] = useState([]);
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
+  async function getAllCategory() {
+    let allCategory = await Category.getAll();
+    if(allCategory.status === 200) {
+      setAllCategory(allCategory.data.data);
+    }
+  }
+
   return (
     <React.Fragment>
       <Row id="bottomHeader" className="header">
@@ -63,17 +75,12 @@ export default function Header() {
           </div>
         </Col>
         <Col md={2}>
-          <div className="header__categories" key={""}>
-            <DataSource
-              url={PATH_CATEGORY.CATEGORY_FEATURE}
-              render={data => (
-                <CategoryMenu
-                  key={"id"}
-                  match={match}
-                  allCategory={data.data.data}
-                />
-              )}
-            />
+          <div className="header__categories" key={""}>            
+              <CategoryMenu
+              key={"id"}
+              match={match}
+              allCategory={allCategory}
+              />
           </div>
         </Col>
         <Col md={14}>
