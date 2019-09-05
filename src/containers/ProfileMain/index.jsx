@@ -4,7 +4,6 @@ import { Avatar } from "antd";
 import Customer from "../../repository/Customer";
 
 export default function ProfileMain() {
-  const [loading, setLoading] = useState(false);
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -15,9 +14,7 @@ export default function ProfileMain() {
   }, []);
 
   async function getCustomer() {
-    const params = {
-      loading: setLoading
-    };
+    const params = {};
     const response = await Customer.get(params);
     const res = response.data.data;
     if (response.status === 200) {
