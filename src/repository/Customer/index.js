@@ -2,7 +2,7 @@ import { apiGetWithToken, apiPutWithToken } from "../../services/api";
 import { PATH_CUSTOMER } from "../../services/path/customer";
 
 async function get(props) {
-  const loading = props.loading && undefined ? props.loading : function() {};
+  const loading = props.loading ? props.loading : function() {};
   let response = "";
   loading(true);
   try {
@@ -16,9 +16,9 @@ async function get(props) {
 }
 
 async function update(props) {
-  const loading = props.loading && undefined ? props.loading : function() {};
+  const loading = props.loading ? props.loading : function() {};
   let response = "";
-  let params = props;
+  let params = props.params;
   loading(true);
   try {
     response = await apiPutWithToken(PATH_CUSTOMER.CUSTOMER, params);
