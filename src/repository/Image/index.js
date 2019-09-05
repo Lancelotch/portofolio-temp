@@ -4,7 +4,7 @@ import { PATH_CUSTOMER } from "../../services/path/customer";
 async function upload(props) {
   const loading = props.loading ? props.loading : function() {};
   let response = "";
-  let params = props.formData;
+  let params = props.params;
   loading(true);
   try {
     response = await apiPostWithToken(PATH_CUSTOMER.CUSTOMER_UPLOAD, params);

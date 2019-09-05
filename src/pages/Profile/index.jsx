@@ -4,7 +4,7 @@ import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
 import { notification, Card } from "antd";
 import Customer from "../../repository/Customer";
-import ImageContainer from "../../repository/Image";
+import ImageRepo from "../../repository/Image";
 
 export default function Profile() {
   const [loading, setLoading] = useState(false);
@@ -24,10 +24,7 @@ export default function Profile() {
   }, []);
 
   async function getProfile() {
-    const params = {
-      loading: setLoading
-    };
-    const response = await Customer.get(params);
+    const response = await Customer.get({ loading: setLoading });
     const res = response.data.data;
     if (response.status === 200) {
       setCustomerName(res.name);
@@ -65,10 +62,6 @@ export default function Profile() {
   async function uploadImage({ onError, onSuccess, file }) {
     let formData = new FormData();
     formData.append("file", file);
-    const params = {
-      loading: setLoading,
-      formData: formData
-    };
     const isDimension = await checkDimension(file);
     if (isDimension.height >= 450 && isDimension.width >= 450) {
       if (isDimension.height > isDimension.width) {
@@ -78,7 +71,10 @@ export default function Profile() {
         setPortrait(false);
         setLandscape(true);
       }
-      const response = await ImageContainer.upload(params);
+      const response = await ImageRepo.upload({
+        loading: setLoading,
+        params: formData
+      });
       onSuccess(response.data.data);
     } else {
       setIsErrorDimension(true);
@@ -141,11 +137,11 @@ export default function Profile() {
   }
 
   async function handleSubmit(name) {
-    const request = {
+    const params = {
       ...allData,
       name: name
     };
-    const response = await Customer.update(request);
+    const response = await Customer.update({ params });
     if (response.status === 200) {
       openNotificationSuccess("success");
     } else {

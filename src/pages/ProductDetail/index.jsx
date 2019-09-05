@@ -11,13 +11,11 @@ import Quantity from "../../components/Quantity";
 import "./style.sass";
 import Skeleton from "react-loading-skeleton";
 import ProductQnA from "../../containers/ProductQnA";
-import Breadcrumbs from "../../components/Breadcrumbs/index.js";
+import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
 import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
-import { apiGetWithoutToken } from "../../services/api";
-import { PATH_CATEGORY_BREADCRUMBS } from "../../services/path/breadCrumbCategory";
-import Breadcrumb from "../../repository/Breadcrumb";
+import Breadcrumb from "../../repository/Breadcrumb/index";
 
 
 const { Text } = Typography
@@ -41,8 +39,7 @@ export default function ProductDetail(props) {
   const [product, setProduct] = useState({})
   const [isProductAvailable, setIsProductAvailable] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [categoryId,setCategoryId] = useState("")
-  const [categoryLevel,setCategoryLevel] = useState({})
+  const [breadcrumbsApi, setBreadcrumbsApi] = useState({})
   const { isAuthenticated } = useRootContext()
 
 
@@ -51,17 +48,12 @@ export default function ProductDetail(props) {
     getProductDetail()
   }, [])
 
-
-
-  async function getCategory () {
-    let category = Breadcrumb.getBreadCrumb({
-      
+  async function getBradcrumb(categoryId) {
+    let breadcrumbs = await Breadcrumb.getByCategory({
+      params: categoryId
     })
-
+    setBreadcrumbsApi(breadcrumbs.data.data)
   };
-
-  console.log(categoryId);
-    
 
   async function getProductDetail() {
     let productDetail = await Product.getById({
@@ -69,11 +61,8 @@ export default function ProductDetail(props) {
       productId: props.match.params.productId
     })
     const product = productDetail.data.data
-    console.log(product);
-    getCategory(product.information.category.id)
     if (productDetail.status === 200) {
       setDefaultImage(product.defaultImage)
-      setCategoryId(product.information.category.id)
       setProduct(product)
       setImages(product.images)
       setVariants(product.variants)
@@ -83,6 +72,7 @@ export default function ProductDetail(props) {
       setIsProductAvailable(true)
       setVideoUrl(product.videoUrl)
     }
+    getBradcrumb(product.information.category.id)
   };
 
   function actionUpdateSku(sku) {
@@ -157,12 +147,29 @@ export default function ProductDetail(props) {
     }
   };
 
-
   let totalShipping = countTotalAmount();
+  let breadcrumbs = []
+  let pathTemp = "/category";
+
+  Object.values(breadcrumbsApi).forEach((value, index) => {
+    pathTemp = pathTemp + "/" + value
+    const breadcrumb = {
+      label: value,
+      link: pathTemp
+    }
+    breadcrumbs.push(breadcrumb);
+  })
+
+  const breadcrumbNameProduct = {
+    label: information.name
+  }
+
+  breadcrumbs.push(breadcrumbNameProduct)
+
 
   return (
     <React.Fragment>
-      <Breadcrumbs category={categoryLevel} information={information.name} />
+      <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
       <div className="container mp-product-detail">
         <Row>
           <Col md={10}>

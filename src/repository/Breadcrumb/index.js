@@ -1,13 +1,13 @@
 import {   apiGetWithoutToken } from "../../services/api";
-import { PATH_CATEGORY_BREADCRUMBS } from "../../services/path/breadCrumbCategory";
+import { PATH_CATEGORY } from "../../services/path/category";
 
-async function getBreadCrumb(props) {
+async function getByCategory(props) {
     const loading = props.loading ? props.loading : function () { };
     const params = props.params
     let response = ""
     loading(true)
     try {
-        response = await apiGetWithoutToken(PATH_CATEGORY_BREADCRUMBS.CATEGORY_LEVELS + params)
+        response = await apiGetWithoutToken(`${PATH_CATEGORY.BREADCRUMB}/${params}`)
         loading(false)
         return response
     } catch (error) {
@@ -17,7 +17,7 @@ async function getBreadCrumb(props) {
 };
 
 const Breadcrumb = {
-    getBreadCrumb : getBreadCrumb
+    getByCategory : getByCategory
 }
 
 export default Breadcrumb;

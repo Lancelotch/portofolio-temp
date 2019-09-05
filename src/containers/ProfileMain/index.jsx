@@ -54,7 +54,11 @@ export default function ProfileMain() {
     <div>
       <div className="profile-main">
         <div className={portrait ? "portrait" : landscape ? "landscape" : ""}>
-          <Avatar icon="user" size={40} src={photoUrl} />
+          <Avatar
+            icon={loading ? "loading" : "user"}
+            size={40}
+            src={loading ? null : photoUrl}
+          />
         </div>
         <div className="profile-main__customer-name">
           <span>{customerName}</span>
