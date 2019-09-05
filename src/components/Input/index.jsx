@@ -30,7 +30,8 @@ export default function Input(props) {
 
   let propsAnt = {
     ...props,
-    size: props.size === "xlarge" || "medium" ? undefined : props.size
+    size: props.size === "xlarge" || "medium" ? undefined : props.size,
+    htmltype : undefined
   }
 
   delete propsAnt.onButtonClick;
@@ -38,7 +39,7 @@ export default function Input(props) {
   let resultInput;
   if (props.type === "default") {
     resultInput = (
-      <InputAnt {...propsAnt} className={fixStyling} prefix={inputPrefixIcon} />
+      <InputAnt {...propsAnt} type={props.htmltype} className={fixStyling} prefix={inputPrefixIcon} />
     );
   }
 
@@ -77,11 +78,13 @@ Input.propTypes = {
   maxLength: propTypes.number,
   disabled: propTypes.bool,
   buttontext: propTypes.string,
-  onButtonClick: propTypes.func
+  onButtonClick: propTypes.func,
+  htmltype : propTypes.oneOf(['default', 'password'])
 };
 
 Input.defaultProps = {
   type: "default",
   size: "small",
-  buttontext: ""
+  buttontext: "",
+  htmltype : 'default'
 };
