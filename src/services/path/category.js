@@ -1,5 +1,7 @@
 //CATEGORY 
 const CATEGORY_FEATURE = "category";
+const BREADCRUMB = "category/levels"
 export const PATH_CATEGORY = {
     CATEGORY_FEATURE: CATEGORY_FEATURE,
+    BREADCRUMB :BREADCRUMB
 }
