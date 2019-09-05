@@ -20,7 +20,7 @@ import Search from "../pages/Search";
 import Development from "../pages/Development";
 import Profile from "../pages/Profile";
 import DummyPageAddress from "../pages/DummyPageAddress";
-import DummyPagePassword from "../pages/DummyPagePassword";
+import Password from '../pages/Password'
 import Order from "../pages/Order";
 
 const routes = [
@@ -122,7 +122,7 @@ const routes = [
   },
   {
     path: PATH_URL.DASHBOARD_PASSWORD,
-    component : DummyPagePassword,
+    component : Password,
     layout: CustomerLayout,
     needAuthenticated: true
   },
