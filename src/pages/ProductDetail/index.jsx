@@ -95,8 +95,6 @@ export default function ProductDetail(props) {
   };
 
   function actionUpdateQuantity(quantity) {
-    console.log('productdetailquantity=====>',quantity);
-    
     setQuantity(quantity)
     setIsUpdateImageVariant(false)
   };
