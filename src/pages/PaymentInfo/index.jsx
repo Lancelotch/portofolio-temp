@@ -44,7 +44,7 @@ export default function PaymentInfoPage (props) {
   async function getPaymentInfo () {
     const paymentId = props.match.params.paymentId;
     setIsLoading(true)
-    let response = await Payment.get({params : paymentId})
+    let response = await Payment.get({paymentId : paymentId})
     if(response.status === 200){
       const payment = response.data.data;
       setIsLoading(false)

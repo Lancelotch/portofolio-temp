@@ -2,10 +2,10 @@ import { apiGetWithToken } from "../../services/api";
 import { PATH_ORDER } from "../../services/path/order";
 
 async function get (props) {
-  let paymenId = props.params
+  let paymentId = props.paymentId
   let response = ''
   try {
-    response = await apiGetWithToken(`${PATH_ORDER.ORDER_PAYMENT_INFO }/${paymenId}`)
+    response = await apiGetWithToken(`${PATH_ORDER.ORDER_PAYMENT_INFO }/${paymentId}`)
     return response
   } catch (error) { 
     return error

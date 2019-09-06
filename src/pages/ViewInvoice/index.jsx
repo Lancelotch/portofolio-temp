@@ -25,7 +25,7 @@ export default function ViewInvoice (props) {
 
     async function viewInvoiceDetailsDashboard () {
         const invoiceId = props.match.params.invoiceId;
-        const response = await Invoice.get({params : invoiceId})
+        const response = await Invoice.get({invoiceId : invoiceId})
         if(response.status === 200){
             setInvoiceNumber(response.data.data.invoiceNumber)
             setOrder(response.data.data.order)
