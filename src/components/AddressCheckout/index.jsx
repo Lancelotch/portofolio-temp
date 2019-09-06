@@ -8,7 +8,7 @@ import ButtonIcon from "../ButtonIcon";
 
 export const AddressCheckout = props => {
   const {
-    addressDefault,
+    address,
     onEditAddress,
     onSelectListAddress,
     onAddAddress,
@@ -22,16 +22,16 @@ export const AddressCheckout = props => {
         title={<div>{strings.shipping_address}</div>}
       >
         <div style={{ padding: 15 }}>
-          {onLoading && !addressDefault? (
+          {onLoading ? (
             <span>Loading...</span>
           ) : (
             <React.Fragment>
               <AddressDetail
-                addressDefault={addressDefault}
+                address={address}
                 onEdit={onEditAddress}
               />
               <div className="address-checkout">
-                {addressDefault && (
+                {address && (
                   <Button
                     onClick={onSelectListAddress}
                     size="large"

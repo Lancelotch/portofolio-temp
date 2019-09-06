@@ -136,7 +136,7 @@ async function update(props){
     }
 }
 
-const address = {
+const Address = {
     getListProvince,
     getListCity,
     getListSubdistrict,
@@ -148,4 +148,4 @@ const address = {
     updateDefault
 }
 
-export default address;
+export default Address;

@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { Formik } from 'formik'
 import schemaOrder from './schema'
 import FormAddress from "../../containers/FormAddress";
-import address from "../../repository/Address";
+import Address from "../../repository/Address";
 
 export default function Checkout (props){
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function Checkout (props){
   const [visibleListAddress, setVisibleListAddress] = useState(false)
   const [customerAddress, setCustomerAddress] = useState({})
   const [addresses, setAddresses] = useState([])
-  const [addressDefault, setAddressDefault] = useState();
+  const [address, setaddress] = useState();
   const [isProductDetailAvailable, setIsProductDetailAvailable] = useState(false)
   const [shipmentFee, setShipmentFee] = useState({})
   const [maxOrder, setMaxOrder] = useState(0)
@@ -51,7 +51,7 @@ export default function Checkout (props){
   });
 
   useEffect(()=>{
-    getAddressDefault();
+    getaddress();
   },[])
 
   useEffect(() => {
@@ -173,16 +173,16 @@ export default function Checkout (props){
   };
 
   async function getListAddress  () {
-    const response = await address.getAll({loading : setOnLoadingAddress});
+    const response = await Address.getAll({loading : setOnLoadingAddress});
     if (response.status === 200) {
       setAddresses(response.data.data);
     }
   };
 
-  async function getAddressDefault() {
-    const response = await address.getDefault({loading : setOnLoadingAddress});
+  async function getaddress() {
+    const response = await Address.getDefault({loading : setOnLoadingAddress});
     if (response.status === 200) {
-      setAddressDefault(response.data.data);
+      setaddress(response.data.data);
     }
   }
 
@@ -197,7 +197,7 @@ export default function Checkout (props){
 
   function handleSuccessEdit(){
     setVisibleEditAddress(!visibleEditAddress);
-    getAddressDefault();
+    getaddress();
   }
 
   function handleSubmit (values){
@@ -209,7 +209,7 @@ export default function Checkout (props){
   }
 
   async function actionChangeAddress(addressSelected){
-    setAddressDefault(addressSelected);
+    setaddress(addressSelected);
     setVisibleListAddress(!visibleListAddress);
   }
 
@@ -310,7 +310,7 @@ export default function Checkout (props){
                   <Col md={15} style={{ marginTop: 25 }}>
                     <AddressCheckout
                       onLoading={onLoadingAddress}
-                      addressDefault={addressDefault}
+                      address={address}
                       onEditAddress={actionShowEditFormAddress}
                       onSelectListAddress={actionShowListAddress}
                       onAddAddress={actionShowAddFormAddress}
@@ -321,20 +321,20 @@ export default function Checkout (props){
                         onSuccess={()=>handleSuccessCreate()}
                       />
                     </Modal>
-                    {addressDefault &&
+                    {address &&
                     <React.Fragment>
                     <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
                       <FormAddress action={"update"}
                         onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
                         onSuccess={()=>handleSuccessEdit()}
-                        id={addressDefault.id}/>
+                        id={address.id}/>
                     </Modal>
                     <AddressList
                       addresses={addresses}
                       visible={visibleListAddress}
                       onCancle={actionShowListAddress}
                       onChangeAddress={actionChangeAddress}
-                      customerAddress={addressDefault}
+                      customerAddress={address}
                     />
                     </React.Fragment>
                     }
