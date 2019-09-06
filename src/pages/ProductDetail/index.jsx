@@ -62,7 +62,7 @@ export default function ProductDetail(props) {
   };
 
   async function getProductDetail() {
-    let productDetail = await Product.getById({
+    let productDetail = await Product.get({
       loading: setLoading,
       productId: props.match.params.productId
     })

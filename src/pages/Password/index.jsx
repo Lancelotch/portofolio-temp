@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Card, Form, Row, Col, Input as InputAnt } from "antd";
+import { Card, Form, Row, Col } from "antd";
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -10,45 +10,45 @@ import schemaPassword from './schema';
 import PasswordRepository from '../../repository/Password'
 import "./style.sass";
 
-export default function Password (){
+export default function Password() {
   const [acceptReset, setAcceptReset] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
-  async function onSubmitPassword ({ oldPassword, newPassword },resetForm) {
+  async function onSubmitPassword({ oldPassword, newPassword }, resetForm) {
     const params = {
       oldPassword: oldPassword,
       password: newPassword
     };
-    
-    const response = await PasswordRepository.changePassword({params})
-     if (response.status === 200) {
-        resetForm({})
-        notification(
-          "Berhasil Menetapkan Password Baru.",
-          "Akun kamu makin aman nih, ingat untuk selalu berhati-hati dengan tidak memberikan password kamu kepada siapapun",
-          "success"
-        );
-      } else {
-        setErrorMessage('Password yang anda masukan kurang tepat')
-      }
+
+    const response = await PasswordRepository.changePassword({ params })
+    if (response.status === 200) {
+      resetForm({})
+      notification(
+        "Berhasil Menetapkan Password Baru.",
+        "Akun kamu makin aman nih, ingat untuk selalu berhati-hati dengan tidak memberikan password kamu kepada siapapun",
+        "success"
+      );
+    } else {
+      setErrorMessage('Password yang anda masukan kurang tepat')
+    }
   };
 
-  async function onResetPassword () {
+  async function onResetPassword() {
     const response = await PasswordRepository.resetPassword(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
-    if(response.status === 200){
+    if (response.status === 200) {
       setAcceptReset(true)
       notification(
         "Berhasil Mengirim Tautan.",
         "Kami sudah mengirimkan tautan, silahkan periksa kotak masuk email kamu.",
         "success"
       );
-    }else{
+    } else {
       setAcceptReset(true)
     }
   }
 
-  function onCaptchaChange (value) {
-    if(value){
+  function onCaptchaChange(value) {
+    if (value) {
       setAcceptReset(false)
     }
   };
@@ -68,16 +68,16 @@ export default function Password (){
         }
       >
         <div className="mp-body-password-container">
-          <Formik 
+          <Formik
             initialValues={{ oldPassword: "", newPassword: "" }}
             validateOnChange={false}
-            onSubmit={async (values, {setErrors,resetForm}) => {
-              onSubmitPassword(values ,resetForm)
+            onSubmit={async (values, { setErrors, resetForm }) => {
+              onSubmitPassword(values, resetForm)
             }}
             validationSchema={schemaPassword}
           >
             {({ values, errors, touched, handleChange, handleSubmit }) => (
-              <Form  onSubmit={handleSubmit} >
+              <Form onSubmit={handleSubmit} >
                 <div className="mp-item-password-container">
                   <Row>
                     <Col md={4}>
@@ -85,8 +85,8 @@ export default function Password (){
                     </Col>
                     <Col md={20}>
                       <Form.Item
-                        validateStatus={(errors.oldPassword || errorMessage) && 'error'  }
-                        help={errors.oldPassword ? errors.oldPassword  :  errorMessage}
+                        validateStatus={(errors.oldPassword || errorMessage) && 'error'}
+                        help={errors.oldPassword ? errors.oldPassword : errorMessage}
                       >
                         <Input
                           name="oldPassword"
@@ -96,7 +96,7 @@ export default function Password (){
                           value={values.oldPassword}
                           style={{ width: "30%" }}
                         />
-                      </Form.Item>  
+                      </Form.Item>
                     </Col>
                   </Row>
                   <Row>
@@ -105,12 +105,13 @@ export default function Password (){
                     </Col>
                     <Col md={20}>
                       <Form.Item
-                        validateStatus={ errors.newPassword ? 'error' : 'success' }
-                        help={errors.newPassword && errors.newPassword }
+                        validateStatus={errors.newPassword ? 'error' : 'success'}
+                        help={errors.newPassword && errors.newPassword}
                       >
-                        <InputAnt.Password
+                        <Input
                           name="newPassword"
                           id="newPassword"
+                          type="password"
                           value={values.newPassword}
                           onChange={handleChange}
                           style={{ width: "30%" }}
@@ -123,7 +124,7 @@ export default function Password (){
                 <Button htmlType="submit" type="primary" >
                   Terapkan Password
                 </Button>
-              </Form> 
+              </Form>
             )}
           </Formik>
         </div>
@@ -144,7 +145,7 @@ export default function Password (){
         <div className="mp-captcha-change-password">
           <ReCAPTCHA
             sitekey={process.env.REACT_APP_KEY_CAPTCHA}
-            onChange={(value)=>onCaptchaChange(value)}
+            onChange={(value) => onCaptchaChange(value)}
           />
         </div>
         <div>
