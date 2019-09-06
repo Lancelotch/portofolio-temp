@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.sass";
 import strings from "../../localization/localization";
 import { Divider, Modal, Row, Col, Collapse, notification } from "antd";
@@ -6,11 +6,10 @@ import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import PaymentInstructions from "../../components/PaymentInstructions/index";
 import PaymentInvoice from "../../components/PaymentInvoice/index";
 import history from "../../routers/history";
-import { apiGetWithToken } from "../../api/services";
-import { PATH_ORDER } from "../../api/path";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../../components/Skeleton";
 import Button from "../../components/Button";
+import Payment from '../../repository/Payment'
 
 
 const openNotificationWithIcon = type => {
@@ -21,107 +20,88 @@ const openNotificationWithIcon = type => {
   });
 };
 
-class PaymentInfoPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messageCopy: "",
-      copied: false,
-      isLoading: false,
-      gateway: {}
-    };
+export default function PaymentInfoPage (props) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [gateway, setGateWay] = useState({})
+
+  function warning () {
+    Modal.warning({
+      className: "modal-check-status",
+      title: strings.payment_modal_ask,
+      content: strings.payment_modal_content,
+      onOk: actionToDashboardCustomer
+    });
+  };
+
+  function actionToDashboardCustomer () {
+    return history.push("/dashboard/order");
   }
 
+  useEffect(() => {
+    getPaymentInfo()
+  },[])
 
-  componentDidMount() {
-    this.getPaymentInfo();
-  }
-
-
-  getPaymentInfo = async () => {
-    this.setState({ isLoading: true })
-    try {
-      const paymentId = this.props.match.params.paymentId;
-      const response = await apiGetWithToken(PATH_ORDER.ORDER_PAYMENT_ID + paymentId)
+  async function getPaymentInfo () {
+    const paymentId = props.match.params.paymentId;
+    setIsLoading(true)
+    let response = await Payment.get({params : paymentId})
+    if(response.status === 200){
       const payment = response.data.data;
-      this.setState({
-        isLoading: false,
-        gateway: payment.gateway
-
-      });
-    } catch (error) {
-      console.log(error);
-      this.setState({
-        isLoading: true
-      })
+      setIsLoading(false)
+      setGateWay(payment.gateway)
+    }else{
+      setIsLoading(false)
     }
   };
 
-  onCopy = () => {
-    this.setState({
-      copied: true,
-    }, () => { openNotificationWithIcon('success') });
+  const onCopy = () => {
+    openNotificationWithIcon('success')
   };
 
-  actionToDashboardCustomer = () => {
-    return history.push("/dashboard-customer/my-order");
-  }
-
-  render() {
-    const { gateway, isLoading } = this.state;
-    const warning = () => {
-      Modal.warning({
-        className: "modal-check-status",
-        title: strings.payment_modal_ask,
-        content: strings.payment_modal_content,
-        onOk: this.actionToDashboardCustomer
-      });
-    };
-
-    return (
-      <div className="container">
-        <React.Fragment>
-          <div className="mp-info-payment__top-header">
-            <span>{strings.payment_info_sentence}</span>
+  return (
+    <div className="container">
+      <React.Fragment>
+        <div className="mp-info-payment__top-header">
+          <span>{strings.payment_info_sentence}</span>
+        </div>
+        <div className="mp-info-payment__content">
+          <div className="mp-info-payment__logo">
+            <Link to="/#">
+              <img src={monggopesen_logo} alt="" />
+            </Link>
           </div>
-          <div className="mp-info-payment__content">
-            <div className="mp-info-payment__logo">
-              <Link to="/#">
-                <img src={monggopesen_logo} alt="" />
-              </Link>
+          <div className={isLoading === true ? "mp-info-payment__top-null" : "mp-info-payment__style"}>
+            <div className="mp-info-payment__title">
+              <p>{strings.payment_info}</p>
+              <Divider />
             </div>
-            <div className={isLoading === true ? "mp-info-payment__top-null" : "mp-info-payment__style"}>
-              <div className="mp-info-payment__title">
-                <p>{strings.payment_info}</p>
-                <Divider />
-              </div>
-              <div className="mp-info-payment___content">
+            <div className="mp-info-payment___content">
+              {isLoading === true ?
+                <Row type="flex" align="middle" style={{ marginTop: 40 }} className="mp-info-payment__info-bank">
+                  <Col md={4} />
+                  <Col md={16} />
+                  <Col md={4} style={{ textAlign: "end" }}>
+                    <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
+                  </Col>
+                </Row>
+                :
+                <PaymentInvoice
+                  gateway={gateway}
+                  onCopy={onCopy}
+                />}
+              {/* <center style={{ color: "red" }}>{messageCopy}</center> */}
+              <div className="mp-info-payment__drop-down">
                 {isLoading === true ?
-                  <Row type="flex" align="middle" style={{ marginTop: 40 }} className="mp-info-payment__info-bank">
-                    <Col md={4} />
-                    <Col md={16} />
-                    <Col md={4} style={{ textAlign: "end" }}>
-                      <SkeletonCustom height={48} count={0} color={"#BBBBBB"} width={81} />
-                    </Col>
-                  </Row>
+                  <Collapse defaultActiveKey={["1"]} accordion>
+                    <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
+                  </Collapse>
                   :
-                  <PaymentInvoice
-                    gateway={gateway}
-                    onCopy={this.onCopy}
-                  />}
-                <center style={{ color: "red" }}>{this.state.messageCopy}</center>
-                <div className="mp-info-payment__drop-down">
-                  {isLoading === true ?
-                    <Collapse defaultActiveKey={["1"]} accordion>
-                      <Collapse.Panel showArrow={false} className="collapse_null" key="1" />
-                    </Collapse>
-                    :
-                    <PaymentInstructions paymentInstruction={this.state.gateway.bank && this.state.gateway.bank} />
-                  }
-                </div>
-                <div>
-                  {isLoading === true ?
-                    <SkeletonCustom 
+                  <PaymentInstructions paymentInstruction={gateway.bank && gateway.bank} />
+                }
+              </div>
+              <div>
+                {isLoading === true ?
+                  <SkeletonCustom 
                     leftMargin={13}
                     width={975} 
                     topMargin={10} 
@@ -129,18 +109,15 @@ class PaymentInfoPage extends Component {
                     color={"#BBBBBB"} 
                     count={0} />
                     :
-                    <Button type="primary" width="full" size="large" onClick={warning}>
-                      {strings.payment_check}
-                    </Button>
-                  }
-                </div>
+                  <Button type="primary" width="full" size="large" onClick={warning}>
+                    {strings.payment_check}
+                  </Button>
+                }
               </div>
             </div>
           </div>
-        </React.Fragment>
-      </div>
-    );
-  }
+        </div>
+      </React.Fragment>
+    </div>
+  )
 }
-
-export default PaymentInfoPage;
