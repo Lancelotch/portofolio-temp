@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import { schema } from "./schema";
 import Address from "../../repository/Address";
 import PropTypes from "prop-types";
-import { reduce, keyBy } from "lodash";
 import convertSchemaToInit from "../../library/convertSchemaToInit";
 
 const { Option } = Select;
@@ -22,8 +21,7 @@ export default function FormAddress(props) {
   useEffect(() => {
     props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
-    console.log(schema);
-  }, []);
+  }, [props.id]);
 
   function doCreate() {
     setTitle(titleCreate);
@@ -87,13 +85,14 @@ export default function FormAddress(props) {
     return response;
   }
 
-  async function handleSubmit(params) {
+  async function handleSubmit(params, resetForm) {
     let response =
       props.action === "create"
         ? await submitCreate(params)
         : await submitUpdate(params);
     if (response.status === 200) {
-      props.onSuccess();
+      props.onSuccess(initialValues);
+      resetForm();
     }
   }
 
@@ -123,9 +122,8 @@ export default function FormAddress(props) {
       enableReinitialize
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={values => {
-        //console.log(values);
-        handleSubmit(values);
+      onSubmit={(values,{resetForm}) => {
+        handleSubmit(values, resetForm);
       }}
       validateOnChange={false}
     >

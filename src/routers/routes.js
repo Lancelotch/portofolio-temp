@@ -151,6 +151,12 @@ const routes = [
     needAuthenticated: true
   },
   {
+    path: PATH_URL.NOT_FOUND,
+    component: NotFoundPage,
+    layout: MainLayout,
+    needAuthenticated:false
+  },
+  {
     path: PATH_URL.NOT_FOUND_PAGE,
     component: NotFoundPage,
     layout: MainLayout,
