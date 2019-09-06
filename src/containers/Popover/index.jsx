@@ -7,11 +7,9 @@ import UserMenu from "./UserMenu";
 import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover() {
-  const { authBody, authProfile, isAuthenticated, handleLogout } = useRootContext();
+  const { authProfile, isAuthenticated, handleLogout } = useRootContext();
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
-  console.log("cek aobo", authBody)
-  console.log("cek aupro", authProfile)
   
   useEffect(() => {
     setVisible(false);

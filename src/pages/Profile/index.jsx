@@ -141,7 +141,6 @@ export default function Profile() {
       name: name
     };
     handleUpdate(params);
-    console.log("au upda", authProfile)
     if (authProfile) {
       openNotificationSubmit("success");
     } else {

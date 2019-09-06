@@ -8,7 +8,6 @@ export default function ProfileMain() {
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
 
-  console.log("main", authProfile);
   useEffect(() => {
     getCustomer();
   }, []);

@@ -57,20 +57,16 @@ const RootContext = props => {
   };
 
   const update = async payload => {
-    console.log("contex update start", payload);
     const response = await Customer.update({
       params: payload,
       loading: setIsSubmitting
     });
-    console.log("contex update", response);
     getProfile();
   };
 
   async function getProfile() {
     const response = await Customer.get({});
-    console.log("get profile", response);
     const data = JSON.parse(window.localStorage.getItem("authenticated"));
-    console.log("data bfr ==>", data);
     window.localStorage.setItem(
       "authenticated",
       JSON.stringify({
