@@ -199,11 +199,11 @@ export default function Checkout (props){
   }
 
   function handleSubmit (values){
-    if(props.isAddressAvailable){
+    // if(props.isAddressAvailable){
       actionSubmitOrder(values)
-    }else{
-      actionShowAddFormAddress()
-    }
+    // }else{
+    //   actionShowAddFormAddress()
+    // }
   }
 
   async function actionChangeAddress(addressSelected){

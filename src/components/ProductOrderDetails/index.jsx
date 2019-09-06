@@ -34,7 +34,7 @@ const ProductOrderDetails = props => {
           (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
           <label>
             <Link
-              to={`${"/invoice-customer"}/${id}`}
+              to={`${"/invoice"}/${id}`}
               target="_blank"> Lihat
             </Link> |
             {noInvoice} &nbsp;
