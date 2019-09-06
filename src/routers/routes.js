@@ -61,7 +61,7 @@ const routes = [
     needAuthenticated: false
   },
   {
-    path: PATH_URL.PRODUCT_DETAIL,
+    path: PATH_URL.PRODUCT,
     component: ProductDetail,
     layout: MainLayout,
     needAuthenticated: false
@@ -149,6 +149,12 @@ const routes = [
     component: Development,
     layout: FullLayout,
     needAuthenticated: true
+  },
+  {
+    path: PATH_URL.NOT_FOUND,
+    component: NotFoundPage,
+    layout: MainLayout,
+    needAuthenticated:false
   },
   {
     path: PATH_URL.NOT_FOUND_PAGE,

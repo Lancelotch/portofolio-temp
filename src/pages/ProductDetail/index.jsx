@@ -17,6 +17,7 @@ import { useRootContext } from "../../hoc/RootContext";
 import Product from "../../repository/Product";
 import Breadcrumb from "../../repository/Breadcrumb/index";
 import { convertToCategoryName } from "../../library/regex";
+import PATH_URL from "../../routers/path";
 
 
 const { Text } = Typography
@@ -65,8 +66,8 @@ export default function ProductDetail(props) {
       loading: setLoading,
       productId: props.match.params.productId
     })
-    const product = productDetail.data.data
     if (productDetail.status === 200) {
+      const product = productDetail.data.data
       setDefaultImage(product.defaultImage)
       setProduct(product)
       setImages(product.images)
@@ -76,9 +77,17 @@ export default function ProductDetail(props) {
       setId(product.id)
       setIsProductAvailable(true)
       setVideoUrl(product.videoUrl)
+      getBradcrumb(product.information.category.id)
+    } else {
+      handleProductDetailNotFound(productDetail)
     }
-    getBradcrumb(product.information.category.id)
   };
+
+  function handleProductDetailNotFound(error) {
+    if (error.status !== 200) {
+      props.history.push(PATH_URL.NOT_FOUND);
+    }
+  }
 
   function actionUpdateSku(sku) {
     const dataSku = { ...data, sku };
