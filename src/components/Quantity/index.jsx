@@ -10,7 +10,7 @@ const { Text } = Typography
 export default function Quantity(props) {
 
   const [text, setText] = useState("")
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState();
 
   useEffect(() => {
     setQuantity(props.initValue)
