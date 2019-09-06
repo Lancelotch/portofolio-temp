@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import { PATH_PUBLIC } from "../../api/path";
 import notification from "../../library/notification";
 import schemaPassword from './schema';
-import PasswordRepository from '../../repository/Password'
+import PasswordRepo from '../../repository/Password'
 import "./style.sass";
 
 export default function Password (){
@@ -20,7 +20,7 @@ export default function Password (){
       password: newPassword
     };
     
-    const response = await PasswordRepository.changePassword({params})
+    const response = await PasswordRepo.change({params})
      if (response.status === 200) {
         resetForm({})
         notification(
@@ -34,7 +34,7 @@ export default function Password (){
   };
 
   async function onResetPassword () {
-    const response = await PasswordRepository.resetPassword(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
+    const response = await PasswordRepo.reset(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
     if(response.status === 200){
       setAcceptReset(true)
       notification(
