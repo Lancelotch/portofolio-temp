@@ -195,9 +195,9 @@ export default function Checkout (props){
     getListAddress();
   }
 
-  function handleSuccessEdit(){
+  function handleSuccessEdit(callBackAddress){
     setVisibleEditAddress(!visibleEditAddress);
-    getaddress();
+    setaddress(callBackAddress);
   }
 
   function handleSubmit (values){
@@ -326,7 +326,7 @@ export default function Checkout (props){
                     <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
                       <FormAddress action={"update"}
                         onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
-                        onSuccess={()=>handleSuccessEdit()}
+                        onSuccess={(callBackAddress)=>handleSuccessEdit(callBackAddress)}
                         id={address.id}/>
                     </Modal>
                     <AddressList

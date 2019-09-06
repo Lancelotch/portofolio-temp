@@ -91,7 +91,7 @@ export default function FormAddress(props) {
         ? await submitCreate(params)
         : await submitUpdate(params);
     if (response.status === 200) {
-      props.onSuccess();
+      props.onSuccess(initialValues);
       resetForm();
     }
   }
