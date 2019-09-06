@@ -53,7 +53,11 @@ export default function ProductDetail(props) {
     let breadcrumbs = await Breadcrumb.getByCategory({
       params: categoryId
     })
-    setBreadcrumbsApi(breadcrumbs.data.data)
+    if (breadcrumbs.status === 200) {
+      setBreadcrumbsApi(breadcrumbs.data.data)
+    } else {
+      setBreadcrumbsApi({})
+    }
   };
 
   async function getProductDetail() {
