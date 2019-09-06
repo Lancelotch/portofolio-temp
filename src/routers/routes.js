@@ -11,7 +11,7 @@ import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
-import ConfirmationError from "../pages/ConfirmationError";
+import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -139,8 +139,8 @@ const routes = [
     needAuthenticated: true
   },
   {
-    path: PATH_URL.CONFIRMATION_ERROR,
-    component: ConfirmationError,
+    path: PATH_URL.ERROR,
+    component: Error,
     layout: FullLayout,
     needAuthenticated: false
   },
