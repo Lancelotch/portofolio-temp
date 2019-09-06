@@ -2,7 +2,7 @@ const HOME = '/';
 const CHECKOUT = '/checkout';
 const REGISTER = '/register';
 const LOGIN = '/login';
-const PRODUCT = '/product/:productId';
+const PRODUCT_DETAIL = '/product/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER_LEVEL_1 = '/dashboard-customer/:myorder';
 const DASHBOARD_CUSTOMER_LEVEL_2 = '/dashboard-customer/:myorder/:myaccount';
@@ -35,7 +35,7 @@ const PATH_URL = {
     VIEW_INVOICE: VIEW_INVOICE,
     LOGIN: LOGIN,
     HOME: HOME,
-    PRODUCT: PRODUCT,
+    PRODUCT_DETAIL: PRODUCT_DETAIL,
     CHECKOUT: CHECKOUT,
     REGISTER: REGISTER,
     CART: CART,

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Icon, Carousel } from "antd";
 import "./style.sass";
-import { pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
 import Product from "../../repository/Product";
 import Cards from "../Cards";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -104,7 +104,7 @@ function Recommend() {
 
   const slides = productsToShow.map((item, i) => {
     return (
-      <Link to={pageUrlProductDetail + item.id || "#"} key={i}>
+      <Link to={`${PATH_PRODUCT.PRODUCT}/${item.id}`} key={i}>
         <Cards
           urlImage={item.image.defaultImage}
           title={item.name}
