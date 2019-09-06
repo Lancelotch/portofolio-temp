@@ -48,9 +48,9 @@ export default function SliderProductDetailContainer(props) {
             isImageVariantExist = true;
             setImagesToShow(imagesToShow)
             setIsImageVariantExist(isImageVariantExist)
-            if (props.images.length > 2) {
+            if (props.images.length >= 2) {
                 setStartIndex(1)
-            } else if (props.images.length < 2) {
+            } else {
                 setStartIndex(0)
             }
         }
@@ -161,11 +161,9 @@ export default function SliderProductDetailContainer(props) {
         return imagesandVideoToShow.concat(imageSlide())
     }
 
-
     const { videoUrl } = props;
     isImageVariantExist && removeThumbnailImageVariant();
     let isShowNav = props.images.length > 4 ? true : false
-    console.log('startindex', startIndex);
 
     return (
         <Row>

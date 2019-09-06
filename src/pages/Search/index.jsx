@@ -8,7 +8,7 @@ import getParamUrl from "../../library/getParamUrl";
 import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
 import Product from "../../repository/Product";
-import Breadcrumbs from "../../components/Breadcrumbs";
+//import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -86,7 +86,7 @@ export default function Search(props) {
     return (
       <div>
         <div style={{ margin: "0 24px" }}>
-          <Breadcrumbs />
+    
         </div>
         <Divider style={{ margin: "12px 0" }} />
         <div

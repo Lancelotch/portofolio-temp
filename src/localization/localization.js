@@ -21,7 +21,12 @@ const strings = new LocalizedStrings({
     use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
     send_to_another_address : 'Kirim ke Alamat Lain',
     shipping_address : 'Alamat Pengiriman',
-  
+
+
+    //error-page
+    error_bottom_text:  "Sepertinya halaman yang anda tuju sedang dalam perbaikan, teknisi kami sedang memperbaikinya silahkan kembali ke halaman sebelumnya atau klik tombol dibawah ini.",
+    error_top_text:"Wah, ada apa ya?",
+    error_button_text: "Kembali Ke Beranda",
     //general
     password_required: "Password harus diisi",
     email_valid: "Email harus valid",

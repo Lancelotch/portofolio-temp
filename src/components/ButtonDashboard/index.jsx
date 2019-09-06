@@ -1,10 +1,10 @@
 import React from 'react'
 import "../ProductOrder/style.sass"
 import { Link } from "react-router-dom";
-import { pageUrlProductDetail } from "../../library/url"
 import strings from '../../localization/localization';
 import { buttonDisabledandEnabledDelivery } from '../../library/buttonDisabledAndEnabled';
 import Button from "../Button"
+import { PATH_PRODUCT } from '../../services/path/product';
 
 export default function ButtonDashboard(props) {
   const { showDeleteConfirm,
@@ -66,7 +66,7 @@ export default function ButtonDashboard(props) {
               type="primary"
               marginright="small"
               size="large">
-              <Link to={pageUrlProductDetail + productId}>Pesen Lagi</Link>
+              <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}> Lagi</Link>
             </Button>}
           <Button
           type="secondary"

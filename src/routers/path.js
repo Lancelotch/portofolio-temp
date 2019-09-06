@@ -2,7 +2,7 @@ const HOME = '/';
 const CHECKOUT = '/checkout';
 const REGISTER = '/register';
 const LOGIN = '/login';
-const PRODUCT_DETAIL = '/product-detail/:productId';
+const PRODUCT_DETAIL = '/product/:productId';
 const CART = '/cart';
 const DASHBOARD_CUSTOMER_LEVEL_1 = '/dashboard-customer/:myorder';
 const DASHBOARD_CUSTOMER_LEVEL_2 = '/dashboard-customer/:myorder/:myaccount';
@@ -21,13 +21,15 @@ const ORDER_SUMMARY = '/order-summary';
 const GET_CATEGORY = '/category';
 const PAYMENT_INFO = '/payment-info/:paymentId';
 const PAYMENT_FAILED = '/payment-failed';
+const NOT_FOUND = '/not-found'
 const NOT_FOUND_PAGE = '*';
-const CONFIRMATION_ERROR = '/confirmation';
+const ERROR = '/500';
 const FORGET_PASSWORD = '/forget-password';
 
 
 const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
+    NOT_FOUND: NOT_FOUND,
     DASHBOARD_CUSTOMER_LEVEL_1: DASHBOARD_CUSTOMER_LEVEL_1,
     DASHBOARD_CUSTOMER_LEVEL_2 :DASHBOARD_CUSTOMER_LEVEL_2,
     VIEW_INVOICE: VIEW_INVOICE,
@@ -47,7 +49,7 @@ const PATH_URL = {
     PAYMENT_INFO: PAYMENT_INFO,
     GET_CATEGORY: GET_CATEGORY,
     PAYMENT_FAILED : PAYMENT_FAILED,
-    CONFIRMATION_ERROR: CONFIRMATION_ERROR,
+    ERROR: ERROR,
     FORGET_PASSWORD: FORGET_PASSWORD,
     DASHBOARD_PROFILE,
     DASHBOARD_ADDRESS,

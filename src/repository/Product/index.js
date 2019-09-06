@@ -84,7 +84,7 @@ async function getByKeyword(props) {
   }
 }
 
-async function getById(props) {
+async function get(props) {
   const loading = props.loading ? props.loading : function () { };
   const productId = props.productId;
   let response = ""
@@ -105,7 +105,7 @@ const Product = {
   getBestSeller: getBestSeller,
   getByCategory: getByCategory,
   getByKeyword: getByKeyword,
-  getById:getById
+  get:get
 };
 
 export default Product;

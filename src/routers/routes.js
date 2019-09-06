@@ -11,7 +11,7 @@ import PaymentInfoPage from "../pages/PaymentInfo";
 import ViewInvoice from "../pages/ViewInvoice";
 import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
-import ConfirmationError from "../pages/ConfirmationError";
+import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
@@ -20,7 +20,7 @@ import Search from "../pages/Search";
 import Development from "../pages/Development";
 import Profile from "../pages/Profile";
 import DummyPageAddress from "../pages/DummyPageAddress";
-import DummyPagePassword from "../pages/DummyPagePassword";
+import Password from '../pages/Password'
 import Order from "../pages/Order";
 
 const routes = [
@@ -122,7 +122,7 @@ const routes = [
   },
   {
     path: PATH_URL.DASHBOARD_PASSWORD,
-    component : DummyPagePassword,
+    component : Password,
     layout: CustomerLayout,
     needAuthenticated: true
   },
@@ -139,8 +139,8 @@ const routes = [
     needAuthenticated: true
   },
   {
-    path: PATH_URL.CONFIRMATION_ERROR,
-    component: ConfirmationError,
+    path: PATH_URL.ERROR,
+    component: Error,
     layout: FullLayout,
     needAuthenticated: false
   },
@@ -149,6 +149,12 @@ const routes = [
     component: Development,
     layout: FullLayout,
     needAuthenticated: true
+  },
+  {
+    path: PATH_URL.NOT_FOUND,
+    component: NotFoundPage,
+    layout: MainLayout,
+    needAuthenticated:false
   },
   {
     path: PATH_URL.NOT_FOUND_PAGE,

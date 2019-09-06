@@ -73,7 +73,7 @@ export default function ForgetPassword (){
               <br />
               mengirimkan link untuk mengatur ulang kata sandi.
             </p>
-          <Formik 
+          <Formik
             onSubmit={values => {
               handleSubmit(values)
             }}
