@@ -3,14 +3,15 @@ import "./style.sass";
 import ProfileAvatar from "../../components/ProfileAvatar";
 import ProfileEdit from "../../components/ProfileEdit";
 import { notification, Card } from "antd";
-import Customer from "../../repository/Customer";
 import ImageRepo from "../../repository/Image";
+import { useRootContext } from "../../hoc/RootContext";
 
 export default function Profile() {
+  const { authProfile, handleUpdate } = useRootContext();
   const [loading, setLoading] = useState(false);
-  const [customerName, setCustomerName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  // const [customerName, setCustomerName] = useState("");
+  // const [customerEmail, setCustomerEmail] = useState("");
+  // const [photoUrl, setPhotoUrl] = useState("");
   const [allData, setAllData] = useState({});
   const [isErrorDimension, setIsErrorDimension] = useState(false);
   const [isErrorFormat, setIsErrorFormat] = useState(false);
@@ -24,16 +25,14 @@ export default function Profile() {
   }, []);
 
   async function getProfile() {
-    const response = await Customer.get({ loading: setLoading });
-    const res = response.data.data;
-    if (response.status === 200) {
-      setCustomerName(res.name);
-      setCustomerEmail(res.email);
-      setPhotoUrl(res.photoUrl);
-      setAllData(res);
+    if (authProfile) {
+      // setCustomerName(authProfile.name);
+      // setCustomerEmail(authProfile.email);
+      // setPhotoUrl(authProfile.photoUrl);
+      setAllData(authProfile);
     }
-    if (res.photoUrl) {
-      const isDimention = await checkDimensionFirst(res.photoUrl);
+    if (authProfile.photoUrl) {
+      const isDimention = await checkDimensionFirst(authProfile.photoUrl);
       if (isDimention.height > isDimention.width) {
         setPortrait(true);
         setLandscape(false);
@@ -90,15 +89,15 @@ export default function Profile() {
         !isErrorDimension
       ) {
         setLoading(true);
-        setPhotoUrl("");
+        // setPhotoUrl("");
         setAllData({
           ...allData,
-          loading: true
+          photoUrl: ""
         });
       }
     }, 10);
     if (res.file.status === "done") {
-      setPhotoUrl(res.file.response.smallUrl);
+      // setPhotoUrl(res.file.response.smallUrl);
       setAllData({
         ...allData,
         photoUrl: res.file.response.smallUrl
@@ -123,7 +122,7 @@ export default function Profile() {
   }
 
   function removeImage() {
-    setPhotoUrl("");
+    // setPhotoUrl("");
     setAllData({
       ...allData,
       photoUrl: ""
@@ -141,11 +140,12 @@ export default function Profile() {
       ...allData,
       name: name
     };
-    const response = await Customer.update({ params });
-    if (response.status === 200) {
-      openNotificationSuccess("success");
+    handleUpdate(params);
+    console.log("au upda", authProfile)
+    if (authProfile) {
+      openNotificationSubmit("success");
     } else {
-      openNotificationSuccess("error");
+      openNotificationSubmit("error");
     }
   }
 
@@ -155,7 +155,7 @@ export default function Profile() {
     setIsErrorSize(false);
   }
 
-  function openNotificationSuccess(type) {
+  function openNotificationSubmit(type) {
     let message;
     if (type === "success") {
       message = "Berhasil Menyimpan Perubahan Data";
@@ -186,7 +186,7 @@ export default function Profile() {
       <div className="profile">
         <div className="profile__content">
           <ProfileAvatar
-            photoUrl={photoUrl}
+            photoUrl={allData.photoUrl}
             loading={loading}
             beforeUpload={beforeUpload}
             uploadImage={uploadImage}
@@ -203,8 +203,8 @@ export default function Profile() {
         </div>
         <div className="profile__content">
           <ProfileEdit
-            customerName={customerName}
-            customerEmail={customerEmail}
+            customerName={allData.name}
+            customerEmail={allData.email}
             handleSubmit={handleSubmit}
           />
         </div>

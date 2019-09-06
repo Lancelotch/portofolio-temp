@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
 import { Avatar } from "antd";
-import Customer from "../../repository/Customer";
+import { useRootContext } from "../../hoc/RootContext";
 
 export default function ProfileMain() {
-  const [loading, setLoading] = useState(false);
+  const { authProfile } = useRootContext();
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
-  const [customerName, setCustomerName] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
 
+  console.log("main", authProfile);
   useEffect(() => {
     getCustomer();
   }, []);
 
   async function getCustomer() {
-    const params = {
-      loading: setLoading
-    };
-    const response = await Customer.get(params);
-    const res = response.data.data;
-    if (response.status === 200) {
-      setCustomerName(res.name);
-      setPhotoUrl(res.photoUrl);
-    }
-    if (res.photoUrl) {
-      const isDimention = await checkDimension(res.photoUrl);
+    if (authProfile.photoUrl) {
+      const isDimention = await checkDimension(authProfile.photoUrl);
       if (isDimention.height > isDimention.width) {
         setPortrait(true);
         setLandscape(false);
@@ -54,14 +44,10 @@ export default function ProfileMain() {
     <div>
       <div className="profile-main">
         <div className={portrait ? "portrait" : landscape ? "landscape" : ""}>
-          <Avatar
-            icon={loading ? "loading" : "user"}
-            size={40}
-            src={loading ? null : photoUrl}
-          />
+          <Avatar icon={authProfile.photoUrl || "user"} size={40} src={authProfile.photoUrl} />
         </div>
         <div className="profile-main__customer-name">
-          <span>{customerName}</span>
+          <span>{authProfile.name}</span>
         </div>
       </div>
     </div>
