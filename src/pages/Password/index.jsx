@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import { PATH_PUBLIC } from "../../api/path";
 import notification from "../../library/notification";
 import schemaPassword from './schema';
-import PasswordRepository from '../../repository/Password'
+import PasswordRepo from '../../repository/Password/index'
 import "./style.sass";
 
 export default function Password() {
@@ -19,23 +19,23 @@ export default function Password() {
       oldPassword: oldPassword,
       password: newPassword
     };
-
-    const response = await PasswordRepository.changePassword({ params })
-    if (response.status === 200) {
-      resetForm({})
-      notification(
-        "Berhasil Menetapkan Password Baru.",
-        "Akun kamu makin aman nih, ingat untuk selalu berhati-hati dengan tidak memberikan password kamu kepada siapapun",
-        "success"
-      );
-    } else {
-      setErrorMessage('Password yang anda masukan kurang tepat')
-    }
+    
+    const response = await PasswordRepo.change({params})
+     if (response.status === 200) {
+        resetForm({})
+        notification(
+          "Berhasil Menetapkan Password Baru.",
+          "Akun kamu makin aman nih, ingat untuk selalu berhati-hati dengan tidak memberikan password kamu kepada siapapun",
+          "success"
+        );
+      } else {
+        setErrorMessage('Password yang anda masukan kurang tepat')
+      }
   };
 
-  async function onResetPassword() {
-    const response = await PasswordRepository.resetPassword(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
-    if (response.status === 200) {
+  async function onResetPassword () {
+    const response = await PasswordRepo.reset(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
+    if(response.status === 200){
       setAcceptReset(true)
       notification(
         "Berhasil Mengirim Tautan.",

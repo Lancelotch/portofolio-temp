@@ -1,7 +1,7 @@
 import { apiPostWithToken, apiGetWithToken } from "../../services/api";
 import { PATH_PUBLIC } from "../../services/path/public";
 
-async function changePassword (props) {
+async function change (props) {
   let params = props.params
   let response = ''
   try {
@@ -12,7 +12,7 @@ async function changePassword (props) {
   }
 };
 
-async function resetPassword (){
+async function reset (){
   let response = ''
   try {
     response = await apiGetWithToken(PATH_PUBLIC.PUBLIC_RESET_PASSWORD);
@@ -22,9 +22,9 @@ async function resetPassword (){
   }
 }
 
-const PasswordRepository = {
-  changePassword,
-  resetPassword
+const Password = {
+  change,
+  reset
 }
 
-export default PasswordRepository
+export default Password
