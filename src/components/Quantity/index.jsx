@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Icon, Typography, Button } from "antd";
 import "./style.sass";
 import strings from "../../localization/localization"
@@ -10,7 +10,11 @@ const { Text } = Typography
 export default function Quantity(props) {
 
   const [text, setText] = useState("")
-  const [quantity, setQuantity] = useState(props.initValue);
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    setQuantity(props.initValue)
+  },[props.initValue])
 
   function incrementItem() {
     let currentQuantity = quantity + 1;
