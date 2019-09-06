@@ -61,7 +61,9 @@ const RootContext = props => {
       params: payload,
       loading: setIsSubmitting
     });
-    getProfile();
+    if (response.status === 200) {
+      getProfile();
+    }
   };
 
   async function getProfile() {

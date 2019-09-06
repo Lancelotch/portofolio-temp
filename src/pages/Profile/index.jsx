@@ -9,9 +9,6 @@ import { useRootContext } from "../../hoc/RootContext";
 export default function Profile() {
   const { authProfile, handleUpdate } = useRootContext();
   const [loading, setLoading] = useState(false);
-  // const [customerName, setCustomerName] = useState("");
-  // const [customerEmail, setCustomerEmail] = useState("");
-  // const [photoUrl, setPhotoUrl] = useState("");
   const [allData, setAllData] = useState({});
   const [isErrorDimension, setIsErrorDimension] = useState(false);
   const [isErrorFormat, setIsErrorFormat] = useState(false);
@@ -26,9 +23,6 @@ export default function Profile() {
 
   async function getProfile() {
     if (authProfile) {
-      // setCustomerName(authProfile.name);
-      // setCustomerEmail(authProfile.email);
-      // setPhotoUrl(authProfile.photoUrl);
       setAllData(authProfile);
     }
     if (authProfile.photoUrl) {
