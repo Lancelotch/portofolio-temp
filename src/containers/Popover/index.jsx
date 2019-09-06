@@ -7,10 +7,10 @@ import UserMenu from "./UserMenu";
 import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover() {
-  const { authBody, isAuthenticated, handleLogout } = useRootContext();
+  const { authProfile, isAuthenticated, handleLogout } = useRootContext();
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
-
+  
   useEffect(() => {
     setVisible(false);
   }, [isAuthenticated]);
@@ -22,7 +22,7 @@ export default function Popover() {
   }, [visible]);
 
   const label = isAuthenticated ? (
-    <span>{authBody.name}</span>
+    <span>{authProfile.name}</span>
   ) : (
     <span>Login</span>
   );

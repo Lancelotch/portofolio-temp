@@ -79,6 +79,7 @@ function Register() {
                         }
                         onChange={handleChange}
                         value={values.name}
+                        maxLength={30}
                       />
                     </Form.Item>
                     <Form.Item

@@ -188,6 +188,9 @@ const strings = new LocalizedStrings({
     //Category
     category_text_result: "Menampilkan {0} produk untuk {1}",
 
+    //Profile
+    profile_error_message: "Nama harus diisi minimal 1 karakter",
+
     //Payment Info
     payment_info: "Info Pembayaran",
     payment_total_amount: "Total Pembayaran",

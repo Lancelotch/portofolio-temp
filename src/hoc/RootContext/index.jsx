@@ -1,13 +1,15 @@
 import React, { useState, useReducer, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import authentication from "../../repository/Authentication";
+import Customer from "../../repository/Customer";
 const CreateRootContext = React.createContext();
 
 const RootContext = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const initialState = {
     isAuthenticated: false,
-    authBody: {}
+    authBody: {},
+    authProfile: {}
   };
 
   const prevAuthenticated =
@@ -24,7 +26,13 @@ const RootContext = props => {
         return {
           ...state,
           isAuthenticated: false,
-          authBody: {}
+          authBody: {},
+          authProfile: {}
+        };
+      case "update":
+        return {
+          ...state,
+          authProfile: { ...action.payload }
         };
       default:
         return state;
@@ -32,24 +40,60 @@ const RootContext = props => {
   };
   const [state, dispatch] = useReducer(reducer, prevAuthenticated);
   const login = async payload => {
-    const response = await authentication.login({param: payload, loading: setIsSubmitting});
+    const response = await authentication.login({
+      param: payload,
+      loading: setIsSubmitting
+    });
     actionRegisterLogin(response);
+    getProfile();
   };
 
   const register = async payload => {
-    const response = await authentication.register({param: payload, loading: setIsSubmitting});
+    const response = await authentication.register({
+      param: payload,
+      loading: setIsSubmitting
+    });
     actionRegisterLogin(response);
   };
+
+  const update = async payload => {
+    const response = await Customer.update({
+      params: payload,
+      loading: setIsSubmitting
+    });
+    if (response.status === 200) {
+      getProfile();
+    }
+  };
+
+  async function getProfile() {
+    const response = await Customer.get({});
+    const data = JSON.parse(window.localStorage.getItem("authenticated"));
+    window.localStorage.setItem(
+      "authenticated",
+      JSON.stringify({
+        ...data,
+        authProfile: response.data.data
+      })
+    );
+    dispatch({
+      type: "update",
+      payload: response.data.data
+    });
+  }
 
   function actionRegisterLogin(response) {
     let isAuthenticated = false;
     if (response.status === 200) {
       const token = response.data.data.access_token;
-      if(token !== "") {
+      if (token !== "") {
         isAuthenticated = true;
         window.localStorage.setItem(
           "authenticated",
-          JSON.stringify({ isAuthenticated: true, authBody: response.data.data })
+          JSON.stringify({
+            isAuthenticated: true,
+            authBody: response.data.data
+          })
         );
         window.localStorage.setItem("token", token);
       }
@@ -57,7 +101,8 @@ const RootContext = props => {
     dispatch({
       type: "login",
       isAuthenticated: isAuthenticated,
-      payload: response.data && response.data.data ? response.data.data : response
+      payload:
+        response.data && response.data.data ? response.data.data : response
     });
   }
 
@@ -77,6 +122,9 @@ const RootContext = props => {
         },
         handleRegister: payload => {
           register(payload);
+        },
+        handleUpdate: payload => {
+          update(payload);
         },
         handleLogout: () => {
           logout();
