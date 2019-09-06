@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Spin, Form } from "antd";
-// import { connect } from "react-redux";
-import FormAddAddress from "../../containers/FormAddAddress";
-// import { addressDefault } from "../../store/actions/address";
+import { Row, Col, Spin, Form, Modal } from "antd";
 import {
   apiPostWithToken,
-  apiGetWithToken,
-  // apiPutWithToken
+  apiGetWithToken
 } from "../../services/api/index";
 import { PATH_CUSTOMER, PATH_ORDER} from "../../api/path";
 import {PATH_SHIPPING} from "../../services/path/shipping";
 import { AddressCheckout } from "../../components/AddressCheckout";
-import FormEditAddress from "../../containers/FormEditAddress";
 import AddressList from "../../containers/AddressList";
 import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
-// import ModalSuccess from '../../modal/ModalRegisterSuccess'
-// import { openModal } from "../../store/actions/authentication"
 import { pageUrlPaymentInfo } from "../../library/url"
 import "./style.sass";
 import history from "../../routers/history";
 import { Link } from "react-router-dom";
 import { Formik } from 'formik'
 import schemaOrder from './schema'
+import FormAddress from "../../containers/FormAddress";
+import Address from "../../repository/Address";
 
 export default function Checkout (props){
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [onLoadingAddress, setOnLoadingAddress] = useState(false);
   const [visibleAddAddress, setVisibleAddAddress] = useState(false)
   const [visibleEditAddress, setVisibleEditAddress] = useState(false)
   const [visibleListAddress, setVisibleListAddress] = useState(false)
   const [customerAddress, setCustomerAddress] = useState({})
   const [addresses, setAddresses] = useState([])
-  // const [cities, setCities] = useState([])
-  const [subdistricts, setSubdistricts] = useState([])
+  const [address, setaddress] = useState();
   const [isProductDetailAvailable, setIsProductDetailAvailable] = useState(false)
   const [shipmentFee, setShipmentFee] = useState({})
   const [maxOrder, setMaxOrder] = useState(0)
   const [priceProduct, setPriceProduct] = useState(0)
   const [priceJne, setPriceJne] = useState(0)
-  // const [quantity, setQuantity] = useState(1)
   const [payloadProductDetail, setPayloadProductDetail] = useState({})
   const [jneChecked, setJneChecked] = useState(false)
   const [payload, setPayload] = useState({
@@ -54,42 +48,19 @@ export default function Checkout (props){
         variants : []
       }
     ]
-  })
+  });
+
+  useEffect(()=>{
+    getaddress();
+  },[])
 
   useEffect(() => {
     getListAddress();
     getPayloadProductDetail();
-    
-    initCustomerAddress();
+    //initCustomerAddress();
     getFareExpedisi();
-    getSubdistrict()
   },[priceJne])
 
-  async function initCustomerAddress () {
-    // await props.addressDefault();
-    // this.setState(
-    //   { customerAddress: this.props.dataAddressDefault }
-    //   , () => {
-    //     this.getCities(this.state.customerAddress.provinceId);
-    //     this.getSubdistrict(this.state.customerAddress.cityId);
-    //   }
-    // );
-  };
-
-  async function getSubdistrict (id) {
-    const params = {
-      city: id
-    };
-    try {
-      const response = await apiGetWithToken(
-        PATH_CUSTOMER.ADDRESS_SUBDISTRICT,
-        params
-      );
-      setSubdistricts(response.data.data)
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   async function getFareExpedisi () {
     try {
@@ -97,7 +68,6 @@ export default function Checkout (props){
       setPriceJne(response.data.data.price)
     } catch (error) {
       console.log(error);
-
     }
   }
 
@@ -203,87 +173,31 @@ export default function Checkout (props){
   };
 
   async function getListAddress  () {
-    try {
-      const response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
-      // this.setState({
-      //   addresses: response.data.data
-      // });
-      setAddresses(response.data.data)
-    } catch (error) {
-      console.log(error);
+    const response = await Address.getAll({loading : setOnLoadingAddress});
+    if (response.status === 200) {
+      setAddresses(response.data.data);
     }
   };
 
-  
-  async function actionSubmitEditFormAddress (request) {
-    try {
-      // const response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS, request);
-      // if (response.data.data) {
-      //   this.setState(
-      //     {
-      //       customerAddress: request
-      //     },
-      //     () => {
-      //       getListAddress();
-      //       actionShowEditFormAddress();
-      //     }
-      //   );
-      // }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // function splitValue (value) {
-  //   const splitValue = value.split("|");
-  //   return splitValue;
-  // };
-
-  function handleChangeCity (value) {
-    // const city = splitValue(value);
-    // this.setState(
-    //   {
-    //     cityId: city[0],
-    //     city: city[1]
-    //   },
-    //   () => this.getSubdistrict(city[0])
-    // );
-  };
-
-  function actionChangeAddress (address) {
-    // this.setState(prevState => ({
-    //   customerAddress: address,
-    //   visibleListAddress: !prevState.visibleListAddress,
-    //   tempCities: this.getCities(address.provinceId),
-    //   tempSubdistrict: this.getSubdistrict(address.cityId)
-    // }));
-    // this.getCities()
-  };
-
-  async function actionSubmitAddFormAddress (request){
-    try {
-      const response = await apiPostWithToken(PATH_CUSTOMER.ADDRESS, request);
-      if (response.data.data) {
-        const customerAddressId = response.data.data;
-        let customerAddress = {
-          ...request,
-          id: customerAddressId
-        };
-        setCustomerAddress(customerAddress)
-        props.addressDefault();
-        getListAddress();
-        // if (!this.isAddressAvailable) {
-        //   this.props.addressDefault();
-        // }
-        actionShowAddFormAddress();
-      }
-    } catch (error) {
-      console.log(error);
+  async function getaddress() {
+    const response = await Address.getDefault({loading : setOnLoadingAddress});
+    if (response.status === 200) {
+      setaddress(response.data.data);
     }
   }
 
   function handleChecked () {
     setJneChecked(!jneChecked)
+  }
+
+  function handleSuccessCreate(){
+    setVisibleAddAddress(!visibleAddAddress)
+    getListAddress();
+  }
+
+  function handleSuccessEdit(callBackAddress){
+    setVisibleEditAddress(!visibleEditAddress);
+    setaddress(callBackAddress);
   }
 
   function handleSubmit (values){
@@ -294,21 +208,10 @@ export default function Checkout (props){
     }
   }
 
-  // async function getCities (id) {
-  //   const params = {
-  //     province: id
-  //   };
-  //   try {
-  //     const response = await apiGetWithToken(
-  //       PATH_CUSTOMER.ADDRESS_CITY,
-  //       params
-  //     );
-  //     // this.setState({ cities: response.data.data });
-  //     setCities(response.data.data)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  async function actionChangeAddress(addressSelected){
+    setaddress(addressSelected);
+    setVisibleListAddress(!visibleListAddress);
+  }
 
   async function actionSubmitOrder (request){
       try {
@@ -406,36 +309,35 @@ export default function Checkout (props){
                 <Row>
                   <Col md={15} style={{ marginTop: 25 }}>
                     <AddressCheckout
-                      customerAddress={customerAddress}
-                      // isAddressAvailable={isAddressAvailable}
+                      onLoading={onLoadingAddress}
+                      address={address}
                       onEditAddress={actionShowEditFormAddress}
                       onSelectListAddress={actionShowListAddress}
                       onAddAddress={actionShowAddFormAddress}
                     />
-                    <FormAddAddress
-                      visible={visibleAddAddress}
-                      onSubmit={actionSubmitAddFormAddress}
-                      onCancle={actionShowAddFormAddress}
-                      // isAddressAvailable={this.props.isAddressAvailable}
-                    />
-                    {customerAddress.id && (
-                      <FormEditAddress
-                        visible={visibleEditAddress}
-                        address={customerAddress}
-                        onSubmit={actionSubmitEditFormAddress}
-                        onCancle={actionShowEditFormAddress}
-                        // cities={cities}
-                        subdistricts={subdistricts}
-                        handleChangeCity={handleChangeCity}
+                    <Modal visible={visibleAddAddress} footer={null} onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}>
+                      <FormAddress action={"create"}
+                        onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}
+                        onSuccess={()=>handleSuccessCreate()}
                       />
-                    )}
+                    </Modal>
+                    {address &&
+                    <React.Fragment>
+                    <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
+                      <FormAddress action={"update"}
+                        onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
+                        onSuccess={(callBackAddress)=>handleSuccessEdit(callBackAddress)}
+                        id={address.id}/>
+                    </Modal>
                     <AddressList
                       addresses={addresses}
                       visible={visibleListAddress}
                       onCancle={actionShowListAddress}
                       onChangeAddress={actionChangeAddress}
-                      customerAddress={customerAddress}
+                      customerAddress={address}
                     />
+                    </React.Fragment>
+                    }
                     {isProductDetailAvailable && (
                       <Form.Item>
                          <OrderDetailContainer
