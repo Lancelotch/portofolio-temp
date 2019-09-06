@@ -1,13 +1,13 @@
 import React from "react";
 import "../ProductOrder/style.sass";
 import { Row, Col, Card } from "antd";
-import { pageUrlViewInvoiceDashboard, pageUrlProductDetail } from "../../library/url";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
 import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 import Button from "../Button";
 import TableProductOrder from "../TableProductOrder";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 const ProductOrderDetails = props => {
   const
@@ -34,7 +34,7 @@ const ProductOrderDetails = props => {
           (tabsShow === "isShowOrderDetailsDashboardFinish")) &&
           <label>
             <Link
-              to={pageUrlViewInvoiceDashboard + id}
+              to={`${"/invoice-customer"}/${id}`}
               target="_blank"> Lihat
             </Link> |
             {noInvoice} &nbsp;
@@ -48,7 +48,7 @@ const ProductOrderDetails = props => {
         <Col md={2}>
           <Link
             style={{ cursor: "pointer" }}
-            to={pageUrlProductDetail + productSnapshot.productId}>
+            to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>
             <img
               className="product-order__image"
               src={productSnapshot.image.defaultImage}
@@ -61,7 +61,7 @@ const ProductOrderDetails = props => {
             <Link
               className="default"
               style={{ cursor: "pointer" }}
-              to={pageUrlProductDetail + productSnapshot.productId}>
+              to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>
               <h2> {productSnapshot.name} </h2>
             </Link>
             <TableProductOrder
@@ -89,8 +89,8 @@ const ProductOrderDetails = props => {
               <Button
                 type="primary"
                 size="large"
-              >
-                <Link to={pageUrlProductDetail + productSnapshot.productId}>Pesen Lagi</Link>
+              >    
+                <Link to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>Pesen Lagi</Link>
               </Button>
             </div>
           }

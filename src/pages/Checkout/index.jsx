@@ -11,7 +11,6 @@ import AddressList from "../../containers/AddressList";
 import OrderDetailContainer from "../../containers/OrderDetail";
 import OrderSummary from "../../components/OrderSummary";
 import strings from "../../localization/localization";
-import { pageUrlPaymentInfo } from "../../library/url"
 import "./style.sass";
 import history from "../../routers/history";
 import { Link } from "react-router-dom";
@@ -26,7 +25,6 @@ export default function Checkout (props){
   const [visibleAddAddress, setVisibleAddAddress] = useState(false)
   const [visibleEditAddress, setVisibleEditAddress] = useState(false)
   const [visibleListAddress, setVisibleListAddress] = useState(false)
-  const [customerAddress, setCustomerAddress] = useState({})
   const [addresses, setAddresses] = useState([])
   const [address, setaddress] = useState();
   const [isProductDetailAvailable, setIsProductDetailAvailable] = useState(false)
@@ -240,7 +238,7 @@ export default function Checkout (props){
               console.log('ooooooooooorder', order);
               console.log(order);
               history.push({
-                pathname: pageUrlPaymentInfo + order,
+                pathname: `${"/payment-info"}/${order}`,
                 state: { detail: result }
               });
             },

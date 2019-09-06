@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"
-import { pageUrlProductDetail } from "../../library/url";
 import Cards from "../Cards";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 const Product = props => {
   const urlImage = props.urlImage;
@@ -9,7 +9,7 @@ const Product = props => {
   const price = props.price;
   const id = props.id;
   return (
-      <Link to={pageUrlProductDetail + id || "#"}>
+    <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}>
         <Cards
           urlImage={urlImage}
           title={title}
