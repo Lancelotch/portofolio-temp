@@ -8,11 +8,11 @@ import ButtonIcon from "../ButtonIcon";
 
 export const AddressCheckout = props => {
   const {
-    customerAddress,
-    isAddressAvailable,
+    addressDefault,
     onEditAddress,
     onSelectListAddress,
-    onAddAddress
+    onAddAddress,
+    onLoading
   } = props;
   return (
     <div style={{ marginBottom: 15 }}>
@@ -22,30 +22,31 @@ export const AddressCheckout = props => {
         title={<div>{strings.shipping_address}</div>}
       >
         <div style={{ padding: 15 }}>
-          <AddressDetail
-            addressDefault={customerAddress}
-            isAddressAvailable={isAddressAvailable}
-            onEdit={onEditAddress}
-          />
-          <div className="address-checkout">
-            {isAddressAvailable && (
-              <Button
-                onClick={onSelectListAddress}
-                size="large"
-                type="secondary"
-                marginright="small"
-              >
-                {strings.send_to_another_address}
-              </Button>
-            )}
-            <Button
-              size="large"
-              type="secondary"
-              onClick={onAddAddress}
-            >
-             {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
-            </Button>
-          </div>
+          {onLoading && !addressDefault? (
+            <span>Loading...</span>
+          ) : (
+            <React.Fragment>
+              <AddressDetail
+                addressDefault={addressDefault}
+                onEdit={onEditAddress}
+              />
+              <div className="address-checkout">
+                {addressDefault && (
+                  <Button
+                    onClick={onSelectListAddress}
+                    size="large"
+                    type="secondary"
+                    marginright="small"
+                  >
+                    {strings.send_to_another_address}
+                  </Button>
+                )}
+                <Button size="large" type="secondary" onClick={onAddAddress}>
+                  {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
+                </Button>
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </Card>
     </div>

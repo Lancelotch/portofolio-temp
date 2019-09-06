@@ -1,6 +1,21 @@
 import { apiGetWithToken, apiPostWithToken, apiPutWithToken } from "../../services/api";
 import { PATH_CUSTOMER } from "../../services/path/customer";
 
+async function getAll(props) {
+    const loading = props.loading ? props.loading : function() {};
+    let response = "";
+    loading(true);
+    try {
+        response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS);
+        loading(false);
+        return response;
+    } catch (error) {
+        loading(false);
+        return error;
+    }
+};
+
+
 async function getListProvince(props) {
     const loading = props.loading ? props.loading : function() {};
     let response = "";
@@ -60,6 +75,36 @@ async function get(props){
     }
 }
 
+async function getDefault(props){
+    const loading = props.loading ? props.loading : function() {};
+    const params = props.params;
+    let response = "";
+    loading(true);
+    try {
+        response = await apiGetWithToken(PATH_CUSTOMER.ADDRESS_DEFAULT, params);
+        loading(false);
+        return response;
+    } catch (error) {
+        loading(false);
+        return error;
+    }
+}
+
+async function updateDefault(props){
+    const loading = props.loading ? props.loading : function() {};
+    const params = props.params;
+    let response = "";
+    loading(true);
+    try {
+        response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS_DEFAULT, params);
+        loading(false);
+        return response;
+    } catch (error) {
+        loading(false);
+        return error;
+    }
+}
+
 async function create(props){
     const loading = props.loading ? props.loading : function() {};
     const params = props.params;
@@ -97,7 +142,10 @@ const address = {
     getListSubdistrict,
     create,
     get,
-    update
+    getAll,
+    getDefault,
+    update,
+    updateDefault
 }
 
 export default address;

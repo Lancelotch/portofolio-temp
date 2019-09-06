@@ -62,7 +62,7 @@ const AddressUnAvailable = () => {
 };
 
 const AddressDetail = props => {
-  return props.isAddressAvailable ? (
+  return props.addressDefault ? (
     <AddressAvailable data={props.addressDefault} onEdit={props.onEdit} />
   ) : (
       <AddressUnAvailable />
