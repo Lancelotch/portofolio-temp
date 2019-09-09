@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Spin, Form, Modal } from "antd";
 import {
-  apiPostWithToken,
-  apiGetWithToken
+  apiPostWithToken
 } from "../../services/api/index";
-import { PATH_CUSTOMER, PATH_ORDER} from "../../api/path";
-import {PATH_SHIPPING} from "../../services/path/shipping";
+import { PATH_ORDER } from "../../api/path";
+import { PATH_SHIPPING } from "../../services/path/shipping";
 import { AddressCheckout } from "../../components/AddressCheckout";
 import AddressList from "../../containers/AddressList";
 import OrderDetailContainer from "../../containers/OrderDetail";
@@ -19,7 +18,7 @@ import schemaOrder from './schema'
 import FormAddress from "../../containers/FormAddress";
 import Address from "../../repository/Address";
 
-export default function Checkout (props){
+export default function Checkout(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [onLoadingAddress, setOnLoadingAddress] = useState(false);
   const [visibleAddAddress, setVisibleAddAddress] = useState(false)
@@ -35,32 +34,32 @@ export default function Checkout (props){
   const [payloadProductDetail, setPayloadProductDetail] = useState({})
   const [jneChecked, setJneChecked] = useState(false)
   const [payload, setPayload] = useState({
-    customerAddressId : '5d79413c-a81f-4f9c-8701-8684b1ee6199',
-    amount : 0,
-    items : [
+    customerAddressId: '5d79413c-a81f-4f9c-8701-8684b1ee6199',
+    amount: 0,
+    items: [
       {
-        notes : '',
-        productId : '',
-        quantity : 1,
-        shipment : 'sea',
-        variants : []
+        notes: '',
+        productId: '',
+        quantity: 1,
+        shipment: 'sea',
+        variants: []
       }
     ]
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     getaddress();
-  },[])
+  }, [])
 
   useEffect(() => {
     getListAddress();
     getPayloadProductDetail();
     //initCustomerAddress();
     getFareExpedisi();
-  },[priceJne])
+  }, [priceJne])
 
 
-  async function getFareExpedisi () {
+  async function getFareExpedisi() {
     try {
       const response = await apiPostWithToken(PATH_SHIPPING.JNE, {})
       setPriceJne(response.data.data.price)
@@ -69,35 +68,36 @@ export default function Checkout (props){
     }
   }
 
-  function getPayloadProductDetail () {
+  function getPayloadProductDetail() {
     const dataProductDetail = JSON.parse(localStorage.getItem("product"));
     const dataVariants = variantsRequest(dataProductDetail.sku)
-    
+
     setIsProductDetailAvailable(true)
     setPriceProduct(dataProductDetail.price)
     setPayloadProductDetail(dataProductDetail)
     setMaxOrder(dataProductDetail.maxOrder)
     setShipmentFee(dataProductDetail.shipmentFee)
-    const {quantity , price , shipmentFee} = dataProductDetail
-    const total = countTotalAmount(quantity , price , shipmentFee , payload.items[0].shipment )
+    const { quantity, price, shipmentFee } = dataProductDetail
+    const total = countTotalAmount(quantity, price, shipmentFee, payload.items[0].shipment)
     const tempPayloadItems = [...payload.items]
     const tempItems = tempPayloadItems.map(temp => {
-      return {...temp , 
-        productId : dataProductDetail.productId,
-        variants : dataVariants,
-        quantity : dataProductDetail.quantity
+      return {
+        ...temp,
+        productId: dataProductDetail.productId,
+        variants: dataVariants,
+        quantity: dataProductDetail.quantity
       }
     })
     setPayload({
-      ...payload ,
-      amount : total,
-      productId : dataProductDetail.productId,
-      items : tempItems
+      ...payload,
+      amount: total,
+      productId: dataProductDetail.productId,
+      items: tempItems
 
     })
   };
 
-  function countTotalAmount (quantity, price, shipmentFee , shipment) {
+  function countTotalAmount(quantity, price, shipmentFee, shipment) {
     const subTotal = Number(quantity) * Number(price);
     let totalShippingPrice = 0;
     if (shipment === "air") {
@@ -108,45 +108,45 @@ export default function Checkout (props){
     return total
   }
 
-  function setStateNote (event) {
-    
+  function setStateNote(event) {
+
     const tempPayloadItems = [...payload.items]
     const tempItems = tempPayloadItems.map(item => {
-      return { ...item , notes : event.target.value}
+      return { ...item, notes: event.target.value }
     })
     setPayload({
-      ...payload ,
-      items : tempItems
+      ...payload,
+      items: tempItems
     })
   }
 
-  function actionUpdateQuantity (qty)  {
-    const total = countTotalAmount(qty, priceProduct , shipmentFee)
+  function actionUpdateQuantity(qty) {
+    const total = countTotalAmount(qty, priceProduct, shipmentFee)
     const tempPayloadItems = [...payload.items]
     const tempItems = tempPayloadItems.map(item => {
-      return { ...item , quantity : qty}
+      return { ...item, quantity: qty }
     })
     setPayload({
-      ...payload , 
-      amount : total,
-      items : tempItems
+      ...payload,
+      amount: total,
+      items: tempItems
     })
   };
 
-  function actionChangeShipping (shipping)  {
-    const total = countTotalAmount(payload.items[0].quantity, priceProduct , shipmentFee , shipping.shipment)
+  function actionChangeShipping(shipping) {
+    const total = countTotalAmount(payload.items[0].quantity, priceProduct, shipmentFee, shipping.shipment)
     const tempPayloadItems = [...payload.items]
     const tempItems = tempPayloadItems.map(item => {
-      return { ...item , shipment : shipping.shipment}
+      return { ...item, shipment: shipping.shipment }
     })
     setPayload({
-      ...payload ,
-      amount : total,
-      items : tempItems
+      ...payload,
+      amount: total,
+      items: tempItems
     })
   };
 
-  function variantsRequest (variantsRequest) {
+  function variantsRequest(variantsRequest) {
     const variants = [];
     variantsRequest.length >= 1 &&
       variantsRequest.forEach(variant => {
@@ -158,61 +158,61 @@ export default function Checkout (props){
     return variants;
   };
 
-  function actionShowAddFormAddress (){
+  function actionShowAddFormAddress() {
     setVisibleAddAddress(!visibleAddAddress)
   }
 
-  function actionShowEditFormAddress ()  {
+  function actionShowEditFormAddress() {
     setVisibleEditAddress(!visibleEditAddress)
   };
 
-  function actionShowListAddress () {
+  function actionShowListAddress() {
     setVisibleListAddress(!visibleListAddress)
   };
 
-  async function getListAddress  () {
-    const response = await Address.getAll({loading : setOnLoadingAddress});
+  async function getListAddress() {
+    const response = await Address.getAll({ loading: setOnLoadingAddress });
     if (response.status === 200) {
       setAddresses(response.data.data);
     }
   };
 
   async function getaddress() {
-    const response = await Address.getDefault({loading : setOnLoadingAddress});
+    const response = await Address.getDefault({ loading: setOnLoadingAddress });
     if (response.status === 200) {
       setaddress(response.data.data);
     }
   }
 
-  function handleChecked () {
+  function handleChecked() {
     setJneChecked(!jneChecked)
   }
 
-  function handleSuccessCreate(){
+  function handleSuccessCreate() {
     setVisibleAddAddress(!visibleAddAddress)
     getListAddress();
   }
 
-  function handleSuccessEdit(callBackAddress){
+  function handleSuccessEdit(callBackAddress) {
     setVisibleEditAddress(!visibleEditAddress);
     setaddress(callBackAddress);
   }
 
-  function handleSubmit (values){
+  function handleSubmit(values) {
     // if(props.isAddressAvailable){
-      actionSubmitOrder(values)
+    actionSubmitOrder(values)
     // }else{
     //   actionShowAddFormAddress()
     // }
   }
 
-  async function actionChangeAddress(addressSelected){
+  async function actionChangeAddress(addressSelected) {
     setaddress(addressSelected);
     setVisibleListAddress(!visibleListAddress);
   }
 
-  async function actionSubmitOrder (request){
-      try {
+  async function actionSubmitOrder(request) {
+    try {
       // document.body.style.overflow = "auto"
       setIsLoading(true)
       const quantity = payload.items[0].quantity
@@ -289,7 +289,7 @@ export default function Checkout (props){
             </Col>
           </Row>
           <div className="checkout__content">
-            <Formik 
+            <Formik
               initialValues={payload}
               onSubmit={(values => {
                 handleSubmit(values)
@@ -302,71 +302,71 @@ export default function Checkout (props){
                 setFieldValue,
                 errors
               }) => (
-                
-                <Form onSubmit={handleSubmit}>
-                <Row>
-                  <Col md={15} style={{ marginTop: 25 }}>
-                    <AddressCheckout
-                      onLoading={onLoadingAddress}
-                      address={address}
-                      onEditAddress={actionShowEditFormAddress}
-                      onSelectListAddress={actionShowListAddress}
-                      onAddAddress={actionShowAddFormAddress}
-                    />
-                    <Modal visible={visibleAddAddress} footer={null} onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}>
-                      <FormAddress action={"create"}
-                        onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}
-                        onSuccess={()=>handleSuccessCreate()}
-                      />
-                    </Modal>
-                    {address &&
-                    <React.Fragment>
-                    <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
-                      <FormAddress action={"update"}
-                        onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
-                        onSuccess={(callBackAddress)=>handleSuccessEdit(callBackAddress)}
-                        id={address.id}/>
-                    </Modal>
-                    <AddressList
-                      addresses={addresses}
-                      visible={visibleListAddress}
-                      onCancle={actionShowListAddress}
-                      onChangeAddress={actionChangeAddress}
-                      customerAddress={address}
-                    />
-                    </React.Fragment>
-                    }
-                    {isProductDetailAvailable && (
-                      <Form.Item>
-                         <OrderDetailContainer
-                            shipmentFee={shipmentFee.difference}
-                            stock={maxOrder}
-                            priceProduct={priceProduct}
-                            payloadProductDetail={payloadProductDetail}
-                            actionChangeShipping={actionChangeShipping}
-                            actionUpdateQuantity={actionUpdateQuantity}
-                            quantity={values.items[0].quantity}
-                            setStateNote={setStateNote}
+
+                  <Form onSubmit={handleSubmit}>
+                    <Row>
+                      <Col md={15} style={{ marginTop: 25 }}>
+                        <AddressCheckout
+                          onLoading={onLoadingAddress}
+                          address={address}
+                          onEditAddress={actionShowEditFormAddress}
+                          onSelectListAddress={actionShowListAddress}
+                          onAddAddress={actionShowAddFormAddress}
+                        />
+                        <Modal visible={visibleAddAddress} footer={null} onCancel={() => setVisibleAddAddress(!visibleAddAddress)}>
+                          <FormAddress action={"create"}
+                            onCancel={() => setVisibleAddAddress(!visibleAddAddress)}
+                            onSuccess={() => handleSuccessCreate()}
                           />
-                      </Form.Item>
-                    )}
-                  </Col>
-                  <Col md={9}>
-                    <OrderSummary
-                      isLoading={isLoading}
-                      priceJne={priceJne}
-                      shipmentFee={shipmentFee.difference}
-                      quantity={values.items[0].quantity}
-                      total={values.amount}
-                      priceProduct={priceProduct}
-                      shipment={values.items[0].shipment}
-                      checked={jneChecked}
-                      handleChecked={handleChecked}
-                    />
-                  </Col>
-                </Row>
-                </Form>
-              )}
+                        </Modal>
+                        {address &&
+                          <React.Fragment>
+                            <Modal visible={visibleEditAddress} footer={null} onCancel={() => setVisibleEditAddress(!visibleEditAddress)}>
+                              <FormAddress action={"update"}
+                                onCancel={() => setVisibleEditAddress(!visibleEditAddress)}
+                                onSuccess={(callBackAddress) => handleSuccessEdit(callBackAddress)}
+                                id={address.id} />
+                            </Modal>
+                            <AddressList
+                              addresses={addresses}
+                              visible={visibleListAddress}
+                              onCancle={actionShowListAddress}
+                              onChangeAddress={actionChangeAddress}
+                              customerAddress={address}
+                            />
+                          </React.Fragment>
+                        }
+                        {isProductDetailAvailable && (
+                          <Form.Item>
+                            <OrderDetailContainer
+                              shipmentFee={shipmentFee.difference}
+                              stock={maxOrder}
+                              priceProduct={priceProduct}
+                              payloadProductDetail={payloadProductDetail}
+                              actionChangeShipping={actionChangeShipping}
+                              actionUpdateQuantity={actionUpdateQuantity}
+                              quantity={values.items[0].quantity}
+                              setStateNote={setStateNote}
+                            />
+                          </Form.Item>
+                        )}
+                      </Col>
+                      <Col md={9}>
+                        <OrderSummary
+                          isLoading={isLoading}
+                          priceJne={priceJne}
+                          shipmentFee={shipmentFee.difference}
+                          quantity={values.items[0].quantity}
+                          total={values.amount}
+                          priceProduct={priceProduct}
+                          shipment={values.items[0].shipment}
+                          checked={jneChecked}
+                          handleChecked={handleChecked}
+                        />
+                      </Col>
+                    </Row>
+                  </Form>
+                )}
             />
           </div>
         </div>

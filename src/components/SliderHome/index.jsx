@@ -77,7 +77,7 @@ function SliderHome() {
     if (sliderImages.status === 200) {
       setSliderImages(sliderImages.data.data) 
     } else {
-      setSliderImages(null)
+      setSliderImages([])
     }          
   }
 

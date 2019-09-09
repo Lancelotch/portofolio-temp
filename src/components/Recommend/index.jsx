@@ -77,7 +77,7 @@ function Recommend() {
     if (productsResp.status === 200) {
       setProducts(productsResp.data.data)
     } else {
-      setProducts(null)
+      setProducts([])
     }
 
   }
