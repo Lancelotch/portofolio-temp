@@ -1,6 +1,4 @@
 import React, { Component, useState, useCallback, useEffect } from "react";
-import { connect } from "react-redux";
-import { activatingUser } from "../../store/actions/authentication";
 import "./style.sass"
 import customer from "../../services/path/customer"
 import history from "../../routers/history"
@@ -8,7 +6,7 @@ import ErrorPage from "../../components/ConfirmationError"
 import ConfirmationPage from '../../components/Confirmation'
 
 
-function ConfirmationEmail(props) {
+export default function ConfirmationEmail(props) {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false)
   const [customerName, setCustomerName] = useState("")
 
@@ -35,10 +33,10 @@ function ConfirmationEmail(props) {
 
 
 
-  getCustomerName = async () => {
+ async function getCustomerName  () {
     try {
-      const dataCostumer = await customer.customerDetail()
-      const name = dataCostumer.data.name
+     // const dataCostumer = await customer.customerDetail()
+      const name = "dataCostumer".data.name
       this.setState({
         customerName: name
       })
@@ -49,17 +47,8 @@ function ConfirmationEmail(props) {
 
     return (
       <div>
-        {this.props.activated ? <ConfirmationPage /> : <ErrorPage />}
+        {props.activated ? <ConfirmationPage /> : <ErrorPage />}
       </div>
     );
   }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.authentication.isAuthenticated,
-  activated: state.authentication.activated
-});
-
-export default connect(
-  mapStateToProps,
-  { activatingUser }
-)(ConfirmationEmail);
