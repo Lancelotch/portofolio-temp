@@ -1,62 +1,58 @@
-import React, { Component } from "react";
+import React, { Component, useState, useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import { activatingUser } from "../../store/actions/authentication";
 import "./style.sass"
-import customer from "../../api/services/customer"
+import customer from "../../services/path/customer"
 import history from "../../routers/history"
 import ErrorPage from "../../components/ConfirmationError"
 import ConfirmationPage from '../../components/Confirmation'
 
 
-class ConfirmationEmail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEmailConfirmed: false,
-      customerName: ""
-    };
-  }
+function ConfirmationEmail(props) {
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false)
+  const [customerName, setCustomerName] = useState("")
 
-  componentDidMount() {
-    const idConfirmation = this.props.match.params.idConfirmation;
-    this.requestActivation(idConfirmation);
+
+  useEffect(() => {
+    const idConfirmation = props.match.params.idConfirmation;
+    requestActivation(idConfirmation);
     // this.getCustomerName()
-  }
+  }, [])
 
-  requestActivation = async (idConfirmation) =>{
-    try{
-      const response = await this.props.activatingUser(idConfirmation)
+  async function requestActivation(idConfirmation) {
+    try {
+      const response = await props.activatingUser(idConfirmation)
       console.log(response);
-      
-    }catch(error){
+    } catch (error) {
       console.log("error from confirmation page");
     }
   }
 
-  toHome = () => {
+  function toHome () {
     history.push("/")
   }
 
-  getCustomerName = async() => {
-    try{
+
+
+
+  getCustomerName = async () => {
+    try {
       const dataCostumer = await customer.customerDetail()
       const name = dataCostumer.data.name
       this.setState({
-        customerName : name
+        customerName: name
       })
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
   }
 
-  render() {
     return (
-        <div>
-          {this.props.activated ? <ConfirmationPage/> : <ErrorPage/>}
-        </div>
+      <div>
+        {this.props.activated ? <ConfirmationPage /> : <ErrorPage />}
+      </div>
     );
   }
-}
 
 const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
