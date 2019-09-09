@@ -7,7 +7,7 @@ const schemaOrder = yup.object().shape({
     productId : yup.string().required(),
     shipment : yup.string().required(),
     quantity : yup.number().required(),
-    variants : yup.array().required()
+    variants : yup.array()
   }))
 })
 
