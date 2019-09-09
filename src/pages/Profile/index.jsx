@@ -64,34 +64,29 @@ export default function Profile() {
         setPortrait(false);
         setLandscape(true);
       }
-      const response = await ImageRepo.upload({
-        loading: setLoading,
-        params: formData
-      });
-      onSuccess(response.data.data);
+      if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
+        const response = await ImageRepo.upload({
+          loading: setLoading,
+          params: formData
+        });
+        onSuccess(response.data.data);
+      }
     } else {
       setIsErrorDimension(true);
+      setLoading(false);
     }
   }
 
   function handleChangeImage(res) {
-    setTimeout(() => {
-      if (
-        res.file.status === "uploading" &&
-        !isErrorFormat &&
-        !isErrorSize &&
-        !isErrorDimension
-      ) {
-        setLoading(true);
-        // setPhotoUrl("");
-        setAllData({
-          ...allData,
-          photoUrl: ""
-        });
-      }
-    }, 10);
+    if (
+      res.file.status === "uploading" &&
+      !isErrorFormat &&
+      !isErrorSize &&
+      !isErrorDimension
+    ) {
+      setLoading(true);
+    }
     if (res.file.status === "done") {
-      // setPhotoUrl(res.file.response.smallUrl);
       setAllData({
         ...allData,
         photoUrl: res.file.response.smallUrl
@@ -116,7 +111,6 @@ export default function Profile() {
   }
 
   function removeImage() {
-    // setPhotoUrl("");
     setAllData({
       ...allData,
       photoUrl: ""
@@ -126,6 +120,7 @@ export default function Profile() {
     setIsErrorDimension(false);
     setIsErrorFormat(false);
     setIsErrorSize(false);
+    setLoading(false);
     setDisabled(true);
   }
 
@@ -168,9 +163,11 @@ export default function Profile() {
     const isLt2M = file.size <= 3145728;
     if (!isJPG && !isJpeg && !isPng) {
       setIsErrorFormat(true);
+      setLoading(false);
     }
     if (!isLt2M) {
       setIsErrorSize(true);
+      setLoading(false);
     }
   }
 
