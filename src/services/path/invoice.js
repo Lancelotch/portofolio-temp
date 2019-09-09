@@ -1,5 +1,5 @@
 //INVOICE
-const INVOICE = "invoice/";
+const INVOICE = "invoice";
 const INVOICE_BY_RECEIVED = `${INVOICE}/received/`;
 export const PATH_INVOICE = {
     INVOICE_BY_RECEIVED : INVOICE_BY_RECEIVED,
