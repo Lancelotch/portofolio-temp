@@ -33,11 +33,11 @@ async function update(props) {
 
 async function activated(props){
   const loading = props.loading ? props.loading : function(){};
-  let params = props.params;
+  let idActivated = props.idActivated;
   let response = "";
   loading(true);
   try{
-    response = await apiGetWithoutToken(`${PATH_PUBLIC.PUBLIC_USER_ACTIVED}${params}`)
+    response = await apiGetWithoutToken(`${PATH_PUBLIC.PUBLIC_USER_ACTIVED}${idActivated}`)
     loading(false);
     return response
   } catch (error){

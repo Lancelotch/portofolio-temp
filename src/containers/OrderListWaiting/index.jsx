@@ -13,7 +13,7 @@ const confirm = Modal.confirm;
 
 export default function OrderListWaiting(props) {
 
-    function showDeleteConfirm(allOrder, index, orderId) {
+    function showDeleteConfirm(allOrder, index, idCancel) {
         confirm({
             iconClassName: "iconWaitingPaymentCancel",
             title: strings.tab_belum_bayar,
@@ -29,14 +29,14 @@ export default function OrderListWaiting(props) {
                 //   productorder: newOrder,
                 //   cancelOrder: [...this.state.cancelOrder, ...cancelOrder]
                 // })
-                actionCancelConfirm(orderId);
+                actionCancelConfirm(idCancel);
             },
         });
     };
 
-    async function actionCancelConfirm(orderId) {
-        const cancelOrder = await Order.cancelOrder({
-            params: orderId
+    async function actionCancelConfirm(idCancel) {
+        const cancelOrder = await Order.cancel({
+            idCancel: idCancel
         })
         if (cancelOrder.code === 200 || cancelOrder.code === "200") {
             props.actionUpdateTab(0);

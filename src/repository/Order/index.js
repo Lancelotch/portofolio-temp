@@ -18,13 +18,13 @@ async function getByStatus(props) {
     }
 };
 
-async function cancelOrder(props) {
+async function cancel(props) {
     const loading = props.loading ? props.loading : function () { };
-    const params = props.params
+    const idCancel = props.idCancel
     let response = ""
     loading(true)
     try {
-        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}${params}`);
+        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}${idCancel}`);
         loading(false)
         return response
     } catch (error){
@@ -35,7 +35,7 @@ async function cancelOrder(props) {
  
 const Order = {
     getByStatus: getByStatus,
-    cancelOrder : cancelOrder
+    cancel : cancel
 }
 
 export default Order;
