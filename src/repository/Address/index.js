@@ -1,4 +1,4 @@
-import { apiGetWithToken, apiPostWithToken, apiPutWithToken } from "../../services/api";
+import { apiGetWithToken, apiPostWithToken, apiPutWithToken, apiPatchWithToken, apiDeleteWithToken } from "../../services/api";
 import { PATH_CUSTOMER } from "../../services/path/customer";
 
 async function getAll(props) {
@@ -96,7 +96,7 @@ async function updateDefault(props){
     let response = "";
     loading(true);
     try {
-        response = await apiPutWithToken(PATH_CUSTOMER.ADDRESS_DEFAULT, params);
+        response = await apiPatchWithToken(PATH_CUSTOMER.ADDRESS_DEFAULT, params);
         loading(false);
         return response;
     } catch (error) {
@@ -136,7 +136,22 @@ async function update(props){
     }
 }
 
-const Address = {
+async function Delete(props){
+    const loading = props.loading ? props.loading : function() {};
+    const params = props.params;
+    let response = "";
+    loading(true);
+    try {
+        response = await apiDeleteWithToken(`${PATH_CUSTOMER.ADDRESS}/${params}`);
+        loading(false);
+        return response;
+    } catch (error) {
+        loading(false);
+        return error;
+    }
+}
+
+const repositoryAddress = {
     getListProvince,
     getListCity,
     getListSubdistrict,
@@ -145,7 +160,8 @@ const Address = {
     getAll,
     getDefault,
     update,
-    updateDefault
+    updateDefault,
+    Delete
 }
 
-export default Address;
+export default repositoryAddress;
