@@ -5,30 +5,30 @@ import logo from "../../assets/img/monggopesen_logo.png"
 import ilustration from "../../assets/img/ic_background/illustration_pesenajadulu.png"
 import './style.sass'
 
-const toHome = () => {
+function toHome(){
     history.push("/")
   }
   
-const confirmationPage = () => {
+export default function Confirmation() {
     return (
       <React.Fragment>
           <div className="container">
-            <div className="container__wrap">
-              <div className="container__logo">
+            <div className="mp-confirmation">
+              <div className="mp-confirmation__logo">
                 <img src={logo} alt=""/>
               </div>
-              <div className="container__box">
+              <div className="mp-confirmation__box">
                 <Row>
                   <Col span={12}>
                     <Row>
                       <Col span={24}>
-                        <div className="container__head">
+                        <div className="mp-confirmation__head">
                           Hi, Selamat ya..
                         </div>
                       </Col>
                       <br/>
                       <Col span={24}>
-                        <div className="container__content">
+                        <div className="mp-confirmation__content">
                           <p>
                           Selamat ya, akun kamu sudah terverifikasi oleh sistem kami,
                           terimakasih sudah melakukan registrasi di monggopesen,
@@ -38,7 +38,7 @@ const confirmationPage = () => {
                         </div>
                       </Col>
                       <Col span={24}>
-                        <div className="container__foot">
+                        <div className="mp-confirmation__foot">
                         <p>
                         Hati-hati jangan berikan informasi akun monggopesen anda kepada siapapun.
                         </p>
@@ -47,14 +47,14 @@ const confirmationPage = () => {
                     </Row>
                   </Col>
                   <Col span={12} >
-                    <div className="container__image">
+                    <div className="mp-confirmation__image">
                     <img src={ilustration} alt=""/>
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
-                    <Button onClick={toHome} className="container__button color-button"><div className="container__textButton">Mulai Belanja</div></Button>
+                    <Button onClick={toHome} className="mp-confirmation__button"><div className="mp-confirmation__text-button">Mulai Belanja</div></Button>
                   </Col>
                 </Row>
               </div>
@@ -63,5 +63,3 @@ const confirmationPage = () => {
         </React.Fragment>
     )
 }
-
-export default confirmationPage

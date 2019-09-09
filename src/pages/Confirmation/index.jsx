@@ -1,69 +1,39 @@
-// import React, { Component } from "react";
-// import { connect } from "react-redux";
-// import { activatingUser } from "../../store/actions/authentication";
-// import "./style.sass"
-// import customer from "../../api/services/customer"
-// import history from "../../routers/history"
-// import ErrorPage from "../../components/ConfirmationError"
-// import ConfirmationPage from '../../components/Confirmation'
+import React, {  useState, useEffect } from "react";
+import "./style.sass"
+import ErrorPage from "../../components/ConfirmationError"
+import ConfirmationPage from '../../components/Confirmation'
+import Customer from "../../repository/Customer";
 
 
-// class ConfirmationEmail extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isEmailConfirmed: false,
-//       customerName: ""
-//     };
-//   }
+export default function Confirmation(props) {
+  const [activated, setActivated] = useState(false)
+  const idConfirmation = props.match.params.idConfirmation
 
-//   componentDidMount() {
-//     const idConfirmation = this.props.match.params.idConfirmation;
-//     this.requestActivation(idConfirmation);
-//     // this.getCustomerName()
-//   }
+  useEffect(() => {
+    const params = idConfirmation
+    requestActivation(params);
+  }, [])
 
-//   requestActivation = async (idConfirmation) =>{
-//     try{
-//       const response = await this.props.activatingUser(idConfirmation)
-//       console.log(response);
-      
-//     }catch(error){
-//       console.log("error from confirmation page");
-//     }
-//   }
+  async function requestActivation(params) {
+    let activated = await Customer.activated({
+      params: params
+    })
+    if (activated.status === 200) {
+      setActivated(true)
+    } else {
+      setActivated(false)
+    }
+  }
 
-//   toHome = () => {
-//     history.push("/")
-//   }
+  return (
+    <React.Fragment>
+      {activated ?
+        <ConfirmationPage /> :
+        <ErrorPage />
+      }
+    </React.Fragment>
 
-//   getCustomerName = async() => {
-//     try{
-//       const dataCostumer = await customer.customerDetail()
-//       const name = dataCostumer.data.name
-//       this.setState({
-//         customerName : name
-//       })
-//     }catch(error){
-//       console.log(error)
-//     }
-//   }
+  )
 
-//   render() {
-//     return (
-//         <div>
-//           {this.props.activated ? <ConfirmationPage/> : <ErrorPage/>}
-//         </div>
-//     );
-//   }
-// }
+}
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: state.authentication.isAuthenticated,
-//   activated: state.authentication.activated
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   { activatingUser }
-// )(ConfirmationEmail);
