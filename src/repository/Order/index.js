@@ -1,4 +1,4 @@
-import {  apiGetWithToken, apiPostWithToken } from "../../services/api";
+import {  apiGetWithToken, apiPostWithToken, apiPatchWithToken } from "../../services/api";
 import { PATH_DASHBOARD_TAB } from "../../services/path/dashboard";
 import { PATH_ORDER } from '../../services/path/order'
 
@@ -29,9 +29,26 @@ async function create (props) {
     }
 }
 
+
+async function cancelOrder(props) {
+    const loading = props.loading ? props.loading : function () { };
+    const params = props.params
+    let response = ""
+    loading(true)
+    try {
+        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}${params}`);
+        loading(false)
+        return response
+    } catch (error){
+        loading(false)
+        return error
+    }
+}
+ 
 const Order = {
-    getByStatus : getByStatus,
-    create
+    getByStatus: getByStatus,
+    cancelOrder : cancelOrder,
+    create : create
 }
 
 export default Order;

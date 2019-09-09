@@ -19,7 +19,7 @@ export default function Benefit (){
     if (benefit.status === 200) {
       setBenefit(benefit.data.data) 
     } else {
-      setBenefit(null)
+      setBenefit([])
     }          
   }
 

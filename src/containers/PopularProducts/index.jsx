@@ -51,7 +51,7 @@ export default function PopularProducts(props) {
                       <PopularProduct
                         key={product.id}
                         price={product.price}
-                        urlImage={product.image.defaultImage}
+                        urlImage={product.image && product.image.defaultImage}
                         name={product.name}
                         id={product.id}
                         product={product}

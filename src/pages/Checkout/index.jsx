@@ -31,7 +31,7 @@ export default function Checkout (props){
   const [payloadProductDetail, setPayloadProductDetail] = useState({})
   const [jneChecked, setJneChecked] = useState(false)
   const [payload, setPayload] = useState({
-    customerAddressId : '5d79413c-a81f-4f9c-8701-8684b1ee6199',
+    customerAddressId : '',
     amount : 0,
     items : [
       {
@@ -104,7 +104,6 @@ export default function Checkout (props){
   }
 
   function setStateNote (event) {
-    
     const tempPayloadItems = [...payload.items]
     const tempItems = tempPayloadItems.map(item => {
       return { ...item , notes : event.target.value}
@@ -175,6 +174,10 @@ export default function Checkout (props){
   async function getaddress() {
     const response = await Address.getDefault({loading : setOnLoadingAddress});
     if (response.status === 200) {
+      const id = response.data.data.id
+      setPayload({
+        ...payload , customerAddressId : id
+      })
       setaddress(response.data.data);
     }
   }
@@ -193,16 +196,19 @@ export default function Checkout (props){
     setaddress(callBackAddress);
   }
 
-  function actionHandleSubmit (values){
+  function handleSubmit (values){
     console.log(values)
-    // if(props.isAddressAvailable){
+    if(props.isAddressAvailable){
       actionSubmitOrder(values)
-    // }else{
-    //   actionShowAddFormAddress()
-    // }
+    }else{
+      actionShowAddFormAddress()
+    }
   }
 
   async function actionChangeAddress(addressSelected){
+    setPayload({
+      ...payload , customerAddressId : addressSelected.id
+    })
     setaddress(addressSelected);
     setVisibleListAddress(!visibleListAddress);
   }
@@ -213,7 +219,6 @@ export default function Checkout (props){
       setIsLoading(true)
       const quantity = payload.items[0].quantity
       const response = await Order.create({params : request});
-      console.log(response)
       if (quantity > maxOrder) {
         alert('adasd')
         setIsLoading(false)
@@ -288,8 +293,7 @@ export default function Checkout (props){
             <Formik 
               initialValues={payload}
               onSubmit={(values => {
-                console.log("values",values)
-                actionHandleSubmit(values)
+                handleSubmit(values)
               })}
               enableReinitialize
               validationSchema={schemaOrder}
@@ -297,7 +301,7 @@ export default function Checkout (props){
                 values,
                 handleSubmit,
               }) => (
-                <Form onSubmit={actionHandleSubmit}>
+                <Form onSubmit={handleSubmit}>
                 <Row>
                   <Col md={15} style={{ marginTop: 25 }}>
                     <AddressCheckout
@@ -351,8 +355,6 @@ export default function Checkout (props){
                       shipment={values.items[0].shipment}
                       checked={jneChecked}
                       handleChecked={handleChecked}
-                      actionHandleSubmit={actionHandleSubmit}
-                      values={values}
                     />
                   </Col>
                 </Row>
