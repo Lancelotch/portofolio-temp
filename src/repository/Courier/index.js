@@ -1,7 +1,7 @@
 import { apiPostWithToken } from '../../services/api'
 import { PATH_COURIER } from '../../services/path/courier'
 
-async function expedisi (props) {
+async function jne (props) {
   let params = props.params
   let response = ''
   try {
@@ -13,7 +13,7 @@ async function expedisi (props) {
 }
 
 const Courier = {
-  expedisi
+  jne
 }
 
 export default Courier

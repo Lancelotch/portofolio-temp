@@ -57,7 +57,7 @@ export default function Checkout (props){
 
 
   async function getFareExpedisi () {
-      const response = await Courier.expedisi({params : {}})
+      const response = await Courier.jne({params : {}})
       if(response.status === 200){
         setPriceJne(response.data.data.price)
       }else{
