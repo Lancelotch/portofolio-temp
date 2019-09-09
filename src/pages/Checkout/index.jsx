@@ -14,6 +14,7 @@ import FormAddress from "../../containers/FormAddress";
 import Address from "../../repository/Address";
 import Courier from '../../repository/Courier';
 import Order from '../../repository/Order';
+import convertSchemaToInit from "../../library/convertSchemaToInit";
 
 export default function Checkout (props){
   const [isLoading, setIsLoading] = useState(false);
@@ -30,19 +31,7 @@ export default function Checkout (props){
   const [priceJne, setPriceJne] = useState(0)
   const [payloadProductDetail, setPayloadProductDetail] = useState({})
   const [jneChecked, setJneChecked] = useState(false)
-  const [payload, setPayload] = useState({
-    customerAddressId : '',
-    amount : 0,
-    items : [
-      {
-        notes : '',
-        productId : '',
-        quantity : 1,
-        shipment : 'sea',
-        variants : []
-      }
-    ]
-  });
+  const [payload, setPayload] = useState(convertSchemaToInit(schemaOrder))
 
   useEffect(()=>{
     getaddress();
@@ -86,7 +75,6 @@ export default function Checkout (props){
     setPayload({
       ...payload ,
       amount : total,
-      productId : dataProductDetail.productId,
       items : tempItems
 
     })
@@ -198,11 +186,11 @@ export default function Checkout (props){
 
   function handleSubmit (values){
     console.log(values)
-    if(props.isAddressAvailable){
+    // if(props.isAddressAvailable){
       actionSubmitOrder(values)
-    }else{
-      actionShowAddFormAddress()
-    }
+    // }else{
+    //   actionShowAddFormAddress()
+    // }
   }
 
   async function actionChangeAddress(addressSelected){
