@@ -314,12 +314,7 @@ export default function Checkout (props){
                    
                     {address &&
                     <React.Fragment>
-                    <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
-                      <FormAddress action={"update"}
-                        onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
-                        onSuccess={(callBackAddress)=>handleSuccessEdit(callBackAddress)}
-                        id={address.id}/>
-                    </Modal>
+                  
                     <AddressList
                       addresses={addresses}
                       visible={visibleListAddress}
@@ -362,11 +357,20 @@ export default function Checkout (props){
               )}
             />
             <Modal visible={visibleAddAddress} footer={null} onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}>
-                <FormAddress action={"create"}
-                  onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}
-                  onSuccess={()=>handleSuccessCreate()}
-                />
+              <FormAddress action={"create"}
+                onCancel={()=>setVisibleAddAddress(!visibleAddAddress)}
+                onSuccess={()=>handleSuccessCreate()}
+              />
             </Modal>
+            {
+              address && 
+              <Modal visible={visibleEditAddress} footer={null} onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}>
+              <FormAddress action={"update"}
+                onCancel={()=>setVisibleEditAddress(!visibleEditAddress)}
+                onSuccess={(callBackAddress)=>handleSuccessEdit(callBackAddress)}
+                id={address.id}/>
+            </Modal>
+            }
           </div>
         </div>
       </div>
