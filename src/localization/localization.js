@@ -198,6 +198,8 @@ const strings = new LocalizedStrings({
     profile_error_message: "Nama harus diisi minimal 1 karakter",
     profile_status_verifikasi: "Kirim Ulang Email Verifikasi",
     profile_status_sucsess: "Berhasil Mengirim Email Verifikasi",
+    profile_status_heading: "Email belum di verfikasi",
+    profile_status_text : "Jika tautan pada email yang kami kirim sudah kadaluarsa gunakan tombol kirim ulang dibawah ini.",
 
     //Payment Info
     payment_info: "Info Pembayaran",
