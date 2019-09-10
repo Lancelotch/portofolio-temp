@@ -10,7 +10,7 @@ export default function ProfileMain() {
 
   useEffect(() => {
     getCustomer();
-  }, []);
+  }, [authProfile.photoUrl]);
 
   async function getCustomer() {
     if (authProfile.photoUrl) {
