@@ -17,9 +17,7 @@ import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
 import Search from "../pages/Search";
-import Development from "../pages/Development";
 import Profile from "../pages/Profile";
-import DummyPageAddress from "../pages/DummyPageAddress";
 import Password from '../pages/Password'
 import Order from "../pages/Order";
 import Address from "../pages/Address";
@@ -144,12 +142,6 @@ const routes = [
     component: Error,
     layout: FullLayout,
     needAuthenticated: false
-  },
-  {
-    path: '/address',
-    component: Development,
-    layout: FullLayout,
-    needAuthenticated: true
   },
   {
     path: PATH_URL.NOT_FOUND,
