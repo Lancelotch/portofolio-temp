@@ -25,7 +25,7 @@ const NOT_FOUND = '/not-found'
 const NOT_FOUND_PAGE = '*';
 const ERROR = '/500';
 const FORGET_PASSWORD = '/forget-password';
-const RESET_PASSWORD = '/reset/:randomKey';
+const RESET_PASSWORD = '/reset/:key';
 
 
 const PATH_URL = {

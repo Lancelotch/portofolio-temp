@@ -22,12 +22,12 @@ async function reset (){
   }
 }
 
-async function processReset (props) {
+async function update (props) {
   const params = props.params
-  const randomKey = props.randomKey
+  const key = props.key
   let response = ''
   try {
-    response = await apiPostWithoutToken(`${PATH_PUBLIC.PUBLIC_RESET_PASSWORD}/${randomKey}`, params)
+    response = await apiPostWithoutToken(`${PATH_PUBLIC.PUBLIC_RESET_PASSWORD}/${key}`, params)
     return response
   } catch (error) {
     return error
@@ -37,7 +37,7 @@ async function processReset (props) {
 const Password = {
   change,
   reset,
-  processReset
+  update
 }
 
 export default Password
