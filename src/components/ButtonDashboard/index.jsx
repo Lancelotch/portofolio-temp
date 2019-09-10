@@ -66,7 +66,7 @@ export default function ButtonDashboard(props) {
               type="primary"
               marginright="small"
               size="large">
-              <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}> Lagi</Link>
+              <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}> {strings.buy_again}</Link>
             </Button>}
           <Button
           type="secondary"
