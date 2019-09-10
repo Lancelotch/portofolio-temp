@@ -5,16 +5,17 @@ import { useRootContext } from "../../hoc/RootContext";
 
 export default function ProfileMain() {
   const { authProfile } = useRootContext();
+  const photoUrl = authProfile.photoUrl
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
 
   useEffect(() => {
     getCustomer();
-  }, [authProfile.photoUrl]);
+  }, [photoUrl]);
 
   async function getCustomer() {
-    if (authProfile.photoUrl) {
-      const isDimention = await checkDimension(authProfile.photoUrl);
+    if (photoUrl) {
+      const isDimention = await checkDimension(photoUrl);
       if (isDimention.height > isDimention.width) {
         setPortrait(true);
         setLandscape(false);
@@ -43,7 +44,11 @@ export default function ProfileMain() {
     <div>
       <div className="profile-main">
         <div className={portrait ? "portrait" : landscape ? "landscape" : ""}>
-          <Avatar icon={authProfile.photoUrl || "user"} size={40} src={authProfile.photoUrl} />
+          <Avatar
+            icon={photoUrl || "user"}
+            size={40}
+            src={photoUrl}
+          />
         </div>
         <div className="profile-main__customer-name">
           <span>{authProfile.name}</span>
