@@ -75,6 +75,7 @@ export default function ResetPassword (props) {
                   size="large"
                   width="full"
                   name="password"
+                  type="password"
                   value={values.password}
                   onChange={handleChange}
                 />

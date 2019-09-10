@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, notification, Alert } from "antd";
+import { Col, Alert } from "antd";
 import "./style.sass";
 import { useRootContext } from "../../hoc/RootContext";
 import FormLogin from "../../containers/FormLogin";
@@ -28,6 +28,7 @@ export default function Login(props) {
       setTimeout(function(){
         setStatusReset(false)
       },4000)
+      history.replace('/login', {reset : false})
     }
   },[])
 
