@@ -21,7 +21,7 @@ export default function FormAddress(props) {
   useEffect(() => {
     props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
-  }, [props.id]);
+  }, [props.address]);
 
   function doCreate() {
     setTitle(titleCreate);
@@ -30,20 +30,13 @@ export default function FormAddress(props) {
 
   function doUpdate() {
     setTitle(titleUpdate);
-    getAddress(props.id);
+    getAddress(props.address);
   }
 
-  async function getAddress(params) {
-    const response = await Address.get({
-      loading: setLoading,
-      params: params
-    });
-    if (response.status === 200) {
-      let address = response.data.data;
+  async function getAddress(address) {
       getCities(address.provinceId);
       getSubdistricts(address.cityId);
       setInitialValues(address);
-    }
   }
 
   async function getProvinces() {

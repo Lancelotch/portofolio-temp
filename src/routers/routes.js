@@ -22,6 +22,7 @@ import Profile from "../pages/Profile";
 import DummyPageAddress from "../pages/DummyPageAddress";
 import Password from '../pages/Password'
 import Order from "../pages/Order";
+import Address from "../pages/Address";
 
 const routes = [
   {
@@ -116,7 +117,7 @@ const routes = [
   },
   {
     path: PATH_URL.DASHBOARD_ADDRESS,
-    component: DummyPageAddress,
+    component: Address,
     layout: CustomerLayout,
     needAuthenticated: true
   },
