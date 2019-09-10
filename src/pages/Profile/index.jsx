@@ -6,7 +6,7 @@ import { notification, Card } from "antd";
 import ImageRepo from "../../repository/Image";
 import { useRootContext } from "../../hoc/RootContext";
 import Customer from "../../repository/Customer";
-import ResendVerifikasiEmail from "../../components/ResendVerifikasiEmail";
+import ResendVerification from "../../components/ResendVerification";
 import strings from "../../localization/localization";
 
 export default function Profile() {
@@ -19,27 +19,10 @@ export default function Profile() {
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [statusVRFI, setStatusVRFI] = useState("")
  
   useEffect(() => {
     getProfile();
-    statusVerifikasi();
   }, []);
-
-  useEffect(() => {
-    statusVerifikasi();
-  }, [statusVRFI]);
-
-
-  async function statusVerifikasi() {
-    let statusVerifikasi = await Customer.get({})
-    if (statusVerifikasi.status === 200) {
-      setStatusVRFI(statusVerifikasi.data.data.status)
-    } else {
-      setStatusVRFI("")
-    }
-
-  }
 
   async function getProfile() {
     if (authProfile) {
@@ -150,7 +133,7 @@ export default function Profile() {
     });
   };
 
-  async function actionResendVerifikasiEmail() {
+  async function actionResendVerificationEmail() {
     let resendVerifikasi = await Customer.resendVerification({})
     if (resendVerifikasi.status === 200) {
       openNotificationWithIcon('success');
@@ -204,7 +187,7 @@ export default function Profile() {
     }
   }
 
-  let checkStatusVerifikasiEmail = statusVRFI === "VRFI" ? true : false
+  let checkStatusVerificationEmail = authProfile.status === "VRFI" ? true : false
 
   return (
     <React.Fragment>
@@ -236,9 +219,9 @@ export default function Profile() {
           </div>
         </div>
       </Card>
-      {checkStatusVerifikasiEmail &&
-      <ResendVerifikasiEmail
-        actionResendVerifikasiEmail={actionResendVerifikasiEmail} />}
+      {checkStatusVerificationEmail &&
+      <ResendVerification
+        actionResendVerificationEmail={actionResendVerificationEmail} />}
 
     </React.Fragment>
   );

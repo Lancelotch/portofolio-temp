@@ -4,7 +4,7 @@ import Button from '../Button';
 import strings from '../../localization/localization';
 import "./style.sass";
 
-function ResendVerifikasiEmail(props) {
+function ResendVerification(props) {
     return (
         <Card className="mp-status-profile">
             <Row>
@@ -12,7 +12,7 @@ function ResendVerifikasiEmail(props) {
                     <h4 className="mp-status-profile__heading">{strings.profile_status_heading}</h4>
                     <p className="mp-status-profile__text">{strings.profile_status_text}</p>
                     <Button
-                        onClick={props.actionResendVerifikasiEmail}>
+                        onClick={props.actionResendVerification}>
                         {strings.profile_status_verifikasi}
                     </Button>
                 </Col>
@@ -24,4 +24,4 @@ function ResendVerifikasiEmail(props) {
     );
 };
 
-export default ResendVerifikasiEmail;
+export default ResendVerification;
