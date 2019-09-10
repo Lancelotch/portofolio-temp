@@ -6,8 +6,7 @@ import Button from "../Button";
 import propTypes from "prop-types";
 
 const UploadImage = props => {
-  const { allData, setAllData } = props;
-  const photoUrl = allData.photoUrl;
+  const photoUrl = props.initialValue;
   const [loading, setLoading] = useState(false);
   const [isErrorDimension, setIsErrorDimension] = useState(false);
   const [isErrorFormat, setIsErrorFormat] = useState(false);
@@ -17,10 +16,10 @@ const UploadImage = props => {
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    getProfile();
+    updateProfile();
   }, [photoUrl]);
 
-  async function getProfile() {
+  async function updateProfile() {
     if (photoUrl) {
       const isDimention = await checkDimensionFirst(photoUrl);
       if (isDimention.height > isDimention.width) {
@@ -48,7 +47,7 @@ const UploadImage = props => {
     });
   }
 
-  async function uploadImage({ onError, onSuccess, file }) {
+  async function uploadImage({ file }) {
     let formData = new FormData();
     formData.append("file", file);
     const isDimension = await checkDimension(file);
@@ -65,7 +64,8 @@ const UploadImage = props => {
           loading: setLoading,
           params: formData
         });
-        onSuccess(response.data.data);
+        const url = response.data.data;
+        props.onSuccess(url);
       }
     } else {
       setIsErrorDimension(true);
@@ -83,10 +83,7 @@ const UploadImage = props => {
       setLoading(true);
     }
     if (res.file.status === "done") {
-      setAllData({
-        ...allData,
-        photoUrl: res.file.response
-      });
+      props.onSuccess(res.file.response);
       setLoading(false);
       setDisabled(false);
     }
@@ -107,10 +104,7 @@ const UploadImage = props => {
   }
 
   function removeImage() {
-    setAllData({
-      ...allData,
-      photoUrl: ""
-    });
+    props.onSuccess("");
     setLandscape(false);
     setPortrait(false);
     setIsErrorDimension(false);
@@ -145,8 +139,7 @@ const UploadImage = props => {
     name: "avatar",
     showUploadList: false,
     beforeUpload: beforeUpload,
-    customRequest: ({ onError, onSuccess, file }) =>
-      uploadImage({ onError, onSuccess, file }),
+    customRequest: ({ file }) => uploadImage({ file }),
     onChange: file => handleChangeImage(file)
   };
 
@@ -215,6 +208,7 @@ const UploadImage = props => {
   }
   const uploadButton = (
     <div
+      onClick={handleError}
       style={{
         width: 100,
         height: 100,
@@ -223,7 +217,6 @@ const UploadImage = props => {
         textAlign: "center",
         fontSize: 20
       }}
-      onClick={handleError}
     >
       {photoUrl ? (
         <img
@@ -271,8 +264,9 @@ const UploadImage = props => {
 
 UploadImage.propTypes = {
   type: propTypes.oneOf(["products", "avatar"]),
-  setAllData: propTypes.func,
-  allData: propTypes.object
+  onSuccess: propTypes.func,
+  onError: propTypes.func,
+  initialValue: propTypes.string
 };
 
 UploadImage.defaultProps = {

@@ -30,11 +30,17 @@ no details
 
 <Playground>
   {()=>{
-  const [allData, setAllData] = useState({});
+  const [payload, setPayload] = useState({});
+  function onSuccess(response) {
+    setPayload({
+      ...payload,
+      photoUrl: response
+    })
+  }
   return (
     <UploadImage
-      allData={allData}
-      setAllData={setAllData}
+      onSuccess={onSuccess}
+      initialValue={payload.photoUrl}
     />
     )
   }}
@@ -44,12 +50,18 @@ no details
 
 <Playground>
   {()=>{
-  const [allData, setAllData] = useState({});
+  const [payload, setPayload] = useState({});
+  function onSuccess(response) {
+    setPayload({
+      ...payload,
+      photoUrl: response
+    })
+  }
   return (
     <UploadImage
       type="avatar"
-      allData={allData}
-      setAllData={setAllData}
+      onSuccess={onSuccess}
+      initialValue={payload.photoUrl}
     />
     )
   }}

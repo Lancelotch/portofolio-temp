@@ -7,7 +7,7 @@ import UploadImage from "../../components/UploadImage";
 
 export default function Profile() {
   const { authProfile, handleUpdate } = useRootContext();
-  const [allData, setAllData] = useState({});
+  const [payload, setPayload] = useState({});
 
   useEffect(() => {
     getProfile();
@@ -15,13 +15,13 @@ export default function Profile() {
 
   async function getProfile() {
     if (authProfile) {
-      setAllData(authProfile);
+      setPayload(authProfile);
     }
   }
 
   async function handleSubmit(name) {
     const params = {
-      ...allData,
+      ...payload,
       name: name
     };
     handleUpdate(params);
@@ -45,20 +45,27 @@ export default function Profile() {
     });
   }
 
+  function onSuccess(response) {
+    setPayload({
+      ...payload,
+      photoUrl: response
+    })
+  }
+
   return (
     <Card title="Profil Pengguna">
       <div className="profile">
         <div className="profile__content">
           <UploadImage
             type="avatar"
-            allData={allData}
-            setAllData={setAllData}
+            onSuccess={onSuccess}
+            initialValue={payload.photoUrl}
           />
         </div>
         <div className="profile__content">
           <ProfileEdit
-            customerName={allData.name}
-            customerEmail={allData.email}
+            customerName={payload.name}
+            customerEmail={payload.email}
             handleSubmit={handleSubmit}
           />
         </div>
