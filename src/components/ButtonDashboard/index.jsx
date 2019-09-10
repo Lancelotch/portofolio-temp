@@ -62,15 +62,18 @@ export default function ButtonDashboard(props) {
               orderProduct, index, id)}
           {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
             (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
-            <Button
-              type="primary"
-              marginright="small"
-              size="large">
-              <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}> {strings.buy_again}</Link>
-            </Button>}
+            <Link to={`${PATH_PRODUCT.PRODUCT}/${id} ` || "#"}>
+              <Button
+                type="primary"
+                marginright="small"
+                size="large">
+                {strings.buy_again}
+              </Button>
+            </Link>
+          }
           <Button
-          type="secondary"
-          size="large"
+            type="secondary"
+            size="large"
             onClick={showOrderDetailsDashboard}
           >
             {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
