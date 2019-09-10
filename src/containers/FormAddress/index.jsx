@@ -25,7 +25,9 @@ export default function FormAddress(props) {
 
   function doCreate() {
     setTitle(titleCreate);
-    setInitialValues(convertSchemaToInit(schema));
+    const initValue = convertSchemaToInit(schema);
+    console.log({...initValue, isDefault: props.default});
+    setInitialValues({...initValue, isDefault: props.default});
   }
 
   function doUpdate() {
@@ -289,5 +291,10 @@ export default function FormAddress(props) {
 FormAddress.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  default: PropTypes.bool
 };
+
+FormAddress.defaultProps = {
+  default: false
+}
