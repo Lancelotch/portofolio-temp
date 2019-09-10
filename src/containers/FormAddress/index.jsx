@@ -290,7 +290,7 @@ export default function FormAddress(props) {
 
 FormAddress.propTypes = {
   onCancel: PropTypes.func,
-  onSubmit: PropTypes.func,
+  onSuccess: PropTypes.func,
   title: PropTypes.string,
   default: PropTypes.bool
 };
