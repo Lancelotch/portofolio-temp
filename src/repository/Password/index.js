@@ -1,4 +1,4 @@
-import { apiPostWithToken, apiGetWithToken } from "../../services/api";
+import { apiPostWithToken, apiGetWithToken, apiPostWithoutToken } from "../../services/api";
 import { PATH_PUBLIC } from "../../services/path/public";
 
 async function change (props) {
@@ -22,9 +22,22 @@ async function reset (){
   }
 }
 
+async function processReset (props) {
+  const params = props.params
+  const randomKey = props.randomKey
+  let response = ''
+  try {
+    response = await apiPostWithoutToken(`${PATH_PUBLIC.PUBLIC_RESET_PASSWORD}/${randomKey}`, params)
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
 const Password = {
   change,
-  reset
+  reset,
+  processReset
 }
 
 export default Password

@@ -13,6 +13,7 @@ import NotFoundPage from "../components/NotFoundPage";
 import FailedPayment from "../components/FailedPayment";
 import Error from "../pages/Error";
 import ForgetPassword from "../pages/ForgetPassword";
+import ResetPassword from "../pages/ResetPassword"
 import FullLayout from "../layouts/FullLayout";
 import MainLayout from "../layouts/MainLayout";
 import CustomerLayout from "../layouts/CustomerLayout";
@@ -26,6 +27,12 @@ const routes = [
   {
     path: PATH_URL.FORGET_PASSWORD,
     component: ForgetPassword,
+    layout: FullLayout,
+    needAuthenticated: false
+  },
+  {
+    path: PATH_URL.RESET_PASSWORD,
+    component: ResetPassword,
     layout: FullLayout,
     needAuthenticated: false
   },
