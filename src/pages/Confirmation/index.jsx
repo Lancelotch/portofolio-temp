@@ -1,22 +1,22 @@
 import React, {  useState, useEffect } from "react";
 import "./style.sass"
-import ErrorPage from "../../components/ConfirmationError"
 import ConfirmationPage from '../../components/Confirmation'
 import Customer from "../../repository/Customer";
+import Error from "../Error";
 
 
 export default function Confirmation(props) {
   const [activated, setActivated] = useState(false)
-  const idConfirmation = props.match.params.idConfirmation
+  const idActivated = props.match.params.idConfirmation
 
   useEffect(() => {
-    const params = idConfirmation
+    const params = idActivated
     requestActivation(params);
   }, [])
 
-  async function requestActivation(params) {
+  async function requestActivation(idActivated) {
     let activated = await Customer.activated({
-      params: params
+      idActivated: idActivated
     })
     if (activated.status === 200) {
       setActivated(true)
@@ -29,7 +29,7 @@ export default function Confirmation(props) {
     <React.Fragment>
       {activated ?
         <ConfirmationPage /> :
-        <ErrorPage />
+        <Error />
       }
     </React.Fragment>
 

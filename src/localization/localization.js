@@ -23,11 +23,17 @@ const strings = new LocalizedStrings({
     shipping_address : 'Alamat Pengiriman',
 
 
+    //Cofirmation activated from email
+    confirmation_title_heading :'Hi, Selamat ya..',
+    confirmation_title_content : 'Selamat ya, akun kamu sudah terverifikasi oleh sistem kami, terimakasih sudah melakukan registrasi di monggopesen, kita punya semua produk luar negri yang kamu mau tinggal pesen, kita antar sampai rumah kamu.',
+    contirmation_title_footer : 'Hati-hati jangan berikan informasi akun monggopesen anda kepada siapapun.',
+
     //error-page
     error_bottom_text:  "Sepertinya halaman yang anda tuju sedang dalam perbaikan, teknisi kami sedang memperbaikinya silahkan kembali ke halaman sebelumnya atau klik tombol dibawah ini.",
     error_top_text:"Wah, ada apa ya?",
     error_button_text: "Kembali Ke Beranda",
     //general
+    start_shopping: 'Mulai Belanja',
     password_required: "Password harus diisi",
     email_valid: "Email harus valid",
     email_quote_required: "Email harus diisi",
