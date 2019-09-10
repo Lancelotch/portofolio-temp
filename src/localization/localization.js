@@ -196,6 +196,8 @@ const strings = new LocalizedStrings({
 
     //Profile
     profile_error_message: "Nama harus diisi minimal 1 karakter",
+    profile_status_verifikasi: "Kirim Ulang Email Verifikasi",
+    profile_status_sucsess: "Berhasil Mengirim Email Verifikasi",
 
     //Payment Info
     payment_info: "Info Pembayaran",

@@ -5,6 +5,9 @@ import ProfileEdit from "../../components/ProfileEdit";
 import { notification, Card } from "antd";
 import ImageRepo from "../../repository/Image";
 import { useRootContext } from "../../hoc/RootContext";
+import Customer from "../../repository/Customer";
+import ResendVerifikasiEmail from "../../components/ResendVerifikasiEmail";
+import strings from "../../localization/localization";
 
 export default function Profile() {
   const { authProfile, handleUpdate } = useRootContext();
@@ -16,10 +19,24 @@ export default function Profile() {
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [statusVRFI, setStatusVRFI] = useState("")
+  const [alertNotifResendVerificationEmail,setAlertNotifResendVerificationEmail] = useState(false)
 
   useEffect(() => {
     getProfile();
+    statusVerifikasi();
   }, []);
+
+
+  async function statusVerifikasi() {
+    let statusVerifikasi = await Customer.get({})
+    if (statusVerifikasi.status === 200) {
+      setStatusVRFI(statusVerifikasi.data.data.status)
+    } else {
+      setStatusVRFI("")
+    }
+
+  }
 
   async function getProfile() {
     if (authProfile) {
@@ -43,7 +60,7 @@ export default function Profile() {
     return new Promise(resolve => {
       var image = new Image();
       image.src = file;
-      image.onload = function() {
+      image.onload = function () {
         let dimension = {};
         dimension.width = image.naturalWidth;
         dimension.height = image.naturalHeight;
@@ -101,7 +118,7 @@ export default function Profile() {
       let _URL = window.URL || window.webkitURL;
       var image = new Image();
       image.src = _URL.createObjectURL(file);
-      image.onload = function() {
+      image.onload = function () {
         let dimension = {};
         dimension.width = image.naturalWidth;
         dimension.height = image.naturalHeight;
@@ -122,6 +139,19 @@ export default function Profile() {
     setIsErrorSize(false);
     setLoading(false);
     setDisabled(true);
+  }
+
+  function openNotificationWithIcon(type)  {
+    notification[type]({
+      message: strings.profile_status_verifikasi
+    });
+  };
+
+  async function actionResendVerifikasiEmail() {
+    let resendVerifikasi = await Customer.resendVerification({})
+    if (resendVerifikasi.status === 200) {
+      openNotificationWithIcon('success');
+    }
   }
 
   async function handleSubmit(name) {
@@ -171,34 +201,42 @@ export default function Profile() {
     }
   }
 
+  let checkStatusVerifikasiEmail = statusVRFI === "VRFI" ? false : true
+
   return (
-    <Card title="Profil Pengguna">
-      <div className="profile">
-        <div className="profile__content">
-          <ProfileAvatar
-            photoUrl={allData.photoUrl}
-            loading={loading}
-            beforeUpload={beforeUpload}
-            uploadImage={uploadImage}
-            handleChangeImage={handleChangeImage}
-            removeImage={removeImage}
-            handleError={handleError}
-            landscape={landscape}
-            portrait={portrait}
-            isErrorDimension={isErrorDimension}
-            isErrorFormat={isErrorFormat}
-            isErrorSize={isErrorSize}
-            disabled={disabled}
-          />
+    <React.Fragment>
+      <Card title="Profil Pengguna">
+        <div className="profile">
+          <div className="profile__content">
+            <ProfileAvatar
+              photoUrl={allData.photoUrl}
+              loading={loading}
+              beforeUpload={beforeUpload}
+              uploadImage={uploadImage}
+              handleChangeImage={handleChangeImage}
+              removeImage={removeImage}
+              handleError={handleError}
+              landscape={landscape}
+              portrait={portrait}
+              isErrorDimension={isErrorDimension}
+              isErrorFormat={isErrorFormat}
+              isErrorSize={isErrorSize}
+              disabled={disabled}
+            />
+          </div>
+          <div className="profile__content">
+            <ProfileEdit
+              customerName={allData.name}
+              customerEmail={allData.email}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </div>
-        <div className="profile__content">
-          <ProfileEdit
-            customerName={allData.name}
-            customerEmail={allData.email}
-            handleSubmit={handleSubmit}
-          />
-        </div>
-      </div>
-    </Card>
+      </Card>
+      <ResendVerifikasiEmail 
+      checkStatusVerifikasiEmail={checkStatusVerifikasiEmail}
+      actionResendVerifikasiEmail={actionResendVerifikasiEmail} />
+
+    </React.Fragment>
   );
 }

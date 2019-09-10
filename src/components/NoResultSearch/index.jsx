@@ -1,32 +1,28 @@
 import React from "react";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
-import EmptySearchResult from "../../assets/img/ic_background/no_search_result.png";
 import "./style.sass";
 import strings from "../../localization/localization";
 
 const NoResultSearch = props => {
   const { query } = props;
   return (
-    <div className="searchResult">
+    <div className="mp-search-result">
       <Row>
-        <Col md={10}>
-          <img src={EmptySearchResult} alt="" />
-        </Col>
-        <Col md={14}>
-          <div className="searchResultContent">
+        <Col md={24}>
+          <div className="mp-search-result-content">
             <h2>Hmm..</h2>
-            <p className="searchResultContent__paragraph">
+            <p className="mp-search-result-content__paragraph">
               {" "}
               Kami tidak bisa menemukan
-              <b style={{ fontStyle: "oblique", wordWrap: "break-word" }}>
+              <b className="mp-search-result-content__query">
                 "{query}"
               </b>{" "}
               yang anda cari.
             </p>
-            <span className="searchResultContent__paragraphBottom">
+            <span className="mp-search-result-content__paragraph-bottom">
               {strings.paragraph_search}
-              <Link style={{ color: "#004853", fontWeight: 500 }} to="/">
+              <Link className="mp-search-result-content__link-result-content" to="/">
                 &nbsp;
                 {strings.help_search}
               </Link>

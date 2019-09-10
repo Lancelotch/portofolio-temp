@@ -38,7 +38,7 @@ export default function OrderListWaiting(props) {
         const cancelOrder = await Order.cancel({
             idCancel: idCancel
         })
-        if (cancelOrder.code === 200 || cancelOrder.code === "200") {
+        if (cancelOrder.status === 200 || cancelOrder.status === "200") {
             props.actionUpdateTab(0);
         }
 
