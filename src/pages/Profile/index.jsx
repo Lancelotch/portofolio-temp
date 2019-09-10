@@ -20,16 +20,21 @@ export default function Profile() {
   const [portrait, setPortrait] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [statusVRFI, setStatusVRFI] = useState("")
-  const [alertNotifResendVerificationEmail,setAlertNotifResendVerificationEmail] = useState(false)
-
+ 
   useEffect(() => {
     getProfile();
     statusVerifikasi();
   }, []);
 
+  useEffect(() => {
+    statusVerifikasi();
+  }, [statusVRFI]);
+
 
   async function statusVerifikasi() {
     let statusVerifikasi = await Customer.get({})
+    console.log(statusVerifikasi);
+    
     if (statusVerifikasi.status === 200) {
       setStatusVRFI(statusVerifikasi.data.data.status)
     } else {
@@ -141,7 +146,7 @@ export default function Profile() {
     setDisabled(true);
   }
 
-  function openNotificationWithIcon(type)  {
+  function openNotificationWithIcon(type) {
     notification[type]({
       message: strings.profile_status_verifikasi
     });
@@ -201,7 +206,7 @@ export default function Profile() {
     }
   }
 
-  let checkStatusVerifikasiEmail = statusVRFI === "VRFI" ? false : true
+  let checkStatusVerifikasiEmail = statusVRFI === "VRFI" ? true : false
 
   return (
     <React.Fragment>
@@ -233,9 +238,9 @@ export default function Profile() {
           </div>
         </div>
       </Card>
-      <ResendVerifikasiEmail 
-      checkStatusVerifikasiEmail={checkStatusVerifikasiEmail}
-      actionResendVerifikasiEmail={actionResendVerifikasiEmail} />
+      {checkStatusVerifikasiEmail &&
+      <ResendVerifikasiEmail
+        actionResendVerifikasiEmail={actionResendVerifikasiEmail} />}
 
     </React.Fragment>
   );

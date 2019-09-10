@@ -13,7 +13,6 @@ function ResendVerifikasiEmail(props) {
                     <p className="mp-status-profile__text">Jika tautan pada email yang kami kirim sudah kadaluarsa
                 gunakan tombol kirim ulang dibawah ini.</p>
                     <Button
-                        disabled={props.checkStatusVerifikasiEmail}
                         onClick={props.actionResendVerifikasiEmail}>
                         {strings.profile_status_verifikasi}
                     </Button>
