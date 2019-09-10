@@ -25,6 +25,7 @@ const NOT_FOUND = '/not-found'
 const NOT_FOUND_PAGE = '*';
 const ERROR = '/500';
 const FORGET_PASSWORD = '/forget-password';
+const RESET_PASSWORD = '/reset/:randomKey';
 
 
 const PATH_URL = {
@@ -54,7 +55,8 @@ const PATH_URL = {
     DASHBOARD_PROFILE,
     DASHBOARD_ADDRESS,
     DASHBOARD_PASSWORD,
-    DASHBOARD_ORDER
+    DASHBOARD_ORDER,
+    RESET_PASSWORD
 }
 
 export default PATH_URL;
