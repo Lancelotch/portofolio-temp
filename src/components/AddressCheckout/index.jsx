@@ -12,7 +12,6 @@ export const AddressCheckout = props => {
     onEditAddress,
     onSelectListAddress,
     onAddAddress,
-    onLoading
   } = props;
   return (
     <div style={{ marginBottom: 15 }}>
@@ -22,31 +21,24 @@ export const AddressCheckout = props => {
         title={<div>{strings.shipping_address}</div>}
       >
         <div style={{ padding: 15 }}>
-          {onLoading ? (
-            <span>Loading...</span>
-          ) : (
-            <React.Fragment>
-              <AddressDetail
-                address={address}
-                onEdit={onEditAddress}
-              />
-              <div className="address-checkout">
-                {address && (
-                  <Button
-                    onClick={onSelectListAddress}
-                    size="large"
-                    type="secondary"
-                    marginright="small"
-                  >
-                    {strings.send_to_another_address}
-                  </Button>
-                )}
-                <Button size="large" type="secondary" onClick={onAddAddress}>
-                  {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
+          <React.Fragment>
+             <AddressDetail address={address} onEdit={onEditAddress}/>
+            <div className="address-checkout">
+              {address && (
+                <Button
+                  onClick={onSelectListAddress}
+                  size="large"
+                  type="secondary"
+                  marginright="small"
+                >
+                  {strings.send_to_another_address}
                 </Button>
-              </div>
-            </React.Fragment>
-          )}
+              )}
+              <Button size="large" type="secondary" onClick={onAddAddress}>
+                {strings.add_address} &nbsp; <ButtonIcon icon="plus" />
+              </Button>
+            </div>
+          </React.Fragment>
         </div>
       </Card>
     </div>

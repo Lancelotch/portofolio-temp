@@ -9,7 +9,7 @@ const Product = props => {
   const price = props.price;
   const id = props.id;
   return (
-    <Link to={`${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}>
+    <Link to={`/${PATH_PRODUCT.PRODUCT}/${id} `|| "#"}>
         <Cards
           urlImage={urlImage}
           title={title}
