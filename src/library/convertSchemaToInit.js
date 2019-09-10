@@ -30,7 +30,7 @@ export default function convertSchemaToInit(schema) {
       case "string":
         return "";
       case "number":
-        return 0;
+        return null;
       case "boolean":
         return false;
       default:

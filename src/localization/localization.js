@@ -21,7 +21,14 @@ const strings = new LocalizedStrings({
     use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
     send_to_another_address : 'Kirim ke Alamat Lain',
     shipping_address : 'Alamat Pengiriman',
-
+    validation_required_address_name: 'Silahkan isi nama alamat',
+    validation_required_receiver: 'Silahkan isi nama penerima',
+    validation_required_phone_number: 'Silahkan isi no telfon kamu',
+    validation_required_province: 'Silahkan pilih alamat provice kamu',
+    validation_required_city: 'Silahkan pilih alamat kota kamu',
+    validation_required_subdistrict: 'Silahkan pilih alamat kecamatan kamu',
+    validation_required_zipcode: 'Silahkan isi kode POS kamu',
+    validation_required_full_address: 'Silahkan isi alamat lengkap kamu',
 
     //Cofirmation activated from email
     confirmation_title_heading :'Hi, Selamat ya..',
