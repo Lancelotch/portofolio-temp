@@ -150,11 +150,6 @@ export default function Password() {
         <div>
           <Button
             disabled={acceptReset}
-            className={
-              !acceptReset
-                ? "mp-button-password"
-                : "mp-button-password__disabled"
-            }
             onClick={onResetPassword}
           >
             Reset Password

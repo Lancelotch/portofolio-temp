@@ -1,11 +1,16 @@
 import React from "react";
 import Button from "../components/Button";
+import strings from "../localization/localization";
 
 
 
 export const buttonDisabledandEnabledDelivery = (status, actionReceivedConfirm, productOrderRespon, keyIndex, id) => {
-  return <Button size="large" marginright="small" type={status === "SHP" || status === "RCP" ? "disabled" : "primary"} disabled={status === "SHP" || status === "RCP" ? true : false}
+  return <Button
+    size="large"
+    marginright="small"
+    type={status === "SHP" || status === "RCP" ? "grey" : "primary"}
+    disabled={status === "SHP" || status === "RCP" ? true : false}
     onClick={() => actionReceivedConfirm(productOrderRespon, keyIndex, id)}>
-    Pesanan Diterima
+    {strings.order_received}
   </Button>;
 }

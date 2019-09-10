@@ -58,7 +58,7 @@ export default function Order(props) {
         const receivedOrder = await Invoice.receivedOrder({
             params: idReceived
         })
-        if (receivedOrder.code === 200) {
+        if (receivedOrder.status === 200) {
             productOrderTabs(2);
         }
     };

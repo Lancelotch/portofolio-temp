@@ -1,9 +1,9 @@
-.searchResult 
+.mp-search-result 
     display: flex
-    justify-content: center
+    justify-content: flex-start
     margin: 70px 0px 70px 0px
 
-.searchResultContent
+.mp-search-result-content
     display: flex 
     flex-direction: column
     margin-top: 20px
@@ -16,7 +16,16 @@
         max-width: 500px
         color: $color-sherpa-blue
         font-size: 24px
-    &__paragraphBottom
-        width: 396px  
+    &__paragraph-bottom
+        width: 450px  
         text-align: left
         font-size: 16px  
+    &__query
+         font-style: oblique 
+         word-wrap: break-word 
+         color: $color-safety-orange 
+    &__link-result-content       
+         color: $color-sherpa-blue
+         font-weight: 500 
+         display: block
+         margin-left: -5px

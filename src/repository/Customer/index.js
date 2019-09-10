@@ -16,6 +16,20 @@ async function get(props) {
   }
 }
 
+async function resendVerification(props){
+  const loading = props.loading ? props.loading : function(){};
+  let response = "";
+  loading(true)
+  try{
+    response = await apiGetWithToken(PATH_PUBLIC.PUBLIC_USER_RESEND_VERIFICATION);
+    loading(false);
+    return response;
+  } catch (error){
+    loading(false);
+    return error;
+  }
+}
+
 async function update(props) {
   const loading = props.loading ? props.loading : function() {};
   let response = "";
@@ -49,7 +63,8 @@ async function activated(props){
 const Customer = {
   get,
   update,
-  activated
+  activated,
+  resendVerification
 };
 
 export default Customer;
