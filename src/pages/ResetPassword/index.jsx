@@ -13,22 +13,15 @@ import './style.sass';
 
 export default function ResetPassword (props) {
   const [initialValue] = useState(convertSchemaToInit(schema))
-  const [randomKey, setRandomKey] = useState('')
   const {handleLogout} = useRootContext()
-
-  useEffect(() => {
-    const route = props.location.pathname
-    const splitRoute = route.split('/')
-    const key = splitRoute[splitRoute.length -1]
-    setRandomKey(key)
-  },[])
+  const key = props.match.params.key
 
   async function handleSubmit (values, resetForm){
     const params = {
       password : values.password,
       confirm_password : values.password
     }
-    let response = await Password.processReset({params,randomKey})
+    let response = await Password.update({params,key})
     if(response.status === 200){
       handleLogout()
       resetForm({})
@@ -75,6 +68,7 @@ export default function ResetPassword (props) {
                   size="large"
                   width="full"
                   name="password"
+                  type="password"
                   value={values.password}
                   onChange={handleChange}
                 />
