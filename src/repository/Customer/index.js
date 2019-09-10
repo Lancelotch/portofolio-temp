@@ -37,7 +37,7 @@ async function activated(props){
   let response = "";
   loading(true);
   try{
-    response = await apiGetWithoutToken(`${PATH_PUBLIC.PUBLIC_USER_ACTIVED}${idActivated}`)
+    response = await apiGetWithoutToken(`${PATH_PUBLIC.PUBLIC_USER_ACTIVED}/${idActivated}`)
     loading(false);
     return response
   } catch (error){

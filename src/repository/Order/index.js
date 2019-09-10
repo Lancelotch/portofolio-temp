@@ -1,6 +1,6 @@
-import { apiGetWithToken, apiPatchWithToken } from "../../services/api";
+import {  apiGetWithToken, apiPatchWithToken } from "../../services/api";
 import { PATH_DASHBOARD_TAB } from "../../services/path/dashboard";
-import {PATH_ORDER} from "../../services/path/order";
+import { PATH_ORDER } from '../../services/path/order'
 
 async function getByStatus(props) {
     const loading = props.loading ? props.loading : function () { };
@@ -24,7 +24,7 @@ async function cancel(props) {
     let response = ""
     loading(true)
     try {
-        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}${idCancel}`);
+        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}/${idCancel}`);
         loading(false)
         return response
     } catch (error){
