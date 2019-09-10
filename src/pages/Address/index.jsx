@@ -3,7 +3,7 @@ import { Card, Icon, Modal } from "antd";
 import Button from "../../components/Button";
 import strings from "../../localization/localization";
 import Body from "./Body";
-import repositoryAddress from "../../repository/Address";
+import AddressRepo from "../../repository/Address";
 import "./style.sass";
 import FormAddress from "../../containers/FormAddress";
 
@@ -14,7 +14,7 @@ export default function Address() {
   const [visibleAddAddress, setVisibleAddAddress] = useState(false);
   const [visibleEditAddress, setVisibleEditAddress] = useState(false);
   const getListAddress = async function() {
-    const response = await repositoryAddress.getAll({ loading: setLoading });
+    const response = await AddressRepo.getAll({ loading: setLoading });
     if (response.status === 200) {
       setAddresses(response.data.data);
     }
@@ -22,15 +22,15 @@ export default function Address() {
 
   const updateAddressDefault = async function(address) {
     const params = {addressId: address.id};
-    const response = await repositoryAddress.updateDefault({ loading: setLoading,  params: params});
+    const response = await AddressRepo.updateDefault({ loading: setLoading,  params: params});
     if (response.status === 200) {
         getListAddress();
     }
   };
 
-  const deleteAddressDefault = async function(address) {
-    const params = address.id;
-    const response = await repositoryAddress.Delete({ loading: setLoading,  params: params});
+  const deleteAddress = async function(address) {
+    const id = address.id;
+    const response = await AddressRepo.delete({ loading: setLoading,  params: id});
     if (response.status === 200) {
         getListAddress();
     }
@@ -54,7 +54,7 @@ export default function Address() {
   };
   
   const actionDelete = function(address) {
-    deleteAddressDefault(address);
+    deleteAddress(address);
     getListAddress();
   };
 

@@ -138,11 +138,11 @@ async function update(props){
 
 async function Delete(props){
     const loading = props.loading ? props.loading : function() {};
-    const params = props.params;
+    const id = props.id;
     let response = "";
     loading(true);
     try {
-        response = await apiDeleteWithToken(`${PATH_CUSTOMER.ADDRESS}/${params}`);
+        response = await apiDeleteWithToken(`${PATH_CUSTOMER.ADDRESS}/${id}`);
         loading(false);
         return response;
     } catch (error) {
@@ -151,7 +151,7 @@ async function Delete(props){
     }
 }
 
-const repositoryAddress = {
+const Address = {
     getListProvince,
     getListCity,
     getListSubdistrict,
@@ -161,7 +161,7 @@ const repositoryAddress = {
     getDefault,
     update,
     updateDefault,
-    Delete
+    delete: Delete
 }
 
-export default repositoryAddress;
+export default Address;
