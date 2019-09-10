@@ -20,11 +20,11 @@ async function getByStatus(props) {
 
 async function cancel(props) {
     const loading = props.loading ? props.loading : function () { };
-    const idCancel = props.idCancel
+    const idOrder = props.idOrder
     let response = ""
     loading(true)
     try {
-        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}/${idCancel}`);
+        response = await apiPatchWithToken(`${PATH_ORDER.ORDER_BY_CANCEL}/${idOrder}`);
         loading(false)
         return response
     } catch (error){
