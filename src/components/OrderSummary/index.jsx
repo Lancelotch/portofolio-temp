@@ -17,10 +17,6 @@ const OrderSummary = props => {
     return currencyRupiah(amountTotal)
   };
 
-  // console.log("props",props)
-
-
-
   return (
     <Card title={strings.order_summary} className="mp-order-summary">
       <Row>
@@ -110,7 +106,7 @@ const OrderSummary = props => {
               margin="small"
               size="large"
               htmlType="submit"
-              // onClick={() => props.onOrder()}
+              // onClick={ () => props.actionHandleSubmit(props.values) }
             >
               {strings.choose_payment_methods}
             </Button>
