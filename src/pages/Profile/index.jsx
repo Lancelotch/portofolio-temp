@@ -33,8 +33,6 @@ export default function Profile() {
 
   async function statusVerifikasi() {
     let statusVerifikasi = await Customer.get({})
-    console.log(statusVerifikasi);
-    
     if (statusVerifikasi.status === 200) {
       setStatusVRFI(statusVerifikasi.data.data.status)
     } else {
