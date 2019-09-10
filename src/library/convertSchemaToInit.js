@@ -3,10 +3,8 @@ export default function convertSchemaToInit(schema) {
     switch (s.fields[key]._type) {
       case "object":
         return {};
-        break;
         case "array":
         return array(s.fields[key]);
-        break;
       default:
         return validateKey(s.fields[key]._type);
     }
