@@ -54,6 +54,7 @@ const RootContext = props => {
       loading: setIsSubmitting
     });
     actionRegisterLogin(response);
+    getProfile();
   };
 
   const update = async payload => {
