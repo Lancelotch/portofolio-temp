@@ -9,6 +9,7 @@ import FormAddress from "../../containers/FormAddress";
 
 export default function Address() {
   const [loading, setLoading] = useState(false);
+  const [isDefault, setIsDefault] = useState();
   const [address, setAddress] = useState();
   const [adresses, setAddresses] = useState([]);
   const [visibleAddAddress, setVisibleAddAddress] = useState(false);
@@ -17,6 +18,9 @@ export default function Address() {
     const response = await AddressRepo.getAll({ loading: setLoading });
     if (response.status === 200) {
       setAddresses(response.data.data);
+      setIsDefault(false);
+    }else{
+      setIsDefault(true);
     }
   };
 
@@ -30,7 +34,7 @@ export default function Address() {
 
   const deleteAddress = async function(address) {
     const id = address.id;
-    const response = await AddressRepo.delete({ loading: setLoading,  params: id});
+    const response = await AddressRepo.delete({ loading: setLoading,  id: id});
     if (response.status === 200) {
         getListAddress();
     }
@@ -110,6 +114,7 @@ export default function Address() {
           action={"create"}
           onCancel={() => setVisibleAddAddress(!visibleAddAddress)}
           onSuccess={() => handleSuccessCreate()}
+          default={isDefault}
         />
       </Modal>
       {address && (

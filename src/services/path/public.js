@@ -1,7 +1,7 @@
 //PUBLIC
 const PUBLIC_USER_LOGIN = "public/user/login";
 const PUBLIC_USER_REGISTER = "public/user/register";
-const PUBLIC_USER_ACTIVED = "public/user/actived/";
+const PUBLIC_USER_ACTIVED = "public/user/actived";
 const PUBLIC_FORGOT_PASSWORD = "password/forgot";
 const PUBLIC_CHANGE_PASSWORD = "password/change";
 const PUBLIC_RESET_PASSWORD = "password/reset";

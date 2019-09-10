@@ -21,13 +21,26 @@ const strings = new LocalizedStrings({
     use_notice_address :'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
     send_to_another_address : 'Kirim ke Alamat Lain',
     shipping_address : 'Alamat Pengiriman',
+    validation_required_address_name: 'Silahkan isi nama alamat',
+    validation_required_receiver: 'Silahkan isi nama penerima',
+    validation_required_phone_number: 'Silahkan isi no telfon kamu',
+    validation_required_province: 'Silahkan pilih alamat provice kamu',
+    validation_required_city: 'Silahkan pilih alamat kota kamu',
+    validation_required_subdistrict: 'Silahkan pilih alamat kecamatan kamu',
+    validation_required_zipcode: 'Silahkan isi kode POS kamu',
+    validation_required_full_address: 'Silahkan isi alamat lengkap kamu',
 
+    //Cofirmation activated from email
+    confirmation_title_heading :'Hi, Selamat ya..',
+    confirmation_title_content : 'Selamat ya, akun kamu sudah terverifikasi oleh sistem kami, terimakasih sudah melakukan registrasi di monggopesen, kita punya semua produk luar negri yang kamu mau tinggal pesen, kita antar sampai rumah kamu.',
+    contirmation_title_footer : 'Hati-hati jangan berikan informasi akun monggopesen anda kepada siapapun.',
 
     //error-page
     error_bottom_text:  "Sepertinya halaman yang anda tuju sedang dalam perbaikan, teknisi kami sedang memperbaikinya silahkan kembali ke halaman sebelumnya atau klik tombol dibawah ini.",
     error_top_text:"Wah, ada apa ya?",
     error_button_text: "Kembali Ke Beranda",
     //general
+    start_shopping: 'Mulai Belanja',
     password_required: "Password harus diisi",
     email_valid: "Email harus valid",
     email_quote_required: "Email harus diisi",
