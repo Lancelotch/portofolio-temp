@@ -13,7 +13,7 @@ const BestSeller = props => {
         <Cards
         type="best-seller"
         title={name}
-        urlImage={image.defaultImage}
+        urlImage={image && image.defaultImage}
         price={priceRp}
         playButton={videoUrl}
       />

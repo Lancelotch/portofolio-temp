@@ -1,67 +1,66 @@
 import React from 'react'
-import {Row, Col ,Button} from 'antd'
+import { Row, Col } from 'antd'
 import history from '../../routers/history'
 import logo from "../../assets/img/monggopesen_logo.png"
 import ilustration from "../../assets/img/ic_background/illustration_pesenajadulu.png"
+import Button from "../../components/Button"
 import './style.sass'
+import strings from '../../localization/localization'
 
-const toHome = () => {
-    history.push("/")
-  }
-  
-const confirmationPage = () => {
-    return (
-      <React.Fragment>
-          <div className="container">
-            <div className="container__wrap">
-              <div className="container__logo">
-                <img src={logo} alt=""/>
-              </div>
-              <div className="container__box">
+function toHome() {
+  history.push("/")
+}
+
+export default function Confirmation() {
+  return (
+    <React.Fragment>
+      <div className="container">
+        <div className="mp-confirmation">
+          <div className="mp-confirmation__logo">
+            <img src={logo} alt="" />
+          </div>
+          <div className="mp-confirmation__box">
+            <Row>
+              <Col md={12}>
                 <Row>
-                  <Col span={12}>
-                    <Row>
-                      <Col span={24}>
-                        <div className="container__head">
-                          Hi, Selamat ya..
-                        </div>
-                      </Col>
-                      <br/>
-                      <Col span={24}>
-                        <div className="container__content">
-                          <p>
-                          Selamat ya, akun kamu sudah terverifikasi oleh sistem kami,
-                          terimakasih sudah melakukan registrasi di monggopesen,
-                          kita punya semua produk luar negri yang kamu mau
-                          tinggal pesen, kita antar sampai rumah kamu.
-                          </p>
-                        </div>
-                      </Col>
-                      <Col span={24}>
-                        <div className="container__foot">
-                        <p>
-                        Hati-hati jangan berikan informasi akun monggopesen anda kepada siapapun.
-                        </p>
-                        </div>
-                      </Col>
-                    </Row>
+                  <Col md={24}>
+                    <div className="mp-confirmation__head">
+                      {strings.confirmation_title_heading}
+                    </div>
                   </Col>
-                  <Col span={12} >
-                    <div className="container__image">
-                    <img src={ilustration} alt=""/>
+                  <br />
+                  <Col md={24}>
+                    <div className="mp-confirmation__content">
+                      <p>
+                        {strings.confirmation_title_content}
+                      </p>
+                    </div>
+                  </Col>
+                  <Col md={24}>
+                    <div className="mp-confirmation__footer">
+                      <p>
+                        {strings.contirmation_title_footer}
+                      </p>
+                    </div>
+                  </Col>
+                  <Col md={24}>
+                    <div className="mp-confirmation__text-button">
+                      <Button onClick={toHome} width="full" type="primary" size="large">
+                        {strings.start_shopping}
+                      </Button>
                     </div>
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                    <Button onClick={toHome} className="container__button color-button"><div className="container__textButton">Mulai Belanja</div></Button>
-                  </Col>
-                </Row>
-              </div>
-            </div>
+              </Col>
+              <Col md={12}>
+                <div className="mp-confirmation__image">
+                  <img src={ilustration} alt="" />
+                </div>
+              </Col>
+            </Row>
           </div>
-        </React.Fragment>
-    )
+        </div>
+      </div>
+    </React.Fragment>
+  )
 }
-
-export default confirmationPage

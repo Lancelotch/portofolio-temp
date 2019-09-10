@@ -22,7 +22,7 @@ export default function Popover() {
   }, [visible]);
 
   const label = isAuthenticated ? (
-    <span>{authProfile.name}</span>
+    <span className="mp-main-header-popover__username">{authProfile.name}</span>
   ) : (
     <span>Login</span>
   );

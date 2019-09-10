@@ -21,29 +21,24 @@ export default function FormAddress(props) {
   useEffect(() => {
     props.action === "create" ? doCreate() : doUpdate();
     getProvinces();
-  }, [props.id]);
+  }, [props.address]);
 
   function doCreate() {
     setTitle(titleCreate);
-    setInitialValues(convertSchemaToInit(schema));
+    const initValue = convertSchemaToInit(schema);
+    console.log({...initValue, isDefault: props.default});
+    setInitialValues({...initValue, isDefault: props.default});
   }
 
   function doUpdate() {
     setTitle(titleUpdate);
-    getAddress(props.id);
+    getAddress(props.address);
   }
 
-  async function getAddress(params) {
-    const response = await Address.get({
-      loading: setLoading,
-      params: params
-    });
-    if (response.status === 200) {
-      let address = response.data.data;
+  async function getAddress(address) {
       getCities(address.provinceId);
       getSubdistricts(address.cityId);
       setInitialValues(address);
-    }
   }
 
   async function getProvinces() {
@@ -296,5 +291,10 @@ export default function FormAddress(props) {
 FormAddress.propTypes = {
   onCancel: PropTypes.func,
   onSubmit: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  default: PropTypes.bool
 };
+
+FormAddress.defaultProps = {
+  default: false
+}

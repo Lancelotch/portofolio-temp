@@ -1,4 +1,4 @@
-import { apiGetWithToken } from "../../services/api";
+import { apiGetWithToken, apiPatchWithToken } from "../../services/api";
 import { PATH_INVOICE } from "../../services/path/invoice";
 
 async function get (props) {
@@ -12,8 +12,24 @@ async function get (props) {
   }
 }
 
+async function receivedOrder(props) {
+  const loading = props.loading ? props.loading : function () { };
+  const params = props.params
+  let response = ""
+  loading(true)
+  try {
+      response = await apiPatchWithToken(`${PATH_INVOICE.INVOICE_BY_RECEIVED }${params}`);
+      loading(false)
+      return response
+  } catch (error){
+      loading(false)
+      return error
+  }
+}
+
 const Invoice = {
-  get
+  get : get,
+  receivedOrder: receivedOrder
 }
 
 export default Invoice

@@ -45,7 +45,6 @@ const RootContext = props => {
       loading: setIsSubmitting
     });
     actionRegisterLogin(response);
-    getProfile();
   };
 
   const register = async payload => {
@@ -96,6 +95,7 @@ const RootContext = props => {
           })
         );
         window.localStorage.setItem("token", token);
+        getProfile();
       }
     }
     dispatch({

@@ -20,7 +20,7 @@ export default function BestSellers(props) {
         if (bestSeller.status === 200) {
             setBestSeller(bestSeller.data.data)
         } else {
-            setBestSeller(null)
+            setBestSeller([])
         }
 
     }
