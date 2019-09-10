@@ -61,12 +61,12 @@ const AddressUnAvailable = () => {
   );
 };
 
-const AddressDetail = React.memo(function AddressDetail(props){
+const AddressDetail = function AddressDetail(props){
   return props.address ? (
     <AddressAvailable data={props.address} onEdit={props.onEdit} />
   ) : (
       <AddressUnAvailable />
   )
-});
+};
 
 export default AddressDetail;
