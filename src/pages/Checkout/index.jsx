@@ -18,7 +18,6 @@ import convertSchemaToInit from "../../library/convertSchemaToInit";
 
 export default function Checkout(props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [onLoadingAddress, setOnLoadingAddress] = useState(false);
   const [visibleAddAddress, setVisibleAddAddress] = useState(false);
   const [visibleEditAddress, setVisibleEditAddress] = useState(false);
   const [visibleListAddress, setVisibleListAddress] = useState(false);
@@ -35,6 +34,7 @@ export default function Checkout(props) {
   const [payloadProductDetail, setPayloadProductDetail] = useState({});
   const [jneChecked, setJneChecked] = useState(false);
   const [payload, setPayload] = useState(convertSchemaToInit(schemaOrder));
+  const onLoadingAddress = false
 
   useEffect(() => {
     getaddress();
@@ -103,7 +103,7 @@ export default function Checkout(props) {
   function setStateNote(event) {
     const tempPayloadItems = [...payload.items];
     const tempItems = tempPayloadItems.map(item => {
-      return { ...item, notes: event.target.value };
+      return { ...item, note: event.target.value };
     });
     setPayload({
       ...payload,

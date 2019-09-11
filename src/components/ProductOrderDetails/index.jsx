@@ -67,7 +67,7 @@ const ProductOrderDetails = props => {
             <TableProductOrder
               informations={productSnapshot.informations}
               quantity={productSnapshot.quantity}
-              ote={note}
+              note={note}
             />
           </div>
         </Col>
@@ -89,7 +89,7 @@ const ProductOrderDetails = props => {
               <Button
                 type="primary"
                 size="large"
-              >    
+              >
                 <Link to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>Pesen Lagi</Link>
               </Button>
             </div>

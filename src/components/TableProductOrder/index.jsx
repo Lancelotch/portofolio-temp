@@ -37,7 +37,7 @@ const TableProductOrder = props => {
                     </td>
                     <td>
                         <p>
-                        {note && note.charAt(0).toUpperCase() + note.substring(1)}
+                            {note && note.charAt(0).toUpperCase() + note.substring(1)}
                         </p>
                     </td>
                 </tr>
