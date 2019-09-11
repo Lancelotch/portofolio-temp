@@ -52,7 +52,7 @@ export default function Checkout(props) {
     if (response.status === 200) {
       setPriceJne(response.data.data.price);
     } else {
-      console.log(response);
+      setPriceJne(0)
     }
   }
 
@@ -203,7 +203,6 @@ export default function Checkout(props) {
   }
 
   function handleSubmit(values) {
-    console.log(values);
     // if(props.isAddressAvailable){
     actionSubmitOrder(values);
     // }else{
@@ -227,10 +226,8 @@ export default function Checkout(props) {
       const quantity = payload.items[0].quantity;
       const response = await Order.create({ params: request });
       if (quantity > maxOrder) {
-        alert("adasd");
         setIsLoading(false);
       } else {
-        console.log("response", response);
         if (response.data.data) {
           setTimeout(() => {
             setIsLoading(false);
@@ -242,11 +239,7 @@ export default function Checkout(props) {
               history.push("/");
             },
             onPending: function(result) {
-              console.log("iniiiii resul", result);
-
               let order = result.order_id;
-              console.log("ooooooooooorder", order);
-              console.log(order);
               history.push({
                 pathname: `${"/payment-info"}/${order}`,
                 state: { detail: result }
@@ -254,14 +247,8 @@ export default function Checkout(props) {
             },
             onError: function(result) {
               history.push("/payment-failed");
-              console.log("error");
-              console.log("eeeeor snap", result);
             },
-            onClose: function() {
-              console.log(
-                "customer closed the popup without finishing the payment"
-              );
-            }
+            onClose: function() {}
           });
         }
       }
@@ -270,7 +257,6 @@ export default function Checkout(props) {
         setIsLoading(true);
       });
       // document.body.style.overflow = "hidden"
-      console.log(error);
     }
   }
 
