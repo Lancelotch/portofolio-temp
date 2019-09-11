@@ -1,21 +1,43 @@
 import React from "react";
 import {Alert as AlertAnt} from 'antd';
-import PropTypes from 'prop-types';
-import './style.css';
+import propTypes from 'prop-types';
+import classNames from 'classnames';
+import style from './style.sass';
 
-export default function Alert({message, type, afterClose}) {
+export default function Alert({title, type, afterClose, showIcon, description, animation}) {
+  const classNamesStyle = classNames.bind(style)
+  const cssClasses = classNamesStyle({
+    'mp-alert-animation-moveBottom' : (animation === 'moveBottom'),
+    'mp-alert' : (animation === 'default')
+  })
+  
   return (
-    <div className="pop-up">
-      <AlertAnt message={message} type={type} closable afterClose={afterClose}/>
+    <div className="alert-container">
+        <div className={cssClasses}>
+          <AlertAnt 
+            showIcon={showIcon}
+            message={title} 
+            type={type} 
+            closable 
+            afterClose={afterClose}
+            description={description}
+            animation={animation}
+          />
+        </div>
     </div>
   );
 }
 
-Alert.proptype= {
-    message: PropTypes.string.isRequired,
-    type: PropTypes.string
+Alert.propTypes= {
+    title: propTypes.string.isRequired,
+    type: propTypes.oneOf(['success', 'warning', 'info', 'error']),
+    showIcon: propTypes.bool,
+    description : propTypes.string,
+    animation : propTypes.oneOf(['default', 'moveBottom'])
 }
 
 Alert.defaultProps = {
-    type: "success"
+    type: "success",
+    showIcon : false,
+    animation : "default"
 }

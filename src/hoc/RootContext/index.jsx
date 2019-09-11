@@ -8,7 +8,10 @@ const CreateRootContext = React.createContext();
 const RootContext = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [show, setShow] = useState(false);
-  const [message, setMessage] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState('')
+  const [showIcon, setShowIcon] = useState(false)
+  const [animation, setAnimation] = useState('')
   const initialState = {
     isAuthenticated: false,
     authBody: {},
@@ -119,7 +122,13 @@ const RootContext = props => {
   return (
     <Fragment>
     {show &&
-      <Alert message={message} afterClose={()=>setShow(false)}/>
+      <Alert 
+        title={title} 
+        afterClose={()=>setShow(false)}
+        showIcon={showIcon}
+        description={description}
+        animation={animation}
+      />
     }
     <CreateRootContext.Provider
       value={{
@@ -140,8 +149,14 @@ const RootContext = props => {
         history: props.history,
         match: props.match,
         showAlert: payload => {
-          setMessage(payload);
+          setTitle(payload.title);
+          setShowIcon(payload.showIcon)
+          setAnimation(payload.animation)
+          setDescription(payload.description)
           setShow(!show);
+          setTimeout(function () {
+            setShow(false)
+          },4000)
         }
       }}
     >

@@ -70,7 +70,11 @@ export default function Header() {
               src={require("assets/img/icon_header.png")}
               alt="header_icon"
               className="header__icon"
-              onClick={()=>showAlert("ini pesan saya, berbaktilah kepada orang tua")}
+              onClick={()=>showAlert({
+                title : "ini pesan saya, berbaktilah kepada orang tua",
+                showIcon : true,
+                animation :'moveBottom'
+              })}
             />
           </div>
         </Col>
