@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
-import { Avatar, Icon, Upload as UploadAnt, Row, Col } from "antd";
+import {
+  Avatar,
+  Icon,
+  Upload as UploadAnt,
+  Row,
+  Col,
+  notification
+} from "antd";
 import ImageRepo from "../../repository/Image";
 import Button from "../Button";
 import propTypes from "prop-types";
@@ -21,7 +28,7 @@ const UploadImage = props => {
 
   async function updateProfile() {
     if (photoUrl) {
-      const isDimention = await checkDimensionFirst(photoUrl);
+      const isDimention = await checkDimension(photoUrl);
       if (isDimention.height > isDimention.width) {
         setPortrait(true);
         setLandscape(false);
@@ -32,19 +39,6 @@ const UploadImage = props => {
       }
       setDisabled(false);
     }
-  }
-
-  function checkDimensionFirst(file) {
-    return new Promise(resolve => {
-      var image = new Image();
-      image.src = file;
-      image.onload = function() {
-        let dimension = {};
-        dimension.width = image.naturalWidth;
-        dimension.height = image.naturalHeight;
-        resolve(dimension);
-      };
-    });
   }
 
   async function uploadImage({ file }) {
@@ -64,13 +58,33 @@ const UploadImage = props => {
           loading: setLoading,
           params: formData
         });
-        const url = response.data.data;
-        props.onSuccess(url);
+        if (response.status === 200) {
+          const url = response.data.data;
+          props.onSuccess(url);
+        } else {
+          notification.error({
+            message: response.data.message
+          });
+        }
       }
     } else {
       setIsErrorDimension(true);
       setLoading(false);
     }
+  }
+
+  function checkDimension(file) {
+    return new Promise(resolve => {
+      let _URL = window.URL || window.webkitURL;
+      var image = new Image();
+      image.src = file.uid ? _URL.createObjectURL(file) : file;
+      image.onload = function() {
+        let dimension = {};
+        dimension.width = image.naturalWidth;
+        dimension.height = image.naturalHeight;
+        resolve(dimension);
+      };
+    });
   }
 
   function handleChangeImage(res) {
@@ -87,20 +101,6 @@ const UploadImage = props => {
       setLoading(false);
       setDisabled(false);
     }
-  }
-
-  function checkDimension(file) {
-    return new Promise(resolve => {
-      let _URL = window.URL || window.webkitURL;
-      var image = new Image();
-      image.src = _URL.createObjectURL(file);
-      image.onload = function() {
-        let dimension = {};
-        dimension.width = image.naturalWidth;
-        dimension.height = image.naturalHeight;
-        resolve(dimension);
-      };
-    });
   }
 
   function removeImage() {
@@ -229,7 +229,7 @@ const UploadImage = props => {
       )}
     </div>
   );
-  if (props.type === "products") {
+  if (props.type === "default") {
     returnUpload = (
       <div>
         <UploadAnt {...propsUpload} listType="picture">
@@ -263,14 +263,14 @@ const UploadImage = props => {
 };
 
 UploadImage.propTypes = {
-  type: propTypes.oneOf(["products", "avatar"]),
+  type: propTypes.oneOf(["default", "avatar"]),
   onSuccess: propTypes.func,
   onError: propTypes.func,
   initialValue: propTypes.string
 };
 
 UploadImage.defaultProps = {
-  type: "products"
+  type: "default"
 };
 
 export default UploadImage;

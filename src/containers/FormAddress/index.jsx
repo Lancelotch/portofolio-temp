@@ -11,7 +11,6 @@ const { TextArea } = Input;
 export default function FormAddress(props) {
   const titleCreate = "Tambah Alamat Pengiriman";
   const titleUpdate = "Rubah Alamat Pengiriman";
-  const [loading, setLoading] = useState(false);
   const [provinces, setProvinces] = useState();
   const [cities, setCities] = useState();
   const [subdistricts, setSubdistricts] = useState();
@@ -66,7 +65,6 @@ export default function FormAddress(props) {
 
   async function submitCreate(params) {
     const response = await Address.create({
-      loading: setLoading,
       params: params
     });
     return response;
@@ -74,7 +72,6 @@ export default function FormAddress(props) {
 
   async function submitUpdate(params) {
     const response = await Address.update({
-      loading: setLoading,
       params: params
     });
     return response;

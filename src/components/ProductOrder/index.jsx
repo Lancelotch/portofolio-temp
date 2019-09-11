@@ -24,12 +24,12 @@ const ProductOrder = props => {
                 </Col>
                 <Col md={21}>
                   <div className="product-order__variant">
-                  <h2> {order.productSnapshot.name}</h2>
-                  <TableProductOrder 
-                  informations={order.productSnapshot.informations} 
-                  quantity={order.productSnapshot.quantity}
-                  ote={order.note}
-                  />
+                    <h2> {order.productSnapshot.name}</h2>
+                    <TableProductOrder
+                      informations={order.productSnapshot.informations}
+                      quantity={order.productSnapshot.quantity}
+                      note={order.note}
+                    />
                   </div>
                 </Col>
                 {/*<Col md={5} style={{ marginTop: 60 }}>

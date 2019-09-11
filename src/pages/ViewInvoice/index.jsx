@@ -12,7 +12,7 @@ import Invoice from '../../repository/Invoice'
 
 export default function ViewInvoice (props) {
     const [order, setOrder] = useState ({})
-    const [id, setId] = useState('')
+   // const [id, setId] = useState('')
     const [invoiceNumber, setInvoiceNumber] = useState('')
     const [filterNote , setFilterNote] = useState({})
     const componentRef = useRef();
@@ -29,7 +29,7 @@ export default function ViewInvoice (props) {
         if(response.status === 200){
             setInvoiceNumber(response.data.data.invoiceNumber)
             setOrder(response.data.data.order)
-            setId(response.data.data.id)
+           // setId(response.data.data.id)
         }else{
 
         }
