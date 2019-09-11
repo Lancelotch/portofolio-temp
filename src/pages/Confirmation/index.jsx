@@ -11,10 +11,10 @@ export default function Confirmation(props) {
 
   useEffect(() => {
     const params = idActivated
-    requestActivation(params);
+    doActivated(params);
   }, [])
 
-  async function requestActivation(idActivated) {
+  async function doActivated(idActivated) {
     let activated = await Customer.activated({
       idActivated: idActivated
     })

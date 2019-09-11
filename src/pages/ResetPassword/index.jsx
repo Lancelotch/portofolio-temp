@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import monggopesen_logo from "../../assets/img/monggopesen_logo.png";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
