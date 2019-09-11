@@ -26,7 +26,7 @@ no details
 
 ## Playground
 
-## Products type Upload as Default
+## Default type Upload
 
 <Playground>
   {()=>{
