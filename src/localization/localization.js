@@ -103,7 +103,7 @@ const strings = new LocalizedStrings({
 
     //FormAddAddress
     form_add_shipping_address : 'Tambah Alamat Pengiriman',
-    form_change_shipping_address: 'Rubah Alamat Pengiriman',
+    form_change_shipping_address: 'Ubah Alamat Pengiriman',
 
     //Dashboard Tabs Belum Bayar
     tabs_belum_bayar: 'Anda yakin ingin membatalkan pesenan?',
