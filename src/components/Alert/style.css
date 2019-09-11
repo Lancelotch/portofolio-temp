@@ -1,0 +1,16 @@
+.pop-up{
+    top: -400px;
+    position: relative;
+    animation: drop 1s ease forwards;
+    z-index: 1000;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    margin-top: -50px;
+    height: 50px;
+}
+@keyframes drop {
+    0%{opacity: 0}
+    70%{transform: translateY(700px);}
+    100%{transform: translateY(700px); opacity: 1;}
+}

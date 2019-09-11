@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRootContext } from "../../hoc/RootContext";
-import { Row, Col, Icon, Form } from "antd";
+import { Row, Col, Icon, Form, Alert } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
@@ -15,9 +15,8 @@ import { schema } from "./schema";
 import Category from "../../repository/Category";
 
 export default function Header() {
-  const { isAuthenticated, history, match } = useRootContext();
+  const { isAuthenticated, history, match, showAlert } = useRootContext();
   const [allCategory, setAllCategory] = useState([]);
-
   useEffect(() => {
     getAllCategory();
   }, []);
@@ -71,6 +70,7 @@ export default function Header() {
               src={require("assets/img/icon_header.png")}
               alt="header_icon"
               className="header__icon"
+              onClick={()=>showAlert("ini pesan saya, berbaktilah kepada orang tua")}
             />
           </div>
         </Col>
