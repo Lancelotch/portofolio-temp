@@ -1,11 +1,14 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import authentication from "../../repository/Authentication";
 import Customer from "../../repository/Customer";
+import Alert from "../../components/Alert";
 const CreateRootContext = React.createContext();
 
 const RootContext = props => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState();
   const initialState = {
     isAuthenticated: false,
     authBody: {},
@@ -114,6 +117,10 @@ const RootContext = props => {
     });
   };
   return (
+    <Fragment>
+    {show &&
+      <Alert message={message} afterClose={()=>setShow(false)}/>
+    }
     <CreateRootContext.Provider
       value={{
         ...state,
@@ -131,11 +138,16 @@ const RootContext = props => {
         },
         isSubmitting,
         history: props.history,
-        match: props.match
+        match: props.match,
+        showAlert: payload => {
+          setMessage(payload);
+          setShow(!show);
+        }
       }}
     >
       {props.children}
     </CreateRootContext.Provider>
+    </Fragment>
   );
 };
 const useRootContext = () => useContext(CreateRootContext);
