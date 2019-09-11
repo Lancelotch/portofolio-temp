@@ -194,7 +194,7 @@ export default function Checkout(props) {
     setJneChecked(!jneChecked);
   }
 
-  function handleSuccessCreate(values) {
+  function updateAddress(values) {
     const id = values.id
     setPayload({
       ...payload,
@@ -369,7 +369,7 @@ export default function Checkout(props) {
               <FormAddress
                 action={"create"}
                 onCancel={() => setVisibleAddAddress(!visibleAddAddress)}
-                onSuccess={handleSuccessCreate}
+                onSuccess={updateAddress}
                 default={isDefault}
               />
             </Modal>

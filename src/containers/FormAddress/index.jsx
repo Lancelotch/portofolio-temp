@@ -5,12 +5,13 @@ import { schema } from "./schema";
 import Address from "../../repository/Address";
 import PropTypes from "prop-types";
 import convertSchemaToInit from "../../library/convertSchemaToInit";
+import strings from "../../localization/localization";
 
 const { Option } = Select;
 const { TextArea } = Input;
 export default function FormAddress(props) {
-  const titleCreate = "Tambah Alamat Pengiriman";
-  const titleUpdate = "Rubah Alamat Pengiriman";
+  const titleCreate = strings.form_add_shipping_address
+  const titleUpdate = strings.form_change_shipping_address
   const [provinces, setProvinces] = useState();
   const [cities, setCities] = useState();
   const [subdistricts, setSubdistricts] = useState();
