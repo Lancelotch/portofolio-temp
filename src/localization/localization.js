@@ -100,6 +100,11 @@ const strings = new LocalizedStrings({
     estimate_accepted: "Perkiraan Diterima",
     riwayat_order: " Tidak ada Riwayat Pesenan",
 
+
+    //FormAddAddress
+    form_add_shipping_address : 'Tambah Alamat Pengiriman',
+    form_change_shipping_address: 'Ubah Alamat Pengiriman',
+
     //Dashboard Tabs Belum Bayar
     tabs_belum_bayar: 'Anda yakin ingin membatalkan pesenan?',
     tabs_belum_bayar_pesan_batalkan: "Pesenan yang anda buat akan kami batalkan",

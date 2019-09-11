@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRootContext } from "../../hoc/RootContext";
-import { Row, Col, Icon, Form, Alert } from "antd";
+import { Row, Col, Icon, Form } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
