@@ -67,7 +67,6 @@ export default function FormAddress(props) {
     const response = await Address.create({
       params: params
     });
-    props.onSuccess(response.data.data);
     return response;
   }
 
@@ -85,7 +84,7 @@ export default function FormAddress(props) {
         ? await submitCreate(params)
         : await submitUpdate(params);
     if (response.status === 200) {
-      props.onSuccess(params);
+      props.onSuccess({...params, id : response.data.data});
       resetForm();
     }
   }

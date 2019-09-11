@@ -195,9 +195,10 @@ export default function Checkout(props) {
   }
 
   function handleSuccessCreate(values) {
+    const id = values.id
     setPayload({
       ...payload,
-      customerAddressId: values
+      customerAddressId: id
     });
     setaddress(values);
     setVisibleAddAddress(!visibleAddAddress);
@@ -211,7 +212,6 @@ export default function Checkout(props) {
 
   function handleSubmit(values) {
     console.log(values);
-    
     // if(props.isAddressAvailable){
     actionSubmitOrder(values);
     // }else{
@@ -229,6 +229,8 @@ export default function Checkout(props) {
   }
 
   async function actionSubmitOrder(request) {
+    console.log(request);
+    
     try {
       // document.body.style.overflow = "auto"
       setIsLoading(true);
