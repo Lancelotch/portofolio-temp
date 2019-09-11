@@ -36,9 +36,11 @@ export default function Checkout(props) {
   const [payload, setPayload] = useState(convertSchemaToInit(schemaOrder));
   const onLoadingAddress = false
 
+
   useEffect(() => {
     getaddress();
-  }, []);
+  }, [addresses]);
+
 
   useEffect(() => {
     getListAddress();
@@ -167,14 +169,15 @@ export default function Checkout(props) {
   }
 
   async function getListAddress() {
-    const response = await Address.getAll({ });
+    const response = await Address.getAll({});
     if (response.status === 200) {
       setAddresses(response.data.data);
     }
   }
 
   async function getaddress() {
-    const response = await Address.getDefault({ });
+    const response = await Address.getDefault({});
+    console.log('getAddresssss=====>', response.data && response.data.data);
     if (response.status === 200) {
       const id = response.data.data.id;
       setPayload({
@@ -235,20 +238,20 @@ export default function Checkout(props) {
           const token = response.data.data.token;
           const snap = window.snap;
           snap.pay(token, {
-            onSuccess: function(result) {
+            onSuccess: function (result) {
               history.push("/");
             },
-            onPending: function(result) {
+            onPending: function (result) {
               let order = result.order_id;
               history.push({
                 pathname: `${"/payment-info"}/${order}`,
                 state: { detail: result }
               });
             },
-            onError: function(result) {
+            onError: function (result) {
               history.push("/payment-failed");
             },
-            onClose: function() {}
+            onClose: function () { }
           });
         }
       }
