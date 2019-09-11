@@ -39,7 +39,7 @@ export default function Checkout(props) {
 
   useEffect(() => {
     getaddress();
-  }, [addresses]);
+  }, []);
 
 
   useEffect(() => {
@@ -177,7 +177,6 @@ export default function Checkout(props) {
 
   async function getaddress() {
     const response = await Address.getDefault({});
-    console.log('getAddresssss=====>', response.data && response.data.data);
     if (response.status === 200) {
       const id = response.data.data.id;
       setPayload({
@@ -195,7 +194,12 @@ export default function Checkout(props) {
     setJneChecked(!jneChecked);
   }
 
-  function handleSuccessCreate() {
+  function handleSuccessCreate(values) {
+    setPayload({
+      ...payload,
+      customerAddressId: values
+    });
+    setaddress(values);
     setVisibleAddAddress(!visibleAddAddress);
     getListAddress();
   }
@@ -206,6 +210,8 @@ export default function Checkout(props) {
   }
 
   function handleSubmit(values) {
+    console.log(values);
+    
     // if(props.isAddressAvailable){
     actionSubmitOrder(values);
     // }else{
@@ -262,6 +268,9 @@ export default function Checkout(props) {
       // document.body.style.overflow = "hidden"
     }
   }
+
+  console.log(addresses);
+  
 
   return (
     <Spin wrapperClassName="checkoutLoading" size="large" spinning={isLoading}>
@@ -358,7 +367,7 @@ export default function Checkout(props) {
               <FormAddress
                 action={"create"}
                 onCancel={() => setVisibleAddAddress(!visibleAddAddress)}
-                onSuccess={() => handleSuccessCreate()}
+                onSuccess={handleSuccessCreate}
                 default={isDefault}
               />
             </Modal>

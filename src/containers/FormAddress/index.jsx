@@ -67,6 +67,7 @@ export default function FormAddress(props) {
     const response = await Address.create({
       params: params
     });
+    props.onSuccess(response.data.data);
     return response;
   }
 
@@ -75,6 +76,7 @@ export default function FormAddress(props) {
       params: params
     });
     return response;
+    
   }
 
   async function handleSubmit(params, resetForm) {
