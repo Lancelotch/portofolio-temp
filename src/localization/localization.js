@@ -64,7 +64,6 @@ const strings = new LocalizedStrings({
     buy_again: 'Beli Lagi',
     stock_empty: 'Stock Kosong',
     estimate_accepted_order: 'Perkiraan barang diterima',
-    order_received: 'Pesenan Diterima',
     in_delivery: 'Dalam Proses Pengiriman',
     before_pay: 'Bayar Sebelum',
     pay_now: 'Bayar Sekarang',

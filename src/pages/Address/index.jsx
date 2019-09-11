@@ -8,14 +8,13 @@ import "./style.sass";
 import FormAddress from "../../containers/FormAddress";
 
 export default function Address() {
-  const [loading, setLoading] = useState(false);
   const [isDefault, setIsDefault] = useState();
   const [address, setAddress] = useState();
   const [adresses, setAddresses] = useState([]);
   const [visibleAddAddress, setVisibleAddAddress] = useState(false);
   const [visibleEditAddress, setVisibleEditAddress] = useState(false);
   const getListAddress = async function() {
-    const response = await AddressRepo.getAll({ loading: setLoading });
+    const response = await AddressRepo.getAll({});
     if (response.status === 200) {
       setAddresses(response.data.data);
       setIsDefault(false);
@@ -26,7 +25,7 @@ export default function Address() {
 
   const updateAddressDefault = async function(address) {
     const params = {addressId: address.id};
-    const response = await AddressRepo.updateDefault({ loading: setLoading,  params: params});
+    const response = await AddressRepo.updateDefault({params: params});
     if (response.status === 200) {
         getListAddress();
     }
@@ -34,7 +33,7 @@ export default function Address() {
 
   const deleteAddress = async function(address) {
     const id = address.id;
-    const response = await AddressRepo.delete({ loading: setLoading,  id: id});
+    const response = await AddressRepo.delete({id: id});
     if (response.status === 200) {
         getListAddress();
     }

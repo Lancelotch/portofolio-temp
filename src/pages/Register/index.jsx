@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Icon, Form, Row, Col } from "antd";
+import { Icon, Form, Row, Col, Typography } from "antd";
 import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
@@ -14,12 +14,15 @@ import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
+const { Text } = Typography
+
 function Register() {
   const {
     handleRegister,
     isSubmitting,
     isAuthenticated,
-    history
+    history,
+    authBody
   } = useRootContext();
 
   useEffect(() => {
@@ -27,6 +30,9 @@ function Register() {
       history.push(PATH_URL.HOME);
     }
   });
+
+  let messageError = authBody.response && authBody.response.data.message
+
 
   return (
     <React.Fragment>
@@ -128,6 +134,13 @@ function Register() {
                         </a>
                       )}
                     </div>
+                    {authBody.response &&
+                      <div className="mp-register__allert-message">
+                        <Text type="danger">
+                          {messageError}
+                        </Text>
+                      </div>
+                    }
                     <Button
                       type="primary"
                       size="large"
