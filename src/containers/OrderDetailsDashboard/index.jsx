@@ -56,7 +56,7 @@ class OrderDetailsDashboard extends Component {
             <React.Fragment>
                 <ScrollToTopOnMount />
                 <div className="item-label-button">
-                    <h2>{labelTabDetails}</h2>
+                    <span className="title">{labelTabDetails}</span>
                     {this.buttonBack(actionShowOrderListWaiting)}
                 </div>
                 {((tabsShow === "isShowOrderDetailsDashboardNotPay") ||
