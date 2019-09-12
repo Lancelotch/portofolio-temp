@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import { schema } from "./schema";
 import Category from "../../repository/Category";
-import getParamUrl from "../../library/getParamUrl";
 
 export default function Header() {
   const { isAuthenticated, history, match, showAlert } = useRootContext();
@@ -24,14 +23,9 @@ export default function Header() {
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
-    if (allCategory.status === 200) {
+    if(allCategory.status === 200) {
       setAllCategory(allCategory.data.data);
     }
-  }
-
-  function getParams() {
-    const { query } = getParamUrl(window.location)
-    return query
   }
 
   return (
@@ -60,7 +54,7 @@ export default function Header() {
                 <Form.Item>
                   <Search
                     name="search"
-                    defaultValue={getParams()}
+                    value={values.search}
                     placeholder={strings.search_place_holder}
                     onSearch={handleSubmit}
                     onChange={handleChange}
@@ -76,21 +70,21 @@ export default function Header() {
               src={require("assets/img/icon_header.png")}
               alt="header_icon"
               className="header__icon"
-              onClick={() => showAlert({
-                title: "ini pesan saya, berbaktilah kepada orang tua",
-                showIcon: true,
-                animation: 'moveBottom'
+              onClick={()=>showAlert({
+                title : "ini pesan saya, berbaktilah kepada orang tua",
+                showIcon : true,
+                animation :'moveBottom'
               })}
             />
           </div>
         </Col>
         <Col md={2}>
-          <div className="header__categories" key={""}>
-            <CategoryMenu
+          <div className="header__categories" key={""}>            
+              <CategoryMenu
               key={"id"}
               match={match}
               allCategory={allCategory}
-            />
+              />
           </div>
         </Col>
         <Col md={14}>
