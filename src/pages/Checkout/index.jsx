@@ -229,10 +229,9 @@ export default function Checkout(props) {
   }
 
   async function actionSubmitOrder(request) {
-    console.log(request);
-    
+    document.body.style.overflow = "hidden"   
     try {
-      // document.body.style.overflow = "auto"
+      document.body.style.overflow = "auto"
       setIsLoading(true);
       const quantity = payload.items[0].quantity;
       const response = await Order.create({ params: request });
@@ -267,12 +266,9 @@ export default function Checkout(props) {
       setTimeout(() => {
         setIsLoading(true);
       });
-      // document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden"
     }
   }
-
-  console.log(addresses);
-  
 
   return (
     <Spin wrapperClassName="checkoutLoading" size="large" spinning={isLoading}>
@@ -313,6 +309,7 @@ export default function Checkout(props) {
                       <AddressCheckout
                         onLoading={onLoadingAddress}
                         address={address}
+                        isDefault={isDefault}
                         onEditAddress={actionShowEditFormAddress}
                         onSelectListAddress={actionShowListAddress}
                         onAddAddress={actionShowAddFormAddress}

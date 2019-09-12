@@ -1,15 +1,20 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { Modal, Radio } from "antd";
 import AddressListDetail from '../../components/AddressListDetail';
 import Button from "../../components/Button";
 
 const RadioGroup = Radio.Group;
 
-function AddressList(props){
+export default  function AddressList(props){
   const [customerAddress, setCustomerAddress] = useState(props.customerAddress);
+  
   function onChange(e){
     setCustomerAddress(getAddress(e.target.value));
   }
+  
+  useEffect(()=>{
+    setCustomerAddress(props.customerAddress)
+  },[props.addresses])
 
   function getAddress(id){
     return props.addresses.find(address => id === address.id);
@@ -57,4 +62,4 @@ function AddressList(props){
     );
   }
 
-export default AddressList;
+
