@@ -5,12 +5,13 @@ import { schema } from "./schema";
 import Address from "../../repository/Address";
 import PropTypes from "prop-types";
 import convertSchemaToInit from "../../library/convertSchemaToInit";
+import strings from "../../localization/localization";
 
 const { Option } = Select;
 const { TextArea } = Input;
 export default function FormAddress(props) {
-  const titleCreate = "Tambah Alamat Pengiriman";
-  const titleUpdate = "Rubah Alamat Pengiriman";
+  const titleCreate = strings.form_add_shipping_address
+  const titleUpdate = strings.form_change_shipping_address
   const [provinces, setProvinces] = useState();
   const [cities, setCities] = useState();
   const [subdistricts, setSubdistricts] = useState();
@@ -75,6 +76,7 @@ export default function FormAddress(props) {
       params: params
     });
     return response;
+    
   }
 
   async function handleSubmit(params, resetForm) {
@@ -83,7 +85,7 @@ export default function FormAddress(props) {
         ? await submitCreate(params)
         : await submitUpdate(params);
     if (response.status === 200) {
-      props.onSuccess(params);
+      props.onSuccess({...params, id : response.data.data});
       resetForm();
     }
   }

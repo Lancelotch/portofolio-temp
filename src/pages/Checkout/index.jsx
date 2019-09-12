@@ -36,9 +36,11 @@ export default function Checkout(props) {
   const [payload, setPayload] = useState(convertSchemaToInit(schemaOrder));
   const onLoadingAddress = false
 
+
   useEffect(() => {
     getaddress();
   }, []);
+
 
   useEffect(() => {
     getListAddress();
@@ -167,14 +169,14 @@ export default function Checkout(props) {
   }
 
   async function getListAddress() {
-    const response = await Address.getAll({ });
+    const response = await Address.getAll({});
     if (response.status === 200) {
       setAddresses(response.data.data);
     }
   }
 
   async function getaddress() {
-    const response = await Address.getDefault({ });
+    const response = await Address.getDefault({});
     if (response.status === 200) {
       const id = response.data.data.id;
       setPayload({
@@ -192,7 +194,13 @@ export default function Checkout(props) {
     setJneChecked(!jneChecked);
   }
 
-  function handleSuccessCreate() {
+  function updateAddress(values) {
+    const id = values.id
+    setPayload({
+      ...payload,
+      customerAddressId: id
+    });
+    setaddress(values);
     setVisibleAddAddress(!visibleAddAddress);
     getListAddress();
   }
@@ -203,6 +211,7 @@ export default function Checkout(props) {
   }
 
   function handleSubmit(values) {
+    console.log(values);
     // if(props.isAddressAvailable){
     actionSubmitOrder(values);
     // }else{
@@ -220,6 +229,8 @@ export default function Checkout(props) {
   }
 
   async function actionSubmitOrder(request) {
+    console.log(request);
+    
     try {
       // document.body.style.overflow = "auto"
       setIsLoading(true);
@@ -235,20 +246,20 @@ export default function Checkout(props) {
           const token = response.data.data.token;
           const snap = window.snap;
           snap.pay(token, {
-            onSuccess: function(result) {
+            onSuccess: function (result) {
               history.push("/");
             },
-            onPending: function(result) {
+            onPending: function (result) {
               let order = result.order_id;
               history.push({
                 pathname: `${"/payment-info"}/${order}`,
                 state: { detail: result }
               });
             },
-            onError: function(result) {
+            onError: function (result) {
               history.push("/payment-failed");
             },
-            onClose: function() {}
+            onClose: function () { }
           });
         }
       }
@@ -259,6 +270,9 @@ export default function Checkout(props) {
       // document.body.style.overflow = "hidden"
     }
   }
+
+  console.log(addresses);
+  
 
   return (
     <Spin wrapperClassName="checkoutLoading" size="large" spinning={isLoading}>
@@ -355,7 +369,7 @@ export default function Checkout(props) {
               <FormAddress
                 action={"create"}
                 onCancel={() => setVisibleAddAddress(!visibleAddAddress)}
-                onSuccess={() => handleSuccessCreate()}
+                onSuccess={updateAddress}
                 default={isDefault}
               />
             </Modal>

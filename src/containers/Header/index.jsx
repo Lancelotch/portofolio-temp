@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRootContext } from "../../hoc/RootContext";
-import { Row, Col, Icon, Form, Alert } from "antd";
+import { Row, Col, Icon, Form } from "antd";
 import Search from "../../components/Search";
 import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
@@ -70,7 +70,11 @@ export default function Header() {
               src={require("assets/img/icon_header.png")}
               alt="header_icon"
               className="header__icon"
-              onClick={()=>showAlert("ini pesan saya, berbaktilah kepada orang tua")}
+              onClick={()=>showAlert({
+                title : "ini pesan saya, berbaktilah kepada orang tua",
+                showIcon : true,
+                animation :'moveBottom'
+              })}
             />
           </div>
         </Col>

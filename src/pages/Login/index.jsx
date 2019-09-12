@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Col, Alert } from "antd";
+import React, { useEffect } from "react";
+import { Col } from "antd";
 import "./style.sass";
 import { useRootContext } from "../../hoc/RootContext";
 import FormLogin from "../../containers/FormLogin";
@@ -10,8 +10,7 @@ import BackgroundAuth from "../../components/BackgroundAuth";
 import PATH_URL from "../../routers/path.js"
 
 export default function Login(props) {
-  const { isAuthenticated, history } = useRootContext()
-  const [statusReset, setStatusReset] = useState(false)
+  const { isAuthenticated, history, showAlert } = useRootContext()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -24,28 +23,20 @@ export default function Login(props) {
   useEffect(() => {
     if(props.location.state){
       const status = props.location.state.reset
-      setStatusReset(status)
-      setTimeout(function(){
-        setStatusReset(false)
-      },4000)
+      if(status){
+        showAlert({
+          title : 'Password sudah berhasil diubah',
+          description: "Silahkan login kembali dengan password kamu yang baru",
+          showIcon: true,
+          animation : 'fall'
+        })
+      }
       history.replace('/login', {reset : false})
     }
   },[])
 
   return (
     <div className="mp-login-container">
-      {
-        statusReset &&
-        <div className="alert">
-          <Alert
-            message="Password sudah berhasil diubah"
-            description="Silahkan login kembali dengan password kamu yang baru"
-            type="success"
-            showIcon
-            closable
-          />
-        </div>
-      }
       <Col md={14}>
         <BackgroundAuth />
       </Col>
