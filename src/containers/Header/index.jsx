@@ -16,6 +16,7 @@ import Category from "../../repository/Category";
 
 export default function Header() {
   const { isAuthenticated, history, match, showAlert } = useRootContext();
+  const initialValue = history.location.search.split("?q=");
   const [allCategory, setAllCategory] = useState([]);
   useEffect(() => {
     getAllCategory();
@@ -23,7 +24,7 @@ export default function Header() {
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
-    if(allCategory.status === 200) {
+    if (allCategory.status === 200) {
       setAllCategory(allCategory.data.data);
     }
   }
@@ -47,6 +48,7 @@ export default function Header() {
                 const keyword = value.search;
                 history.push(`/search?q=${keyword}`);
               }}
+              initialValues={{ search: initialValue[1] }}
               validationSchema={schema}
               validateOnChange={false}
             >
@@ -70,21 +72,19 @@ export default function Header() {
               src={require("assets/img/icon_header.png")}
               alt="header_icon"
               className="header__icon"
-              onClick={()=>showAlert({
-                title : "ini pesan saya, berbaktilah kepada orang tua",
-                showIcon : true,
-                animation :'moveBottom'
-              })}
+              onClick={() =>
+                showAlert({
+                  title: "ini pesan saya, berbaktilah kepada orang tua",
+                  showIcon: true,
+                  animation: "moveBottom"
+                })
+              }
             />
           </div>
         </Col>
         <Col md={2}>
-          <div className="header__categories" key={""}>            
-              <CategoryMenu
-              key={"id"}
-              match={match}
-              allCategory={allCategory}
-              />
+          <div className="header__categories" key={""}>
+            <CategoryMenu key={"id"} match={match} allCategory={allCategory} />
           </div>
         </Col>
         <Col md={14}>
