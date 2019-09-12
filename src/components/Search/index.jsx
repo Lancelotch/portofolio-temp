@@ -25,7 +25,8 @@ Search.propTypes = {
   placeholder: propTypes.string,
   size: propTypes.oneOf(["default", "medium", "large"]),
   onChange: propTypes.func,
-  onSearch: propTypes.func
+  onSearch: propTypes.func,
+  defaultValue : propTypes.func
 };
 
 Search.defaultProps = {
