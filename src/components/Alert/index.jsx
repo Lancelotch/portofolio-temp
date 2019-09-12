@@ -7,7 +7,7 @@ import style from './style.sass';
 export default function Alert({title, type, afterClose, showIcon, description, animation}) {
   const classNamesStyle = classNames.bind(style)
   const cssClasses = classNamesStyle({
-    'mp-alert-animation-moveBottom' : (animation === 'moveBottom'),
+    'mp-alert-animation-fall' : (animation === 'fall'),
     'mp-alert' : (animation === 'default')
   })
   
@@ -33,7 +33,7 @@ Alert.propTypes= {
     type: propTypes.oneOf(['success', 'warning', 'info', 'error']),
     showIcon: propTypes.bool,
     description : propTypes.string,
-    animation : propTypes.oneOf(['default', 'moveBottom'])
+    animation : propTypes.oneOf(['default', 'fall'])
 }
 
 Alert.defaultProps = {

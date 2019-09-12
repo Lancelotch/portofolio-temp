@@ -60,7 +60,7 @@ no details
             showIcon={true}  
             title={'santuyyy'}
             description={'yang penting santuy'}
-            animation="moveBottom"
+            animation="fall"
             type="info"
           />
         }

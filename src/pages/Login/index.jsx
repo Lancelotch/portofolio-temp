@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Col, Alert } from "antd";
+import React, { useEffect } from "react";
+import { Col } from "antd";
 import "./style.sass";
 import { useRootContext } from "../../hoc/RootContext";
 import FormLogin from "../../containers/FormLogin";
@@ -11,7 +11,6 @@ import PATH_URL from "../../routers/path.js"
 
 export default function Login(props) {
   const { isAuthenticated, history, showAlert } = useRootContext()
-  const [statusReset, setStatusReset] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -29,7 +28,7 @@ export default function Login(props) {
           title : 'Password sudah berhasil diubah',
           description: "Silahkan login kembali dengan password kamu yang baru",
           showIcon: true,
-          animation : 'moveBottom'
+          animation : 'fall'
         })
       }
       history.replace('/login', {reset : false})
