@@ -12,6 +12,7 @@ export const AddressCheckout = props => {
     onEditAddress,
     onSelectListAddress,
     onAddAddress,
+    isDefault
   } = props;
   return (
     <div style={{ marginBottom: 15 }}>
@@ -22,7 +23,7 @@ export const AddressCheckout = props => {
       >
         <div style={{ padding: 15 }}>
           <React.Fragment>
-             <AddressDetail address={address} onEdit={onEditAddress}/>
+             <AddressDetail address={address} isDefault={isDefault} onEdit={onEditAddress}/>
             <div className="address-checkout">
               {address && (
                 <Button
