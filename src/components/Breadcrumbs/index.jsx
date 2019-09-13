@@ -12,7 +12,7 @@ export default function Breadcrumbs(props) {
         <div style={{ marginTop: 30 }}>
             <Breadcrumb separator=">" className="mp-breadcrumbs">
                 <Breadcrumb.Item key="home">
-                    <Link to="/">{strings.monggoPesen}</Link>
+                    <Link to="/" className="mp-breadcrumbs-actived">{strings.monggoPesen}</Link>
                 </Breadcrumb.Item>
                 {breadcrumbs.map((breadcrumb, index) => {
                     let checkLast = index === breadcrumbs.length - 1 ? true : false
