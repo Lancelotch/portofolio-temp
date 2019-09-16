@@ -7,9 +7,13 @@ const RadioGroup = Radio.Group;
 
 export default  function AddressList(props){
   const [customerAddress, setCustomerAddress] = useState(props.customerAddress);
+  const [selected,setSelected] = useState(0)
+  const [statusSelect,setStatusSelect] = useState(true)
   
   function onChange(e){
     setCustomerAddress(getAddress(e.target.value));
+    setSelected(e.target.value)
+    setStatusSelect(false)
   }
   
   useEffect(()=>{
@@ -29,12 +33,16 @@ export default  function AddressList(props){
       <AddressListDetail
         key={address.id}
         address={address}
+        selected={selected}   
+        statusSelect={statusSelect}  
+        customerAddress={customerAddress.id}
       />
     ));
   };
     return (
       <Modal
         title="Pilih alamat pengiriman"
+        className="mp-address-list"
         visible={props.visible}
         onOk={handleOk}
         onCancel={props.onCancle}
