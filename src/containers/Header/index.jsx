@@ -75,24 +75,13 @@ export default function Header() {
             />
           </div>
         </Col>
-        <Col md={2}>
-          <div className="header__categories" key={""}>
-            <CategoryMenu key={"id"} match={match} allCategory={allCategory} />
-          </div>
-        </Col>
-        <Col md={14}>
+        <Col md={16}>
+          <CategoryMenu key={"id"} match={match} allCategory={allCategory} />
           <Helpers />
         </Col>
         <Col md={8} style={{ display: "flex", justifyContent: "flex-end" }}>
-          <div className="header__greeting">
-            <Greeting isAuthenticated={isAuthenticated} />
-          </div>
-          <div className="header__user-box">
-            <Icon type="user" className="header__user-icon" />
-            <div className="wrap-header-dropdown">
-              <Popover />
-            </div>
-          </div>
+          <Greeting isAuthenticated={isAuthenticated} />
+          <Popover />
         </Col>
       </Row>
     </React.Fragment>

@@ -49,37 +49,35 @@ export default function CategoryMenu(props) {
   };
 
   function getOptions() {
-    const options = allCategory && allCategory.map(category => ({
-      value: category.id,
-      label: (
-        <Link
-          key={category.id}
-          className="defaultCategoryMenu"
-          to={`${url}/${category.idName}`}
-        >
-          {category.name}
-        </Link>
-      ),
-      children: createChildren(category.categorySubResponses, category.idName)
-    }));
+    const options =
+      allCategory &&
+      allCategory.map(category => ({
+        value: category.id,
+        label: (
+          <Link
+            key={category.id}
+            className="defaultCategoryMenu"
+            to={`${url}/${category.idName}`}
+          >
+            {category.name}
+          </Link>
+        ),
+        children: createChildren(category.categorySubResponses, category.idName)
+      }));
     return options;
   }
 
   return (
-    <Row>
-      <Col md={24}>
-        <Cascader
-          key={"id"}
-          popupClassName={"cascader-popup header__categoriess"}
-          options={getOptions()}
-          expandTrigger={"hover"}
-        >
-          <a className="ant-dropdown-link" href="/#">
-            <span className="category">Kategori</span>
-            <Icon style={{ color: "#999999" }} type="down" />
-          </a>
-        </Cascader>
-      </Col>
-    </Row>
+    <Cascader
+      key={"id"}
+      popupClassName={"cascader-popup header__categoriess"}
+      options={getOptions()}
+      expandTrigger={"hover"}
+    >
+      <a className="ant-dropdown-link" href="/#">
+        <span className="category">Kategori</span>
+        <Icon style={{ color: "#999999" }} type="down" />
+      </a>
+    </Cascader>
   );
 }

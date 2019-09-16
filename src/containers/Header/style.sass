@@ -50,13 +50,11 @@
         flex-direction: row
         padding-top: 12px
     &__menus
-        display: flex
-        flex-direction: row
         padding-top: 12px 
     &__menu
         color: $color-grey
         font-size: 14px
-        margin-right: 20px 
+        margin-left: 20px 
         height: 16px
         display: inline-block
     &__menu::after
@@ -69,11 +67,7 @@
     &__menu:hover
         color: $color-teal
     &__greeting
-        padding-top: 12px
-        height: 16px
         color: $color-black
-        font-size: 14px
-        line-height: 16px
     &__greeting h3
         font-size: 18px
         color: $color-grey
@@ -81,10 +75,6 @@
         font-size: 18px
         font-weight: 500
         color: $color-safety-orange
-    &__user-box
-        margin-left: 32px
-        display: flex
-        padding-top: 10px
     &__user-icon
         font-size: 18px
         color: $color-grey
@@ -94,8 +84,9 @@
         cursor: pointer
         margin-left: 3px
         margin-right: 3px
-    &__user-box .wrap-header-dropdown .header-ellipsis
-        max-width: 90px !important
+    &__user-box
+        margin-left: 32px
+        max-width: 120px
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis

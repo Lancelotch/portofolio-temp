@@ -93,6 +93,7 @@ export default function Search(props) {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             margin: "0 24px"
           }}
         >

@@ -1,10 +1,9 @@
-import React, {  useState, useEffect } from 'react'
-import { Carousel, Row, Col, Icon } from 'antd'
-import { Link } from 'react-router-dom'
-import './style.sass'
+import React, { useState, useEffect } from "react";
+import { Carousel, Icon } from "antd";
+import { Link } from "react-router-dom";
+import "./style.sass";
 import Skeleton from "react-loading-skeleton";
-import Banner from '../../repository/Banner';
-
+import Banner from "../../repository/Banner";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -25,10 +24,7 @@ const SampleNextArrow = props => {
       }}
       onClick={onClick}
     >
-      <Icon
-        type="right"
-        style={{ color: "white", fontSize: "30px" }}
-      />
+      <Icon type="right" style={{ color: "white", fontSize: "30px" }} />
     </div>
   );
 };
@@ -53,32 +49,28 @@ const SamplePrevArrow = props => {
       }}
       onClick={onClick}
     >
-      <Icon
-        type="left"
-        style={{ color: "white", fontSize: "30px" }}
-      />
+      <Icon type="left" style={{ color: "white", fontSize: "30px" }} />
     </div>
   );
 };
 
 function SliderHome() {
+  const [sliderImages, setSliderImages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const [sliderImages, setSliderImages] = useState([])
-  const [loading,setLoading] = useState(false)
+  useEffect(() => {
+    getSliderHome();
+  }, []);
 
-  useEffect(()=>{
-    getSliderHome()
-  },[])
-
-  async function getSliderHome () {
+  async function getSliderHome() {
     let sliderImages = await Banner.getAll({
-      loading : setLoading
-    })
+      loading: setLoading
+    });
     if (sliderImages.status === 200) {
-      setSliderImages(sliderImages.data.data) 
+      setSliderImages(sliderImages.data.data);
     } else {
-      setSliderImages([])
-    }          
+      setSliderImages([]);
+    }
   }
 
   const settings = {
@@ -91,35 +83,26 @@ function SliderHome() {
     arrows: false,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
-  }
+  };
   const slides = sliderImages.map((image, index) => {
     return (
       <React.Fragment key={index}>
-        <Link to='/'>
-          <img
-            className='imageSlider'
-            src={image.imageUrl}
-            alt={image.type}
-          />
+        <Link to="/">
+          <img className="imageSlider" src={image.imageUrl} alt={image.type} />
         </Link>
       </React.Fragment>
-    )
-  })
+    );
+  });
 
   return (
     <React.Fragment>
-      <Row>
-        <Col md={24}>
-          <div className="sliderHome full-width" >
-            <Carousel autoplay {...settings}>
-              {loading? (<Skeleton width={"100%"} height={376} />) : (slides)}
-            </Carousel>
-          </div>
-        </Col>
-      </Row>
+      <div className="sliderHome full-width">
+        <Carousel autoplay {...settings}>
+          {loading ? <Skeleton width={"100%"} height={376} /> : slides}
+        </Carousel>
+      </div>
     </React.Fragment>
-  )
+  );
 }
 
-
-export default SliderHome
+export default SliderHome;
