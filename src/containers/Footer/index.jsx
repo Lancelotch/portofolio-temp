@@ -19,20 +19,19 @@ import Subscription from "../../repository/Subscription";
 import notification from "../../library/notification";
 
 function Footer() {
-
   async function handleSubmitSubscribe(email, resetForm) {
     const subscription = await Subscription.add({
       email: email
-    })
+    });
     if (subscription.status === 200) {
       resetForm({});
       notification(
         "Selamat",
         "sekarang kamu bisa dapetin update dari kita.",
         "success"
-      )
+      );
     }
-  };
+  }
 
   return (
     <React.Fragment>
@@ -108,37 +107,31 @@ function Footer() {
                   <Col md={24}>
                     <div className="footer__invitation">
                       <p>{strings.subscripton_invitation}</p>
-                      <Row>
-                        <Col md={24}>
-                          <Formik
-                            onSubmit={(values, {resetForm}) => {
-                              handleSubmitSubscribe(values, resetForm);
-                            }}
-                            validationSchema={schema}
-                            validateOnChange={false}
-                            >
-                            {({
-                              values,
-                              errors,
-                              handleChange,
-                              handleSubmit
-                            }) => (
-                                  <Form.Item validateStatus={errors.email && "error"} help={errors.email}>
-                                    <Input
-                                      name="email"
-                                      value={values.email}
-                                      placeholder="Email"
-                                      icon="mail"
-                                      size="large"
-                                      buttontext="Send"
-                                      onButtonClick={handleSubmit}
-                                      onChange={handleChange}
-                                    />
-                                  </Form.Item>
-                              )}
-                          </Formik>
-                        </Col>
-                      </Row>
+                      <Formik
+                        onSubmit={(values, { resetForm }) => {
+                          handleSubmitSubscribe(values, resetForm);
+                        }}
+                        validationSchema={schema}
+                        validateOnChange={false}
+                      >
+                        {({ values, errors, handleChange, handleSubmit }) => (
+                          <Form.Item
+                            validateStatus={errors.email && "error"}
+                            help={errors.email}
+                          >
+                            <Input
+                              name="email"
+                              value={values.email}
+                              placeholder="Email"
+                              icon="mail"
+                              size="large"
+                              buttontext="Send"
+                              onButtonClick={handleSubmit}
+                              onChange={handleChange}
+                            />
+                          </Form.Item>
+                        )}
+                      </Formik>
                     </div>
                   </Col>
                   <Col md={24}>
@@ -167,5 +160,3 @@ function Footer() {
 }
 
 export default Footer;
-
-

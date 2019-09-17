@@ -37,24 +37,22 @@ export default function Category(props) {
       sortBy: sortBy,
       direction: direction
     };
-    const nextProduct = await Product.getByCategory({
+    const productListResp = await Product.getByCategory({
       categoryId,
       objparams
     });
-    if (nextProduct.status === 200) {
-      setProductList(nextProduct.data.data);
+    if (productListResp.status === 200) {
+      setProductList(productListResp.products);
       setPage(page);
-      setElement(nextProduct.data.element);
+      setElement(productListResp.totalData);
       setIsProductAvailable(true);
     } else {
-      handleCategoryNotFound(nextProduct);
+      handleCategoryNotFound();
     }
   }
 
-  function handleCategoryNotFound(error) {
-    if (error.status !== 200) {
-      props.history.push("/products");
-    }
+  function handleCategoryNotFound() {
+    props.history.push("/products");
   }
 
   function fetchMoreData() {

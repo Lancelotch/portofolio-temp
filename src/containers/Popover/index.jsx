@@ -10,7 +10,7 @@ export default function Popover() {
   const { authProfile, isAuthenticated, handleLogout } = useRootContext();
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
-  
+
   useEffect(() => {
     setVisible(false);
   }, [isAuthenticated]);
@@ -29,7 +29,7 @@ export default function Popover() {
 
   return (
     <React.Fragment>
-      <div style={{ display: "flex" }}>
+      <div className="header__user-box">
         <AntPopover
           placement="bottomRight"
           overlayClassName="mp-popover"
@@ -42,6 +42,7 @@ export default function Popover() {
             className="mp-main-header-popover__box"
             onClick={() => setVisible(!visible)}
           >
+            <Icon type="user" className="header__user-icon" />
             {label}
             <Icon className="mp-main-header-popover__name-icon" type="down" />
           </span>

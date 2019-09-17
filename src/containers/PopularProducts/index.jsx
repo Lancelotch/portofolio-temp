@@ -1,67 +1,64 @@
 import React, { useState, useEffect } from "react";
-import PopularProduct from "../../components/PopularProduct";
 import { Col, Row } from "antd";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
-
+import Cards from "../../components/Cards";
+import { PATH_PRODUCT } from "../../services/path/product";
+import { Link } from "react-router-dom";
 
 export default function PopularProducts(props) {
-  const [popularProducts,setPopularProducts] = useState([])
-  const [loading,setLoading] = useState(true)
+  const [popularProducts, setPopularProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-   getProductPopular()
-  },[])
+  useEffect(() => {
+    getProductPopular();
+  }, []);
 
-  async function getProductPopular () {
+  async function getProductPopular() {
     let productPopular = await Product.getPopular({
-      loading : setLoading
-    })
+      loading: setLoading
+    });
     if (productPopular.status === 200) {
-      setPopularProducts(productPopular.data.data) 
+      setPopularProducts(productPopular.products);
     } else {
-      setPopularProducts(null)
-    }          
+      setPopularProducts(null);
+    }
   }
 
-  
   return (
     <React.Fragment>
-      <h2 className="mp-popular-products-heading">
-        {strings.most_searched}
-      </h2>
-      <Row
-        type="flex"
-        justify="center"
-        style={{
-          marginBottom: 48,
-        }}>
+      <h2 className="mp-popular-products-heading">{strings.most_searched}</h2>
+      <Row type="flex" justify="center" style={{marginBottom: 24}}>
         <React.Fragment>
-          {loading ?
+          {loading ? (
             <SkeletonCustom
               count={3}
               height={300}
               leftMargin={13}
               rightMargin={13}
-            /> : popularProducts && popularProducts.map((product, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <Col style={{ margin: "0 20px" }} >
-                      <PopularProduct
-                        key={product.id}
+            />
+          ) : (
+            popularProducts &&
+            popularProducts.map((product, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <Col style={{ margin: "0 20px" }}>
+                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} `|| "#"}>
+                      <Cards
+                        type='popular'
+                        title={product.name}
+                        urlImage={product.thumbnail}
                         price={product.price}
-                        urlImage={product.image && product.image.defaultImage}
-                        name={product.name}
-                        id={product.id}
-                        product={product}
                       />
-                    </Col>
-                  </React.Fragment>)
-            })}
+                    </Link>
+                  </Col>
+                </React.Fragment>
+              );
+            })
+          )}
         </React.Fragment>
       </Row>
     </React.Fragment>
-  )
-};
-
+  );
+}
