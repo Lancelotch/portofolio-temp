@@ -18,7 +18,7 @@ export default function Category(props) {
   const [isProductAvailable, setIsProductAvailable] = useState(false);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
-  const [element, setElement] = useState(0);
+  const [totalData, setTotalData] = useState(0);
   const limit = 20
 
   const params = props.match.params;
@@ -42,9 +42,9 @@ export default function Category(props) {
       objparams
     });
     if (productListResp.status === 200) {
-      setProductList(productListResp.products);
-      setPage(page);
-      setElement(productListResp.totalData);
+      setProductList(productList.concat(productListResp.products));
+      setPage(page + 1);
+      setTotalData(productListResp.totalData);
       setIsProductAvailable(true);
     } else {
       handleCategoryNotFound();
@@ -56,7 +56,8 @@ export default function Category(props) {
   }
 
   function fetchMoreData() {
-    if (productList.length >= element) {
+    console.log("yaa")
+    if (productList.length >= totalData) {
       setHasMore(false);
       return;
     } else {
@@ -93,7 +94,7 @@ export default function Category(props) {
       params[Object.keys(params)[Object.keys(params).length - 1]];
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
-      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
+      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{totalData}"</b>,
       <b style={{ color: "#FF416C"}}>{convertToCategoryName(categoryIdName)}</b>
     );
     return (
@@ -126,7 +127,7 @@ export default function Category(props) {
           dataLength={productList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={productList.length < 20 ? "" : <Spinner size="large" />}
+          loader={productList.length < limit ? false : <Spinner size="large" />}          
           endMessage={<BackTop />}
         >
           <div>
