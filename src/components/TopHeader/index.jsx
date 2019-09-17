@@ -1,20 +1,30 @@
-import React, { Component } from 'react'
-import strings from '../../localization/localization'
-import './style.sass'
+import React, { Component } from "react";
+import "./style.sass";
+import { Row, Col, Icon } from "antd";
 
 class TopHeader extends Component {
-  render () {
+  render() {
     return (
-      <React.Fragment>
-        <div className='topHeader-sentence'>
-        {strings.formatString(
-          strings.topHeader_tittle
-          // <a className='topHeader-link'href='/'>{strings.topHeader_link}</a>
-        )}
-        </div>
-      </React.Fragment>
-    )
+      <div className="top-header">
+        <Row
+          type="flex"
+          justify="space-between"
+          align="middle"
+          className="container top-header__content"
+        >
+          <Col md={4} className="top-header__download">
+            <span>Download Aplikasi Mobile</span>
+            <Icon type="down" />
+          </Col>
+          <Col md={6} className="top-header__helper">
+            <span>Bantuan</span>
+            <span>Cara Belanja</span>
+            <span>Tentang Kami</span>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
-export default TopHeader
+export default TopHeader;

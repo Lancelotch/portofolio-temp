@@ -11,7 +11,6 @@ import visa from "../../assets/img/ic_visa-mastercard.png";
 import instagram from "../../assets/img/ic_instagram.png";
 import twitter from "../../assets/img/ic_twitter.png";
 import facebook from "../../assets/img/ic_facebook.png";
-import monggopesen_logo_large from "../../assets/img/logo_monggopesen/logo_monggopesen_large.png";
 import Input from "../../components/Input";
 import { Formik } from "formik";
 import { schema } from "./schema";
@@ -35,125 +34,98 @@ function Footer() {
 
   return (
     <React.Fragment>
-      <div className="backgroundFooter">
-        <div className="container">
-          <Row>
-            <div className="footer__all-col">
-              <Col md={14}>
-                <div className="footer__left-col">
-                  <div>
-                    <p className="footer__help">
-                      <b>{strings.footer_any_help}</b>
-                    </p>
-                    <div className="footer__menu-col">
-                      <Col span={12}>
-                        <div>
-                          <p>
-                            <Link to="/">{strings.how_to_shop}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.delivery_time}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.how_to_pay}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.track_the_delivery}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.contact_us}</Link>
-                          </p>
-                        </div>
-                      </Col>
-                      <Col span={12}>
-                        <div>
-                          <p>
-                            <Link to="/">{strings.about_us}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.career}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.terms_and_condition}</Link>
-                          </p>
-                          <p>
-                            <Link to="/">{strings.privacy_policy}</Link>
-                          </p>
-                        </div>
-                      </Col>
-                    </div>
-                  </div>
-                  <div>
-                    <Col span={24}>
-                      <div className="footer__payment-box">
-                        <p>{strings.payment}</p>
-                        <div className="footer__icon-box">
-                          <img src={ovo} alt="ovo" />
-                          <img src={bca} alt="bca" />
-                          <img src={mandiri} alt="mandiri" />
-                          <img src={dana} alt="dana" />
-                          <img src={visa} alt="visa" />
-                        </div>
-                      </div>
-                    </Col>
-                  </div>
-                </div>
-              </Col>
-              <Col md={10}>
-                <div className="footer__right-col">
-                  <p className="footer__monggo">
-                    <b>{strings.monggo}</b>
-                  </p>
-                  <Col md={24}>
-                    <div className="footer__invitation">
-                      <p>{strings.subscripton_invitation}</p>
-                      <Formik
-                        onSubmit={(values, { resetForm }) => {
-                          handleSubmitSubscribe(values, resetForm);
-                        }}
-                        validationSchema={schema}
-                        validateOnChange={false}
-                      >
-                        {({ values, errors, handleChange, handleSubmit }) => (
-                          <Form.Item
-                            validateStatus={errors.email && "error"}
-                            help={errors.email}
-                          >
-                            <Input
-                              name="email"
-                              value={values.email}
-                              placeholder="Email"
-                              icon="mail"
-                              size="large"
-                              buttontext="Send"
-                              onButtonClick={handleSubmit}
-                              onChange={handleChange}
-                            />
-                          </Form.Item>
-                        )}
-                      </Formik>
-                    </div>
-                  </Col>
-                  <Col md={24}>
-                    <div className="footer__follow-us">
-                      <p>{strings.follow_us}</p>
-                      <div className="footer__icon-box">
-                        <img src={instagram} alt="instagram" />
-                        <img src={twitter} alt="twitter" />
-                        <img src={facebook} alt="facebook" />
-                      </div>
-                    </div>
-                  </Col>
-                </div>
-              </Col>
+      <div className="backgroundFooter container">
+        <Row className="footer__all-col">
+          <Col md={7}>
+            <p className="footer__title">{strings.footer_any_help}</p>
+            <Col
+              className="footer__menu-col"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                lineHeight: "24px"
+              }}
+            >
+              <span>
+                <Link to="/">{strings.how_to_shop}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.delivery_time}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.how_to_pay}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.track_the_delivery}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.contact_us}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.about_us}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.career}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.terms_and_condition}</Link>
+              </span>
+              <span>
+                <Link to="/">{strings.privacy_policy}</Link>
+              </span>
+            </Col>
+          </Col>
+          <Col span={7}>
+            <p className="footer__title">{strings.payment}</p>
+            <div className="footer__icon-box">
+              <img src={bca} alt="bca" />
+              <img src={mandiri} alt="mandiri" />
+              <img src={ovo} alt="ovo" />
+              <img src={dana} alt="dana" />
+              <img src={visa} alt="visa" />
             </div>
-          </Row>
-        </div>
+            <p className="footer__follow-us">{strings.follow_us}</p>
+            <div className="footer__follow-box">
+              <img src={instagram} alt="instagram" />
+              <img src={twitter} alt="twitter" />
+              <img src={facebook} alt="facebook" />
+            </div>
+          </Col>
+          <Col md={9}>
+            <p className="footer__title">{strings.monggo}</p>
+            <Col md={24}>
+              <p className="footer__info">{strings.subscripton_invitation}</p>
+              <Formik
+                onSubmit={(values, { resetForm }) => {
+                  handleSubmitSubscribe(values, resetForm);
+                }}
+                validationSchema={schema}
+                validateOnChange={false}
+              >
+                {({ values, errors, handleChange, handleSubmit }) => (
+                  <Form.Item
+                    validateStatus={errors.email && "error"}
+                    help={errors.email}
+                  >
+                    <Input
+                      name="email"
+                      value={values.email}
+                      placeholder="Email"
+                      icon="mail"
+                      size="large"
+                      buttontext="Send"
+                      onButtonClick={handleSubmit}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                )}
+              </Formik>
+            </Col>
+          </Col>
+        </Row>
       </div>
       <div className="logo-bottom">
-        <div>
-          <img src={monggopesen_logo_large} alt="" />
-        </div>
+        <span>{strings.very_bottom}</span>
       </div>
     </React.Fragment>
   );

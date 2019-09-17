@@ -3,14 +3,23 @@
         display: flex
         justify-content: flex-start
         align-items: center
+        cursor: pointer
     &__name-icon
         font-size: 12px
         color: $color-silver
     &__username
-        max-width: 99px !important
+        max-width: 100px !important
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
+        color: $color-teal
+        font-weight: 500
+    &__username:hover
+        color: $color-safety-orange
+    &__login
+        color: $color-nobel
+    &__login:hover
+        color: $color-teal
      
 .mp-user-menu
     width: 160px

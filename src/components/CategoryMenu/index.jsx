@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.sass";
-import { Cascader, Icon, Row, Col } from "antd";
+import { Cascader } from "antd";
 import { Link } from "react-router-dom";
 
 export default function CategoryMenu(props) {
@@ -76,7 +76,6 @@ export default function CategoryMenu(props) {
     >
       <a className="ant-dropdown-link" href="/#">
         <span className="category">Kategori</span>
-        <Icon style={{ color: "#999999" }} type="down" />
       </a>
     </Cascader>
   );
