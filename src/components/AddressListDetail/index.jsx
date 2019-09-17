@@ -4,12 +4,7 @@ import "./style.sass";
 
 const StatusAddress = props => {
   return (
-    <span
-      style={{
-        float: "right",
-        fontSize: 17
-      }}
-    >
+    <span className="address-list-detail-status-address">
       {props.isDefault ? "Alamat Utama" : ""}
     </span>
   );
@@ -25,34 +20,31 @@ const AddressListDetail = props => {
     isDefault
   } = props.address;
 
+  let selectedListAddress =
+    (props.customerAddress ? id === props.customerAddress : props.selected === id) ||
+    (props.statusSelect && isDefault) ? "address-selected-active" : "address-selected"
+
   return (
     <Fragment>
-      <Row>
-        <Col md={16}>
-          <div className="address-list-detail">
-            <b>
-              {labelName}
-            </b>
-            <br />
-            <b>{`${receiverName} - ${phoneNumber}`}
-            </b>
-            <p>
-              {fullAddress}
-            </p>
-          </div>
-        </Col>
-        <Col md={8}>
-          <br />
-          {isDefault && (
-            <Fragment>
-              <StatusAddress isDefault={isDefault} />
+      <Radio className="address-list-detail-radio" value={id}>
+        <Row className={`address-list-detail-wrapper ${selectedListAddress}`}>
+          <Col md={16}>
+            <div className="address-list-detail">
+              <b>
+                {labelName}
+              </b>
               <br />
-              <div style={{ clear: "both" }} />
-            </Fragment>
-          )}
-          <Radio value={id} style={{ float: "right" }} />
-        </Col>
-      </Row>
+              <strong>{`${receiverName} - ${phoneNumber}`}</strong>
+              <p>
+                {fullAddress}
+              </p>
+            </div>
+          </Col>
+          <Col md={8}>
+            {isDefault && <StatusAddress isDefault={isDefault} />}
+          </Col>
+        </Row>
+      </Radio>
     </Fragment>
   );
 };

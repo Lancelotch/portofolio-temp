@@ -34,6 +34,7 @@ export default function Order(props) {
     const [isShowDashboardItem, setIsShowDashboardItem] = useState(false)
     const [labelTabDetails, setLabelTabDetails] = useState("")
     const [estimateAccepted, setEstimateAccepted] = useState("")
+    const [type, setType] = useState("")
 
     useEffect(() => {
         productOrderTabs(0)
@@ -72,10 +73,11 @@ export default function Order(props) {
         setIsShowDetailDashboard(!isShowDetailDashboard)
     }
 
-    function actionShowOrderDetailsDashboard(order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) {
+    function actionShowOrderDetailsDashboard(type, order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) {
         actionShowOrderListWaiting(isShowDashboardItem)
         setOrder(order)
         setInvoiceNumber(order.invoiceNumber)
+        setType(type)
         setId(order.id)
         // setKeyIndex(keyIndex)
         setIsShowDashboardItem(isShowDashboardItem)
@@ -153,6 +155,7 @@ export default function Order(props) {
     }
 
     function responseListWaiting(
+        type,
         showOrderDetailsDashboard,
         responseProductOrder,
         labelTabDetails,
@@ -168,6 +171,7 @@ export default function Order(props) {
             showReceivedConfirm={showReceivedConfirm}
             labelTabDetails={labelTabDetails}
             estimateAccepted={estimateAccepted}
+            type={type}
         />
     }
 
@@ -180,43 +184,64 @@ export default function Order(props) {
             estimateAccepted={estimateAccepted}
             tabsShow={showOrderDetailsDashboard}
             invoiceNumber={invoiceNumber}
+            type={type}
             id={id}
             orderDetailsRespon={order}
             showReceivedConfirm={showReceivedConfirm}
             actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />
     }
 
-    function listWaiting(isShow, labelTabDetails, estimateAccepted) {
-        return responseListWaiting(isShow, productOrder, labelTabDetails, estimateAccepted);
+    function listWaiting(type, isShow, labelTabDetails, estimateAccepted) {
+        return responseListWaiting(type, isShow, productOrder, labelTabDetails, estimateAccepted);
     }
 
     const listTabsContent = [
         {
             key: "1",
             nameTabs: "Belum Bayar",
-            content: listWaiting("isShowOrderDetailsDashboardNotPay", "Belum Bayar")
+            content: listWaiting(
+                "default",
+                "isShowOrderDetailsDashboardNotPay",
+                "Belum Bayar"
+            )
         },
         {
             key: "2",
             nameTabs: "Sedang Diproses",
-            content: listWaiting("isShowOrderDetailsDashboardNotSent", "Belum Dikirim")
+            content: listWaiting(
+                "default",
+                "isShowOrderDetailsDashboardNotSent",
+                "Belum Dikirim"
+            )
         },
         {
             key: "3",
             nameTabs: "Dalam Pengiriman",
-            content: listWaiting("isShowOrderDetailsDashboardInDelivery",
-                "Dalam Pengiriman", "Perkiraan Diterima")
+            content: listWaiting(
+                "default",
+                "isShowOrderDetailsDashboardInDelivery",
+                "Dalam Pengiriman",
+                "Perkiraan Diterima"
+            )
         },
         {
             key: "4",
             nameTabs: "Selesai",
-            content: listWaiting("isShowOrderDetailsDashboardFinish",
-                "Selesai", "Pesanan Diterima")
+            content: listWaiting(
+                "default",
+                "isShowOrderDetailsDashboardFinish",
+                "Selesai",
+                "Pesanan Diterima"
+            )
         },
         {
             key: "5",
             nameTabs: "Batal",
-            content: listWaiting("isShowOrderDetailsDashboardCancel", "Batal")
+            content: listWaiting(
+                "noDisplayDefault",
+                "isShowOrderDetailsDashboardCancel",
+                "Batal"
+            )
         }
     ]
 
