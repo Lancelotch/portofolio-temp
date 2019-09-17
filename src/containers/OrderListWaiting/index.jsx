@@ -66,7 +66,8 @@ export default function OrderListWaiting(props) {
         showReceivedConfirm,
         isHowToShowModalOpen,
         selectedOrder,
-        showHowToModalPayment
+        showHowToModalPayment,
+        type
     } = props;
     // const sortProdcutOrder = this.sortList(productOrder, "DESC")
     return (
@@ -102,7 +103,7 @@ export default function OrderListWaiting(props) {
                             orderProduct={productOrder}
                             order={order.order}
                             showHowToModalPayment={showHowToModalPayment}
-                            showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(order, index, showOrderDetailsDashboard, labelTabDetails, estimateAccepted)}
+                            showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(type,order, index, showOrderDetailsDashboard, labelTabDetails, estimateAccepted)}
                         />
                     </Card>)
             })}
