@@ -79,7 +79,7 @@ export default function ProductDetail(props) {
       setVideoUrl(product.videoUrl)
       getBradcrumb(product.information.category.id)
     } else {
-      handleProductDetailNotFound(productDetail)
+      // handleProductDetailNotFound(productDetail)
     }
   };
 

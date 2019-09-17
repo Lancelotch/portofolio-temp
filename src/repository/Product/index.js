@@ -1,5 +1,7 @@
 import { apiGetWithoutToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
+import jmespath from 'jmespath';
+import product from './response/product';
 
 async function getAll(props) {
   const loading = props.loading ? props.loading : function() {};
@@ -91,12 +93,15 @@ async function get(props) {
   loading(true)
   try {
       response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`)
+      console.log(response);
+      const result = jmespath.search(response, product);
+      console.log(result);
       loading(false)
-      return response
   } catch (error) {
       loading(false)
-      return error
+      response = error;
   }
+  return response;
 };
 
 const Product = {
