@@ -56,7 +56,6 @@ export default function Category(props) {
   }
 
   function fetchMoreData() {
-    console.log("yaa")
     if (productList.length >= totalData) {
       setHasMore(false);
       return;
