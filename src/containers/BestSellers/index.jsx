@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "antd";
-import BestSeller from "../../components/BestSeller";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
