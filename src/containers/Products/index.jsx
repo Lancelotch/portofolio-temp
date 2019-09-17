@@ -1,7 +1,9 @@
 import React from "react";
-import Product from "../../components/Product";
+import { Link } from "react-router-dom"
 import { Col, Row } from "antd";
 import PropTypes from "prop-types";
+import { PATH_PRODUCT } from "../../services/path/product";
+import Cards from "../../components/Cards";
 
 export default function Products(props) {
   const products = props.products;
@@ -10,21 +12,13 @@ export default function Products(props) {
       {products.map((product, index) => {
         return (
           <Col key={index} md={4} style={{ padding: "8px" }}>
-            <Product
-              id={product.id}
-              urlImage={
-                product.defaultImage
-                  ? product.defaultImage.mediumUrl
-                  : product.image.mediumUrl
-              }
-              name={
-                product.information ? product.information.name : product.name
-              }
-              price={
-                product.price.amount ? product.price.amount : product.price
-              }
-              videoUrl={product.videoUrl}
-            />
+            <Link to={`/${PATH_PRODUCT.PRODUCT}/${product.id} `|| "#"}>
+                <Cards
+                  urlImage={product.thumbnail}
+                  title={product.name}
+                  price={product.price}
+                  showPlayButton={product.isVideoExist} />
+              </Link>
           </Col>
         );
       })}
