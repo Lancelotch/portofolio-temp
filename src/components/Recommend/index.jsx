@@ -26,10 +26,7 @@ const SampleNextArrow = props => {
       }}
       onClick={onClick}
     >
-      <Icon
-        type="right"
-        style={{ color: "white", fontSize: "30px" }}
-      />
+      <Icon type="right" style={{ color: "white", fontSize: "30px" }} />
     </div>
   );
 };
@@ -54,35 +51,31 @@ const SamplePrevArrow = props => {
       }}
       onClick={onClick}
     >
-      <Icon
-        type="left"
-        style={{ color: "white", fontSize: "30px" }}
-      />
+      <Icon type="left" style={{ color: "white", fontSize: "30px" }} />
     </div>
   );
 };
 
 function Recommend() {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
 
   async function getProducts() {
     let productsResp = await Product.getAll({
       loading: setLoading
-    })
+    });
     if (productsResp.status === 200) {
-      setProducts(productsResp.data.data)
+      setProducts(productsResp.data.data);
     } else {
-      setProducts([])
+      setProducts([]);
     }
-
   }
   const productsToShow = products.slice(0, 10);
-  let sliderToClickLength = productsToShow.length <= 6 ? false : true
+  let sliderToClickLength = productsToShow.length <= 6 ? false : true;
   const settings = {
     slidesToShow: 5,
     slidesToScroll: 2,
@@ -110,11 +103,11 @@ function Recommend() {
           title={item.name}
           price={item.price}
           playButton={item.videoUrl}
-          type="recommend" />
+          type="recommend"
+        />
       </Link>
     );
   });
-
 
   return (
     <div className="mp-slider-click-products">
@@ -123,9 +116,11 @@ function Recommend() {
           count={4}
           height={300}
           leftMargin={13}
-          rightMargin={13} />) :
-        (<Carousel {...settings}>{slides}</Carousel>)
-      }
+          rightMargin={13}
+        />
+      ) : (
+        <Carousel {...settings}>{slides}</Carousel>
+      )}
     </div>
   );
 }

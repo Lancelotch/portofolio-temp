@@ -1,41 +1,37 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
 import SkeletonCustom from "../Skeleton";
-import { Col } from "antd";
+import { Col, Row } from "antd";
 import BenefitRepo from "../../repository/Benefit";
 
-export default function Benefit (){
-  const [benefit,setBenefit] = useState([]);
-  const [loading,setLoading] = useState(false)
+export default function Benefit() {
+  const [benefit, setBenefit] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(()=>{
-    getBenefit()
-  },[])
+  useEffect(() => {
+    getBenefit();
+  }, []);
 
-  async function getBenefit () {
+  async function getBenefit() {
     let benefit = await BenefitRepo.getAll({
-      loading : setLoading
-    })
+      loading: setLoading
+    });
     if (benefit.status === 200) {
-      setBenefit(benefit.data.data) 
+      setBenefit(benefit.data.data);
     } else {
-      setBenefit([])
-    }          
+      setBenefit([]);
+    }
   }
 
   const showBenefit = benefit.map((benefit, index) => (
-    <Col key={index} md={4}>
-      <img
-        className="mp-benefit-image"
-        alt=""
-        src={benefit.imageUrl} />
+    <Col key={index}>
+      <img className="mp-benefit-image" alt="" src={benefit.imageUrl} />
     </Col>
   ));
 
-
   return (
     <React.Fragment>
-      {loading ?
+      {loading ? (
         <SkeletonCustom
           count={4}
           width={200}
@@ -44,15 +40,11 @@ export default function Benefit (){
           rightMargin={13}
           topMargin={24}
         />
-        :
-        <div className="container">
-          <div className="mp-benefit-box">
-            {showBenefit}
-          </div>
-        </div>
-        }
+      ) : (
+        <Row type="flex" justify="space-around" className="mp-benefit-box">
+          {showBenefit}
+        </Row>
+      )}
     </React.Fragment>
-  )
-};
-
-
+  );
+}

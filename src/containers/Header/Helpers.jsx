@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PATH_URL from "../../routers/path";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function Helpers({ onClick }) {
   return (
-    <div className="header__menus">
+    <span className="header__menus">
       <Link to={PATH_URL.HOME} className="header__menu">
         Lacak Pengiriman
       </Link>
@@ -18,7 +18,7 @@ export default function Helpers({ onClick }) {
       <Link to={PATH_URL.HOME} className="header__menu">
         Bantuan
       </Link>
-    </div>
+    </span>
   );
 }
 
