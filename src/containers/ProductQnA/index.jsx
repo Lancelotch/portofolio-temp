@@ -5,11 +5,12 @@ import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 import Search from "../../components/Search";
 
-const columns = [{
-  title: 'Question',
-  dataIndex: 'questionAndAnswer',
-  key: 'questionAndAnswer'
-}
+const columns = [
+  {
+    title: "Question",
+    dataIndex: "questionAndAnswer",
+    key: "questionAndAnswer"
+  }
 ];
 
 class ProductQnA extends Component {
@@ -18,25 +19,36 @@ class ProductQnA extends Component {
     this.state = {
       search: "",
       currentPage: 0
-    }
+    };
   }
 
   getHighlightedText(text, higlight) {
     if (!higlight.trim()) {
-      return <span>{text}</span>
+      return <span>{text}</span>;
     }
-    let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
-    return <span>
-      {parts.filter(part => part).map((part, i) =>
-        <span key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { backgroundColor: "yellow" } : {}}>
-          {part}
-        </span>)
-      }
-    </span>
-  };
+    let parts = text.split(new RegExp(`(${higlight})`, "gi"));
+    return (
+      <span>
+        {parts
+          .filter(part => part)
+          .map((part, i) => (
+            <span
+              key={i}
+              style={
+                part.toLowerCase() === higlight.toLowerCase()
+                  ? { backgroundColor: "yellow" }
+                  : {}
+              }
+            >
+              {part}
+            </span>
+          ))}
+      </span>
+    );
+  }
 
   renderQnA = (qna, i) => {
-    return ({
+    return {
       key: i,
       questionAndAnswer: [
         <Col key={i} md={24} style={{ marginTop: 20 }}>
@@ -51,7 +63,8 @@ class ProductQnA extends Component {
               <p style={{ color: "#417505" }}>
                 {this.getHighlightedText(qna.answerCustomer, this.state.search)}
               </p>
-              <span>Apakah pertanyaan ini membantu?
+              <span>
+                Apakah pertanyaan ini membantu?
                 <Button className="mp-button-qna">Ya</Button>
                 <Button className="mp-button-qna">Tidak</Button>
               </span>
@@ -59,7 +72,7 @@ class ProductQnA extends Component {
           </Row>
         </Col>
       ]
-    })
+    };
   };
 
   onChangeSearch = e => {
@@ -67,24 +80,24 @@ class ProductQnA extends Component {
   };
 
   onPageChange = page => {
-    this.setState({ currentPage: page })
+    this.setState({ currentPage: page });
   };
 
   render() {
-    const { search } = this.state
-    const lowercasedFilter = search.toLowerCase()
+    const { search } = this.state;
+    const lowercasedFilter = search.toLowerCase();
     const filteredQnA = dummyQnA.filter(item => {
       return Object.keys(item).some(key =>
         item[key].toLowerCase().includes(lowercasedFilter)
       );
-    })
+    });
     return (
       <div className="product-forum">
         <Row className="title-inline">
           <Col md={13}>
             <span className="title-inline__title">
               Pertanyaan terkait Produk ({dummyQnA.length})
-              </span>
+            </span>
           </Col>
           <Col md={3}>
             <Button
@@ -93,7 +106,7 @@ class ProductQnA extends Component {
               onClick={this.handleLiveChat}
             >
               Live Chat
-              </Button>
+            </Button>
           </Col>
           <Col md={8}>
             <Search
@@ -111,11 +124,11 @@ class ProductQnA extends Component {
             defaultPageSize: 5,
             current: this.state.currentPage,
             onChange: this.onPageChange,
-            className: 'pagination-product-forum'
+            className: "pagination-product-forum"
           }}
-          dataSource={
-            filteredQnA.map((QnA, i) => (this.renderQnA(QnA, i)))}
-          columns={columns} />
+          dataSource={filteredQnA.map((QnA, i) => this.renderQnA(QnA, i))}
+          columns={columns}
+        />
       </div>
     );
   }
