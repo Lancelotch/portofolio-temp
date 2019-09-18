@@ -1,4 +1,4 @@
-const productAll = `
+const products = `
 {
     status: status,
     products: data.data[].{
@@ -13,4 +13,4 @@ const productAll = `
 }
 `
 
-export default productAll;
+export default products;

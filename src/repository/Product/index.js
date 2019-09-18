@@ -1,8 +1,7 @@
 import { apiGetWithoutToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
 import jmespath from 'jmespath';
-import productAll from './response/productAll';
-import productByCategory from './response/productByCategory';
+import products from './response/products';
 
 async function getAll(props) {
   const loading = props.loading ? props.loading : function() {};
@@ -11,10 +10,10 @@ async function getAll(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, request);
-    response = jmespath.search(response, productAll);
+    response = jmespath.search(response, products);
     loading(false);
   } catch (error) {
-    response = jmespath.search(error.response, productAll);
+    response = jmespath.search(error.response, products);
     loading(false);
   }
   return response;
@@ -29,10 +28,10 @@ async function getPopular(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
-    response = jmespath.search(response, productByCategory);
+    response = jmespath.search(response, products);
     loading(false);
   } catch (error) {
-    response = jmespath.search(error.response, productByCategory);
+    response = jmespath.search(error.response, products);
     loading(false);
   }
   return response;
@@ -47,10 +46,10 @@ async function getBestSeller(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
-    response = jmespath.search(response, productByCategory);
+    response = jmespath.search(response, products);
     loading(false);
   } catch (error) {
-    response = jmespath.search(error.response, productByCategory);
+    response = jmespath.search(error.response, products);
     loading(false);
   }
   return response;
@@ -68,11 +67,11 @@ async function getByCategory(props) {
       params
     );
     console.log(response);
-    response = jmespath.search(response, productByCategory);
+    response = jmespath.search(response, products);
     console.log(response);
     loading(false);
   } catch (error) {
-    response = jmespath.search(error.response, productByCategory);
+    response = jmespath.search(error.response, products);
     loading(false);
   }
   return response;
