@@ -72,8 +72,12 @@ export default function Header() {
             </div>
           </Col>
           <Col md={2} offset={1} className="header__icon-box">
-            <Icon type="bell" style={{ fontSize: 20, color: "#bebebe" }} />
-            <Icon type="heart" style={{ fontSize: 20, color: "#bebebe" }} />
+            <Link to="/">
+              <Icon type="bell" className="header__icon-box__icon" />
+            </Link>
+            <Link to="/">
+              <Icon type="heart" className="header__icon-box__icon" />
+            </Link>
           </Col>
           {isAuthenticated ? (
             <Col md={3} className="header__user-box">

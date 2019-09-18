@@ -45,7 +45,7 @@ function SliderHome() {
 
   return (
     <React.Fragment>
-      <div className="sliderHome container">
+      <div className="sliderHome full-width">
         <Carousel autoplay {...settings}>
           {loading ? <Skeleton width={"100%"} height={376} /> : slides}
         </Carousel>
