@@ -237,8 +237,9 @@ const strings = new LocalizedStrings({
     payment: 'Pembayaran',
     follow_us: 'Follow Us',
     monggo: 'Monggo...',
-    subscripton_invitation: 'Berlangganan sekarang untuk mendapatkan informasi seputar update, promo dan penawaran menarik lainnya',
-    send: 'Send'
+    subscripton_invitation: 'Berlangganan sekarang untuk mendapatkan informasi seputar update, promo dan penawaran menarik lainnya.',
+    send: 'Send',
+    very_bottom: '2019 Copyright under Monggopesen.com'
   }
 })
 

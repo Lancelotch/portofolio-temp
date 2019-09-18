@@ -25,20 +25,14 @@
 .header
     width: 100%
     height: auto
-    border: 1px
+    padding: 10px
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.12)
-    padding-left: 70px
-    padding-right: 70px
-    padding-bottom: 20px
     background-color: $color-white
     z-index: 5
+    position: relative
     &__logo
-        padding-top: 40px
-        width: 100%
+        height: 18px
     &__search-box
-        padding-top: 30px
-        display: flex
-        justify-content: center
     &__search-box .ant-form-item
         margin: 0
     &__search 
@@ -49,47 +43,18 @@
         display: flex
         flex-direction: row
         padding-top: 12px
-    &__menus
-        padding-top: 12px 
-    &__menu
-        color: $color-grey
-        font-size: 14px
-        margin-left: 20px 
-        height: 16px
-        display: inline-block
-    &__menu::after
-        content: ""
-        display: block
-        width: 0
-        height: 2px
-        background: $color-grey
-        transition: width .3s
-    &__menu:hover
-        color: $color-teal
-    &__greeting
-        color: $color-black
-    &__greeting h3
-        font-size: 18px
-        color: $color-grey
-    &__greeting h4
-        font-size: 18px
-        font-weight: 500
-        color: $color-safety-orange
-    &__user-icon
-        font-size: 18px
-        color: $color-grey
-    &__user-box span
-        color: $color-teal
-        font-size: 14px
-        cursor: pointer
-        margin-left: 3px
-        margin-right: 3px
+    &__icon-box
+        display: flex
+        justify-content: space-around
     &__user-box
-        margin-left: 32px
-        max-width: 120px
-        white-space: nowrap
-        overflow: hidden
-        text-overflow: ellipsis
+        display: flex
+        justify-content: space-around
+        &__customer
+            max-width: 100px
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            cursor: pointer
     &__arrow
         font-size: 20px
         margin-left: 5px

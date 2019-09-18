@@ -1,58 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Carousel, Icon } from "antd";
+import { Carousel } from "antd";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import Skeleton from "react-loading-skeleton";
 import Banner from "../../repository/Banner";
-
-const SampleNextArrow = props => {
-  const { className, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        zIndex: "1",
-        height: "60px",
-        width: "60px",
-        // opacity: "0.5",
-        backgroundColor: "rgb(170, 170, 170, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        top: "145px",
-        right: "0px"
-      }}
-      onClick={onClick}
-    >
-      <Icon type="right" style={{ color: "white", fontSize: "30px" }} />
-    </div>
-  );
-};
-
-const SamplePrevArrow = props => {
-  const { className, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        marginRight: "30px",
-        zIndex: "1",
-        height: "60px",
-        width: "60px",
-        // opacity: "0.5",
-        backgroundColor: "rgb(170, 170, 170, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: "25px",
-        top: "145px"
-      }}
-      onClick={onClick}
-    >
-      <Icon type="left" style={{ color: "white", fontSize: "30px" }} />
-    </div>
-  );
-};
 
 function SliderHome() {
   const [sliderImages, setSliderImages] = useState([]);
@@ -79,11 +30,9 @@ function SliderHome() {
     autoplaySpeed: 7000,
     infinite: true,
     slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    slidesToScroll: 1
   };
+
   const slides = sliderImages.map((image, index) => {
     return (
       <React.Fragment key={index}>
@@ -96,7 +45,7 @@ function SliderHome() {
 
   return (
     <React.Fragment>
-      <div className="sliderHome full-width">
+      <div className="sliderHome container">
         <Carousel autoplay {...settings}>
           {loading ? <Skeleton width={"100%"} height={376} /> : slides}
         </Carousel>

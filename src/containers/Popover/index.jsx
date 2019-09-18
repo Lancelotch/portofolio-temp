@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
-import { Popover as AntPopover, Icon } from "antd";
+import { Popover as AntPopover } from "antd";
 import PropTypes from "prop-types";
 import FormLogin from "../FormLogin";
 import UserMenu from "./UserMenu";
@@ -24,14 +24,13 @@ export default function Popover() {
   const label = isAuthenticated ? (
     <span className="mp-main-header-popover__username">{authProfile.name}</span>
   ) : (
-    <span>Login</span>
+    <span className="mp-main-header-popover__login">Login</span>
   );
 
   return (
     <React.Fragment>
       <div className="header__user-box">
         <AntPopover
-          placement="bottomRight"
           overlayClassName="mp-popover"
           content={content}
           trigger="click"
@@ -42,9 +41,7 @@ export default function Popover() {
             className="mp-main-header-popover__box"
             onClick={() => setVisible(!visible)}
           >
-            <Icon type="user" className="header__user-icon" />
             {label}
-            <Icon className="mp-main-header-popover__name-icon" type="down" />
           </span>
         </AntPopover>
       </div>

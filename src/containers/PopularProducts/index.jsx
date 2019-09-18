@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./style.sass";
 import { Col, Row } from "antd";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
@@ -27,9 +28,11 @@ export default function PopularProducts(props) {
   }
 
   return (
-    <React.Fragment>
-      <h2 className="mp-popular-products-heading">{strings.most_searched}</h2>
-      <Row type="flex" justify="center" style={{marginBottom: 24}}>
+    <div className="mp-popular-products">
+      <span className="mp-popular-products__title">
+        {strings.most_searched}
+      </span>
+      <Row type="flex">
         <React.Fragment>
           {loading ? (
             <SkeletonCustom
@@ -43,10 +46,10 @@ export default function PopularProducts(props) {
             popularProducts.map((product, index) => {
               return (
                 <React.Fragment key={index}>
-                  <Col style={{ margin: "0 20px" }}>
-                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} `|| "#"}>
+                  <Col style={{ margin: "20px" }}>
+                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}>
                       <Cards
-                        type='popular'
+                        type="popular"
                         title={product.name}
                         urlImage={product.thumbnail}
                         price={product.price}
@@ -59,6 +62,6 @@ export default function PopularProducts(props) {
           )}
         </React.Fragment>
       </Row>
-    </React.Fragment>
+    </div>
   );
 }
