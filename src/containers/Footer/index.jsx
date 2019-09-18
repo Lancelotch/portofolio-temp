@@ -46,31 +46,15 @@ function Footer() {
                 lineHeight: "24px"
               }}
             >
-              <span>
+              <span className="footer__helpers">
                 <Link to="/">{strings.how_to_shop}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.delivery_time}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.how_to_pay}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.track_the_delivery}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.contact_us}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.about_us}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.career}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.terms_and_condition}</Link>
-              </span>
-              <span>
                 <Link to="/">{strings.privacy_policy}</Link>
               </span>
             </Col>

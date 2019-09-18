@@ -15,7 +15,7 @@ export default function Products() {
   const [isProductAvailable, setIsProductAvailable] = useState(false);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
-  const [element, setElement] = useState(0);
+  const [totalData, setTotalData] = useState(0);
   const limit = 20
 
   useEffect(() => {
@@ -28,16 +28,16 @@ export default function Products() {
       sortBy: sortBy,
       direction: direction
     };
-    const nextProduct = await ProductRepo.getAll({ page, request });
-    if (nextProduct.status === 200) {
-      setProductList(productList.concat(nextProduct.data.data));
-      setElement(nextProduct.data.element);
+    const productListResp = await ProductRepo.getAll({ page, request });
+    if (productListResp.status === 200) {
+      setProductList(productList.concat(productListResp.products));
+      setTotalData(productListResp.totalData);
       setIsProductAvailable(true);
     }
   }
 
   function fetchMoreData() {
-    if (productList.length >= element) {
+    if (productList.length >= totalData) {
       setHasMore(false);
       return;
     } else {

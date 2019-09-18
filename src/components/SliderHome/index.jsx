@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Carousel, Icon } from "antd";
+import { Carousel } from "antd";
 import { Link } from "react-router-dom";
 import "./style.sass";
 import Skeleton from "react-loading-skeleton";

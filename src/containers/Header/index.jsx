@@ -6,8 +6,6 @@ import strings from "../../localization/localization";
 import CategoryMenu from "../../components/CategoryMenu";
 import Popover from "../Popover";
 import PATH_URL from "../../routers/path";
-import Helpers from "./Helpers";
-import Greeting from "./Greeting";
 import "./style.sass";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "antd";
-import BestSeller from "../../components/BestSeller";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
+import Cards from "../../components/Cards";
+import { PATH_PRODUCT } from "../../services/path/product";
+import { Link } from "react-router-dom";
 
 export default function BestSellers(props) {
   const [bestseller, setBestSeller] = useState([]);
@@ -18,7 +20,7 @@ export default function BestSellers(props) {
       loading: setLoading
     });
     if (bestSeller.status === 200) {
-      setBestSeller(bestSeller.data.data);
+      setBestSeller(bestSeller.products);
     } else {
       setBestSeller([]);
     }
@@ -50,8 +52,22 @@ export default function BestSellers(props) {
             </div>
           ) : (
             <div className="mp-best-seller-wrapper__right-item-content">
-              {bestseller.map((product, i) => {
-                return <BestSeller id={product.id} key={i} product={product} />;
+              {bestseller.map((product, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <Col style={{ margin: "12px", width: "200px" }}>
+                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} `|| "#"}>
+                      <Cards
+                        type='best-seller'
+                        title={product.name}
+                        urlImage={product.thumbnail}
+                        price={product.price}
+                        showPlayButton={product.isVideoExist}
+                      />
+                    </Link>
+                  </Col>
+                </React.Fragment>
+              );
               })}
             </div>
           )}

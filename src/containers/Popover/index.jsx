@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
-import { Popover as AntPopover, Icon } from "antd";
+import { Popover as AntPopover } from "antd";
 import PropTypes from "prop-types";
 import FormLogin from "../FormLogin";
 import UserMenu from "./UserMenu";

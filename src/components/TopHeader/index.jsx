@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./style.sass";
 import { Row, Col, Icon } from "antd";
+import { Link } from "docz";
+import PATH_URL from "../../routers/path";
 
 class TopHeader extends Component {
   render() {
@@ -12,14 +14,18 @@ class TopHeader extends Component {
           align="middle"
           className="container top-header__content"
         >
-          <Col md={4} className="top-header__download">
-            <span>Download Aplikasi Mobile</span>
-            <Icon type="down" />
+          <Col md={4}>
+            <span className="top-header__download">
+              Download Aplikasi Mobile
+              <Icon type="down" />
+            </span>
           </Col>
-          <Col md={6} className="top-header__helper">
-            <span>Bantuan</span>
-            <span>Cara Belanja</span>
-            <span>Tentang Kami</span>
+          <Col md={6}>
+            <span className="top-header__helper">
+              <Link to={PATH_URL.HOME}>Bantuan</Link>
+              <Link to={PATH_URL.HOME}>Cara Belanja</Link>
+              <Link to={PATH_URL.HOME}>Tentang Kami</Link>
+            </span>
           </Col>
         </Row>
       </div>

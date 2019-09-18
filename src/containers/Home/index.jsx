@@ -1,12 +1,10 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import SliderHome from "../../components/SliderHome";
 import Benefit from "../../components/Benefit";
 import BestSellers from "../BestSellers";
 import PopularProducts from "../PopularProducts";
-import Inspiration_1 from "../../assets/img/Inspiration_1.jpg";
 import Recommend from "../../components/Recommend";
-import { Link } from "react-router-dom";
 import "./style.sass";
 import strings from "../../localization/localization";
 

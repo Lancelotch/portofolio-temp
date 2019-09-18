@@ -69,7 +69,7 @@ function Recommend() {
       loading: setLoading
     });
     if (productsResp.status === 200) {
-      setProducts(productsResp.data.data);
+      setProducts(productsResp.products);
     } else {
       setProducts([]);
     }
@@ -99,10 +99,10 @@ function Recommend() {
     return (
       <Link to={`${PATH_PRODUCT.PRODUCT}/${item.id}`} key={i}>
         <Cards
-          urlImage={item.image && item.image.defaultImage}
+          urlImage={item.thumbnail}
           title={item.name}
           price={item.price}
-          playButton={item.videoUrl}
+          showPlayButton={item.isVideoExist}
           type="recommend"
         />
       </Link>

@@ -1,5 +1,8 @@
 import { apiGetWithoutToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
+import jmespath from 'jmespath';
+import productAll from './response/productAll';
+import productByCategory from './response/productByCategory';
 
 async function getAll(props) {
   const loading = props.loading ? props.loading : function() {};
@@ -8,12 +11,13 @@ async function getAll(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, request);
+    response = jmespath.search(response, productAll);
     loading(false);
-    return response;
   } catch (error) {
+    response = jmespath.search(error.response, productAll);
     loading(false);
-    return error;
   }
+  return response;
 }
 
 async function getPopular(props) {
@@ -25,12 +29,13 @@ async function getPopular(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
+    response = jmespath.search(response, productByCategory);
     loading(false);
-    return response;
   } catch (error) {
+    response = jmespath.search(error.response, productByCategory);
     loading(false);
-    return error;
   }
+  return response;
 }
 
 async function getBestSeller(props) {
@@ -42,12 +47,13 @@ async function getBestSeller(props) {
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT, params);
+    response = jmespath.search(response, productByCategory);
     loading(false);
-    return response;
   } catch (error) {
+    response = jmespath.search(error.response, productByCategory);
     loading(false);
-    return error;
   }
+  return response;
 }
 
 async function getByCategory(props) {
@@ -61,12 +67,15 @@ async function getByCategory(props) {
       `${PATH_PRODUCT.PRODUCT_CATEGORY}/${categoryId}`,
       params
     );
+    console.log(response);
+    response = jmespath.search(response, productByCategory);
+    console.log(response);
     loading(false);
-    return response;
   } catch (error) {
+    response = jmespath.search(error.response, productByCategory);
     loading(false);
-    return error;
   }
+  return response;
 }
 
 async function getByKeyword(props) {
@@ -91,12 +100,12 @@ async function get(props) {
   loading(true)
   try {
       response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`)
-      loading(false)
-      return response
+      loading(false);
   } catch (error) {
       loading(false)
-      return error
+      response = error;
   }
+  return response;
 };
 
 const Product = {

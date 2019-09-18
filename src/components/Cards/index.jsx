@@ -39,7 +39,7 @@ export default function Cards(props) {
             cover={
                 <div className="mp-card-image-cover">
                     <img alt="example" src={props.urlImage} className="mp-card-image" />
-                    {props.playButton && <ButtonPlay type="thumbnail" />}
+                    {props.showPlayButton && <ButtonPlay type="thumbnail" />}
                 </div>}>
             <div className="mp-card-info">
                 <span className={`mp-card-title ${titleCard}`}>
@@ -56,12 +56,13 @@ export default function Cards(props) {
 Cards.propTypes = {
     type: PropTypes.oneOf(['default','popular', 'best-seller', 'recommend']),
     border: PropTypes.oneOf(['active']),
-    playButton: PropTypes.string,
+    showPlayButton: PropTypes.bool,
     urlImage: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number
 };
 
 Cards.defaultProps = {
-    type: 'default'
+    type: 'default',
+    showPlayButton: false
 }

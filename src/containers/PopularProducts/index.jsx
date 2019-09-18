@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
-import PopularProduct from "../../components/PopularProduct";
 import { Col, Row } from "antd";
 import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
+import Cards from "../../components/Cards";
+import { PATH_PRODUCT } from "../../services/path/product";
+import { Link } from "react-router-dom";
 
 export default function PopularProducts(props) {
   const [popularProducts, setPopularProducts] = useState([]);
@@ -19,7 +21,7 @@ export default function PopularProducts(props) {
       loading: setLoading
     });
     if (productPopular.status === 200) {
-      setPopularProducts(productPopular.data.data);
+      setPopularProducts(productPopular.products);
     } else {
       setPopularProducts(null);
     }
@@ -44,15 +46,15 @@ export default function PopularProducts(props) {
             popularProducts.map((product, index) => {
               return (
                 <React.Fragment key={index}>
-                  <Col style={{margin: 20}}>
-                    <PopularProduct
-                      key={product.id}
-                      price={product.price}
-                      urlImage={product.image && product.image.defaultImage}
-                      name={product.name}
-                      id={product.id}
-                      product={product}
-                    />
+                  <Col style={{ margin: "20px" }}>
+                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}>
+                      <Cards
+                        type="popular"
+                        title={product.name}
+                        urlImage={product.thumbnail}
+                        price={product.price}
+                      />
+                    </Link>
                   </Col>
                 </React.Fragment>
               );

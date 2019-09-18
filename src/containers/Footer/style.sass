@@ -7,6 +7,9 @@
 .footer
     &__all-col
         padding: 0 42px
+        display: flex
+        justify-content: space-around
+        flex-wrap: wrap
     &__title
         font-size: 14px
         font-weight: 500
@@ -21,18 +24,22 @@
         color: $color-grey
     &__menu-col a
         color: $color-grey
+    &__helpers
+        display: flex
+        flex-direction: column
     &__icon-box
         display: flex
         align-items: center
         flex-wrap: wrap
+        max-width: 180px
     &__icon-box img
         height: 20px
-        margin: 0 20px 20px 0
+        margin: 0 24px 24px 0
     &__follow-box img
         height: 24px
         margin-right: 12px
     &__follow-us
-        margin-top: 38px
+        margin-top: 32px
         font-size: 14px
         font-weight: 500
         color: $color-teal
