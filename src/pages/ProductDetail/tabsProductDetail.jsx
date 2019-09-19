@@ -7,7 +7,7 @@ import ReviewProductDetail from '../../containers/ReviewProductDetail';
 
 export default function TabsProductDetail(props) {
     return (
-        <Tabs className="tabs-detail" defaultActiveKey="3" type="card">
+        <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
             <Tabs.TabPane tab="DETAIL PRODUK" key="1">
                 {props.isProductAvailable && (
                     <Card className="product-description">
