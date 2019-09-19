@@ -39,7 +39,7 @@ function RatingCardProductDetail(props) {
                         </strong>
                                     / 5
                     </span>
-                                <Rate value={4} />
+                                <Rate disabled value={4} />
                                 <p>816 Ulasan</p>
                             </div>
                         </Col>
@@ -51,7 +51,7 @@ function RatingCardProductDetail(props) {
                                             <span>
                                                 {star.star}
                                             </span>
-                                            <Rate defaultValue={1} count={1} />
+                                            <Rate disabled defaultValue={1} count={1} />
                                             <Progress percent={star.progress} />
                                         </div>
                                     </React.Fragment>

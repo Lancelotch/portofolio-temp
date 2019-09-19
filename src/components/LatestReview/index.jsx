@@ -12,7 +12,7 @@ function LatestReview(props) {
             <span>
                 <img src={imageUser} alt="" className="mp-latest-review__profil-image-user" />
                 &nbsp;
-                <Rate defaultValue={star} />
+                <Rate disabled defaultValue={star} />
             </span>
             <br />
             <div className="mp-latest-review__content">
