@@ -40,6 +40,7 @@ const strings = new LocalizedStrings({
     error_top_text: "Wah, ada apa ya?",
     error_button_text: "Kembali Ke Beranda",
     //general
+    latest_review : 'Ulasan Terbaru',
     order_received: 'Pesanan Diterima',
     start_shopping: 'Mulai Belanja',
     password_required: "Password harus diisi",
