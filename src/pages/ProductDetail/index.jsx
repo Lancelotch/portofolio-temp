@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
-import ProductAttibutes from "../../components/ProductAttributes";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Card, Typography, Tabs } from "antd";
+import { Row, Col, Typography } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
 import Quantity from "../../components/Quantity";
 import "./style.sass";
 import Skeleton from "react-loading-skeleton";
-import ProductQnA from "../../containers/ProductQnA";
 import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
 import Button from "../../components/Button";
 import { useRootContext } from "../../hoc/RootContext";
@@ -18,6 +16,7 @@ import Product from "../../repository/Product";
 import Breadcrumb from "../../repository/Breadcrumb/index";
 import { convertToCategoryName } from "../../library/regex";
 import PATH_URL from "../../routers/path";
+import TabsProductDetail from "./tabsProductDetail";
 
 const { Text } = Typography;
 
@@ -42,6 +41,25 @@ export default function ProductDetail(props) {
   const [loading, setLoading] = useState(false);
   const [breadcrumbsApi, setBreadcrumbsApi] = useState({});
   const { isAuthenticated } = useRootContext();
+  const totalShipping = countTotalAmount();
+  const breadcrumbs = [];
+
+  let pathTemp = "/category";
+
+  Object.values(breadcrumbsApi).forEach((value, index) => {
+    pathTemp = pathTemp + "/" + value;
+    const breadcrumb = {
+      label: convertToCategoryName(value),
+      link: pathTemp
+    };
+    breadcrumbs.push(breadcrumb);
+  });
+
+  const breadcrumbNameProduct = {
+    label: information.name
+  };
+
+  breadcrumbs.push(breadcrumbNameProduct);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -159,25 +177,6 @@ export default function ProductDetail(props) {
     }
   }
 
-  let totalShipping = countTotalAmount();
-  let breadcrumbs = [];
-  let pathTemp = "/category";
-
-  Object.values(breadcrumbsApi).forEach((value, index) => {
-    pathTemp = pathTemp + "/" + value;
-    const breadcrumb = {
-      label: convertToCategoryName(value),
-      link: pathTemp
-    };
-    breadcrumbs.push(breadcrumb);
-  });
-
-  const breadcrumbNameProduct = {
-    label: information.name
-  };
-
-  breadcrumbs.push(breadcrumbNameProduct);
-
   return (
     <React.Fragment>
       <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
@@ -190,14 +189,14 @@ export default function ProductDetail(props) {
             {images.length < 1 ? (
               <Skeleton height={300} />
             ) : (
-              <SliderProductDetailContainer
-                videoUrl={videoUrl}
-                isUpdateImageVariant={isUpdateImageVariant}
-                imageDefault={defaultImage}
-                images={images}
-                imageVariant={imageVariant}
-              />
-            )}
+                <SliderProductDetailContainer
+                  videoUrl={videoUrl}
+                  isUpdateImageVariant={isUpdateImageVariant}
+                  imageDefault={defaultImage}
+                  images={images}
+                  imageVariant={imageVariant}
+                />
+              )}
           </Col>
           <Col md={12} offset={1}>
             <div>
@@ -205,33 +204,33 @@ export default function ProductDetail(props) {
                 {loading ? (
                   <Skeleton height={25} />
                 ) : (
-                  currencyRupiah(price.amount)
-                )}
+                    currencyRupiah(price.amount)
+                  )}
               </p>
               {images.length < 1 ? (
                 <Skeleton height={25} width={200} />
               ) : (
-                <Variants
-                  product={product}
-                  actionUpdateImageVariant={actionUpdateImageVariant}
-                  actionUpdateSku={actionUpdateSku}
-                />
-              )}
+                  <Variants
+                    product={product}
+                    actionUpdateImageVariant={actionUpdateImageVariant}
+                    actionUpdateSku={actionUpdateSku}
+                  />
+                )}
               {loading ? (
                 <div style={{ marginTop: 10 }}>
                   <Skeleton height={40} width={200} />
                 </div>
               ) : (
-                <React.Fragment>
-                  <span className="mp-product-detail__total-quantity">
-                    Jumlah
+                  <React.Fragment>
+                    <span className="mp-product-detail__total-quantity">
+                      Jumlah
                   </span>
-                  <Quantity
-                    stock={information.maxOrder}
-                    updateQuantity={actionUpdateQuantity}
-                  />
-                </React.Fragment>
-              )}
+                    <Quantity
+                      stock={information.maxOrder}
+                      updateQuantity={actionUpdateQuantity}
+                    />
+                  </React.Fragment>
+                )}
               {isProductAvailable && (
                 <Shipping
                   totalShipping={totalShipping}
@@ -243,36 +242,26 @@ export default function ProductDetail(props) {
                   <Skeleton height={40} width={350} />
                 </div>
               ) : (
-                <div style={{ marginTop: 64 }}>
-                  {blurAlertVariant === true ? (
-                    <Text type="danger">{alertVariant}</Text>
-                  ) : null}
-                  <Button
-                    type="primary"
-                    size="large"
-                    width="full"
-                    onClick={actionSubmitToCheckout}
-                  >
-                    {strings.order_now}
-                  </Button>
-                </div>
-              )}
+                  <div style={{ marginTop: 64 }}>
+                    {blurAlertVariant === true ? (
+                      <Text type="danger">{alertVariant}</Text>
+                    ) : null}
+                    <Button
+                      type="primary"
+                      size="large"
+                      width="full"
+                      onClick={actionSubmitToCheckout}
+                    >
+                      {strings.order_now}
+                    </Button>
+                  </div>
+                )}
             </div>
           </Col>
         </Row>
-        <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
-          <Tabs.TabPane tab="DETAIL PRODUK" key="1">
-            {isProductAvailable && (
-              <Card className="product-description">
-                <h2>{strings.detail_product}</h2>
-                <ProductAttibutes product={information} />
-              </Card>
-            )}
-          </Tabs.TabPane>
-          <Tabs.TabPane tab="PERTANYAAN" key="2">
-            <ProductQnA />
-          </Tabs.TabPane>
-        </Tabs>
+        <TabsProductDetail
+          isProductAvailable={isProductAvailable}
+          information={information} />
       </div>
       {open === true && (
         <Redirect

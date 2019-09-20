@@ -40,6 +40,7 @@ const strings = new LocalizedStrings({
     error_top_text: "Wah, ada apa ya?",
     error_button_text: "Kembali Ke Beranda",
     //general
+    latest_review : 'Ulasan Terbaru',
     order_received: 'Pesanan Diterima',
     start_shopping: 'Mulai Belanja',
     password_required: "Password harus diisi",
@@ -171,8 +172,8 @@ const strings = new LocalizedStrings({
     login_option: "atau masuk dengan",
     login_remember_me: "Ingat saya",
     login_forgot_password: "Lupa Password ?",
-    login_quote: "Belum punya Akun? yuk {0}",
-    login_register: "Daftar",
+    login_quote: "{0} jika kamu belum punya akun",
+    login_register: "Register",
     //Button
     button_empty_cart: "Ayo Mulai Belanja",
     //Warning
@@ -180,7 +181,7 @@ const strings = new LocalizedStrings({
     warning_unavailable_product: "Oppss..! Maaf, sepertinya product yang anda cari tidak ditemukan",
     //Register
     register_now: "Daftar Sekarang",
-    register_quote: "Sudah punya akun monggopesen? {0} ",
+    register_quote: "{0} jika kamu sudah punya akun",
     register_option: "atau daftar dengan",
     register_enter: "Masuk",
     register_name: "Nama lengkap harus diisi",

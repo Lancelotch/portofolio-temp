@@ -5,22 +5,24 @@
   font-size: 25px
   color: $color-safety-orange !important
 
-.mp-register .ant-form-item 
-  width: 360px
-
-.mp-register .has-error .ant-form-explain
-  width: 350px
-
 .mp-register
-  display: flex
-  justify-content: center
-  align-items: center
-  flex-direction: column
+  overflow: hidden
+  &__form
+    background-color: $color-white
+    border-radius: 4px
+    width: 411px
+    height: 510px
+    padding: 15px
+  img 
+    width: 224px
+    height: 25px  
   &__logo
-    padding-top: 64px !important
+    display: flex 
+    justify-content: center
+    margin-top: 20px 
   &__title
     margin: 32px 0px 32px 0px
-    font-size: 15px
+    font-size: 16px
     font-weight: 200
     text-align: center
   &__input
@@ -38,7 +40,7 @@
     margin: 10px 0
     width: 360px
     line-height: 18px
-    text-align: left
+    text-align: center
     font-size: 14px
     color: $color-grey
   &__button-register-text

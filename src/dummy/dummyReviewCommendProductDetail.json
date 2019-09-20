@@ -1,0 +1,42 @@
+[
+    {
+        "image" : "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-07T06:01:53.776Z_ANONYMOUS",
+        "comment": "Lorem lipsum ini bagus sekali productnya",
+        "username" : "Putra Irawan",
+        "star": 3,
+        "date": 1563883373241,
+        "imageUser": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+    },
+    {
+        "image" : "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-07T06:01:53.776Z_ANONYMOUS",
+        "comment": "Lorem lipsum ini bagus sekali productnya",
+        "username" : "Putra Irawan",
+        "star": 5,
+        "date": 1563883373241,
+        "imageUser": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+    },
+    {
+        "image" : "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-07T06:01:53.776Z_ANONYMOUS",
+        "comment": "Lorem lipsum ini bagus sekali productnya",
+        "username" : "Putra Irawan",
+        "star": 3,
+        "date": 1563883373241,
+        "imageUser": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+    },
+    {
+        "image" : "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-07T06:01:53.776Z_ANONYMOUS",
+        "comment": "Lorem lipsum ini bagus sekali productnya",
+        "username" : "Putra Irawan",
+        "star": 2,
+        "date": 1563883373241,
+        "imageUser": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+    },
+    {
+        "image" : "https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-07T06:01:53.776Z_ANONYMOUS",
+        "comment": "Lorem lipsum ini bagus sekali productnya",
+        "username" : "Putra Irawan",
+        "star": 4,
+        "date": 1563883373241,
+        "imageUser": "https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+    }
+]
