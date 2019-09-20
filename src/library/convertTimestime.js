@@ -23,6 +23,23 @@ const millisecond = datetimestamp => {
     );
 };
 
+const millisecondnohours = datetimestamp => {
+    var dt = new Date(datetimestamp * 1)
+    var getDate = dt.getDate().toString();
+    var date = getDate.padStart(2, '0')
+    var getMonth = (dt.getMonth() + 1).toString();
+    var month = getMonth.padStart(2, '0')
+    var year = dt.getFullYear();
+    //var s = "0" + dt.getSeconds();
+    return (
+        date +
+        "-" +
+        month +
+        "-" +
+        year 
+    )
+};
+
 
 const second = datetimestamp => {
     var dt = new Date(datetimestamp * 1000);
@@ -49,7 +66,8 @@ const second = datetimestamp => {
 
 const convertTimesTime = {
     millisecond: millisecond,
-    second: second
+    second: second,
+    millisecondnohours : millisecondnohours
 };
 
 export default convertTimesTime;
