@@ -8,7 +8,7 @@ import Cards from "../../components/Cards";
 import { PATH_PRODUCT } from "../../services/path/product";
 import { Link } from "react-router-dom";
 
-export default function PopularProducts(props) {
+export default function PopularProducts() {
   const [popularProducts, setPopularProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,6 +27,9 @@ export default function PopularProducts(props) {
     }
   }
 
+  const productLarge = popularProducts.slice(0, 3);
+  const productSmall = popularProducts.slice(3, 7);
+
   return (
     <div className="mp-popular-products">
       <span className="mp-popular-products__title">
@@ -42,8 +45,8 @@ export default function PopularProducts(props) {
               rightMargin={13}
             />
           ) : (
-            popularProducts &&
-            popularProducts.map((product, index) => {
+            productLarge &&
+            productLarge.map((product, index) => {
               return (
                 <React.Fragment key={index}>
                   <Col style={{ margin: "10px" }}>
@@ -69,8 +72,8 @@ export default function PopularProducts(props) {
                 rightMargin={13}
               />
             ) : (
-              popularProducts &&
-              popularProducts.map((product, index) => {
+              productSmall &&
+              productSmall.map((product, index) => {
                 return (
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>

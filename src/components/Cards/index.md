@@ -6,6 +6,7 @@ menu: Components
 import { Playground, Props } from 'docz'
 import Cards from './'
 import { Col, Row } from "antd";
+import "antd/dist/antd.less"
 
 # Cards
 
@@ -66,6 +67,8 @@ no details
         price={25283000.00}
         discount="60%"
         discountPrice={300000000.00}
+        rateValue={2}
+        totalVote={3}
     />
 </Playground>
 

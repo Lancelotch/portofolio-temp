@@ -22,7 +22,7 @@ async function getAll(props) {
 async function getPopular(props) {
   const loading = props.loading ? props.loading : function() {};
   const params = {
-    limit: 3
+    limit: 7
   };
   let response = "";
   loading(true);
