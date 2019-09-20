@@ -1,18 +1,29 @@
-.mp-login-content
-  max-width: 444px 
-  margin: 0 auto
-  
-.mp-login-container
-  &__logo
-    padding-top: 64px !important
-    display: block
-    margin: 0 auto
+.mp-login-container-page
+  overflow: hidden
+  img 
+    width: 224px
+    height: 25px
+  &__image
+     display: flex 
+     justify-content: center
+     margin-top: 20px  
+  &__form
+    width: 100%
+    display: flex
+    justify-content: center
+    background-image: url("../../assets/img/bg_login.png")
+    background-repeat: no-repeat
+    background-position:  top center
+    height: 650px
   &__title
     color: $color-black
-    margin-top: 32px
+    font-weight: 200
     font-size: 16px
     text-align: center
-    margin-bottom: 32px 
+    margin-top: 30px
+
+.mp-login-container-page .mp-form-login
+  width: 411px    
 
 .alert
   position: absolute
