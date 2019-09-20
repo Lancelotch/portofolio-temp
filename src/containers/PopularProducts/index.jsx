@@ -32,7 +32,7 @@ export default function PopularProducts(props) {
       <span className="mp-popular-products__title">
         {strings.most_searched}
       </span>
-      <Row type="flex">
+      <Row type="flex" style={{ marginTop: 12 }}>
         <React.Fragment>
           {loading ? (
             <SkeletonCustom
@@ -46,10 +46,10 @@ export default function PopularProducts(props) {
             popularProducts.map((product, index) => {
               return (
                 <React.Fragment key={index}>
-                  <Col style={{ margin: "20px" }}>
+                  <Col style={{ margin: "10px" }}>
                     <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}>
                       <Cards
-                        type="popular"
+                        type="large"
                         title={product.name}
                         urlImage={product.thumbnail}
                         price={product.price}
@@ -60,6 +60,36 @@ export default function PopularProducts(props) {
               );
             })
           )}
+          <div className="mp-popular-little-card">
+            {loading ? (
+              <SkeletonCustom
+                count={3}
+                height={300}
+                leftMargin={13}
+                rightMargin={13}
+              />
+            ) : (
+              popularProducts &&
+              popularProducts.map((product, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <Col style={{ margin: "8px" }}>
+                      <Link
+                        to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}
+                      >
+                        <Cards
+                          type="small"
+                          title={product.name}
+                          urlImage={product.thumbnail}
+                          price={product.price}
+                        />
+                      </Link>
+                    </Col>
+                  </React.Fragment>
+                );
+              })
+            )}
+          </div>
         </React.Fragment>
       </Row>
     </div>

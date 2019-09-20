@@ -1,7 +1,7 @@
 import { apiGetWithoutToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
-import jmespath from 'jmespath';
-import products from './response/products';
+import jmespath from "jmespath";
+import products from "./response/products";
 
 async function getAll(props) {
   const loading = props.loading ? props.loading : function() {};
@@ -22,7 +22,7 @@ async function getAll(props) {
 async function getPopular(props) {
   const loading = props.loading ? props.loading : function() {};
   const params = {
-    limit: 5
+    limit: 3
   };
   let response = "";
   loading(true);
@@ -40,7 +40,7 @@ async function getPopular(props) {
 async function getBestSeller(props) {
   const loading = props.loading ? props.loading : function() {};
   const params = {
-    limit: 4
+    limit: 5
   };
   let response = "";
   loading(true);
@@ -66,9 +66,7 @@ async function getByCategory(props) {
       `${PATH_PRODUCT.PRODUCT_CATEGORY}/${categoryId}`,
       params
     );
-    console.log(response);
     response = jmespath.search(response, products);
-    console.log(response);
     loading(false);
   } catch (error) {
     response = jmespath.search(error.response, products);
@@ -79,33 +77,35 @@ async function getByCategory(props) {
 
 async function getByKeyword(props) {
   const loading = props.loading ? props.loading : function() {};
-  const params = props.request
+  const params = props.request;
   let response = "";
   loading(true);
   try {
     response = await apiGetWithoutToken(PATH_PRODUCT.PRODUCT_SEARCH, params);
+    response = jmespath.search(response, products);
     loading(false);
     return response;
   } catch (error) {
+    response = jmespath.search(error.response, products);
     loading(false);
     return error;
   }
 }
 
 async function get(props) {
-  const loading = props.loading ? props.loading : function () { };
+  const loading = props.loading ? props.loading : function() {};
   const productId = props.productId;
-  let response = ""
-  loading(true)
+  let response = "";
+  loading(true);
   try {
-      response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`)
-      loading(false);
+    response = await apiGetWithoutToken(`${PATH_PRODUCT.PRODUCT}/${productId}`);
+    loading(false);
   } catch (error) {
-      loading(false)
-      response = error;
+    loading(false);
+    response = error;
   }
   return response;
-};
+}
 
 const Product = {
   getAll: getAll,
@@ -113,7 +113,7 @@ const Product = {
   getBestSeller: getBestSeller,
   getByCategory: getByCategory,
   getByKeyword: getByKeyword,
-  get:get
+  get: get
 };
 
 export default Product;
