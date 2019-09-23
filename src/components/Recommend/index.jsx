@@ -14,15 +14,14 @@ const SampleNextArrow = props => {
       className={className}
       style={{
         zIndex: "1",
-        height: "60px",
-        width: "60px",
-        // opacity: "0.5",
+        height: "48px",
+        width: "48px",
         backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         top: "145px",
-        right: "0px"
+        right: "-48px"
       }}
       onClick={onClick}
     >
@@ -39,15 +38,14 @@ const SamplePrevArrow = props => {
       style={{
         marginRight: "30px",
         zIndex: "1",
-        height: "60px",
-        width: "60px",
-        // opacity: "0.5",
+        height: "48px",
+        width: "48px",
         backgroundColor: "rgb(170, 170, 170, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginLeft: "25px",
-        top: "145px"
+        top: "145px",
+        left: "-48px"
       }}
       onClick={onClick}
     >
@@ -77,8 +75,8 @@ function Recommend() {
   const productsToShow = products.slice(0, 10);
   let sliderToClickLength = productsToShow.length <= 6 ? false : true;
   const settings = {
-    slidesToShow: 5,
-    slidesToScroll: 2,
+    slidesToShow: 6,
+    slidesToScroll: 3,
     dots: true,
     infinite: sliderToClickLength,
     speed: 1000,
@@ -90,7 +88,7 @@ function Recommend() {
     prevArrow: <SamplePrevArrow />,
     appendDots: dots => (
       <div style={{ borderRadius: 10 }}>
-        <ul className="dots"> {dots} </ul>
+        <ul className="dots">{dots}</ul>
       </div>
     )
   };
@@ -103,7 +101,6 @@ function Recommend() {
           title={item.name}
           price={item.price}
           showPlayButton={item.isVideoExist}
-          type="recommend"
         />
       </Link>
     );

@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { BackTop, Row, Col, Divider } from "antd";
+import { BackTop, Row, Col } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
@@ -21,8 +21,8 @@ export default function Search(props) {
   const [isQueryAvailable, setIsQueryAvailable] = useState(true);
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
-  const [element, setElement] = useState(0);
-  const limit = 20
+  const [totalData, setTotalData] = useState(0);
+  const limit = 20;
 
   useEffect(() => {
     onRefresh();
@@ -47,9 +47,9 @@ export default function Search(props) {
     };
     const nextProduct = await Product.getByKeyword({ request });
     if (nextProduct.status === 200) {
-      setProductList(productList.concat(nextProduct.data.data));
+      setProductList(productList.concat(nextProduct.products));
       setPage(page + 1);
-      setElement(nextProduct.data.element);
+      setTotalData(nextProduct.totalData);
       setIsProductAvailable(true);
       setIsQueryAvailable(true);
     } else {
@@ -58,7 +58,7 @@ export default function Search(props) {
   }
 
   function fetchMoreData() {
-    if (productList.length >= element) {
+    if (productList.length >= totalData) {
       setHasMore(false);
       return;
     } else {
@@ -80,21 +80,17 @@ export default function Search(props) {
   function infiniteScroll() {
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
-      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{element}"</b>,
+      <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{totalData}"</b>,
       <b style={{ color: "#FF416C" }}>{query}</b>
     );
     return (
       <div>
-        <div style={{ margin: "0 24px" }}>
-    
-        </div>
-        <Divider style={{ margin: "12px 0" }} />
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            margin: "0 24px"
+            margin: "24px 24px 0"
           }}
         >
           <span className="categoryTextResult">{categoryTextResult}</span>
