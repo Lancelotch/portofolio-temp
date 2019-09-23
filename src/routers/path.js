@@ -26,7 +26,15 @@ const NOT_FOUND_PAGE = '*';
 const ERROR = '/500';
 const FORGET_PASSWORD = '/forget-password';
 const RESET_PASSWORD = '/reset/:key';
-
+const USER_GUIDE_HOW_TO_SHOP = '/cara-belanja';
+const USER_GUIDE_DELIVERY_TIME = '/lama-pengiriman';
+const USER_GUIDE_HOW_TO_PAY = '/cara-bayar';
+const USER_GUIDE_TRACK_SHIPMENT = '/lacak-pengiriman';
+const USER_GUIDE_CONTACT_US = '/hubungi-kami';
+const USER_GUIDE_ABOUT_US =  '/tentang-kami';
+const USER_GUIDE_CAREER = '/karir';
+const USER_GUIDE_TERMS_CONDITION = '/syarat-ketentuan';
+const USER_GUIDE_PRIVACY_POLICY = '/kebijakan-privasi';
 
 const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
@@ -56,7 +64,16 @@ const PATH_URL = {
     DASHBOARD_ADDRESS,
     DASHBOARD_PASSWORD,
     DASHBOARD_ORDER,
-    RESET_PASSWORD
+    RESET_PASSWORD,
+    USER_GUIDE_ABOUT_US,
+    USER_GUIDE_CAREER,
+    USER_GUIDE_CONTACT_US,
+    USER_GUIDE_DELIVERY_TIME,
+    USER_GUIDE_HOW_TO_PAY,
+    USER_GUIDE_HOW_TO_SHOP,
+    USER_GUIDE_PRIVACY_POLICY,
+    USER_GUIDE_TERMS_CONDITION,
+    USER_GUIDE_TRACK_SHIPMENT
 }
 
 export default PATH_URL;
