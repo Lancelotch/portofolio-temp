@@ -35,8 +35,8 @@ function Footer() {
 
   return (
     <React.Fragment>
-      <div className="backgroundFooter container">
-        <Row className="footer__all-col">
+      <div className="backgroundFooter full-width">
+        <Row className="footer__all-col container">
           <Col md={7}>
             <p className="footer__title">{strings.footer_any_help}</p>
             <Col
@@ -47,15 +47,31 @@ function Footer() {
                 lineHeight: "24px"
               }}
             >
-              <span className="footer__helpers">
+              <span>
                 <Link to="/">{strings.how_to_shop}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.delivery_time}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.how_to_pay}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.track_the_delivery}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.contact_us}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.about_us}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.career}</Link>
+              </span>
+              <span>
                 <Link to="/">{strings.terms_and_condition}</Link>
+              </span>
+              <span>
                 <Link to={PATH_URL.USER_GUIDE_PRIVACY_POLICY}>{strings.privacy_policy}</Link>
               </span>
             </Col>

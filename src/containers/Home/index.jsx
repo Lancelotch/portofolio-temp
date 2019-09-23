@@ -21,17 +21,15 @@ export default function Home() {
         <span style={{ fontSize: 16, fontWeight: 500 }}>
           {strings.recommendation_product}
         </span>
-        <Row type="flex" justify="center">
-          <div
-            style={{
-              marginTop: 20,
-              marginBottom: 20,
-              width: 1130
-            }}
-          >
-            <Recommend />
-          </div>
-        </Row>
+        <div
+          className="full-width"
+          style={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <Recommend />
+        </div>
       </div>
     </React.Fragment>
   );

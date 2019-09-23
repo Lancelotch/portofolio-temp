@@ -27,47 +27,47 @@ export default function UserGuideLayout(props) {
 
     const menuUserGuide = [
         {
-            key: "cara-belanja",
+            key: "how-to-shop",
             link: PATH_URL.USER_GUIDE_HOW_TO_SHOP,
             userGuide: "Cara Belanja"
         },
         {
-            key: "lama-pengiriman",
+            key: "delivery-time",
             link: PATH_URL.USER_GUIDE_DELIVERY_TIME,
             userGuide: "Lama Pengiriman"
         },
         {
-            key: "cara-bayar",
+            key: "how-to-pay",
             link: PATH_URL.USER_GUIDE_HOW_TO_PAY,
             userGuide: "Cara Bayar"
         },
         {
-            key: "lacak-pengiriman",
+            key: "track-shipment",
             link: PATH_URL.USER_GUIDE_TRACK_SHIPMENT,
             userGuide: "Lacak Pengiriman"
         },
         {
-            key: "kontak-kami",
+            key: "contact-us",
             link: PATH_URL.USER_GUIDE_CONTACT_US,
             userGuide: "Kontak Kami"
         },
         {
-            key: "tentang-kami",
+            key: "about-us",
             link: PATH_URL.USER_GUIDE_ABOUT_US,
             userGuide: "Tentang Kami"
         },
         {
-            key: "karir",
+            key: "career",
             link: PATH_URL.USER_GUIDE_CAREER,
             userGuide: "Karir"
         },
         {
-            key: "syarat-ketentuan",
+            key: "terms-condition",
             link: PATH_URL.USER_GUIDE_TERMS_CONDITION,
             userGuide: "Syarat dan Ketentuan"
         },
         {
-            key: "kebijakan-privasi",
+            key: "privacy-policy",
             link: PATH_URL.USER_GUIDE_PRIVACY_POLICY,
             userGuide: "Kebijakan Privasi"
         }

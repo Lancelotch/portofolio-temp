@@ -17,11 +17,6 @@
     transition: mdc-animation-exit-temporary(transform, 250ms)
     will-change: transform
 
-.header-fixed
-    z-index: 9
-    width: 100%
-    top: 0    
-
 .header
     width: 100%
     height: auto
@@ -32,7 +27,6 @@
     position: relative
     &__logo
         height: 18px
-    &__search-box
     &__search-box .ant-form-item
         margin: 0
     &__search 
@@ -46,6 +40,11 @@
     &__icon-box
         display: flex
         justify-content: space-around
+        &__icon
+            font-size: 20px
+            color: $color-dark-gray
+        &__icon:hover
+            color: $color-safety-orange
     &__user-box
         display: flex
         justify-content: space-around
