@@ -16,6 +16,7 @@ import { Formik } from "formik";
 import { schema } from "./schema";
 import Subscription from "../../repository/Subscription";
 import notification from "../../library/notification";
+import PATH_URL from "../../routers/path";
 
 function Footer() {
   async function handleSubmitSubscribe(email, resetForm) {
@@ -71,7 +72,7 @@ function Footer() {
                 <Link to="/">{strings.terms_and_condition}</Link>
               </span>
               <span>
-                <Link to="/">{strings.privacy_policy}</Link>
+                <Link to={PATH_URL.USER_GUIDE_PRIVACY_POLICY}>{strings.privacy_policy}</Link>
               </span>
             </Col>
           </Col>
