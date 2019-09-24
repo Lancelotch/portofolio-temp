@@ -110,10 +110,12 @@ function Recommend() {
     <div className="mp-slider-click-products">
       {loading ? (
         <SkeletonCustom
-          count={4}
-          height={300}
-          leftMargin={13}
-          rightMargin={13}
+          count={5}
+          width={175}
+          height={295}
+          leftMargin={12}
+          rightMargin={12}
+          topMargin={24}
         />
       ) : (
         <Carousel {...settings}>{slides}</Carousel>

@@ -1,15 +1,15 @@
 import { apiPatchWithToken } from "../../services/api";
-import { PATH_PRODUCT } from "../../services/path/product";
+import { PRODUCT_QUESTION_ANSWER } from "../../services/path/questionAnswer";
 
 async function vote(props) {
   const loading = props.loading ? props.loading : function() {};
-  const questionAnswereId = props.questionAnswereId;
+  const questionAnswerId = props.questionAnswerId;
   const option = props.option;
   let response = "";
   loading(true);
   try {
     response = await apiPatchWithToken(
-      `${PATH_PRODUCT.PRODUCT_QUESTION_ANSWER}/${questionAnswereId}/vote/${option}`
+      `${PRODUCT_QUESTION_ANSWER.QUESTION_ANSWER}/${questionAnswerId}/vote/${option}`
     );
     loading(false);
     return response;

@@ -21,14 +21,25 @@ export default function PopularProducts() {
       loading: setLoading
     });
     if (productPopular.status === 200) {
-      setPopularProducts(productPopular.products);
+      const popularProducts = productPopular.products;
+      setPopularProducts(popularProducts);
+      popularProductSpread(popularProducts);
     } else {
       setPopularProducts(null);
     }
   }
 
-  const productLarge = popularProducts.slice(0, 3);
-  const productSmall = popularProducts.slice(3, 7);
+  function popularProductSpread(data) {
+    if (data.length === 7) {
+      setPopularProducts({
+        ...popularProducts,
+        productLarge: data.slice(0, 3),
+        productSmall: data.slice(3, 7)
+      });
+    } else {
+      setLoading(true);
+    }
+  }
 
   return (
     <div className="mp-popular-products">
@@ -39,14 +50,14 @@ export default function PopularProducts() {
         <React.Fragment>
           {loading ? (
             <SkeletonCustom
-              count={3}
-              height={300}
-              leftMargin={13}
-              rightMargin={13}
+              count={2}
+              width={276}
+              height={296}
+              rightMargin={20}
             />
           ) : (
-            productLarge &&
-            productLarge.map((product, index) => {
+            popularProducts.productLarge &&
+            popularProducts.productLarge.map((product, index) => {
               return (
                 <React.Fragment key={index}>
                   <Col style={{ margin: "10px" }}>
@@ -67,13 +78,13 @@ export default function PopularProducts() {
             {loading ? (
               <SkeletonCustom
                 count={3}
-                height={300}
-                leftMargin={13}
-                rightMargin={13}
+                width={120}
+                height={146}
+                rightMargin={20}
               />
             ) : (
-              productSmall &&
-              productSmall.map((product, index) => {
+              popularProducts.productSmall &&
+              popularProducts.productSmall.map((product, index) => {
                 return (
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>

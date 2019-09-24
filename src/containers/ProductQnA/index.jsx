@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./style.sass";
 import { Row, Col, Button, Divider, Table } from "antd";
-import dummyQnA from "../../dummy/dummyQnA.json";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 import Search from "../../components/Search";
+import QuestionAnswer from "../../repository/QuestionAnswer";
 
 const columns = [
   {
@@ -47,32 +47,60 @@ class ProductQnA extends Component {
     );
   }
 
-  renderQnA = (qna, i) => {
+  renderQnA = qna => {
+    const id = qna.id;
     return {
-      key: i,
+      key: qna.id,
       questionAndAnswer: [
-        <Col key={i} md={24} style={{ marginTop: 20 }}>
+        <Col key={qna.id} md={24} style={{ marginTop: 20 }}>
           <Row>
             <Col md={1}>
               <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
             </Col>
             <Col md={23} style={{ marginTop: 10 }}>
               <b style={{ fontWeight: 555 }}>
-                {this.getHighlightedText(qna.questionAdmin, this.state.search)}
+                {this.getHighlightedText(qna.question, this.state.search)}
               </b>
               <p style={{ color: "#417505" }}>
-                {this.getHighlightedText(qna.answerCustomer, this.state.search)}
+                {this.getHighlightedText(qna.answer, this.state.search)}
               </p>
               <span>
                 Apakah pertanyaan ini membantu?
-                <Button className="mp-button-qna">Ya</Button>
-                <Button className="mp-button-qna">Tidak</Button>
+                <Button
+                  className="mp-button-qna"
+                  onClick={() => this.handleClick({ id, option: "like" })}
+                >
+                  Ya
+                </Button>
+                <Button
+                  className="mp-button-qna"
+                  onClick={() => this.handleClick({ id, option: "dislike" })}
+                >
+                  Tidak
+                </Button>
               </span>
             </Col>
           </Row>
         </Col>
       ]
     };
+  };
+
+  handleClick = async res => {
+    let option;
+    if (res.option === "like") {
+      option = "LIKE";
+    }
+    if (res.option === "dislike") {
+      option = "DISLIKE";
+    }
+    const response = await QuestionAnswer.vote({
+      questionAnswerId: res.id,
+      option: option
+    });
+    if (response.status === 200) {
+      console.log("success");
+    }
   };
 
   onChangeSearch = e => {
@@ -86,7 +114,7 @@ class ProductQnA extends Component {
   render() {
     const { search } = this.state;
     const lowercasedFilter = search.toLowerCase();
-    const filteredQnA = dummyQnA.filter(item => {
+    const filteredQnA = this.props.questionAnswers.filter(item => {
       return Object.keys(item).some(key =>
         item[key].toLowerCase().includes(lowercasedFilter)
       );
@@ -96,7 +124,7 @@ class ProductQnA extends Component {
         <Row className="title-inline">
           <Col md={13}>
             <span className="title-inline__title">
-              Pertanyaan terkait Produk ({dummyQnA.length})
+              Pertanyaan terkait Produk ({this.props.questionAnswers.length})
             </span>
           </Col>
           <Col md={3}>
@@ -126,7 +154,7 @@ class ProductQnA extends Component {
             onChange: this.onPageChange,
             className: "pagination-product-forum"
           }}
-          dataSource={filteredQnA.map((QnA, i) => this.renderQnA(QnA, i))}
+          dataSource={filteredQnA.map(QnA => this.renderQnA(QnA))}
           columns={columns}
         />
       </div>
