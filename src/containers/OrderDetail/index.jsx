@@ -3,7 +3,7 @@ import Quantity from "../../components/Quantity";
 import "./style.sass";
 import { Row, Col, Card, Icon, Divider } from "antd";
 import NotedLimit from "../../components/NotedLimit";
-import SelectShipping from "../../components/SelectShipping";
+//import SelectShipping from "../../components/SelectShipping";
 import currencyRupiah from "../../library/currency";
 import strings from "../../localization/localization";
 
@@ -43,9 +43,9 @@ class OrderDetail extends Component {
 
   render() {
     const { image, name, sku } = this.props.payloadProductDetail;
-    const { priceProduct, shipmentFee } = this.props;
+  const { priceProduct, /*shipmentFee */} = this.props;
     const totalProductPrice = this.props.quantity * priceProduct;
-    const totalPriceShipping = this.props.quantity * shipmentFee;
+   //const totalPriceShipping = this.props.quantity * shipmentFee;
     return (
       <Fragment>
         <Row>
@@ -120,17 +120,17 @@ class OrderDetail extends Component {
               </div>
               <Divider />
               <Row className="shipping-checkout">
-                <Col md={5}>
+                {/*<Col md={5}>
                   <b>{strings.international_shipping}</b>
                 </Col>
                 <Col md={19}>
                   <SelectShipping quantity={this.props.quantity} shipmentFee={totalPriceShipping} onChangeShipping={this.actionChangeShipping} />
-                </Col>
+                </Col>*/}
                 <Col md={5} className="shipping-checkout__note">
                   <b>{strings.note}</b>
                 </Col>
                 <Col md={19} className="shipping-checkout__note">
-                  <NotedLimit 
+                  <NotedLimit
                     // setFieldValue={this.props.setFieldValue} 
                     setStateNote={this.props.setStateNote}
                   />

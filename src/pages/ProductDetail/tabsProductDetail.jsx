@@ -10,7 +10,7 @@ export default function TabsProductDetail(props) {
         <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
             <Tabs.TabPane tab="DETAIL PRODUK" key="1">
                 {props.isProductAvailable && (
-                    <Card className="product-description">
+                    <Card className="mp-product-description">
                         <h2>{strings.detail_product}</h2>
                         <ProductAttibutes product={props.information} />
                     </Card>

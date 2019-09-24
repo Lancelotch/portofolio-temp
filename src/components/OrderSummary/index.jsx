@@ -6,7 +6,7 @@ import currencyRupiah from "../../library/currency";
 import Button from "../Button";
 
 const OrderSummary = props => {
-  const { quantity, shipment, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;
+  const { quantity, priceProduct, checked, handleChecked, total, shipmentFee, priceJne } = props;
   let checkPriceJne = priceJne === 0 ? true : false
   const totalQuantityProduct = priceProduct * quantity
   const totalProduct = totalQuantityProduct
@@ -23,20 +23,10 @@ const OrderSummary = props => {
         <Col md={12}>
           <div className="price-pcs">
             <p>{"Harga Product"}</p>
-            {/*<p>{`Pcs`}</p>*/}
-          </div>
-          {/* <div className="sub-total">
-            <p>{"Sub Total"}</p>
-          </div>*/}
-          <div className="international-shipping">
-            <p>Pengiriman International</p>
-            <p className="p-color-teal">{shipment === "sea"
-              ? "Laut"
-              : "Udara"}</p>
           </div>
           <div className="lokal-shipping">
-            <p>Pengiriman Lokal</p>
-            <p className="p-color-teal">JNE REG</p>
+            <p>Delivery</p>
+            <p className="p-color-teal">J&T REG</p>
           </div>
           <div className="jne-assurance">
             <Checkbox
@@ -44,21 +34,16 @@ const OrderSummary = props => {
               onClick={handleChecked}
               className={checked ? "jne-checkbox-true" : "jne-checkbox"}
             >
-              <span>Asuransi JNE </span>
+              <span>Asuransi J&T </span>
               <Popover
                 content={
                   <div style={{ maxWidth: "305px" }}>
                     <p>
-                      Penambahan asuransi sangat disarankan untuk menjaga produk
-                      barang pesanan Anda dari kerusakan / kehilangan selama
-                      pengiriman kurir lokal (JNE). Monggopesen tidak
-                      bertanggung jawab atas kerusakan / kehilangan barang
-                      selama pengiriman kurir lokal (JNE) apabila Anda tidak
-                      mengasuransikan barang yang Anda pesan.
+                     {strings.checkout_notif_asuransi}
                     </p>
                   </div>
                 }
-                title="Tentang Asuransi JNE"
+                title="Tentang Asuransi J&T"
                 trigger="click"
               >
                 <Icon type="info-circle" style={{ color: "#FB6900" }} />
@@ -69,20 +54,11 @@ const OrderSummary = props => {
         <Col md={12} className="mp-order-summary__column-left">
           <div className="price-pcs">
             <p className="price">{totalAmount(totalProduct)}</p>
-            { /*<p>{`x ${quantity}`}</p>*/}
           </div>
-          {/*<div className="sub-total">
-            <p>{currencyRupiah(priceProduct)}</p>
-            </div>*/}
           <div className="shipping-price">
             <p className="p-color-teal">
-              {shipment === "sea"
-                ? "Ongkir Sudah Termasuk"
-                : currencyRupiah(totalPriceShipping)}
+              {currencyRupiah(totalPriceShipping)}
             </p>
-          </div>
-          <div className="shipping-price">
-            <p className="p-color-teal">{currencyRupiah(priceJne)}</p>
           </div>
           <div className={checked ? "jne-price-true" : "jne-price"}>
             <p>Rp. 9.936</p>
@@ -106,7 +82,6 @@ const OrderSummary = props => {
               margin="small"
               size="large"
               htmlType="submit"
-              // onClick={ () => props.actionHandleSubmit(props.values) }
             >
               {strings.choose_payment_methods}
             </Button>

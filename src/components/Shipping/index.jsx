@@ -1,42 +1,48 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Shippings from "./Shippings";
 import dummyShipping from "../../dummy/dummyShipping";
+import strings from "../../localization/localization";
 
-class Shipping extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      shipping: []
-    };
-  }
-
-  componentDidMount() {
-    this.shipping();
-  }
-
-
-  shipping = async () => {
-    try {
-      //const res = await shipping.getShipping();
-      const res = await dummyShipping;
-      this.setState({
-        shipping: res.data
-      });
-    } catch (error) {
-      console.log(error);
-    }
+export default function Shipping(props) {
+  const [shipping, setShipping] = useState([])
+  const provinceData = ['Jakarta', 'Surabaya', 'MaduraDummy'];
+  const cityData = {
+    Jakarta: [props.totalShipping],
+    Surabaya: [props.totalShipping],
+    MaduraDummy: ['33000']
   };
-  render() {
+  const [cities, setCities] = useState(cityData[provinceData[0]]);
+  const [cityPrice, setCityPrice] = useState(cityData[provinceData[0]][0]);
 
-    return (
-      <div>
-        <span style={{ fontSize: "18px", color: "#4a4a4a" }}>
-          Pengiriman dari : <b style={{ color: "#F63700" }}>China</b>
-        </span>
-        <Shippings  totalShipping={this.props.totalShipping} shipping={this.state.shipping} />
-      </div>
-    );
-  }
+  function handleProvinceChange(value) {
+    setCities(cityData[value])
+    setCityPrice(cityData[value][0])
+  };
+
+
+  useEffect(() => {
+    const res = dummyShipping;
+    setShipping(res.data)
+    setCityPrice(props.totalShipping)
+  }, [props.totalShipping])
+
+
+  return (
+    <React.Fragment>
+      <span className="mp-shipping-from-to-shipping">
+        {strings.shipping_form}
+        <b className="mp-shipping-from-to-shipping__china">
+          {strings.china}
+        </b>
+      </span>
+      <Shippings
+        provinceData={provinceData}
+        handleProvinceChange={handleProvinceChange}
+        cityPrice={cityPrice}
+        totalShipping={props.totalShipping}
+        shipping={shipping}
+      />
+    </React.Fragment>
+  );
 }
 
-export default Shipping;
