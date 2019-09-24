@@ -30,7 +30,7 @@ export default function Shipping(props) {
   return (
     <React.Fragment>
       <span className="mp-shipping-from-to-shipping">
-        {strings.shipping_form}
+        {strings.shipping_form}&nbsp;
         <b className="mp-shipping-from-to-shipping__china">
           {strings.china}
         </b>
