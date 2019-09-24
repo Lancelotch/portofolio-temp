@@ -26,7 +26,15 @@ const NOT_FOUND_PAGE = '*';
 const ERROR = '/500';
 const FORGET_PASSWORD = '/forget-password';
 const RESET_PASSWORD = '/reset/:key';
-
+const USER_GUIDE_HOW_TO_SHOP = '/how-to-shop';
+const USER_GUIDE_DELIVERY_TIME = '/delivery-time';
+const USER_GUIDE_HOW_TO_PAY = '/how-to-pay';
+const USER_GUIDE_TRACK_SHIPMENT = '/track-shipment';
+const USER_GUIDE_CONTACT_US = '/contact-us';
+const USER_GUIDE_ABOUT_US =  '/about-us';
+const USER_GUIDE_CAREER = '/career';
+const USER_GUIDE_TERMS_CONDITION = '/terms-condition';
+const USER_GUIDE_PRIVACY_POLICY = '/privacy-policy';
 
 const PATH_URL = {
     NOT_FOUND_PAGE: NOT_FOUND_PAGE,
@@ -56,7 +64,16 @@ const PATH_URL = {
     DASHBOARD_ADDRESS,
     DASHBOARD_PASSWORD,
     DASHBOARD_ORDER,
-    RESET_PASSWORD
+    RESET_PASSWORD,
+    USER_GUIDE_ABOUT_US,
+    USER_GUIDE_CAREER,
+    USER_GUIDE_CONTACT_US,
+    USER_GUIDE_DELIVERY_TIME,
+    USER_GUIDE_HOW_TO_PAY,
+    USER_GUIDE_HOW_TO_SHOP,
+    USER_GUIDE_PRIVACY_POLICY,
+    USER_GUIDE_TERMS_CONDITION,
+    USER_GUIDE_TRACK_SHIPMENT
 }
 
 export default PATH_URL;

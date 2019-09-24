@@ -40,7 +40,12 @@ const strings = new LocalizedStrings({
     error_top_text: "Wah, ada apa ya?",
     error_button_text: "Kembali Ke Beranda",
     //general
-    latest_review : 'Ulasan Terbaru',
+    preliminary: 'Pendahuluan',
+    use_of_cookies: 'Pengunaan Cookie',
+    user_choices: 'Pilihan Pengguna',
+    storage_and_deletion_of_information: 'Penyimpanan dan Penghapusan Informasi',
+    privacy_policy_update: 'Pembaruan Kebijakan Privasi',
+    latest_review: 'Ulasan Terbaru',
     order_received: 'Pesanan Diterima',
     start_shopping: 'Mulai Belanja',
     password_required: "Password harus diisi",
@@ -103,7 +108,7 @@ const strings = new LocalizedStrings({
 
 
     //FormAddAddress
-    form_add_shipping_address : 'Tambah Alamat Pengiriman',
+    form_add_shipping_address: 'Tambah Alamat Pengiriman',
     form_change_shipping_address: 'Ubah Alamat Pengiriman',
 
     //Dashboard Tabs Belum Bayar
@@ -149,6 +154,21 @@ const strings = new LocalizedStrings({
     seller: "Seller",
     see_more: "See more..",
 
+
+    //Terms & Condition
+    terms_condition_modifications_and_terms_conditions: 'Modifikasi Platform dan Syarat & Ketentuan',
+    terms_condition_monggopesen_service_order_policy: 'Kebijakan Pemesanan Jasa Monggopesen',
+    terms_condition_copyright: 'Hak Cipta',
+    terms_condition_shipping_price_calculation: 'Penghitungan Harga Pengiriman',
+    terms_condition_proses_custom_clearance: 'Proses Custom Clearance',
+    terms_condition_prohibited_items: 'Barang yang Dilarang',
+    terms_condition_prohibited_text: 'Barang yang dilarang untuk diperjualbelikan di dalam platform Monggopesen adalah:',
+    terms_condition_applicable_law: 'Hukum yang Berlaku',
+    terms_condition_electronic_communication: 'Komunikasi elektronik',
+    terms_condition_retur_return_label:'Kebijakan Pengembalian Barang (Retur), Pengembalian Dana (Refund) dan Pembatalan (Cancellation)',
+    terms_condition_restricted_goods:'Barang yang Dibatasi',
+    terms_condition_restricted_items : 'Berikut adalah daftar barang yang dibatasi:',
+    terms_condition_restricted_items_heading:'Beberapa barang yang dibatasi dapat dikirim, tapi hanya setelah Monggopesen meninjau produk tersebut untuk memastikan sesuai dengan undang-undang di negara Penjual dan di negara Pembeli.',
     //Checkout 
     checkout_shopping_summary: "Ringkasan Belanja",
     checkout_alert_fill_courier: "isi dulu semua courier pada setiap product",

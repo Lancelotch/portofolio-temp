@@ -22,6 +22,9 @@ import Profile from "../pages/Profile";
 import Password from '../pages/Password'
 import Order from "../pages/Order";
 import Address from "../pages/Address";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import UserGuideLayout from "../layouts/UserGuideLayout";
+import TermsCondition from "../pages/TermsCondition";
 
 const routes = [
   {
@@ -143,6 +146,18 @@ const routes = [
     component: FailedPayment,
     layout: FullLayout,
     needAuthenticated: true
+  },
+  {
+    path : PATH_URL.USER_GUIDE_TERMS_CONDITION,
+    component: TermsCondition,
+    layout: UserGuideLayout,
+    needAuthenticated: false
+  },
+  {
+    path: PATH_URL.USER_GUIDE_PRIVACY_POLICY,
+    component: PrivacyPolicy,
+    layout : UserGuideLayout,
+    needAuthenticated: false
   },
   {
     path: PATH_URL.ERROR,
