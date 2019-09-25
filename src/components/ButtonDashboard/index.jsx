@@ -71,16 +71,9 @@ export default function ButtonDashboard(props) {
           <Button
             type="secondary"
             size="large"
-            onClick={showOrderDetailsDashboard}
-          >
-            {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
-              (tabsShowItem === "isShowOrderDetailsDashboardInDelivery") ||
-              (tabsShowItem === "isShowOrderDetailsDashboardNotSent")) &&
-              strings.order_details
-            }
-            {(tabsShowItem === "isShowOrderDetailsDashboardCancel") &&
-              strings.cancel_details
-            }
+            onClick={showOrderDetailsDashboard}>
+            {tabsShowItem === "isShowOrderDetailsDashboardCancel" ?
+              strings.cancel_details :  strings.order_details}
           </Button>
         </div>}
     </React.Fragment>
