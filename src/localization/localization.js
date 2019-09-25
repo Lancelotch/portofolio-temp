@@ -72,7 +72,7 @@ const strings = new LocalizedStrings({
     oh_no: 'Oh no!',
     back: 'Kembali',
     cancel_order_by: 'Pesenan dibatalkan oleh',
-    buy_again: 'Beli Lagi',
+    buy_again: 'Pesen Lagi',
     stock_empty: 'Stock Kosong',
     estimate_accepted_order: 'Perkiraan barang diterima',
     in_delivery: 'Dalam Proses Pengiriman',

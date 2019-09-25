@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import strings from '../../localization/localization';
 import { buttonDisabledandEnabledDelivery } from '../../library/buttonDisabledAndEnabled';
 import Button from "../Button"
-import { PATH_PRODUCT } from '../../services/path/product';
+import PATH_URL from "../../routers/path";
 
 export default function ButtonDashboard(props) {
-  const { showDeleteConfirm,
+  const { 
+    showDeleteConfirm,
     showReceivedConfirm,
     showHowToModalPayment,
     showOrderDetailsDashboard,
@@ -15,22 +16,17 @@ export default function ButtonDashboard(props) {
     order,
     orderProduct,
     index,
-    id,
-    status
+    productId,
+    status,
+    showOrderInvoiceReview
   } = props
-  let productId = ""
-  order.orderItems.map(orders => {
-    productId = orders.productSnapshot.productId
-    return productId;
-  })
+
   return (
     <React.Fragment>
-      {tabsShowItem === "isShowOrderDetailsDashboardNotPay" &&
+      {tabsShowItem === "isShowOrderDetailsDashboardNotPay" ?
         <div className="waiting-payment__not-pay">
-          <p
-            className="waiting-payment__button"
-            onClick={() => showDeleteConfirm(orderProduct, index, order.id)}
-          >
+          <p className="waiting-payment__button"
+            onClick={() => showDeleteConfirm(orderProduct, index, order.id)}>
             {strings.cancel_order_dashboard}
           </p>
           <div>
@@ -50,27 +46,28 @@ export default function ButtonDashboard(props) {
               {strings.order_details}
             </Button>
           </div>
-        </div>}
-      {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
-        (tabsShowItem === "isShowOrderDetailsDashboardCancel") ||
-        (tabsShowItem === "isShowOrderDetailsDashboardInDelivery") ||
-        (tabsShowItem === "isShowOrderDetailsDashboardNotSent")
-      ) &&
+        </div> :
         <div className="button-dashboard">
           {tabsShowItem === "isShowOrderDetailsDashboardInDelivery" &&
             buttonDisabledandEnabledDelivery(status, showReceivedConfirm,
-              orderProduct, index, id)}
-          {((tabsShowItem === "isShowOrderDetailsDashboardFinish") ||
-            (tabsShowItem === "isShowOrderDetailsDashboardCancel")) &&
-            <Link to={`${PATH_PRODUCT.PRODUCT}/${id} ` || "#"}>
+              orderProduct, index, productId)}
+          {tabsShowItem === "isShowOrderDetailsDashboardCancel" &&
+            <Link to={`${PATH_URL.PRODUCTS}/${productId} ` || "#"}>
               <Button
                 type="primary"
                 marginright="small"
                 size="large">
                 {strings.buy_again}
               </Button>
-            </Link>
-          }
+            </Link>}
+          {tabsShowItem === "isShowOrderDetailsDashboardFinish" &&
+            <Button
+              type="secondary"
+              size="large"
+              marginright="small"
+              onClick={showOrderInvoiceReview}>
+              Lihat Ulasan
+            </Button>}
           <Button
             type="secondary"
             size="large"

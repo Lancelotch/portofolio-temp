@@ -10,6 +10,7 @@ import LoadingSpin from "../../library/loadingSpin";
 import { alertOffline } from "../../library/alertOffiline";
 import OrderRepo from "../../repository/Order";
 import Invoice from "../../repository/Invoice";
+import { checkSortTabs } from "./checkShortTabsStatus";
 
 const confirm = Modal.confirm;
 
@@ -35,6 +36,7 @@ export default function Order(props) {
     const [labelTabDetails, setLabelTabDetails] = useState("")
     const [estimateAccepted, setEstimateAccepted] = useState("")
     const [type, setType] = useState("")
+    const [isShowOrderInvoiceReview, setIsShowOrderInvoiceReview] = useState(false)
 
     useEffect(() => {
         productOrderTabs(0)
@@ -73,36 +75,21 @@ export default function Order(props) {
         setIsShowDetailDashboard(!isShowDetailDashboard)
     }
 
-    function actionShowOrderDetailsDashboard(type, order, keyIndex, isShowDashboardItem, labelTabDetails, estimateAccepted) {
-        actionShowOrderListWaiting(isShowDashboardItem)
-        setOrder(order)
-        setInvoiceNumber(order.invoiceNumber)
-        setType(type)
-        setId(order.id)
-        // setKeyIndex(keyIndex)
-        setIsShowDashboardItem(isShowDashboardItem)
-        setLabelTabDetails(labelTabDetails)
-        setEstimateAccepted(estimateAccepted)
+    function actionShowOrderDetailsDashboard(params) {
+        actionShowOrderListWaiting()
+        setOrder(params)
+        setInvoiceNumber(params.invoiceNumber)
+        setType(params.paramsShowOrderDetailsDashboard.type)
+        setId(params.productId)
+        setIsShowDashboardItem(params.paramsShowOrderDetailsDashboard.showOrderDetailsDashboard)
+        setLabelTabDetails(params.paramsShowOrderDetailsDashboard.labelTabDetails)
+        setEstimateAccepted(params.paramsShowOrderDetailsDashboard.estimateAccepted)
     };
 
-
-    function checkSortTabs(status) {
-        let params = {}
-        if (status === 0 || status === 4) {
-            params = {
-                direction: "desc",
-                sortBy: "orderActivityDate.orderDate"
-
-            }
-        } else {
-            params = {
-                direction: "desc",
-                sortBy: "creationDate"
-            }
-        }
-        return params
+    function actionShowOrderInvoiceReviewDashboard(isShowOrderInvoiceReview) {
+        setIsShowOrderInvoiceReview(isShowOrderInvoiceReview)
+        actionShowOrderListWaiting()
     }
-
 
     async function productOrderTabs(status) {
         let productOrder = await OrderRepo.getByStatus({
@@ -117,11 +104,6 @@ export default function Order(props) {
             setIsOrderAlvailable(false)
         }
     };
-
-    // function updateTab(functions) {
-    //   setProductOrder([])
-    //   functions()
-    // };
 
     function handleChange(selectkey) {
         setActiveKey(selectkey)
@@ -150,32 +132,37 @@ export default function Order(props) {
         productOrderTabs(tabPosition);
     }
 
-    function itemList(list) {
-        return isOrderAlvailable ? list.content : <NoOrderHistory />;
-    }
-
-    function responseListWaiting(
+    function orderListWaiting(
         type,
         showOrderDetailsDashboard,
-        responseProductOrder,
         labelTabDetails,
-        estimateAccepted) {
+        estimateAccepted,
+        isShowOrderInvoiceReview) {
         return <OrderListWaiting
             isHowToShowModalOpen={isHowToShowModalOpen}
             selectedOrder={selectedOrder}
             showHowToModalPayment={toggleIsHowToShowModalOpen}
-            productOrder={responseProductOrder}
+            productOrder={productOrder}
             actionUpdateTab={actionUpdateTab}
             actionShowOrderDetailsDashboard={actionShowOrderDetailsDashboard}
+            actionShowOrderInvoiceReviewDashboard={actionShowOrderInvoiceReviewDashboard}
             showOrderDetailsDashboard={showOrderDetailsDashboard}
+            isShowOrderInvoiceReview={isShowOrderInvoiceReview}
             showReceivedConfirm={showReceivedConfirm}
             labelTabDetails={labelTabDetails}
             estimateAccepted={estimateAccepted}
-            type={type}
-        />
+            type={type}/>}
+
+    const OrderDetailsInvoiceReview = () => {
+        return <p>
+            tessss
+        <button onClick={() => setIsShowDetailDashboard(!isShowDetailDashboard)}>
+                back
+        </button>
+        </p>
     }
 
-    function responOrderDetailsDashboard(showOrderDetailsDashboard) {
+    function orderDetailsDashboard(showOrderDetailsDashboard) {
         return <OrderDetailsDashboard
             isHowToShowModalOpen={isHowToShowModalOpen}
             selectedOrder={selectedOrder}
@@ -188,63 +175,52 @@ export default function Order(props) {
             id={id}
             orderDetailsRespon={order}
             showReceivedConfirm={showReceivedConfirm}
-            actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />
-    }
-
-    function listWaiting(type, isShow, labelTabDetails, estimateAccepted) {
-        return responseListWaiting(type, isShow, productOrder, labelTabDetails, estimateAccepted);
-    }
+            actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />}
 
     const listTabsContent = [
         {
             key: "1",
             nameTabs: "Belum Bayar",
-            content: listWaiting(
+            content: orderListWaiting(
                 "default",
                 "isShowOrderDetailsDashboardNotPay",
-                "Belum Bayar"
-            )
+                "Belum Bayar")
         },
         {
             key: "2",
             nameTabs: "Sedang Diproses",
-            content: listWaiting(
+            content: orderListWaiting(
                 "default",
                 "isShowOrderDetailsDashboardNotSent",
-                "Belum Dikirim"
-            )
+                "Belum Dikirim")
         },
         {
             key: "3",
             nameTabs: "Dalam Pengiriman",
-            content: listWaiting(
+            content: orderListWaiting(
                 "default",
                 "isShowOrderDetailsDashboardInDelivery",
                 "Dalam Pengiriman",
-                "Perkiraan Diterima"
-            )
+                "Perkiraan Diterima")
         },
         {
             key: "4",
             nameTabs: "Selesai",
-            content: listWaiting(
+            content: orderListWaiting(
                 "default",
                 "isShowOrderDetailsDashboardFinish",
                 "Selesai",
-                "Pesanan Diterima"
-            )
+                "Pesanan Diterima",
+                "isShowOrderInvoiceReview")
         },
         {
             key: "5",
             nameTabs: "Batal",
-            content: listWaiting(
+            content: orderListWaiting(
                 "cancel",
                 "isShowOrderDetailsDashboardCancel",
-                "Batal"
-            )
-        }
-    ]
-
+                "Batal")
+        }]
     return (
         <div className="mp-customer-order-navigation">
             {isShowDetailDashboard === false ?
@@ -262,16 +238,16 @@ export default function Order(props) {
                                         <Detector
                                             render={() =>
                                                 <Online polling={polling}>
-                                                    {isLoading ? <LoadingSpin /> : itemList(list)}
+                                                    {isLoading ? <LoadingSpin /> : 
+                                                     isOrderAlvailable ? list.content : <NoOrderHistory />}
                                                 </Online>} />
-                                    </React.Fragment>} />)
-                    })}
+                                    </React.Fragment>} />)})}
                 </Tabs>
                 :
                 <React.Fragment>
-                    {responOrderDetailsDashboard(isShowDashboardItem)}
-                </React.Fragment>
-            }
+                    {isShowDashboardItem && orderDetailsDashboard(isShowDashboardItem)}
+                    {isShowOrderInvoiceReview && <OrderDetailsInvoiceReview />}
+                </React.Fragment>}
         </div>
     );
 }
