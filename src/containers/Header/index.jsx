@@ -14,13 +14,14 @@ import Category from "../../repository/Category";
 import Button from "../../components/Button";
 import TopHeader from "../../components/TopHeader";
 
-export default function Header() {
+export default function Header(props) {
   const { isAuthenticated, history, match } = useRootContext();
   const initialValue = history.location.search.split("?q=");
   const [allCategory, setAllCategory] = useState([]);
   useEffect(() => {
     getAllCategory();
   }, []);
+  const type = props.match.children.type.name
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
@@ -81,7 +82,7 @@ export default function Header() {
           </Col>
           {isAuthenticated ? (
             <Col md={3} className="header__user-box">
-              <Popover />
+              <Popover type={type} />
             </Col>
           ) : (
             <Col md={3} className="header__user-box">

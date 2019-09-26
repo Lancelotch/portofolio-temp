@@ -67,9 +67,17 @@ export default function OrderListWaiting(props) {
         isHowToShowModalOpen,
         selectedOrder,
         showHowToModalPayment,
-        type
+        type,
+        isShowOrderInvoiceReview,
+        actionShowOrderInvoiceReviewDashboard
     } = props;
     // const sortProdcutOrder = this.sortList(productOrder, "DESC")
+    const paramsShowOrderDetailsDashboard = {
+        type: type,
+        showOrderDetailsDashboard: showOrderDetailsDashboard,
+        labelTabDetails: labelTabDetails,
+        estimateAccepted: estimateAccepted
+    }
     return (
         <div className="orderListWaiting">
             <ScrollToTopOnMount />
@@ -77,9 +85,9 @@ export default function OrderListWaiting(props) {
                 return (
                     <Card style={{ marginBottom: 15 }} key={index}>
                         <ProductOrder
-                            key={order.id}
-                            order={order}
+                            productId={order.productId}
                             orderItems={order.order.orderItems}
+                            showOrderDetailsDashboard={showOrderDetailsDashboard}
                         />
                         <hr className="mp-inline" />
                         <WaitingPayment
@@ -89,11 +97,10 @@ export default function OrderListWaiting(props) {
                             labelInDelivery={strings.estimate_accepted_order}
                             labelCancel={strings.cancel_order_by}
                             tabsShowItem={showOrderDetailsDashboard}
-                            id={order.id}
-                            indexes={order.order}
+                            order={order.order}
                         />
                         <ButtonDashboard
-                            id={order.id}
+                            productId={order.productId}
                             index={index}
                             status={order.status}
                             invoiceNumber={order.invoiceNumber}
@@ -103,7 +110,8 @@ export default function OrderListWaiting(props) {
                             orderProduct={productOrder}
                             order={order.order}
                             showHowToModalPayment={showHowToModalPayment}
-                            showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard(type,order, index, showOrderDetailsDashboard, labelTabDetails, estimateAccepted)}
+                            showOrderInvoiceReview={() => actionShowOrderInvoiceReviewDashboard(isShowOrderInvoiceReview)}
+                            showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard({ ...order, paramsShowOrderDetailsDashboard })}
                         />
                     </Card>)
             })}

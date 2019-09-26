@@ -6,7 +6,6 @@ import ProductQnA from "../../containers/ProductQnA";
 import ReviewProductDetail from "../../containers/ReviewProductDetail";
 
 export default function TabsProductDetail(props) {
-  console.log("try", props)
   const questionAnswers = props.information.questionAnswers;
   return (
     <Tabs className="tabs-detail" defaultActiveKey="1" type="card">

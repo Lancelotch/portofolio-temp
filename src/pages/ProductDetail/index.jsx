@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SliderProductDetailContainer from "../../containers/SliderProductDetail";
 import Variants from "../../containers/Variants";
 import { Redirect } from "react-router-dom";
-import { Row, Col, Typography } from "antd";
+import { Row, Col, Typography, Rate } from "antd";
 import currencyRupiah from "../../library/currency";
 import Shipping from "../../components/Shipping";
 import strings from "../../localization/localization";
@@ -43,7 +43,6 @@ export default function ProductDetail(props) {
   const { isAuthenticated } = useRootContext();
   const totalShipping = countTotalAmount();
   const breadcrumbs = [];
-
   let pathTemp = "/category";
 
   Object.values(breadcrumbsApi).forEach((value, index) => {
@@ -182,10 +181,7 @@ export default function ProductDetail(props) {
       <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
       <div className="container mp-product-detail">
         <Row>
-          <Col md={10}>
-            <p className="mp-product-detail__product-name">
-              {loading ? <Skeleton height={20} /> : information.name}
-            </p>
+          <Col md={11}>
             {images.length < 1 ? (
               <Skeleton height={300} />
             ) : (
@@ -200,6 +196,14 @@ export default function ProductDetail(props) {
           </Col>
           <Col md={12} offset={1}>
             <div>
+              <p className="mp-product-detail__product-name">
+                {loading ? <Skeleton height={20} /> : information.name}
+              </p>
+              <span className="mp-product-detail__ulasan">
+                {loading ? <Skeleton height={20} /> :
+                  <span><Rate defaultValue={4} disabled /> 4.0 | 816 Ulasan
+              </span>}
+              </span>
               <p className="mp-product-detail__price">
                 {loading ? (
                   <Skeleton height={25} />
@@ -242,20 +246,20 @@ export default function ProductDetail(props) {
                   <Skeleton height={40} width={350} />
                 </div>
               ) : (
-                <div style={{ marginTop: 64 }}>
-                  {blurAlertVariant === true ? (
-                    <Text type="danger">{alertVariant}</Text>
-                  ) : null}
-                  <Button
-                    type="primary"
-                    size="large"
-                    width="full"
-                    onClick={actionSubmitToCheckout}
-                  >
-                    {strings.order_now}
-                  </Button>
-                </div>
-              )}
+                  <div style={{ marginTop: 30 }}>
+                    {blurAlertVariant === true ? (
+                      <Text type="danger">{alertVariant}</Text>
+                    ) : null}
+                    <Button
+                      type="primary"
+                      size="large"
+                      width="full"
+                      onClick={actionSubmitToCheckout}
+                    >
+                      {strings.order_now}
+                    </Button>
+                  </div>
+                )}
             </div>
           </Col>
         </Row>

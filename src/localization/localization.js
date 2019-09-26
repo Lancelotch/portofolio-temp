@@ -17,6 +17,11 @@ const strings = new LocalizedStrings({
     //Category
     category: 'Kategori',
 
+    //Shipping
+    shipping_form:'Pengiriman dari :',
+    shipping_send_to:'Kirim ke :',
+    shipping_estimated_shipping_costs:'Estimasi Biaya Kirim :',
+
     //Address
     use_notice_address: 'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
     send_to_another_address: 'Kirim ke Alamat Lain',
@@ -67,7 +72,7 @@ const strings = new LocalizedStrings({
     oh_no: 'Oh no!',
     back: 'Kembali',
     cancel_order_by: 'Pesenan dibatalkan oleh',
-    buy_again: 'Beli Lagi',
+    buy_again: 'Pesen Lagi',
     stock_empty: 'Stock Kosong',
     estimate_accepted_order: 'Perkiraan barang diterima',
     in_delivery: 'Dalam Proses Pengiriman',
@@ -179,7 +184,7 @@ const strings = new LocalizedStrings({
     choose_payment_methods: 'Pilih Metode Pembayaran',
     checkout_alert_info: 'Sudah Termasuk Biaya Pajak Dll.',
     checkout_alert_description_detail_pesanan: "Harga yang tercantum pada saat check out sudah termasuk pertambahan biaya pajak domestik, pajak import dan lain-lain.",
-
+    checkout_notif_asuransi:' Penambahan asuransi sangat disarankan untuk menjaga produk barang pesanan Anda dari kerusakan / kehilangan selama pengiriman kurir lokal (J&T). Monggopesen tidak bertanggung jawab atas kerusakan / kehilangan barang selama pengiriman kurir lokal (J&T) apabila Anda tidak mengasuransikan barang yang Anda pesan.',
     //Social Media
     google: "Google",
     facebook: "Facebook",
