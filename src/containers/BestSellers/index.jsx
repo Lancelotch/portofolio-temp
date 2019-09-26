@@ -5,7 +5,7 @@ import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
 import Cards from "../../components/Cards";
-import { PATH_PRODUCT } from "../../services/path/product";
+import PATH_URL from "../../routers/path";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 
@@ -62,7 +62,7 @@ export default function BestSellers(props) {
                   <React.Fragment key={index}>
                     <Col style={{ margin: "12px" }}>
                       <Link
-                        to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}
+                        to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}
                       >
                         <Cards
                           type="best-seller"

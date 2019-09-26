@@ -6,8 +6,7 @@ import currencyRupiah from "../../library/currency";
 
 const WaitingPayment = props => {
   const {
-    indexes,
-    orderId,
+    order,
     labelNotPay,
     tabsShowItem,
     labelNotSent,
@@ -17,7 +16,7 @@ const WaitingPayment = props => {
   } = props;
   return (
     <React.Fragment>
-      <div className="waiting-payment" key={orderId}>
+      <div className="waiting-payment">
         <Row>
           <Col md={12}>
             {tabsShowItem === "isShowOrderDetailsDashboardNotPay" &&
@@ -26,7 +25,7 @@ const WaitingPayment = props => {
                   {labelNotPay}
                 </p>
                 <p className="waiting-payment__end-date-pay">
-                  {convertTimesTime.millisecond(indexes.payment.gateway.expiredPaymentDate)}
+                  {convertTimesTime.millisecond(order.payment.gateway.expiredPaymentDate)}
                 </p>
               </React.Fragment>}
             {tabsShowItem === "isShowOrderDetailsDashboardNotSent" &&
@@ -40,7 +39,7 @@ const WaitingPayment = props => {
                   {labelInDelivery}
                 </p>
                 <p className="label-time">
-                  {convertTimesTime.millisecond(indexes.orderActivityDate.shipmentDate)}
+                  {convertTimesTime.millisecond(order.orderActivityDate.shipmentDate)}
                 </p>
               </React.Fragment>}
             {tabsShowItem === "isShowOrderDetailsDashboardFinish" &&
@@ -49,16 +48,16 @@ const WaitingPayment = props => {
                   {labelFinish}
                 </p>
                 <p className="label-time">
-                  {convertTimesTime.millisecond(indexes.orderActivityDate.receivedDate)}
+                  {convertTimesTime.millisecond(order.orderActivityDate.receivedDate)}
                 </p>
               </React.Fragment>}
             {tabsShowItem === "isShowOrderDetailsDashboardCancel" &&
               <React.Fragment>
                 <p className="label-text">
-                  {labelCancel} {indexes.orderCancel && indexes.orderCancel.cancelBy}
+                  {labelCancel} {order.orderCancel && order.orderCancel.cancelBy}
                 </p>
                 <p className="label-time">
-                  {convertTimesTime.millisecond(indexes.orderCancel && indexes.orderCancel.createdDate)}
+                  {convertTimesTime.millisecond(order.orderCancel && order.orderCancel.createdDate)}
                 </p>
               </React.Fragment>}
           </Col>
@@ -66,7 +65,7 @@ const WaitingPayment = props => {
             <font className="waiting-payment__total-received">
               Total Pesenan : &nbsp;
             <h4 className="waiting-payment__total-amount">
-                {currencyRupiah(indexes.amount)}
+                {currencyRupiah(order.amount)}
               </h4>
             </font>
           </Col>
