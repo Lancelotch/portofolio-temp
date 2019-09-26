@@ -42,6 +42,12 @@ no details
     <Button type="primary" size="large">Click Me</Button>
 </Playground>
 
+### Button Primary & Size Small
+
+<Playground>
+    <Button type="primary" size="small">Click Me</Button>
+</Playground>
+
 ### Button Disabled & Size Large
 
 <Playground>
@@ -76,4 +82,28 @@ no details
 
 <Playground>
     <Button type="link">Click Me</Button>
+</Playground>
+
+### Button White
+
+<Playground>
+    <Button type="white">Click Me</Button>
+</Playground>
+
+### Button Teal
+
+<Playground>
+    <Button type="teal">Click Me</Button>
+</Playground>
+
+### Button Grey
+
+<Playground>
+    <Button type="grey">Click Me</Button>
+</Playground>
+
+### Button Ghost
+
+<Playground>
+    <Button type="ghost">Click Me</Button>
 </Playground>

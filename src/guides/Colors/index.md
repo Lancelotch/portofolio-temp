@@ -22,7 +22,7 @@ This is color guidelines of Monggopesen
 ## Variable: $color-matterhorn
 <Colors type="type1"></Colors>
 
-## Variable: $color-gray 
+## Variable: $color-grey 
 <Colors type="type2"></Colors>
 
 ## Variable: $color-whisper
@@ -49,7 +49,7 @@ This is color guidelines of Monggopesen
 ## Variable: $color-white
 <Colors type="type10"></Colors>
 
-## Variable: $color-dark-gray
+## Variable: $color-dark-grey
 <Colors type="type11"></Colors>
 
 ## Variable: $color-border

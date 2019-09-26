@@ -46,6 +46,18 @@ no details
         />
 </Playground>
 
+### Cards Default flash sale
+
+<Playground>
+    <Cards
+        title={"Sepeda Motor"}
+        urlImage={"https://s3.ap-southeast-1.amazonaws.com/bucket-monggopesen/2019-08-15T07:02:04.092Z_574ae245-06c0-49ae-b4d3-33924223a652"}
+        price={25283000.00}
+        totalSold={12}
+        itemLeft={88}
+        />
+</Playground>
+
 ### Cards with type="best-seller"
 
 <Playground>

@@ -46,13 +46,13 @@ export default function BestSellers(props) {
         </Col>
         <Col md={20}>
           {loading ? (
-            <div className="mp-best-seller__right-item">
+            <div className="mp-best-seller__right-item-content">
               <SkeletonCustom
-                count={3}
-                height={300}
-                width={200}
-                topMargin={64}
-                rightMargin={70}
+                count={4}
+                width={175}
+                height={295}
+                topMargin={12}
+                rightMargin={24}
               />
             </div>
           ) : (

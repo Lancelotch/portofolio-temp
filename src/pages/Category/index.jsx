@@ -19,7 +19,7 @@ export default function Category(props) {
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [totalData, setTotalData] = useState(0);
-  const limit = 20
+  const limit = 20;
 
   const params = props.match.params;
 
@@ -75,18 +75,17 @@ export default function Category(props) {
     setHasMore(true);
   }
 
-  let breadcrumbs = []
+  let breadcrumbs = [];
   let pathTemp = "/category";
 
-  Object.values(params).forEach((value,index)=>{
-    pathTemp = pathTemp + "/" + value    
+  Object.values(params).forEach((value, index) => {
+    pathTemp = pathTemp + "/" + value;
     const breadcrumb = {
-      label : convertToCategoryName(value),
-      link : pathTemp
-    }
+      label: convertToCategoryName(value),
+      link: pathTemp
+    };
     breadcrumbs.push(breadcrumb);
-  })
-
+  });
 
   function infiniteScroll() {
     const categoryIdName =
@@ -94,12 +93,14 @@ export default function Category(props) {
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{totalData}"</b>,
-      <b style={{ color: "#FF416C"}}>{convertToCategoryName(categoryIdName)}</b>
+      <b style={{ color: "#FF416C" }}>
+        {convertToCategoryName(categoryIdName)}
+      </b>
     );
     return (
       <div style={{ marginTop: 24 }}>
-        <div style={{margin: "0 24px"}}>
-        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <div style={{ margin: "0 24px" }}>
+          <Breadcrumbs breadcrumbs={breadcrumbs} />
         </div>
         <Divider style={{ margin: "12px 0" }} />
         <div
@@ -126,7 +127,7 @@ export default function Category(props) {
           dataLength={productList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={productList.length < limit ? false : <Spinner size="large" />}          
+          loader={productList.length < limit ? false : <Spinner size="large" />}
           endMessage={<BackTop />}
         >
           <div>

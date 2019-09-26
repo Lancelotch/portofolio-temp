@@ -1,27 +1,43 @@
 .mp-btn-primary
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     background-color: $color-safety-orange !important
     color: $color-white !important
     border: unset !important
 
 .mp-btn-default:hover
+    display: flex !important
+    justify-content: center !important
     background-color: unset !important 
     color: $color-teal !important 
     border-color: $color-teal !important
 
 .mp-btn-width-full
+    display: flex !important
+    justify-content: center !important
     width: 100% !important
 
 .mp-btn-size-large
+    display: flex !important
+    justify-content: center !important
     height: 48px !important
 
 .mp-btn-size-x-large
+    display: flex !important
+    justify-content: center !important
     height: 56px !important
 
 .mp-btn-size-small
-    height: 33px !important    
+    display: flex !important
+    justify-content: center !important
+    height: 22px !important
+    span
+        font-size: 12px !important
     
 .mp-btn-width-90
+    display: flex !important
+    justify-content: center !important
     width: 90% !important
 
 .mp-margin-button-right-small 
@@ -31,38 +47,48 @@
     @include mp-margin-left-small
 
 .mp-btn-primary:hover
-  background-color: $color-orange-red !important
-  border: unset !important
+    background-color: $color-orange-red !important
+    border: unset !important
 
 .mp-margin-button-small
-  margin: 10px 0px 0px 0px
+    margin: 10px 0px 0px 0px
 
 .mp-margin-button-default
-  margin: 0px 0px 0px 0px  
+    margin: 0px 0px 0px 0px  
 
 .mp-button-disabled
-  background-color: $color-gainsboro  !important  
-  cursor: not-allowed !important
+    display: flex !important
+    justify-content: center !important
+    background-color: $color-gainsboro  !important  
+    cursor: not-allowed !important
 
 
 .mp-button-disabled:hover
-  background-color: $color-gainsboro  !important  
-  cursor: not-allowed !important 
-  color: $color-dark-gray !important
-  border-color: $color-gainsboro !important 
+    display: flex !important
+    justify-content: center !important
+    background-color: $color-gainsboro  !important  
+    cursor: not-allowed !important 
+    color: $color-dark-grey !important
+    border-color: $color-gainsboro !important 
 
 .mp-btn-secondary
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     color: $color-teal !important
     border-color: initial !important
 
 .mp-btn-secondary:hover
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     background-color: $color-teal !important
     color: $color-white !important
 
 .mp-btn-danger
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     background-color: $color-white !important
     border-color: $color-carmine !important
     color: $color-carmine !important
@@ -72,11 +98,15 @@
 
 .mp-btn-danger:hover
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     background-color: $color-carmine !important
     color: $color-white !important
 
 .mp-btn-teal
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     background-color: $color-teal !important
     border-color: transparent !important
     color: $color-white !important
@@ -85,24 +115,33 @@
 
 .mp-btn-teal:hover
     @include mp-btn
-    border-radius: 0 8px 8px 0 !important
+    display: flex !important
+    justify-content: center !important
     background-color: $color-sherpa-blue !important
     color: $color-white !important
 
 .mp-btn-white
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     color: $color-grey !important
     border-color: initial !important
 
 .mp-btn-white:hover
+    display: flex !important
+    justify-content: center !important
     color: $color-grey !important
 
 .mp-btn-link
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     color: $color-grey !important
 
 .mp-btn-link:hover
     @include mp-btn
+    display: flex !important
+    justify-content: center !important
     color: $color-teal !important 
     border-color: $color-teal !important  
 
@@ -114,10 +153,22 @@
 
 .mp-btn-grey
     @include mp-btn
-    color: $color-dark-gray !important
-    box-shadow: 0 1px 2px 0 $color-dark-gray !important
+    display: flex !important
+    justify-content: center !important
+    color: $color-dark-grey !important
+    box-shadow: 0 1px 2px 0 $color-dark-grey !important
 
+.mp-btn-ghost
+    @include mp-btn
+    display: flex !important
+    justify-content: center
+    background-color: $color-whisper !important
+    color: $color-grey !important
+    border: none !important
 
-
-
-
+.mp-btn-ghost:hover
+    @include mp-btn
+    display: flex !important
+    justify-content: center
+    background-color: $color-nobel !important
+    color: $color-white !important
