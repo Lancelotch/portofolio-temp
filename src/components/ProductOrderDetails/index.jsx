@@ -7,7 +7,8 @@ import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 import Button from "../Button";
 import TableProductOrder from "../TableProductOrder";
-import { PATH_PRODUCT } from "../../services/path/product";
+import PATH_URL from "../../routers/path";
+
 
 const ProductOrderDetails = props => {
   const
@@ -48,7 +49,7 @@ const ProductOrderDetails = props => {
         <Col md={2}>
           <Link
             style={{ cursor: "pointer" }}
-            to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>
+            to={`${PATH_URL.PRODUCTS}/${productSnapshot.productId}`}>
             <img
               className="product-order__image"
               src={productSnapshot.image.defaultImage}
@@ -61,7 +62,7 @@ const ProductOrderDetails = props => {
             <Link
               className="default"
               style={{ cursor: "pointer" }}
-              to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>
+              to={`${PATH_URL.PRODUCTS}/${productSnapshot.productId}`}>
               <h2> {productSnapshot.name} </h2>
             </Link>
             <TableProductOrder
@@ -90,7 +91,7 @@ const ProductOrderDetails = props => {
                 type="primary"
                 size="large"
               >
-                <Link to={`${PATH_PRODUCT.PRODUCT}/${productSnapshot.productId}`}>Pesen Lagi</Link>
+                <Link to={`${PATH_URL.PRODUCTS}/${productSnapshot.productId}`}>Pesen Lagi</Link>
               </Button>
             </div>
           }

@@ -110,7 +110,7 @@ export default function OrderListWaiting(props) {
                             orderProduct={productOrder}
                             order={order.order}
                             showHowToModalPayment={showHowToModalPayment}
-                            showOrderInvoiceReview={() => actionShowOrderInvoiceReviewDashboard(isShowOrderInvoiceReview)}
+                            showOrderInvoiceReview={() => actionShowOrderInvoiceReviewDashboard({...order,isShowOrderInvoiceReview})}
                             showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard({ ...order, paramsShowOrderDetailsDashboard })}
                         />
                     </Card>)

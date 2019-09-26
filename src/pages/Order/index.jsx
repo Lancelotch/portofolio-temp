@@ -11,6 +11,7 @@ import { alertOffline } from "../../library/alertOffiline";
 import OrderRepo from "../../repository/Order";
 import Invoice from "../../repository/Invoice";
 import { checkSortTabs } from "./checkShortTabsStatus";
+import OrderDetailsInvoiceReview from "../../containers/OrderDetailsInvoiceReview";
 
 const confirm = Modal.confirm;
 
@@ -76,6 +77,7 @@ export default function Order(props) {
     }
 
     function actionShowOrderDetailsDashboard(params) {
+        setIsShowOrderInvoiceReview(false)
         actionShowOrderListWaiting()
         setOrder(params)
         setInvoiceNumber(params.invoiceNumber)
@@ -86,8 +88,10 @@ export default function Order(props) {
         setEstimateAccepted(params.paramsShowOrderDetailsDashboard.estimateAccepted)
     };
 
-    function actionShowOrderInvoiceReviewDashboard(isShowOrderInvoiceReview) {
-        setIsShowOrderInvoiceReview(isShowOrderInvoiceReview)
+    function actionShowOrderInvoiceReviewDashboard(params) {
+        setIsShowDashboardItem(false)
+        setIsShowOrderInvoiceReview(params.isShowOrderInvoiceReview)
+        setOrder(params)
         actionShowOrderListWaiting()
     }
 
@@ -151,15 +155,7 @@ export default function Order(props) {
             showReceivedConfirm={showReceivedConfirm}
             labelTabDetails={labelTabDetails}
             estimateAccepted={estimateAccepted}
-            type={type}/>}
-
-    const OrderDetailsInvoiceReview = () => {
-        return <p>
-            tessss
-        <button onClick={() => setIsShowDetailDashboard(!isShowDetailDashboard)}>
-                back
-        </button>
-        </p>
+            type={type} />
     }
 
     function orderDetailsDashboard(showOrderDetailsDashboard) {
@@ -175,7 +171,8 @@ export default function Order(props) {
             id={id}
             orderDetailsRespon={order}
             showReceivedConfirm={showReceivedConfirm}
-            actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />}
+            actionShowOrderListWaiting={() => actionShowOrderListWaiting(showOrderDetailsDashboard)} />
+    }
 
     const listTabsContent = [
         {
@@ -238,15 +235,21 @@ export default function Order(props) {
                                         <Detector
                                             render={() =>
                                                 <Online polling={polling}>
-                                                    {isLoading ? <LoadingSpin /> : 
-                                                     isOrderAlvailable ? list.content : <NoOrderHistory />}
+                                                    {isLoading ? <LoadingSpin /> :
+                                                        isOrderAlvailable ? list.content : <NoOrderHistory />}
                                                 </Online>} />
-                                    </React.Fragment>} />)})}
+                                    </React.Fragment>} />)
+                    })}
                 </Tabs>
                 :
                 <React.Fragment>
                     {isShowDashboardItem && orderDetailsDashboard(isShowDashboardItem)}
-                    {isShowOrderInvoiceReview && <OrderDetailsInvoiceReview />}
+                    {isShowOrderInvoiceReview &&
+                        <OrderDetailsInvoiceReview
+                            orderDetailsReview={order}
+                            setIsShowDetailDashboard={
+                                () => setIsShowDetailDashboard(!isShowDetailDashboard)}
+                        />}
                 </React.Fragment>}
         </div>
     );
