@@ -36,7 +36,6 @@ const SamplePrevArrow = props => {
     <div
       className={className}
       style={{
-        marginRight: "30px",
         zIndex: "1",
         height: "48px",
         width: "48px",

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./style.sass";
-import { Row, Col, Button, Divider, Table } from "antd";
+import { Row, Col, Divider, Table, Avatar, message } from "antd";
 import logoBag from "../../assets/img/logo_monggopesen/ic_logo_bag_orange.png";
 import Search from "../../components/Search";
 import QuestionAnswer from "../../repository/QuestionAnswer";
+import Button from "../../components/Button";
 
 const columns = [
   {
@@ -49,45 +50,52 @@ class ProductQnA extends Component {
 
   renderQnA = qna => {
     const id = qna.id;
+    const question =
+      qna.question.charAt(0).toUpperCase() + qna.question.substr(1);
+    const answer = qna.answer.charAt(0).toUpperCase() + qna.answer.substr(1);
     return {
       key: qna.id,
       questionAndAnswer: [
-        <Col key={qna.id} md={24} style={{ marginTop: 20 }}>
-          <Row>
-            <Col md={1}>
-              <img src={logoBag} style={{ maxHeight: 35 }} alt="" />
-            </Col>
-            <Col md={23} style={{ marginTop: 10 }}>
-              <b style={{ fontWeight: 555 }}>
-                {this.getHighlightedText(qna.question, this.state.search)}
-              </b>
-              <p style={{ color: "#417505" }}>
-                {this.getHighlightedText(qna.answer, this.state.search)}
-              </p>
-              <span>
-                Apakah pertanyaan ini membantu?
+        <Row className="mp-qna" key={qna.id}>
+          <Col md={1}>
+            <Avatar src={logoBag} />
+          </Col>
+          <Col md={23}>
+            <p className="mp-qna__question-text">
+              {this.getHighlightedText(question, this.state.search)}
+            </p>
+            <p className="mp-qna__answer-text">
+              {this.getHighlightedText(answer, this.state.search)}
+            </p>
+            <div className="mp-qna__ask-vote">
+              <span>Apakah pertanyaan ini membantu?</span>
+              <div className="mp-qna__button-box">
                 <Button
-                  className="mp-button-qna"
+                  type="ghost"
+                  size="small"
+                  customWidth="55"
                   onClick={() => this.handleClick({ id, option: "like" })}
                 >
                   Ya
                 </Button>
                 <Button
-                  className="mp-button-qna"
+                  type="ghost"
+                  size="small"
+                  customWidth="55"
                   onClick={() => this.handleClick({ id, option: "dislike" })}
                 >
                   Tidak
                 </Button>
-              </span>
-            </Col>
-          </Row>
-        </Col>
+              </div>
+            </div>
+          </Col>
+        </Row>
       ]
     };
   };
 
   handleClick = async res => {
-    let option;
+    let option = "";
     if (res.option === "like") {
       option = "LIKE";
     }
@@ -99,7 +107,13 @@ class ProductQnA extends Component {
       option: option
     });
     if (response.status === 200) {
-      console.log("success");
+      message.open({
+        content: "Terimakasih atas opini kamu, yu pesen di monggopesen.",
+        duration: 2,
+        icon: <Avatar src={logoBag} size={18} style={{ marginRight: 8 }} />
+      });
+    } else {
+      message.error("Sepertinya ada masalah", 2);
     }
   };
 
@@ -115,8 +129,12 @@ class ProductQnA extends Component {
     const { search } = this.state;
     const lowercasedFilter = search.toLowerCase();
     const filteredQnA = this.props.questionAnswers.filter(item => {
+      console.log("filter2", item);
       return Object.keys(item).some(key =>
-        item[key].toLowerCase().includes(lowercasedFilter)
+        item[key]
+          .toString()
+          .toLowerCase()
+          .includes(lowercasedFilter)
       );
     });
     return (
