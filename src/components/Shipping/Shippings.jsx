@@ -1,47 +1,37 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Select, Typography } from "antd";
 import "./style.sass";
 import currencyRupiah from "../../library/currency";
-import Laut from "../../assets/img/icon_product-detail/ic_sailingboat.png";
-import Udara from "../../assets/img/icon_product-detail/ic_airplane.png";
 import PropTypes from "prop-types";
+import strings from "../../localization/localization";
+
+const { Option } = Select;
+const { Text } = Typography
 
 const Shippings = props => {
-  const { shipping, totalShipping } = props;
-
+  const { shipping, provinceData, handleProvinceChange, cityPrice } = props;
   return (
     <React.Fragment>
       {shipping && shipping.length > 0 ? (
-        <div className="container-row-shipping">
-          <div className="shipping">
-            <Row className="shipping__content-row">
-              <Col md={10} className="shipping__content-col">
-                <div className="space">
-                  <img src={Laut} alt="" style={{ maxWidth: "100%" }} />
-                </div>
-                <div>
-                  <p>
-                    {shipping[0].estimation.charAt(0).toUpperCase() +
-                      shipping[0].estimation.substring(1)}
-                  </p>
-                  <p className="price">Ongkir sudah termasuk</p>
-                </div>
+          <div className="mp-shipping">
+            <Row>
+              <Col md={10} className="mp-shipping__content">
+                <Text>{strings.shipping_send_to}</Text>
+                <Select
+                  defaultValue={provinceData[0]}
+                  style={{ width: '100%' }}
+                  onChange={handleProvinceChange}>
+                  {provinceData.map(province => (
+                    <Option key={province}>{province}</Option>
+                  ))}
+                </Select>
               </Col>
-              <Col md={10} offset={1} className="shipping__content-col">
-                <div className="space">
-                  <img src={Udara} alt="" style={{ maxWidth: "100%" }} />
-                </div>
-                <div>
-                  <p>
-                    {shipping[1].estimation.charAt(0).toUpperCase() +
-                      shipping[1].estimation.substring(1)}
-                  </p>
-                  <p className="price">{currencyRupiah(totalShipping)}</p>
-                </div>
+              <Col md={10} offset={1} className="mp-shipping__content">
+                <Text>{strings.shipping_estimated_shipping_costs}</Text>
+                <span className="mp-shipping__price">{currencyRupiah(cityPrice)}</span>
               </Col>
             </Row>
           </div>
-        </div>
       ) : null}
     </React.Fragment>
   );

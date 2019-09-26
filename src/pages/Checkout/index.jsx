@@ -60,6 +60,8 @@ export default function Checkout(props) {
 
   function getPayloadProductDetail() {
     const dataProductDetail = JSON.parse(localStorage.getItem("product"));
+    console.log('dataProductDetailfromCheckout',dataProductDetail);
+    
     const dataVariants = variantsRequest(dataProductDetail.sku);
     setIsProductDetailAvailable(true);
     setPriceProduct(dataProductDetail.price);
@@ -275,22 +277,16 @@ export default function Checkout(props) {
       <div className="checkout">
         <div className="container">
           <Row>
-            <Col md={24}>
-              <center className="checkout__ongkir">
-                Gratis Ongkir Hingga Rp. 30,000 Dengan Belanja Minimum Rp.
-                200,000
-              </center>
-            </Col>
             <Col md={5}>
               <Link to="/">
                 <img
-                  src={require("assets/img/monggopesen_logo.png")}
-                  className="header__logo"
+                  src={require("assets/img/logo_monggopesen/logo_monggopesen_orange_large.png")}
+                  className="checkout__logo"
                   alt=""
                 />
               </Link>
             </Col>
-            <Col md={15}>
+            <Col md={19}>
               <p className="checkout__text">{strings.checkout}</p>
             </Col>
           </Row>

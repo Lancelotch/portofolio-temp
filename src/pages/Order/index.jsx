@@ -238,7 +238,7 @@ export default function Order(props) {
             key: "5",
             nameTabs: "Batal",
             content: listWaiting(
-                "noDisplayDefault",
+                "cancel",
                 "isShowOrderDetailsDashboardCancel",
                 "Batal"
             )

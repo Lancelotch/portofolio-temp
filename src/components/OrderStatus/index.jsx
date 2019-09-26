@@ -11,59 +11,79 @@ export default function OrderStatus(props) {
 
   const { orderCancel, type } = props
   const { orderDate, paymentDate, shipmentDate, receivedDate } = props.orderActivityDate
+  const checkCancelBy = orderCancel && 
+ (orderCancel.cancelBy ===  "ADMIN" || 
+  orderCancel.cancelBy ===  "SYSTEM")
 
-  console.log(props.orderActivityDate);
-  console.log(props.orderCancel);
+  const orderActivityStatusInvoice = [
+    {
+      icon: boxOrder,
+      title: 'Pesanan Dibuat',
+      time: orderDate
+    },
+    {
+      icon: paymentOrder,
+      title: 'Pesanan Dibayarkan',
+      time: paymentDate
+    },
+    {
+      icon: deliveryOrderIcon,
+      title: 'Pesanan Dikirim',
+      time: shipmentDate
+    },
+    {
+      icon: receivedOrderIcon,
+      title: 'Pesanan Diterima',
+      time: receivedDate
+    }
+  ]
 
+  const orderActivityStatusCancelSystem = [
+    {
+      icon: receivedOrderIcon,
+      title: 'Pesanan Dibuat',
+      time: orderDate
+    },
+    {
+      icon: paymentOrder,
+      title: 'Pesanan Dibayarkan',
+      time: paymentDate
+    },
+    {
+      icon: cancelOrderIcon,
+      title: 'Pesanan Dibatalkan',
+      time: orderCancel && orderCancel.createdDate
+    }
+  ]
 
+  const orderActivityStatusCancelCustomer = [
+    {
+      icon: receivedOrderIcon,
+      title: 'Pesanan Dibuat',
+      time: orderDate
+    },
+    {
+      icon: cancelOrderIcon,
+      title: 'Pesanan Dibatalkan',
+      time: orderCancel && orderCancel.createdDate
+    }
+  ]
 
   const StatusInvoice = () => {
     return (
       <Steps size="small" labelPlacement="vertical">
-        <Step
-          status="finish"
-          title="Pesenan Dibuat"
-          description={convertTimesTime.millisecond(orderDate)}
-          icon={<Icon className="mp-icon-order-status-step-active"
-            component={boxOrder} />}>
-        </Step>
-        <Step
-          status={paymentDate ? "finish" : ""}
-          description={paymentDate && convertTimesTime.millisecond(paymentDate)}
-          title="Pesenan Dibayarkan"
-          icon={
-            <Icon className={paymentDate ?
-              "mp-icon-order-status-step-active" :
-              "mp-icon-order-status-step"}
-              component={paymentOrder} />}
-        />
-        {
+        {orderActivityStatusInvoice.map((status, i) => (
           <Step
-            status={shipmentDate && paymentDate ? "finish" : ""}
-            description={
-              shipmentDate && 
-              paymentDate && 
-              convertTimesTime.millisecond(shipmentDate)}
-            title="Pesenan Dikirim"
-            icon={<Icon className={
-              shipmentDate && 
-              paymentDate ? 
-              "mp-icon-order-status-step-active" : 
-              "mp-icon-order-status-step"
-            }
-              component={deliveryOrderIcon} />}
-          />}
-        <Step
-          status={receivedDate && paymentDate && shipmentDate ? "finish" : ""}
-          description={
-            receivedDate && 
-            paymentDate && 
-            shipmentDate && convertTimesTime.millisecond(receivedDate)}
-          title="Pesenan Diterima"
-          icon={<Icon component={receivedOrderIcon}
-            className={receivedDate && paymentDate && shipmentDate ?
-              "mp-icon-order-status-step-active" : "mp-icon-order-status-step"} />}
-        />
+            key={i}
+            status={status.time ? "finish" : ""}
+            description={status.time && convertTimesTime.millisecond(status.time)}
+            title={status.title}
+            icon={
+              <Icon className={status.time ?
+                "mp-icon-order-status-step-active" :
+                "mp-icon-order-status-step"}
+                component={status.icon} />}
+          />))}
       </Steps>
     );
   };
@@ -71,54 +91,36 @@ export default function OrderStatus(props) {
   const StatusCancel = () => {
     return (
       <Steps size="small" labelPlacement="vertical">
-        <Step
-          status="finish"
-          title="Pesenan Dibuat"
-          description={convertTimesTime.millisecond(orderDate)}
-          icon={<Icon className="mp-icon-order-status-step-active"
-            component={receivedOrderIcon} />}>
-        </Step>
-         {orderCancel.cancelBy &&
-          orderCancel.cancelBy === "ADMIN" |
-          orderCancel.cancelBy === "admin" |
-          orderCancel.cancelBy === "SYSTEM" &&
-          <Step
-            status={"finish"}
-            description={convertTimesTime.millisecond(paymentDate)}
-            title="Pesenan Dibayarkan"
-            icon={<Icon className={"mp-icon-order-status-step-active"}
-              component={paymentOrder} />}
-          />}
-        <Step
-          status={"finish"}
-          description={convertTimesTime.millisecond(orderCancel && orderCancel.createdDate)}
-          title="Pesenan Dibatalkan"
-          icon={<Icon className="mp-icon-order-status-step-active"
-            component={cancelOrderIcon} />}
-        />
+        {(checkCancelBy ?
+          orderActivityStatusCancelSystem :
+          orderActivityStatusCancelCustomer).map((statusCancel, i) => (
+            <Step
+              key={i}
+              status={"finish"}
+              title={statusCancel.title}
+              description={convertTimesTime.millisecond(statusCancel.time)}
+              icon={<Icon className="mp-icon-order-status-step-active"
+                component={statusCancel.icon} />}>
+            </Step>
+          ))}
       </Steps>
     );
   };
 
-  let checkCancelBy =
-     ((orderCancel && orderCancel.cancelBy === "ADMIN") ||
-      (orderCancel && orderCancel.cancelBy === "admin") ||
-      (orderCancel && orderCancel.cancelBy === "SYSTEM")) ?
-      "mp-step-order-cancel-by-system" : "mp-step-order-cancel-by-customer"
-
   return (
     <React.Fragment>
       <Card style={{ marginTop: 20 }}>
-        <div className={`${orderCancel && checkCancelBy} mp-step-order-status`}>
-          {type === "default" ? 
-          props.orderActivityDate && <StatusInvoice /> : 
-          orderCancel && <StatusCancel />}
+        <div className={`${orderCancel && (checkCancelBy ?
+          "mp-step-order-cancel-by-system" :
+          "mp-step-order-cancel-by-customer")} 
+           mp-step-order-status`}>
+          {type === "default" ?
+            <StatusInvoice /> :
+            <StatusCancel />}
         </div>
       </Card>
-
     </React.Fragment>
   )
-
 }
 
 OrderStatus.propTypes = {
