@@ -92,7 +92,7 @@ export default function Profile() {
     </Card>
     {checkStatusVerificationEmail &&
       <ResendVerification
-        actionResendVerificationEmail={actionResendVerificationEmail} />}
+      actionResendVerificationEmail={actionResendVerificationEmail} />}
 
     </React.Fragment>
   );
