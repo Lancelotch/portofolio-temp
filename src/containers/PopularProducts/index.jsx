@@ -88,9 +88,7 @@ export default function PopularProducts() {
                 return (
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>
-                      <Link
-                        to={`${PATH_URL.PRODUCT}/${product.id} ` || "#"}
-                      >
+                      <Link to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}>
                         <Cards
                           type="small"
                           title={product.name}

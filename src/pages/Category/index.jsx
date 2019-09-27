@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useCallback } from "react";
 import { BackTop, Row, Col, Divider } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -22,10 +22,18 @@ export default function Category(props) {
   const limit = 20;
 
   const params = props.match.params;
-
+  console.log("props", props);
+  
   useEffect(() => {
+    onRefresh();
     getProductList();
-  }, [params, direction, sortBy]);
+  }, [props.match.url, direction, sortBy]);
+
+  function onRefresh() {
+    console.log("try");
+    setProductList([]);
+    setPage(0);
+  }
 
   async function getProductList() {
     const categoryId = Object.entries(params)

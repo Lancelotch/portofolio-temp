@@ -8,7 +8,6 @@ import getParamUrl from "../../library/getParamUrl";
 import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
 import Product from "../../repository/Product";
-//import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 

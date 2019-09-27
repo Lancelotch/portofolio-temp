@@ -21,7 +21,7 @@ export default function Header(props) {
   useEffect(() => {
     getAllCategory();
   }, []);
-  const type = props.match.children.type.name
+  const type = props.match.children.type.name;
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
