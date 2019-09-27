@@ -6,6 +6,7 @@ import { Affix } from "antd";
 
 function MainLayout(props) {
   const type = props.children.type.name;
+  console.log(type);
   return (
     <div>
       {type === "Home" ? (
