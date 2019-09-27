@@ -66,7 +66,7 @@ export default function ButtonDashboard(props) {
               size="large"
               marginright="small"
               onClick={showOrderInvoiceReview}>
-              Lihat Ulasan
+              Buat Ulasan
             </Button>}
           <Button
             type="secondary"

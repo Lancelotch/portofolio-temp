@@ -9,6 +9,7 @@ import { BackTop, Icon } from 'antd';
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "./style.sass";
 import Button from '../../components/Button';
+import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
 
 export default function OrderDetailsDashboard(props) {
 
@@ -39,10 +40,9 @@ export default function OrderDetailsDashboard(props) {
     return (
         <React.Fragment>
             <ScrollToTopOnMount />
-            <div className="item-label-button">
-                <span className="title">{labelTabDetails}</span>
-                {buttonBack(actionShowOrderListWaiting)}
-            </div>
+            <ButtonBackAndTittleDashboard
+                tittle={labelTabDetails}
+                setIsShowDetailDashboard={actionShowOrderListWaiting} />
             <OrderStatus
                 labelTabDetails={labelTabDetails}
                 orderActivityDate={orderDetailsRespon.order.orderActivityDate}

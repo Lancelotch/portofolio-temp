@@ -32,15 +32,19 @@ export default function SliderProductDetailContainer(props) {
         setImagesToShow([...imagesWithDefault])
     }, [])
 
+    console.log(isUpdateImageVariant);
+
+
     useEffect(() => {
         if (isUpdateImageVariant) {
             showImages(imageVariant);
         }
-    }, [isUpdateImageVariant, imageVariant])
+    }, [isUpdateImageVariant, imageVariant, isImageVariantExist])
 
     function showImages(imageVariantProps = "") {
         let imagesToShow = [...imagesWithDefault];
         let isImageVariantExist = false;
+        let checkVideoUrl
         const imageVariant = { ...imageVariantProps };
         if (imageVariant.largeUrl !== undefined) {
             refSlider.slideToIndex(showThumbnail())
@@ -48,12 +52,10 @@ export default function SliderProductDetailContainer(props) {
             isImageVariantExist = true;
             setImagesToShow(imagesToShow)
             setIsImageVariantExist(isImageVariantExist)
-            if (props.images.length >= 2) {
-                setStartIndex(1)
-            } else {
-                setStartIndex(0)
-            }
+            props.videoUrl && setStartIndex(1)
         }
+        checkVideoUrl = props.videoUrl ? null : setStartIndex(0)
+        return checkVideoUrl
     }
 
     function showThumbnail() {
