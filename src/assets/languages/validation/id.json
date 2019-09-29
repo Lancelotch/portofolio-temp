@@ -1,0 +1,10 @@
+{
+    "email": {
+        "required": "Email harus diisi",
+        "invalid": "Email harus valid"
+    },
+    "password": {
+        "required": "Password harus diisi"
+    }
+
+}

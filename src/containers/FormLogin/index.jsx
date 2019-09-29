@@ -11,106 +11,120 @@ import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
 
-export default function FormLogin(props) {    
-    const { handleLogin, isSubmitting, authBody } = useRootContext()
-    let errorMessage = 
-    authBody.response &&
-    authBody.response.data &&
-    authBody.response.data.message ? authBody.response.data.message : "";
+export default function FormLogin(props) {
+  const {
+    handleLogin,
+    isSubmitLoading,
+    authResponse,
+    translate,
+    Trans
+  } = useRootContext();
 
-    return (
-        <div className="mp-login-container">
-            <div className="mp-form-login">
-                <Formik
-                    onSubmit={values => {
-                        handleLogin(values);
+  let errorMessage = "";
+  if(isSubmitLoading === false && authResponse.status === null) {
+    errorMessage = translate('error:backend_not_connected');
+  } else if(isSubmitLoading === false && authResponse.status !== null) {
+      errorMessage = translate('error:auth.failed');
+  }
+
+  return (
+    <div className="mp-login-container">
+      <div className="mp-form-login">
+        <Formik
+          onSubmit={values => {
+            handleLogin(values);
+          }}
+          validationSchema={schema}
+          validateOnChange={false}
+        >
+          {({ values, errors, touched, handleChange, handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <Form.Item
+                validateStatus={errors.email && "error"}
+                help={
+                  errors.email && translate("validation:email." + errors.email)
+                }
+              >
+                <Input
+                  placeholder={translate("common:email")}
+                  name="email"
+                  size="large"
+                  icon="mail"
+                  onChange={handleChange}
+                  value={values.email}
+                />
+              </Form.Item>
+              <Form.Item
+                validateStatus={errors.password && "error"}
+                help={
+                  errors.password && translate("validation:password." + errors.password)
+                }
+              >
+                <Input
+                  name="password"
+                  type="password"
+                  size="large"
+                  icon="lock"
+                  placeholder={translate("common:password")}
+                  onChange={handleChange}
+                  value={values.password}
+                />
+              </Form.Item>
+              <Form.Item>
+                <Checkbox>{translate("login:remember_me")}</Checkbox>
+                <Trans i18nKey="login:forgot_password">
+                  <Link
+                    className="mp-form-login__forgot"
+                    to={{
+                      pathname: "/forget-password"
                     }}
-                    validationSchema={schema}
-                    validateOnChange={false}
+                  >
+                    <span>string0</span>
+                  </Link>
+                </Trans>
+                <Button
+                  type="primary"
+                  size="large"
+                  width="full"
+                  htmlType="submit"
+                  disabled={isSubmitLoading}
                 >
-                    {({
-                        values,
-                        errors,
-                        touched,
-                        handleChange,
-                        handleSubmit
-                    }) => (
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Item validateStatus={errors.email && "error"} help={errors.email}>
-                                    <Input
-                                        placeholder="Email"
-                                        name="email"
-                                        size="large"
-                                        icon="mail"
-                                        onChange={handleChange}
-                                        value={values.email}
-                                    />
-                                </Form.Item>
-                                <Form.Item validateStatus={errors.password && "error"} help={errors.password}>
-                                    <Input
-                                        name="password"
-                                        type="password"
-                                        size="large"
-                                        icon="lock"
-                                        placeholder="Password"
-                                        onChange={handleChange}
-                                        value={values.password}
-                                    />
-
-                                </Form.Item>
-                                <Form.Item>
-                                    <Checkbox>{strings.login_remember_me}</Checkbox>
-                                    <Link
-                                        className="mp-form-login__forgot"
-                                        to={{
-                                            pathname: "/forget-password"
-                                    
-                                        }}
-                                    >
-                                        <span>{strings.login_forgot_password}</span>
-                                    </Link>
-                                    <Button
-                                        type="primary"
-                                        size="large"
-                                        width="full"
-                                        htmlType="submit"
-                                        disabled={isSubmitting}
-                                    >
-                                        {strings.enter}
-                                    </Button>
-                                    <div className="mp-form-login__error-box">
-                                        {errorMessage}
-                                    </div>
-                                </Form.Item>
-                                <div type="flex" align="middle" className="mp-form-login__text-login">
-                                    <p>{strings.login_option}</p>
-                                </div>
-                                <Form.Item className="mp-form-login__btn-socmed">
-                                    <div className="mp-form-login__socmed-box">
-                                        <ButtonGoogle>
-                                            {strings.google}
-                                        </ButtonGoogle>
-                                        <ButtonFacebook>
-                                            {strings.facebook}
-                                        </ButtonFacebook>
-                                    </div>
-                                    <div className="mp-form-login__direct-register">
-                                        {strings.formatString(
-                                            strings.login_quote,
-                                            <Link
-                                                className="link-register"
-                                                to={{
-                                                    pathname: "/register"
-                                                }}>
-                                                <b>{strings.login_register} </b>
-                                            </Link>
-                                        )}
-                                    </div>
-                                </Form.Item>
-                            </Form>
-                        )}
-                </Formik>
-            </div>
-        </div>
-    );
+                  {translate("common:login")}
+                </Button>
+                <div className="mp-form-login__error-box">{errorMessage}</div>
+              </Form.Item>
+              <div
+                type="flex"
+                align="middle"
+                className="mp-form-login__text-login"
+              >
+                <p>{translate("login:other_option")}</p>
+              </div>
+              <Form.Item className="mp-form-login__btn-socmed">
+                <div className="mp-form-login__socmed-box">
+                  <ButtonGoogle>{translate("common:google")}</ButtonGoogle>
+                  <ButtonFacebook>
+                    {translate("common:facebook")}
+                  </ButtonFacebook>
+                </div>
+                <div className="mp-form-login__direct-register">
+                  <Trans i18nKey="login:go_to_register">
+                    <Link
+                      className="link-register"
+                      to={{
+                        pathname: "/register"
+                      }}
+                    >
+                      <b>string0</b>
+                    </Link>{" "}
+                    string1
+                  </Trans>
+                </div>
+              </Form.Item>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
 }

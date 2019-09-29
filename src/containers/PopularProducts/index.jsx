@@ -9,7 +9,12 @@ import PATH_URL from "../../routers/path";
 import { Link } from "react-router-dom";
 
 export default function PopularProducts() {
-  const [popularProducts, setPopularProducts] = useState([]);
+  let initPopularProducts = {
+    productLarge: [],
+    productSmall: []
+  }
+
+  const [popularProducts, setPopularProducts] = useState(initPopularProducts);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,8 +29,6 @@ export default function PopularProducts() {
       const popularProducts = productPopular.products;
       setPopularProducts(popularProducts);
       popularProductSpread(popularProducts);
-    } else {
-      setPopularProducts(null);
     }
   }
 
@@ -56,7 +59,6 @@ export default function PopularProducts() {
               rightMargin={20}
             />
           ) : (
-            popularProducts.productLarge &&
             popularProducts.productLarge.map((product, index) => {
               return (
                 <React.Fragment key={index}>
@@ -83,7 +85,6 @@ export default function PopularProducts() {
                 rightMargin={20}
               />
             ) : (
-              popularProducts.productSmall &&
               popularProducts.productSmall.map((product, index) => {
                 return (
                   <React.Fragment key={index}>
