@@ -47,6 +47,7 @@ export default function FormLogin(props) {
               >
                 <Input
                   placeholder={translate("common:email")}
+                  id="email"
                   name="email"
                   size="large"
                   icon="mail"
