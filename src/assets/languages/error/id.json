@@ -1,5 +1,5 @@
 {
-    "backend_not_connected": "Ups, something wrong with our system",
+    "backend_not_connected": "Gagal, pastikan koneksi internet terhubung",
     "auth": {
         "failed": "Salah username atau password"
     }

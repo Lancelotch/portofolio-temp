@@ -4,7 +4,6 @@ import { useRootContext } from "../../hoc/RootContext";
 import FormLogin from "../../containers/FormLogin";
 import monggopesen_logo from "../../assets/img/logo_monggopesen/logo_monggopesen_orange_large.png";
 import { Link } from "react-router-dom";
-import strings from "../../localization/localization";
 import PATH_URL from "../../routers/path.js"
 import BackgroundWrapper from "../../components/BackgroundWrapper";
 
