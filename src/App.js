@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Router, Switch } from "react-router-dom";
 import routes from "./routers/routes";
 import history from "./routers/history";
 import RootContext from "./hoc/RootContext";
 import AppLayout from "./layouts/AppLayout";
+import './internationalization';
 
 function App() {
   const RouteWithLayout = ({
@@ -43,11 +44,13 @@ function App() {
 
   return (
     <Router history={history}>
-      <RootContext>
-        <Switch>
-          {routeComponents}
-        </Switch>
-      </RootContext>
+      <Suspense fallback={null}>
+        <RootContext history={history}>
+          <Switch>
+            {routeComponents}
+          </Switch>
+        </RootContext>
+      </Suspense>
     </Router>
   );
 }

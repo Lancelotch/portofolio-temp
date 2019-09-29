@@ -1,0 +1,6 @@
+{
+    "backend_not_connected": "Gagal, pastikan koneksi internet terhubung",
+    "auth": {
+        "failed": "Salah username atau password"
+    }
+}
