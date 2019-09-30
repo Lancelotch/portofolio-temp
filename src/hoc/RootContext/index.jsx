@@ -16,7 +16,6 @@ const RootContext = props => {
   const authenticated = JSON.parse(window.localStorage.getItem("authenticated"));
   const authProfile = authenticated && authenticated.authProfile;
 
-  console.log(authenticated);
   const initialState = {
     isAuthenticated: token ? true : false,
     authProfile: authProfile || {},
