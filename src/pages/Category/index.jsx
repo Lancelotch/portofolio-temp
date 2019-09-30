@@ -8,6 +8,7 @@ import SortListProduct from "../../components/SortListProduct";
 import { convertToCategoryName } from "../../library/regex";
 import Product from "../../repository/Product";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import { useRootContext } from "../../hoc/RootContext";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -19,20 +20,33 @@ export default function Category(props) {
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [totalData, setTotalData] = useState(0);
+  const [refresh, setRefresh] = useState(false);
+
+  const { history } = useRootContext();
+  const params = props.match.params;
   const limit = 20;
 
-  const params = props.match.params;
+  useEffect(() => {
+    setRefresh(false);
+    getProductList(page);
+  }, [direction, sortBy, refresh]);
 
   useEffect(() => {
-    getProductList();
-  }, [params, direction, sortBy]);
+    onRefresh();
+  }, [history.location.pathname]);
 
-  async function getProductList() {
+  function onRefresh() {
+    setProductList([]);
+    setPage(0);
+    setRefresh(true);
+  }
+
+  async function getProductList(curPage) {
     const categoryId = Object.entries(params)
       .map(([key, val]) => `${val}`)
       .join("/");
     const objparams = {
-      page: page,
+      page: curPage,
       limit: limit,
       sortBy: sortBy,
       direction: direction

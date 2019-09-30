@@ -12,7 +12,7 @@ export default function PopularProducts() {
   let initPopularProducts = {
     productLarge: [],
     productSmall: []
-  }
+  };
 
   const [popularProducts, setPopularProducts] = useState(initPopularProducts);
   const [loading, setLoading] = useState(true);
@@ -27,8 +27,13 @@ export default function PopularProducts() {
     });
     if (productPopular.status === 200) {
       const popularProducts = productPopular.products;
-      setPopularProducts(popularProducts);
       popularProductSpread(popularProducts);
+    } else {
+      setPopularProducts({
+        ...popularProducts,
+        productLarge: null,
+        productSmall: null
+      });
     }
   }
 
@@ -89,9 +94,7 @@ export default function PopularProducts() {
                 return (
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>
-                      <Link
-                        to={`${PATH_URL.PRODUCT}/${product.id} ` || "#"}
-                      >
+                      <Link to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}>
                         <Cards
                           type="small"
                           title={product.name}
