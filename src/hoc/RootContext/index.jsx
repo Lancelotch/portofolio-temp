@@ -156,8 +156,8 @@ const RootContext = props => {
             setIsShowAlert(false)
           },4000)
         },
-        translate,
-        Trans,
+        // translate,
+        // Trans,
         authResponse
       }}
     >
@@ -166,6 +166,5 @@ const RootContext = props => {
     </Fragment>
   );
 };
-const useRootContext = () => useContext(CreateRootContext);
+export const useRootContext = () => useContext(CreateRootContext);
 export default RootContext;
-export { CreateRootContext, useRootContext };
