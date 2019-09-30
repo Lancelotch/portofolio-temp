@@ -22,10 +22,13 @@ export default function PopularProducts() {
     });
     if (productPopular.status === 200) {
       const popularProducts = productPopular.products;
-      setPopularProducts(popularProducts);
       popularProductSpread(popularProducts);
     } else {
-      setPopularProducts(null);
+      setPopularProducts({
+        ...popularProducts,
+        productLarge: null,
+        productSmall: null
+      });
     }
   }
 

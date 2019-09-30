@@ -59,7 +59,6 @@ async function getByCategory(props) {
   const loading = props.loading ? props.loading : function() {};
   const params = props.objparams;
   const categoryId = props.categoryId;
-  console.log("getbycat", params)
   let response = "";
   loading(true);
   try {

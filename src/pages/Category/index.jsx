@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState, useCallback } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { BackTop, Row, Col, Divider } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -8,6 +8,7 @@ import SortListProduct from "../../components/SortListProduct";
 import { convertToCategoryName } from "../../library/regex";
 import Product from "../../repository/Product";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import { useRootContext } from "../../hoc/RootContext";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -19,28 +20,33 @@ export default function Category(props) {
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [totalData, setTotalData] = useState(0);
+  const [refresh, setRefresh] = useState(false);
   const limit = 20;
 
   const params = props.match.params;
-  console.log("props", props);
-  
+  const { history } = useRootContext();
+
+  useEffect(() => {
+    setRefresh(false);
+    getProductList(page);
+  }, [direction, sortBy, refresh]);
+
   useEffect(() => {
     onRefresh();
-    getProductList();
-  }, [props.match.url, direction, sortBy]);
+  }, [history.location.pathname]);
 
   function onRefresh() {
-    console.log("try");
     setProductList([]);
     setPage(0);
+    setRefresh(true);
   }
 
-  async function getProductList() {
+  async function getProductList(curPage) {
     const categoryId = Object.entries(params)
       .map(([key, val]) => `${val}`)
       .join("/");
     const objparams = {
-      page: page,
+      page: curPage,
       limit: limit,
       sortBy: sortBy,
       direction: direction
