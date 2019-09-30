@@ -32,13 +32,11 @@ export default function SliderProductDetailContainer(props) {
         setImagesToShow([...imagesWithDefault])
     }, [])
 
-    console.log(isUpdateImageVariant);
-
-
     useEffect(() => {
-        if (isUpdateImageVariant) {
-            showImages(imageVariant);
-        }
+        // if (isUpdateImageVariant) {
+        //     showImages(imageVariant);
+        // } 
+        showImages(imageVariant);
     }, [isUpdateImageVariant, imageVariant, isImageVariantExist])
 
     function showImages(imageVariantProps = "") {
@@ -138,7 +136,7 @@ export default function SliderProductDetailContainer(props) {
         );
     }
 
-    function imageSlide() {
+   function imageSlide() {
         let imagesToShowSlider = [];
         imagesToShow.forEach(image => {
             imagesToShowSlider.push({
@@ -146,6 +144,7 @@ export default function SliderProductDetailContainer(props) {
                 thumbnail: image.smallUrl
             })
         })
+        props.actionUpdateSelectVariant(false)
         return imagesToShowSlider
     }
 
@@ -160,12 +159,13 @@ export default function SliderProductDetailContainer(props) {
             //description: 'Render custom slides within the gallery',
             renderItem: itemVideo
         })
+        props.actionUpdateSelectVariant(false)
         return imagesandVideoToShow.concat(imageSlide())
     }
 
-    const { videoUrl } = props;
-    isImageVariantExist && removeThumbnailImageVariant();
-    let isShowNav = props.images.length > 4 ? true : false
+    const { videoUrl, images } = props;
+    isImageVariantExist  && removeThumbnailImageVariant();
+    let isShowNav = images.length > 4 ? true : false
 
     return (
         <Row>
@@ -185,7 +185,6 @@ export default function SliderProductDetailContainer(props) {
             </Col>
         </Row>
     );
-
 }
 
 SliderProductDetailContainer.propTypes = {

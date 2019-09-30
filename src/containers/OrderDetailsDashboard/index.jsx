@@ -5,22 +5,12 @@ import OrderStatusUser from "../../components/OrderStatusUser";
 import PaymentInfo from "../../components/PaymentInfo";
 import ProductOrderDetails from "../../components/ProductOrderDetails";
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
-import { BackTop, Icon } from 'antd';
+import { BackTop } from 'antd';
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "./style.sass";
-import Button from '../../components/Button';
 import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
 
 export default function OrderDetailsDashboard(props) {
-
-    function buttonBack(actionShowOrderListWaiting) {
-        return <Button type="secondary"
-            onClick={() => actionShowOrderListWaiting()}>
-            <Icon type="arrow-left" /> &nbsp;
-            Kembali
-        </Button>
-    }
-
     const {
         orderDetailsRespon,
         tabsShow,

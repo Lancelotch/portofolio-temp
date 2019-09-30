@@ -23,7 +23,7 @@ export default function PopularProducts() {
     if (productPopular.status === 200) {
       setPopularProducts(productPopular.products);
     } else {
-      setPopularProducts(null);
+      setPopularProducts([]);
     }
   }
 
@@ -67,7 +67,7 @@ export default function PopularProducts() {
             {loading ? (
               <SkeletonCustom
                 count={3}
-                height={300}
+                height={50}
                 leftMargin={13}
                 rightMargin={13}
               />
@@ -78,7 +78,7 @@ export default function PopularProducts() {
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>
                       <Link
-                        to={`${PATH_URL.PRODUCT}/${product.id} ` || "#"}
+                        to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}
                       >
                         <Cards
                           type="small"

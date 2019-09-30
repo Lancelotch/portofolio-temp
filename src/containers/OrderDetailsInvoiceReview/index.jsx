@@ -8,6 +8,7 @@ import UploadImageReviewDashboard from '../../components/UploadImageReviewDashbo
 import Button from '../../components/Button';
 import { schema } from './schema';
 import convertSchemaToInit from '../../library/convertSchemaToInit';
+import UploadImage from '../../components/UploadImage';
 
 
 const { TextArea } = Input
@@ -20,6 +21,7 @@ export default function OrderDetailsInvoiceReview(props) {
     const orderRespon = props.orderDetailsReview
     const desc = ['Sangat Buruk', 'Buruk', 'Cukup', 'Bagus', 'Bagus Banget'];
 
+
     function handleChangeRate(value) {
         console.log(value);
 
@@ -28,6 +30,38 @@ export default function OrderDetailsInvoiceReview(props) {
             rating: value
         })
     };
+
+    function successChangeUploadImage(value) {
+        const payloadItems = [...payload.images]
+        const breadcrumbs = [];
+        value.forEach((value, index) => {
+            const breadcrumb = {
+              label: value
+            };
+            breadcrumbs.push(breadcrumb);
+          });
+        
+         
+          console.log(breadcrumbs);
+          
+        
+      
+        let array = []
+    
+          const tempItems ={ ...payload.images, mediumUrl: value, alt: '', isDefault: true }
+        
+        console.log('tempItems=====>',tempItems);
+        array.push(tempItems)
+        
+        console.log(array);
+        
+        setPayload({
+            ...payload,
+            images: tempItems
+        })
+    }
+
+    console.log(payload.images);
 
     function handleChangeChecklist(value) {
         setPayload({
@@ -94,13 +128,15 @@ export default function OrderDetailsInvoiceReview(props) {
                             </Form.Item>
                             <Form.Item>
                                 <p>Foto produk</p>
-                                <UploadImageReviewDashboard />
+                                <UploadImage
+                                    successChangeUploadImage={successChangeUploadImage}
+                                />
                             </Form.Item>
                             <div className="mp-order-details-review-button">
                                 <Form.Item validateStatus={errors.isAnonymous && "error"}
-                                help={errors.isAnonymous}>
-                                        <Checkbox name="isAnonymous" onChange={handleChangeChecklist}>
-                                            Tampilkan ulasan sebagai anonim?
+                                    help={errors.isAnonymous}>
+                                    <Checkbox name="isAnonymous" onChange={handleChangeChecklist}>
+                                        Tampilkan ulasan sebagai anonim?
                                     </Checkbox>
                                 </Form.Item>
                                 <div>

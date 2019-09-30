@@ -5,7 +5,6 @@ menu: Components
 
 import { Playground, Props } from 'docz'
 import Cards from './'
-import { Col, Row } from "antd";
 import "antd/dist/antd.less"
 
 # Cards

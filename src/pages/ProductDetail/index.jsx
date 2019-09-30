@@ -121,8 +121,12 @@ export default function ProductDetail(props) {
   }
 
   function actionUpdateImageVariant(image) {
-    setImageVariant(image);
     setIsUpdateImageVariant(true);
+    setImageVariant(image);
+  }
+
+  function actionUpdateSelectVariant(e) {
+    setIsUpdateImageVariant(e)
   }
 
   function actionSubmitToCheckout() {
@@ -191,6 +195,7 @@ export default function ProductDetail(props) {
                   imageDefault={defaultImage}
                   images={images}
                   imageVariant={imageVariant}
+                  actionUpdateSelectVariant={actionUpdateSelectVariant}
                 />
               )}
           </Col>

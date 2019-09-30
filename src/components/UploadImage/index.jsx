@@ -60,7 +60,7 @@ const UploadImage = props => {
         });
         if (response.status === 200) {
           const url = response.data.data;
-          props.onSuccess(url);
+          props.onSuccesss(url);
         } else {
           notification.error({
             message: response.data.message
@@ -73,12 +73,46 @@ const UploadImage = props => {
     }
   }
 
+
+  async function uploadImage({ file }) {
+    let formData = new FormData();
+    formData.append("file", file);
+    const isDimension = await checkDimension(file);
+    if (isDimension.height >= 300 && isDimension.width >= 300) {
+      if (isDimension.height > isDimension.width) {
+        setPortrait(true);
+        setLandscape(false);
+      } else if (isDimension.height < isDimension.width) {
+        setPortrait(false);
+        setLandscape(true);
+      }
+      if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
+        const response = await ImageRepo.upload({
+          loading: setLoading,
+          params: formData
+        });
+        if (response.status === 200) {
+          const url = response.data.data;
+          props.onSuccesss(url);
+        } else {
+          notification.error({
+            message: response.data.message
+          });
+        }
+      }
+    } else {
+      setIsErrorDimension(true);
+      setLoading(false);
+    }
+  }
+
+
   function checkDimension(file) {
     return new Promise(resolve => {
       let _URL = window.URL || window.webkitURL;
       var image = new Image();
       image.src = file.uid ? _URL.createObjectURL(file) : file;
-      image.onload = function() {
+      image.onload = function () {
         let dimension = {};
         dimension.width = image.naturalWidth;
         dimension.height = image.naturalHeight;
@@ -97,10 +131,38 @@ const UploadImage = props => {
       setLoading(true);
     }
     if (res.file.status === "done") {
-      props.onSuccess(res.file.response);
-      setLoading(false);
-      setDisabled(false);
+     // props.onSuccesss(res.file.response);
+     setLoading(false);
+     setDisabled(false);
+     getBase64(res.file.originFileObj, image => {
+      console.log(res.file.response);
+      props.successChangeUploadImage(res.file.response)
+      })
     }
+  }
+
+  const getBase64 = function (img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  const uploadImages = async function ({onError, onSuccess,file}) {
+    let formData = new FormData();
+    setLoading(true)
+    formData.append("file", file)
+    return checkDimension (file)
+      .then(() => {
+        return ImageRepo.upload({params : formData})
+      })
+      .then(response => {
+        onSuccess(response.data.data)
+      })
+      .catch(error => {
+        props.onError(error)
+        onError(error)
+        setLoading(false)
+      })
   }
 
   function removeImage() {
@@ -142,6 +204,13 @@ const UploadImage = props => {
     customRequest: ({ file }) => uploadImage({ file }),
     onChange: file => handleChangeImage(file)
   };
+
+  const uploadImageDefault = {
+    name: "avatar",
+    beforeUpload: beforeUpload,
+    customRequest: ({ onError, onSuccess,file }) => uploadImages({ onError, onSuccess,file }),
+    onChange: file => handleChangeImage(file)
+  }
 
   let returnUpload;
   if (props.type === "avatar") {
@@ -225,14 +294,14 @@ const UploadImage = props => {
           style={{ height: "100%", width: "100%", objectFit: "cover" }}
         />
       ) : (
-        <Icon style={{ marginTop: 40 }} type={loading ? "loading" : "plus"} />
-      )}
+          <Icon style={{ marginTop: 40 }} type={loading ? "loading" : "plus"} />
+        )}
     </div>
   );
   if (props.type === "default") {
     returnUpload = (
       <div>
-        <UploadAnt {...propsUpload} listType="picture">
+        <UploadAnt {...uploadImageDefault} listType="picture-card">
           <div style={{ display: "flex" }}>{uploadButton}</div>
         </UploadAnt>
         <div className="profile-avatar__error">
