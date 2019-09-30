@@ -21,10 +21,10 @@ export default function Category(props) {
   const [sortBy, setSortBy] = useState("");
   const [totalData, setTotalData] = useState(0);
   const [refresh, setRefresh] = useState(false);
-  const limit = 20;
 
-  const params = props.match.params;
   const { history } = useRootContext();
+  const params = props.match.params;
+  const limit = 20;
 
   useEffect(() => {
     setRefresh(false);
