@@ -2,7 +2,6 @@ import React, { useState, useReducer, useContext, Fragment } from "react";
 import authentication from "../../repository/Authentication";
 import Customer from "../../repository/Customer";
 import Alert from "../../components/Alert";
-import { useTranslation, Trans } from "react-i18next";
 const CreateRootContext = React.createContext();
 
 const RootContext = props => {
@@ -12,23 +11,18 @@ const RootContext = props => {
   const [description, setDescription] = useState('')
   const [showIcon, setShowIcon] = useState(false)
   const [animation, setAnimation] = useState('')
+
+  const token = window.localStorage.getItem("token");
+  const authenticated = JSON.parse(window.localStorage.getItem("authenticated"));
+  const authProfile = authenticated && authenticated.authProfile;
+
+  console.log(authenticated);
   const initialState = {
-    isAuthenticated: false,
-    authBody: {},
-    authProfile: {},
+    isAuthenticated: token ? true : false,
+    authProfile: authProfile || {},
   };
   const [authResponse, setAuthResponse] = useState({})
-  const { t , i18n } = useTranslation();
-  const translate = t;
 
-  const changeLanguage = function(language) {
-    i18n.changeLanguage(language);
-  };
-
-
-  const prevAuthenticated =
-    JSON.stringify(window.localStorage.getItem("authenticated")) || initialState;
-    
   const reducer = (state, action) => {
     switch (action.type) {
       case "login":
@@ -43,7 +37,7 @@ const RootContext = props => {
           authBody: {},
           authProfile: {}
         };
-      case "update":
+      case "updateProfile":
         return {
           ...state,
           authProfile: { ...action.payload }
@@ -52,7 +46,7 @@ const RootContext = props => {
         return state;
     }
   };
-  const [state, dispatch] = useReducer(reducer, prevAuthenticated);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const login = async payload => {
     const response = await authentication.login({
       param: payload,
@@ -88,7 +82,7 @@ const RootContext = props => {
       })
     );
     dispatch({
-      type: "update",
+      type: "updateProfile",
       payload: response.data.data
     });
   }
@@ -156,8 +150,6 @@ const RootContext = props => {
             setIsShowAlert(false)
           },4000)
         },
-        // translate,
-        // Trans,
         authResponse
       }}
     >

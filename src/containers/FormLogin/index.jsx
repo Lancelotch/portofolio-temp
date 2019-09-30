@@ -24,7 +24,7 @@ export default function FormLogin(props) {
   let errorMessage = "";
   if(isSubmitLoading === false && authResponse.status === null) {
     errorMessage = t('error:backend_not_connected');
-  } else if(isSubmitLoading === false && authResponse.status !== null) {
+  } else if(isSubmitLoading === false && authResponse.status !== 200) {
       errorMessage = t('error:auth.failed');
   }
 
