@@ -118,7 +118,7 @@ export default function FormLogin(props) {
                       }}
                     >
                       <b>string0</b>
-                    </Link>{" "}
+                    </Link>
                     string1
                   </Trans>
                 </div>
