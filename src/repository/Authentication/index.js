@@ -1,5 +1,7 @@
 import {apiPostWithoutToken, apiGetWithoutToken } from "../../services/api";
 import { PATH_PUBLIC } from "../../services/path/public";
+import jmespath from "jmespath";
+import auth from "./response/auth";
 
 
 async function login(props) {
@@ -8,12 +10,13 @@ async function login(props) {
     loading(true);
     try {
         response = await apiPostWithoutToken(PATH_PUBLIC.PUBLIC_USER_LOGIN, props.param);
+        response = jmespath.search(response, auth);
         loading(false);
-        return response;
     } catch (error) {
+        response = jmespath.search(error.response, auth);
         loading(false);
-        return error;
     }
+    return response;
 };
 
 async function register(props){
@@ -22,12 +25,13 @@ async function register(props){
     loading(true);
     try {
         response = await apiPostWithoutToken(PATH_PUBLIC.PUBLIC_USER_REGISTER, props.param);
+        response = jmespath.search(response, auth);
         loading(false);
-        return response;
     } catch (error){
+        response = jmespath.search(error.response, auth);
         loading(false);
-        return error;
     }
+    return response;
 }
 
 async function forgotPassword(props){
