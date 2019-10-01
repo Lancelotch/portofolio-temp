@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { BackTop, Row, Col } from "antd";
+import { BackTop, Row, Col, Divider } from "antd";
 import strings from "../../localization/localization";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SkeletonCustom from "../../components/Skeleton";
@@ -9,6 +9,7 @@ import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
 import Product from "../../repository/Product";
 import { useRootContext } from "../../hoc/RootContext";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -25,7 +26,15 @@ export default function Search(props) {
   const [refresh, setRefresh] = useState(false);
 
   const { history } = useRootContext();
+  const searchItem = history.location.search;
   const limit = 20;
+  const breadcrumbs = [];
+
+  const breadcrumb = {
+    label: searchItem.split("?q=")
+  };
+
+  breadcrumbs.push(breadcrumb);
 
   useEffect(() => {
     setRefresh(false);
@@ -34,7 +43,7 @@ export default function Search(props) {
 
   useEffect(() => {
     onRefresh();
-  }, [history.location.search]);
+  }, [searchItem]);
 
   function onRefresh() {
     setProductList([]);
@@ -89,16 +98,20 @@ export default function Search(props) {
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{totalData}"</b>,
-      <b style={{ color: "#FF416C" }}>{query}</b>
+      <b style={{ color: "#f63700" }}>{query}</b>
     );
     return (
       <div>
+        <div style={{ margin: "0 24px" }}>
+          <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
+        </div>
+        <Divider style={{ margin: "12px 0" }} />
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            margin: "24px 24px 0"
+            margin: "0 24px"
           }}
         >
           <span className="categoryTextResult">{categoryTextResult}</span>

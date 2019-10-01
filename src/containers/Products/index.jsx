@@ -8,10 +8,10 @@ import PATH_URL from "../../routers/path";
 export default function Products(props) {
   const products = props.products;
   return (
-    <Row style={{ margin: "24px 18px 0 18px" }}>
+    <Row type="flex" style={{ margin: "24px 15px 0" }}>
       {products.map((product, index) => {
         return (
-          <Col key={index} md={4} style={{ padding: "8px" }}>
+          <Col key={index} style={{ margin: "10px" }}>
             <Link to={`${PATH_URL.PRODUCTS}/${product.id}` || "#"}>
               <Cards
                 urlImage={product.thumbnail}
