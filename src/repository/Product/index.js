@@ -107,7 +107,7 @@ async function get(props) {
   return response;
 }
 
-async function getCreateReview(props){
+async function createReview(props){
   const loading = props.loading ? props.loading : function() {};
   const productId = props.productId;
   const params = props.params
@@ -124,7 +124,7 @@ async function getCreateReview(props){
 }
 
 const Product = {
-  getCreateReview:getCreateReview,
+  createReview:createReview,
   getAll: getAll,
   getPopular: getPopular,
   getBestSeller: getBestSeller,
