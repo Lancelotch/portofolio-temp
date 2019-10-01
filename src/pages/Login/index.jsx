@@ -4,12 +4,13 @@ import { useRootContext } from "../../hoc/RootContext";
 import FormLogin from "../../containers/FormLogin";
 import monggopesen_logo from "../../assets/img/logo_monggopesen/logo_monggopesen_orange_large.png";
 import { Link } from "react-router-dom";
-import strings from "../../localization/localization";
 import PATH_URL from "../../routers/path.js"
 import BackgroundWrapper from "../../components/BackgroundWrapper";
+import { useTranslation } from "react-i18next";
 
 export default function Login(props) {
   const { isAuthenticated, history, showAlert } = useRootContext()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -21,8 +22,8 @@ export default function Login(props) {
 
   useEffect(() => {
     if (props.location.state) {
-      const status = props.location.state.reset
-      if (status) {
+      const reset = props.location.state.reset
+      if (reset) {
         showAlert({
           title: 'Password sudah berhasil diubah',
           description: "Silahkan login kembali dengan password kamu yang baru",
@@ -42,7 +43,7 @@ export default function Login(props) {
         </Link>
       </div>
       <p className="mp-login-container-page__title">
-        {strings.login_enter}
+        {t('login:title')}
       </p>
       <BackgroundWrapper>
         <FormLogin />

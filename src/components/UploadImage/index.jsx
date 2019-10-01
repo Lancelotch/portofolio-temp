@@ -14,6 +14,8 @@ import propTypes from "prop-types";
 
 const UploadImage = props => {
   const photoUrl = props.initialValue;
+  const images = props.images;
+  const [hideShowButtonUpload, setHideShowButtonUpload] = useState()
   const [loading, setLoading] = useState(false);
   const [isErrorDimension, setIsErrorDimension] = useState(false);
   const [isErrorFormat, setIsErrorFormat] = useState(false);
@@ -41,7 +43,7 @@ const UploadImage = props => {
     }
   }
 
-  async function uploadImage({ file }) {
+  async function uploadImage({ onError, onSuccess, file }) {
     let formData = new FormData();
     formData.append("file", file);
     const isDimension = await checkDimension(file);
@@ -60,7 +62,8 @@ const UploadImage = props => {
         });
         if (response.status === 200) {
           const url = response.data.data;
-          props.onSuccesss(url);
+          props.type === "avatar" && props.onSuccesss(url);
+          onSuccess(response.data.data)
         } else {
           notification.error({
             message: response.data.message
@@ -72,40 +75,6 @@ const UploadImage = props => {
       setLoading(false);
     }
   }
-
-
-  async function uploadImage({ file }) {
-    let formData = new FormData();
-    formData.append("file", file);
-    const isDimension = await checkDimension(file);
-    if (isDimension.height >= 300 && isDimension.width >= 300) {
-      if (isDimension.height > isDimension.width) {
-        setPortrait(true);
-        setLandscape(false);
-      } else if (isDimension.height < isDimension.width) {
-        setPortrait(false);
-        setLandscape(true);
-      }
-      if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
-        const response = await ImageRepo.upload({
-          loading: setLoading,
-          params: formData
-        });
-        if (response.status === 200) {
-          const url = response.data.data;
-          props.onSuccesss(url);
-        } else {
-          notification.error({
-            message: response.data.message
-          });
-        }
-      }
-    } else {
-      setIsErrorDimension(true);
-      setLoading(false);
-    }
-  }
-
 
   function checkDimension(file) {
     return new Promise(resolve => {
@@ -121,48 +90,37 @@ const UploadImage = props => {
     });
   }
 
-  function handleChangeImage(res) {
-    if (
-      res.file.status === "uploading" &&
-      !isErrorFormat &&
-      !isErrorSize &&
-      !isErrorDimension
-    ) {
-      setLoading(true);
-    }
-    if (res.file.status === "done") {
-     // props.onSuccesss(res.file.response);
-     setLoading(false);
-     setDisabled(false);
-     getBase64(res.file.originFileObj, image => {
-      console.log(res.file.response);
-      props.successChangeUploadImage(res.file.response)
-      })
-    }
-  }
-
   const getBase64 = function (img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
   }
 
-  const uploadImages = async function ({onError, onSuccess,file}) {
-    let formData = new FormData();
-    setLoading(true)
-    formData.append("file", file)
-    return checkDimension (file)
-      .then(() => {
-        return ImageRepo.upload({params : formData})
+  const handleChange = function (info) {
+    if (info.file.status === 'uploading' &&
+      !isErrorFormat &&
+      !isErrorSize &&
+      !isErrorDimension) {
+      setLoading(true)
+      return
+    }
+    if (info.file.status === 'done') {
+      props.type === "avatar" && props.onSuccesss(info.file.response);
+      setLoading(false)
+      getBase64(info.file.originFileObj, image => {
+        let responseImage = info.file.response
+        const tempPayloadItems = images && [...images]
+        const mediumUrl = {
+          mediumUrl: responseImage,
+          alt: "",
+          isDefault: false
+        }
+        tempPayloadItems.unshift(mediumUrl)
+        setHideShowButtonUpload(tempPayloadItems)
+        props.onChange(tempPayloadItems)
+        // props.successChangeUploadImage(info.file.response)
       })
-      .then(response => {
-        onSuccess(response.data.data)
-      })
-      .catch(error => {
-        props.onError(error)
-        onError(error)
-        setLoading(false)
-      })
+    }
   }
 
   function removeImage() {
@@ -198,18 +156,34 @@ const UploadImage = props => {
   }
 
   const propsUpload = {
-    name: "avatar",
-    showUploadList: false,
     beforeUpload: beforeUpload,
-    customRequest: ({ file }) => uploadImage({ file }),
-    onChange: file => handleChangeImage(file)
+    customRequest: ({ onError, onSuccess, file }) => uploadImage({ onError, onSuccess, file }),
+    onChange: file => handleChange(file)
   };
 
-  const uploadImageDefault = {
-    name: "avatar",
-    beforeUpload: beforeUpload,
-    customRequest: ({ onError, onSuccess,file }) => uploadImages({ onError, onSuccess,file }),
-    onChange: file => handleChangeImage(file)
+  function errorUploadImage() {
+    return (
+      <div className="profile-avatar__error">
+        {isErrorFormat === true && (
+          <span>
+            Format file yang diupload tidak sesuai.
+          <br />
+          </span>
+        )}
+        {isErrorSize === true && (
+          <span>
+            Ukuran gambar lebih dari 3 mb.
+          <br />
+          </span>
+        )}
+        {isErrorDimension === true && (
+          <span>
+            Minimal height / width 300 px.
+          <br />
+          </span>
+        )}
+      </div>
+    )
   }
 
   let returnUpload;
@@ -241,7 +215,10 @@ const UploadImage = props => {
             <Icon type="delete" />
             Hapus Foto Profil
           </Button>
-          <UploadAnt {...propsUpload}>
+          <UploadAnt
+            name="avatar"
+            showUploadList={false}
+            {...propsUpload}>
             <Button
               type="link"
               className="profile-avatar__button-command"
@@ -251,42 +228,15 @@ const UploadImage = props => {
               Upload / Ubah Foto Profil
             </Button>
           </UploadAnt>
-          <div className="profile-avatar__error">
-            {isErrorFormat === true && (
-              <span>
-                Format file yang diupload tidak sesuai.
-                <br />
-              </span>
-            )}
-            {isErrorSize === true && (
-              <span>
-                Ukuran gambar lebih dari 3 mb.
-                <br />
-              </span>
-            )}
-            {isErrorDimension === true && (
-              <span>
-                Minimal height / width 300 px.
-                <br />
-              </span>
-            )}
-          </div>
         </Col>
+        {errorUploadImage()}
       </Row>
     );
   }
   const uploadButton = (
     <div
-      onClick={handleError}
-      style={{
-        width: 100,
-        height: 100,
-        backgroundColor: "#ededed",
-        color: "#777777 ",
-        textAlign: "center",
-        fontSize: 20
-      }}
-    >
+     className="mp-button-upload-image"
+      onClick={handleError}>
       {photoUrl ? (
         <img
           src={photoUrl}
@@ -294,36 +244,21 @@ const UploadImage = props => {
           style={{ height: "100%", width: "100%", objectFit: "cover" }}
         />
       ) : (
-          <Icon style={{ marginTop: 40 }} type={loading ? "loading" : "plus"} />
+          <Icon style={{ display: "flex", justifyContent: "center", marginTop: "40%" }} type={loading ? "loading" : "plus"} />
         )}
     </div>
   );
   if (props.type === "default") {
     returnUpload = (
       <div>
-        <UploadAnt {...uploadImageDefault} listType="picture-card">
-          <div style={{ display: "flex" }}>{uploadButton}</div>
+        <UploadAnt {...propsUpload} listType="picture-card">
+          {hideShowButtonUpload &&
+            hideShowButtonUpload.length > 5 ? "" :
+            <div style={{ display: "flex" }}>
+              {uploadButton}
+            </div>}
         </UploadAnt>
-        <div className="profile-avatar__error">
-          {isErrorFormat === true && (
-            <span>
-              Format file yang diupload tidak sesuai.
-              <br />
-            </span>
-          )}
-          {isErrorSize === true && (
-            <span>
-              Ukuran gambar lebih dari 3 mb.
-              <br />
-            </span>
-          )}
-          {isErrorDimension === true && (
-            <span>
-              Minimal height / width 300 px.
-              <br />
-            </span>
-          )}
-        </div>
+        {errorUploadImage()}
       </div>
     );
   }

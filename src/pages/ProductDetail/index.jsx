@@ -213,36 +213,33 @@ export default function ProductDetail(props) {
                 {loading ? (
                   <Skeleton height={25} />
                 ) : (
-                    <React.Fragment>
-                      {currencyRupiah(price.amount)}
-                      <span><del>Rp 1.000.000</del></span>
-                    </React.Fragment>
-                  )}
+                  currencyRupiah(price.amount)
+                )}
               </p>
               {images.length < 1 ? (
                 <Skeleton height={25} width={200} />
               ) : (
-                  <Variants
-                    product={product}
-                    actionUpdateImageVariant={actionUpdateImageVariant}
-                    actionUpdateSku={actionUpdateSku}
-                  />
-                )}
+                <Variants
+                  product={product}
+                  actionUpdateImageVariant={actionUpdateImageVariant}
+                  actionUpdateSku={actionUpdateSku}
+                />
+              )}
               {loading ? (
                 <div style={{ marginTop: 10 }}>
                   <Skeleton height={40} width={200} />
                 </div>
               ) : (
-                  <React.Fragment>
-                    <span className="mp-product-detail__total-quantity">
-                      Jumlah
+                <React.Fragment>
+                  <span className="mp-product-detail__total-quantity">
+                    Jumlah
                   </span>
-                    <Quantity
-                      stock={information.maxOrder}
-                      updateQuantity={actionUpdateQuantity}
-                    />
-                  </React.Fragment>
-                )}
+                  <Quantity
+                    stock={information.maxOrder}
+                    updateQuantity={actionUpdateQuantity}
+                  />
+                </React.Fragment>
+              )}
               {isProductAvailable && (
                 <Shipping
                   totalShipping={totalShipping}
@@ -271,9 +268,17 @@ export default function ProductDetail(props) {
             </div>
           </Col>
         </Row>
-        <TabsProductDetail
-          isProductAvailable={isProductAvailable}
-          information={information} />
+        {loading ? (
+          <div style={{ marginTop: 55 }}>
+            <Skeleton height={40} width={350} />
+            <Skeleton height={250} width={"100%"} />
+          </div>
+        ) : (
+          <TabsProductDetail
+            isProductAvailable={isProductAvailable}
+            information={information}
+          />
+        )}
       </div>
       {open === true && (
         <Redirect

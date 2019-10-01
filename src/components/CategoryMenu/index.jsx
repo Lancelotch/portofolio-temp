@@ -74,9 +74,7 @@ export default function CategoryMenu(props) {
       options={getOptions()}
       expandTrigger={"hover"}
     >
-      <a className="ant-dropdown-link" href="/#">
-        <span className="category">Kategori</span>
-      </a>
+      <span className="category">Kategori</span>
     </Cascader>
   );
 }

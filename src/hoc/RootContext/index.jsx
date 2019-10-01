@@ -1,32 +1,33 @@
 import React, { useState, useReducer, useContext, Fragment } from "react";
-import { withRouter } from "react-router-dom";
 import authentication from "../../repository/Authentication";
 import Customer from "../../repository/Customer";
 import Alert from "../../components/Alert";
 const CreateRootContext = React.createContext();
 
 const RootContext = props => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [show, setShow] = useState(false);
+  const [isSubmitLoading, setIsSubmitLoading] = useState(null);
+  const [isShowAlert, setIsShowAlert] = useState(false);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState('')
   const [showIcon, setShowIcon] = useState(false)
   const [animation, setAnimation] = useState('')
-  const initialState = {
-    isAuthenticated: false,
-    authBody: {},
-    authProfile: {}
-  };
 
-  const prevAuthenticated =
-    JSON.parse(window.localStorage.getItem("authenticated")) || initialState;
+  const token = window.localStorage.getItem("token");
+  const authenticated = JSON.parse(window.localStorage.getItem("authenticated"));
+  const authProfile = authenticated && authenticated.authProfile;
+
+  const initialState = {
+    isAuthenticated: token ? true : false,
+    authProfile: authProfile || {},
+  };
+  const [authResponse, setAuthResponse] = useState({})
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "login":
         return {
           ...state,
           isAuthenticated: action.isAuthenticated,
-          authBody: { ...action.payload }
         };
       case "logout":
         return {
@@ -35,7 +36,7 @@ const RootContext = props => {
           authBody: {},
           authProfile: {}
         };
-      case "update":
+      case "updateProfile":
         return {
           ...state,
           authProfile: { ...action.payload }
@@ -44,27 +45,27 @@ const RootContext = props => {
         return state;
     }
   };
-  const [state, dispatch] = useReducer(reducer, prevAuthenticated);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const login = async payload => {
     const response = await authentication.login({
       param: payload,
-      loading: setIsSubmitting
+      loading: setIsSubmitLoading
     });
-    actionRegisterLogin(response);
+    actionAfterRegisterOrLogin(response);
   };
 
   const register = async payload => {
     const response = await authentication.register({
       param: payload,
-      loading: setIsSubmitting
+      loading: setIsSubmitLoading
     });
-    actionRegisterLogin(response);
+    actionAfterRegisterOrLogin(response);
   };
 
   const update = async payload => {
     const response = await Customer.update({
       params: payload,
-      loading: setIsSubmitting
+      loading: setIsSubmitLoading
     });
     if (response.status === 200) {
       getProfile();
@@ -73,33 +74,25 @@ const RootContext = props => {
 
   async function getProfile() {
     const response = await Customer.get({});
-    const data = JSON.parse(window.localStorage.getItem("authenticated"));
     window.localStorage.setItem(
       "authenticated",
       JSON.stringify({
-        ...data,
         authProfile: response.data.data
       })
     );
     dispatch({
-      type: "update",
+      type: "updateProfile",
       payload: response.data.data
     });
   }
 
-  function actionRegisterLogin(response) {
+  function actionAfterRegisterOrLogin(response) {
+    setAuthResponse(response);
     let isAuthenticated = false;
     if (response.status === 200) {
-      const token = response.data.data.access_token;
+      const token = response.token;
       if (token !== "") {
         isAuthenticated = true;
-        window.localStorage.setItem(
-          "authenticated",
-          JSON.stringify({
-            isAuthenticated: true,
-            authBody: response.data.data
-          })
-        );
         window.localStorage.setItem("token", token);
         getProfile();
       }
@@ -107,8 +100,6 @@ const RootContext = props => {
     dispatch({
       type: "login",
       isAuthenticated: isAuthenticated,
-      payload:
-        response.data && response.data.data ? response.data.data : response
     });
   }
 
@@ -121,10 +112,10 @@ const RootContext = props => {
   };
   return (
     <Fragment>
-    {show &&
+    {isShowAlert &&
       <Alert 
         title={title} 
-        afterClose={()=>setShow(false)}
+        afterClose={()=>setIsShowAlert(false)}
         showIcon={showIcon}
         description={description}
         animation={animation}
@@ -145,19 +136,20 @@ const RootContext = props => {
         handleLogout: () => {
           logout();
         },
-        isSubmitting,
+        isSubmitLoading,
         history: props.history,
         match: props.match,
-        showAlert: payload => {
-          setTitle(payload.title);
-          setShowIcon(payload.showIcon)
-          setAnimation(payload.animation)
-          setDescription(payload.description)
-          setShow(!show);
+        showAlert: props => {
+          setTitle(props.title);
+          setShowIcon(props.showIcon)
+          setAnimation(props.animation)
+          setDescription(props.description)
+          setIsShowAlert(!isShowAlert);
           setTimeout(function () {
-            setShow(false)
+            setIsShowAlert(false)
           },4000)
-        }
+        },
+        authResponse
       }}
     >
       {props.children}
@@ -165,6 +157,5 @@ const RootContext = props => {
     </Fragment>
   );
 };
-const useRootContext = () => useContext(CreateRootContext);
-export default withRouter(RootContext);
-export { CreateRootContext, useRootContext };
+export const useRootContext = () => useContext(CreateRootContext);
+export default RootContext;

@@ -3,12 +3,14 @@ import Header from "containers/Header";
 import Footer from "../../containers/Footer";
 import "./style.sass";
 import { Affix } from "antd";
+import { useRootContext } from "../../hoc/RootContext";
 
 function MainLayout(props) {
-  const type = props.children.type.name;
+  const { history } = useRootContext();
+  const location = history.location.pathname;
   return (
     <div>
-      {type === "Home" ? (
+      {location === "/" ? (
         <Affix>
           <Header match={props}></Header>
         </Affix>

@@ -21,7 +21,7 @@ export default function Header(props) {
   useEffect(() => {
     getAllCategory();
   }, []);
-  const type = props.match.children.type.name
+  const type = props.match.children.type.name;
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
@@ -38,7 +38,7 @@ export default function Header(props) {
           <Col md={4}>
             <Link to={PATH_URL.HOME}>
               <img
-                src={require("assets/img/monggopesen_logo.png")}
+                src={require("assets/img/logo_monggopesen/logo_monggopesen_orange_large.png")}
                 className="header__logo"
                 alt=""
               />

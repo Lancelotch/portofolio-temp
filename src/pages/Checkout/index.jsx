@@ -58,6 +58,9 @@ export default function Checkout(props) {
     }
   }
 
+  console.log(props.history);
+  
+
   function getPayloadProductDetail() {
     const dataProductDetail = JSON.parse(localStorage.getItem("product"));
     console.log('dataProductDetailfromCheckout',dataProductDetail);

@@ -8,7 +8,7 @@ import getParamUrl from "../../library/getParamUrl";
 import NoResultSearch from "../../components/NoResultSearch";
 import SortListProduct from "../../components/SortListProduct";
 import Product from "../../repository/Product";
-//import Breadcrumbs from "../../components/Breadcrumbs/index.jsx";
+import { useRootContext } from "../../hoc/RootContext";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
@@ -22,20 +22,28 @@ export default function Search(props) {
   const [direction, setDirection] = useState("desc");
   const [sortBy, setSortBy] = useState("");
   const [totalData, setTotalData] = useState(0);
+  const [refresh, setRefresh] = useState(false);
+
+  const { history } = useRootContext();
   const limit = 20;
 
   useEffect(() => {
-    onRefresh();
+    setRefresh(false);
     getProductList();
-  }, [direction, sortBy, props.location.search]);
+  }, [direction, sortBy, refresh]);
+
+  useEffect(() => {
+    onRefresh();
+  }, [history.location.search]);
 
   function onRefresh() {
     setProductList([]);
     setPage(0);
+    setRefresh(true);
   }
 
   async function getProductList() {
-    const { location } = props;
+    const location = history.location;
     const { query } = getParamUrl(location);
     setQuery(query);
     const request = {
