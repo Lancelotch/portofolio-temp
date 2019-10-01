@@ -6,9 +6,11 @@ import monggopesen_logo from "../../assets/img/logo_monggopesen/logo_monggopesen
 import { Link } from "react-router-dom";
 import PATH_URL from "../../routers/path.js"
 import BackgroundWrapper from "../../components/BackgroundWrapper";
+import { useTranslation } from "react-i18next";
 
 export default function Login(props) {
-  const { isAuthenticated, history, showAlert, translate } = useRootContext()
+  const { isAuthenticated, history, showAlert } = useRootContext()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -41,7 +43,7 @@ export default function Login(props) {
         </Link>
       </div>
       <p className="mp-login-container-page__title">
-        {translate('login:title')}
+        {t('login:title')}
       </p>
       <BackgroundWrapper>
         <FormLogin />

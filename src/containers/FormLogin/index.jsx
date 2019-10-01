@@ -10,21 +10,22 @@ import strings from "../../localization/localization";
 import { Link } from "react-router-dom";
 import ButtonGoogle from "../../components/ButtonGoogle";
 import ButtonFacebook from "../../components/ButtonFacebook";
+import { useTranslation, Trans } from "react-i18next";
 
 export default function FormLogin(props) {
   const {
     handleLogin,
     isSubmitLoading,
     authResponse,
-    translate,
-    Trans
   } = useRootContext();
+
+  const { t } = useTranslation();
 
   let errorMessage = "";
   if(isSubmitLoading === false && authResponse.status === null) {
-    errorMessage = translate('error:backend_not_connected');
-  } else if(isSubmitLoading === false && authResponse.status !== null) {
-      errorMessage = translate('error:auth.failed');
+    errorMessage = t('error:backend_not_connected');
+  } else if(isSubmitLoading === false && authResponse.status !== 200) {
+      errorMessage = t('error:auth.failed');
   }
 
   return (
@@ -42,12 +43,12 @@ export default function FormLogin(props) {
               <Form.Item
                 validateStatus={errors.email && "error"}
                 help={
-                  errors.email && translate("validation:email." + errors.email)
+                  errors.email && t("validation:email." + errors.email)
                 }
               >
                 <Input
-                  placeholder={translate("common:email")}
                   id="email"
+                  placeholder={t("common:email")}
                   name="email"
                   size="large"
                   icon="mail"
@@ -58,7 +59,7 @@ export default function FormLogin(props) {
               <Form.Item
                 validateStatus={errors.password && "error"}
                 help={
-                  errors.password && translate("validation:password." + errors.password)
+                  errors.password && t("validation:password." + errors.password)
                 }
               >
                 <Input
@@ -66,13 +67,13 @@ export default function FormLogin(props) {
                   type="password"
                   size="large"
                   icon="lock"
-                  placeholder={translate("common:password")}
+                  placeholder={t("common:password")}
                   onChange={handleChange}
                   value={values.password}
                 />
               </Form.Item>
               <Form.Item>
-                <Checkbox>{translate("login:remember_me")}</Checkbox>
+                <Checkbox>{t("login:remember_me")}</Checkbox>
                 <Trans i18nKey="login:forgot_password">
                   <Link
                     className="mp-form-login__forgot"
@@ -90,7 +91,7 @@ export default function FormLogin(props) {
                   htmlType="submit"
                   disabled={isSubmitLoading}
                 >
-                  {translate("common:login")}
+                  {t("common:login")}
                 </Button>
                 <div className="mp-form-login__error-box">{errorMessage}</div>
               </Form.Item>
@@ -99,14 +100,14 @@ export default function FormLogin(props) {
                 align="middle"
                 className="mp-form-login__text-login"
               >
-                <p>{translate("login:other_option")}</p>
+                <p>{t("login:other_option")}</p>
               </div>
               <Form.Item className="mp-form-login__btn-socmed">
                 <div className="mp-form-login__socmed-box">
-                  <ButtonGoogle>{translate("common:google")}</ButtonGoogle>
+                  {/* <ButtonGoogle>{t("common:google")}</ButtonGoogle>
                   <ButtonFacebook>
-                    {translate("common:facebook")}
-                  </ButtonFacebook>
+                    {t("common:facebook")}
+                  </ButtonFacebook> */}
                 </div>
                 <div className="mp-form-login__direct-register">
                   <Trans i18nKey="login:go_to_register">
@@ -117,7 +118,7 @@ export default function FormLogin(props) {
                       }}
                     >
                       <b>string0</b>
-                    </Link>{" "}
+                    </Link>
                     string1
                   </Trans>
                 </div>

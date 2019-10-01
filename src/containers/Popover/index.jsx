@@ -8,6 +8,7 @@ import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover(props) {
   const { authProfile, isAuthenticated, handleLogout } = useRootContext();
+  console.log('iniii ', authProfile);
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
   const type = props.type === "Home" ? "mp-popover" : "";
