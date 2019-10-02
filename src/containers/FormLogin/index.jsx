@@ -6,10 +6,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useRootContext } from "../../hoc/RootContext";
 import { schema } from "./schema";
-import strings from "../../localization/localization";
 import { Link } from "react-router-dom";
-import ButtonGoogle from "../../components/ButtonGoogle";
-import ButtonFacebook from "../../components/ButtonFacebook";
 import { useTranslation, Trans } from "react-i18next";
 
 export default function FormLogin(props) {

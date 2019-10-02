@@ -1,4 +1,4 @@
-import { apiGetWithoutToken } from "../../services/api";
+import { apiGetWithoutToken, apiPostWithToken } from "../../services/api";
 import { PATH_PRODUCT } from "../../services/path/product";
 import jmespath from "jmespath";
 import products from "./response/products";
@@ -107,7 +107,24 @@ async function get(props) {
   return response;
 }
 
+async function createReview(props){
+  const loading = props.loading ? props.loading : function() {};
+  const productId = props.productId;
+  const params = props.params
+  let response = "";
+  loading(true);
+  try{
+    response = await apiPostWithToken(`${PATH_PRODUCT.PRODUCT}/${productId}/${"review"}`, params)
+    loading(false);
+  } catch(error){
+    loading(false);
+    response = error;
+  }
+  return response;
+}
+
 const Product = {
+  createReview:createReview,
   getAll: getAll,
   getPopular: getPopular,
   getBestSeller: getBestSeller,
