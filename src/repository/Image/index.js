@@ -16,8 +16,24 @@ async function upload(props) {
   }
 }
 
+async function uploadImage(props) {
+  const loading = props.loading ? props.loading : function() {};
+  let response = "";
+  let params = props.params;
+  loading(true);
+  try {
+    response = await apiPostWithToken(PATH_CUSTOMER.CUSTOMER_UPLOAD_IMAGE, params);
+    loading(false);
+    return response;
+  } catch (error) {
+    loading(false);
+    return error;
+  }
+}
+
 const Image = {
-  upload
+  upload,
+  uploadImage
 };
 
 export default Image;

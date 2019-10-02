@@ -100,7 +100,7 @@ export default function OrderListWaiting(props) {
                             order={order.order}
                         />
                         <ButtonDashboard
-                            productId={order.productId}
+                            productId={order.id}
                             index={index}
                             status={order.status}
                             invoiceNumber={order.invoiceNumber}

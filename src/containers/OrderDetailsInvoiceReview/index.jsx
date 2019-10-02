@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik } from 'formik';
+import { Formik, FieldArray } from 'formik';
 import { Form, Card, Rate, Input, Checkbox } from 'antd';
 import ReviewCardInfoDetail from '../../components/ReviewCardInfoDetail';
 import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
@@ -10,7 +10,6 @@ import convertSchemaToInit from '../../library/convertSchemaToInit';
 import UploadImage from '../../components/UploadImage';
 import Product from '../../repository/Product';
 
-
 const { TextArea } = Input
 
 export default function OrderDetailsInvoiceReview(props) {
@@ -19,29 +18,27 @@ export default function OrderDetailsInvoiceReview(props) {
     const [payload, setPayload] = useState(convertSchemaToInit(schema));
     const desc = ['Sangat Buruk', 'Buruk', 'Cukup', 'Bagus', 'Bagus Banget'];
 
-
-    useEffect(()=>{
+    useEffect(() => {
         setPayload({
             ...payload,
-            invoiceId : invoiceId
+            invoiceId: invoiceId
         })
-    },[])
+    }, [])
 
 
-    async function actionReview(value) {
-        let review = await Product.getCreateReview({
+    const actionReview = async function (value, resetForm) {
+        let review = await Product.createReview({
             productId: orderRespon.productId,
             params: value
         })
-        return review
+        if (review.status === 200) {
+            resetForm()
+            props.setIsShowDetailDashboard()
+        }
     }
 
-    async function handleSubmit(value,resetForm) {
-      let response = await actionReview(value)
-      if (response.status === 200) {
-          resetForm()
-          props.setIsShowDetailDashboard(false)
-      }
+    async function handleSubmit(value, resetForm) {
+        actionReview(value, resetForm)
     }
 
     return (
@@ -58,8 +55,8 @@ export default function OrderDetailsInvoiceReview(props) {
                 <Formik
                     enableReinitialize
                     initialValues={payload}
-                    onSubmit={(values,{resetForm}) => {
-                        handleSubmit(values,resetForm)
+                    onSubmit={(values, { resetForm }) => {
+                        handleSubmit(values, resetForm)
                     }}
                     validationSchema={schema}>
                     {({ values, handleSubmit, errors, handleChange, setFieldValue }) => (
@@ -95,10 +92,15 @@ export default function OrderDetailsInvoiceReview(props) {
                             </Form.Item>
                             <Form.Item>
                                 <p>Foto produk</p>
-                                <UploadImage
-                                    handleChange={handleChange}
-                                    images={values.images}
-                                    onChange={value => setFieldValue('images', value)}
+                                <FieldArray
+                                    name="images"
+                                    render={helperUpload => (
+                                        <UploadImage
+                                            images={values.images}
+                                            onRemove={(index) => helperUpload.remove(index)}
+                                            onChange={(name, value) => setFieldValue(name, value)}
+                                        />
+                                    )}
                                 />
                             </Form.Item>
                             <div className="mp-order-details-review-button">
@@ -111,7 +113,7 @@ export default function OrderDetailsInvoiceReview(props) {
                                     </Checkbox>
                                 </Form.Item>
                                 <div>
-                                    <Button size="large" marginright="small">Batalkan Ulasan</Button>
+                                    <Button onClick={() => props.setIsShowDetailDashboard()} size="large" marginright="small">Batalkan Ulasan</Button>
                                     <Button type="primary" size="large" htmlType="submit">Kirim Ulasan</Button>
                                 </div>
                             </div>

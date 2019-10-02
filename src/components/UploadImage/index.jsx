@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./style.sass";
-import {
-  Avatar,
-  Icon,
-  Upload as UploadAnt,
-  Row,
-  Col,
-  notification
-} from "antd";
+import { Avatar, Icon, Upload as UploadAnt, Row, Col, Modal } from "antd";
 import ImageRepo from "../../repository/Image";
 import Button from "../Button";
 import propTypes from "prop-types";
+import { checkDimension, responseStatus, getBase64, errorUploadImage, errorAvatarImage } 
+from "./functionUploadImage";
 
-const UploadImage = props => {
-  const photoUrl = props.initialValue;
-  const images = props.images;
+export default function UploadImage({
+  initialValue,
+  images,
+  onChange,
+  onSuccess,
+  type,
+  onRemove,
+  values, }) {
+
+  const photoUrl = initialValue;
+  const imagesProduct = images && [...images];
   const [hideShowButtonUpload, setHideShowButtonUpload] = useState()
   const [loading, setLoading] = useState(false);
   const [isErrorDimension, setIsErrorDimension] = useState(false);
@@ -23,10 +26,12 @@ const UploadImage = props => {
   const [landscape, setLandscape] = useState(false);
   const [portrait, setPortrait] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [onPreview, setOnPreview] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
 
   useEffect(() => {
     updateProfile();
-  }, [photoUrl]);
+  }, [photoUrl, images]);
 
   async function updateProfile() {
     if (photoUrl) {
@@ -55,49 +60,43 @@ const UploadImage = props => {
         setPortrait(false);
         setLandscape(true);
       }
+      await type === "avatar" ? handleResponseAvatar() : handleResponseUploadImage();
+    } else {
+      setIsErrorDimension(true);
+      setLoading(false);
+    }
+
+    async function handleResponseUploadImage() {
+      if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
+        const response = await ImageRepo.uploadImage({
+          loading: setLoading,
+          params: formData
+        });
+        responseStatus(response, onSuccess, type);
+      }
+    }
+
+    async function handleResponseAvatar() {
       if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
         const response = await ImageRepo.upload({
           loading: setLoading,
           params: formData
         });
-        if (response.status === 200) {
-          const url = response.data.data;
-          props.type === "avatar" && props.onSuccesss(url);
-          onSuccess(response.data.data)
-        } else {
-          notification.error({
-            message: response.data.message
-          });
-        }
+        responseStatus(response, onSuccess, type)
       }
-    } else {
-      setIsErrorDimension(true);
-      setLoading(false);
     }
   }
 
-  function checkDimension(file) {
-    return new Promise(resolve => {
-      let _URL = window.URL || window.webkitURL;
-      var image = new Image();
-      image.src = file.uid ? _URL.createObjectURL(file) : file;
-      image.onload = function () {
-        let dimension = {};
-        dimension.width = image.naturalWidth;
-        dimension.height = image.naturalHeight;
-        resolve(dimension);
-      };
-    });
-  }
-
-  const getBase64 = function (img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
+  function handlePreview(file) {
+    getBase64(file.originFileObj, image => {
+      setImageUrl(image)
+      setOnPreview(!onPreview)
+    })
   }
 
   const handleChange = function (info) {
-    if (info.file.status === 'uploading' &&
+    if (info.file.status ===
+      'uploading' &&
       !isErrorFormat &&
       !isErrorSize &&
       !isErrorDimension) {
@@ -105,26 +104,24 @@ const UploadImage = props => {
       return
     }
     if (info.file.status === 'done') {
-      props.type === "avatar" && props.onSuccesss(info.file.response);
+      type === "avatar" && onSuccess(info.file.response);
       setLoading(false)
       getBase64(info.file.originFileObj, image => {
         let responseImage = info.file.response
-        const tempPayloadItems = images && [...images]
-        const mediumUrl = {
-          mediumUrl: responseImage,
-          alt: "",
-          isDefault: false
-        }
-        tempPayloadItems.unshift(mediumUrl)
+        let tempPayloadItems = imagesProduct
+        tempPayloadItems.unshift(responseImage)
         setHideShowButtonUpload(tempPayloadItems)
-        props.onChange(tempPayloadItems)
-        // props.successChangeUploadImage(info.file.response)
+        onChange('images', tempPayloadItems)
       })
     }
   }
 
+  function handleCancel() {
+    setOnPreview(false)
+  }
+
   function removeImage() {
-    props.onSuccess("");
+    type === "avatar" && onSuccess("");
     setLandscape(false);
     setPortrait(false);
     setIsErrorDimension(false);
@@ -161,33 +158,28 @@ const UploadImage = props => {
     onChange: file => handleChange(file)
   };
 
-  function errorUploadImage() {
-    return (
-      <div className="profile-avatar__error">
-        {isErrorFormat === true && (
-          <span>
-            Format file yang diupload tidak sesuai.
-          <br />
-          </span>
-        )}
-        {isErrorSize === true && (
-          <span>
-            Ukuran gambar lebih dari 3 mb.
-          <br />
-          </span>
-        )}
-        {isErrorDimension === true && (
-          <span>
-            Minimal height / width 300 px.
-          <br />
-          </span>
-        )}
-      </div>
-    )
-  }
-
   let returnUpload;
-  if (props.type === "avatar") {
+  const mapIng = values && values.map((image, index) => index);
+  const uploadButton = (
+    <div
+      className="mp-button-upload-image"
+      onClick={handleError}>
+      {photoUrl ? (
+        <React.Fragment>
+          <img
+            src={photoUrl}
+            alt=""
+          />
+        </React.Fragment>
+      ) : (
+          <Icon
+            className="mp-button-upload-image__icon"
+            type={loading ? "loading" : "plus"} />
+        )}
+    </div>
+  );
+
+  if (type === "avatar") {
     returnUpload = (
       <Row className="profile-avatar">
         <Col
@@ -229,37 +221,29 @@ const UploadImage = props => {
             </Button>
           </UploadAnt>
         </Col>
-        {errorUploadImage()}
+        {errorAvatarImage(isErrorFormat, isErrorSize, isErrorDimension)}
       </Row>
     );
-  }
-  const uploadButton = (
-    <div
-     className="mp-button-upload-image"
-      onClick={handleError}>
-      {photoUrl ? (
-        <img
-          src={photoUrl}
-          alt="lah"
-          style={{ height: "100%", width: "100%", objectFit: "cover" }}
-        />
-      ) : (
-          <Icon style={{ display: "flex", justifyContent: "center", marginTop: "40%" }} type={loading ? "loading" : "plus"} />
-        )}
-    </div>
-  );
-  if (props.type === "default") {
+  } else {
     returnUpload = (
-      <div>
-        <UploadAnt {...propsUpload} listType="picture-card">
+      <React.Fragment>
+        <UploadAnt
+          {...propsUpload}
+          onRemove={() => onRemove(mapIng)}
+          listType="picture-card"
+          onPreview={handlePreview}
+        >
           {hideShowButtonUpload &&
             hideShowButtonUpload.length > 5 ? "" :
             <div style={{ display: "flex" }}>
               {uploadButton}
             </div>}
         </UploadAnt>
-        {errorUploadImage()}
-      </div>
+        <Modal visible={onPreview} footer={null} onCancel={handleCancel}>
+          <img alt="example" style={{ width: '100%' }} src={imageUrl} />
+        </Modal>
+        {errorUploadImage(isErrorFormat, isErrorSize, isErrorDimension)}
+      </React.Fragment>
     );
   }
 
@@ -277,4 +261,3 @@ UploadImage.defaultProps = {
   type: "default"
 };
 
-export default UploadImage;
