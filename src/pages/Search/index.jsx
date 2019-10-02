@@ -13,7 +13,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 
 const Products = React.lazy(() => import("../../containers/Products"));
 
-export default function Search(props) {
+export default function Search() {
   const [productList, setProductList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);

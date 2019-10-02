@@ -5,8 +5,8 @@ import strings from "../../localization/localization";
 import SkeletonCustom from "../../components/Skeleton";
 import Product from "../../repository/Product";
 import Cards from "../../components/Cards";
-import PATH_URL from "../../routers/path";
 import { Link } from "react-router-dom";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 export default function PopularProducts() {
   let initPopularProducts = {
@@ -68,7 +68,7 @@ export default function PopularProducts() {
               return (
                 <React.Fragment key={index}>
                   <Col style={{ margin: "10px" }}>
-                    <Link to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}>
+                    <Link to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}>
                       <Cards
                         type="large"
                         title={product.name}
@@ -94,7 +94,9 @@ export default function PopularProducts() {
                 return (
                   <React.Fragment key={index}>
                     <Col style={{ margin: "8px" }}>
-                      <Link to={`${PATH_URL.PRODUCTS}/${product.id} ` || "#"}>
+                      <Link
+                        to={`${PATH_PRODUCT.PRODUCT}/${product.id} ` || "#"}
+                      >
                         <Cards
                           type="small"
                           title={product.name}

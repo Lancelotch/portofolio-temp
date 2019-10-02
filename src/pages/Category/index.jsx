@@ -28,7 +28,7 @@ export default function Category(props) {
 
   useEffect(() => {
     setRefresh(false);
-    getProductList(page);
+    getProductList();
   }, [direction, sortBy, refresh]);
 
   useEffect(() => {
@@ -41,12 +41,12 @@ export default function Category(props) {
     setRefresh(true);
   }
 
-  async function getProductList(curPage) {
-    const categoryId = Object.entries(params)
-      .map(([key, val]) => `${val}`)
+  async function getProductList() {
+    const categoryId = Object.values(params)
+      .map(value => `${value}`)
       .join("/");
     const objparams = {
-      page: curPage,
+      page: page,
       limit: limit,
       sortBy: sortBy,
       direction: direction

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import PropTypes from "prop-types";
 import Cards from "../../components/Cards";
-import PATH_URL from "../../routers/path";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 export default function Products(props) {
   const products = props.products;
@@ -12,7 +12,7 @@ export default function Products(props) {
       {products.map((product, index) => {
         return (
           <Col key={index} style={{ margin: "10px" }}>
-            <Link to={`${PATH_URL.PRODUCTS}/${product.id}` || "#"}>
+            <Link to={`/${PATH_PRODUCT.PRODUCT}/${product.id}` || "#"}>
               <Cards
                 urlImage={product.thumbnail}
                 title={product.name}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SkeletonCustom from "../Skeleton";
 import Product from "../../repository/Product";
 import Cards from "../Cards";
-import PATH_URL from "../../routers/path";
+import { PATH_PRODUCT } from "../../services/path/product";
 
 const SampleNextArrow = props => {
   const { className, onClick } = props;
@@ -71,7 +71,7 @@ function Recommend() {
       setProducts([]);
     }
   }
-  const productsToShow = products.slice(0, 10);
+  const productsToShow = products.slice(0, 12);
   let sliderToClickLength = productsToShow.length <= 6 ? false : true;
   const settings = {
     slidesToShow: 6,
@@ -94,7 +94,7 @@ function Recommend() {
 
   const slides = productsToShow.map((item, i) => {
     return (
-      <Link to={`${PATH_URL.PRODUCTS}/${item.id}`} key={i}>
+      <Link to={`${PATH_PRODUCT.PRODUCT}/${item.id}`} key={i}>
         <Cards
           urlImage={item.thumbnail}
           title={item.name}
