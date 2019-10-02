@@ -22,6 +22,9 @@ const strings = new LocalizedStrings({
     shipping_send_to:'Kirim ke :',
     shipping_estimated_shipping_costs:'Estimasi Biaya Kirim :',
 
+    //Review_Dashboard_Customer
+    review_dashboard_quote : "Ulasan hanya boleh kosong atau memiliki minimal 20 karakter",
+
     //Address
     use_notice_address: 'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',
     send_to_another_address: 'Kirim ke Alamat Lain',

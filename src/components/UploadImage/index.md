@@ -2,10 +2,9 @@
 name: Upload (Need Auth)
 menu: Components
 ---
-
+import {Playground, Props } from 'docz'
 import UploadImage from './'
 import {useState} from 'react'
-import {Playground, Props } from 'docz'
 import "antd/dist/antd.less";
 
 # Upload (Need Auth)

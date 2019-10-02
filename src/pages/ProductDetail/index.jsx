@@ -121,8 +121,12 @@ export default function ProductDetail(props) {
   }
 
   function actionUpdateImageVariant(image) {
-    setImageVariant(image);
     setIsUpdateImageVariant(true);
+    setImageVariant(image);
+  }
+
+  function actionUpdateSelectVariant(e) {
+    setIsUpdateImageVariant(e)
   }
 
   function actionSubmitToCheckout() {
@@ -185,14 +189,15 @@ export default function ProductDetail(props) {
             {images.length < 1 ? (
               <Skeleton height={300} />
             ) : (
-              <SliderProductDetailContainer
-                videoUrl={videoUrl}
-                isUpdateImageVariant={isUpdateImageVariant}
-                imageDefault={defaultImage}
-                images={images}
-                imageVariant={imageVariant}
-              />
-            )}
+                <SliderProductDetailContainer
+                  videoUrl={videoUrl}
+                  isUpdateImageVariant={isUpdateImageVariant}
+                  imageDefault={defaultImage}
+                  images={images}
+                  imageVariant={imageVariant}
+                  actionUpdateSelectVariant={actionUpdateSelectVariant}
+                />
+              )}
           </Col>
           <Col md={12} offset={1}>
             <div>
