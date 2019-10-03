@@ -2,10 +2,10 @@ import React from "react";
 import "./style.sass";
 import { Cascader } from "antd";
 import { Link } from "react-router-dom";
+import { PATH_CATEGORY } from "../../services/path/category";
 
 export default function CategoryMenu(props) {
   const { allCategory } = props;
-  const url = "/category";
   const createSubChildren = (children = [], subCategoryId, idCategory) => {
     return (
       (children &&
@@ -15,7 +15,7 @@ export default function CategoryMenu(props) {
             <Link
               key={child.id}
               className="defaultCategoryMenu"
-              to={`${url}/${idCategory}/${subCategoryId}/${child.idName}`}
+              to={`/${PATH_CATEGORY.CATEGORY}/${idCategory}/${subCategoryId}/${child.idName}`}
             >
               {child.name}
             </Link>
@@ -34,7 +34,7 @@ export default function CategoryMenu(props) {
           <Link
             key={child.id}
             className="defaultCategoryMenu"
-            to={`${url}/${idCategory}/${child.idName}`}
+            to={`/${PATH_CATEGORY.CATEGORY}/${idCategory}/${child.idName}`}
           >
             {child.name}
           </Link>
@@ -57,7 +57,7 @@ export default function CategoryMenu(props) {
           <Link
             key={category.id}
             className="defaultCategoryMenu"
-            to={`${url}/${category.idName}`}
+            to={`/${PATH_CATEGORY.CATEGORY}/${category.idName}`}
           >
             {category.name}
           </Link>

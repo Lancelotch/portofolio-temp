@@ -8,10 +8,9 @@ import { useRootContext } from "../../hoc/RootContext";
 
 export default function Popover(props) {
   const { authProfile, isAuthenticated, handleLogout } = useRootContext();
-  console.log('iniii ', authProfile);
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState(<FormLogin />);
-  const type = props.type === "Home" ? "mp-popover" : "" 
+  const type = props.type === "Home" ? "mp-popover" : "";
 
   useEffect(() => {
     setVisible(false);
@@ -26,8 +25,8 @@ export default function Popover(props) {
   const label = isAuthenticated ? (
     <span className="mp-main-header-popover__username">{authProfile.name}</span>
   ) : (
-      <span className="mp-main-header-popover__login">Login</span>
-    );
+    <span className="mp-main-header-popover__login">Login</span>
+  );
 
   return (
     <React.Fragment>
