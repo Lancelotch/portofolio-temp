@@ -4,7 +4,8 @@ import { Cascader } from "antd";
 import { Link } from "react-router-dom";
 
 export default function CategoryMenu(props) {
-  const { allCategory } = props;
+  const { allCategory,type } = props;
+  const checkType = type === "Home" ? "cascader-popup" : "" 
   const url = "/category";
   const createSubChildren = (children = [], subCategoryId, idCategory) => {
     return (
@@ -70,7 +71,7 @@ export default function CategoryMenu(props) {
   return (
     <Cascader
       key={"id"}
-      popupClassName={"cascader-popup header__categoriess"}
+      popupClassName={`${checkType} header__categoriess`}
       options={getOptions()}
       expandTrigger={"hover"}
     >

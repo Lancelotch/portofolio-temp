@@ -18,10 +18,12 @@ export default function Header(props) {
   const { isAuthenticated, history, match } = useRootContext();
   const initialValue = history.location.search.split("?q=");
   const [allCategory, setAllCategory] = useState([]);
+  const type = props.match.children.type.name;
+  
   useEffect(() => {
     getAllCategory();
   }, []);
-  const type = props.match.children.type.name;
+
 
   async function getAllCategory() {
     let allCategory = await Category.getAll();
@@ -45,7 +47,7 @@ export default function Header(props) {
             </Link>
           </Col>
           <Col md={2}>
-            <CategoryMenu key={"id"} match={match} allCategory={allCategory} />
+            <CategoryMenu key={"id"} match={match} type={type} allCategory={allCategory} />
           </Col>
           <Col md={12} className="header__search-box">
             <div>

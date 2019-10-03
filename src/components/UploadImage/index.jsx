@@ -4,8 +4,8 @@ import { Avatar, Icon, Upload as UploadAnt, Row, Col, Modal } from "antd";
 import ImageRepo from "../../repository/Image";
 import Button from "../Button";
 import propTypes from "prop-types";
-import { checkDimension, responseStatus, getBase64, errorUploadImage, errorAvatarImage } 
-from "./functionUploadImage";
+import { checkDimension, responseStatus, getBase64, errorUploadImage, errorAvatarImage }
+  from "./functionUploadImage";
 
 export default function UploadImage({
   initialValue,
@@ -60,7 +60,7 @@ export default function UploadImage({
         setPortrait(false);
         setLandscape(true);
       }
-      await type === "avatar" ? handleResponseAvatar() : handleResponseUploadImage();
+      await type === "avatar" ? handleResponseUploadImage() : handleResponseUpload();
     } else {
       setIsErrorDimension(true);
       setLoading(false);
@@ -76,7 +76,7 @@ export default function UploadImage({
       }
     }
 
-    async function handleResponseAvatar() {
+    async function handleResponseUpload() {
       if (!isErrorFormat && !isErrorSize && !isErrorDimension) {
         const response = await ImageRepo.upload({
           loading: setLoading,
@@ -109,9 +109,9 @@ export default function UploadImage({
       getBase64(info.file.originFileObj, image => {
         let responseImage = info.file.response
         let tempPayloadItems = imagesProduct
-        tempPayloadItems.unshift(responseImage)
+        tempPayloadItems && tempPayloadItems.unshift(responseImage)
         setHideShowButtonUpload(tempPayloadItems)
-        onChange('images', tempPayloadItems)
+        tempPayloadItems && onChange('images', tempPayloadItems)
       })
     }
   }

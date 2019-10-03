@@ -62,6 +62,8 @@ export default function OrderDetailsInvoiceReview(props) {
                     validationSchema={schema}>
                     {({ values, handleSubmit, errors, handleChange, setFieldValue }) => (
                         <Form onSubmit={handleSubmit}>
+                        {console.log(values.rating)}
+                        
                             <Form.Item
                                 validateStatus={errors.rating && "error"}
                                 help={errors.rating}>

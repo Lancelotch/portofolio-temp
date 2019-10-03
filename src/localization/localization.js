@@ -24,6 +24,7 @@ const strings = new LocalizedStrings({
 
     //Review_Dashboard_Customer
     review_dashboard_quote : "Ulasan hanya boleh kosong atau memiliki minimal 20 karakter",
+    review_dashboard_rating : "Pilih bintangnya dulu ",
 
     //Address
     use_notice_address: 'Gunakan satu alamat sebagai alamat utama untuk pengiriman produk yang dibeli.',

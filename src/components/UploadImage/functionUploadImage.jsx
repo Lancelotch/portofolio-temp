@@ -40,15 +40,15 @@ export function errorUploadImage(isErrorFormat, isErrorSize, isErrorDimension) {
   let errorDimension = isErrorDimension === true ? "red" : ""
   return (
     <React.Fragment>
+      <span style={{ color: errorSize, display: "block", lineHeight: 0 }}>
+        Ukuran foto tidak lebih dari 3 mb.
+      </span>
+      <span style={{ color: errorDimension, display: "block", lineHeight: 3 }}>
+        Bingkai tidak kurang dari 300px X 300px.
+      </span>
       <span style={{ color: errorFormat, display: "block", lineHeight: 0 }}>
-        Format file yang diupload tidak sesuai.
-      </span>
-      <span style={{ color: errorSize, display: "block", lineHeight: 3 }}>
-        Ukuran gambar lebih dari 3 mb.
-      </span>
-      <span style={{ color: errorDimension, display: "block", lineHeight: 0 }}>
-        Minimal height / width 300 px.
-      </span>
+        Format foto jpg,jpeg,png
+    </span>
     </React.Fragment>
   )
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.sass";
 import { Avatar } from "antd";
 import { useRootContext } from "../../hoc/RootContext";
+import { checkDimension } from "../../components/UploadImage/functionUploadImage";
 
 export default function ProfileMain() {
   const { authProfile } = useRootContext();
@@ -25,19 +26,6 @@ export default function ProfileMain() {
         setLandscape(true);
       }
     }
-  }
-
-  function checkDimension(file) {
-    return new Promise(resolve => {
-      var image = new Image();
-      image.src = file;
-      image.onload = function() {
-        let dimension = {};
-        dimension.width = image.naturalWidth;
-        dimension.height = image.naturalHeight;
-        resolve(dimension);
-      };
-    });
   }
 
   return (
