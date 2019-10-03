@@ -38,12 +38,14 @@ export default function Input(props) {
 
   let resultInput;
   if (props.type === "default") {
+    delete propsAnt.type;
     resultInput = (
-      <InputAnt {...propsAnt} type={props.htmltype} className={fixStyling} prefix={inputPrefixIcon} />
+      <InputAnt {...propsAnt} className={fixStyling} type={props.htmltype} prefix={inputPrefixIcon} />
     );
   }
 
   if (props.type === "password") {
+    delete propsAnt.type;
     resultInput = (
       <InputAnt.Password
         {...propsAnt}
@@ -54,6 +56,7 @@ export default function Input(props) {
   }
 
   if (props.buttontext !== "") {
+    delete propsAnt.type;
     resultInput = (
       <div className="mp-input-with-button">
         {resultInput}
@@ -79,12 +82,12 @@ Input.propTypes = {
   disabled: propTypes.bool,
   buttontext: propTypes.string,
   onButtonClick: propTypes.func,
-  htmltype : propTypes.oneOf(['default', 'password'])
+  htmltype: propTypes.oneOf(["text", "password"]),
 };
 
 Input.defaultProps = {
   type: "default",
   size: "small",
   buttontext: "",
-  htmltype : 'default'
+  htmltype: "text"
 };

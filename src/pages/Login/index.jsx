@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./style.sass";
 import { useRootContext } from "../../hoc/RootContext";
-import FormLogin from "../../containers/FormLogin";
+import FormLoginContainer from "../../containers/FormLogin/FormLoginContainer";
 import monggopesen_logo from "../../assets/img/logo_monggopesen/logo_monggopesen_orange_large.png";
 import { Link } from "react-router-dom";
 import PATH_URL from "../../routers/path.js"
@@ -46,7 +46,7 @@ export default function Login(props) {
         {t('login:title')}
       </p>
       <BackgroundWrapper>
-        <FormLogin />
+        <FormLoginContainer />
       </BackgroundWrapper>
     </div>
   );
