@@ -29,7 +29,7 @@ export default function Order(props) {
     const [productOrder, setProductOrder] = useState([])
     const [invoiceNumber, setInvoiceNumber] = useState("")
     const [id, setId] = useState("")
-    //const [keyIndex, setKeyIndex] = useState(0)
+    const [isShowAlertSuccess, setIsShowAlertSuccess] = useState(false)
     const [isOrderAlvailable, setIsOrderAlvailable] = useState(false)
     const [isHowToShowModalOpen, setIsHowToShowModalOpen] = useState(false)
     const [selectedOrder, setSelectedOrder] = useState(null)
@@ -89,6 +89,7 @@ export default function Order(props) {
     };
 
     function actionShowOrderInvoiceReviewDashboard(params) {
+        setIsShowAlertSuccess(params)
         setIsShowDashboardItem(false)
         setIsShowOrderInvoiceReview(params.isShowOrderInvoiceReview)
         setOrder(params)
@@ -143,6 +144,7 @@ export default function Order(props) {
         estimateAccepted,
         isShowOrderInvoiceReview) {
         return <OrderListWaiting
+            isShowAlertSuccess={isShowAlertSuccess}
             isHowToShowModalOpen={isHowToShowModalOpen}
             selectedOrder={selectedOrder}
             showHowToModalPayment={toggleIsHowToShowModalOpen}
@@ -247,6 +249,7 @@ export default function Order(props) {
                     {isShowOrderInvoiceReview &&
                         <OrderDetailsInvoiceReview
                             orderDetailsReview={order}
+                            actionShowOrderInvoiceReviewDashboard={actionShowOrderInvoiceReviewDashboard}
                             setIsShowDetailDashboard={
                                 () => setIsShowDetailDashboard(!isShowDetailDashboard)}
                         />}

@@ -34,6 +34,7 @@ export default function OrderDetailsInvoiceReview(props) {
         if (review.status === 200) {
             resetForm()
             props.setIsShowDetailDashboard()
+            props.actionShowOrderInvoiceReviewDashboard(true)
         }
     }
 

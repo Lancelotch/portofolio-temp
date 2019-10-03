@@ -19,17 +19,7 @@ export default function TabsProductDetail(props) {
       </Tabs.TabPane>
       <Tabs.TabPane tab="PERTANYAAN" key="2">
         {questionAnswers && questionAnswers.length === 0 ? (
-          <div
-            style={{
-              height: 300,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#4a4a4a",
-              fontWeight: 500,
-              fontSize: 16
-            }}
-          >
+          <div className="mp-product-detail__not-found-question-answer">
             <span>Belum ada pertanyaan untuk produk ini</span>
           </div>
         ) : (
