@@ -28,7 +28,7 @@ export default function Category(props) {
 
   useEffect(() => {
     setRefresh(false);
-    getProductList(page);
+    getProductList();
   }, [direction, sortBy, refresh]);
 
   useEffect(() => {
@@ -41,12 +41,12 @@ export default function Category(props) {
     setRefresh(true);
   }
 
-  async function getProductList(curPage) {
-    const categoryId = Object.entries(params)
-      .map(([key, val]) => `${val}`)
+  async function getProductList() {
+    const categoryId = Object.values(params)
+      .map(value => `${value}`)
       .join("/");
     const objparams = {
-      page: curPage,
+      page: page,
       limit: limit,
       sortBy: sortBy,
       direction: direction
@@ -107,14 +107,14 @@ export default function Category(props) {
     const categoryTextResult = strings.formatString(
       strings.category_text_result,
       <b style={{ fontStyle: "oblique", fontWeight: 600 }}>"{totalData}"</b>,
-      <b style={{ color: "#FF416C" }}>
+      <b style={{ color: "#f63700" }}>
         {convertToCategoryName(categoryIdName)}
       </b>
     );
     return (
       <div style={{ marginTop: 24 }}>
         <div style={{ margin: "0 24px" }}>
-          <Breadcrumbs breadcrumbs={breadcrumbs} />
+          <Breadcrumbs breadcrumbs={breadcrumbs} type="product" />
         </div>
         <Divider style={{ margin: "12px 0" }} />
         <div

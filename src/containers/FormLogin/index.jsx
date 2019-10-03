@@ -1,27 +1,21 @@
 import React from "react";
 import { Form, Checkbox } from "antd";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useRootContext } from "../../hoc/RootContext";
 import { schema } from "./schema";
 import { Link } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
+import "./style.sass";
 
 export default function FormLogin(props) {
-  const {
-    handleLogin,
-    isSubmitLoading,
-    authResponse,
-  } = useRootContext();
-
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   let errorMessage = "";
-  if(isSubmitLoading === false && authResponse.status === null) {
+  if(props.isSubmitLoading === false && props.authResponse.status === null) {
     errorMessage = t('error:backend_not_connected');
-  } else if(isSubmitLoading === false && authResponse.status !== 200) {
+  } else if(props.isSubmitLoading === false && props.authResponse.status !== 200) {
       errorMessage = t('error:auth.failed');
   }
 
@@ -30,10 +24,11 @@ export default function FormLogin(props) {
       <div className="mp-form-login">
         <Formik
           onSubmit={values => {
-            handleLogin(values);
+            props.handleLogin(values);
           }}
           validationSchema={schema}
           validateOnChange={false}
+          validateOnBlur={false}
         >
           {({ values, errors, touched, handleChange, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
@@ -44,7 +39,7 @@ export default function FormLogin(props) {
                 }
               >
                 <Input
-                  id="email"
+                  data-testid="email"
                   placeholder={t("common:email")}
                   name="email"
                   size="large"
@@ -60,6 +55,7 @@ export default function FormLogin(props) {
                 }
               >
                 <Input
+                  data-testid="password"
                   name="password"
                   type="password"
                   size="large"
@@ -86,7 +82,7 @@ export default function FormLogin(props) {
                   size="large"
                   width="full"
                   htmlType="submit"
-                  disabled={isSubmitLoading}
+                  disabled={props.isSubmitLoading}
                 >
                   {t("common:login")}
                 </Button>
@@ -124,6 +120,6 @@ export default function FormLogin(props) {
           )}
         </Formik>
       </div>
-    </div>
-  );
+    </div>    
+  )
 }

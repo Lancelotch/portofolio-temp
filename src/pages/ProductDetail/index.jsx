@@ -251,20 +251,20 @@ export default function ProductDetail(props) {
                   <Skeleton height={40} width={350} />
                 </div>
               ) : (
-                  <div style={{ marginTop: 30 }}>
-                    {blurAlertVariant === true ? (
-                      <Text type="danger">{alertVariant}</Text>
-                    ) : null}
-                    <Button
-                      type="primary"
-                      size="large"
-                      width="full"
-                      onClick={actionSubmitToCheckout}
-                    >
-                      {strings.order_now}
-                    </Button>
-                  </div>
-                )}
+                <div style={{ marginTop: 30 }}>
+                  {blurAlertVariant === true ? (
+                    <Text type="danger">{alertVariant}</Text>
+                  ) : null}
+                  <Button
+                    type="primary"
+                    size="large"
+                    width="full"
+                    onClick={actionSubmitToCheckout}
+                  >
+                    {strings.order_now}
+                  </Button>
+                </div>
+              )}
             </div>
           </Col>
         </Row>

@@ -28,7 +28,7 @@ export default function Header(props) {
   async function getAllCategory() {
     let allCategory = await Category.getAll();
     if (allCategory.status === 200) {
-      setAllCategory(allCategory.data.data);
+      setAllCategory(allCategory.category);
     }
   }
 
