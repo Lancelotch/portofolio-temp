@@ -12,6 +12,7 @@ import OrderRepo from "../../repository/Order";
 import Invoice from "../../repository/Invoice";
 import { checkSortTabs } from "./checkShortTabsStatus";
 import OrderDetailsInvoiceReview from "../../containers/OrderDetailsInvoiceReview";
+import OrderDetailsCancelDashboard from "../../containers/OrderDetailsCancelDashboard";
 
 const confirm = Modal.confirm;
 
@@ -38,6 +39,7 @@ export default function Order(props) {
     const [estimateAccepted, setEstimateAccepted] = useState("")
     const [type, setType] = useState("")
     const [isShowOrderInvoiceReview, setIsShowOrderInvoiceReview] = useState(false)
+    const [isShowOrderCancelOrder, setIsShowOrderCancelOrder] = useState(false)
 
     useEffect(() => {
         productOrderTabs(0)
@@ -77,6 +79,7 @@ export default function Order(props) {
     }
 
     function actionShowOrderDetailsDashboard(params) {
+        setIsShowOrderCancelOrder(false)
         setIsShowOrderInvoiceReview(false)
         actionShowOrderListWaiting()
         setOrder(params)
@@ -88,13 +91,25 @@ export default function Order(props) {
         setEstimateAccepted(params.paramsShowOrderDetailsDashboard.estimateAccepted)
     };
 
-    function actionShowOrderInvoiceReviewDashboard(params) {
-        setIsShowAlertSuccess(params)
+    function actionShowOrderInvoiceReviewDashboard(params,value) {
+        console.log(params);
+        
+        setIsShowAlertSuccess(value)
         setIsShowDashboardItem(false)
+        setIsShowOrderCancelOrder(false)
         setIsShowOrderInvoiceReview(params.isShowOrderInvoiceReview)
         setOrder(params)
         actionShowOrderListWaiting()
     }
+
+    function actionShowOrderCancelDashboard(params) {
+        setIsShowDashboardItem(false)
+        setIsShowOrderInvoiceReview(false)
+        setIsShowOrderCancelOrder(params.paramsShowOrderDetailsDashboard.showOrderDetailsDashboard)
+        setOrder(params)
+        actionShowOrderListWaiting()
+    }
+
 
     async function productOrderTabs(status) {
         let productOrder = await OrderRepo.getByStatus({
@@ -152,6 +167,7 @@ export default function Order(props) {
             actionUpdateTab={actionUpdateTab}
             actionShowOrderDetailsDashboard={actionShowOrderDetailsDashboard}
             actionShowOrderInvoiceReviewDashboard={actionShowOrderInvoiceReviewDashboard}
+            actionShowOrderCancelDashboard={actionShowOrderCancelDashboard}
             showOrderDetailsDashboard={showOrderDetailsDashboard}
             isShowOrderInvoiceReview={isShowOrderInvoiceReview}
             showReceivedConfirm={showReceivedConfirm}
@@ -250,6 +266,13 @@ export default function Order(props) {
                         <OrderDetailsInvoiceReview
                             orderDetailsReview={order}
                             actionShowOrderInvoiceReviewDashboard={actionShowOrderInvoiceReviewDashboard}
+                            setIsShowDetailDashboard={
+                                () => setIsShowDetailDashboard(!isShowDetailDashboard)}
+                        />}
+                    {isShowOrderCancelOrder &&
+                        <OrderDetailsCancelDashboard
+                            orderDetailsCancel={order}
+                            actionUpdateTab={actionUpdateTab}
                             setIsShowDetailDashboard={
                                 () => setIsShowDetailDashboard(!isShowDetailDashboard)}
                         />}

@@ -3,14 +3,11 @@ import ButtonDashboard from "../../components/ButtonDashboard";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Card, Modal, Alert } from "antd";
+import { Card, Alert } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 import strings from "../../localization/localization";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
-import Order from "../../repository/Order";
 import "./style.sass";
-
-const confirm = Modal.confirm;
 
 export default function OrderListWaiting(props) {
     const [showAlertSuccess, setShowAlertSuccess] = useState(false)
@@ -22,30 +19,7 @@ export default function OrderListWaiting(props) {
                 setShowAlertSuccess(false)
             }, 3000)
         }
-    }, [])
-
-    function showDeleteConfirm(allOrder, index, idOrder) {
-        confirm({
-            iconClassName: "iconWaitingPaymentCancel",
-            title: strings.tab_belum_bayar,
-            content: strings.tabs_belum_bayar_pesan_batalkan,
-            okText: strings.cancel,
-            okType: "danger",
-            cancelText: strings.back,
-            centered: true,
-            onOk: () => { actionCancelConfirm(idOrder) }
-        });
-    };
-
-    async function actionCancelConfirm(idOrder) {
-        const cancelOrder = await Order.cancel({
-            idOrder: idOrder
-        })
-        if (cancelOrder.status === 200 || cancelOrder.status === "200") {
-            props.actionUpdateTab(0);
-        }
-
-    };
+    }, [props.isShowAlertSuccess])
 
     // sortList = (list, order) => {
     //   if (order === "ASC") {
@@ -72,7 +46,8 @@ export default function OrderListWaiting(props) {
         showHowToModalPayment,
         type,
         isShowOrderInvoiceReview,
-        actionShowOrderInvoiceReviewDashboard
+        actionShowOrderInvoiceReviewDashboard,
+        actionShowOrderCancelDashboard
     } = props;
     // const sortProdcutOrder = this.sortList(productOrder, "DESC")
     const paramsShowOrderDetailsDashboard = {
@@ -123,7 +98,7 @@ export default function OrderListWaiting(props) {
                             invoiceNumber={order.invoiceNumber}
                             tabsShowItem={showOrderDetailsDashboard}
                             showReceivedConfirm={showReceivedConfirm}
-                            showDeleteConfirm={showDeleteConfirm}
+                            showOrderCancleDetails={() => actionShowOrderCancelDashboard({ ...order, paramsShowOrderDetailsDashboard })}
                             orderProduct={productOrder}
                             order={order.order}
                             showHowToModalPayment={showHowToModalPayment}

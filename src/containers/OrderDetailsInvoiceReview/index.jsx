@@ -34,7 +34,7 @@ export default function OrderDetailsInvoiceReview(props) {
         if (review.status === 200) {
             resetForm()
             props.setIsShowDetailDashboard()
-            props.actionShowOrderInvoiceReviewDashboard(true)
+            props.actionShowOrderInvoiceReviewDashboard("params",true)
         }
     }
 
@@ -53,7 +53,7 @@ export default function OrderDetailsInvoiceReview(props) {
                 })}
             </Card>
             <Card>
-                <Formik
+                <Formik 
                     enableReinitialize
                     initialValues={payload}
                     onSubmit={(values, { resetForm }) => {
@@ -117,7 +117,7 @@ export default function OrderDetailsInvoiceReview(props) {
                                 </Form.Item>
                                 <div>
                                     <Button onClick={() => props.setIsShowDetailDashboard()} size="large" marginright="small">Batalkan Ulasan</Button>
-                                    <Button type="primary" size="large" htmlType="submit">Kirim Ulasan</Button>
+                                    <Button type="primary" size="large" htmlType="submit">Batalkan Pesanan</Button>
                                 </div>
                             </div>
                         </Form>
