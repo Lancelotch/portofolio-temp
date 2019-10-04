@@ -4,11 +4,11 @@ import Button from '../Button';
 import "./style.sass";
 import strings from '../../localization/localization';
 
-function ButtonBackAndTittleDashboard(props) {
+function ButtonBackAndTitleDashboard(props) {
     return (
         <div className="mp-button-back-dashboard">
             <div>
-                <h2>{props.tittle}</h2>
+                <h2>{props.title}</h2>
             </div>
             <div>
                 <Button onClick={() => props.setIsShowDetailDashboard()}>
@@ -19,4 +19,4 @@ function ButtonBackAndTittleDashboard(props) {
     );
 };
 
-export default ButtonBackAndTittleDashboard;
+export default ButtonBackAndTitleDashboard;

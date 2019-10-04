@@ -159,7 +159,7 @@ export default function UploadImage({
   };
 
   let returnUpload;
-  const mapIng = values && values.map((image, index) => index);
+  const indexImages = values && values.map((image, index) => index);
   const uploadButton = (
     <div
       className="mp-button-upload-image"
@@ -229,7 +229,7 @@ export default function UploadImage({
       <React.Fragment>
         <UploadAnt
           {...propsUpload}
-          onRemove={() => onRemove(mapIng)}
+          onRemove={() => onRemove(indexImages)}
           listType="picture-card"
           onPreview={handlePreview}
         >

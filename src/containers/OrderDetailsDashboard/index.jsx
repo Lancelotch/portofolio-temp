@@ -8,7 +8,7 @@ import ScrollToTopOnMount from '../../components/ScrollToTopOnMount';
 import { BackTop } from 'antd';
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "./style.sass";
-import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
+import ButtonBackAndTitleDashboard from '../../components/ButtonBackAndTitleDashboard';
 
 export default function OrderDetailsDashboard(props) {
     const {
@@ -30,8 +30,8 @@ export default function OrderDetailsDashboard(props) {
     return (
         <React.Fragment>
             <ScrollToTopOnMount />
-            <ButtonBackAndTittleDashboard
-                tittle={labelTabDetails}
+            <ButtonBackAndTitleDashboard
+                title={labelTabDetails}
                 setIsShowDetailDashboard={actionShowOrderListWaiting} />
             <OrderStatus
                 labelTabDetails={labelTabDetails}

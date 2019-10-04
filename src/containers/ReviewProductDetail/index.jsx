@@ -10,9 +10,11 @@ import strings from '../../localization/localization';
 const dummyReview = dummyReviewCommendProductDetail
 
 function ReviewProductDetail(props) {
+    const productId = props.productId
+    
     return (
         <div className="mp-review-product-detail">
-            <RatingCardProductDetail />
+            <RatingCardProductDetail  />
             <Row>
                 <Col md={17} offset={3}>
                     <div className="mp-review-product-detail__filter">

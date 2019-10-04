@@ -7,8 +7,9 @@ import ReviewProductDetail from "../../containers/ReviewProductDetail";
 
 export default function TabsProductDetail(props) {
   const questionAnswers = props.information.questionAnswers;
+  const productId = props.productId
   return (
-    <Tabs className="tabs-detail" defaultActiveKey="1" type="card">
+    <Tabs className="tabs-detail" defaultActiveKey="3" type="card">
       <Tabs.TabPane tab="DETAIL PRODUK" key="1">
         {props.isProductAvailable && (
           <Card className="product-description">
@@ -27,7 +28,7 @@ export default function TabsProductDetail(props) {
         )}
       </Tabs.TabPane>
       <Tabs.TabPane tab="ULASAN" key="3">
-        <ReviewProductDetail />
+        <ReviewProductDetail productId={productId} />
       </Tabs.TabPane>
     </Tabs>
   );

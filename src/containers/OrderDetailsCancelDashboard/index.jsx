@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
+import ButtonBackAndTitleDashboard from '../../components/ButtonBackAndTitleDashboard';
 import { Form, Card, Radio, Input } from 'antd';
 import ReviewCardInfoDetail from '../../components/ReviewCardInfoDetail';
 import { schema } from '../OrderDetailsCancelDashboard/schema';
@@ -63,8 +63,8 @@ export default function OrderDetailsCancelDashboard(props) {
 
     return (
         <React.Fragment>
-            <ButtonBackAndTittleDashboard
-                tittle={"Alasan Pembatalan"}
+            <ButtonBackAndTitleDashboard
+                title={"Alasan Pembatalan"}
                 setIsShowDetailDashboard={props.setIsShowDetailDashboard} />
             <Card>
                 {orderDetailsCancel.order.orderItems.map((order, i) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Formik, FieldArray } from 'formik';
 import { Form, Card, Rate, Input, Checkbox } from 'antd';
 import ReviewCardInfoDetail from '../../components/ReviewCardInfoDetail';
-import ButtonBackAndTittleDashboard from '../../components/ButtonBackAndTittleDashboard';
+import ButtonBackAndTitleDashboard from '../../components/ButtonBackAndTitleDashboard';
 import "./style.sass";
 import Button from '../../components/Button';
 import { schema } from './schema';
@@ -44,8 +44,8 @@ export default function OrderDetailsInvoiceReview(props) {
 
     return (
         <React.Fragment>
-            <ButtonBackAndTittleDashboard
-                tittle={"Ulasan Produk"}
+            <ButtonBackAndTitleDashboard
+                title={"Ulasan Produk"}
                 setIsShowDetailDashboard={props.setIsShowDetailDashboard} />
             <Card style={{ marginBottom: 15 }}>
                 {orderRespon.order.orderItems.map((order, i) => {
