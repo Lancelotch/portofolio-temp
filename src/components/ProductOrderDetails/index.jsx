@@ -3,7 +3,6 @@ import "../ProductOrder/style.sass";
 import { Row, Col, Card } from "antd";
 import { Link } from "react-router-dom";
 import strings from "../../localization/localization";
-import "../ProductOrder/style.sass";
 import { buttonDisabledandEnabledDelivery } from "../../library/buttonDisabledAndEnabled";
 import Button from "../Button";
 import TableProductOrder from "../TableProductOrder";
