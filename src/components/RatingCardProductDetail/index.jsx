@@ -36,9 +36,9 @@ function RatingCardProductDetail(props) {
                                 <span className="mp-rating-card-product-detail__number-review-wrapper">
                                     <strong className="mp-rating-card-product-detail__number-review">
                                         4.8
-                        </strong>
+                                    </strong>
                                     / 5
-                    </span>
+                                </span>
                                 <Rate disabled value={4} />
                                 <p>816 Ulasan</p>
                             </div>

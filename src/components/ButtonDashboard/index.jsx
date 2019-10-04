@@ -8,7 +8,7 @@ import PATH_URL from "../../routers/path";
 
 export default function ButtonDashboard(props) {
   const { 
-    showDeleteConfirm,
+    showOrderCancleDetails,
     showReceivedConfirm,
     showHowToModalPayment,
     showOrderDetailsDashboard,
@@ -26,7 +26,7 @@ export default function ButtonDashboard(props) {
       {tabsShowItem === "isShowOrderDetailsDashboardNotPay" ?
         <div className="waiting-payment__not-pay">
           <p className="waiting-payment__button"
-            onClick={() => showDeleteConfirm(orderProduct, index, order.id)}>
+            onClick={showOrderCancleDetails}>
             {strings.cancel_order_dashboard}
           </p>
           <div>

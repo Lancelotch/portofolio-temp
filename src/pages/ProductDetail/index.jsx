@@ -43,6 +43,7 @@ export default function ProductDetail(props) {
   const { isAuthenticated } = useRootContext();
   const totalShipping = countTotalAmount();
   const breadcrumbs = [];
+  const productId = props.match.params.productId
   let pathTemp = "/category";
 
   Object.values(breadcrumbsApi).forEach((value, index) => {
@@ -79,7 +80,7 @@ export default function ProductDetail(props) {
   async function getProductDetail() {
     let productDetail = await Product.get({
       loading: setLoading,
-      productId: props.match.params.productId
+      productId: productId
     });
     if (productDetail.status === 200) {
       const product = productDetail.data.data;
@@ -277,6 +278,7 @@ export default function ProductDetail(props) {
           <TabsProductDetail
             isProductAvailable={isProductAvailable}
             information={information}
+            productId={productId}
           />
         )}
       </div>

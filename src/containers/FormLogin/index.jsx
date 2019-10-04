@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Checkbox } from "antd";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import "./style.sass";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -10,7 +10,7 @@ import { useTranslation, Trans } from "react-i18next";
 import "./style.sass";
 
 export default function FormLogin(props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   let errorMessage = "";
   if(props.isSubmitLoading === false && props.authResponse.status === null) {

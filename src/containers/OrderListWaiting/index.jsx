@@ -1,48 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ButtonDashboard from "../../components/ButtonDashboard";
 import ProductOrder from "../../components/ProductOrder";
 import ModalHowToPay from "../../modal/ModalHowToPay";
 import "../../components/ProductOrder/style.sass";
-import { Card, Modal } from "antd";
+import { Card, Alert } from "antd";
 import WaitingPayment from "../../components/WaitingPayment";
 import strings from "../../localization/localization";
 import ScrollToTopOnMount from "../../components/ScrollToTopOnMount";
-import Order from "../../repository/Order";
-
-const confirm = Modal.confirm;
+import "./style.sass";
 
 export default function OrderListWaiting(props) {
+    const [showAlertSuccess, setShowAlertSuccess] = useState(false)
 
-    function showDeleteConfirm(allOrder, index, idOrder) {
-        confirm({
-            iconClassName: "iconWaitingPaymentCancel",
-            title: strings.tab_belum_bayar,
-            content: strings.tabs_belum_bayar_pesan_batalkan,
-            okText: strings.cancel,
-            okType: "danger",
-            cancelText: strings.back,
-            centered: true,
-            onOk: () => {
-                // const cancelOrder = allOrder.splice(index, 1)
-                // const newOrder = [...allOrder]
-                // this.setState({
-                //   productorder: newOrder,
-                //   cancelOrder: [...this.state.cancelOrder, ...cancelOrder]
-                // })
-                actionCancelConfirm(idOrder);
-            },
-        });
-    };
-
-    async function actionCancelConfirm(idOrder) {
-        const cancelOrder = await Order.cancel({
-            idOrder: idOrder
-        })
-        if (cancelOrder.status === 200 || cancelOrder.status === "200") {
-            props.actionUpdateTab(0);
+    useEffect(() => {
+        setShowAlertSuccess(props.isShowAlertSuccess)
+        if (props.isShowAlertSuccess) {
+            setTimeout(() => {
+                setShowAlertSuccess(false)
+            }, 3000)
         }
-
-    };
+    }, [props.isShowAlertSuccess])
 
     // sortList = (list, order) => {
     //   if (order === "ASC") {
@@ -69,7 +46,8 @@ export default function OrderListWaiting(props) {
         showHowToModalPayment,
         type,
         isShowOrderInvoiceReview,
-        actionShowOrderInvoiceReviewDashboard
+        actionShowOrderInvoiceReviewDashboard,
+        actionShowOrderCancelDashboard
     } = props;
     // const sortProdcutOrder = this.sortList(productOrder, "DESC")
     const paramsShowOrderDetailsDashboard = {
@@ -78,8 +56,22 @@ export default function OrderListWaiting(props) {
         labelTabDetails: labelTabDetails,
         estimateAccepted: estimateAccepted
     }
+
+    const onClose = e => {
+        console.log(e, 'I was closed.');
+    };
+
     return (
-        <div className="orderListWaiting">
+        <div className="mp-order-list-waiting">
+            {showOrderDetailsDashboard === "isShowOrderDetailsDashboardFinish" &&
+                showAlertSuccess &&
+                <div className="mp-order-list-waiting__alert">
+                    <Alert
+                        message="Berhasil mengirim ulasan"
+                        type="success"
+                        onClose={onClose}
+                        closable />
+                </div>}
             <ScrollToTopOnMount />
             {productOrder.map((order, index) => {
                 return (
@@ -100,17 +92,17 @@ export default function OrderListWaiting(props) {
                             order={order.order}
                         />
                         <ButtonDashboard
-                            productId={order.productId}
+                            productId={order.id}
                             index={index}
                             status={order.status}
                             invoiceNumber={order.invoiceNumber}
                             tabsShowItem={showOrderDetailsDashboard}
                             showReceivedConfirm={showReceivedConfirm}
-                            showDeleteConfirm={showDeleteConfirm}
+                            showOrderCancleDetails={() => actionShowOrderCancelDashboard({ ...order, paramsShowOrderDetailsDashboard })}
                             orderProduct={productOrder}
                             order={order.order}
                             showHowToModalPayment={showHowToModalPayment}
-                            showOrderInvoiceReview={() => actionShowOrderInvoiceReviewDashboard({...order,isShowOrderInvoiceReview})}
+                            showOrderInvoiceReview={() => actionShowOrderInvoiceReviewDashboard({ ...order, isShowOrderInvoiceReview })}
                             showOrderDetailsDashboard={() => actionShowOrderDetailsDashboard({ ...order, paramsShowOrderDetailsDashboard })}
                         />
                     </Card>)
